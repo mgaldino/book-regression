@@ -5,4 +5,6 @@ variável-aleatória
 esperança-matemática
 variância
 algebra-com-esperança-variância-e-covariância
+distribuição-de-probabilidade-conjunta
+col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado
 a-caucus-race-and-a-long-tale
