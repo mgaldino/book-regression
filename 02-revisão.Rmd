@@ -152,13 +152,10 @@ espaco_amostral$X <- espaco_amostral$Var1 + espaco_amostral$Var2
 espaco_amostral$Y <- pmax(espaco_amostral$Var1, espaco_amostral$Var2)
 
 # Criar a tabela
-tabela <- kable(espaco_amostral, col.names = c("resultado do primeiro dado", "resultado do segundo dado", "X", "Y"),
+kable(espaco_amostral, col.names = c("resultado do primeiro dado", "resultado do segundo dado", "X", "Y"),
                 caption = "Tabela 2.5: Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados") %>%
  kable_styling(bootstrap_options = "striped")
 
-# Imprimir a tabela
-print(tabela)
-knitr::kable(tabela)
 
 ```
 

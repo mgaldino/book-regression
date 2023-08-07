@@ -288,133 +288,252 @@ Considere um dado de 4 faces <span class="math inline">\(( 1, 2, 3, 4 )\)</span>
 <span id="cb11-8"><a href="revisão-de-estatística.html#cb11-8" aria-hidden="true" tabindex="-1"></a>espaco_amostral<span class="sc">$</span>Y <span class="ot">&lt;-</span> <span class="fu">pmax</span>(espaco_amostral<span class="sc">$</span>Var1, espaco_amostral<span class="sc">$</span>Var2)</span>
 <span id="cb11-9"><a href="revisão-de-estatística.html#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-10"><a href="revisão-de-estatística.html#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
-<span id="cb11-11"><a href="revisão-de-estatística.html#cb11-11" aria-hidden="true" tabindex="-1"></a>tabela <span class="ot">&lt;-</span> <span class="fu">kable</span>(espaco_amostral, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;resultado do primeiro dado&quot;</span>, <span class="st">&quot;resultado do segundo dado&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>),</span>
+<span id="cb11-11"><a href="revisão-de-estatística.html#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(espaco_amostral, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;resultado do primeiro dado&quot;</span>, <span class="st">&quot;resultado do segundo dado&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>),</span>
 <span id="cb11-12"><a href="revisão-de-estatística.html#cb11-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption =</span> <span class="st">&quot;Tabela 2.5: Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-13"><a href="revisão-de-estatística.html#cb11-13" aria-hidden="true" tabindex="-1"></a> <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span>
-<span id="cb11-14"><a href="revisão-de-estatística.html#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-15"><a href="revisão-de-estatística.html#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprimir a tabela</span></span>
-<span id="cb11-16"><a href="revisão-de-estatística.html#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tabela)</span>
-<span id="cb11-17"><a href="revisão-de-estatística.html#cb11-17" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(tabela)</span></code></pre></div>
-<table>
+<span id="cb11-13"><a href="revisão-de-estatística.html#cb11-13" aria-hidden="true" tabindex="-1"></a> <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span></code></pre></div>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-2">Table 2.1: </span>Tabela 2.5: Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados
+</caption>
 <thead>
 <tr>
-<th style="text-align:left;">
-x
+<th style="text-align:right;">
+resultado do primeiro dado
+</th>
+<th style="text-align:right;">
+resultado do segundo dado
+</th>
+<th style="text-align:right;">
+X
+</th>
+<th style="text-align:right;">
+Y
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-&lt;table class="table table-striped" style="margin-left: auto; margin-right: auto;"&gt;
-&lt;caption&gt;(#tab:unnamed-chunk-2)Tabela 2.5: Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados&lt;/caption&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style="text-align:right;"&gt; resultado do primeiro dado &lt;/th&gt;
-&lt;th style="text-align:right;"&gt; resultado do segundo dado &lt;/th&gt;
-&lt;th style="text-align:right;"&gt; X &lt;/th&gt;
-&lt;th style="text-align:right;"&gt; Y &lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
-&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+4
 </td>
 </tr>
 </tbody>
