@@ -66,11 +66,12 @@ Definição 1. $Var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2]$.
 A Covariância de duas v.a. $X$ e $Y$ é definida como:
 $Cov(X,Y) = \mathbb{E}[(X -  \mathbb{E}[X])*(Y -  \mathbb{E}[Y])]$.
 
-Notem que $Cov(X,Y) = Var(X)$.
+Notem que $Cov(X,X) = Var(X)$.
 
 A covariância é positiva quando ambos X e Y tendem a ter valores acima (ou abaixo) de sua média simultaneamente, enquanto ela é negativa quando uma v.a. tende a ter valores acima da sua média e a outra abaixo.
 
-# Algebra com Esperança, Variância e Covariância
+## Algebra com Esperança, Variância e Covariância
+
 Sejam $a$ e $b$ constantes.
 
 1.  Linearidade da Esperença
