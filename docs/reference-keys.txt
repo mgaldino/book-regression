@@ -1,3 +1,10 @@
-down-the-rabbit-hole
-the-pool-of-tears
+prefácio
+revisão-de-estatística
+fundamentals-of-regreession
+ref
+revisão-de-estatística-e-probabilidade
+variância
+variável-aleatória
+esperança-matemática
+algebra-com-esperança-variância-e-covariância
 a-caucus-race-and-a-long-tale
