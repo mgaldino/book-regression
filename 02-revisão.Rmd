@@ -44,16 +44,20 @@ x <- c(-5,-4,-3,-2,-1,1,2,3,4,5)
 mean(x)
 ```
 
-## Variância
+
 
 ## Variável Aleatória
 
+Uma variável aleatória (v.a.) é uma função que mapeia eventos (aleatórios) de um espaço amostral aos números reais, em geral uma probabilidade entre $0$ e $1$. Por exemplo, um dado de $6$ faces possui um espaço amostral de eventos possíveis dados pelos números $\{1,2,3,4,5,6\}$ e cada evento pode sair com uma probabiidade, por exemplo, $1/6$.
+
 ## Esperança matemática
-A esperança de uma variável aleatória discreta $X$, cuja probabilidade de massa de $x \in X$ é dada por $p(x)$, é definida por: $\sum(x*p(x))$
+A esperança de uma variável aleatória discreta $X$, cuja probabilidade de massa de $x \in X$ é dada por $p(x)$, é definida por: $\sum(x*p(x))$.
 
 A esperança de uma v.a. contínua X, cuja densidade é $f(x)$, é definida por: $\int f(x)*x\,dx$.
 
-Similarmente, a espereança de uma função $h(X)$ é dada por  $\int f(x)*h(x)\,dx$ e analogamente para o caso discreto.
+Similarmente, para a mesma v.a. X acima, a esperança de uma função $h(X)$ é dada por  $\int f(x)*h(x)\,dx$ e analogamente para o caso discreto.
+
+## Variância
 
 A variância de uma variável aleatória $X$ é dada por:
 
