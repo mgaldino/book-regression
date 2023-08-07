@@ -1,0 +1,5 @@
+.Rhistory
+.RData
+.Rproj.user
+*.Rproj
+_bookdown_files/
