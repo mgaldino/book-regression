@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="algebra-com-esperança-variância-e-covariância.html"/>
+<link rel="next" href="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -147,13 +147,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#variável-aleatória"><i class="fa fa-check"></i><b>2.2</b> Variável Aleatória</a></li>
 <li class="chapter" data-level="2.3" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#esperança-matemática"><i class="fa fa-check"></i><b>2.3</b> Esperança matemática</a></li>
 <li class="chapter" data-level="2.4" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#variância"><i class="fa fa-check"></i><b>2.4</b> Variância</a></li>
+<li class="chapter" data-level="2.5" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#algebra-com-esperança-variância-e-covariância"><i class="fa fa-check"></i><b>2.5</b> Algebra com Esperança, Variância e Covariância</a></li>
+<li class="chapter" data-level="2.6" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#distribuição-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>2.6</b> Distribuição de Probabilidade Conjunta</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="algebra-com-esperança-variância-e-covariância.html"><a href="algebra-com-esperança-variância-e-covariância.html"><i class="fa fa-check"></i><b>3</b> Algebra com Esperança, Variância e Covariância</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="algebra-com-esperança-variância-e-covariância.html"><a href="algebra-com-esperança-variância-e-covariância.html#distribuição-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.1</b> Distribuição de Probabilidade Conjunta</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html"><a href="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html"><i class="fa fa-check"></i><b>4</b> col.names = c(“resultado do primeiro dado”, “resultado do segundo dado”),</a></li>
-<li class="chapter" data-level="5" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>5</b> A caucus-race and a long tale</a></li>
+<li class="chapter" data-level="3" data-path="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html"><a href="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html"><i class="fa fa-check"></i><b>3</b> col.names = c(“resultado do primeiro dado”, “resultado do segundo dado”),</a></li>
+<li class="chapter" data-level="4" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>4</b> A caucus-race and a long tale</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -222,8 +220,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Definição 1. <span class="math inline">\(Var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2]\)</span>.</p>
 <p>A Covariância de duas v.a. <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> é definida como:
 <span class="math inline">\(Cov(X,Y) = \mathbb{E}[(X - \mathbb{E}[X])*(Y - \mathbb{E}[Y])]\)</span>.</p>
-<p>Notem que <span class="math inline">\(Cov(X,Y) = Var(X)\)</span>.</p>
+<p>Notem que <span class="math inline">\(Cov(X,X) = Var(X)\)</span>.</p>
 <p>A covariância é positiva quando ambos X e Y tendem a ter valores acima (ou abaixo) de sua média simultaneamente, enquanto ela é negativa quando uma v.a. tende a ter valores acima da sua média e a outra abaixo.</p>
+</div>
+<div id="algebra-com-esperança-variância-e-covariância" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Algebra com Esperança, Variância e Covariância<a href="revisão-de-estatística.html#algebra-com-esperança-variância-e-covariância" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sejam <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> constantes.</p>
+<ol style="list-style-type: decimal">
+<li>Linearidade da Esperença
+<span class="math inline">\(\mathbb{E}[aX + bY] =\mathbb{E}[aX] + \mathbb{E}[by] = a*\mathbb{E}[X] + b*\mathbb{E}[Y]\)</span></li>
+</ol>
+<p>Exercício: verifique, com exemplos, que isso é verdade.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Identidade da variância
+<span class="math inline">\(Var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - \mathbb{E}^2[X]\)</span>
+A prova será demonstrada mais adiante.</p></li>
+<li><p>Identidade da Covariância</p></li>
+</ol>
+<p><span class="math inline">\(Voc(X,Y) = \mathbb{E}[X*Y] - \mathbb{E}[X]*\mathbb{E}[Y] = \mathbb{E}[(X - \mathbb{E}[X])*(Y - \mathbb{E}[Y])]\)</span>
+Exercício para o leitor. Prove que isso é verdade.</p>
+<p>4, Covariância é simétrica</p>
+<p><span class="math inline">\(Cov(X,Y) = Cov(Y,X)\)</span></p>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Variância não é linear
+<span class="math inline">\(Var(a*X + b) = a^2*Var(x)\)</span></p></li>
+<li><p>Covariância não é linear</p></li>
+</ol>
+<p><span class="math inline">\(Cov(a*X + b,Y) = a*Cov(Y,X)\)</span>
+# Prova da identidade da variância
+Vamos mostrar que <span class="math inline">\(\mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - \mathbb{E}^2[X]\)</span></p>
+<ol style="list-style-type: decimal">
+<li><p>Começamos expandido o quadrado da esperança:
+<span class="math inline">\(Var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[(X - \mathbb{E}[X]) * (X - \mathbb{E}[X])]\)</span>.</p></li>
+<li><p>Aplicando a regra do quadrado, temos:
+<span class="math inline">\(\mathbb{E}[(X - \mathbb{E}[X]) * (X - \mathbb{E}[X])] = \mathbb{E}[(X^2 - 2* \mathbb{E}[X]*X + \mathbb{E}[X]^2)]\)</span></p></li>
+<li><p>Pela propriedade da experança, sabemos que, sejam <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> duas v.a. independentes, então <span class="math inline">\(\mathbb{E}[A + B] = \mathbb{E}[A] + \mathbb{E}[B]\)</span>. Então:</p></li>
+</ol>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - \mathbb{E}[2*\mathbb{E}[X]*X] + \mathbb{E}[\mathbb{E}[X]^2]]\)</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Outra propriedade da esperança é que, seja <span class="math inline">\(a\)</span> uma constante e <span class="math inline">\(X\)</span> uma v.a., então <span class="math inline">\(\mathbb{E}[a*X] = a*\mathbb{E}[X]\)</span>.</li>
+</ol>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[\mathbb{E}[X]*X] + \mathbb{E}[\mathbb{E}[X]^2]]\)</span></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Nós sabemos que <span class="math inline">\(\mathbb{E}[X]\)</span> é uma constante (é uma média da v.a.). E a média de uma constante é a própria constante. Portanto, <span class="math inline">\(\mathbb{E}[\mathbb{E}[X]] = \mathbb{E}[X]\)</span>. E usaremos também que <span class="math inline">\(\mathbb{E}[a*X] = a*\mathbb{E}[X]\)</span> e, por fim, o fato de que uma constante ao quadrado é em si uma constante.</li>
+</ol>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X] * \mathbb{E}[\mathbb{E}[X]] + \mathbb{E}[X]^2]\)</span></p>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X] * \mathbb{E}[X] + \mathbb{E}[X]^2]\)</span></p>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X]^2 + \mathbb{E}[X]^2]\)</span></p>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2\)</span></p>
+<p>Como Queriamos Demonstrar (CQD).</p>
+</div>
+<div id="distribuição-de-probabilidade-conjunta" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Distribuição de Probabilidade Conjunta<a href="revisão-de-estatística.html#distribuição-de-probabilidade-conjunta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A Distribuição de probabilidade conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> (definida no mesmo espaço de probabilidade) é uma distribuição de probabilidade dos pares <span class="math inline">\((x,y)\)</span> e descreve como os valores de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> variam conjuntamente. Cada uma das distribuições <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> sozinhas são chamadas de distribuições marginais. Uma distribuição conjunta é como uma máquina que, de acordo com certas regras de probabilidade, solta dois pares de valores.</p>
+<p>ex. 1.
+Roleta. Em um casino, um jogo comum é a roleta. Ela consiste normalmente de 32 números (0 a 31), e cada número tem uma cor (preto, vermelho ou verde). Ao girar a roleta, ela solta um número e uma cor. Portanto, podemos pensar que a roleta é uma distribuição conjunta de duas variáveis (números e cores).</p>
+<p>Ex. 2.:
+Considere um dado de 4 faces <span class="math inline">\(( 1, 2, 3, 4 )\)</span>. Seja <span class="math inline">\(X\)</span> a soma dos números dos dois dados, e <span class="math inline">\(Y\)</span> o maior valor dos dois dados. O espaço amostral é dado pela tabela abaixo.</p>
 </div>
 </div>
             </section>
@@ -232,7 +285,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="algebra-com-esperança-variância-e-covariância.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
