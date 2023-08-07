@@ -176,7 +176,7 @@ probabilidades <- c(0.0625, 0.1250, 0.0625, 0.1250, 0.1250, 0.1250, 0.0625, 0.12
 tabela <- data.frame("(x, y)" = valores, "P(X = x, Y = y)" = probabilidades)
 
 # Formatar a tabela
-able(tabela, caption = "Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces",
+kable(tabela, caption = "Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces",
                           col.names = c("$(X,Y)$", "$P(X=x, Y=y)$")) %>%
   kable_styling(bootstrap_options = "striped")
 
