@@ -94,7 +94,7 @@ Uma matriz são vetores organizados por coluna, cada coluna (vetor) pode ser de 
 
 ```{r}
 # Exemplos
-matrix(x=1:3, y=4:6)
+matrix(1:6, nrow=3, ncol=2)
 ```
 
 ### Data Frame
