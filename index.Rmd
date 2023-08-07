@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAME HERE"
+title: "Introdução à Regresssão para Ciências Sociais"
+author: "Manoel Galdino"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
