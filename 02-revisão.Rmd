@@ -132,7 +132,7 @@ Como Queriamos Demonstrar (CQD).
 
 ## Distribuição de Probabilidade Conjunta
 
-A Distribuição de probabilidade conjunta de $X$ e $Y$ (definida no mesmo espaço de probabilidade) é uma distribuição de probabilidade dos pares $(x,y)$ e descreve como os valores de $X$ e $Y$ variam conjuntamente. Cada uma das distribuições $X$ e $Y$ soinhas são chamadas de distribuições marginais. Uma distribuição conjunta é como uma máquina que, de acordo com certas regras de probabilidade, solta dois pares de valores.
+A Distribuição de probabilidade conjunta de $X$ e $Y$ (definida no mesmo espaço de probabilidade) é uma distribuição de probabilidade dos pares $(x,y)$ e descreve como os valores de $X$ e $Y$ variam conjuntamente. Cada uma das distribuições $X$ e $Y$ sozinhas são chamadas de distribuições marginais. Uma distribuição conjunta é como uma máquina que, de acordo com certas regras de probabilidade, solta dois pares de valores.
 
 ex. 1.
 Roleta. Em um casino, um jogo comum é a roleta. Ela consiste normalmente de 32 números (0 a 31), e cada número tem uma cor (preto, vermelho ou verde). Ao girar a roleta, ela solta um número e uma cor. Portanto, podemos pensar que a roleta é uma distribuição conjunta de duas variáveis (números e cores).
