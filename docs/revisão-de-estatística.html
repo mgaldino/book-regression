@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html"/>
+<link rel="next" href="a-caucus-race-and-a-long-tale.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -150,8 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#algebra-com-esperança-variância-e-covariância"><i class="fa fa-check"></i><b>2.5</b> Algebra com Esperança, Variância e Covariância</a></li>
 <li class="chapter" data-level="2.6" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#distribuição-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>2.6</b> Distribuição de Probabilidade Conjunta</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html"><a href="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html"><i class="fa fa-check"></i><b>3</b> col.names = c(“resultado do primeiro dado”, “resultado do segundo dado”),</a></li>
-<li class="chapter" data-level="4" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>4</b> A caucus-race and a long tale</a></li>
+<li class="chapter" data-level="3" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>3</b> A caucus-race and a long tale</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -272,11 +271,238 @@ Vamos mostrar que <span class="math inline">\(\mathbb{E}[(X - \mathbb{E}[X])^2] 
 </div>
 <div id="distribuição-de-probabilidade-conjunta" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Distribuição de Probabilidade Conjunta<a href="revisão-de-estatística.html#distribuição-de-probabilidade-conjunta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A Distribuição de probabilidade conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> (definida no mesmo espaço de probabilidade) é uma distribuição de probabilidade dos pares <span class="math inline">\((x,y)\)</span> e descreve como os valores de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> variam conjuntamente. Cada uma das distribuições <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> sozinhas são chamadas de distribuições marginais. Uma distribuição conjunta é como uma máquina que, de acordo com certas regras de probabilidade, solta dois pares de valores.</p>
+<p>A Distribuição de probabilidade conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> (definida no mesmo espaço de probabilidade) é uma distribuição de probabilidade dos pares <span class="math inline">\((x,y)\)</span> e descreve como os valores de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> variam conjuntamente. Cada uma das distribuições <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> sozinhas são chamadas de distribuições marginais. Uma distribuição conjunta é como uma máquina que, de acordo com certas regras de probabilidade, retorna dois pares de valores.</p>
 <p>ex. 1.
 Roleta. Em um casino, um jogo comum é a roleta. Ela consiste normalmente de 32 números (0 a 31), e cada número tem uma cor (preto, vermelho ou verde). Ao girar a roleta, ela solta um número e uma cor. Portanto, podemos pensar que a roleta é uma distribuição conjunta de duas variáveis (números e cores).</p>
 <p>Ex. 2.:
 Considere um dado de 4 faces <span class="math inline">\(( 1, 2, 3, 4 )\)</span>. Seja <span class="math inline">\(X\)</span> a soma dos números dos dois dados, e <span class="math inline">\(Y\)</span> o maior valor dos dois dados. O espaço amostral é dado pela tabela abaixo.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="revisão-de-estatística.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb11-2"><a href="revisão-de-estatística.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-3"><a href="revisão-de-estatística.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb11-4"><a href="revisão-de-estatística.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Definir o espaço amostral</span></span>
+<span id="cb11-5"><a href="revisão-de-estatística.html#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="revisão-de-estatística.html#cb11-6" aria-hidden="true" tabindex="-1"></a>espaco_amostral <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb11-7"><a href="revisão-de-estatística.html#cb11-7" aria-hidden="true" tabindex="-1"></a>espaco_amostral<span class="sc">$</span>X <span class="ot">&lt;-</span> espaco_amostral<span class="sc">$</span>Var1 <span class="sc">+</span> espaco_amostral<span class="sc">$</span>Var2</span>
+<span id="cb11-8"><a href="revisão-de-estatística.html#cb11-8" aria-hidden="true" tabindex="-1"></a>espaco_amostral<span class="sc">$</span>Y <span class="ot">&lt;-</span> <span class="fu">pmax</span>(espaco_amostral<span class="sc">$</span>Var1, espaco_amostral<span class="sc">$</span>Var2)</span>
+<span id="cb11-9"><a href="revisão-de-estatística.html#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="revisão-de-estatística.html#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
+<span id="cb11-11"><a href="revisão-de-estatística.html#cb11-11" aria-hidden="true" tabindex="-1"></a>tabela <span class="ot">&lt;-</span> <span class="fu">kable</span>(espaco_amostral, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;resultado do primeiro dado&quot;</span>, <span class="st">&quot;resultado do segundo dado&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>),</span>
+<span id="cb11-12"><a href="revisão-de-estatística.html#cb11-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption =</span> <span class="st">&quot;Tabela 2.5: Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-13"><a href="revisão-de-estatística.html#cb11-13" aria-hidden="true" tabindex="-1"></a> <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span>
+<span id="cb11-14"><a href="revisão-de-estatística.html#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="revisão-de-estatística.html#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprimir a tabela</span></span>
+<span id="cb11-16"><a href="revisão-de-estatística.html#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tabela)</span>
+<span id="cb11-17"><a href="revisão-de-estatística.html#cb11-17" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(tabela)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+x
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+&lt;table class="table table-striped" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;(#tab:unnamed-chunk-2)Tabela 2.5: Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align:right;"&gt; resultado do primeiro dado &lt;/th&gt;
+&lt;th style="text-align:right;"&gt; resultado do segundo dado &lt;/th&gt;
+&lt;th style="text-align:right;"&gt; X &lt;/th&gt;
+&lt;th style="text-align:right;"&gt; Y &lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</td>
+</tr>
+</tbody>
+</table>
+<p>Se supusermos que todos os números possuem a mesma chance de sair quando jogamos os dados, então, a distribuição conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> pode ser dada por:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="revisão-de-estatística.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb12-2"><a href="revisão-de-estatística.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb12-3"><a href="revisão-de-estatística.html#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="revisão-de-estatística.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir os valores de (x, y) e P(X = x, Y = y)</span></span>
+<span id="cb12-5"><a href="revisão-de-estatística.html#cb12-5" aria-hidden="true" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(2, 1)&quot;</span>, <span class="st">&quot;(3, 2)&quot;</span>, <span class="st">&quot;(4, 2)&quot;</span>, <span class="st">&quot;(4, 3)&quot;</span>, <span class="st">&quot;(5, 3)&quot;</span>, <span class="st">&quot;(5, 4)&quot;</span>, <span class="st">&quot;(6, 3)&quot;</span>, <span class="st">&quot;(6, 4)&quot;</span>, <span class="st">&quot;(7, 4)&quot;</span>, <span class="st">&quot;(8, 4)&quot;</span>)</span>
+<span id="cb12-6"><a href="revisão-de-estatística.html#cb12-6" aria-hidden="true" tabindex="-1"></a>probabilidades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>)</span>
+<span id="cb12-7"><a href="revisão-de-estatística.html#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="revisão-de-estatística.html#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
+<span id="cb12-9"><a href="revisão-de-estatística.html#cb12-9" aria-hidden="true" tabindex="-1"></a>tabela <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;(x, y)&quot;</span> <span class="ot">=</span> valores, <span class="st">&quot;P(X = x, Y = y)&quot;</span> <span class="ot">=</span> probabilidades)</span>
+<span id="cb12-10"><a href="revisão-de-estatística.html#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="revisão-de-estatística.html#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Formatar a tabela</span></span>
+<span id="cb12-12"><a href="revisão-de-estatística.html#cb12-12" aria-hidden="true" tabindex="-1"></a>tabela_formatada <span class="ot">&lt;-</span> <span class="fu">kable</span>(tabela, <span class="at">caption =</span> <span class="st">&quot;Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces&quot;</span>,</span>
+<span id="cb12-13"><a href="revisão-de-estatística.html#cb12-13" aria-hidden="true" tabindex="-1"></a>                          <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;$(X,Y)$&quot;</span>, <span class="st">&quot;$P(X=x, Y=y)$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-14"><a href="revisão-de-estatística.html#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span>
+<span id="cb12-15"><a href="revisão-de-estatística.html#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="revisão-de-estatística.html#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprimir a tabela</span></span>
+<span id="cb12-17"><a href="revisão-de-estatística.html#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tabela_formatada)</span>
+<span id="cb12-18"><a href="revisão-de-estatística.html#cb12-18" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(tabela_formatada)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+x
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+&lt;table class="table table-striped" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;(#tab:unnamed-chunk-3)Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align:left;"&gt; <span class="math inline">\((X,Y)\)</span> &lt;/th&gt;
+&lt;th style="text-align:right;"&gt; <span class="math inline">\(P(X=x, Y=y)\)</span> &lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt; (2, 1) &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 0.0625 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt; (3, 2) &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 0.1250 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt; (4, 2) &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 0.0625 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt; (4, 3) &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 0.1250 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt; (5, 3) &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 0.1250 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt; (5, 4) &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 0.1250 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt; (6, 3) &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 0.0625 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt; (6, 4) &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 0.1250 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt; (7, 4) &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 0.1250 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align:left;"&gt; (8, 4) &lt;/td&gt;
+&lt;td style="text-align:right;"&gt; 0.0625 &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
             </section>
@@ -285,7 +511,7 @@ Considere um dado de 4 faces <span class="math inline">\(( 1, 2, 3, 4 )\)</span>
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="a-caucus-race-and-a-long-tale.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
