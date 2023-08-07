@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="ref.html"/>
+<link rel="next" href="algebra-com-esperança-variância-e-covariância.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -143,17 +143,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prefácio</a></li>
 <li class="chapter" data-level="2" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html"><i class="fa fa-check"></i><b>2</b> Revisão de Estatística</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#fundamentals-of-regreession"><i class="fa fa-check"></i><b>2.1</b> Fundamentals of Regreession</a></li>
+<li class="chapter" data-level="2.1" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#revisão-de-estatística-e-probabilidade"><i class="fa fa-check"></i><b>2.1</b> Revisão de estatística e probabilidade</a></li>
+<li class="chapter" data-level="2.2" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#variância"><i class="fa fa-check"></i><b>2.2</b> Variância</a></li>
+<li class="chapter" data-level="2.3" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#variável-aleatória"><i class="fa fa-check"></i><b>2.3</b> Variável Aleatória</a></li>
+<li class="chapter" data-level="2.4" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#esperança-matemática"><i class="fa fa-check"></i><b>2.4</b> Esperança matemática</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="ref.html"><a href="ref.html"><i class="fa fa-check"></i><b>3</b> ref</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="ref.html"><a href="ref.html#revisão-de-estatística-e-probabilidade"><i class="fa fa-check"></i><b>3.1</b> Revisão de estatística e probabilidade</a></li>
-<li class="chapter" data-level="3.2" data-path="ref.html"><a href="ref.html#variância"><i class="fa fa-check"></i><b>3.2</b> Variância</a></li>
-<li class="chapter" data-level="3.3" data-path="ref.html"><a href="ref.html#variável-aleatória"><i class="fa fa-check"></i><b>3.3</b> Variável Aleatória</a></li>
-<li class="chapter" data-level="3.4" data-path="ref.html"><a href="ref.html#esperança-matemática"><i class="fa fa-check"></i><b>3.4</b> Esperança matemática</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="algebra-com-esperança-variância-e-covariância.html"><a href="algebra-com-esperança-variância-e-covariância.html"><i class="fa fa-check"></i><b>4</b> Algebra com Esperança, Variância e Covariância</a></li>
-<li class="chapter" data-level="5" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>5</b> A caucus-race and a long tale</a></li>
+<li class="chapter" data-level="3" data-path="algebra-com-esperança-variância-e-covariância.html"><a href="algebra-com-esperança-variância-e-covariância.html"><i class="fa fa-check"></i><b>3</b> Algebra com Esperança, Variância e Covariância</a></li>
+<li class="chapter" data-level="4" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>4</b> A caucus-race and a long tale</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -176,8 +172,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="revisão-de-estatística" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Revisão de Estatística<a href="revisão-de-estatística.html#revisão-de-estatística" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <hr />
-<div id="fundamentals-of-regreession" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Fundamentals of Regreession<a href="revisão-de-estatística.html#fundamentals-of-regreession" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="revisão-de-estatística-e-probabilidade" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Revisão de estatística e probabilidade<a href="revisão-de-estatística.html#revisão-de-estatística-e-probabilidade" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A média de um conjunto de valores é dada pela soma dos valores, dividdo pelo número de observações. Matematicamente:
+<span class="math inline">\(media = \sum_{i=1}^n{x_i}/n\)</span> para observações <span class="math inline">\(\{ x_1, x_2, x_3, ..., x_n \}\)</span></p>
+<p>Em geral, as observações são uma amostra, e falamos de média amostral, <span class="math inline">\(\overline x\)</span>. Ou seja:</p>
+<p><span class="math inline">\(\overline x = \sum_{i=1}^n{x_i}/n\)</span></p>
+<p>Exercício 1. Vamos calcular, no R, a média das seguintes amostras:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\{1,2,3,4,5,6,7,8,9,10\}\)</span></p></li>
+<li><p><span class="math inline">\(\{5,5,5,5,5,5,5\}\)</span></p></li>
+<li><p><span class="math inline">\(\{1,3,5,7,9,11\}\)</span></p></li>
+<li><p><span class="math inline">\(\{-5,-4,-3,-2,-1,1,2,3,4,5\}\)</span></p></li>
+</ol>
+<p>Código no R</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="revisão-de-estatística.html#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</span>
+<span id="cb1-2"><a href="revisão-de-estatística.html#cb1-2" aria-hidden="true" tabindex="-1"></a>(media_x <span class="ot">&lt;-</span> <span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span></code></pre></div>
+<pre><code>## [1] 5.5</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="revisão-de-estatística.html#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>)</span>
+<span id="cb3-2"><a href="revisão-de-estatística.html#cb3-2" aria-hidden="true" tabindex="-1"></a>(media_x <span class="ot">&lt;-</span>  <span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="revisão-de-estatística.html#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">11</span>)</span>
+<span id="cb5-2"><a href="revisão-de-estatística.html#cb5-2" aria-hidden="true" tabindex="-1"></a>(media_x <span class="ot">&lt;-</span>  <span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="revisão-de-estatística.html#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="sc">-</span><span class="dv">4</span>,<span class="sc">-</span><span class="dv">3</span>,<span class="sc">-</span><span class="dv">2</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb7-2"><a href="revisão-de-estatística.html#cb7-2" aria-hidden="true" tabindex="-1"></a>(media_x <span class="ot">&lt;-</span>  <span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="revisão-de-estatística.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ou podemos simplemsnte usar mean(x)</span></span>
+<span id="cb9-2"><a href="revisão-de-estatística.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+</div>
+<div id="variância" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Variância<a href="revisão-de-estatística.html#variância" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="variável-aleatória" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Variável Aleatória<a href="revisão-de-estatística.html#variável-aleatória" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="esperança-matemática" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Esperança matemática<a href="revisão-de-estatística.html#esperança-matemática" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A esperança de uma variável aleatória discreta <span class="math inline">\(X\)</span>, cuja probabilidade de massa de <span class="math inline">\(x \in X\)</span> é dada por <span class="math inline">\(p(x)\)</span>, é definida por: <span class="math inline">\(\sum(x*p(x))\)</span></p>
+<p>A esperança de uma v.a. contínua X, cuja densidade é <span class="math inline">\(f(x)\)</span>, é definida por: <span class="math inline">\(\int f(x)*x\,dx\)</span>.</p>
+<p>Similarmente, a espereança de uma função <span class="math inline">\(h(X)\)</span> é dada por <span class="math inline">\(\int f(x)*h(x)\,dx\)</span> e analogamente para o caso discreto.</p>
+<p>A variância de uma variável aleatória <span class="math inline">\(X\)</span> é dada por:</p>
+<p>Definição 1. <span class="math inline">\(Var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2]\)</span>.</p>
+<p>A Covariância de duas v.a. <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> é definida como:
+<span class="math inline">\(Cov(X,Y) = \mathbb{E}[(X - \mathbb{E}[X])*(Y - \mathbb{E}[Y])]\)</span>.</p>
+<p>Notem que <span class="math inline">\(Cov(X,Y) = Var(X)\)</span>.</p>
+<p>A covariância é positiva quando ambos X e Y tendem a ter valores acima (ou abaixo) de sua média simultaneamente, enquanto ela é negativa quando uma v.a. tende a ter valores acima da sua média e a outra abaixo.</p>
 </div>
 </div>
             </section>
@@ -186,7 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ref.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="algebra-com-esperança-variância-e-covariância.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
