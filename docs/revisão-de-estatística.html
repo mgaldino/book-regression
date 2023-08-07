@@ -144,9 +144,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html"><i class="fa fa-check"></i><b>2</b> Revisão de Estatística</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#revisão-de-estatística-e-probabilidade"><i class="fa fa-check"></i><b>2.1</b> Revisão de estatística e probabilidade</a></li>
-<li class="chapter" data-level="2.2" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#variância"><i class="fa fa-check"></i><b>2.2</b> Variância</a></li>
-<li class="chapter" data-level="2.3" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#variável-aleatória"><i class="fa fa-check"></i><b>2.3</b> Variável Aleatória</a></li>
-<li class="chapter" data-level="2.4" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#esperança-matemática"><i class="fa fa-check"></i><b>2.4</b> Esperança matemática</a></li>
+<li class="chapter" data-level="2.2" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#variável-aleatória"><i class="fa fa-check"></i><b>2.2</b> Variável Aleatória</a></li>
+<li class="chapter" data-level="2.3" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#esperança-matemática"><i class="fa fa-check"></i><b>2.3</b> Esperança matemática</a></li>
+<li class="chapter" data-level="2.4" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#variância"><i class="fa fa-check"></i><b>2.4</b> Variância</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="algebra-com-esperança-variância-e-covariância.html"><a href="algebra-com-esperança-variância-e-covariância.html"><i class="fa fa-check"></i><b>3</b> Algebra com Esperança, Variância e Covariância</a></li>
 <li class="chapter" data-level="4" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>4</b> A caucus-race and a long tale</a></li>
@@ -202,17 +202,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-2"><a href="revisão-de-estatística.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 </div>
-<div id="variância" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Variância<a href="revisão-de-estatística.html#variância" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="variável-aleatória" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Variável Aleatória<a href="revisão-de-estatística.html#variável-aleatória" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Uma variável aleatória (v.a.) é uma função que mapeia eventos (aleatórios) de um espaço amostral aos números reais, em geral uma probabilidade entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>. Por exemplo, um dado de <span class="math inline">\(6\)</span> faces possui um espaço amostral de eventos possíveis dados pelos números <span class="math inline">\(\{1,2,3,4,5,6\}\)</span> e cada evento pode sair com uma probabiidade, por exemplo, <span class="math inline">\(1/6\)</span>.</p>
 </div>
-<div id="variável-aleatória" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Variável Aleatória<a href="revisão-de-estatística.html#variável-aleatória" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-</div>
-<div id="esperança-matemática" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Esperança matemática<a href="revisão-de-estatística.html#esperança-matemática" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A esperança de uma variável aleatória discreta <span class="math inline">\(X\)</span>, cuja probabilidade de massa de <span class="math inline">\(x \in X\)</span> é dada por <span class="math inline">\(p(x)\)</span>, é definida por: <span class="math inline">\(\sum(x*p(x))\)</span></p>
+<div id="esperança-matemática" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Esperança matemática<a href="revisão-de-estatística.html#esperança-matemática" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A esperança de uma variável aleatória discreta <span class="math inline">\(X\)</span>, cuja probabilidade de massa de <span class="math inline">\(x \in X\)</span> é dada por <span class="math inline">\(p(x)\)</span>, é definida por: <span class="math inline">\(\sum(x*p(x))\)</span>.</p>
 <p>A esperança de uma v.a. contínua X, cuja densidade é <span class="math inline">\(f(x)\)</span>, é definida por: <span class="math inline">\(\int f(x)*x\,dx\)</span>.</p>
-<p>Similarmente, a espereança de uma função <span class="math inline">\(h(X)\)</span> é dada por <span class="math inline">\(\int f(x)*h(x)\,dx\)</span> e analogamente para o caso discreto.</p>
+<p>Similarmente, para a mesma v.a. X acima, a esperança de uma função <span class="math inline">\(h(X)\)</span> é dada por <span class="math inline">\(\int f(x)*h(x)\,dx\)</span> e analogamente para o caso discreto.</p>
+</div>
+<div id="variância" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Variância<a href="revisão-de-estatística.html#variância" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A variância de uma variável aleatória <span class="math inline">\(X\)</span> é dada por:</p>
 <p>Definição 1. <span class="math inline">\(Var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2]\)</span>.</p>
 <p>A Covariância de duas v.a. <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> é definida como:

@@ -1,8 +1,8 @@
 prefácio
 revisão-de-estatística
 revisão-de-estatística-e-probabilidade
-variância
 variável-aleatória
 esperança-matemática
+variância
 algebra-com-esperança-variância-e-covariância
 a-caucus-race-and-a-long-tale
