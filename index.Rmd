@@ -5,5 +5,7 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
-# Down the rabbit-hole
+# Prefácio
+
+Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP xx Métodos e Técnicas de Pesquia IV, de introdução à regressão.
 
