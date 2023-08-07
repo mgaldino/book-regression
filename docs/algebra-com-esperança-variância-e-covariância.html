@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="revisão-de-estatística.html"/>
-<link rel="next" href="a-caucus-race-and-a-long-tale.html"/>
+<link rel="next" href="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -148,8 +148,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#esperança-matemática"><i class="fa fa-check"></i><b>2.3</b> Esperança matemática</a></li>
 <li class="chapter" data-level="2.4" data-path="revisão-de-estatística.html"><a href="revisão-de-estatística.html#variância"><i class="fa fa-check"></i><b>2.4</b> Variância</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="algebra-com-esperança-variância-e-covariância.html"><a href="algebra-com-esperança-variância-e-covariância.html"><i class="fa fa-check"></i><b>3</b> Algebra com Esperança, Variância e Covariância</a></li>
-<li class="chapter" data-level="4" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>4</b> A caucus-race and a long tale</a></li>
+<li class="chapter" data-level="3" data-path="algebra-com-esperança-variância-e-covariância.html"><a href="algebra-com-esperança-variância-e-covariância.html"><i class="fa fa-check"></i><b>3</b> Algebra com Esperança, Variância e Covariância</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="algebra-com-esperança-variância-e-covariância.html"><a href="algebra-com-esperança-variância-e-covariância.html#distribuição-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.1</b> Distribuição de Probabilidade Conjunta</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html"><a href="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html"><i class="fa fa-check"></i><b>4</b> col.names = c(“resultado do primeiro dado”, “resultado do segundo dado”),</a></li>
+<li class="chapter" data-level="5" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>5</b> A caucus-race and a long tale</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -215,7 +219,14 @@ Vamos mostrar que <span class="math inline">\(\mathbb{E}[(X - \mathbb{E}[X])^2] 
 <p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X]^2 + \mathbb{E}[X]^2]\)</span></p>
 <p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2\)</span></p>
 <p>Como Queriamos Demonstrar (CQD).</p>
-
+<div id="distribuição-de-probabilidade-conjunta" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Distribuição de Probabilidade Conjunta<a href="algebra-com-esperança-variância-e-covariância.html#distribuição-de-probabilidade-conjunta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A Distribuição de probabilidade conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> (definida no mesmo espaço de probabilidade) é uma distribuição de probabilidade dos pares <span class="math inline">\((x,y)\)</span> e descreve como os valores de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> variam conjuntamente. Cada uma das distribuições <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> soinhas são chamadas de distribuições marginais. Uma distribuição conjunta é como uma máquina que, de acordo com certas regras de probabilidade, solta dois pares de valores.</p>
+<p>ex. 1.
+Roleta. Em um casino, um jogo comum é a roleta. Ela consiste normalmente de 32 números (0 a 31), e cada número tem uma cor (preto, vermelho ou verde). Ao girar a roleta, ela solta um número e uma cor. Portanto, podemos pensar que a roleta é uma distribuição conjunta de duas variáveis (números e cores).</p>
+<p>Ex. 2.:
+Considere um dado de 4 faces <span class="math inline">\(( 1, 2, 3, 4 )\)</span>. Seja <span class="math inline">\(X\)</span> a soma dos números dos dois dados, e <span class="math inline">\(Y\)</span> o maior valor dos dois dados. O espaço amostral é dado pela tabela abaixo.</p>
+</div>
 </div>
             </section>
 
@@ -223,7 +234,7 @@ Vamos mostrar que <span class="math inline">\(\mathbb{E}[(X - \mathbb{E}[X])^2] 
         </div>
       </div>
 <a href="revisão-de-estatística.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="a-caucus-race-and-a-long-tale.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="col.names-cresultado-do-primeiro-dado-resultado-do-segundo-dado.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
