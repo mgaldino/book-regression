@@ -1,7 +1,5 @@
 prefácio
 revisão-de-estatística
-fundamentals-of-regreession
-ref
 revisão-de-estatística-e-probabilidade
 variância
 variável-aleatória
