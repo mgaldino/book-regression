@@ -6,12 +6,6 @@
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Fundamentals of Regreession
-
-# ref
-https://bookdown.org/kevin_davisross/probsim-book/introduction-to-simulation.html
-
-
 ## Revisão de estatística e probabilidade
 
 A média de um conjunto de valores é dada pela soma dos valores, dividdo pelo número de observações. Matematicamente:
