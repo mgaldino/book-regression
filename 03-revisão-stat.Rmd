@@ -1,12 +1,4 @@
-# Revisão de Estatística
-
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## Revisão de estatística e probabilidade
+# Revisão de estatística e probabilidade
 
 A média de um conjunto de valores é dada pela soma dos valores, dividdo pelo número de observações. Matematicamente:
 $media = \sum_{i=1}^n{x_i}/n$ para observações $\{ x_1, x_2, x_3, ..., x_n \}$
