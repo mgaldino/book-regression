@@ -3,10 +3,21 @@ title: "Introdução à Regresssão para Ciências Sociais"
 author: "Manoel Galdino"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+lang: pt
 ---
 
-# Prefácio
+# - Prefácio
 
 Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP0468 Métodos Quantitativos de Pesquisa na Ciência Política IV, de introdução à regressão, bem como o curso de pós-graduação, Métodos II.
 
-Agradeço aos alunos do curso pelos feedbacks (futuros e presentes) sobre esse material, bem como ao monitor do curso, Davi Veronese.´
+Agradeço aos alunos do curso pelos feedbacks (futuros e presentes) sobre esse material, bem como ao monitor do curso, Davi Veronese.
+
+Futuramente, pretendo transformar as notas de aulas em um livro, que poderá ser utilizado pela comunidade brasileira de ciências sociais interessada em aprender mais sobre métodos quantitativos, em particular regressão com R.
+
+A motivação para disponibilizar as notas de aula em formato de livro é a quase inexistência de um material bom de econometria básica, em português, voltado para a área de ciências sociais, em particular a ciência política. Existem bons manuais em inglês e bons manuais em português, mas voltado para a economia.
+
+Os livros existentes nem sempre fazem um bom trabalho de diferenciar regressão estatística e modelo estrutural (causal) de regressão. Uma abordagem moderna de inferência causal requer que essa distinção seja ensinada ao aluno e esse livro também pretende preencher essa lacuna.
+
+Por fim, a utilização do R é uma forma de dar ênfase à parte prática. Embora a teoria seja importante e a boa compreensão dos fundamentos é que permita o aprofundamento dos temas cobertos no livro, estatística é uma disciplina aplicada, cujo maior valor está na sua aplicação prática. Assim, boa parte do curso e do conteúdo do livro é dedicado a implementar a teoria no R, bem como na interpretação dos dados.
+
+O livro começa com  capítulos iniciais de introdução/revisão do R e de estatística básica (incluindo probabilidade). Assim, pressupomos que um estudante que utilize esse curso tenha conhecimentos de estatística e probabilidade básica. Não é necessário conhecimento previo de R, nem de cálculo ou álgebra linerar.
