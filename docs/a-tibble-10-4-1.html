@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Introdução à Regresssão para Ciências Sociais</title>
-  <meta name="description" content="Introdução à Regresssão para Ciências Sociais" />
+  <title>Chapter 4 A tibble: 10 × 4 | Introdução à Regresssão para Ciências Sociais</title>
+  <meta name="description" content="Chapter 4 A tibble: 10 × 4 | Introdução à Regresssão para Ciências Sociais" />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta property="og:title" content="Chapter 4 A tibble: 10 × 4 | Introdução à Regresssão para Ciências Sociais" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta name="twitter:title" content="Chapter 4 A tibble: 10 × 4 | Introdução à Regresssão para Ciências Sociais" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="revisão-de-r.html"/>
+<link rel="prev" href="a-tibble-10-4.html"/>
+<link rel="next" href="revisão-de-estatística-e-probabilidade.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -193,23 +193,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Introdução à Regresssão para Ciências Sociais</h1>
-<p class="author"><em>Manoel Galdino</em></p>
-<p class="date"><em>2023-08-07</em></p>
+<div id="a-tibble-10-4-1" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> A tibble: 10 × 4<a href="a-tibble-10-4-1.html#a-tibble-10-4-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>tempo X Y Z
+<date> <dbl> <dbl> <dbl>
+1 2009-01-01 -0.0892 -0.287 3.29
+2 2009-01-02 0.294 1.27 2.22
+3 2009-01-03 0.765 -2.58 -4.53
+4 2009-01-04 1.89 -2.10 2.11
+5 2009-01-05 -1.64 -0.571 4.38
+6 2009-01-06 -1.43 -7.15 0.948
+7 2009-01-07 0.665 3.72 -3.81
+8 2009-01-08 -0.897 3.15 -2.30
+9 2009-01-09 0.852 2.09 2.61
+10 2009-01-10 1.35 -0.902 -0.715</p>
+<div id="bibliotecaspacotes" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Bibliotecas/pacotes<a href="a-tibble-10-4-1.html#bibliotecaspacotes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O R permite que a gente importe comandos que não vêm por padrão no R. Em gerla esses comandos es~toa agrupados sob um pacote. PAra usar esses comandos, primeiro a gente instala o pacote, e depois carrega a biblioteca.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="a-tibble-10-4-1.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplos</span></span>
+<span id="cb27-2"><a href="a-tibble-10-4-1.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;data.table&quot;)</span></span>
+<span id="cb27-3"><a href="a-tibble-10-4-1.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#library(data.table)</span></span></code></pre></div>
 </div>
-<div id="prefácio" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Prefácio<a href="index.html#prefácio" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP xx Métodos e Técnicas de Pesquia IV, de introdução à regressão.</p>
+<div id="importando-dados" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> importando dados<a href="a-tibble-10-4-1.html#importando-dados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para importar dados, vamos usar a bilioteca “data.table”
+Então, instalem ela se ainda não instalaram (usando o comando install.packages(“data.table”))
+E depois carreguem a biblioteca: library(data.table)</p>
+<p>Para importar, usaremos o comando fread do pacote data.table.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="a-tibble-10-4-1.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vamos carregar base de dados do ibge</span></span>
+<span id="cb28-2"><a href="a-tibble-10-4-1.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
+<span id="cb28-3"><a href="a-tibble-10-4-1.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;tbrugz/ribge&quot;)</span></span>
+<span id="cb28-4"><a href="a-tibble-10-4-1.html#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="a-tibble-10-4-1.html#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ribge)</span>
+<span id="cb28-6"><a href="a-tibble-10-4-1.html#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="a-tibble-10-4-1.html#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># para descobrir quais funções existem nesse pacote, podemos usar:</span></span>
+<span id="cb28-8"><a href="a-tibble-10-4-1.html#cb28-8" aria-hidden="true" tabindex="-1"></a>??ribge</span></code></pre></div>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="revisão-de-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="a-tibble-10-4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="revisão-de-estatística-e-probabilidade.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -240,7 +268,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/mgaldino/book-regression/edit/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/edit/main/02-revisão-R.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -248,7 +276,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/mgaldino/book-regression/blob/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/blob/main/02-revisão-R.Rmd",
 "text": null
 },
 "download": null,

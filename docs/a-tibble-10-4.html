@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Introdução à Regresssão para Ciências Sociais</title>
-  <meta name="description" content="Introdução à Regresssão para Ciências Sociais" />
+  <title>Chapter 3 A tibble: 10 × 4 | Introdução à Regresssão para Ciências Sociais</title>
+  <meta name="description" content="Chapter 3 A tibble: 10 × 4 | Introdução à Regresssão para Ciências Sociais" />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta property="og:title" content="Chapter 3 A tibble: 10 × 4 | Introdução à Regresssão para Ciências Sociais" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta name="twitter:title" content="Chapter 3 A tibble: 10 × 4 | Introdução à Regresssão para Ciências Sociais" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="revisão-de-r.html"/>
+<link rel="prev" href="revisão-de-r.html"/>
+<link rel="next" href="a-tibble-10-4-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -193,23 +193,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Introdução à Regresssão para Ciências Sociais</h1>
-<p class="author"><em>Manoel Galdino</em></p>
-<p class="date"><em>2023-08-07</em></p>
-</div>
-<div id="prefácio" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Prefácio<a href="index.html#prefácio" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP xx Métodos e Técnicas de Pesquia IV, de introdução à regressão.</p>
-
+<div id="a-tibble-10-4" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> A tibble: 10 × 4<a href="a-tibble-10-4.html#a-tibble-10-4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>tempo X Y Z
+<date> <dbl> <dbl> <dbl>
+1 2009-01-01 0.339 -1.12 4.25
+2 2009-01-02 -2.01 1.63 -3.76
+3 2009-01-03 0.410 0.407 -2.55
+4 2009-01-04 0.456 -3.21 3.37
+5 2009-01-05 0.732 0.659 -1.01
+6 2009-01-06 -1.00 1.65 8.40
+7 2009-01-07 -0.934 1.91 2.86
+8 2009-01-08 0.0107 -1.80 -0.564
+9 2009-01-09 -0.0107 2.99 -1.60
+10 2009-01-10 -0.173 0.709 3.41</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="a-tibble-10-4.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criando data.frame de maneira mais inteligente</span></span>
+<span id="cb26-2"><a href="a-tibble-10-4.html#cb26-2" aria-hidden="true" tabindex="-1"></a>acoes <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(</span>
+<span id="cb26-3"><a href="a-tibble-10-4.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tempo =</span> <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>,</span>
+<span id="cb26-4"><a href="a-tibble-10-4.html#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb26-5"><a href="a-tibble-10-4.html#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb26-6"><a href="a-tibble-10-4.html#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Z =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb26-7"><a href="a-tibble-10-4.html#cb26-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-8"><a href="a-tibble-10-4.html#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="a-tibble-10-4.html#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(acoes)</span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="revisão-de-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="revisão-de-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="a-tibble-10-4-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -240,7 +254,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/mgaldino/book-regression/edit/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/edit/main/02-revisão-R.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -248,7 +262,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/mgaldino/book-regression/blob/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/blob/main/02-revisão-R.Rmd",
 "text": null
 },
 "download": null,
