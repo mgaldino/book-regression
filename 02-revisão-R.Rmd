@@ -96,7 +96,7 @@ x[2]
 # sedundo elemento fica armazenado como character
 
 # não é possível somar texto
-x[2] + x[2] # erro
+# x[2] + x[2] # erro
 ```
 
 ### Matriz
