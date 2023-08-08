@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 A tibble: 6 × 43 | Introdução à Regresssão para Ciências Sociais</title>
+  <meta name="description" content="Chapter 3 A tibble: 6 × 43 | Introdução à Regresssão para Ciências Sociais" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 A tibble: 6 × 43 | Introdução à Regresssão para Ciências Sociais" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 A tibble: 6 × 43 | Introdução à Regresssão para Ciências Sociais" />
+  
+  
+  
+
+<meta name="author" content="Manoel Galdino" />
+
+
+<meta name="date" content="2023-08-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="revisão-de-r.html"/>
+<link rel="next" href="revisão-de-estatística-e-probabilidade.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introdução à Regressão</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prefácio</a></li>
+<li class="chapter" data-level="2" data-path="revisão-de-r.html"><a href="revisão-de-r.html"><i class="fa fa-check"></i><b>2</b> Revisão de R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html#r-e-rstudio"><i class="fa fa-check"></i><b>2.1</b> R e Rstudio</a></li>
+<li class="chapter" data-level="2.2" data-path="revisão-de-r.html"><a href="revisão-de-r.html#r-como-calculadora"><i class="fa fa-check"></i><b>2.2</b> R como calculadora</a></li>
+<li class="chapter" data-level="2.3" data-path="revisão-de-r.html"><a href="revisão-de-r.html#objetos-no-r"><i class="fa fa-check"></i><b>2.3</b> Objetos no R</a></li>
+<li class="chapter" data-level="2.4" data-path="revisão-de-r.html"><a href="revisão-de-r.html#tipos-de-objetos"><i class="fa fa-check"></i><b>2.4</b> Tipos de objetos</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html#numeric"><i class="fa fa-check"></i><b>2.4.1</b> Numeric</a></li>
+<li class="chapter" data-level="2.4.2" data-path="revisão-de-r.html"><a href="revisão-de-r.html#character"><i class="fa fa-check"></i><b>2.4.2</b> character</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="revisão-de-r.html"><a href="revisão-de-r.html#armazenando-dados"><i class="fa fa-check"></i><b>2.5</b> Armazenando dados</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html#vetor"><i class="fa fa-check"></i><b>2.5.1</b> Vetor</a></li>
+<li class="chapter" data-level="2.5.2" data-path="revisão-de-r.html"><a href="revisão-de-r.html#matriz"><i class="fa fa-check"></i><b>2.5.2</b> Matriz</a></li>
+<li class="chapter" data-level="2.5.3" data-path="revisão-de-r.html"><a href="revisão-de-r.html#data-frame"><i class="fa fa-check"></i><b>2.5.3</b> Data Frame</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="revisão-de-r.html"><a href="revisão-de-r.html#bibliotecaspacotes"><i class="fa fa-check"></i><b>2.6</b> Bibliotecas/pacotes</a></li>
+<li class="chapter" data-level="2.7" data-path="revisão-de-r.html"><a href="revisão-de-r.html#importando-dados"><i class="fa fa-check"></i><b>2.7</b> importando dados</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="a-tibble-6-43.html"><a href="a-tibble-6-43.html"><i class="fa fa-check"></i><b>3</b> A tibble: 6 × 43</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="a-tibble-6-43.html"><a href="a-tibble-6-43.html#data-wrangling"><i class="fa fa-check"></i><b>3.1</b> Data wrangling</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>4</b> Revisão de estatística e probabilidade</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#variável-aleatória"><i class="fa fa-check"></i><b>4.1</b> Variável Aleatória</a></li>
+<li class="chapter" data-level="4.2" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#esperança-matemática"><i class="fa fa-check"></i><b>4.2</b> Esperança matemática</a></li>
+<li class="chapter" data-level="4.3" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#variância"><i class="fa fa-check"></i><b>4.3</b> Variância</a></li>
+<li class="chapter" data-level="4.4" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#algebra-com-esperança-variância-e-covariância"><i class="fa fa-check"></i><b>4.4</b> Algebra com Esperança, Variância e Covariância</a></li>
+<li class="chapter" data-level="4.5" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#distribuição-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>4.5</b> Distribuição de Probabilidade Conjunta</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução à Regresssão para Ciências Sociais</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="a-tibble-6-43" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> A tibble: 6 × 43<a href="a-tibble-6-43.html#a-tibble-6-43" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<pre><code>ano codigo_regiao nome_regiao codigo_uf sigla_uf nome_uf  cod_municipio nome_munic  nome_metro codigo_meso nome_meso</code></pre>
+<p><dbl> <dbl> <chr> <dbl> <chr> <chr> <dbl> <chr> <chr> <dbl> <chr><br />
+1 2013 1 Norte 11 RO Rondônia 1100015 Alta Flore… <NA> 1102 Leste Ro…
+2 2013 1 Norte 11 RO Rondônia 1100023 Ariquemes <NA> 1102 Leste Ro…
+3 2013 1 Norte 11 RO Rondônia 1100031 Cabixi <NA> 1102 Leste Ro…
+4 2013 1 Norte 11 RO Rondônia 1100049 Cacoal <NA> 1102 Leste Ro…
+5 2013 1 Norte 11 RO Rondônia 1100056 Cerejeiras <NA> 1102 Leste Ro…
+6 2013 1 Norte 11 RO Rondônia 1100064 Colorado d… <NA> 1102 Leste Ro…
+# ℹ 32 more variables: codigo_micro <dbl>, nome_micro <chr>, codigo_reg_geo_imediata <dbl>,
+# nome_reg_geo_imediata <chr>, mun_reg_geo_imediata <chr>, codigo_reg_geo_intermediaria <dbl>,
+# nome_reg_geo_intermediaria <chr>, mun_reg_geo_intermediaria <chr>, codigo_concentracao_urbana <dbl>,
+# nome_concentracao_urbana <chr>, tipo_concentracao_urbana <chr>, codigo_arranjo_populacional <dbl>,
+# nome_arranjo_populacional <chr>, hierarquia_urbana <chr>, hierarquia_urbana_principais <chr>,
+# codigo_regiao_rural <dbl>, nome_regiao_rural <chr>, regiao_rural_classificacao <chr>, amazonia_legal <chr>,
+# semiarido <chr>, cidade_de_sao_paulo <chr>, vab_agropecuaria <dbl>, vab_industria <dbl>, …</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="a-tibble-6-43.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View(pib_cid)</span></span></code></pre></div>
+<div id="data-wrangling" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Data wrangling<a href="a-tibble-6-43.html#data-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para manipulação, limpeza e processamento de dados, iremos utilizar o chamado “tidyverse”.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="a-tibble-6-43.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb32-2"><a href="a-tibble-6-43.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="a-tibble-6-43.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># digamos que quero o pib total médio e o pib per capita médio</span></span>
+<span id="cb32-4"><a href="a-tibble-6-43.html#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># basta usar o comando summarise, que resume os dados e escolher a função mean.</span></span>
+<span id="cb32-5"><a href="a-tibble-6-43.html#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="a-tibble-6-43.html#cb32-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb32-7"><a href="a-tibble-6-43.html#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb32-8"><a href="a-tibble-6-43.html#cb32-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita))</span>
+<span id="cb32-9"><a href="a-tibble-6-43.html#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="a-tibble-6-43.html#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+pib_medio
+</th>
+<th style="text-align:right;">
+pib_per_capita_medio
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+957202.7
+</td>
+<td style="text-align:right;">
+17388.86
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="a-tibble-6-43.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># se eu quiser a soma dos pibs municipais</span></span>
+<span id="cb33-2"><a href="a-tibble-6-43.html#cb33-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="a-tibble-6-43.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="a-tibble-6-43.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb33-5"><a href="a-tibble-6-43.html#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="a-tibble-6-43.html#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+soma_pib
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+5331618957
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="a-tibble-6-43.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># maior e menos pibs e pibs per capita entre municípios</span></span>
+<span id="cb34-2"><a href="a-tibble-6-43.html#cb34-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="a-tibble-6-43.html#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_max =</span> <span class="fu">max</span>(pib_total),</span>
+<span id="cb34-4"><a href="a-tibble-6-43.html#cb34-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">pib_min =</span> <span class="fu">min</span>(pib_total),</span>
+<span id="cb34-5"><a href="a-tibble-6-43.html#cb34-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">pib_per_capita_max =</span> <span class="fu">max</span>(pib_per_capita),</span>
+<span id="cb34-6"><a href="a-tibble-6-43.html#cb34-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">pib_per_capita_min =</span> <span class="fu">min</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-7"><a href="a-tibble-6-43.html#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb34-8"><a href="a-tibble-6-43.html#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="a-tibble-6-43.html#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+pib_max
+</th>
+<th style="text-align:right;">
+pib_min
+</th>
+<th style="text-align:right;">
+pib_per_capita_max
+</th>
+<th style="text-align:right;">
+pib_per_capita_min
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+582079726
+</td>
+<td style="text-align:right;">
+4198.94
+</td>
+<td style="text-align:right;">
+717343.7
+</td>
+<td style="text-align:right;">
+301.6
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="a-tibble-6-43.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># se eu quiser apenas dos municípios od estado de SP?</span></span>
+<span id="cb35-2"><a href="a-tibble-6-43.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># basta filtrar pelo estado de SP, com o comando filter</span></span>
+<span id="cb35-3"><a href="a-tibble-6-43.html#cb35-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="a-tibble-6-43.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-5"><a href="a-tibble-6-43.html#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
+<span id="cb35-6"><a href="a-tibble-6-43.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb35-7"><a href="a-tibble-6-43.html#cb35-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-8"><a href="a-tibble-6-43.html#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+soma_pib
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1715238417
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="a-tibble-6-43.html#cb36-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="a-tibble-6-43.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="a-tibble-6-43.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb36-4"><a href="a-tibble-6-43.html#cb36-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb36-5"><a href="a-tibble-6-43.html#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb36-6"><a href="a-tibble-6-43.html#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="a-tibble-6-43.html#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+pib_medio
+</th>
+<th style="text-align:right;">
+pib_per_capita_medio
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2659284
+</td>
+<td style="text-align:right;">
+24827.14
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="a-tibble-6-43.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># se eu quiser esse cálculo por uf (or cada umas das ufs?)</span></span>
+<span id="cb37-2"><a href="a-tibble-6-43.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Aí é melhor aguprar por uf</span></span>
+<span id="cb37-3"><a href="a-tibble-6-43.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ideia é: split by, apply (function), combine (summarise?)</span></span>
+<span id="cb37-4"><a href="a-tibble-6-43.html#cb37-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb37-5"><a href="a-tibble-6-43.html#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb37-6"><a href="a-tibble-6-43.html#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb37-7"><a href="a-tibble-6-43.html#cb37-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-8"><a href="a-tibble-6-43.html#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb37-9"><a href="a-tibble-6-43.html#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="a-tibble-6-43.html#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+sigla_uf
+</th>
+<th style="text-align:right;">
+pib_medio
+</th>
+<th style="text-align:right;">
+pib_per_capita_medio
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+AC
+</td>
+<td style="text-align:right;">
+521542.3
+</td>
+<td style="text-align:right;">
+11450.979
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AL
+</td>
+<td style="text-align:right;">
+365515.0
+</td>
+<td style="text-align:right;">
+7931.148
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AM
+</td>
+<td style="text-align:right;">
+1339536.0
+</td>
+<td style="text-align:right;">
+8975.314
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AP
+</td>
+<td style="text-align:right;">
+797717.9
+</td>
+<td style="text-align:right;">
+14947.829
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BA
+</td>
+<td style="text-align:right;">
+491233.3
+</td>
+<td style="text-align:right;">
+8814.841
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CE
+</td>
+<td style="text-align:right;">
+592590.0
+</td>
+<td style="text-align:right;">
+7157.360
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="a-tibble-6-43.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
+<span id="cb38-2"><a href="a-tibble-6-43.html#cb38-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="a-tibble-6-43.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="a-tibble-6-43.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pib_uf =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="a-tibble-6-43.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb38-6"><a href="a-tibble-6-43.html#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="a-tibble-6-43.html#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+ano
+</th>
+<th style="text-align:right;">
+codigo_regiao
+</th>
+<th style="text-align:left;">
+nome_regiao
+</th>
+<th style="text-align:right;">
+codigo_uf
+</th>
+<th style="text-align:left;">
+sigla_uf
+</th>
+<th style="text-align:left;">
+nome_uf
+</th>
+<th style="text-align:right;">
+cod_municipio
+</th>
+<th style="text-align:left;">
+nome_munic
+</th>
+<th style="text-align:left;">
+nome_metro
+</th>
+<th style="text-align:right;">
+codigo_meso
+</th>
+<th style="text-align:left;">
+nome_meso
+</th>
+<th style="text-align:right;">
+codigo_micro
+</th>
+<th style="text-align:left;">
+nome_micro
+</th>
+<th style="text-align:right;">
+codigo_reg_geo_imediata
+</th>
+<th style="text-align:left;">
+nome_reg_geo_imediata
+</th>
+<th style="text-align:left;">
+mun_reg_geo_imediata
+</th>
+<th style="text-align:right;">
+codigo_reg_geo_intermediaria
+</th>
+<th style="text-align:left;">
+nome_reg_geo_intermediaria
+</th>
+<th style="text-align:left;">
+mun_reg_geo_intermediaria
+</th>
+<th style="text-align:right;">
+codigo_concentracao_urbana
+</th>
+<th style="text-align:left;">
+nome_concentracao_urbana
+</th>
+<th style="text-align:left;">
+tipo_concentracao_urbana
+</th>
+<th style="text-align:right;">
+codigo_arranjo_populacional
+</th>
+<th style="text-align:left;">
+nome_arranjo_populacional
+</th>
+<th style="text-align:left;">
+hierarquia_urbana
+</th>
+<th style="text-align:left;">
+hierarquia_urbana_principais
+</th>
+<th style="text-align:right;">
+codigo_regiao_rural
+</th>
+<th style="text-align:left;">
+nome_regiao_rural
+</th>
+<th style="text-align:left;">
+regiao_rural_classificacao
+</th>
+<th style="text-align:left;">
+amazonia_legal
+</th>
+<th style="text-align:left;">
+semiarido
+</th>
+<th style="text-align:left;">
+cidade_de_sao_paulo
+</th>
+<th style="text-align:right;">
+vab_agropecuaria
+</th>
+<th style="text-align:right;">
+vab_industria
+</th>
+<th style="text-align:right;">
+vab_servicos_exclusivo
+</th>
+<th style="text-align:right;">
+vab_adm_publica
+</th>
+<th style="text-align:right;">
+vab_total
+</th>
+<th style="text-align:right;">
+impostos
+</th>
+<th style="text-align:right;">
+pib_total
+</th>
+<th style="text-align:right;">
+pib_per_capita
+</th>
+<th style="text-align:left;">
+atividade_vab1
+</th>
+<th style="text-align:left;">
+atividade_vab2
+</th>
+<th style="text-align:left;">
+atividade_vab3
+</th>
+<th style="text-align:right;">
+pib_uf
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Norte
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+RO
+</td>
+<td style="text-align:left;">
+Rondônia
+</td>
+<td style="text-align:right;">
+1100015
+</td>
+<td style="text-align:left;">
+Alta Floresta D’Oeste
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+1102
+</td>
+<td style="text-align:left;">
+Leste Rondoniense
+</td>
+<td style="text-align:right;">
+11006
+</td>
+<td style="text-align:left;">
+Cacoal
+</td>
+<td style="text-align:right;">
+110005
+</td>
+<td style="text-align:left;">
+Cacoal
+</td>
+<td style="text-align:left;">
+do Entorno
+</td>
+<td style="text-align:right;">
+1102
+</td>
+<td style="text-align:left;">
+Ji-Paraná
+</td>
+<td style="text-align:left;">
+do Entorno
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Centro Local
+</td>
+<td style="text-align:left;">
+Centro Local
+</td>
+<td style="text-align:right;">
+1101
+</td>
+<td style="text-align:left;">
+Região Rural da Capital Regional de Porto Velho
+</td>
+<td style="text-align:left;">
+Região Rural de Capital Regional
+</td>
+<td style="text-align:left;">
+Sim
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:right;">
+110850.84
+</td>
+<td style="text-align:right;">
+20336.994
+</td>
+<td style="text-align:right;">
+73025.07
+</td>
+<td style="text-align:right;">
+120335.59
+</td>
+<td style="text-align:right;">
+324548.50
+</td>
+<td style="text-align:right;">
+16776.193
+</td>
+<td style="text-align:right;">
+341324.69
+</td>
+<td style="text-align:right;">
+13266.66
+</td>
+<td style="text-align:left;">
+Administração, defesa, educação e saúde públicas e seguridade social
+</td>
+<td style="text-align:left;">
+Pecuária, inclusive apoio à pecuária
+</td>
+<td style="text-align:left;">
+Demais serviços
+</td>
+<td style="text-align:right;">
+31121413
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Norte
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+RO
+</td>
+<td style="text-align:left;">
+Rondônia
+</td>
+<td style="text-align:right;">
+1100023
+</td>
+<td style="text-align:left;">
+Ariquemes
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+1102
+</td>
+<td style="text-align:left;">
+Leste Rondoniense
+</td>
+<td style="text-align:right;">
+11003
+</td>
+<td style="text-align:left;">
+Ariquemes
+</td>
+<td style="text-align:right;">
+110002
+</td>
+<td style="text-align:left;">
+Ariquemes
+</td>
+<td style="text-align:left;">
+Polo
+</td>
+<td style="text-align:right;">
+1101
+</td>
+<td style="text-align:left;">
+Porto Velho
+</td>
+<td style="text-align:left;">
+do Entorno
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Centro Sub-regional B
+</td>
+<td style="text-align:left;">
+Centro Sub-regional
+</td>
+<td style="text-align:right;">
+1101
+</td>
+<td style="text-align:left;">
+Região Rural da Capital Regional de Porto Velho
+</td>
+<td style="text-align:left;">
+Região Rural de Capital Regional
+</td>
+<td style="text-align:left;">
+Sim
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:right;">
+93249.75
+</td>
+<td style="text-align:right;">
+354733.212
+</td>
+<td style="text-align:right;">
+694832.17
+</td>
+<td style="text-align:right;">
+466732.80
+</td>
+<td style="text-align:right;">
+1609547.93
+</td>
+<td style="text-align:right;">
+190304.571
+</td>
+<td style="text-align:right;">
+1799852.51
+</td>
+<td style="text-align:right;">
+17772.99
+</td>
+<td style="text-align:left;">
+Administração, defesa, educação e saúde públicas e seguridade social
+</td>
+<td style="text-align:left;">
+Demais serviços
+</td>
+<td style="text-align:left;">
+Comércio e reparação de veículos automotores e motocicletas
+</td>
+<td style="text-align:right;">
+31121413
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Norte
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+RO
+</td>
+<td style="text-align:left;">
+Rondônia
+</td>
+<td style="text-align:right;">
+1100031
+</td>
+<td style="text-align:left;">
+Cabixi
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+1102
+</td>
+<td style="text-align:left;">
+Leste Rondoniense
+</td>
+<td style="text-align:right;">
+11008
+</td>
+<td style="text-align:left;">
+Colorado do Oeste
+</td>
+<td style="text-align:right;">
+110006
+</td>
+<td style="text-align:left;">
+Vilhena
+</td>
+<td style="text-align:left;">
+do Entorno
+</td>
+<td style="text-align:right;">
+1102
+</td>
+<td style="text-align:left;">
+Ji-Paraná
+</td>
+<td style="text-align:left;">
+do Entorno
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Centro Local
+</td>
+<td style="text-align:left;">
+Centro Local
+</td>
+<td style="text-align:right;">
+1101
+</td>
+<td style="text-align:left;">
+Região Rural da Capital Regional de Porto Velho
+</td>
+<td style="text-align:left;">
+Região Rural de Capital Regional
+</td>
+<td style="text-align:left;">
+Sim
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:right;">
+38259.43
+</td>
+<td style="text-align:right;">
+3412.205
+</td>
+<td style="text-align:right;">
+17787.45
+</td>
+<td style="text-align:right;">
+32838.64
+</td>
+<td style="text-align:right;">
+92297.72
+</td>
+<td style="text-align:right;">
+4066.819
+</td>
+<td style="text-align:right;">
+96364.54
+</td>
+<td style="text-align:right;">
+14836.73
+</td>
+<td style="text-align:left;">
+Administração, defesa, educação e saúde públicas e seguridade social
+</td>
+<td style="text-align:left;">
+Pecuária, inclusive apoio à pecuária
+</td>
+<td style="text-align:left;">
+Agricultura, inclusive apoio à agricultura e a pós colheita
+</td>
+<td style="text-align:right;">
+31121413
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Norte
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+RO
+</td>
+<td style="text-align:left;">
+Rondônia
+</td>
+<td style="text-align:right;">
+1100049
+</td>
+<td style="text-align:left;">
+Cacoal
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+1102
+</td>
+<td style="text-align:left;">
+Leste Rondoniense
+</td>
+<td style="text-align:right;">
+11006
+</td>
+<td style="text-align:left;">
+Cacoal
+</td>
+<td style="text-align:right;">
+110005
+</td>
+<td style="text-align:left;">
+Cacoal
+</td>
+<td style="text-align:left;">
+Polo
+</td>
+<td style="text-align:right;">
+1102
+</td>
+<td style="text-align:left;">
+Ji-Paraná
+</td>
+<td style="text-align:left;">
+do Entorno
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Centro Sub-regional B
+</td>
+<td style="text-align:left;">
+Centro Sub-regional
+</td>
+<td style="text-align:right;">
+5105
+</td>
+<td style="text-align:left;">
+Região Rural do Centro Sub-regional de Vilhena (RO) e Cacoal (RO)
+</td>
+<td style="text-align:left;">
+Região Rural de Centro Sub-regional
+</td>
+<td style="text-align:left;">
+Sim
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:right;">
+140658.88
+</td>
+<td style="text-align:right;">
+140288.317
+</td>
+<td style="text-align:right;">
+599519.83
+</td>
+<td style="text-align:right;">
+395842.23
+</td>
+<td style="text-align:right;">
+1276309.26
+</td>
+<td style="text-align:right;">
+156944.241
+</td>
+<td style="text-align:right;">
+1433253.51
+</td>
+<td style="text-align:right;">
+16692.33
+</td>
+<td style="text-align:left;">
+Administração, defesa, educação e saúde públicas e seguridade social
+</td>
+<td style="text-align:left;">
+Demais serviços
+</td>
+<td style="text-align:left;">
+Comércio e reparação de veículos automotores e motocicletas
+</td>
+<td style="text-align:right;">
+31121413
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Norte
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+RO
+</td>
+<td style="text-align:left;">
+Rondônia
+</td>
+<td style="text-align:right;">
+1100056
+</td>
+<td style="text-align:left;">
+Cerejeiras
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+1102
+</td>
+<td style="text-align:left;">
+Leste Rondoniense
+</td>
+<td style="text-align:right;">
+11008
+</td>
+<td style="text-align:left;">
+Colorado do Oeste
+</td>
+<td style="text-align:right;">
+110006
+</td>
+<td style="text-align:left;">
+Vilhena
+</td>
+<td style="text-align:left;">
+do Entorno
+</td>
+<td style="text-align:right;">
+1102
+</td>
+<td style="text-align:left;">
+Ji-Paraná
+</td>
+<td style="text-align:left;">
+do Entorno
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Centro de Zona B
+</td>
+<td style="text-align:left;">
+Centro de Zona
+</td>
+<td style="text-align:right;">
+1101
+</td>
+<td style="text-align:left;">
+Região Rural da Capital Regional de Porto Velho
+</td>
+<td style="text-align:left;">
+Região Rural de Capital Regional
+</td>
+<td style="text-align:left;">
+Sim
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:right;">
+45153.64
+</td>
+<td style="text-align:right;">
+19889.818
+</td>
+<td style="text-align:right;">
+149569.44
+</td>
+<td style="text-align:right;">
+83089.55
+</td>
+<td style="text-align:right;">
+297702.45
+</td>
+<td style="text-align:right;">
+55567.232
+</td>
+<td style="text-align:right;">
+353269.68
+</td>
+<td style="text-align:right;">
+19581.49
+</td>
+<td style="text-align:left;">
+Administração, defesa, educação e saúde públicas e seguridade social
+</td>
+<td style="text-align:left;">
+Comércio e reparação de veículos automotores e motocicletas
+</td>
+<td style="text-align:left;">
+Demais serviços
+</td>
+<td style="text-align:right;">
+31121413
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Norte
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+RO
+</td>
+<td style="text-align:left;">
+Rondônia
+</td>
+<td style="text-align:right;">
+1100064
+</td>
+<td style="text-align:left;">
+Colorado do Oeste
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+1102
+</td>
+<td style="text-align:left;">
+Leste Rondoniense
+</td>
+<td style="text-align:right;">
+11008
+</td>
+<td style="text-align:left;">
+Colorado do Oeste
+</td>
+<td style="text-align:right;">
+110006
+</td>
+<td style="text-align:left;">
+Vilhena
+</td>
+<td style="text-align:left;">
+do Entorno
+</td>
+<td style="text-align:right;">
+1102
+</td>
+<td style="text-align:left;">
+Ji-Paraná
+</td>
+<td style="text-align:left;">
+do Entorno
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Centro Local
+</td>
+<td style="text-align:left;">
+Centro Local
+</td>
+<td style="text-align:right;">
+1101
+</td>
+<td style="text-align:left;">
+Região Rural da Capital Regional de Porto Velho
+</td>
+<td style="text-align:left;">
+Região Rural de Capital Regional
+</td>
+<td style="text-align:left;">
+Sim
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:left;">
+Não
+</td>
+<td style="text-align:right;">
+51029.59
+</td>
+<td style="text-align:right;">
+23179.131
+</td>
+<td style="text-align:right;">
+66099.41
+</td>
+<td style="text-align:right;">
+86090.50
+</td>
+<td style="text-align:right;">
+226398.63
+</td>
+<td style="text-align:right;">
+16368.611
+</td>
+<td style="text-align:right;">
+242767.24
+</td>
+<td style="text-align:right;">
+12650.72
+</td>
+<td style="text-align:left;">
+Administração, defesa, educação e saúde públicas e seguridade social
+</td>
+<td style="text-align:left;">
+Demais serviços
+</td>
+<td style="text-align:left;">
+Pecuária, inclusive apoio à pecuária
+</td>
+<td style="text-align:right;">
+31121413
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="revisão-de-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="revisão-de-estatística-e-probabilidade.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mgaldino/book-regression/edit/main/02-revisão-R.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/mgaldino/book-regression/blob/main/02-revisão-R.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

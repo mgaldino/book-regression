@@ -162,7 +162,7 @@ kable(acoes)
 O R permite que a gente importe comandos que não vêm por padrão no R. Em gerla esses comandos es~toa agrupados sob um pacote. PAra usar esses comandos, primeiro a gente instala o pacote, e depois carrega a biblioteca.
 
 
-```{r}
+```{r, results='asis', message=FALSE}
 # Exemplos
 #install.packages("data.table")
 #library(data.table)
@@ -176,7 +176,7 @@ E depois carreguem a biblioteca: library(data.table)
 
 Para importar, usaremos o comando fread do pacote data.table.
 
-```{r}
+```{r, results='asis', message=FALSE}
 # vamos carregar base de dados do ibge
 # install.packages("devtools")
 # devtools::install_github("tbrugz/ribge")
@@ -184,5 +184,122 @@ Para importar, usaremos o comando fread do pacote data.table.
 library(ribge)
 
 # para descobrir quais funções existem nesse pacote, podemos usar:
-??ribge
+??ribge::ribge
+
+# vamos usar uma que retorna o pib municipal
+pib_cid <- pib_municipios(2013)
+
+# para visualizar os dados que forma importados, temos várias funções
+# glimpse, head e View
+
+library(dplyr) # para glimpse
+
+# glimpse(pib_cid)
+# head(pib_cid)
+
+# View(pib_cid)
+
+
 ```
+
+## Data wrangling
+
+Para manipulação, limpeza e processamento de dados, iremos utilizar o chamado "tidyverse".
+
+```{r, results='asis', message=FALSE}
+library(tidyverse)
+
+# digamos que quero o pib total médio e o pib per capita médio
+# basta usar o comando summarise, que resume os dados e escolher a função mean.
+
+df <- pib_cid %>%
+  summarise(pib_medio = mean(pib_total),
+            pib_per_capita_medio = mean(pib_per_capita))
+
+kable(df)
+```
+
+```{r, results='asis', message=FALSE}
+# se eu quiser a soma dos pibs municipais
+df <- pib_cid %>%
+  summarise(soma_pib = sum(pib_total)) %>%
+  head()
+
+kable(df)
+```
+
+```{r, results='asis', message=FALSE}
+# maior e menos pibs e pibs per capita entre municípios
+df <- pib_cid %>%
+  summarise(pib_max = max(pib_total),
+            pib_min = min(pib_total),
+            pib_per_capita_max = max(pib_per_capita),
+            pib_per_capita_min = min(pib_per_capita)) %>%
+  head()
+
+kable(df)
+```
+
+```{r, results='asis', message=FALSE}
+# se eu quiser apenas dos municípios od estado de SP?
+# basta filtrar pelo estado de SP, com o comando filter
+df <- pib_cid %>%
+  filter(sigla_uf == "SP") %>%
+  summarise(soma_pib = sum(pib_total)) %>%
+  head()
+  
+kable(df)
+```
+
+```{r, results='asis', message=FALSE}
+df <- pib_cid %>%
+  filter(sigla_uf == "SP") %>%
+  summarise(pib_medio = mean(pib_total),
+            pib_per_capita_medio = mean(pib_per_capita)) %>%
+  head()
+
+kable(df)
+```
+
+```{r, results='asis', message=FALSE}
+# se eu quiser esse cálculo por uf (or cada umas das ufs?)
+# Aí é melhor aguprar por uf
+# ideia é: split by, apply (function), combine (summarise?)
+df <- pib_cid %>%
+  group_by(sigla_uf) %>%
+  summarise(pib_medio = mean(pib_total),
+            pib_per_capita_medio = mean(pib_per_capita)) %>%
+  head()
+
+kable(df)
+```
+
+```{r, results='asis', message=FALSE}
+# agora, quero criar uma nova variável, que é o pib estadual
+df <- pib_cid %>%
+  group_by(sigla_uf) %>%
+  mutate(pib_uf = sum(pib_total)) %>%
+  head()
+
+kable(df)
+
+```
+
+Coisas estranhas. O maior pib per capita municipal deu muito alto. vamos ver qual município é?
+Vamos filtrar e depois selecionar apenas algumas colunas
+```{r, results='asis', message=FALSE}
+# agora, quero criar uma nova variável, que é o pib estadual
+df <- pib_cid %>%
+  filter(pib_per_capita > 700000) %>%
+  select(sigla_uf, nome_munic, pib_per_capita, pib_total) %>%
+  head()
+
+kable(df)
+kable(df)
+
+```
+
+Vamos entrar na Wiki do município ou perguntar pra chatGPT o que explica isso aí?
+Veremos que "faz sentido", embora na verdade não faça. 
+
+Exercício em sala de aula: veja os impostos desse município. 

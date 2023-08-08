@@ -1,5 +1,5 @@
-tab:unnamed-chunk-16
-tab:unnamed-chunk-17
+tab:unnamed-chunk-24
+tab:unnamed-chunk-25
 prefácio
 revisão-de-r
 r-e-rstudio
@@ -15,6 +15,7 @@ data-frame
 datas
 bibliotecaspacotes
 importando-dados
+data-wrangling
 revisão-de-estatística-e-probabilidade
 variável-aleatória
 esperança-matemática
