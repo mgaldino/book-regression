@@ -1,5 +1,5 @@
-tab:unnamed-chunk-12
-tab:unnamed-chunk-13
+tab:unnamed-chunk-16
+tab:unnamed-chunk-17
 prefácio
 revisão-de-r
 r-e-rstudio
@@ -12,6 +12,7 @@ armazenando-dados
 vetor
 matriz
 data-frame
+datas
 bibliotecaspacotes
 importando-dados
 revisão-de-estatística-e-probabilidade
