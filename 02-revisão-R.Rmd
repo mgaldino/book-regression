@@ -128,6 +128,7 @@ data_ex1 + 0:9
 ## fim da explicação rápida de data
 ```
 
+
 ```{r, results='asis', message=FALSE}
 ## criando data de forma repetitiva e tediosa. O que queremos evitar!
 minha_data <- c(as.Date('2009-01-01'), as.Date('2009-01-02'), as.Date('2009-01-03'),
@@ -142,7 +143,7 @@ acoes <- data_frame(
   Z = rnorm(10, 0, 4)
 )
 
-print(acoes)
+acoes
 
 # criando data.frame de maneira mais inteligente
 acoes <- data_frame(
@@ -152,13 +153,14 @@ acoes <- data_frame(
   Z = rnorm(10, 0, 4)
 )
 
-print(acoes)
+acoes
 ```
 
  
 ## Bibliotecas/pacotes
 
 O R permite que a gente importe comandos que não vêm por padrão no R. Em gerla esses comandos es~toa agrupados sob um pacote. PAra usar esses comandos, primeiro a gente instala o pacote, e depois carrega a biblioteca.
+
 
 ```{r}
 # Exemplos
@@ -167,6 +169,7 @@ O R permite que a gente importe comandos que não vêm por padrão no R. Em gerl
 ```
 
 ## importando dados
+
 Para importar dados, vamos usar a bilioteca "data.table"
 Então, instalem ela se ainda não instalaram (usando o comando install.packages("data.table"))
 E depois carreguem a biblioteca: library(data.table)
