@@ -18,7 +18,7 @@ Normalmente, iremos escrever um comando aqui no Script, clicar em executar (run)
 o R pode funcionar como calculadora.
 
 
-```{r}
+```{r, results='asis', message=FALSE}
 2+2
 3*4
 10/2
@@ -28,20 +28,20 @@ o R pode funcionar como calculadora.
 
 Tudo no R é um objeto. Isso significa que um número é um objeto.
 
-```{r}
+```{r, results='asis', message=FALSE}
 pi
 ```
 
 Isso significa que funções (comandos) também são objetos
 
-```{r}
+```{r, results='asis', message=FALSE}
 sum(c(1,2,3))
 sum
 ```
 
 E nós podemos criar nossos próprios objetos, dando os nomes que quisermos (exceto se já existe um objeto no R com aquele nome, como por exemplo o objeto "sum").
 
-```{r}
+```{r, results='asis', message=FALSE}
 x <- 3
 y <- 7
 x+y
@@ -55,7 +55,7 @@ O R tem muitos tipos de objetos. Vamos listar aqui apenas os mais básicos.
 
 Objetos do tipo numeric são ... números ("reais").
 
-```{r}
+```{r, results='asis', message=FALSE}
 # Exemplos
 pi
 1/3
@@ -64,9 +64,9 @@ pi
 
 ### character
 
-Objetos do tipo characher são do tipo texto. Sempre são escritos entre aspas (simples ou duplas, tanto faz)
+Objetos do tipo character são do tipo texto. Sempre são escritos entre aspas (simples ou duplas, tanto faz)
 
-```{r}
+```{r, results='asis', message=FALSE}
 # Exemplos
 "Manoel Galdino"
 'abc'
@@ -75,12 +75,12 @@ Objetos do tipo characher são do tipo texto. Sempre são escritos entre aspas (
 
 ## Armazenando dados
 
-Para armazenar dados, usualmente teremos 3 tipos de objeto: 1. vetor, 3. data.frame, 3. lista. Não vou falar de lista agora.
+Para armazenar dados, usualmente teremos 4 tipos de objetos: 1. vetor, 2. Matriz. 3. data.frame, 4. lista. Não vou falar de lista agora (nem de array, que é uma generalização da matriz para mais de duas dimensões).
 
 ### Vetor
 Um vetor é uma sequência de objetos.
 
-```{r}
+```{r, results='asis', message=FALSE}
 # Exemplos
 c(1,2,3)
 1:3
@@ -88,11 +88,22 @@ c("Manoel", "Hugo", "Lia", "Juliana", "Jéssica")
 c(c(1,2,3), c(2,3,1))
 ```
 
+os elementos de um vetor devem ser todos do mesmo tipo:
+```{r, results='asis', message=FALSE}
+# Exemplos
+x <- c("1", 1)
+x[2]
+# sedundo elemento fica armazenado como character
+
+# não é possível somar texto
+x[2] + x[2] # erro
+```
+
 ### Matriz
 
-Uma matriz são vetores organizados por coluna, cada coluna (vetor) pode ser de um tipo, ou seja, não posso ter uma coluna numeric e outra de character, por exemplo.
+Uma matriz são vetores organizados por coluna, todas as colunas (vetores) só podem ser de um tipo, ou seja, não posso ter uma coluna numeric e outra de character, por exemplo.
 
-```{r}
+```{r, results='asis', message=FALSE}
 # Exemplos
 matrix(1:6, nrow=3, ncol=2)
 ```
@@ -101,14 +112,14 @@ matrix(1:6, nrow=3, ncol=2)
 O data.frame é uma tabela/planilha, e é onde normalmente armazenamos nossos bancos de dados no R.
 
 
-```{r}
+```{r, results='asis', message=FALSE}
 # Exemplos
 data.frame(x=1:3, y=c("a", "b", "c"))
 ```
 
 
 #### datas
-```{r}
+```{r, results='asis', message=FALSE}
 ## explicando data rapidamente
 data_ex <- "2020-10-23"
 data_ex1 <- as.Date(data_ex)
@@ -117,7 +128,7 @@ data_ex1 + 0:9
 ## fim da explicação rápida de data
 ```
 
-```{r}
+```{r, results='asis', message=FALSE}
 ## criando data de forma repetitiva e tediosa. O que queremos evitar!
 minha_data <- c(as.Date('2009-01-01'), as.Date('2009-01-02'), as.Date('2009-01-03'),
   as.Date('2009-01-04'), as.Date('2009-01-05'), as.Date('2009-01-06'),
@@ -131,6 +142,8 @@ acoes <- data_frame(
   Z = rnorm(10, 0, 4)
 )
 
+print(acoes)
+
 # criando data.frame de maneira mais inteligente
 acoes <- data_frame(
   tempo = as.Date('2009-01-01') + 0:9,
@@ -138,14 +151,11 @@ acoes <- data_frame(
   Y = rnorm(10, 0, 2),
   Z = rnorm(10, 0, 4)
 )
+
+print(acoes)
 ```
 
-```{r}
-
-
-
-```  
-  
+ 
 ## Bibliotecas/pacotes
 
 O R permite que a gente importe comandos que não vêm por padrão no R. Em gerla esses comandos es~toa agrupados sob um pacote. PAra usar esses comandos, primeiro a gente instala o pacote, e depois carrega a biblioteca.
@@ -153,7 +163,7 @@ O R permite que a gente importe comandos que não vêm por padrão no R. Em gerl
 ```{r}
 # Exemplos
 #install.packages("data.table")
-#library(readr)
+#library(data.table)
 ```
 
 ## importando dados
@@ -164,7 +174,12 @@ E depois carreguem a biblioteca: library(data.table)
 Para importar, usaremos o comando fread do pacote data.table.
 
 ```{r}
-# Exemplos
-#install.packages("data.table")
-#library(readr)
+# vamos carregar base de dados do ibge
+# install.packages("devtools")
+# devtools::install_github("tbrugz/ribge")
+
+library(ribge)
+
+# para descobrir quais funções existem nesse pacote, podemos usar:
+??ribge
 ```
