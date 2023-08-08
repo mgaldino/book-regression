@@ -107,7 +107,45 @@ data.frame(x=1:3, y=c("a", "b", "c"))
 ```
 
 
+#### datas
+```{r}
+## explicando data rapidamente
+data_ex <- "2020-10-23"
+data_ex1 <- as.Date(data_ex)
 
+data_ex1 + 0:9
+## fim da explicação rápida de data
+```
+
+```{r}
+## criando data de forma repetitiva e tediosa. O que queremos evitar!
+minha_data <- c(as.Date('2009-01-01'), as.Date('2009-01-02'), as.Date('2009-01-03'),
+  as.Date('2009-01-04'), as.Date('2009-01-05'), as.Date('2009-01-06'),
+  as.Date('2009-01-07'), as.Date('2009-01-08'), as.Date('2009-01-09'),
+  as.Date('2009-01-10'))
+
+acoes <- data_frame(
+  tempo = minha_data,
+  X = rnorm(10, 0, 1),
+  Y = rnorm(10, 0, 2),
+  Z = rnorm(10, 0, 4)
+)
+
+# criando data.frame de maneira mais inteligente
+acoes <- data_frame(
+  tempo = as.Date('2009-01-01') + 0:9,
+  X = rnorm(10, 0, 1),
+  Y = rnorm(10, 0, 2),
+  Z = rnorm(10, 0, 4)
+)
+```
+
+```{r}
+
+
+
+```  
+  
 ## Bibliotecas/pacotes
 
 O R permite que a gente importe comandos que não vêm por padrão no R. Em gerla esses comandos es~toa agrupados sob um pacote. PAra usar esses comandos, primeiro a gente instala o pacote, e depois carrega a biblioteca.
@@ -124,3 +162,9 @@ Então, instalem ela se ainda não instalaram (usando o comando install.packages
 E depois carreguem a biblioteca: library(data.table)
 
 Para importar, usaremos o comando fread do pacote data.table.
+
+```{r}
+# Exemplos
+#install.packages("data.table")
+#library(readr)
+```
