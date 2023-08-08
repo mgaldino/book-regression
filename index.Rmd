@@ -1,4 +1,4 @@
---- 
+---
 title: "Introdução à Regresssão para Ciências Sociais"
 author: "Manoel Galdino"
 date: "`r Sys.Date()`"
@@ -7,5 +7,6 @@ site: bookdown::bookdown_site
 
 # Prefácio
 
-Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP xx Métodos e Técnicas de Pesquia IV, de introdução à regressão.
+Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP0468 Métodos Quantitativos de Pesquisa na Ciência Política IV, de introdução à regressão, bem como o curso de pós-graduação, Métodos II.
 
+Agradeço aos alunos do curso pelos feedbacks (futuros e presentes) sobre esse material, bem como ao monitor do curso, Davi Veronese.´
