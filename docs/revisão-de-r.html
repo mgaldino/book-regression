@@ -284,14 +284,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 1 a
 ## 2 2 b
 ## 3 3 c</code></pre>
+<div id="datas" class="section level4 hasAnchor" number="2.5.3.1">
+<h4><span class="header-section-number">2.5.3.1</span> datas<a href="revisão-de-r.html#datas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="revisão-de-r.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## explicando data rapidamente</span></span>
+<span id="cb39-2"><a href="revisão-de-r.html#cb39-2" aria-hidden="true" tabindex="-1"></a>data_ex <span class="ot">&lt;-</span> <span class="st">&quot;2020-10-23&quot;</span></span>
+<span id="cb39-3"><a href="revisão-de-r.html#cb39-3" aria-hidden="true" tabindex="-1"></a>data_ex1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data_ex)</span>
+<span id="cb39-4"><a href="revisão-de-r.html#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="revisão-de-r.html#cb39-5" aria-hidden="true" tabindex="-1"></a>data_ex1 <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span></code></pre></div>
+<pre><code>##  [1] &quot;2020-10-23&quot; &quot;2020-10-24&quot; &quot;2020-10-25&quot; &quot;2020-10-26&quot; &quot;2020-10-27&quot; &quot;2020-10-28&quot; &quot;2020-10-29&quot; &quot;2020-10-30&quot;
+##  [9] &quot;2020-10-31&quot; &quot;2020-11-01&quot;</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="revisão-de-r.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## fim da explicação rápida de data</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="revisão-de-r.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## criando data de forma repetitiva e tediosa. O que queremos evitar!</span></span>
+<span id="cb42-2"><a href="revisão-de-r.html#cb42-2" aria-hidden="true" tabindex="-1"></a>minha_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-02&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-03&#39;</span>),</span>
+<span id="cb42-3"><a href="revisão-de-r.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-04&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-05&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-06&#39;</span>),</span>
+<span id="cb42-4"><a href="revisão-de-r.html#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-07&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-08&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-09&#39;</span>),</span>
+<span id="cb42-5"><a href="revisão-de-r.html#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-10&#39;</span>))</span>
+<span id="cb42-6"><a href="revisão-de-r.html#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="revisão-de-r.html#cb42-7" aria-hidden="true" tabindex="-1"></a>acoes <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(</span>
+<span id="cb42-8"><a href="revisão-de-r.html#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">tempo =</span> minha_data,</span>
+<span id="cb42-9"><a href="revisão-de-r.html#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb42-10"><a href="revisão-de-r.html#cb42-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb42-11"><a href="revisão-de-r.html#cb42-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Z =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb42-12"><a href="revisão-de-r.html#cb42-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Warning: `data_frame()` was deprecated in tibble 1.1.0.
+## ℹ Please use `tibble()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="revisão-de-r.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># criando data.frame de maneira mais inteligente</span></span>
+<span id="cb44-2"><a href="revisão-de-r.html#cb44-2" aria-hidden="true" tabindex="-1"></a>acoes <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(</span>
+<span id="cb44-3"><a href="revisão-de-r.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tempo =</span> <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>,</span>
+<span id="cb44-4"><a href="revisão-de-r.html#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb44-5"><a href="revisão-de-r.html#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb44-6"><a href="revisão-de-r.html#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Z =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb44-7"><a href="revisão-de-r.html#cb44-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
 </div>
 </div>
 <div id="bibliotecaspacotes" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Bibliotecas/pacotes<a href="revisão-de-r.html#bibliotecaspacotes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>O R permite que a gente importe comandos que não vêm por padrão no R. Em gerla esses comandos es~toa agrupados sob um pacote. PAra usar esses comandos, primeiro a gente instala o pacote, e depois carrega a biblioteca.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="revisão-de-r.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplos</span></span>
-<span id="cb39-2"><a href="revisão-de-r.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;data.table&quot;)</span></span>
-<span id="cb39-3"><a href="revisão-de-r.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">#library(readr)</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="revisão-de-r.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplos</span></span>
+<span id="cb45-2"><a href="revisão-de-r.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;data.table&quot;)</span></span>
+<span id="cb45-3"><a href="revisão-de-r.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#library(readr)</span></span></code></pre></div>
 </div>
 <div id="importando-dados" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> importando dados<a href="revisão-de-r.html#importando-dados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -299,6 +333,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Então, instalem ela se ainda não instalaram (usando o comando install.packages(“data.table”))
 E depois carreguem a biblioteca: library(data.table)</p>
 <p>Para importar, usaremos o comando fread do pacote data.table.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="revisão-de-r.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplos</span></span>
+<span id="cb46-2"><a href="revisão-de-r.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;data.table&quot;)</span></span>
+<span id="cb46-3"><a href="revisão-de-r.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co">#library(readr)</span></span></code></pre></div>
 
 </div>
 </div>
