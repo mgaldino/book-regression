@@ -162,6 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.6" data-path="revisão-de-r.html"><a href="revisão-de-r.html#bibliotecaspacotes"><i class="fa fa-check"></i><b>2.6</b> Bibliotecas/pacotes</a></li>
 <li class="chapter" data-level="2.7" data-path="revisão-de-r.html"><a href="revisão-de-r.html#importando-dados"><i class="fa fa-check"></i><b>2.7</b> importando dados</a></li>
 <li class="chapter" data-level="2.8" data-path="revisão-de-r.html"><a href="revisão-de-r.html#data-wrangling"><i class="fa fa-check"></i><b>2.8</b> Data wrangling</a></li>
+<li class="chapter" data-level="2.9" data-path="revisão-de-r.html"><a href="revisão-de-r.html#visualização"><i class="fa fa-check"></i><b>2.9</b> Visualização</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>3</b> - Revisão de estatística e probabilidade</a>
 <ul>
@@ -234,84 +235,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Simulação é uma ferramenta extremamente importante em probabilidade e estatística. Dois são seus principais usos. De um lado, é possível usar um modelo de probabilidade para recriar, artificialmente, no computador, amostras desse modelo, quantas vezes quisermos. Tudo se passa como se tivéssemos o poder de criar um mundo, totalmente controlado por nós, e podemos simular esse mundo e verificar o que acontece. Isso é útil quando não podemos ou não queremos verificar matematicamente o que deveria acontecer com base no modelo matemático de probabilidade. De outro lado, é possível usar simulações para aproximar quantidades matemáticas que não podemos ou não queremos calcular analiticamente. Por calcular analiticamente, é fazendo a conta nós mesmos. Um exemplo simples disso é, em vez de calcular os resultados de alguma análise combinatória usando as fórmulas de combinação e simularmos os valores e contar quantas combinações resultam.</p>
 <p>No geral usamos simulação para o primeiro tipo de uso. Mas, aqui no curso, será útil que vocês verifiquem resultados matemáticos por meio de simulações. Assim, se escrevemos que <span class="math inline">\(\sum_{i=1}^{10} i = 55\)</span>, vocês podem verificar com código no R essa soma, por exemplo, rodando: <code>sum(1:10)</code>. Sempre que vocês tiverem dúvida de algum passo matemático, podem fazer uma simulação para entender melhor o que está acontecendo. Isso é encorajado, para melhorar a intuição do que está acontecendo e lhe assegurar que de fato você está entendendo o que está acontecendo. Podemos usar simulações para aproximar quantidades. Um exemplo clássico em probabilidade é a fórmula de Stirling, dada por <span class="math inline">\(n! \sim \sqrt{2\pi}n^{n + 1/2}*e^{-n}\)</span>. Então, por exemplo, <span class="math inline">\(10! = 10*9*8*7*6*5*4*3*2*1\)</span> com os computadores modernos pode ser calculada diretamente para números não tão grandes. No caso, <span class="math inline">\(10! = 3628800\)</span>. Ou pode ser aproximada pela fórmula de Stirling:</p>
 <p>Exemplo 4.1</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="introdução-à-simulação.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especificando semente, para simulação ser reproduzível</span></span>
-<span id="cb50-2"><a href="introdução-à-simulação.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb50-3"><a href="introdução-à-simulação.html#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-4"><a href="introdução-à-simulação.html#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># número de amostras</span></span>
-<span id="cb50-5"><a href="introdução-à-simulação.html#cb50-5" aria-hidden="true" tabindex="-1"></a>stirling_aprox <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb50-6"><a href="introdução-à-simulação.html#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">*</span>n<span class="sc">^</span>(n<span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>n)</span>
-<span id="cb50-7"><a href="introdução-à-simulação.html#cb50-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb50-8"><a href="introdução-à-simulação.html#cb50-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-9"><a href="introdução-à-simulação.html#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">stirling_aprox</span>(<span class="dv">10</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="introdução-à-simulação.html#cb52-1" tabindex="-1"></a><span class="co"># especificando semente, para simulação ser reproduzível</span></span>
+<span id="cb52-2"><a href="introdução-à-simulação.html#cb52-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb52-3"><a href="introdução-à-simulação.html#cb52-3" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="introdução-à-simulação.html#cb52-4" tabindex="-1"></a><span class="co"># número de amostras</span></span>
+<span id="cb52-5"><a href="introdução-à-simulação.html#cb52-5" tabindex="-1"></a>stirling_aprox <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb52-6"><a href="introdução-à-simulação.html#cb52-6" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">*</span>n<span class="sc">^</span>(n<span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>n)</span>
+<span id="cb52-7"><a href="introdução-à-simulação.html#cb52-7" tabindex="-1"></a>}</span>
+<span id="cb52-8"><a href="introdução-à-simulação.html#cb52-8" tabindex="-1"></a></span>
+<span id="cb52-9"><a href="introdução-à-simulação.html#cb52-9" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">stirling_aprox</span>(<span class="dv">10</span>))</span></code></pre></div>
 <p>[1] 3598696</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="introdução-à-simulação.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># razão da aproximação para o valor correto</span></span>
-<span id="cb51-2"><a href="introdução-à-simulação.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stirling_aprox</span>(<span class="dv">10</span>)<span class="sc">/</span><span class="dv">3628800</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="introdução-à-simulação.html#cb53-1" tabindex="-1"></a><span class="co"># razão da aproximação para o valor correto</span></span>
+<span id="cb53-2"><a href="introdução-à-simulação.html#cb53-2" tabindex="-1"></a><span class="fu">stirling_aprox</span>(<span class="dv">10</span>)<span class="sc">/</span><span class="dv">3628800</span></span></code></pre></div>
 <p>[1] 0.991704</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="introdução-à-simulação.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erro percentual</span></span>
-<span id="cb52-2"><a href="introdução-à-simulação.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">stirling_aprox</span>(<span class="dv">10</span>)<span class="sc">/</span><span class="dv">3628800</span> <span class="co"># 0,8%</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="introdução-à-simulação.html#cb54-1" tabindex="-1"></a><span class="co"># erro percentual</span></span>
+<span id="cb54-2"><a href="introdução-à-simulação.html#cb54-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">stirling_aprox</span>(<span class="dv">10</span>)<span class="sc">/</span><span class="dv">3628800</span> <span class="co"># 0,8%</span></span></code></pre></div>
 <p>[1] 0.00829596</p>
 <p>Como se vê, a fórmula de Stirling é bem precisa para aproximar fatorial e muito mais fácil de computar.</p>
 <p>Dito isso, voltemos ao primeiro caso, de simulação de modelos de probabilidade.</p>
 <p>Comecemos lembrando que probabilidades podem ser interpretadas como frequências relativas de longo prazo. Portanto, a probabilidade de um evento pode ser aproximada por simulações, na medida em que aproximamos a frequência relativa com que o fenômeno acontece em nossas simulações. Vamos dar um exemplo simples desse tipo de aplicação.</p>
 <p>Suponha que quero simular a probabilidade do número 6 sair em um dado de seis lados.</p>
 <p>Exemplo 4.1.1</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="introdução-à-simulação.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especificando semente, para simulação ser reproduzível</span></span>
-<span id="cb53-2"><a href="introdução-à-simulação.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
-<span id="cb53-3"><a href="introdução-à-simulação.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># número de amostras</span></span>
-<span id="cb53-4"><a href="introdução-à-simulação.html#cb53-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb53-5"><a href="introdução-à-simulação.html#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-6"><a href="introdução-à-simulação.html#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1000 amostras de uma lançamento de dado de 6 lados</span></span>
-<span id="cb53-7"><a href="introdução-à-simulação.html#cb53-7" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, n, <span class="cn">TRUE</span>)</span>
-<span id="cb53-8"><a href="introdução-à-simulação.html#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-9"><a href="introdução-à-simulação.html#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="co"># frequência relativade 6 é dada por número de 6 / total de amostras</span></span>
-<span id="cb53-10"><a href="introdução-à-simulação.html#cb53-10" aria-hidden="true" tabindex="-1"></a>prob_6 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado <span class="sc">==</span> <span class="dv">6</span>)<span class="sc">/</span>n</span>
-<span id="cb53-11"><a href="introdução-à-simulação.html#cb53-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-12"><a href="introdução-à-simulação.html#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 16,89%</span></span>
-<span id="cb53-13"><a href="introdução-à-simulação.html#cb53-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 1/6 = 16.6666</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="introdução-à-simulação.html#cb55-1" tabindex="-1"></a><span class="co"># especificando semente, para simulação ser reproduzível</span></span>
+<span id="cb55-2"><a href="introdução-à-simulação.html#cb55-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb55-3"><a href="introdução-à-simulação.html#cb55-3" tabindex="-1"></a><span class="co"># número de amostras</span></span>
+<span id="cb55-4"><a href="introdução-à-simulação.html#cb55-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb55-5"><a href="introdução-à-simulação.html#cb55-5" tabindex="-1"></a></span>
+<span id="cb55-6"><a href="introdução-à-simulação.html#cb55-6" tabindex="-1"></a><span class="co"># 1000 amostras de uma lançamento de dado de 6 lados</span></span>
+<span id="cb55-7"><a href="introdução-à-simulação.html#cb55-7" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, n, <span class="cn">TRUE</span>)</span>
+<span id="cb55-8"><a href="introdução-à-simulação.html#cb55-8" tabindex="-1"></a></span>
+<span id="cb55-9"><a href="introdução-à-simulação.html#cb55-9" tabindex="-1"></a><span class="co"># frequência relativade 6 é dada por número de 6 / total de amostras</span></span>
+<span id="cb55-10"><a href="introdução-à-simulação.html#cb55-10" tabindex="-1"></a>prob_6 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado <span class="sc">==</span> <span class="dv">6</span>)<span class="sc">/</span>n</span>
+<span id="cb55-11"><a href="introdução-à-simulação.html#cb55-11" tabindex="-1"></a></span>
+<span id="cb55-12"><a href="introdução-à-simulação.html#cb55-12" tabindex="-1"></a><span class="co"># 16,89%</span></span>
+<span id="cb55-13"><a href="introdução-à-simulação.html#cb55-13" tabindex="-1"></a><span class="co"># 1/6 = 16.6666</span></span></code></pre></div>
 <p>Podemos também ver como a aproximação converge para o verdadeiro valor à medida que <span class="math inline">\(n\)</span> cresce.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="introdução-à-simulação.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especificando semente, para simulação ser reproduzível</span></span>
-<span id="cb54-2"><a href="introdução-à-simulação.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
-<span id="cb54-3"><a href="introdução-à-simulação.html#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="co"># número de amostras</span></span>
-<span id="cb54-4"><a href="introdução-à-simulação.html#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-5"><a href="introdução-à-simulação.html#cb54-5" aria-hidden="true" tabindex="-1"></a>vec_amostra <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">10000</span>, <span class="dv">100000</span>, <span class="dv">1000000</span>)</span>
-<span id="cb54-6"><a href="introdução-à-simulação.html#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-7"><a href="introdução-à-simulação.html#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co"># lista vazia para armazenar os resultados das simulações</span></span>
-<span id="cb54-8"><a href="introdução-à-simulação.html#cb54-8" aria-hidden="true" tabindex="-1"></a>resultado_lista <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb54-9"><a href="introdução-à-simulação.html#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-10"><a href="introdução-à-simulação.html#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="co"># vetor vazio para armazenar a frequência relativa de 6</span></span>
-<span id="cb54-11"><a href="introdução-à-simulação.html#cb54-11" aria-hidden="true" tabindex="-1"></a>vec_prob6 <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
-<span id="cb54-12"><a href="introdução-à-simulação.html#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-13"><a href="introdução-à-simulação.html#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
-<span id="cb54-14"><a href="introdução-à-simulação.html#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="co"># loop sobre os tamanhos das amostrar</span></span>
-<span id="cb54-15"><a href="introdução-à-simulação.html#cb54-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vec_amostra)) {</span>
-<span id="cb54-16"><a href="introdução-à-simulação.html#cb54-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># n amostras de uma lançamento de dado de 6 lados</span></span>
-<span id="cb54-17"><a href="introdução-à-simulação.html#cb54-17" aria-hidden="true" tabindex="-1"></a>resultado_lista[[i]] <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, vec_amostra[i], <span class="cn">TRUE</span>)</span>
-<span id="cb54-18"><a href="introdução-à-simulação.html#cb54-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-19"><a href="introdução-à-simulação.html#cb54-19" aria-hidden="true" tabindex="-1"></a><span class="co"># frequência relativade 6 é dada por número de 6 / total de amostras</span></span>
-<span id="cb54-20"><a href="introdução-à-simulação.html#cb54-20" aria-hidden="true" tabindex="-1"></a>vec_prob6[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_lista[[i]] <span class="sc">==</span> <span class="dv">6</span>)<span class="sc">/</span>vec_amostra[i]</span>
-<span id="cb54-21"><a href="introdução-à-simulação.html#cb54-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-22"><a href="introdução-à-simulação.html#cb54-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb54-23"><a href="introdução-à-simulação.html#cb54-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-24"><a href="introdução-à-simulação.html#cb54-24" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vec_prob6)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="introdução-à-simulação.html#cb56-1" tabindex="-1"></a><span class="co"># especificando semente, para simulação ser reproduzível</span></span>
+<span id="cb56-2"><a href="introdução-à-simulação.html#cb56-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb56-3"><a href="introdução-à-simulação.html#cb56-3" tabindex="-1"></a><span class="co"># número de amostras</span></span>
+<span id="cb56-4"><a href="introdução-à-simulação.html#cb56-4" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="introdução-à-simulação.html#cb56-5" tabindex="-1"></a>vec_amostra <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">10000</span>, <span class="dv">100000</span>, <span class="dv">1000000</span>)</span>
+<span id="cb56-6"><a href="introdução-à-simulação.html#cb56-6" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="introdução-à-simulação.html#cb56-7" tabindex="-1"></a><span class="co"># lista vazia para armazenar os resultados das simulações</span></span>
+<span id="cb56-8"><a href="introdução-à-simulação.html#cb56-8" tabindex="-1"></a>resultado_lista <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb56-9"><a href="introdução-à-simulação.html#cb56-9" tabindex="-1"></a></span>
+<span id="cb56-10"><a href="introdução-à-simulação.html#cb56-10" tabindex="-1"></a><span class="co"># vetor vazio para armazenar a frequência relativa de 6</span></span>
+<span id="cb56-11"><a href="introdução-à-simulação.html#cb56-11" tabindex="-1"></a>vec_prob6 <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb56-12"><a href="introdução-à-simulação.html#cb56-12" tabindex="-1"></a></span>
+<span id="cb56-13"><a href="introdução-à-simulação.html#cb56-13" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb56-14"><a href="introdução-à-simulação.html#cb56-14" tabindex="-1"></a><span class="co"># loop sobre os tamanhos das amostrar</span></span>
+<span id="cb56-15"><a href="introdução-à-simulação.html#cb56-15" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vec_amostra)) {</span>
+<span id="cb56-16"><a href="introdução-à-simulação.html#cb56-16" tabindex="-1"></a>  <span class="co"># n amostras de uma lançamento de dado de 6 lados</span></span>
+<span id="cb56-17"><a href="introdução-à-simulação.html#cb56-17" tabindex="-1"></a>resultado_lista[[i]] <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, vec_amostra[i], <span class="cn">TRUE</span>)</span>
+<span id="cb56-18"><a href="introdução-à-simulação.html#cb56-18" tabindex="-1"></a></span>
+<span id="cb56-19"><a href="introdução-à-simulação.html#cb56-19" tabindex="-1"></a><span class="co"># frequência relativade 6 é dada por número de 6 / total de amostras</span></span>
+<span id="cb56-20"><a href="introdução-à-simulação.html#cb56-20" tabindex="-1"></a>vec_prob6[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_lista[[i]] <span class="sc">==</span> <span class="dv">6</span>)<span class="sc">/</span>vec_amostra[i]</span>
+<span id="cb56-21"><a href="introdução-à-simulação.html#cb56-21" tabindex="-1"></a></span>
+<span id="cb56-22"><a href="introdução-à-simulação.html#cb56-22" tabindex="-1"></a>}</span>
+<span id="cb56-23"><a href="introdução-à-simulação.html#cb56-23" tabindex="-1"></a></span>
+<span id="cb56-24"><a href="introdução-à-simulação.html#cb56-24" tabindex="-1"></a><span class="fu">print</span>(vec_prob6)</span></code></pre></div>
 <p>[1] 0.150000 0.189000 0.164700 0.169250 0.166257</p>
 <p>Se supusermos que todos os números possuem a mesma chance de sair quando jogamos os dados, então, a distribuição conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> pode ser dada por:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="introdução-à-simulação.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb55-2"><a href="introdução-à-simulação.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb55-3"><a href="introdução-à-simulação.html#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-4"><a href="introdução-à-simulação.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir os valores de (x, y) e P(X = x, Y = y)</span></span>
-<span id="cb55-5"><a href="introdução-à-simulação.html#cb55-5" aria-hidden="true" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(2, 1)&quot;</span>, <span class="st">&quot;(3, 2)&quot;</span>, <span class="st">&quot;(4, 2)&quot;</span>, <span class="st">&quot;(4, 3)&quot;</span>, <span class="st">&quot;(5, 3)&quot;</span>, <span class="st">&quot;(5, 4)&quot;</span>, <span class="st">&quot;(6, 3)&quot;</span>, <span class="st">&quot;(6, 4)&quot;</span>, <span class="st">&quot;(7, 4)&quot;</span>, <span class="st">&quot;(8, 4)&quot;</span>)</span>
-<span id="cb55-6"><a href="introdução-à-simulação.html#cb55-6" aria-hidden="true" tabindex="-1"></a>probabilidades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>)</span>
-<span id="cb55-7"><a href="introdução-à-simulação.html#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-8"><a href="introdução-à-simulação.html#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
-<span id="cb55-9"><a href="introdução-à-simulação.html#cb55-9" aria-hidden="true" tabindex="-1"></a>tabela <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;(x, y)&quot;</span> <span class="ot">=</span> valores, <span class="st">&quot;P(X = x, Y = y)&quot;</span> <span class="ot">=</span> probabilidades)</span>
-<span id="cb55-10"><a href="introdução-à-simulação.html#cb55-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-11"><a href="introdução-à-simulação.html#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Formatar a tabela</span></span>
-<span id="cb55-12"><a href="introdução-à-simulação.html#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tabela, <span class="at">caption =</span> <span class="st">&quot;Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces&quot;</span>,</span>
-<span id="cb55-13"><a href="introdução-à-simulação.html#cb55-13" aria-hidden="true" tabindex="-1"></a>                          <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;$(X,Y)$&quot;</span>, <span class="st">&quot;$P(X=x, Y=y)$&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb55-14"><a href="introdução-à-simulação.html#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introdução-à-simulação.html#cb57-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb57-2"><a href="introdução-à-simulação.html#cb57-2" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb57-3"><a href="introdução-à-simulação.html#cb57-3" tabindex="-1"></a></span>
+<span id="cb57-4"><a href="introdução-à-simulação.html#cb57-4" tabindex="-1"></a><span class="co"># Definir os valores de (x, y) e P(X = x, Y = y)</span></span>
+<span id="cb57-5"><a href="introdução-à-simulação.html#cb57-5" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(2, 1)&quot;</span>, <span class="st">&quot;(3, 2)&quot;</span>, <span class="st">&quot;(4, 2)&quot;</span>, <span class="st">&quot;(4, 3)&quot;</span>, <span class="st">&quot;(5, 3)&quot;</span>, <span class="st">&quot;(5, 4)&quot;</span>, <span class="st">&quot;(6, 3)&quot;</span>, <span class="st">&quot;(6, 4)&quot;</span>, <span class="st">&quot;(7, 4)&quot;</span>, <span class="st">&quot;(8, 4)&quot;</span>)</span>
+<span id="cb57-6"><a href="introdução-à-simulação.html#cb57-6" tabindex="-1"></a>probabilidades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>)</span>
+<span id="cb57-7"><a href="introdução-à-simulação.html#cb57-7" tabindex="-1"></a></span>
+<span id="cb57-8"><a href="introdução-à-simulação.html#cb57-8" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
+<span id="cb57-9"><a href="introdução-à-simulação.html#cb57-9" tabindex="-1"></a>tabela <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;(x, y)&quot;</span> <span class="ot">=</span> valores, <span class="st">&quot;P(X = x, Y = y)&quot;</span> <span class="ot">=</span> probabilidades)</span>
+<span id="cb57-10"><a href="introdução-à-simulação.html#cb57-10" tabindex="-1"></a></span>
+<span id="cb57-11"><a href="introdução-à-simulação.html#cb57-11" tabindex="-1"></a><span class="co"># Formatar a tabela</span></span>
+<span id="cb57-12"><a href="introdução-à-simulação.html#cb57-12" tabindex="-1"></a><span class="fu">kable</span>(tabela, <span class="at">caption =</span> <span class="st">&quot;Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces&quot;</span>,</span>
+<span id="cb57-13"><a href="introdução-à-simulação.html#cb57-13" tabindex="-1"></a>                          <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;$(X,Y)$&quot;</span>, <span class="st">&quot;$P(X=x, Y=y)$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb57-14"><a href="introdução-à-simulação.html#cb57-14" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span></code></pre></div>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-29">Table 4.1: </span>Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces
+<span id="tab:unnamed-chunk-31">Table 4.1: </span>Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces
 </caption>
 <thead>
 <tr>
@@ -426,49 +427,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Vamos verificar esse teorema por meio de simulação?
 Configuração: suponha que <span class="math inline">\(p = .51\)</span> e <span class="math inline">\(q = .49\)</span>. O que sigifnica que é <span class="math inline">\((p-q)/(p+q) = .02/1 = 2\%\)</span>
 Primeiro, faremos uma simulação, e depois repetiremos k vezes a simulação para obter a frequência relativa.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="introdução-à-simulação.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
-<span id="cb56-2"><a href="introdução-à-simulação.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># número de votos na urna</span></span>
-<span id="cb56-3"><a href="introdução-à-simulação.html#cb56-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
-<span id="cb56-4"><a href="introdução-à-simulação.html#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-5"><a href="introdução-à-simulação.html#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 é o voto para P, -1 o voto para Q.</span></span>
-<span id="cb56-6"><a href="introdução-à-simulação.html#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co"># então geramos n votos e armazenamos em votos</span></span>
-<span id="cb56-7"><a href="introdução-à-simulação.html#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-8"><a href="introdução-à-simulação.html#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co"># vamos usar rbinom, que gera 0 ou 1.</span></span>
-<span id="cb56-9"><a href="introdução-à-simulação.html#cb56-9" aria-hidden="true" tabindex="-1"></a>votos <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="at">p=</span>.<span class="dv">51</span>)</span>
-<span id="cb56-10"><a href="introdução-à-simulação.html#cb56-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-11"><a href="introdução-à-simulação.html#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="co"># transformado 0 em -1</span></span>
-<span id="cb56-12"><a href="introdução-à-simulação.html#cb56-12" aria-hidden="true" tabindex="-1"></a>votos <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(votos <span class="sc">==</span> <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, votos)</span>
-<span id="cb56-13"><a href="introdução-à-simulação.html#cb56-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-14"><a href="introdução-à-simulação.html#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Agora, iremos contar o primeiro voto e registrar para quem vai. Depois o segundo e o terceiro etc. até não sobrarem votos a serem apurados. Vamso guardar essa sequência em um objeto apuração.</span></span>
-<span id="cb56-15"><a href="introdução-à-simulação.html#cb56-15" aria-hidden="true" tabindex="-1"></a>apuracao <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
-<span id="cb56-16"><a href="introdução-à-simulação.html#cb56-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-17"><a href="introdução-à-simulação.html#cb56-17" aria-hidden="true" tabindex="-1"></a><span class="co"># em seguida, contamos se em algum momento Q está na frente. Se estiver, então não aconteceu de P liderar toda a apuração.</span></span>
-<span id="cb56-18"><a href="introdução-à-simulação.html#cb56-18" aria-hidden="true" tabindex="-1"></a>contagem_lideranca <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
-<span id="cb56-19"><a href="introdução-à-simulação.html#cb56-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span>  <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb56-20"><a href="introdução-à-simulação.html#cb56-20" aria-hidden="true" tabindex="-1"></a>  apuracao[i] <span class="ot">&lt;-</span> votos[i]</span>
-<span id="cb56-21"><a href="introdução-à-simulação.html#cb56-21" aria-hidden="true" tabindex="-1"></a>  contagem_lideranca[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(apuracao)</span>
-<span id="cb56-22"><a href="introdução-à-simulação.html#cb56-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb56-23"><a href="introdução-à-simulação.html#cb56-23" aria-hidden="true" tabindex="-1"></a><span class="co"># se a soma dos votos for positiva, tivemos mais votos 1 que -1. Se for negativa ou igual a zero, P não esteve liderando (esteve atrás ou empatando)</span></span>
-<span id="cb56-24"><a href="introdução-à-simulação.html#cb56-24" aria-hidden="true" tabindex="-1"></a><span class="co"># então, basta contar quantos casos aconteceram da soma dos votos apurados é menor ou igual a zero.</span></span>
-<span id="cb56-25"><a href="introdução-à-simulação.html#cb56-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-26"><a href="introdução-à-simulação.html#cb56-26" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">sum</span>(contagem_lideranca <span class="sc">&lt;=</span> <span class="dv">0</span>)) <span class="fu">print</span>(<span class="st">&quot;p não liderou sempre&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="introdução-à-simulação.html#cb58-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb58-2"><a href="introdução-à-simulação.html#cb58-2" tabindex="-1"></a><span class="co"># número de votos na urna</span></span>
+<span id="cb58-3"><a href="introdução-à-simulação.html#cb58-3" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb58-4"><a href="introdução-à-simulação.html#cb58-4" tabindex="-1"></a></span>
+<span id="cb58-5"><a href="introdução-à-simulação.html#cb58-5" tabindex="-1"></a><span class="co"># 1 é o voto para P, -1 o voto para Q.</span></span>
+<span id="cb58-6"><a href="introdução-à-simulação.html#cb58-6" tabindex="-1"></a><span class="co"># então geramos n votos e armazenamos em votos</span></span>
+<span id="cb58-7"><a href="introdução-à-simulação.html#cb58-7" tabindex="-1"></a></span>
+<span id="cb58-8"><a href="introdução-à-simulação.html#cb58-8" tabindex="-1"></a><span class="co"># vamos usar rbinom, que gera 0 ou 1.</span></span>
+<span id="cb58-9"><a href="introdução-à-simulação.html#cb58-9" tabindex="-1"></a>votos <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="at">p=</span>.<span class="dv">51</span>)</span>
+<span id="cb58-10"><a href="introdução-à-simulação.html#cb58-10" tabindex="-1"></a></span>
+<span id="cb58-11"><a href="introdução-à-simulação.html#cb58-11" tabindex="-1"></a><span class="co"># transformado 0 em -1</span></span>
+<span id="cb58-12"><a href="introdução-à-simulação.html#cb58-12" tabindex="-1"></a>votos <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(votos <span class="sc">==</span> <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, votos)</span>
+<span id="cb58-13"><a href="introdução-à-simulação.html#cb58-13" tabindex="-1"></a></span>
+<span id="cb58-14"><a href="introdução-à-simulação.html#cb58-14" tabindex="-1"></a><span class="co"># Agora, iremos contar o primeiro voto e registrar para quem vai. Depois o segundo e o terceiro etc. até não sobrarem votos a serem apurados. Vamso guardar essa sequência em um objeto apuração.</span></span>
+<span id="cb58-15"><a href="introdução-à-simulação.html#cb58-15" tabindex="-1"></a>apuracao <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb58-16"><a href="introdução-à-simulação.html#cb58-16" tabindex="-1"></a></span>
+<span id="cb58-17"><a href="introdução-à-simulação.html#cb58-17" tabindex="-1"></a><span class="co"># em seguida, contamos se em algum momento Q está na frente. Se estiver, então não aconteceu de P liderar toda a apuração.</span></span>
+<span id="cb58-18"><a href="introdução-à-simulação.html#cb58-18" tabindex="-1"></a>contagem_lideranca <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb58-19"><a href="introdução-à-simulação.html#cb58-19" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span>  <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb58-20"><a href="introdução-à-simulação.html#cb58-20" tabindex="-1"></a>  apuracao[i] <span class="ot">&lt;-</span> votos[i]</span>
+<span id="cb58-21"><a href="introdução-à-simulação.html#cb58-21" tabindex="-1"></a>  contagem_lideranca[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(apuracao)</span>
+<span id="cb58-22"><a href="introdução-à-simulação.html#cb58-22" tabindex="-1"></a>}</span>
+<span id="cb58-23"><a href="introdução-à-simulação.html#cb58-23" tabindex="-1"></a><span class="co"># se a soma dos votos for positiva, tivemos mais votos 1 que -1. Se for negativa ou igual a zero, P não esteve liderando (esteve atrás ou empatando)</span></span>
+<span id="cb58-24"><a href="introdução-à-simulação.html#cb58-24" tabindex="-1"></a><span class="co"># então, basta contar quantos casos aconteceram da soma dos votos apurados é menor ou igual a zero.</span></span>
+<span id="cb58-25"><a href="introdução-à-simulação.html#cb58-25" tabindex="-1"></a></span>
+<span id="cb58-26"><a href="introdução-à-simulação.html#cb58-26" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">sum</span>(contagem_lideranca <span class="sc">&lt;=</span> <span class="dv">0</span>)) <span class="fu">print</span>(<span class="st">&quot;p não liderou sempre&quot;</span>)</span></code></pre></div>
 <p>[1] “p não liderou sempre”</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introdução-à-simulação.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#agora, vamos fazer a simulação mil vezes. Esperamos que aprox. 2% das vezes P lidere sempre.</span></span>
-<span id="cb57-2"><a href="introdução-à-simulação.html#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-3"><a href="introdução-à-simulação.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co"># simulando k = 1000 vezes</span></span>
-<span id="cb57-4"><a href="introdução-à-simulação.html#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-5"><a href="introdução-à-simulação.html#cb57-5" aria-hidden="true" tabindex="-1"></a>apuracao <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
-<span id="cb57-6"><a href="introdução-à-simulação.html#cb57-6" aria-hidden="true" tabindex="-1"></a>contagem_lideranca <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
-<span id="cb57-7"><a href="introdução-à-simulação.html#cb57-7" aria-hidden="true" tabindex="-1"></a>freq_lideranca <span class="ot">&lt;-</span> <span class="fu">numeric</span>() <span class="co"># armazanear se liderou ou não em cada sim k</span></span>
-<span id="cb57-8"><a href="introdução-à-simulação.html#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-9"><a href="introdução-à-simulação.html#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>)  {</span>
-<span id="cb57-10"><a href="introdução-à-simulação.html#cb57-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> ( i <span class="cf">in</span>  <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb57-11"><a href="introdução-à-simulação.html#cb57-11" aria-hidden="true" tabindex="-1"></a>  apuracao[i] <span class="ot">&lt;-</span> votos[i]</span>
-<span id="cb57-12"><a href="introdução-à-simulação.html#cb57-12" aria-hidden="true" tabindex="-1"></a>  contagem_lideranca[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(apuracao)</span>
-<span id="cb57-13"><a href="introdução-à-simulação.html#cb57-13" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb57-14"><a href="introdução-à-simulação.html#cb57-14" aria-hidden="true" tabindex="-1"></a>  freq_lideranca[k] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">sum</span>(contagem_lideranca <span class="sc">&lt;=</span> <span class="dv">0</span>))</span>
-<span id="cb57-15"><a href="introdução-à-simulação.html#cb57-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>( k<span class="sc">%%</span> <span class="dv">50</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">print</span>(k) <span class="co"># para vermos a evolução da simulação a cada 50 passos</span></span>
-<span id="cb57-16"><a href="introdução-à-simulação.html#cb57-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introdução-à-simulação.html#cb59-1" tabindex="-1"></a><span class="co">#agora, vamos fazer a simulação mil vezes. Esperamos que aprox. 2% das vezes P lidere sempre.</span></span>
+<span id="cb59-2"><a href="introdução-à-simulação.html#cb59-2" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="introdução-à-simulação.html#cb59-3" tabindex="-1"></a><span class="co"># simulando k = 1000 vezes</span></span>
+<span id="cb59-4"><a href="introdução-à-simulação.html#cb59-4" tabindex="-1"></a></span>
+<span id="cb59-5"><a href="introdução-à-simulação.html#cb59-5" tabindex="-1"></a>apuracao <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb59-6"><a href="introdução-à-simulação.html#cb59-6" tabindex="-1"></a>contagem_lideranca <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb59-7"><a href="introdução-à-simulação.html#cb59-7" tabindex="-1"></a>freq_lideranca <span class="ot">&lt;-</span> <span class="fu">numeric</span>() <span class="co"># armazanear se liderou ou não em cada sim k</span></span>
+<span id="cb59-8"><a href="introdução-à-simulação.html#cb59-8" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="introdução-à-simulação.html#cb59-9" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>)  {</span>
+<span id="cb59-10"><a href="introdução-à-simulação.html#cb59-10" tabindex="-1"></a>  <span class="cf">for</span> ( i <span class="cf">in</span>  <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb59-11"><a href="introdução-à-simulação.html#cb59-11" tabindex="-1"></a>  apuracao[i] <span class="ot">&lt;-</span> votos[i]</span>
+<span id="cb59-12"><a href="introdução-à-simulação.html#cb59-12" tabindex="-1"></a>  contagem_lideranca[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(apuracao)</span>
+<span id="cb59-13"><a href="introdução-à-simulação.html#cb59-13" tabindex="-1"></a>  }</span>
+<span id="cb59-14"><a href="introdução-à-simulação.html#cb59-14" tabindex="-1"></a>  freq_lideranca[k] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">sum</span>(contagem_lideranca <span class="sc">&lt;=</span> <span class="dv">0</span>))</span>
+<span id="cb59-15"><a href="introdução-à-simulação.html#cb59-15" tabindex="-1"></a>  <span class="cf">if</span>( k<span class="sc">%%</span> <span class="dv">50</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">print</span>(k) <span class="co"># para vermos a evolução da simulação a cada 50 passos</span></span>
+<span id="cb59-16"><a href="introdução-à-simulação.html#cb59-16" tabindex="-1"></a>}</span></code></pre></div>
 <p>[1] 50
 [1] 100
 [1] 150
@@ -489,12 +490,12 @@ Primeiro, faremos uma simulação, e depois repetiremos k vezes a simulação pa
 [1] 900
 [1] 950
 [1] 1000</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="introdução-à-simulação.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># se a soma dos votos for positiva, tivemos mais votos 1 que -1. Se for negativa ou igual a zero, P não esteve liderando (esteve atrás ou empatando)</span></span>
-<span id="cb58-2"><a href="introdução-à-simulação.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co"># então, basta contar quantos casos aconteceram da soma dos votos apurados é menor ou igual a zero.</span></span>
-<span id="cb58-3"><a href="introdução-à-simulação.html#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-4"><a href="introdução-à-simulação.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(freq_lideranca)<span class="sc">/</span>k)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="introdução-à-simulação.html#cb60-1" tabindex="-1"></a><span class="co"># se a soma dos votos for positiva, tivemos mais votos 1 que -1. Se for negativa ou igual a zero, P não esteve liderando (esteve atrás ou empatando)</span></span>
+<span id="cb60-2"><a href="introdução-à-simulação.html#cb60-2" tabindex="-1"></a><span class="co"># então, basta contar quantos casos aconteceram da soma dos votos apurados é menor ou igual a zero.</span></span>
+<span id="cb60-3"><a href="introdução-à-simulação.html#cb60-3" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="introdução-à-simulação.html#cb60-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(freq_lideranca)<span class="sc">/</span>k)</span></code></pre></div>
 <p>[1] 0.281</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introdução-à-simulação.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0,281 ou 2,8%. Próximo dovalor verdadeiro de 2%. Se aumentarmos k, irá convergir para o valor verdadeiro. </span></span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="introdução-à-simulação.html#cb61-1" tabindex="-1"></a><span class="co"># 0,281 ou 2,8%. Próximo dovalor verdadeiro de 2%. Se aumentarmos k, irá convergir para o valor verdadeiro. </span></span></code></pre></div>
 <p>Suponha agora um problema diferente. Um dos dois candidatos vai ter a primeira liderança. Após <span class="math inline">\(n\)</span> votos apurados, qual a probabilidade de a contagem ter empatado pela primeira vez? Dito de outro modo, após uma das candidatas assumir a liderança, quanto “tempo” (isto é, após quantos votos apurados) em média devemos esperar até que uma reversão de liderança ocorra (ou pelo menos um empate)?</p>
 <p>A intuição que as pessoas têm, talvez a partir da lei dos grandes números, é que deveríamos esperar que, se <span class="math inline">\(p = q = 1/2\)</span>, ambas candidatas deveriam liderar por 50% do tempo em uma apuração suficientemente longa (com <span class="math inline">\(n\)</span> votos grande) e deveria haver troca constante de liderança, em vez de uma candidata liderar po um longo tempo. Essa intuição é errada, como iremos mostrar agora por simulação. A leitora interessada na demonstração matemática utilizando apenas análise combinatória (portanto, apenas estatística básica) deve consultar o clássico livro de Feller (1968).</p>
 

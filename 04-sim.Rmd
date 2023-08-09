@@ -5,7 +5,7 @@ Simulação é uma ferramenta extremamente importante em probabilidade e estatí
 No geral usamos simulação para o primeiro tipo de uso. Mas, aqui no curso, será útil que vocês verifiquem resultados matemáticos por meio de simulações. Assim, se escrevemos que $\sum_{i=1}^{10} i = 55$, vocês podem verificar com código no R essa soma, por exemplo, rodando: `sum(1:10)`. Sempre que vocês tiverem dúvida de algum passo matemático, podem fazer uma simulação para entender melhor o que está acontecendo. Isso é encorajado, para melhorar a intuição do que está acontecendo e lhe assegurar que de fato você está entendendo o que está acontecendo. Podemos usar simulações para aproximar quantidades. Um exemplo clássico em probabilidade é a fórmula de Stirling, dada por $n!  \sim \sqrt{2\pi}n^{n + 1/2}*e^{-n}$. Então, por exemplo, $10! = 10*9*8*7*6*5*4*3*2*1$ com os computadores modernos pode ser calculada diretamente para números não tão grandes. No caso, $10! = 3628800$. Ou pode ser aproximada pela fórmula de Stirling:
 
 Exemplo 4.1
-```{r, results='asis'}
+```{r sim1, results='asis'}
 # especificando semente, para simulação ser reproduzível
 set.seed(2)
 

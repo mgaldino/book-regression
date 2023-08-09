@@ -189,7 +189,8 @@ library(ribge)
 ??ribge::ribge
 
 # vamos usar uma que retorna o pib municipal
-pib_cid <- pib_municipios(2013)
+# pib_cid <- pib_municipios(2013)
+pib_cid <- readRDS("dados/pib_cid.RDS")
 
 # para visualizar os dados que forma importados, temos várias funções
 # glimpse, head e View
@@ -297,7 +298,6 @@ df <- pib_cid %>%
   head()
 
 kable(df)
-kable(df)
 
 ```
 
@@ -305,3 +305,47 @@ Vamos entrar na Wiki do município ou perguntar pra chatGPT o que explica isso a
 Veremos que "faz sentido", embora na verdade não faça. 
 
 Exercício em sala de aula: veja os impostos desse município. 
+
+## Visualização
+
+Para visualizarmos os dados com gráficos, utilizaremos a biblioteca ggplot2
+
+```{r, results='asis', message=FALSE}
+# gráficos
+
+library(ggplot2)
+pib_cid %>%
+  ggplot(aes(y=pib_total, x=impostos)) + geom_point()
+
+
+```
+
+A lgócia geral de um grtáfico com ggplot2 é como no exemplo acima. Primeiro passamos as variáveis por meio do comando ggplot, dentro de aes (de aesthetics), depois combinamos com o tipo de plot que queremos faze,r nesse caso, pontos, com geom_point. É possívle customizar o gráfico para ele ficar mais bonito. Vamos fazer isso agora.
+
+```{r, results='asis', message=FALSE}
+# gráficos  mais bonitos
+
+
+pib_cid %>%
+  ggplot(aes(y=pib_total, x=impostos)) + geom_point() +
+  scale_y_continuous(labels = scales::dollar) + theme_light() +
+  xlab("impostos municipais") + ggtitle("PIB municipal de 2013 x impostos municipais")
+
+
+```
+
+Podemos usar vários temas feitos pela comunidade. Por exemplo, Barbie:
+```{r, results='asis', message=FALSE}
+# gráficos  mais bonitos
+
+# install.packages("remotes")
+#remotes::install_github("MatthewBJane/theme_park")
+library(ThemePark)
+
+pib_cid %>%
+  ggplot(aes(y=pib_total, x=impostos)) + geom_point() +
+  scale_y_continuous(labels = scales::dollar) + theme_barbie() +
+  xlab("impostos municipais") + ggtitle("PIB municipal de 2013 x impostos municipais")
+
+
+```
