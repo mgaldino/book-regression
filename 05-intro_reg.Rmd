@@ -9,6 +9,7 @@ Nós iremos tomar aqui o caminho de considerar que a regressão linear é uma fo
 ```{r, echo=FALSE, message=FALSE}
 library(ribge)
 library(ggplot2)
+library(tidyverse)
 
 # pib_cid <- pib_municipios(2013)
 
