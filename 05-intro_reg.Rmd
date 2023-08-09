@@ -10,8 +10,9 @@ Nós iremos tomar aqui o caminho de considerar que a regressão linear é uma fo
 library(ribge)
 library(ggplot2)
 
-pib_cid <- pib_municipios(2013)
+# pib_cid <- pib_municipios(2013)
 
+pib_cid <- readRDS("dados/pib_cid.RDS")
 pib_cid %>%
   ggplot(aes(y=pib_per_capita, x=amazonia_legal)) + geom_point(shape = 1) +
   scale_y_continuous(labels = scales::dollar)
