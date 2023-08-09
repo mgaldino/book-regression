@@ -349,3 +349,19 @@ pib_cid %>%
 
 
 ```
+
+Vocês podem ver outros temas de filmes no github do autor do pacote: https://github.com/MatthewBJane/theme_park
+E, claro, há muito mais na internet.
+
+Para fazer outro tipo de gráfico, é só variar o geom. Por exemplo, um histograma do PIB per capita.
+
+```{r, results='asis', message=FALSE}
+# Histograma
+
+
+pib_cid %>%
+  ggplot(aes(y=pib_per_capita)) + geom_histogram() +
+  theme_light() + ggtitle("PIB per capita municipal")
+
+
+```

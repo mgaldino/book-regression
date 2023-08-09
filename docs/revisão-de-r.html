@@ -1976,6 +1976,16 @@ Veremos que “faz sentido”, embora na verdade não faça.</p>
 <span id="cb39-9"><a href="revisão-de-r.html#cb39-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme_barbie</span>() <span class="sc">+</span></span>
 <span id="cb39-10"><a href="revisão-de-r.html#cb39-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>Vocês podem ver outros temas de filmes no github do autor do pacote: <a href="https://github.com/MatthewBJane/theme_park" class="uri">https://github.com/MatthewBJane/theme_park</a>
+E, claro, há muito mais na internet.</p>
+<p>Para fazer outro tipo de gráfico, é só variar o geom. Por exemplo, um histograma do PIB per capita.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="revisão-de-r.html#cb40-1" tabindex="-1"></a><span class="co"># Histograma</span></span>
+<span id="cb40-2"><a href="revisão-de-r.html#cb40-2" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="revisão-de-r.html#cb40-3" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="revisão-de-r.html#cb40-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb40-5"><a href="revisão-de-r.html#cb40-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_per_capita)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb40-6"><a href="revisão-de-r.html#cb40-6" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB per capita municipal&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 
 </div>
 </div>
