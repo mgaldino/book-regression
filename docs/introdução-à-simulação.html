@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt" xml:lang="pt">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 4 Introdução à Simulação | Introdução à Regresssão para Ciências Sociais</title>
+  <meta name="description" content="Capítulo 4 Introdução à Simulação | Introdução à Regresssão para Ciências Sociais" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 4 Introdução à Simulação | Introdução à Regresssão para Ciências Sociais" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 4 Introdução à Simulação | Introdução à Regresssão para Ciências Sociais" />
+  
+  
+  
+
+<meta name="author" content="Manoel Galdino" />
+
+
+<meta name="date" content="2023-08-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="revisão-de-estatística-e-probabilidade.html"/>
+<link rel="next" href="introdução-à-regressão-linear-univariada.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introdução à Regressão</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> - Prefácio</a></li>
+<li class="chapter" data-level="2" data-path="revisão-de-r.html"><a href="revisão-de-r.html"><i class="fa fa-check"></i><b>2</b> - Revisão de R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html#r-e-rstudio"><i class="fa fa-check"></i><b>2.1</b> R e Rstudio</a></li>
+<li class="chapter" data-level="2.2" data-path="revisão-de-r.html"><a href="revisão-de-r.html#r-como-calculadora"><i class="fa fa-check"></i><b>2.2</b> R como calculadora</a></li>
+<li class="chapter" data-level="2.3" data-path="revisão-de-r.html"><a href="revisão-de-r.html#objetos-no-r"><i class="fa fa-check"></i><b>2.3</b> Objetos no R</a></li>
+<li class="chapter" data-level="2.4" data-path="revisão-de-r.html"><a href="revisão-de-r.html#tipos-de-objetos"><i class="fa fa-check"></i><b>2.4</b> Tipos de objetos</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html#numeric"><i class="fa fa-check"></i><b>2.4.1</b> Numeric</a></li>
+<li class="chapter" data-level="2.4.2" data-path="revisão-de-r.html"><a href="revisão-de-r.html#character"><i class="fa fa-check"></i><b>2.4.2</b> character</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="revisão-de-r.html"><a href="revisão-de-r.html#armazenando-dados"><i class="fa fa-check"></i><b>2.5</b> Armazenando dados</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html#vetor"><i class="fa fa-check"></i><b>2.5.1</b> Vetor</a></li>
+<li class="chapter" data-level="2.5.2" data-path="revisão-de-r.html"><a href="revisão-de-r.html#matriz"><i class="fa fa-check"></i><b>2.5.2</b> Matriz</a></li>
+<li class="chapter" data-level="2.5.3" data-path="revisão-de-r.html"><a href="revisão-de-r.html#data-frame"><i class="fa fa-check"></i><b>2.5.3</b> Data Frame</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="revisão-de-r.html"><a href="revisão-de-r.html#bibliotecaspacotes"><i class="fa fa-check"></i><b>2.6</b> Bibliotecas/pacotes</a></li>
+<li class="chapter" data-level="2.7" data-path="revisão-de-r.html"><a href="revisão-de-r.html#importando-dados"><i class="fa fa-check"></i><b>2.7</b> importando dados</a></li>
+<li class="chapter" data-level="2.8" data-path="revisão-de-r.html"><a href="revisão-de-r.html#data-wrangling"><i class="fa fa-check"></i><b>2.8</b> Data wrangling</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>3</b> - Revisão de estatística e probabilidade</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#variável-aleatória"><i class="fa fa-check"></i><b>3.1</b> Variável Aleatória</a></li>
+<li class="chapter" data-level="3.2" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#esperança-matemática"><i class="fa fa-check"></i><b>3.2</b> Esperança matemática</a></li>
+<li class="chapter" data-level="3.3" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#variância"><i class="fa fa-check"></i><b>3.3</b> Variância</a></li>
+<li class="chapter" data-level="3.4" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#algebra-com-esperança-variância-e-covariância"><i class="fa fa-check"></i><b>3.4</b> Algebra com Esperança, Variância e Covariância</a></li>
+<li class="chapter" data-level="3.5" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#distribuição-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.5</b> Distribuição de Probabilidade Conjunta</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html"><i class="fa fa-check"></i><b>4</b> Introdução à Simulação</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#configuraçao"><i class="fa fa-check"></i><b>4.0.1</b> Configuraçao</a></li>
+<li class="chapter" data-level="4.0.2" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#simular"><i class="fa fa-check"></i><b>4.0.2</b> Simular</a></li>
+<li class="chapter" data-level="4.0.3" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#resumir"><i class="fa fa-check"></i><b>4.0.3</b> Resumir</a></li>
+<li class="chapter" data-level="4.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#análise-de-sensibilidade"><i class="fa fa-check"></i><b>4.1</b> Análise de sensibilidade</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html"><i class="fa fa-check"></i><b>5</b> Introdução à regressão linear univariada</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#esperança-condicional"><i class="fa fa-check"></i><b>5.1</b> Esperança Condicional</a></li>
+<li class="chapter" data-level="5.2" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#cef"><i class="fa fa-check"></i><b>5.2</b> CEF</a></li>
+<li class="chapter" data-level="5.3" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#objetivos-de-aprendizagem-ao-final-do-capítulo"><i class="fa fa-check"></i><b>5.3</b> Objetivos de aprendizagem ao final do capítulo</a></li>
+<li class="chapter" data-level="5.4" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#this-week"><i class="fa fa-check"></i><b>5.4</b> This week</a></li>
+<li class="chapter" data-level="5.5" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#coming-attractions"><i class="fa fa-check"></i><b>5.5</b> Coming Attractions</a></li>
+<li class="chapter" data-level="5.6" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#conditional-expectation-function-cef"><i class="fa fa-check"></i><b>5.6</b> Conditional Expectation Function (CEF),</a></li>
+<li class="chapter" data-level="5.7" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#part-i"><i class="fa fa-check"></i><b>5.7</b> Part I</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#part-ii"><i class="fa fa-check"></i><b>5.7.1</b> Part II</a></li>
+<li class="chapter" data-level="5.7.2" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#part-iii"><i class="fa fa-check"></i><b>5.7.2</b> Part III</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#computing-the-cef"><i class="fa fa-check"></i><b>5.8</b> Computing the CEF</a></li>
+<li class="chapter" data-level="5.9" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#simple-quantities"><i class="fa fa-check"></i><b>5.9</b> Simple Quantities</a></li>
+<li class="chapter" data-level="5.10" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#conditional-quantities"><i class="fa fa-check"></i><b>5.10</b> Conditional Quantities</a></li>
+<li class="chapter" data-level="5.11" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#conditional-expectaiton"><i class="fa fa-check"></i><b>5.11</b> Conditional Expectaiton</a>
+<ul>
+<li class="chapter" data-level="5.11.1" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#conditional-expectation"><i class="fa fa-check"></i><b>5.11.1</b> Conditional Expectation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.12" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#minimizing-the-mse"><i class="fa fa-check"></i><b>5.12</b> Minimizing the MSE</a>
+<ul>
+<li class="chapter" data-level="5.12.1" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#minimizing-mse"><i class="fa fa-check"></i><b>5.12.1</b> Minimizing MSE</a></li>
+<li class="chapter" data-level="5.12.2" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#the-pudding-aka-where-the-proof-is"><i class="fa fa-check"></i><b>5.12.2</b> The pudding (aka: “Where the proof is”)</a></li>
+<li class="chapter" data-level="5.12.3" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#the-implication"><i class="fa fa-check"></i><b>5.12.3</b> The Implication</a></li>
+</ul></li>
+<li class="chapter" data-level="5.13" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#working-with-the-blp"><i class="fa fa-check"></i><b>5.13</b> Working with the BLP</a>
+<ul>
+<li class="chapter" data-level="5.13.1" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#professorial-mistakes-discrete-rvs"><i class="fa fa-check"></i><b>5.13.1</b> Professorial Mistakes (Discrete RVs)</a></li>
+<li class="chapter" data-level="5.13.2" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#continuous-blp"><i class="fa fa-check"></i><b>5.13.2</b> Continuous BLP</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução à Regresssão para Ciências Sociais</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introdução-à-simulação" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Capítulo 4</span> Introdução à Simulação<a href="introdução-à-simulação.html#introdução-à-simulação" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Simulação é uma ferramenta extremamente importante em probabilidade e estatística. Dois são seus principais usos. De um lado, é possível usar um modelo de probabilidade para recriar, artificialmente, no computador, amostras desse modelo, quantas vezes quisermos. Tudo se passa como se tivéssemos o poder de criar um mundo, totalmente controlado por nós, e podemos simular esse mundo e verificar o que acontece. Isso é útil quando não podemos ou não queremos verificar matematicamente o que deveria acontecer com base no modelo matemático de probabilidade. De outro lado, é possível usar simulações para aproximar quantidades matemáticas que não podemos ou não queremos calcular analiticamente. Por calcular analiticamente, é fazendo a conta nós mesmos. Um exemplo simples disso é, em vez de calcular os resultados de alguma análise combinatória usando as fórmulas de combinação e simularmos os valores e contar quantas combinações resultam.</p>
+<p>No geral usamos simulação para o primeiro tipo de uso. Mas, aqui no curso, será útil que vocês verifiquem resultados matemáticos por meio de simulações. Assim, se escrevemos que <span class="math inline">\(\sum_{i=1}^{10} i = 55\)</span>, vocês podem verificar com código no R essa soma, por exemplo, rodando: <code>sum(1:10)</code>. Sempre que vocês tiverem dúvida de algum passo matemático, podem fazer uma simulação para entender melhor o que está acontecendo. Isso é encorajado, para melhorar a intuição do que está acontecendo e lhe assegurar que de fato você está entendendo o que está acontecendo. Podemos usar simulações para aproximar quantidades. Um exemplo clássico em probabilidade é a fórmula de Stirling, dada por <span class="math inline">\(n! \sim \sqrt{2\pi}n^{n + 1/2}*e^{-n}\)</span>. Então, por exemplo, <span class="math inline">\(10! = 10*9*8*7*6*5*4*3*2*1\)</span> com os computadores modernos pode ser calculada diretamente para números não tão grandes. No caso, <span class="math inline">\(10! = 3628800\)</span>. Ou pode ser aproximada pela fórmula de Stirling:</p>
+<p>Exemplo 4.1</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="introdução-à-simulação.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especificando semente, para simulação ser reproduzível</span></span>
+<span id="cb50-2"><a href="introdução-à-simulação.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb50-3"><a href="introdução-à-simulação.html#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="introdução-à-simulação.html#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># número de amostras</span></span>
+<span id="cb50-5"><a href="introdução-à-simulação.html#cb50-5" aria-hidden="true" tabindex="-1"></a>stirling_aprox <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb50-6"><a href="introdução-à-simulação.html#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">*</span>n<span class="sc">^</span>(n<span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>n)</span>
+<span id="cb50-7"><a href="introdução-à-simulação.html#cb50-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-8"><a href="introdução-à-simulação.html#cb50-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-9"><a href="introdução-à-simulação.html#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">stirling_aprox</span>(<span class="dv">10</span>))</span></code></pre></div>
+<p>[1] 3598696</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="introdução-à-simulação.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># razão da aproximação para o valor correto</span></span>
+<span id="cb51-2"><a href="introdução-à-simulação.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stirling_aprox</span>(<span class="dv">10</span>)<span class="sc">/</span><span class="dv">3628800</span></span></code></pre></div>
+<p>[1] 0.991704</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="introdução-à-simulação.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erro percentual</span></span>
+<span id="cb52-2"><a href="introdução-à-simulação.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">stirling_aprox</span>(<span class="dv">10</span>)<span class="sc">/</span><span class="dv">3628800</span> <span class="co"># 0,8%</span></span></code></pre></div>
+<p>[1] 0.00829596</p>
+<p>Como se vê, a fórmula de Stirling é bem precisa para aproximar fatorial e muito mais fácil de computar.</p>
+<p>Dito isso, voltemos ao primeiro caso, de simulação de modelos de probabilidade.</p>
+<p>Comecemos lembrando que probabilidades podem ser interpretadas como frequências relativas de longo prazo. Portanto, a probabilidade de um evento pode ser aproximada por simulações, na medida em que aproximamos a frequência relativa com que o fenômeno acontece em nossas simulações. Vamos dar um exemplo simples desse tipo de aplicação.</p>
+<p>Suponha que quero simular a probabilidade do número 6 sair em um dado de seis lados.</p>
+<p>Exemplo 4.1.1</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="introdução-à-simulação.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especificando semente, para simulação ser reproduzível</span></span>
+<span id="cb53-2"><a href="introdução-à-simulação.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb53-3"><a href="introdução-à-simulação.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># número de amostras</span></span>
+<span id="cb53-4"><a href="introdução-à-simulação.html#cb53-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb53-5"><a href="introdução-à-simulação.html#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="introdução-à-simulação.html#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1000 amostras de uma lançamento de dado de 6 lados</span></span>
+<span id="cb53-7"><a href="introdução-à-simulação.html#cb53-7" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, n, <span class="cn">TRUE</span>)</span>
+<span id="cb53-8"><a href="introdução-à-simulação.html#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-9"><a href="introdução-à-simulação.html#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="co"># frequência relativade 6 é dada por número de 6 / total de amostras</span></span>
+<span id="cb53-10"><a href="introdução-à-simulação.html#cb53-10" aria-hidden="true" tabindex="-1"></a>prob_6 <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado <span class="sc">==</span> <span class="dv">6</span>)<span class="sc">/</span>n</span>
+<span id="cb53-11"><a href="introdução-à-simulação.html#cb53-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-12"><a href="introdução-à-simulação.html#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 16,89%</span></span>
+<span id="cb53-13"><a href="introdução-à-simulação.html#cb53-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 1/6 = 16.6666</span></span></code></pre></div>
+<p>Podemos também ver como a aproximação converge para o verdadeiro valor à medida que <span class="math inline">\(n\)</span> cresce.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="introdução-à-simulação.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># especificando semente, para simulação ser reproduzível</span></span>
+<span id="cb54-2"><a href="introdução-à-simulação.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb54-3"><a href="introdução-à-simulação.html#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="co"># número de amostras</span></span>
+<span id="cb54-4"><a href="introdução-à-simulação.html#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="introdução-à-simulação.html#cb54-5" aria-hidden="true" tabindex="-1"></a>vec_amostra <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">1000</span>, <span class="dv">10000</span>, <span class="dv">100000</span>, <span class="dv">1000000</span>)</span>
+<span id="cb54-6"><a href="introdução-à-simulação.html#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="introdução-à-simulação.html#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co"># lista vazia para armazenar os resultados das simulações</span></span>
+<span id="cb54-8"><a href="introdução-à-simulação.html#cb54-8" aria-hidden="true" tabindex="-1"></a>resultado_lista <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb54-9"><a href="introdução-à-simulação.html#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="introdução-à-simulação.html#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="co"># vetor vazio para armazenar a frequência relativa de 6</span></span>
+<span id="cb54-11"><a href="introdução-à-simulação.html#cb54-11" aria-hidden="true" tabindex="-1"></a>vec_prob6 <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb54-12"><a href="introdução-à-simulação.html#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-13"><a href="introdução-à-simulação.html#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb54-14"><a href="introdução-à-simulação.html#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="co"># loop sobre os tamanhos das amostrar</span></span>
+<span id="cb54-15"><a href="introdução-à-simulação.html#cb54-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vec_amostra)) {</span>
+<span id="cb54-16"><a href="introdução-à-simulação.html#cb54-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># n amostras de uma lançamento de dado de 6 lados</span></span>
+<span id="cb54-17"><a href="introdução-à-simulação.html#cb54-17" aria-hidden="true" tabindex="-1"></a>resultado_lista[[i]] <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, vec_amostra[i], <span class="cn">TRUE</span>)</span>
+<span id="cb54-18"><a href="introdução-à-simulação.html#cb54-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-19"><a href="introdução-à-simulação.html#cb54-19" aria-hidden="true" tabindex="-1"></a><span class="co"># frequência relativade 6 é dada por número de 6 / total de amostras</span></span>
+<span id="cb54-20"><a href="introdução-à-simulação.html#cb54-20" aria-hidden="true" tabindex="-1"></a>vec_prob6[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(resultado_lista[[i]] <span class="sc">==</span> <span class="dv">6</span>)<span class="sc">/</span>vec_amostra[i]</span>
+<span id="cb54-21"><a href="introdução-à-simulação.html#cb54-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-22"><a href="introdução-à-simulação.html#cb54-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb54-23"><a href="introdução-à-simulação.html#cb54-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-24"><a href="introdução-à-simulação.html#cb54-24" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vec_prob6)</span></code></pre></div>
+<p>[1] 0.150000 0.189000 0.164700 0.169250 0.166257</p>
+<p>Se supusermos que todos os números possuem a mesma chance de sair quando jogamos os dados, então, a distribuição conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> pode ser dada por:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="introdução-à-simulação.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb55-2"><a href="introdução-à-simulação.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb55-3"><a href="introdução-à-simulação.html#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="introdução-à-simulação.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir os valores de (x, y) e P(X = x, Y = y)</span></span>
+<span id="cb55-5"><a href="introdução-à-simulação.html#cb55-5" aria-hidden="true" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(2, 1)&quot;</span>, <span class="st">&quot;(3, 2)&quot;</span>, <span class="st">&quot;(4, 2)&quot;</span>, <span class="st">&quot;(4, 3)&quot;</span>, <span class="st">&quot;(5, 3)&quot;</span>, <span class="st">&quot;(5, 4)&quot;</span>, <span class="st">&quot;(6, 3)&quot;</span>, <span class="st">&quot;(6, 4)&quot;</span>, <span class="st">&quot;(7, 4)&quot;</span>, <span class="st">&quot;(8, 4)&quot;</span>)</span>
+<span id="cb55-6"><a href="introdução-à-simulação.html#cb55-6" aria-hidden="true" tabindex="-1"></a>probabilidades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>)</span>
+<span id="cb55-7"><a href="introdução-à-simulação.html#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-8"><a href="introdução-à-simulação.html#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
+<span id="cb55-9"><a href="introdução-à-simulação.html#cb55-9" aria-hidden="true" tabindex="-1"></a>tabela <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;(x, y)&quot;</span> <span class="ot">=</span> valores, <span class="st">&quot;P(X = x, Y = y)&quot;</span> <span class="ot">=</span> probabilidades)</span>
+<span id="cb55-10"><a href="introdução-à-simulação.html#cb55-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-11"><a href="introdução-à-simulação.html#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Formatar a tabela</span></span>
+<span id="cb55-12"><a href="introdução-à-simulação.html#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tabela, <span class="at">caption =</span> <span class="st">&quot;Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces&quot;</span>,</span>
+<span id="cb55-13"><a href="introdução-à-simulação.html#cb55-13" aria-hidden="true" tabindex="-1"></a>                          <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;$(X,Y)$&quot;</span>, <span class="st">&quot;$P(X=x, Y=y)$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-14"><a href="introdução-à-simulação.html#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span></code></pre></div>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-29">Table 4.1: </span>Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\((X,Y)\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(P(X=x, Y=y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(2, 1)
+</td>
+<td style="text-align:right;">
+0.0625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(3, 2)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(4, 2)
+</td>
+<td style="text-align:right;">
+0.0625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(4, 3)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(5, 3)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(5, 4)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(6, 3)
+</td>
+<td style="text-align:right;">
+0.0625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(6, 4)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(7, 4)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(8, 4)
+</td>
+<td style="text-align:right;">
+0.0625
+</td>
+</tr>
+</tbody>
+</table>
+<p>como podemos ver, à medida que <span class="math inline">\(n\)</span> cresce, a simulação converge para o verdadeiro valor do parâmetro, embora isso não seja linear. Por isso que é importante variar a configuração para ter certeza de que a simulação está próxima do verdadeiro valor do parâmetro.</p>
+<p>De maneira geral, uma simulação envolve os seguintes passos.</p>
+<div id="configuraçao" class="section level3 hasAnchor" number="4.0.1">
+<h3><span class="header-section-number">4.0.1</span> Configuraçao<a href="introdução-à-simulação.html#configuraçao" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Definir o modelo de probabilidade, variáveis aleatórias e eventos a serem modelados. O modelo de probabilidade codifica todas as suposições do modelo. No exemplo acima, de que todos os lados têm a mesma probabilidade de sair, que existem apenas seis possibilidades, numeradas de <span class="math inline">\(1-6\)</span> e assim por diante.</p>
+</div>
+<div id="simular" class="section level3 hasAnchor" number="4.0.2">
+<h3><span class="header-section-number">4.0.2</span> Simular<a href="introdução-à-simulação.html#simular" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="resumir" class="section level3 hasAnchor" number="4.0.3">
+<h3><span class="header-section-number">4.0.3</span> Resumir<a href="introdução-à-simulação.html#resumir" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="análise-de-sensibilidade" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Análise de sensibilidade<a href="introdução-à-simulação.html#análise-de-sensibilidade" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Um dos resultados mais contraintuitivos de modelos de probabilidade está relacionado à chamada “falácia do jogador”. A falácia é a crença de que, porque saiu um número par (ou preto) na última jogada em uma roleta no cassino, então aumenta a chance de sair ímpar (vermelho) na próxima rodada, para que os números se equilibrem. Porém, cada jogada é independente da anterior. Um problema relacionado é o chamado problema da ruína do jogador.</p>
+<p>Exemplo 1.2. Ballot theorem (toerema da urna de votação? teorema da votação?)</p>
+<p>Esse teorema, provado em 1878 por W. A. Whitworth e independentemente em 1887 por J. Bertrand estabelece a probabilidade de que, durante a apuração dos votos em uma urna, sempre haja mais votos contabilizados para o candidato <span class="math inline">\(P\)</span> do que para o candidato <span class="math inline">\(Q\)</span>, quando <span class="math inline">\(P\)</span> possui <span class="math inline">\(p\)</span> votos e <span class="math inline">\(Q\)</span> possui <span class="math inline">\(q\)</span> votos, com <span class="math inline">\(p &gt; q\)</span>. A fórmula para essa probabilidade é <span class="math inline">\((p-q)/(p+q)\)</span>.</p>
+<p>Vamos verificar esse teorema por meio de simulação?
+Configuração: suponha que <span class="math inline">\(p = .51\)</span> e <span class="math inline">\(q = .49\)</span>. O que sigifnica que é <span class="math inline">\((p-q)/(p+q) = .02/1 = 2\%\)</span>
+Primeiro, faremos uma simulação, e depois repetiremos k vezes a simulação para obter a frequência relativa.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="introdução-à-simulação.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb56-2"><a href="introdução-à-simulação.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># número de votos na urna</span></span>
+<span id="cb56-3"><a href="introdução-à-simulação.html#cb56-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb56-4"><a href="introdução-à-simulação.html#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="introdução-à-simulação.html#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 é o voto para P, -1 o voto para Q.</span></span>
+<span id="cb56-6"><a href="introdução-à-simulação.html#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co"># então geramos n votos e armazenamos em votos</span></span>
+<span id="cb56-7"><a href="introdução-à-simulação.html#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-8"><a href="introdução-à-simulação.html#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co"># vamos usar rbinom, que gera 0 ou 1.</span></span>
+<span id="cb56-9"><a href="introdução-à-simulação.html#cb56-9" aria-hidden="true" tabindex="-1"></a>votos <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="at">p=</span>.<span class="dv">51</span>)</span>
+<span id="cb56-10"><a href="introdução-à-simulação.html#cb56-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="introdução-à-simulação.html#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="co"># transformado 0 em -1</span></span>
+<span id="cb56-12"><a href="introdução-à-simulação.html#cb56-12" aria-hidden="true" tabindex="-1"></a>votos <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(votos <span class="sc">==</span> <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, votos)</span>
+<span id="cb56-13"><a href="introdução-à-simulação.html#cb56-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-14"><a href="introdução-à-simulação.html#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Agora, iremos contar o primeiro voto e registrar para quem vai. Depois o segundo e o terceiro etc. até não sobrarem votos a serem apurados. Vamso guardar essa sequência em um objeto apuração.</span></span>
+<span id="cb56-15"><a href="introdução-à-simulação.html#cb56-15" aria-hidden="true" tabindex="-1"></a>apuracao <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb56-16"><a href="introdução-à-simulação.html#cb56-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-17"><a href="introdução-à-simulação.html#cb56-17" aria-hidden="true" tabindex="-1"></a><span class="co"># em seguida, contamos se em algum momento Q está na frente. Se estiver, então não aconteceu de P liderar toda a apuração.</span></span>
+<span id="cb56-18"><a href="introdução-à-simulação.html#cb56-18" aria-hidden="true" tabindex="-1"></a>contagem_lideranca <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb56-19"><a href="introdução-à-simulação.html#cb56-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span>  <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb56-20"><a href="introdução-à-simulação.html#cb56-20" aria-hidden="true" tabindex="-1"></a>  apuracao[i] <span class="ot">&lt;-</span> votos[i]</span>
+<span id="cb56-21"><a href="introdução-à-simulação.html#cb56-21" aria-hidden="true" tabindex="-1"></a>  contagem_lideranca[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(apuracao)</span>
+<span id="cb56-22"><a href="introdução-à-simulação.html#cb56-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb56-23"><a href="introdução-à-simulação.html#cb56-23" aria-hidden="true" tabindex="-1"></a><span class="co"># se a soma dos votos for positiva, tivemos mais votos 1 que -1. Se for negativa ou igual a zero, P não esteve liderando (esteve atrás ou empatando)</span></span>
+<span id="cb56-24"><a href="introdução-à-simulação.html#cb56-24" aria-hidden="true" tabindex="-1"></a><span class="co"># então, basta contar quantos casos aconteceram da soma dos votos apurados é menor ou igual a zero.</span></span>
+<span id="cb56-25"><a href="introdução-à-simulação.html#cb56-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-26"><a href="introdução-à-simulação.html#cb56-26" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">sum</span>(contagem_lideranca <span class="sc">&lt;=</span> <span class="dv">0</span>)) <span class="fu">print</span>(<span class="st">&quot;p não liderou sempre&quot;</span>)</span></code></pre></div>
+<p>[1] “p não liderou sempre”</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introdução-à-simulação.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#agora, vamos fazer a simulação mil vezes. Esperamos que aprox. 2% das vezes P lidere sempre.</span></span>
+<span id="cb57-2"><a href="introdução-à-simulação.html#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="introdução-à-simulação.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co"># simulando k = 1000 vezes</span></span>
+<span id="cb57-4"><a href="introdução-à-simulação.html#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="introdução-à-simulação.html#cb57-5" aria-hidden="true" tabindex="-1"></a>apuracao <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb57-6"><a href="introdução-à-simulação.html#cb57-6" aria-hidden="true" tabindex="-1"></a>contagem_lideranca <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb57-7"><a href="introdução-à-simulação.html#cb57-7" aria-hidden="true" tabindex="-1"></a>freq_lideranca <span class="ot">&lt;-</span> <span class="fu">numeric</span>() <span class="co"># armazanear se liderou ou não em cada sim k</span></span>
+<span id="cb57-8"><a href="introdução-à-simulação.html#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-9"><a href="introdução-à-simulação.html#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>)  {</span>
+<span id="cb57-10"><a href="introdução-à-simulação.html#cb57-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> ( i <span class="cf">in</span>  <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb57-11"><a href="introdução-à-simulação.html#cb57-11" aria-hidden="true" tabindex="-1"></a>  apuracao[i] <span class="ot">&lt;-</span> votos[i]</span>
+<span id="cb57-12"><a href="introdução-à-simulação.html#cb57-12" aria-hidden="true" tabindex="-1"></a>  contagem_lideranca[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(apuracao)</span>
+<span id="cb57-13"><a href="introdução-à-simulação.html#cb57-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb57-14"><a href="introdução-à-simulação.html#cb57-14" aria-hidden="true" tabindex="-1"></a>  freq_lideranca[k] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">sum</span>(contagem_lideranca <span class="sc">&lt;=</span> <span class="dv">0</span>))</span>
+<span id="cb57-15"><a href="introdução-à-simulação.html#cb57-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>( k<span class="sc">%%</span> <span class="dv">50</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">print</span>(k) <span class="co"># para vermos a evolução da simulação a cada 50 passos</span></span>
+<span id="cb57-16"><a href="introdução-à-simulação.html#cb57-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>[1] 50
+[1] 100
+[1] 150
+[1] 200
+[1] 250
+[1] 300
+[1] 350
+[1] 400
+[1] 450
+[1] 500
+[1] 550
+[1] 600
+[1] 650
+[1] 700
+[1] 750
+[1] 800
+[1] 850
+[1] 900
+[1] 950
+[1] 1000</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="introdução-à-simulação.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># se a soma dos votos for positiva, tivemos mais votos 1 que -1. Se for negativa ou igual a zero, P não esteve liderando (esteve atrás ou empatando)</span></span>
+<span id="cb58-2"><a href="introdução-à-simulação.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co"># então, basta contar quantos casos aconteceram da soma dos votos apurados é menor ou igual a zero.</span></span>
+<span id="cb58-3"><a href="introdução-à-simulação.html#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="introdução-à-simulação.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(freq_lideranca)<span class="sc">/</span>k)</span></code></pre></div>
+<p>[1] 0.281</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introdução-à-simulação.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0,281 ou 2,8%. Próximo dovalor verdadeiro de 2%. Se aumentarmos k, irá convergir para o valor verdadeiro. </span></span></code></pre></div>
+<p>Suponha agora um problema diferente. Um dos dois candidatos vai ter a primeira liderança. Após <span class="math inline">\(n\)</span> votos apurados, qual a probabilidade de a contagem ter empatado pela primeira vez? Dito de outro modo, após uma das candidatas assumir a liderança, quanto “tempo” (isto é, após quantos votos apurados) em média devemos esperar até que uma reversão de liderança ocorra (ou pelo menos um empate)?</p>
+<p>A intuição que as pessoas têm, talvez a partir da lei dos grandes números, é que deveríamos esperar que, se <span class="math inline">\(p = q = 1/2\)</span>, ambas candidatas deveriam liderar por 50% do tempo em uma apuração suficientemente longa (com <span class="math inline">\(n\)</span> votos grande) e deveria haver troca constante de liderança, em vez de uma candidata liderar po um longo tempo. Essa intuição é errada, como iremos mostrar agora por simulação. A leitora interessada na demonstração matemática utilizando apenas análise combinatória (portanto, apenas estatística básica) deve consultar o clássico livro de Feller (1968).</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="revisão-de-estatística-e-probabilidade.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introdução-à-regressão-linear-univariada.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mgaldino/book-regression/edit/main/04-sim.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/mgaldino/book-regression/blob/main/04-sim.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
