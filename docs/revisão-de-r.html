@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-08-09" />
+<meta name="date" content="2023-08-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,8 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -292,217 +290,108 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="matriz" class="section level3 hasAnchor" number="2.5.2">
 <h3><span class="header-section-number">2.5.2</span> Matriz<a href="revisão-de-r.html#matriz" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Uma matriz são vetores organizados por coluna, todas as colunas (vetores) só podem ser de um tipo, ou seja, não posso ter uma coluna numeric e outra de character, por exemplo.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="revisão-de-r.html#cb20-1" tabindex="-1"></a><span class="co"># Exemplos</span></span>
-<span id="cb20-2"><a href="revisão-de-r.html#cb20-2" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow=</span><span class="dv">3</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code> [,1] [,2]</code></pre>
-<p>[1,] 1 4
-[2,] 2 5
-[3,] 3 6</p>
-</div>
-<div id="data-frame" class="section level3 hasAnchor" number="2.5.3">
-<h3><span class="header-section-number">2.5.3</span> Data Frame<a href="revisão-de-r.html#data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>O data.frame é uma tabela/planilha, e é onde normalmente armazenamos nossos bancos de dados no R.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="revisão-de-r.html#cb22-1" tabindex="-1"></a><span class="co"># Exemplos</span></span>
-<span id="cb22-2"><a href="revisão-de-r.html#cb22-2" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y=</span><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</span></code></pre></div>
-<p>x y
-1 1 a
-2 2 b
-3 3 c</p>
-<div id="datas" class="section level4 hasAnchor" number="2.5.3.1">
-<h4><span class="header-section-number">2.5.3.1</span> datas<a href="revisão-de-r.html#datas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="revisão-de-r.html#cb23-1" tabindex="-1"></a><span class="do">## explicando data rapidamente</span></span>
-<span id="cb23-2"><a href="revisão-de-r.html#cb23-2" tabindex="-1"></a>data_ex <span class="ot">&lt;-</span> <span class="st">&quot;2020-10-23&quot;</span></span>
-<span id="cb23-3"><a href="revisão-de-r.html#cb23-3" tabindex="-1"></a>data_ex1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data_ex)</span>
-<span id="cb23-4"><a href="revisão-de-r.html#cb23-4" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="revisão-de-r.html#cb23-5" tabindex="-1"></a>data_ex1 <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span></code></pre></div>
-<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26” “2020-10-27” “2020-10-28” “2020-10-29” “2020-10-30” “2020-10-31”
-[10] “2020-11-01”</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="revisão-de-r.html#cb24-1" tabindex="-1"></a><span class="do">## fim da explicação rápida de data</span></span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="revisão-de-r.html#cb25-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb25-2"><a href="revisão-de-r.html#cb25-2" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb25-3"><a href="revisão-de-r.html#cb25-3" tabindex="-1"></a><span class="do">## criando data de forma repetitiva e tediosa. O que queremos evitar!</span></span>
-<span id="cb25-4"><a href="revisão-de-r.html#cb25-4" tabindex="-1"></a>minha_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-02&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-03&#39;</span>),</span>
-<span id="cb25-5"><a href="revisão-de-r.html#cb25-5" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-04&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-05&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-06&#39;</span>),</span>
-<span id="cb25-6"><a href="revisão-de-r.html#cb25-6" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-07&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-08&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-09&#39;</span>),</span>
-<span id="cb25-7"><a href="revisão-de-r.html#cb25-7" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-10&#39;</span>))</span>
-<span id="cb25-8"><a href="revisão-de-r.html#cb25-8" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="revisão-de-r.html#cb25-9" tabindex="-1"></a>acoes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb25-10"><a href="revisão-de-r.html#cb25-10" tabindex="-1"></a>  <span class="at">tempo =</span> minha_data,</span>
-<span id="cb25-11"><a href="revisão-de-r.html#cb25-11" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb25-12"><a href="revisão-de-r.html#cb25-12" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">2</span>),</span>
-<span id="cb25-13"><a href="revisão-de-r.html#cb25-13" tabindex="-1"></a>  <span class="at">Z =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
-<span id="cb25-14"><a href="revisão-de-r.html#cb25-14" tabindex="-1"></a>)</span>
-<span id="cb25-15"><a href="revisão-de-r.html#cb25-15" tabindex="-1"></a></span>
-<span id="cb25-16"><a href="revisão-de-r.html#cb25-16" tabindex="-1"></a><span class="fu">kable</span>(acoes)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="revisão-de-r.html#cb20-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb20-2"><a href="revisão-de-r.html#cb20-2" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb20-3"><a href="revisão-de-r.html#cb20-3" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="revisão-de-r.html#cb20-4" tabindex="-1"></a><span class="co"># Exemplos</span></span>
+<span id="cb20-5"><a href="revisão-de-r.html#cb20-5" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow=</span><span class="dv">3</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb20-6"><a href="revisão-de-r.html#cb20-6" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="revisão-de-r.html#cb20-7" tabindex="-1"></a><span class="fu">kable</span>(mat)</span></code></pre></div>
 <table>
-<thead>
-<tr>
-<th style="text-align:left;">
-tempo
-</th>
-<th style="text-align:right;">
-X
-</th>
-<th style="text-align:right;">
-Y
-</th>
-<th style="text-align:right;">
-Z
-</th>
-</tr>
-</thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-2009-01-01
+<td style="text-align:right;">
+1
 </td>
 <td style="text-align:right;">
--0.5942169
-</td>
-<td style="text-align:right;">
--2.5462534
-</td>
-<td style="text-align:right;">
--5.8756087
+4
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-2009-01-02
+<td style="text-align:right;">
+2
 </td>
 <td style="text-align:right;">
-2.2381340
-</td>
-<td style="text-align:right;">
-1.3045714
-</td>
-<td style="text-align:right;">
--6.3549874
+5
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-2009-01-03
+<td style="text-align:right;">
+3
 </td>
 <td style="text-align:right;">
-0.6212960
-</td>
-<td style="text-align:right;">
-0.3913685
-</td>
-<td style="text-align:right;">
--0.0843070
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2009-01-04
-</td>
-<td style="text-align:right;">
--2.0664466
-</td>
-<td style="text-align:right;">
-0.5990876
-</td>
-<td style="text-align:right;">
--0.3469913
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2009-01-05
-</td>
-<td style="text-align:right;">
--0.8950288
-</td>
-<td style="text-align:right;">
--0.0482699
-</td>
-<td style="text-align:right;">
--6.0501447
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2009-01-06
-</td>
-<td style="text-align:right;">
--0.9732650
-</td>
-<td style="text-align:right;">
--1.0547529
-</td>
-<td style="text-align:right;">
--4.4589942
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2009-01-07
-</td>
-<td style="text-align:right;">
-0.3799902
-</td>
-<td style="text-align:right;">
--2.8811420
-</td>
-<td style="text-align:right;">
-1.8220280
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2009-01-08
-</td>
-<td style="text-align:right;">
-1.0445470
-</td>
-<td style="text-align:right;">
--0.4754305
-</td>
-<td style="text-align:right;">
-12.3860064
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2009-01-09
-</td>
-<td style="text-align:right;">
-0.0214847
-</td>
-<td style="text-align:right;">
--1.2360396
-</td>
-<td style="text-align:right;">
-1.2510656
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2009-01-10
-</td>
-<td style="text-align:right;">
-1.1353331
-</td>
-<td style="text-align:right;">
-2.2757195
-</td>
-<td style="text-align:right;">
-2.8245165
+6
 </td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="revisão-de-r.html#cb26-1" tabindex="-1"></a><span class="co"># criando data.frame de maneira mais inteligente</span></span>
-<span id="cb26-2"><a href="revisão-de-r.html#cb26-2" tabindex="-1"></a>acoes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb26-3"><a href="revisão-de-r.html#cb26-3" tabindex="-1"></a>  <span class="at">tempo =</span> <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>,</span>
-<span id="cb26-4"><a href="revisão-de-r.html#cb26-4" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb26-5"><a href="revisão-de-r.html#cb26-5" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">2</span>),</span>
-<span id="cb26-6"><a href="revisão-de-r.html#cb26-6" tabindex="-1"></a>  <span class="at">Z =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
-<span id="cb26-7"><a href="revisão-de-r.html#cb26-7" tabindex="-1"></a>)</span>
-<span id="cb26-8"><a href="revisão-de-r.html#cb26-8" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="revisão-de-r.html#cb26-9" tabindex="-1"></a><span class="fu">kable</span>(acoes)</span></code></pre></div>
+</div>
+<div id="data-frame" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> Data Frame<a href="revisão-de-r.html#data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O data.frame é uma tabela/planilha, e é onde normalmente armazenamos nossos bancos de dados no R.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="revisão-de-r.html#cb21-1" tabindex="-1"></a><span class="co"># Exemplos</span></span>
+<span id="cb21-2"><a href="revisão-de-r.html#cb21-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y=</span><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</span>
+<span id="cb21-3"><a href="revisão-de-r.html#cb21-3" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:left;">
+y
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+a
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+b
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+c
+</td>
+</tr>
+</tbody>
+</table>
+<div id="datas" class="section level4 hasAnchor" number="2.5.3.1">
+<h4><span class="header-section-number">2.5.3.1</span> datas<a href="revisão-de-r.html#datas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="revisão-de-r.html#cb22-1" tabindex="-1"></a><span class="do">## explicando data rapidamente</span></span>
+<span id="cb22-2"><a href="revisão-de-r.html#cb22-2" tabindex="-1"></a>data_ex <span class="ot">&lt;-</span> <span class="st">&quot;2020-10-23&quot;</span></span>
+<span id="cb22-3"><a href="revisão-de-r.html#cb22-3" tabindex="-1"></a>data_ex1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data_ex)</span>
+<span id="cb22-4"><a href="revisão-de-r.html#cb22-4" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="revisão-de-r.html#cb22-5" tabindex="-1"></a>data_ex1 <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span></code></pre></div>
+<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26” “2020-10-27” “2020-10-28” “2020-10-29” “2020-10-30” “2020-10-31”
+[10] “2020-11-01”</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="revisão-de-r.html#cb23-1" tabindex="-1"></a><span class="do">## fim da explicação rápida de data</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="revisão-de-r.html#cb24-1" tabindex="-1"></a><span class="do">## criando data de forma repetitiva e tediosa. O que queremos evitar!</span></span>
+<span id="cb24-2"><a href="revisão-de-r.html#cb24-2" tabindex="-1"></a>minha_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-02&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-03&#39;</span>),</span>
+<span id="cb24-3"><a href="revisão-de-r.html#cb24-3" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-04&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-05&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-06&#39;</span>),</span>
+<span id="cb24-4"><a href="revisão-de-r.html#cb24-4" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-07&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-08&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-09&#39;</span>),</span>
+<span id="cb24-5"><a href="revisão-de-r.html#cb24-5" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-10&#39;</span>))</span>
+<span id="cb24-6"><a href="revisão-de-r.html#cb24-6" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="revisão-de-r.html#cb24-7" tabindex="-1"></a>acoes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb24-8"><a href="revisão-de-r.html#cb24-8" tabindex="-1"></a>  <span class="at">tempo =</span> minha_data,</span>
+<span id="cb24-9"><a href="revisão-de-r.html#cb24-9" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb24-10"><a href="revisão-de-r.html#cb24-10" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb24-11"><a href="revisão-de-r.html#cb24-11" tabindex="-1"></a>  <span class="at">Z =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb24-12"><a href="revisão-de-r.html#cb24-12" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -526,13 +415,13 @@ Z
 2009-01-01
 </td>
 <td style="text-align:right;">
--1.3956945
+0.4279969
 </td>
 <td style="text-align:right;">
--1.5691115
+-1.3530898
 </td>
 <td style="text-align:right;">
-2.5593133
+0.1900010
 </td>
 </tr>
 <tr>
@@ -540,13 +429,13 @@ Z
 2009-01-02
 </td>
 <td style="text-align:right;">
--0.1338684
+0.1120934
 </td>
 <td style="text-align:right;">
-1.5393867
+-0.4715853
 </td>
 <td style="text-align:right;">
--4.8258934
+2.9688445
 </td>
 </tr>
 <tr>
@@ -554,13 +443,13 @@ Z
 2009-01-03
 </td>
 <td style="text-align:right;">
-0.2753938
+-0.3196465
 </td>
 <td style="text-align:right;">
-0.9741069
+1.3545544
 </td>
 <td style="text-align:right;">
-4.1496071
+-4.2785647
 </td>
 </tr>
 <tr>
@@ -568,13 +457,13 @@ Z
 2009-01-04
 </td>
 <td style="text-align:right;">
--1.5046480
+0.0982037
 </td>
 <td style="text-align:right;">
--3.8632062
+0.5485411
 </td>
 <td style="text-align:right;">
--8.5287340
+7.9231971
 </td>
 </tr>
 <tr>
@@ -582,13 +471,13 @@ Z
 2009-01-05
 </td>
 <td style="text-align:right;">
-0.6459368
+1.7719452
 </td>
 <td style="text-align:right;">
--1.4767597
+-0.6623438
 </td>
 <td style="text-align:right;">
--0.8104898
+6.5432839
 </td>
 </tr>
 <tr>
@@ -596,13 +485,13 @@ Z
 2009-01-06
 </td>
 <td style="text-align:right;">
--0.3713497
+-0.1703026
 </td>
 <td style="text-align:right;">
--0.2747539
+0.2697332
 </td>
 <td style="text-align:right;">
-1.1455279
+-1.1234261
 </td>
 </tr>
 <tr>
@@ -610,13 +499,13 @@ Z
 2009-01-07
 </td>
 <td style="text-align:right;">
--1.0837592
+0.2705629
 </td>
 <td style="text-align:right;">
-0.7822565
+0.0233624
 </td>
 <td style="text-align:right;">
--3.5126754
+0.0259794
 </td>
 </tr>
 <tr>
@@ -624,13 +513,13 @@ Z
 2009-01-08
 </td>
 <td style="text-align:right;">
--0.5593102
+0.1535559
 </td>
 <td style="text-align:right;">
--1.0192248
+-3.3831604
 </td>
 <td style="text-align:right;">
-3.6812021
+-1.3169120
 </td>
 </tr>
 <tr>
@@ -638,13 +527,13 @@ Z
 2009-01-09
 </td>
 <td style="text-align:right;">
-0.8856205
+0.9866085
 </td>
 <td style="text-align:right;">
-0.0341255
+2.0542550
 </td>
 <td style="text-align:right;">
-5.0712964
+-4.0963721
 </td>
 </tr>
 <tr>
@@ -652,13 +541,180 @@ Z
 2009-01-10
 </td>
 <td style="text-align:right;">
-1.4783638
+1.2787622
 </td>
 <td style="text-align:right;">
-0.2114132
+-0.4259129
 </td>
 <td style="text-align:right;">
--2.6515043
+-1.6856831
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="revisão-de-r.html#cb25-1" tabindex="-1"></a><span class="co"># criando data.frame de maneira mais inteligente</span></span>
+<span id="cb25-2"><a href="revisão-de-r.html#cb25-2" tabindex="-1"></a>acoes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-3"><a href="revisão-de-r.html#cb25-3" tabindex="-1"></a>  <span class="at">tempo =</span> <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>,</span>
+<span id="cb25-4"><a href="revisão-de-r.html#cb25-4" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb25-5"><a href="revisão-de-r.html#cb25-5" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb25-6"><a href="revisão-de-r.html#cb25-6" tabindex="-1"></a>  <span class="at">Z =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb25-7"><a href="revisão-de-r.html#cb25-7" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+tempo
+</th>
+<th style="text-align:right;">
+X
+</th>
+<th style="text-align:right;">
+Y
+</th>
+<th style="text-align:right;">
+Z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2009-01-01
+</td>
+<td style="text-align:right;">
+1.5621872
+</td>
+<td style="text-align:right;">
+-0.2917914
+</td>
+<td style="text-align:right;">
+-4.9771860
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-01-02
+</td>
+<td style="text-align:right;">
+-0.5447617
+</td>
+<td style="text-align:right;">
+-0.6823288
+</td>
+<td style="text-align:right;">
+1.5011776
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-01-03
+</td>
+<td style="text-align:right;">
+-0.7994894
+</td>
+<td style="text-align:right;">
+3.1826529
+</td>
+<td style="text-align:right;">
+-2.2651482
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-01-04
+</td>
+<td style="text-align:right;">
+0.3651997
+</td>
+<td style="text-align:right;">
+2.7001491
+</td>
+<td style="text-align:right;">
+-3.5198493
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-01-05
+</td>
+<td style="text-align:right;">
+2.1981473
+</td>
+<td style="text-align:right;">
+-0.6623922
+</td>
+<td style="text-align:right;">
+1.4205608
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-01-06
+</td>
+<td style="text-align:right;">
+0.5693285
+</td>
+<td style="text-align:right;">
+1.1095049
+</td>
+<td style="text-align:right;">
+6.1916013
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-01-07
+</td>
+<td style="text-align:right;">
+-2.2856807
+</td>
+<td style="text-align:right;">
+0.0685587
+</td>
+<td style="text-align:right;">
+0.0269788
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-01-08
+</td>
+<td style="text-align:right;">
+1.0029378
+</td>
+<td style="text-align:right;">
+-0.7734515
+</td>
+<td style="text-align:right;">
+-1.4501734
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-01-09
+</td>
+<td style="text-align:right;">
+0.7606248
+</td>
+<td style="text-align:right;">
+3.9617524
+</td>
+<td style="text-align:right;">
+-7.4864520
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-01-10
+</td>
+<td style="text-align:right;">
+0.2038012
+</td>
+<td style="text-align:right;">
+0.0824127
+</td>
+<td style="text-align:right;">
+8.5109332
 </td>
 </tr>
 </tbody>
@@ -669,9 +725,9 @@ Z
 <div id="bibliotecaspacotes" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Bibliotecas/pacotes<a href="revisão-de-r.html#bibliotecaspacotes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>O R permite que a gente importe comandos que não vêm por padrão no R. Em gerla esses comandos es~toa agrupados sob um pacote. PAra usar esses comandos, primeiro a gente instala o pacote, e depois carrega a biblioteca.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="revisão-de-r.html#cb27-1" tabindex="-1"></a><span class="co"># Exemplos</span></span>
-<span id="cb27-2"><a href="revisão-de-r.html#cb27-2" tabindex="-1"></a><span class="co">#install.packages(&quot;data.table&quot;)</span></span>
-<span id="cb27-3"><a href="revisão-de-r.html#cb27-3" tabindex="-1"></a><span class="co">#library(data.table)</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="revisão-de-r.html#cb26-1" tabindex="-1"></a><span class="co"># Exemplos</span></span>
+<span id="cb26-2"><a href="revisão-de-r.html#cb26-2" tabindex="-1"></a><span class="co">#install.packages(&quot;data.table&quot;)</span></span>
+<span id="cb26-3"><a href="revisão-de-r.html#cb26-3" tabindex="-1"></a><span class="co">#library(data.table)</span></span></code></pre></div>
 </div>
 <div id="importando-dados" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> importando dados<a href="revisão-de-r.html#importando-dados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -679,42 +735,36 @@ Z
 Então, instalem ela se ainda não instalaram (usando o comando install.packages(“data.table”))
 E depois carreguem a biblioteca: library(data.table)</p>
 <p>Para importar, usaremos o comando fread do pacote data.table.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="revisão-de-r.html#cb28-1" tabindex="-1"></a><span class="co"># vamos carregar base de dados do ibge</span></span>
-<span id="cb28-2"><a href="revisão-de-r.html#cb28-2" tabindex="-1"></a><span class="co"># install.packages(&quot;devtools&quot;)</span></span>
-<span id="cb28-3"><a href="revisão-de-r.html#cb28-3" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;tbrugz/ribge&quot;)</span></span>
-<span id="cb28-4"><a href="revisão-de-r.html#cb28-4" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="revisão-de-r.html#cb28-5" tabindex="-1"></a><span class="fu">library</span>(ribge)</span>
-<span id="cb28-6"><a href="revisão-de-r.html#cb28-6" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="revisão-de-r.html#cb28-7" tabindex="-1"></a><span class="co"># para descobrir quais funções existem nesse pacote, podemos usar:</span></span>
-<span id="cb28-8"><a href="revisão-de-r.html#cb28-8" tabindex="-1"></a>??ribge<span class="sc">::</span>ribge</span>
-<span id="cb28-9"><a href="revisão-de-r.html#cb28-9" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="revisão-de-r.html#cb28-10" tabindex="-1"></a><span class="co"># vamos usar uma que retorna o pib municipal</span></span>
-<span id="cb28-11"><a href="revisão-de-r.html#cb28-11" tabindex="-1"></a><span class="co"># pib_cid &lt;- pib_municipios(2013)</span></span>
-<span id="cb28-12"><a href="revisão-de-r.html#cb28-12" tabindex="-1"></a>pib_cid <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;dados/pib_cid.RDS&quot;</span>)</span>
-<span id="cb28-13"><a href="revisão-de-r.html#cb28-13" tabindex="-1"></a></span>
-<span id="cb28-14"><a href="revisão-de-r.html#cb28-14" tabindex="-1"></a><span class="co"># para visualizar os dados que forma importados, temos várias funções</span></span>
-<span id="cb28-15"><a href="revisão-de-r.html#cb28-15" tabindex="-1"></a><span class="co"># glimpse, head e View</span></span>
-<span id="cb28-16"><a href="revisão-de-r.html#cb28-16" tabindex="-1"></a></span>
-<span id="cb28-17"><a href="revisão-de-r.html#cb28-17" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># para glimpse</span></span>
-<span id="cb28-18"><a href="revisão-de-r.html#cb28-18" tabindex="-1"></a></span>
-<span id="cb28-19"><a href="revisão-de-r.html#cb28-19" tabindex="-1"></a><span class="co"># glimpse(pib_cid)</span></span>
-<span id="cb28-20"><a href="revisão-de-r.html#cb28-20" tabindex="-1"></a><span class="co"># head(pib_cid)</span></span>
-<span id="cb28-21"><a href="revisão-de-r.html#cb28-21" tabindex="-1"></a></span>
-<span id="cb28-22"><a href="revisão-de-r.html#cb28-22" tabindex="-1"></a><span class="co"># View(pib_cid)</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="revisão-de-r.html#cb27-1" tabindex="-1"></a><span class="co"># vamos importar uma base de dados de pib municipais de 2013, do IBGE</span></span>
+<span id="cb27-2"><a href="revisão-de-r.html#cb27-2" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="revisão-de-r.html#cb27-3" tabindex="-1"></a><span class="co"># o arquivo está em formato RDS, que é um formato do R, e disponível no meu github. Para importá-lo direto no R, vamos ler o arquivo com a função url e depois import´-lo com a função readRDS. </span></span>
+<span id="cb27-4"><a href="revisão-de-r.html#cb27-4" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="revisão-de-r.html#cb27-5" tabindex="-1"></a>pib_cid <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">url</span>(<span class="st">&quot;https://github.com/mgaldino/book-regression/raw/main/dados/pib_cid.RDS&quot;</span>))</span>
+<span id="cb27-6"><a href="revisão-de-r.html#cb27-6" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="revisão-de-r.html#cb27-7" tabindex="-1"></a><span class="co"># para visualizar os dados que forma importados, temos várias funções</span></span>
+<span id="cb27-8"><a href="revisão-de-r.html#cb27-8" tabindex="-1"></a><span class="co"># glimpse, head e View</span></span>
+<span id="cb27-9"><a href="revisão-de-r.html#cb27-9" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="revisão-de-r.html#cb27-10" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># para glimpse</span></span>
+<span id="cb27-11"><a href="revisão-de-r.html#cb27-11" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="revisão-de-r.html#cb27-12" tabindex="-1"></a><span class="co"># glimpse(pib_cid)</span></span>
+<span id="cb27-13"><a href="revisão-de-r.html#cb27-13" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="revisão-de-r.html#cb27-14" tabindex="-1"></a><span class="co"># head(pib_cid)</span></span>
+<span id="cb27-15"><a href="revisão-de-r.html#cb27-15" tabindex="-1"></a></span>
+<span id="cb27-16"><a href="revisão-de-r.html#cb27-16" tabindex="-1"></a><span class="co"># View(pib_cid)</span></span></code></pre></div>
 </div>
 <div id="data-wrangling" class="section level2 hasAnchor" number="2.8">
 <h2><span class="header-section-number">2.8</span> Data wrangling<a href="revisão-de-r.html#data-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para manipulação, limpeza e processamento de dados, iremos utilizar o chamado “tidyverse”.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="revisão-de-r.html#cb29-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb29-2"><a href="revisão-de-r.html#cb29-2" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="revisão-de-r.html#cb29-3" tabindex="-1"></a><span class="co"># digamos que quero o pib total médio e o pib per capita médio</span></span>
-<span id="cb29-4"><a href="revisão-de-r.html#cb29-4" tabindex="-1"></a><span class="co"># basta usar o comando summarise, que resume os dados e escolher a função mean.</span></span>
-<span id="cb29-5"><a href="revisão-de-r.html#cb29-5" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="revisão-de-r.html#cb29-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb29-7"><a href="revisão-de-r.html#cb29-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
-<span id="cb29-8"><a href="revisão-de-r.html#cb29-8" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita))</span>
-<span id="cb29-9"><a href="revisão-de-r.html#cb29-9" tabindex="-1"></a></span>
-<span id="cb29-10"><a href="revisão-de-r.html#cb29-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="revisão-de-r.html#cb28-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb28-2"><a href="revisão-de-r.html#cb28-2" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="revisão-de-r.html#cb28-3" tabindex="-1"></a><span class="co"># digamos que quero o pib total médio e o pib per capita médio</span></span>
+<span id="cb28-4"><a href="revisão-de-r.html#cb28-4" tabindex="-1"></a><span class="co"># basta usar o comando summarise, que resume os dados e escolher a função mean.</span></span>
+<span id="cb28-5"><a href="revisão-de-r.html#cb28-5" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="revisão-de-r.html#cb28-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb28-7"><a href="revisão-de-r.html#cb28-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb28-8"><a href="revisão-de-r.html#cb28-8" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita))</span>
+<span id="cb28-9"><a href="revisão-de-r.html#cb28-9" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="revisão-de-r.html#cb28-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -737,12 +787,12 @@ pib_per_capita_medio
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="revisão-de-r.html#cb30-1" tabindex="-1"></a><span class="co"># se eu quiser a soma dos pibs municipais</span></span>
-<span id="cb30-2"><a href="revisão-de-r.html#cb30-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb30-3"><a href="revisão-de-r.html#cb30-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
-<span id="cb30-4"><a href="revisão-de-r.html#cb30-4" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb30-5"><a href="revisão-de-r.html#cb30-5" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="revisão-de-r.html#cb30-6" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="revisão-de-r.html#cb29-1" tabindex="-1"></a><span class="co"># se eu quiser a soma dos pibs municipais</span></span>
+<span id="cb29-2"><a href="revisão-de-r.html#cb29-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="revisão-de-r.html#cb29-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="revisão-de-r.html#cb29-4" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb29-5"><a href="revisão-de-r.html#cb29-5" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="revisão-de-r.html#cb29-6" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -759,15 +809,15 @@ soma_pib
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="revisão-de-r.html#cb31-1" tabindex="-1"></a><span class="co"># maior e menos pibs e pibs per capita entre municípios</span></span>
-<span id="cb31-2"><a href="revisão-de-r.html#cb31-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="revisão-de-r.html#cb31-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_max =</span> <span class="fu">max</span>(pib_total),</span>
-<span id="cb31-4"><a href="revisão-de-r.html#cb31-4" tabindex="-1"></a>            <span class="at">pib_min =</span> <span class="fu">min</span>(pib_total),</span>
-<span id="cb31-5"><a href="revisão-de-r.html#cb31-5" tabindex="-1"></a>            <span class="at">pib_per_capita_max =</span> <span class="fu">max</span>(pib_per_capita),</span>
-<span id="cb31-6"><a href="revisão-de-r.html#cb31-6" tabindex="-1"></a>            <span class="at">pib_per_capita_min =</span> <span class="fu">min</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
-<span id="cb31-7"><a href="revisão-de-r.html#cb31-7" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb31-8"><a href="revisão-de-r.html#cb31-8" tabindex="-1"></a></span>
-<span id="cb31-9"><a href="revisão-de-r.html#cb31-9" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="revisão-de-r.html#cb30-1" tabindex="-1"></a><span class="co"># maior e menos pibs e pibs per capita entre municípios</span></span>
+<span id="cb30-2"><a href="revisão-de-r.html#cb30-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="revisão-de-r.html#cb30-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_max =</span> <span class="fu">max</span>(pib_total),</span>
+<span id="cb30-4"><a href="revisão-de-r.html#cb30-4" tabindex="-1"></a>            <span class="at">pib_min =</span> <span class="fu">min</span>(pib_total),</span>
+<span id="cb30-5"><a href="revisão-de-r.html#cb30-5" tabindex="-1"></a>            <span class="at">pib_per_capita_max =</span> <span class="fu">max</span>(pib_per_capita),</span>
+<span id="cb30-6"><a href="revisão-de-r.html#cb30-6" tabindex="-1"></a>            <span class="at">pib_per_capita_min =</span> <span class="fu">min</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-7"><a href="revisão-de-r.html#cb30-7" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb30-8"><a href="revisão-de-r.html#cb30-8" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="revisão-de-r.html#cb30-9" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -802,14 +852,14 @@ pib_per_capita_min
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="revisão-de-r.html#cb32-1" tabindex="-1"></a><span class="co"># se eu quiser apenas dos municípios od estado de SP?</span></span>
-<span id="cb32-2"><a href="revisão-de-r.html#cb32-2" tabindex="-1"></a><span class="co"># basta filtrar pelo estado de SP, com o comando filter</span></span>
-<span id="cb32-3"><a href="revisão-de-r.html#cb32-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb32-4"><a href="revisão-de-r.html#cb32-4" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-5"><a href="revisão-de-r.html#cb32-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
-<span id="cb32-6"><a href="revisão-de-r.html#cb32-6" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb32-7"><a href="revisão-de-r.html#cb32-7" tabindex="-1"></a>  </span>
-<span id="cb32-8"><a href="revisão-de-r.html#cb32-8" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="revisão-de-r.html#cb31-1" tabindex="-1"></a><span class="co"># se eu quiser apenas dos municípios od estado de SP?</span></span>
+<span id="cb31-2"><a href="revisão-de-r.html#cb31-2" tabindex="-1"></a><span class="co"># basta filtrar pelo estado de SP, com o comando filter</span></span>
+<span id="cb31-3"><a href="revisão-de-r.html#cb31-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="revisão-de-r.html#cb31-4" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-5"><a href="revisão-de-r.html#cb31-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-6"><a href="revisão-de-r.html#cb31-6" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb31-7"><a href="revisão-de-r.html#cb31-7" tabindex="-1"></a>  </span>
+<span id="cb31-8"><a href="revisão-de-r.html#cb31-8" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -826,13 +876,13 @@ soma_pib
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="revisão-de-r.html#cb33-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a href="revisão-de-r.html#cb33-2" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb33-3"><a href="revisão-de-r.html#cb33-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
-<span id="cb33-4"><a href="revisão-de-r.html#cb33-4" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-5"><a href="revisão-de-r.html#cb33-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb33-6"><a href="revisão-de-r.html#cb33-6" tabindex="-1"></a></span>
-<span id="cb33-7"><a href="revisão-de-r.html#cb33-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="revisão-de-r.html#cb32-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="revisão-de-r.html#cb32-2" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="revisão-de-r.html#cb32-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb32-4"><a href="revisão-de-r.html#cb32-4" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-5"><a href="revisão-de-r.html#cb32-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb32-6"><a href="revisão-de-r.html#cb32-6" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="revisão-de-r.html#cb32-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -855,16 +905,16 @@ pib_per_capita_medio
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="revisão-de-r.html#cb34-1" tabindex="-1"></a><span class="co"># se eu quiser esse cálculo por uf (or cada umas das ufs?)</span></span>
-<span id="cb34-2"><a href="revisão-de-r.html#cb34-2" tabindex="-1"></a><span class="co"># Aí é melhor aguprar por uf</span></span>
-<span id="cb34-3"><a href="revisão-de-r.html#cb34-3" tabindex="-1"></a><span class="co"># ideia é: split by, apply (function), combine (summarise?)</span></span>
-<span id="cb34-4"><a href="revisão-de-r.html#cb34-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb34-5"><a href="revisão-de-r.html#cb34-5" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb34-6"><a href="revisão-de-r.html#cb34-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
-<span id="cb34-7"><a href="revisão-de-r.html#cb34-7" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
-<span id="cb34-8"><a href="revisão-de-r.html#cb34-8" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb34-9"><a href="revisão-de-r.html#cb34-9" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="revisão-de-r.html#cb34-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="revisão-de-r.html#cb33-1" tabindex="-1"></a><span class="co"># se eu quiser esse cálculo por uf (or cada umas das ufs?)</span></span>
+<span id="cb33-2"><a href="revisão-de-r.html#cb33-2" tabindex="-1"></a><span class="co"># Aí é melhor aguprar por uf</span></span>
+<span id="cb33-3"><a href="revisão-de-r.html#cb33-3" tabindex="-1"></a><span class="co"># ideia é: split by, apply (function), combine (summarise?)</span></span>
+<span id="cb33-4"><a href="revisão-de-r.html#cb33-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb33-5"><a href="revisão-de-r.html#cb33-5" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb33-6"><a href="revisão-de-r.html#cb33-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb33-7"><a href="revisão-de-r.html#cb33-7" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-8"><a href="revisão-de-r.html#cb33-8" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb33-9"><a href="revisão-de-r.html#cb33-9" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="revisão-de-r.html#cb33-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -948,13 +998,13 @@ CE
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="revisão-de-r.html#cb35-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
-<span id="cb35-2"><a href="revisão-de-r.html#cb35-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb35-3"><a href="revisão-de-r.html#cb35-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb35-4"><a href="revisão-de-r.html#cb35-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pib_uf =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
-<span id="cb35-5"><a href="revisão-de-r.html#cb35-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb35-6"><a href="revisão-de-r.html#cb35-6" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="revisão-de-r.html#cb35-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="revisão-de-r.html#cb34-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
+<span id="cb34-2"><a href="revisão-de-r.html#cb34-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="revisão-de-r.html#cb34-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="revisão-de-r.html#cb34-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pib_uf =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-5"><a href="revisão-de-r.html#cb34-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb34-6"><a href="revisão-de-r.html#cb34-6" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="revisão-de-r.html#cb34-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1901,13 +1951,13 @@ Pecuária, inclusive apoio à pecuária
 </table>
 <p>Coisas estranhas. O maior pib per capita municipal deu muito alto. vamos ver qual município é?
 Vamos filtrar e depois selecionar apenas algumas colunas</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="revisão-de-r.html#cb36-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
-<span id="cb36-2"><a href="revisão-de-r.html#cb36-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb36-3"><a href="revisão-de-r.html#cb36-3" tabindex="-1"></a>  <span class="fu">filter</span>(pib_per_capita <span class="sc">&gt;</span> <span class="dv">700000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb36-4"><a href="revisão-de-r.html#cb36-4" tabindex="-1"></a>  <span class="fu">select</span>(sigla_uf, nome_munic, pib_per_capita, pib_total) <span class="sc">%&gt;%</span></span>
-<span id="cb36-5"><a href="revisão-de-r.html#cb36-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb36-6"><a href="revisão-de-r.html#cb36-6" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="revisão-de-r.html#cb36-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="revisão-de-r.html#cb35-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
+<span id="cb35-2"><a href="revisão-de-r.html#cb35-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="revisão-de-r.html#cb35-3" tabindex="-1"></a>  <span class="fu">filter</span>(pib_per_capita <span class="sc">&gt;</span> <span class="dv">700000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="revisão-de-r.html#cb35-4" tabindex="-1"></a>  <span class="fu">select</span>(sigla_uf, nome_munic, pib_per_capita, pib_total) <span class="sc">%&gt;%</span></span>
+<span id="cb35-5"><a href="revisão-de-r.html#cb35-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb35-6"><a href="revisão-de-r.html#cb35-6" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="revisão-de-r.html#cb35-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1949,43 +1999,43 @@ Veremos que “faz sentido”, embora na verdade não faça.</p>
 <div id="visualização" class="section level2 hasAnchor" number="2.9">
 <h2><span class="header-section-number">2.9</span> Visualização<a href="revisão-de-r.html#visualização" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para visualizarmos os dados com gráficos, utilizaremos a biblioteca ggplot2</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="revisão-de-r.html#cb37-1" tabindex="-1"></a><span class="co"># gráficos</span></span>
-<span id="cb37-2"><a href="revisão-de-r.html#cb37-2" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="revisão-de-r.html#cb37-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb37-4"><a href="revisão-de-r.html#cb37-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb37-5"><a href="revisão-de-r.html#cb37-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="revisão-de-r.html#cb36-1" tabindex="-1"></a><span class="co"># gráficos</span></span>
+<span id="cb36-2"><a href="revisão-de-r.html#cb36-2" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="revisão-de-r.html#cb36-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb36-4"><a href="revisão-de-r.html#cb36-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb36-5"><a href="revisão-de-r.html#cb36-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-26-1.png" width="2100" /></p>
 <p>A lgócia geral de um grtáfico com ggplot2 é como no exemplo acima. Primeiro passamos as variáveis por meio do comando ggplot, dentro de aes (de aesthetics), depois combinamos com o tipo de plot que queremos faze,r nesse caso, pontos, com geom_point. É possívle customizar o gráfico para ele ficar mais bonito. Vamos fazer isso agora.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="revisão-de-r.html#cb37-1" tabindex="-1"></a><span class="co"># gráficos  mais bonitos</span></span>
+<span id="cb37-2"><a href="revisão-de-r.html#cb37-2" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="revisão-de-r.html#cb37-3" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="revisão-de-r.html#cb37-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb37-5"><a href="revisão-de-r.html#cb37-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb37-6"><a href="revisão-de-r.html#cb37-6" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb37-7"><a href="revisão-de-r.html#cb37-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-27-1.png" width="2100" /></p>
+<p>Podemos usar vários temas feitos pela comunidade. Por exemplo, Barbie:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="revisão-de-r.html#cb38-1" tabindex="-1"></a><span class="co"># gráficos  mais bonitos</span></span>
 <span id="cb38-2"><a href="revisão-de-r.html#cb38-2" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="revisão-de-r.html#cb38-3" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="revisão-de-r.html#cb38-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb38-5"><a href="revisão-de-r.html#cb38-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb38-6"><a href="revisão-de-r.html#cb38-6" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb38-7"><a href="revisão-de-r.html#cb38-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
-<p>Podemos usar vários temas feitos pela comunidade. Por exemplo, Barbie:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="revisão-de-r.html#cb39-1" tabindex="-1"></a><span class="co"># gráficos  mais bonitos</span></span>
-<span id="cb39-2"><a href="revisão-de-r.html#cb39-2" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="revisão-de-r.html#cb39-3" tabindex="-1"></a><span class="co"># install.packages(&quot;remotes&quot;)</span></span>
-<span id="cb39-4"><a href="revisão-de-r.html#cb39-4" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;MatthewBJane/theme_park&quot;)</span></span>
-<span id="cb39-5"><a href="revisão-de-r.html#cb39-5" tabindex="-1"></a><span class="fu">library</span>(ThemePark)</span>
-<span id="cb39-6"><a href="revisão-de-r.html#cb39-6" tabindex="-1"></a></span>
-<span id="cb39-7"><a href="revisão-de-r.html#cb39-7" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb39-8"><a href="revisão-de-r.html#cb39-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb39-9"><a href="revisão-de-r.html#cb39-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme_barbie</span>() <span class="sc">+</span></span>
-<span id="cb39-10"><a href="revisão-de-r.html#cb39-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<span id="cb38-3"><a href="revisão-de-r.html#cb38-3" tabindex="-1"></a><span class="co"># install.packages(&quot;remotes&quot;)</span></span>
+<span id="cb38-4"><a href="revisão-de-r.html#cb38-4" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;MatthewBJane/theme_park&quot;)</span></span>
+<span id="cb38-5"><a href="revisão-de-r.html#cb38-5" tabindex="-1"></a><span class="fu">library</span>(ThemePark)</span>
+<span id="cb38-6"><a href="revisão-de-r.html#cb38-6" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="revisão-de-r.html#cb38-7" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb38-8"><a href="revisão-de-r.html#cb38-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb38-9"><a href="revisão-de-r.html#cb38-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme_barbie</span>() <span class="sc">+</span></span>
+<span id="cb38-10"><a href="revisão-de-r.html#cb38-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-28-1.png" width="2100" /></p>
 <p>Vocês podem ver outros temas de filmes no github do autor do pacote: <a href="https://github.com/MatthewBJane/theme_park" class="uri">https://github.com/MatthewBJane/theme_park</a>
 E, claro, há muito mais na internet.</p>
 <p>Para fazer outro tipo de gráfico, é só variar o geom. Por exemplo, um histograma do PIB per capita.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="revisão-de-r.html#cb40-1" tabindex="-1"></a><span class="co"># Histograma</span></span>
-<span id="cb40-2"><a href="revisão-de-r.html#cb40-2" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="revisão-de-r.html#cb40-3" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="revisão-de-r.html#cb40-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb40-5"><a href="revisão-de-r.html#cb40-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_per_capita)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb40-6"><a href="revisão-de-r.html#cb40-6" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB per capita municipal&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="revisão-de-r.html#cb39-1" tabindex="-1"></a><span class="co"># Histograma</span></span>
+<span id="cb39-2"><a href="revisão-de-r.html#cb39-2" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="revisão-de-r.html#cb39-3" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="revisão-de-r.html#cb39-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb39-5"><a href="revisão-de-r.html#cb39-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_per_capita)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb39-6"><a href="revisão-de-r.html#cb39-6" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB per capita municipal&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-29-1.png" width="2100" /></p>
 
 </div>
 </div>
@@ -2049,20 +2099,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
