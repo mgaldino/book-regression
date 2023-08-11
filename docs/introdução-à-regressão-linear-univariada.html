@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-08-09" />
+<meta name="date" content="2023-08-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -209,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>O modelo de regressão (não confundir com regressão linear) é uma forma bem ampla de modelar os dados para prever uma variável de interesse, usualmente designada pela letra <span class="math inline">\(Y\)</span>. Se eu quero prever os votos de candidatas em uma eleição, a votação de cada candidata é minha variável de interesse, <span class="math inline">\(Y\)</span>. Digamos que eu tenho uma amostra da intenção de votos das candidatas, obtidas por meio de uma pesquisa eleitoral.</p>
 <p>Há muitas formas de apresentar ou motivar regressão linear. O método mais tradicional é pensar que a regressão linear é uma reta que é ajustada aos pontos observados. Porém, não tomaremos esse caminho aqui.</p>
 <p>Nós iremos tomar aqui o caminho de considerar que a regressão linear é uma formade aproximar a chamada “Conditional Regression Function” (CEF, na sigla em inglês). O objetivo é entender “as far as possible with the available data how the conditional distribution of some response y varies across subpopulations determined by the possible values of the predictor or predictors” (Cook and Weisberg, apud Berk, p. 4).</p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <pre><code>## # A tibble: 1 × 1
 ##   `mean(pib_per_capita)`
 ##                    &lt;dbl&gt;
@@ -217,8 +217,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 2 × 2
 ##   amazonia_legal `mean(pib_per_capita)`
 ##   &lt;chr&gt;                           &lt;dbl&gt;
-## 1 Não                            17953.
-## 2 Sim                            13883.</code></pre>
+## 1 &quot;N\u00e3o&quot;                     17953.
+## 2 &quot;Sim&quot;                          13883.</code></pre>
 <p>Portanto, vamos retomrar o conceito de esperança condicional, para introduzir em seguida a função de regressão condicional (CEF, em inglÊs) e então como a regressão pode ser pensada como uma forma de aproximar a CEF.</p>
 <div id="esperança-condicional" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Esperança Condicional<a href="introdução-à-regressão-linear-univariada.html#esperança-condicional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
