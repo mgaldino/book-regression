@@ -1,6 +1,6 @@
-tab:unnamed-chunk-28
 tab:unnamed-chunk-29
-tab:unnamed-chunk-32
+tab:unnamed-chunk-30
+tab:unnamed-chunk-33
 prefácio
 revisão-de-r
 r-e-rstudio

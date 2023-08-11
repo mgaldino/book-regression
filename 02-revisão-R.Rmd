@@ -4,7 +4,7 @@
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, dpi=300,fig.width=7, scale=.8)
+knitr::opts_chunk$set(echo = TRUE, dpi=96)
 
 ```
 
@@ -192,7 +192,7 @@ E depois carreguem a biblioteca: library(data.table)
 
 Para importar, usaremos o comando fread do pacote data.table.
 
-```{r, results='asis', message=FALSE, cache=TRUE}
+```{r import_dados, results='asis', message=FALSE, cache=TRUE}
 
 # vamos importar uma base de dados de pib municipais de 2013, do IBGE
 
@@ -319,7 +319,7 @@ Exercício em sala de aula: veja os impostos desse município.
 
 Para visualizarmos os dados com gráficos, utilizaremos a biblioteca ggplot2
 
-```{r, results='asis', message=FALSE}
+```{r start_visualizacao, results='asis', message=FALSE, cache=T}
 # gráficos
 
 library(ggplot2)
@@ -337,11 +337,12 @@ A lgócia geral de um grtáfico com ggplot2 é como no exemplo acima. Primeiro p
 
 pib_cid %>%
   ggplot(aes(y=pib_total, x=impostos)) + geom_point() +
-  scale_y_continuous(labels = scales::dollar) + theme_light() +
+  scale_y_continuous(labels = scales::dollar) + theme_light() + theme(text=element_text(size=20)) +
   xlab("impostos municipais") + ggtitle("PIB municipal de 2013 x impostos municipais")
 
 
 ```
+
 
 Podemos usar vários temas feitos pela comunidade. Por exemplo, Barbie:
 ```{r, results='asis', message=FALSE}
@@ -353,7 +354,7 @@ library(ThemePark)
 
 pib_cid %>%
   ggplot(aes(y=pib_total, x=impostos)) + geom_point() +
-  scale_y_continuous(labels = scales::dollar) + theme_barbie() +
+  scale_y_continuous(labels = scales::dollar) + theme(text=element_text(size=20)) + theme_barbie() +
   xlab("impostos municipais") + ggtitle("PIB municipal de 2013 x impostos municipais")
 
 
@@ -369,8 +370,8 @@ Para fazer outro tipo de gráfico, é só variar o geom. Por exemplo, um histogr
 
 
 pib_cid %>%
-  ggplot(aes(y=pib_per_capita)) + geom_histogram() +
-  theme_light() + ggtitle("PIB per capita municipal")
+  ggplot(aes(x=pib_per_capita)) + geom_histogram() +
+  theme_light() + theme(text=element_text(size=20)) + ggtitle("PIB per capita municipal")
 
 
 ```
