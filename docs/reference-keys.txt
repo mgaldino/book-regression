@@ -1,6 +1,7 @@
 tab:unnamed-chunk-29
 tab:unnamed-chunk-30
-tab:unnamed-chunk-33
+tab:unnamed-chunk-31
+tab:unnamed-chunk-34
 prefácio
 revisão-de-r
 r-e-rstudio
@@ -24,12 +25,15 @@ esperança-matemática
 variância
 algebra-com-esperança-variância-e-covariância
 distribuição-de-probabilidade-conjunta
+pobabilidade-condicional
+esperança-condicional
 introdução-à-simulação
-configuraçao
+configuração
 simular
 resumir
 análise-de-sensibilidade
+aplicação-de-simulação
 introdução-à-regressão-linear-univariada
-esperança-condicional
+esperança-condicional-1
 cef
 objetivos-de-aprendizagem-ao-final-do-capítulo

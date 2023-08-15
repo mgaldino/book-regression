@@ -101,16 +101,99 @@ como podemos ver, à medida que $n$ cresce, a simulação converge para o verdad
 
 De maneira geral, uma simulação envolve os seguintes passos.
 
-### Configuraçao
+## Configuração
+
 Definir o modelo de probabilidade, variáveis aleatórias e eventos a serem modelados. O modelo de probabilidade codifica todas as suposições do modelo. No exemplo acima, de que todos os lados têm a mesma probabilidade de sair, que existem apenas seis possibilidades, numeradas de $1-6$ e assim por diante.
 
-### Simular
+## Simular
+
+Vamos considerar o exemplo dos dados novamente. Vamos usar a função sample para simular lançamento de um dado de quatro faces.
+
+Para "jogar o dado" uma vez, sorteio um número entre 1 e 4.
+```{r, results='asis'}
+X <- sample(1:4, size=1)
+
+```
+
+Como quero a frequência de longo prazo, preciso repetir esse processo (de maneira independente a cada jogada) $n$ vezes.
+
+```{r, results='asis'}
+# número de jogadas/simulações
+n <- 1000
+
+# vetor X, para armazenar o resultado de cada uma das n jogadas
+X <- numeric()
+
+# simulando n vezes
+for( i in 1:n){
+  X[i] <- sample(1:4, size=1)
+}
+
+# visualizando as primeiras 20 jogadas
+head(X, 20)
+```
+
+## Resumir
+Após realizada a simulação, queremos não olhar todos os números simulados, mas resumir a simulação. Por exemplo, obtendo a minha distribuição de probabilidade, ou a esperança.
+
+```{r, results='asis'}
+# prob X = 1
+sum(X==1)/n
+
+# prob X = 2
+sum(X==2)/n
+
+# prob X = 3
+sum(X==3)/n
+
+# prob X = 2
+sum(X==4)/n
+
+## resumo geral
+summary(X)
 
 
-### Resumir
 
+```
 
 ## Análise de sensibilidade
+Como estamos simulando e aproximando com um $n$ finito o que deveria ser infinito, temos de saber se nossa aproximação é boa. Se sabemos a verdade, podemos calcular como o erro se comporta com o $n$ que escolhemos, ou ver como muda à medida que o $n$ cresce. Vamos fazer isso.
+
+
+```{r, results='asis'}
+
+# número de jogadas/simulações
+n <- 1000
+
+# vetor X, para armazenar o resultado de cada uma das n jogadas
+X <- numeric()
+
+# número de replicações da simulação
+k <- 100
+
+# vetor para armazenar o erro medio
+erro_medio <- numeric()
+
+# simulando n vezes
+for (j in 1:k) {
+  for( i in 1:n){
+  X[i] <- sample(1:4, size=1)
+  }
+  p1 <- sum(X==1)/n
+  p2 <- sum(X==2)/n
+  p3 <- sum(X==3)/n
+  p4 <- sum(X==4)/n
+  erro_medio[j] = (abs(p1 - .25) + abs(p2 - .25) + abs(p3 - .25) + abs(p3 - .25)) /4
+}
+
+summary(erro_medio)
+```
+
+Podemos ver que o erro médio é da ordem de menosde 3pp no pior dos casos.
+
+Exercício. Verifiquem como o erro médio muda com $n = 100$, $n = 1000$ e $n = 10000$.
+
+## Aplicação de simulação
 
 Um dos resultados mais contraintuitivos de modelos de probabilidade está relacionado à chamada "falácia do jogador". A falácia é a crença de que, porque saiu um número par (ou preto) na última jogada em uma roleta no cassino, então aumenta a chance de sair ímpar (vermelho) na próxima rodada, para que os números se equilibrem. Porém, cada jogada é independente da anterior. Um problema relacionado é o chamado problema da ruína do jogador.
 
@@ -177,5 +260,5 @@ print(sum(freq_lideranca)/k)
 
 Suponha agora um problema diferente. Um dos dois candidatos vai ter a primeira liderança. Após $n$ votos apurados, qual a probabilidade de a contagem ter empatado pela primeira vez? Dito de outro modo, após uma das candidatas assumir a liderança, quanto "tempo" (isto é, após quantos votos apurados) em média devemos esperar até que uma reversão de liderança ocorra (ou pelo menos um empate)?
 
-A intuição que as pessoas têm, talvez a partir da lei dos grandes números, é que deveríamos esperar que, se $p = q = 1/2$, ambas candidatas deveriam liderar por 50% do tempo em uma apuração suficientemente longa (com $n$ votos grande) e deveria haver troca constante de liderança, em vez de uma candidata liderar po um longo tempo. Essa intuição é errada, como iremos mostrar agora por simulação. A leitora interessada na demonstração matemática utilizando apenas análise combinatória (portanto, apenas estatística básica) deve consultar o clássico livro de Feller (1968).
+A intuição que as pessoas têm, talvez a partir da lei dos grandes números, é que deveríamos esperar que, se $p = q = 1/2$, ambas candidatas deveriam liderar por 50% do tempo em uma apuração suficientemente longa (com $n$ votos grande) e deveria haver troca constante de liderança, em vez de uma candidata liderar po um longo tempo. Essa intuição é errada, como iremos mostrar agora por simulação. A leitora interessada na demonstração matemática utilizando apenas análise combinatória (portanto, apenas estatística básica) deve consultar o clássico livro de Feller (1968). Aqui, faremos uma simulação para mostrar isso.
 

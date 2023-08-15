@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-08-11" />
+<meta name="date" content="2023-08-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,17 +171,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#variância"><i class="fa fa-check"></i><b>3.3</b> Variância</a></li>
 <li class="chapter" data-level="3.4" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#algebra-com-esperança-variância-e-covariância"><i class="fa fa-check"></i><b>3.4</b> Algebra com Esperança, Variância e Covariância</a></li>
 <li class="chapter" data-level="3.5" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#distribuição-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.5</b> Distribuição de Probabilidade Conjunta</a></li>
+<li class="chapter" data-level="3.6" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#pobabilidade-condicional"><i class="fa fa-check"></i><b>3.6</b> Pobabilidade Condicional</a></li>
+<li class="chapter" data-level="3.7" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#esperança-condicional"><i class="fa fa-check"></i><b>3.7</b> Esperança Condicional</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html"><i class="fa fa-check"></i><b>4</b> Introdução à Simulação</a>
 <ul>
-<li class="chapter" data-level="4.0.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#configuraçao"><i class="fa fa-check"></i><b>4.0.1</b> Configuraçao</a></li>
-<li class="chapter" data-level="4.0.2" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#simular"><i class="fa fa-check"></i><b>4.0.2</b> Simular</a></li>
-<li class="chapter" data-level="4.0.3" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#resumir"><i class="fa fa-check"></i><b>4.0.3</b> Resumir</a></li>
-<li class="chapter" data-level="4.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#análise-de-sensibilidade"><i class="fa fa-check"></i><b>4.1</b> Análise de sensibilidade</a></li>
+<li class="chapter" data-level="4.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#configuração"><i class="fa fa-check"></i><b>4.1</b> Configuração</a></li>
+<li class="chapter" data-level="4.2" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#simular"><i class="fa fa-check"></i><b>4.2</b> Simular</a></li>
+<li class="chapter" data-level="4.3" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#resumir"><i class="fa fa-check"></i><b>4.3</b> Resumir</a></li>
+<li class="chapter" data-level="4.4" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#análise-de-sensibilidade"><i class="fa fa-check"></i><b>4.4</b> Análise de sensibilidade</a></li>
+<li class="chapter" data-level="4.5" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#aplicação-de-simulação"><i class="fa fa-check"></i><b>4.5</b> Aplicação de simulação</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html"><i class="fa fa-check"></i><b>5</b> Introdução à regressão linear univariada</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#esperança-condicional"><i class="fa fa-check"></i><b>5.1</b> Esperança Condicional</a></li>
+<li class="chapter" data-level="5.1" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#esperança-condicional-1"><i class="fa fa-check"></i><b>5.1</b> Esperança Condicional</a></li>
 <li class="chapter" data-level="5.2" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#cef"><i class="fa fa-check"></i><b>5.2</b> CEF</a></li>
 <li class="chapter" data-level="5.3" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#objetivos-de-aprendizagem-ao-final-do-capítulo"><i class="fa fa-check"></i><b>5.3</b> Objetivos de aprendizagem ao final do capítulo</a></li>
 </ul></li>
@@ -235,7 +238,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 0</code></pre>
 <div id="variável-aleatória" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Variável Aleatória<a href="revisão-de-estatística-e-probabilidade.html#variável-aleatória" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Uma variável aleatória (v.a.) é uma função que mapeia eventos (aleatórios) de um espaço amostral aos números reais, em geral uma probabilidade entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>. Por exemplo, um dado de <span class="math inline">\(6\)</span> faces possui um espaço amostral de eventos possíveis dados pelos números <span class="math inline">\(\{1,2,3,4,5,6\}\)</span> e cada evento pode sair com uma probabiidade, por exemplo, <span class="math inline">\(1/6\)</span>.</p>
+<p>Uma variável aleatória (v.a.) mede numericamente resultad0s de eventos aleatórios. dPor exemplo, um dado de <span class="math inline">\(6\)</span> faces possui um espaço amostral de eventos possíveis dados pelos números <span class="math inline">\(\{1,2,3,4,5,6\}\)</span>. Ao atribuirmos uma probabilidade a cada resultado possível do espaço amostral por exemplo, <span class="math inline">\(1/6\)</span>, temos uma distribuição de probabilidade.</p>
+<p>Variáveis aleatórias podem ser discretas ou contínuas. Uma v.a. discreta pode assumir um número finito (contável) de valores. Já uma contínua pode assumir infinitos (não-contáveis) valores.</p>
+<p>Um conjunto é contável se ele for finito ou se puder ser estabelecida uma correspondência um para um com o conjunto (infinito) dos números naturais.</p>
 </div>
 <div id="esperança-matemática" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Esperança matemática<a href="revisão-de-estatística-e-probabilidade.html#esperança-matemática" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -317,11 +322,11 @@ Considere um dado de 4 faces <span class="math inline">\(( 1, 2, 3, 4 )\)</span>
 <span id="cb50-9"><a href="revisão-de-estatística-e-probabilidade.html#cb50-9" tabindex="-1"></a></span>
 <span id="cb50-10"><a href="revisão-de-estatística-e-probabilidade.html#cb50-10" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
 <span id="cb50-11"><a href="revisão-de-estatística-e-probabilidade.html#cb50-11" tabindex="-1"></a><span class="fu">kable</span>(espaco_amostral, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;resultado do primeiro dado&quot;</span>, <span class="st">&quot;resultado do segundo dado&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>),</span>
-<span id="cb50-12"><a href="revisão-de-estatística-e-probabilidade.html#cb50-12" tabindex="-1"></a>                <span class="at">caption =</span> <span class="st">&quot;Tabela 2.5: Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb50-12"><a href="revisão-de-estatística-e-probabilidade.html#cb50-12" tabindex="-1"></a>                <span class="at">caption =</span> <span class="st">&quot;Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb50-13"><a href="revisão-de-estatística-e-probabilidade.html#cb50-13" tabindex="-1"></a> <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span></code></pre></div>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-29">Table 3.1: </span>Tabela 2.5: Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados
+<span id="tab:unnamed-chunk-29">Table 3.1: </span>Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados
 </caption>
 <thead>
 <tr>
@@ -567,23 +572,20 @@ Y
 </tbody>
 </table>
 <p>Se supusermos que todos os números possuem a mesma chance de sair quando jogamos os dados, então, a distribuição conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> pode ser dada por:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="revisão-de-estatística-e-probabilidade.html#cb51-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb51-2"><a href="revisão-de-estatística-e-probabilidade.html#cb51-2" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb51-3"><a href="revisão-de-estatística-e-probabilidade.html#cb51-3" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="revisão-de-estatística-e-probabilidade.html#cb51-4" tabindex="-1"></a><span class="co"># Definir os valores de (x, y) e P(X = x, Y = y)</span></span>
-<span id="cb51-5"><a href="revisão-de-estatística-e-probabilidade.html#cb51-5" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(2, 1)&quot;</span>, <span class="st">&quot;(3, 2)&quot;</span>, <span class="st">&quot;(4, 2)&quot;</span>, <span class="st">&quot;(4, 3)&quot;</span>, <span class="st">&quot;(5, 3)&quot;</span>, <span class="st">&quot;(5, 4)&quot;</span>, <span class="st">&quot;(6, 3)&quot;</span>, <span class="st">&quot;(6, 4)&quot;</span>, <span class="st">&quot;(7, 4)&quot;</span>, <span class="st">&quot;(8, 4)&quot;</span>)</span>
-<span id="cb51-6"><a href="revisão-de-estatística-e-probabilidade.html#cb51-6" tabindex="-1"></a>probabilidades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>)</span>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="revisão-de-estatística-e-probabilidade.html#cb51-1" tabindex="-1"></a><span class="co"># Definir os valores de (x, y) e P(X = x, Y = y)</span></span>
+<span id="cb51-2"><a href="revisão-de-estatística-e-probabilidade.html#cb51-2" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(2, 1)&quot;</span>, <span class="st">&quot;(3, 2)&quot;</span>, <span class="st">&quot;(4, 2)&quot;</span>, <span class="st">&quot;(4, 3)&quot;</span>, <span class="st">&quot;(5, 3)&quot;</span>, <span class="st">&quot;(5, 4)&quot;</span>, <span class="st">&quot;(6, 3)&quot;</span>, <span class="st">&quot;(6, 4)&quot;</span>, <span class="st">&quot;(7, 4)&quot;</span>, <span class="st">&quot;(8, 4)&quot;</span>)</span>
+<span id="cb51-3"><a href="revisão-de-estatística-e-probabilidade.html#cb51-3" tabindex="-1"></a>probabilidades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>)</span>
+<span id="cb51-4"><a href="revisão-de-estatística-e-probabilidade.html#cb51-4" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="revisão-de-estatística-e-probabilidade.html#cb51-5" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
+<span id="cb51-6"><a href="revisão-de-estatística-e-probabilidade.html#cb51-6" tabindex="-1"></a>tabela <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;(x, y)&quot;</span> <span class="ot">=</span> valores, <span class="st">&quot;P(X = x, Y = y)&quot;</span> <span class="ot">=</span> probabilidades)</span>
 <span id="cb51-7"><a href="revisão-de-estatística-e-probabilidade.html#cb51-7" tabindex="-1"></a></span>
-<span id="cb51-8"><a href="revisão-de-estatística-e-probabilidade.html#cb51-8" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
-<span id="cb51-9"><a href="revisão-de-estatística-e-probabilidade.html#cb51-9" tabindex="-1"></a>tabela <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;(x, y)&quot;</span> <span class="ot">=</span> valores, <span class="st">&quot;P(X = x, Y = y)&quot;</span> <span class="ot">=</span> probabilidades)</span>
-<span id="cb51-10"><a href="revisão-de-estatística-e-probabilidade.html#cb51-10" tabindex="-1"></a></span>
-<span id="cb51-11"><a href="revisão-de-estatística-e-probabilidade.html#cb51-11" tabindex="-1"></a><span class="co"># Formatar a tabela</span></span>
-<span id="cb51-12"><a href="revisão-de-estatística-e-probabilidade.html#cb51-12" tabindex="-1"></a><span class="fu">kable</span>(tabela, <span class="at">caption =</span> <span class="st">&quot;Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces&quot;</span>,</span>
-<span id="cb51-13"><a href="revisão-de-estatística-e-probabilidade.html#cb51-13" tabindex="-1"></a>                          <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;$(X,Y)$&quot;</span>, <span class="st">&quot;$P(X=x, Y=y)$&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb51-14"><a href="revisão-de-estatística-e-probabilidade.html#cb51-14" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span></code></pre></div>
+<span id="cb51-8"><a href="revisão-de-estatística-e-probabilidade.html#cb51-8" tabindex="-1"></a><span class="co"># Formatar a tabela</span></span>
+<span id="cb51-9"><a href="revisão-de-estatística-e-probabilidade.html#cb51-9" tabindex="-1"></a><span class="fu">kable</span>(tabela, <span class="at">caption =</span> <span class="st">&quot;Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces&quot;</span>,</span>
+<span id="cb51-10"><a href="revisão-de-estatística-e-probabilidade.html#cb51-10" tabindex="-1"></a>                          <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;$(X,Y)$&quot;</span>, <span class="st">&quot;$P(X=x, Y=y)$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb51-11"><a href="revisão-de-estatística-e-probabilidade.html#cb51-11" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span></code></pre></div>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-30">Table 3.2: </span>Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces
+<span id="tab:unnamed-chunk-30">Table 3.2: </span>Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces
 </caption>
 <thead>
 <tr>
@@ -678,6 +680,127 @@ Y
 </tr>
 </tbody>
 </table>
+</div>
+<div id="pobabilidade-condicional" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Pobabilidade Condicional<a href="revisão-de-estatística-e-probabilidade.html#pobabilidade-condicional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Nós vimos o que é uma distribuição de probabilidade conjunta. É comum que nós tenhamos apenas uma observação parcial sobre uma das variáveis. Digamos, que <span class="math inline">\(y = 2\)</span>. De posse dessa informação, como podemos atualizar nossa tabela de probabilidades? Se o maior valor foi <span class="math inline">\(2\)</span>, então a soma dos dados <span class="math inline">\(X\)</span> só pode ser 3 ou 4. Se a soma for 3, temos algo como <span class="math inline">\((1,2)\)</span> ou <span class="math inline">\((2,1)\)</span>. Se a soma for 4, então deve ter saído <span class="math inline">\((2,2)\)</span>. Esse é o novo espaço amostral dado que <span class="math inline">\(y=2\)</span>.Todos os outros números não podem ocorrer e, portanto, possuem probabilidade zero. Logo, <span class="math inline">\(P(X=1|Y=2) = 2/3\)</span> e <span class="math inline">\(P(X=2|Y=2) = 1/3\)</span>.</p>
+<p>Isso é o que chamamos de probabilidade condicional. No caso, a probabilidade condicional de <span class="math inline">\(X\)</span>, dado <span class="math inline">\(Y=y\)</span>.</p>
+<p>A probabilidade condicional é em si uma distribuição de probabilidade. Do mesmo jeito que temos as distribuições de probabilidade de <span class="math inline">\(X\)</span>, de <span class="math inline">\(Y\)</span> e de <span class="math inline">\(X,Y\)</span>, também temos a de <span class="math inline">\(X|y=y\)</span> (e, claro, a de <span class="math inline">\(Y|X=x\)</span>). A tabela abaixo apresenta essa distribuição de probabilidade condicional para o caso de <span class="math inline">\(Y=2\)</span>.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="revisão-de-estatística-e-probabilidade.html#cb52-1" tabindex="-1"></a><span class="co"># Definir os valores de (x, y) e P(X = x, Y = y)</span></span>
+<span id="cb52-2"><a href="revisão-de-estatística-e-probabilidade.html#cb52-2" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(2, 1)&quot;</span>, <span class="st">&quot;(3, 2)&quot;</span>, <span class="st">&quot;(4, 2)&quot;</span>, <span class="st">&quot;(4, 3)&quot;</span>, <span class="st">&quot;(5, 3)&quot;</span>, <span class="st">&quot;(5, 4)&quot;</span>, <span class="st">&quot;(6, 3)&quot;</span>, <span class="st">&quot;(6, 4)&quot;</span>, <span class="st">&quot;(7, 4)&quot;</span>, <span class="st">&quot;(8, 4)&quot;</span>)</span>
+<span id="cb52-3"><a href="revisão-de-estatística-e-probabilidade.html#cb52-3" tabindex="-1"></a>probabilidades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb52-4"><a href="revisão-de-estatística-e-probabilidade.html#cb52-4" tabindex="-1"></a></span>
+<span id="cb52-5"><a href="revisão-de-estatística-e-probabilidade.html#cb52-5" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
+<span id="cb52-6"><a href="revisão-de-estatística-e-probabilidade.html#cb52-6" tabindex="-1"></a>tabela <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;(x, y)&quot;</span> <span class="ot">=</span> valores, <span class="st">&quot;P(X = x| Y = 2)&quot;</span> <span class="ot">=</span> probabilidades)</span>
+<span id="cb52-7"><a href="revisão-de-estatística-e-probabilidade.html#cb52-7" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="revisão-de-estatística-e-probabilidade.html#cb52-8" tabindex="-1"></a><span class="co"># Formatar a tabela</span></span>
+<span id="cb52-9"><a href="revisão-de-estatística-e-probabilidade.html#cb52-9" tabindex="-1"></a><span class="fu">kable</span>(tabela, <span class="at">caption =</span> <span class="st">&quot;Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces&quot;</span>,</span>
+<span id="cb52-10"><a href="revisão-de-estatística-e-probabilidade.html#cb52-10" tabindex="-1"></a>                          <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;$(X,Y)$&quot;</span>, <span class="st">&quot;$P(X=x| Y=2)$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb52-11"><a href="revisão-de-estatística-e-probabilidade.html#cb52-11" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span></code></pre></div>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-31">Table 3.3: </span>Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\((X,Y)\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(P(X=x| Y=2)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(2, 1)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(3, 2)
+</td>
+<td style="text-align:right;">
+0.6666667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(4, 2)
+</td>
+<td style="text-align:right;">
+0.3333333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(4, 3)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(5, 3)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(5, 4)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(6, 3)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(6, 4)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(7, 4)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(8, 4)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="esperança-condicional" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Esperança Condicional<a href="revisão-de-estatística-e-probabilidade.html#esperança-condicional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se a probabilidade condicional é uma distribuição de probabilidade no seu próprio direito, então podemos calcular a esperança dessa distribuição, exatamente como fazíamos antes. No caso, falamos de esperança condicional. Qual o valor médio de <span class="math inline">\(X\)</span>, quando <span class="math inline">\(Y=2\)</span>?</p>
+<p><span class="math inline">\(3*(2/3) + 4*(1/3)\)</span>
+<span class="math inline">\(2 + 4/3 = 6/3 + 4/3 = 10/3 = 3.333\)</span></p>
+<p>A notação matemática para a esperança condicional, nesse caso, é: <span class="math inline">\(E[X|Y=2]\)</span>.</p>
 
 </div>
 </div>
