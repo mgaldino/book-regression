@@ -40,7 +40,11 @@ mean(x)
 
 ## Variável Aleatória
 
-Uma variável aleatória (v.a.) é uma função que mapeia eventos (aleatórios) de um espaço amostral aos números reais, em geral uma probabilidade entre $0$ e $1$. Por exemplo, um dado de $6$ faces possui um espaço amostral de eventos possíveis dados pelos números $\{1,2,3,4,5,6\}$ e cada evento pode sair com uma probabiidade, por exemplo, $1/6$.
+Uma variável aleatória (v.a.) mede numericamente resultad0s de eventos aleatórios. dPor exemplo, um dado de $6$ faces possui um espaço amostral de eventos possíveis dados pelos números $\{1,2,3,4,5,6\}$. Ao atribuirmos uma probabilidade a cada resultado possível do espaço amostral por exemplo, $1/6$, temos uma distribuição de probabilidade.
+
+Variáveis aleatórias podem ser discretas ou contínuas. Uma v.a. discreta pode assumir um número finito (contável) de valores. Já uma contínua pode assumir infinitos (não-contáveis) valores.
+
+Um conjunto é contável se ele for finito ou se puder ser estabelecida uma correspondência um para um com o conjunto (infinito) dos números naturais.
 
 ## Esperança matemática
 A esperança de uma variável aleatória discreta $X$, cuja probabilidade de massa de $x \in X$ é dada por $p(x)$, é definida por: $\sum(x*p(x))$.
@@ -145,7 +149,7 @@ espaco_amostral$Y <- pmax(espaco_amostral$Var1, espaco_amostral$Var2)
 
 # Criar a tabela
 kable(espaco_amostral, col.names = c("resultado do primeiro dado", "resultado do segundo dado", "X", "Y"),
-                caption = "Tabela 2.5: Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados") %>%
+                caption = "Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados") %>%
  kable_styling(bootstrap_options = "striped")
 
 
@@ -154,8 +158,6 @@ kable(espaco_amostral, col.names = c("resultado do primeiro dado", "resultado do
 Se supusermos que todos os números possuem a mesma chance de sair quando jogamos os dados, então, a distribuição conjunta de $X$ e $Y$ pode ser dada por:
 
 ```{r, results='asis'}
-library(knitr)
-library(kableExtra)
 
 # Definir os valores de (x, y) e P(X = x, Y = y)
 valores <- c("(2, 1)", "(3, 2)", "(4, 2)", "(4, 3)", "(5, 3)", "(5, 4)", "(6, 3)", "(6, 4)", "(7, 4)", "(8, 4)")
@@ -165,9 +167,45 @@ probabilidades <- c(0.0625, 0.1250, 0.0625, 0.1250, 0.1250, 0.1250, 0.0625, 0.12
 tabela <- data.frame("(x, y)" = valores, "P(X = x, Y = y)" = probabilidades)
 
 # Formatar a tabela
-kable(tabela, caption = "Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces",
+kable(tabela, caption = "Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces",
                           col.names = c("$(X,Y)$", "$P(X=x, Y=y)$")) %>%
   kable_styling(bootstrap_options = "striped")
 
 
 ```
+
+## Pobabilidade Condicional
+
+Nós vimos o que é uma distribuição de probabilidade conjunta. É comum que nós tenhamos apenas uma observação parcial sobre uma das variáveis. Digamos, que $y = 2$. De posse dessa informação, como podemos atualizar nossa tabela de probabilidades? Se o maior valor foi $2$, então a soma dos dados $X$ só pode ser 3 ou 4. Se a soma for 3, temos algo como $(1,2)$ ou $(2,1)$. Se a soma for 4, então deve ter saído $(2,2)$. Esse é o novo espaço amostral dado que $y=2$.Todos os outros números não podem ocorrer e, portanto, possuem probabilidade zero. Logo, $P(X=1|Y=2) = 2/3$ e $P(X=2|Y=2) = 1/3$.
+
+Isso é o que chamamos de probabilidade condicional. No caso, a probabilidade condicional de $X$, dado $Y=y$.
+
+A probabilidade condicional é em si uma distribuição de probabilidade. Do mesmo jeito que temos as distribuições de probabilidade de $X$, de $Y$ e de $X,Y$, também temos a de $X|y=y$ (e, claro, a de $Y|X=x$). A tabela abaixo apresenta essa distribuição de probabilidade condicional para o caso de $Y=2$.
+
+
+
+```{r, results='asis'}
+
+# Definir os valores de (x, y) e P(X = x, Y = y)
+valores <- c("(2, 1)", "(3, 2)", "(4, 2)", "(4, 3)", "(5, 3)", "(5, 4)", "(6, 3)", "(6, 4)", "(7, 4)", "(8, 4)")
+probabilidades <- c(0, 2/3, 1/3, 0, 0, 0, 0, 0, 0, 0)
+
+# Criar a tabela
+tabela <- data.frame("(x, y)" = valores, "P(X = x| Y = 2)" = probabilidades)
+
+# Formatar a tabela
+kable(tabela, caption = "Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces",
+                          col.names = c("$(X,Y)$", "$P(X=x| Y=2)$")) %>%
+  kable_styling(bootstrap_options = "striped")
+
+
+```
+
+## Esperança Condicional
+
+Se a probabilidade condicional é uma distribuição de probabilidade no seu próprio direito, então podemos calcular a esperança dessa distribuição, exatamente como fazíamos antes. No caso, falamos de esperança condicional. Qual o valor médio de $X$, quando $Y=2$? 
+
+$3*(2/3) + 4*(1/3)$
+$2 + 4/3 = 6/3 + 4/3 = 10/3 = 3.333$
+
+A notação matemática para a esperança condicional, nesse caso, é: $E[X|Y=2]$.
