@@ -77,4 +77,38 @@ Estudantes deverão ter aprendido ao final do capítulo:
 
 1. **Reconhecer** que a função de esperança condicional,  a *CEF*, em sua forma pura, é o melhor preditor possível para uma variável alvo, dadas as informações de outras variáveis. 
 2. **Memorizar** que todos os outros predidores, sejam lineares ou não-lineares, incluindo preditores de deep learning, são tentativas de aproximar a CEF.
-3. **Apreciar** que o melhor predito linear (isto é, considerando apenas preditores que incluem combinação lineares de variáveis) produz previsões razoáveis, e **antecipar** que esse preditor noe leva à regressão linear. t
+3. **Apreciar** que o melhor predito linear (isto é, considerando apenas preditores que incluem combinação lineares de variáveis) produz previsões razoáveis, e **antecipar** que esse preditor nosleva à regressão linear. 
+
+
+```{r #import-pnad, results='asis', message=FALSE, cache=TRUE}
+# Carregue o pacote PNADcIBGE
+library(PNADcIBGE)
+# Importe os dados desejados
+data <- get_pnadc(year=2017,
+quarter=4,
+selected=FALSE,
+vars=c("Ano", "Trimestre", "UF", "V2007", "VD4020", "VD4035"),
+design=FALSE, savedir=tempdir())
+
+library(tidyverse)
+library(tidylog)
+data <- data %>%
+select(Ano, Trimestre, UF, V2007, VD4020, VD4035)
+# Renomeie as vari´aveis:
+data <- data %>%
+rename(genero = V2007,
+renda = VD4020,
+horas_trabalhadas = VD4035)
+
+```
+
+```{r #chart-pnad, results='asis', message=FALSE, cache=TRUE}
+library(ggplot2)
+
+data %>%
+  ggplot(aes(renda)) + geom_histogram()
+
+data %>%
+  ggplot(aes(renda, horas_trabalhadas)) + geom_point()
+
+```
