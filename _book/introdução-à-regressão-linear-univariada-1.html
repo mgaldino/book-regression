@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Introdução à Regresssão para Ciências Sociais</title>
-  <meta name="description" content="Introdução à Regresssão para Ciências Sociais" />
+  <title>Capítulo 6 Introdução à regressão linear univariada | Introdução à Regresssão para Ciências Sociais</title>
+  <meta name="description" content="Capítulo 6 Introdução à regressão linear univariada | Introdução à Regresssão para Ciências Sociais" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta property="og:title" content="Capítulo 6 Introdução à regressão linear univariada | Introdução à Regresssão para Ciências Sociais" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta name="twitter:title" content="Capítulo 6 Introdução à regressão linear univariada | Introdução à Regresssão para Ciências Sociais" />
   
   
   
@@ -23,15 +23,15 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-08-27" />
+<meta name="date" content="2023-08-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="introdução-à-regressão-linear-univariada.html"/>
 
-<link rel="next" href="revisão-de-r.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -52,74 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <style type="text/css">
   
@@ -191,14 +125,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#distribuição-condicional-dos-salários"><i class="fa fa-check"></i><b>5.5</b> Distribuição Condicional dos salários</a></li>
 <li class="chapter" data-level="5.6" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#logaritmos"><i class="fa fa-check"></i><b>5.6</b> Logaritmos</a></li>
 <li class="chapter" data-level="5.7" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#gênero-e-raça"><i class="fa fa-check"></i><b>5.7</b> Gênero e Raça</a></li>
-<li class="chapter" data-level="5.8" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#cef-1"><i class="fa fa-check"></i><b>5.8</b> CEF</a></li>
-<li class="chapter" data-level="5.9" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#erro-da-cef"><i class="fa fa-check"></i><b>5.9</b> Erro da CEF</a></li>
-<li class="chapter" data-level="5.10" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#o-que-falta"><i class="fa fa-check"></i><b>5.10</b> O que falta</a></li>
-<li class="chapter" data-level="5.11" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>5.11</b> Modelo só com intercepto</a></li>
-<li class="chapter" data-level="5.12" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#variância-da-regressão"><i class="fa fa-check"></i><b>5.12</b> Variância da Regressão</a></li>
-<li class="chapter" data-level="5.13" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>5.13</b> Chuva na Jamaica</a></li>
-<li class="chapter" data-level="5.14" data-path="introdução-à-regressão-linear-univariada.html"><a href="introdução-à-regressão-linear-univariada.html#melhor-preditor"><i class="fa fa-check"></i><b>5.14</b> Melhor preditor</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="introdução-à-regressão-linear-univariada-1.html"><a href="introdução-à-regressão-linear-univariada-1.html"><i class="fa fa-check"></i><b>6</b> Introdução à regressão linear univariada</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -218,20 +146,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Introdução à Regresssão para Ciências Sociais</h1>
-<p class="author"><em>Manoel Galdino</em></p>
-<p class="date"><em>2023-08-27</em></p>
-</div>
-<div id="prefácio" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Capítulo 1</span> - Prefácio<a href="index.html#prefácio" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP0468 Métodos Quantitativos de Pesquisa na Ciência Política IV, de introdução à regressão, bem como o curso de pós-graduação, Métodos II.</p>
-<p>Agradeço aos alunos do curso pelos feedbacks (futuros e presentes) sobre esse material, bem como ao monitor do curso, Davi Veronese.</p>
-<p>Futuramente, pretendo transformar as notas de aulas em um livro, que poderá ser utilizado pela comunidade brasileira de ciências sociais interessada em aprender mais sobre métodos quantitativos, em particular regressão com R.</p>
-<p>A motivação para disponibilizar as notas de aula em formato de livro é a quase inexistência de um material bom de econometria básica, em português, voltado para a área de ciências sociais, em particular a ciência política. Existem bons manuais em inglês e bons manuais em português, mas voltado para a economia.</p>
-<p>Os livros existentes nem sempre fazem um bom trabalho de diferenciar regressão estatística e modelo estrutural (causal) de regressão. Uma abordagem moderna de inferência causal requer que essa distinção seja ensinada ao aluno e esse livro também pretende preencher essa lacuna.</p>
-<p>Por fim, a utilização do R é uma forma de dar ênfase à parte prática. Embora a teoria seja importante e a boa compreensão dos fundamentos é que permita o aprofundamento dos temas cobertos no livro, estatística é uma disciplina aplicada, cujo maior valor está na sua aplicação prática. Assim, boa parte do curso e do conteúdo do livro é dedicado a implementar a teoria no R, bem como na interpretação dos dados.</p>
-<p>O livro começa com capítulos iniciais de introdução/revisão do R e de estatística básica (incluindo probabilidade). Assim, pressupomos que um estudante que utilize esse curso tenha conhecimentos de estatística e probabilidade básica. Não é necessário conhecimento previo de R, nem de cálculo ou álgebra linerar.</p>
+<div id="introdução-à-regressão-linear-univariada-1" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Capítulo 6</span> Introdução à regressão linear univariada<a href="introdução-à-regressão-linear-univariada-1.html#introdução-à-regressão-linear-univariada-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>O modelo de regressão (não confundir com regressão linear) é uma forma bem ampla de modelar os dados para prever uma variável de interesse, usualmente designada pela letra <span class="math inline">\(Y\)</span>. Se eu quero prever os votos de candidatas em uma eleição, a votação de cada candidata é minha variável de interesse, <span class="math inline">\(Y\)</span>. Digamos que eu tenho uma amostra da intenção de votos das candidatas, obtidas por meio de uma pesquisa eleitoral.</p>
 
 </div>
             </section>
@@ -239,8 +156,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
+<a href="introdução-à-regressão-linear-univariada.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="revisão-de-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -271,7 +188,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/mgaldino/book-regression/edit/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/edit/main/06-teste.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -279,7 +196,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/mgaldino/book-regression/blob/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/blob/main/06-teste.Rmd",
 "text": null
 },
 "download": null,

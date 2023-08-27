@@ -46,6 +46,7 @@ distribuição-dos-salários
 distribuição-condicional-dos-salários
 logaritmos
 gênero-e-raça
+introdução-à-regressão-linear-univariada-1
 cef-1
 erro-da-cef
 o-que-falta
