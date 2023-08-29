@@ -81,7 +81,7 @@ Exercício: verifique, com exemplos, que isso é verdade.
 
 3. Identidade da Covariância
 
-$Voc(X,Y) = \mathbb{E}[X*Y] - \mathbb{E}[X]*\mathbb{E}[Y] =  \mathbb{E}[(X -  \mathbb{E}[X])*(Y -  \mathbb{E}[Y])]$
+$Cov(X,Y) = \mathbb{E}[X*Y] - \mathbb{E}[X]*\mathbb{E}[Y] =  \mathbb{E}[(X -  \mathbb{E}[X])*(Y -  \mathbb{E}[Y])]$
 Exercício para o leitor. Prove que isso é verdade.
 
 4, Covariância é simétrica

@@ -38,7 +38,8 @@ simular
 resumir
 análise-de-sensibilidade
 aplicação-de-simulação
-introdução-à-regressão-linear-univariada
+o-modelo-de-regressão
+modelo-de-regressão---teoria
 esperança-condicional-1
 cef
 objetivos-de-aprendizagem-ao-final-do-capítulo
@@ -46,8 +47,10 @@ distribuição-dos-salários
 distribuição-condicional-dos-salários
 logaritmos
 gênero-e-raça
+prevendo-a-partir-da-esperança-condicional
 cef-1
 erro-da-cef
+simulando-para-entender-a-cef
 o-que-falta
 modelo-só-com-intercepto
 variância-da-regressão

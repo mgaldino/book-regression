@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="pt" xml:lang="pt">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 5 O Modelo de Regressão | Introdução à Regresssão para Ciências Sociais</title>
+  <meta name="description" content="Capítulo 5 O Modelo de Regressão | Introdução à Regresssão para Ciências Sociais" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 5 O Modelo de Regressão | Introdução à Regresssão para Ciências Sociais" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 5 O Modelo de Regressão | Introdução à Regresssão para Ciências Sociais" />
+  
+  
+  
+
+<meta name="author" content="Manoel Galdino" />
+
+
+<meta name="date" content="2023-08-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introdução-à-simulação.html"/>
+<link rel="next" href="cef-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introdução à Regressão</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> - Prefácio</a></li>
+<li class="chapter" data-level="2" data-path="revisão-de-r.html"><a href="revisão-de-r.html"><i class="fa fa-check"></i><b>2</b> - Revisão de R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html#r-e-rstudio"><i class="fa fa-check"></i><b>2.1</b> R e Rstudio</a></li>
+<li class="chapter" data-level="2.2" data-path="revisão-de-r.html"><a href="revisão-de-r.html#r-como-calculadora"><i class="fa fa-check"></i><b>2.2</b> R como calculadora</a></li>
+<li class="chapter" data-level="2.3" data-path="revisão-de-r.html"><a href="revisão-de-r.html#objetos-no-r"><i class="fa fa-check"></i><b>2.3</b> Objetos no R</a></li>
+<li class="chapter" data-level="2.4" data-path="revisão-de-r.html"><a href="revisão-de-r.html#tipos-de-objetos"><i class="fa fa-check"></i><b>2.4</b> Tipos de objetos</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html#numeric"><i class="fa fa-check"></i><b>2.4.1</b> Numeric</a></li>
+<li class="chapter" data-level="2.4.2" data-path="revisão-de-r.html"><a href="revisão-de-r.html#character"><i class="fa fa-check"></i><b>2.4.2</b> character</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="revisão-de-r.html"><a href="revisão-de-r.html#armazenando-dados"><i class="fa fa-check"></i><b>2.5</b> Armazenando dados</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html#vetor"><i class="fa fa-check"></i><b>2.5.1</b> Vetor</a></li>
+<li class="chapter" data-level="2.5.2" data-path="revisão-de-r.html"><a href="revisão-de-r.html#matriz"><i class="fa fa-check"></i><b>2.5.2</b> Matriz</a></li>
+<li class="chapter" data-level="2.5.3" data-path="revisão-de-r.html"><a href="revisão-de-r.html#data-frame"><i class="fa fa-check"></i><b>2.5.3</b> Data Frame</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="revisão-de-r.html"><a href="revisão-de-r.html#bibliotecaspacotes"><i class="fa fa-check"></i><b>2.6</b> Bibliotecas/pacotes</a></li>
+<li class="chapter" data-level="2.7" data-path="revisão-de-r.html"><a href="revisão-de-r.html#importando-dados"><i class="fa fa-check"></i><b>2.7</b> importando dados</a></li>
+<li class="chapter" data-level="2.8" data-path="revisão-de-r.html"><a href="revisão-de-r.html#data-wrangling"><i class="fa fa-check"></i><b>2.8</b> Data wrangling</a></li>
+<li class="chapter" data-level="2.9" data-path="revisão-de-r.html"><a href="revisão-de-r.html#visualização"><i class="fa fa-check"></i><b>2.9</b> Visualização</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>3</b> - Revisão de estatística e probabilidade</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#variável-aleatória"><i class="fa fa-check"></i><b>3.1</b> Variável Aleatória</a></li>
+<li class="chapter" data-level="3.2" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#esperança-matemática"><i class="fa fa-check"></i><b>3.2</b> Esperança matemática</a></li>
+<li class="chapter" data-level="3.3" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#variância"><i class="fa fa-check"></i><b>3.3</b> Variância</a></li>
+<li class="chapter" data-level="3.4" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#algebra-com-esperança-variância-e-covariância"><i class="fa fa-check"></i><b>3.4</b> Algebra com Esperança, Variância e Covariância</a></li>
+<li class="chapter" data-level="3.5" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#distribuição-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.5</b> Distribuição de Probabilidade Conjunta</a></li>
+<li class="chapter" data-level="3.6" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#pobabilidade-condicional"><i class="fa fa-check"></i><b>3.6</b> Pobabilidade Condicional</a></li>
+<li class="chapter" data-level="3.7" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#esperança-condicional"><i class="fa fa-check"></i><b>3.7</b> Esperança Condicional</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html"><i class="fa fa-check"></i><b>4</b> Introdução à Simulação</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#configuração"><i class="fa fa-check"></i><b>4.1</b> Configuração</a></li>
+<li class="chapter" data-level="4.2" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#simular"><i class="fa fa-check"></i><b>4.2</b> Simular</a></li>
+<li class="chapter" data-level="4.3" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#resumir"><i class="fa fa-check"></i><b>4.3</b> Resumir</a></li>
+<li class="chapter" data-level="4.4" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#análise-de-sensibilidade"><i class="fa fa-check"></i><b>4.4</b> Análise de sensibilidade</a></li>
+<li class="chapter" data-level="4.5" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#aplicação-de-simulação"><i class="fa fa-check"></i><b>4.5</b> Aplicação de simulação</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html"><i class="fa fa-check"></i><b>5</b> O Modelo de Regressão</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#modelo-de-regressão---teoria"><i class="fa fa-check"></i><b>5.1</b> Modelo de Regressão - Teoria</a></li>
+<li class="chapter" data-level="5.2" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#esperança-condicional-1"><i class="fa fa-check"></i><b>5.2</b> Esperança Condicional</a></li>
+<li class="chapter" data-level="5.3" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#cef"><i class="fa fa-check"></i><b>5.3</b> CEF</a></li>
+<li class="chapter" data-level="5.4" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#objetivos-de-aprendizagem-ao-final-do-capítulo"><i class="fa fa-check"></i><b>5.4</b> Objetivos de aprendizagem ao final do capítulo</a></li>
+<li class="chapter" data-level="5.5" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#distribuição-dos-salários"><i class="fa fa-check"></i><b>5.5</b> Distribuição dos salários</a></li>
+<li class="chapter" data-level="5.6" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#distribuição-condicional-dos-salários"><i class="fa fa-check"></i><b>5.6</b> Distribuição Condicional dos salários</a></li>
+<li class="chapter" data-level="5.7" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#logaritmos"><i class="fa fa-check"></i><b>5.7</b> Logaritmos</a></li>
+<li class="chapter" data-level="5.8" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#gênero-e-raça"><i class="fa fa-check"></i><b>5.8</b> Gênero e Raça</a></li>
+<li class="chapter" data-level="5.9" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#prevendo-a-partir-da-esperança-condicional"><i class="fa fa-check"></i><b>5.9</b> Prevendo a partir da esperança condicional</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cef-1.html"><a href="cef-1.html"><i class="fa fa-check"></i><b>6</b> - CEF</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="cef-1.html"><a href="cef-1.html#erro-da-cef"><i class="fa fa-check"></i><b>6.1</b> Erro da CEF</a></li>
+<li class="chapter" data-level="6.2" data-path="cef-1.html"><a href="cef-1.html#simulando-para-entender-a-cef"><i class="fa fa-check"></i><b>6.2</b> Simulando para entender a CEF</a></li>
+<li class="chapter" data-level="6.3" data-path="cef-1.html"><a href="cef-1.html#o-que-falta"><i class="fa fa-check"></i><b>6.3</b> O que falta</a></li>
+<li class="chapter" data-level="6.4" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.4</b> Modelo só com intercepto</a></li>
+<li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.5</b> Variância da Regressão</a></li>
+<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.6</b> Chuva na Jamaica</a></li>
+<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#melhor-preditor"><i class="fa fa-check"></i><b>6.7</b> Melhor preditor</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução à Regresssão para Ciências Sociais</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="o-modelo-de-regressão" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Capítulo 5</span> O Modelo de Regressão<a href="o-modelo-de-regressão.html#o-modelo-de-regressão" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>“Prediction is hard. Specially about the future”. Fonte desconhecida.</p>
+<div id="modelo-de-regressão---teoria" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Modelo de Regressão - Teoria<a href="o-modelo-de-regressão.html#modelo-de-regressão---teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O modelo de regressão (não confundir com regressão linear) é uma forma bem ampla de modelar os dados para prever uma variável de interesse, usualmente designada pela letra <span class="math inline">\(Y\)</span>. Se eu quero prever os votos de candidatas em uma eleição, a votação de cada candidata é minha variável de interesse, <span class="math inline">\(Y\)</span>. Digamos que eu tenho uma amostra da intenção de votos das candidatas, obtidas por meio de uma pesquisa eleitoral. Então, a regressão é uma forma de modelar os dados para prever justamente essa variável <span class="math inline">\(Y\)</span>.</p>
+<p>Há muitas formas de apresentar ou motivar regressão linear. O método mais tradicional é pensar que a regressão linear é uma reta que é ajustada aos pontos observados. Porém, não tomaremos esse caminho aqui.</p>
+<p>Nós iremos tomar aqui o caminho de considerar que a regressão linear é uma forma de aproximar a chamada “Conditional Regression Function” (CEF, na sigla em inglês). O objetivo é entender “as far as possible with the available data how the conditional distribution of some response y varies across subpopulations determined by the possible values of the predictor or predictors” (Cook and Weisberg, apud Berk, p. 4).</p>
+<p>Portanto, vamos retomrar o conceito de esperança condicional, para introduzir em seguida a função de regressão condicional (CEF, em inglês) e então como a regressão pode ser pensada como uma forma de aproximar a CEF.</p>
+</div>
+<div id="esperança-condicional-1" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Esperança Condicional<a href="o-modelo-de-regressão.html#esperança-condicional-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Uma das primeiras distinções que temos de fazer é sobre previsão e explicação (causal). Quando queremos prever, estamos interessados em saber quais os provaveis valores de variáveis no futuro, a parte de informações sobre a própria variável e outras no passado. Nesse sentido, é preciso algum tipo de suposição de que o futuro se assemelha ao passado de algum modo. Esse tipo de suposição usualmente toma a forma de um modelo probabilísitco, mas não apenas.</p>
+<p>Quando estamos interessados em explicações causais, temos dois tipos de perguntas de pesquisa possíveis. Uma sobre a chamada causa dos efeitos e outra sobre o efeito das causas (Gelman &amp; Imbens, 2013). A causa dos efeitos são perguntas do tipo: o que causal a II Grande Guerra? Ou qual a causa da eleição de Trump ou Bolsonaro? O que explica a desigualdade de renda no Brasil? São todas perguntas em que queremos explicar um efeito, isto é, identificar as causas de um fenômeno (efeito). Já o efeito das causas ão perguntas do tipo: qual o efeito da vacina de covid-19 sobre a mortalidade por Covid-19? Qual o efeito de checagem de notícias sobre a crença de pessoas em desinformação? Qual o efeito da magnitude eleitoral sobre fragmentação partidária? E assim por diante. Aqui, estamos interessados em entender o efeito causal de uma variável sobre outra, sem pretender esgotar todas as explicações de causa possíveis.</p>
+<p>A maior parte dos métodos quantitativos existentes são bons para responder perguntas de previsão e de causa dos efeitos. Grosso modo, não há método quantitativo para estimação do efeito das causas, exceto realizar uma série de estudos independentes sobre várias causas dos efeitos, olhando uma causa distinta do mesmo efeito por vez e esperar que isso gere um conhecimento combinado sobre essas múltiplas causas. Mas não há, contudo, uma metodologia bem definida de como combinar esses estudos independentes em um único conhecimento do efeito conjunto das causas.</p>
+<p>Assim, nosso curso será dedicado apenas a modelos de previsão e modelos de causa dos efeitos, que é o que temos de metodologias já desenvolvidas e consolidadas. Começamos por essa explicação porque uma perspectiva mais antiga, e ainda comum nas ciências sociais, é que modelos de regressão múltiplas permitem estimar o efeito de várias causas. Isso raramente é o caso e não adotaremos essa perspecitva aqui <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+</div>
+<div id="cef" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> CEF<a href="o-modelo-de-regressão.html#cef" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O que consgtitui uma boa previsão? Tradicionalmente, empregamos a noção de Erro Quadrátco Médio (EQM) para quantificar boas previsões. Quanto menor o EQM, melhor uma previsão. Se o objetivo é, portanto, fazer previsões que minimizem o EQM, iremos apresertar e mostrar que a Função de Esperança Condicional (<em>CEF</em>, na sigla em inglês) é o melhor preditor global possível. Vamos dizer em outras palavras, porque esse resultado é verdadeiramente icnrível. A CEF é o melhor preditor possível dentre todos que existam ou possam vir a existir, entendendo melhor como ter o menor EQM. Por isso que a CEF é o ponto de partida de qualquer preditor que exista, seja uma regressão simples ou algoritmos de aprendizens de máquinas como “random forest” ou mesmo algorítimos de deep learning de redes neurais por traz dos recentes avanços na inteligência artificial.</p>
+<blockquote>
+<p>Mesmo os algorítmos mais avançados de inteleigência artificial, como os <strong>Large Language Models</strong>, que estão na base de ferramentas como ChatGPT, <em>não podem</em> ter desempenho melhor que a função de experança condicional, CEF, ao fazer uma previsão.</p>
+</blockquote>
+<p>Naturalmente, se esse é o caso, a próxima pergunta que todos nós iremos fazer é: por que não aprender apenas a usar a CEF, que é o melhor preditor possível, e ser feliz para sempre? Porque a natureza não nos diz qual é a CEF. Nós nunca sabemos qual a verdadeira função de esperança condicional. Então tentamos aproximar o melhor possível a CEF, a partir de simplificações da realidade. Em particular, nosso curso pode ser pensado em torno das seguintes perguntas: como aproximar a CEF por meio de regressão linear (combinação lineares de preditores)? Quais as propridades dessa aproximação? Em que condições ela é uma boa aproximação e em que sentido (quantitativo e preciso) podemos falar de boa aproximação? Mais para o final do curso faremos a conexão entre a CEF, modelos preditivos e modelos causais.</p>
+</div>
+<div id="objetivos-de-aprendizagem-ao-final-do-capítulo" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Objetivos de aprendizagem ao final do capítulo<a href="o-modelo-de-regressão.html#objetivos-de-aprendizagem-ao-final-do-capítulo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Estudantes deverão ter aprendido ao final do capítulo:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Reconhecer</strong> que a função de esperança condicional, a <em>CEF</em>, em sua forma pura, é o melhor preditor possível para uma variável alvo, dadas as informações de outras variáveis.</li>
+<li><strong>Memorizar</strong> que todos os outros predidores, sejam lineares ou não-lineares, incluindo preditores de deep learning, são tentativas de aproximar a CEF.</li>
+<li><strong>Apreciar</strong> que o melhor predito linear (isto é, considerando apenas preditores que incluem combinação lineares de variáveis) produz previsões razoáveis, e <strong>antecipar</strong> que esse preditor nosleva à regressão linear.</li>
+</ol>
+</div>
+<div id="distribuição-dos-salários" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Distribuição dos salários<a href="o-modelo-de-regressão.html#distribuição-dos-salários" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Vamos considerar os salários de brasileiros. A amostra da PNAD contínua é uma boa forma de analisarmos como é a distribuição de salários. Vamos supor que conseguimos obter uma amostra aleatória dos salários (o que não é exatamente o caso na PNAD contínua, mas vamso abstrair isso aqui para simplificar).</p>
+<p>Os gráficos <a href="o-modelo-de-regressão.html#fig:wage-pnad">5.1</a> e <a href="o-modelo-de-regressão.html#fig:wage-pnad-log">5.2</a> apresentam a distribuição dos salários e do logaritmo dos salários no Brasil, a partir de dados da PNAD para 2017.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="o-modelo-de-regressão.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb73-2"><a href="o-modelo-de-regressão.html#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-3"><a href="o-modelo-de-regressão.html#cb73-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb73-4"><a href="o-modelo-de-regressão.html#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(renda)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-5"><a href="o-modelo-de-regressão.html#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(horas_trabalhadas)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-6"><a href="o-modelo-de-regressão.html#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(renda <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb73-7"><a href="o-modelo-de-regressão.html#cb73-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(horas_trabalhadas <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb73-8"><a href="o-modelo-de-regressão.html#cb73-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">salario =</span> renda<span class="sc">/</span>(<span class="fl">4.5</span><span class="sc">*</span>horas_trabalhadas)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-9"><a href="o-modelo-de-regressão.html#cb73-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">log_salario =</span> <span class="fu">log</span>(salario)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-10"><a href="o-modelo-de-regressão.html#cb73-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genero =</span> <span class="fu">as.character</span>(genero))</span>
+<span id="cb73-11"><a href="o-modelo-de-regressão.html#cb73-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-12"><a href="o-modelo-de-regressão.html#cb73-12" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb73-13"><a href="o-modelo-de-regressão.html#cb73-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(salario)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">weight=</span>V1028)) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>)</span>
+<span id="cb73-14"><a href="o-modelo-de-regressão.html#cb73-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-15"><a href="o-modelo-de-regressão.html#cb73-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p1)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:wage-pnad"></span>
+<img src="bookdownproj_files/figure-html/wage-pnad-1.png" alt="Distribuição dos salários" width="672" />
+<p class="caption">
+Figure 5.1: Distribuição dos salários
+</p>
+</div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="o-modelo-de-regressão.html#cb74-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb74-2"><a href="o-modelo-de-regressão.html#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(log_salario)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">weight=</span>V1028)) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>)</span>
+<span id="cb74-3"><a href="o-modelo-de-regressão.html#cb74-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-4"><a href="o-modelo-de-regressão.html#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p2)</span></code></pre></div>
+<pre><code>## Warning in density.default(x, weights = w, bw = bw, adjust = adjust, kernel = kernel, : Selecting bandwidth *not* using &#39;weights&#39;</code></pre>
+<div class="figure"><span style="display:block;" id="fig:wage-pnad-log"></span>
+<img src="bookdownproj_files/figure-html/wage-pnad-log-1.png" alt="Distribuição do log dos salários" width="672" />
+<p class="caption">
+Figure 5.2: Distribuição do log dos salários
+</p>
+</div>
+<p>Nós vemos que a distribuição dos salários por hora é tão concentrada em torno do zero, com uma cauda longo, que é difícil visualizar os dados direito. Nesse e em outros casos, usar o logaritmo natural é uma boa alternativa. E nós vemos que o salário por hora está concentrado um pouco antes do <span class="math inline">\(4\)</span>, que quer dizer 54.6 reais por hora. De fato, podemos calcular a esperança <span class="math inline">\(E[log(salário)]\)</span>, dada por 2.15. Ou podemos computar diretamente, <span class="math inline">\(E[salário]\)</span> 14 reais.</p>
+</div>
+<div id="distribuição-condicional-dos-salários" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Distribuição Condicional dos salários<a href="o-modelo-de-regressão.html#distribuição-condicional-dos-salários" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Nós sabemos que os saládios são distribuídos desigulamente entre subpopulações, como por exemplo, entre trabalhadores homens e trabalhadoras mulheres. Os valores 2.18 e 2.1 são o logaritmo do salário na subpopulação de homens e mulheres. Como nós vimos, podemos dizer que temos a <em>esperança condicional do salário, dado (ou condicional a) o gênero</em>.</p>
+<p><span class="math display">\[
+\mathbb{E}[salário| gênero = Mulher]
+\]</span></p>
+<p><span class="math display">\[
+\mathbb{E}[salário| gênero = Homem]
+\]</span></p>
+<p>Chamamos essas esperanças de condicionais porque estamos condicionando no valor da variável gênero. Embora o gênero possa não parecer aleatório, do nosso ponto de vista é, pois se selecionarmos uma indivíduo aleatoriamente, seu gênero é desconhecido é será homem ou mulher com uma certa probabilidade. Os nossos dados estão agrupados para apenas dois gêneros e, por isso, por simplicidade, estamos tratando apenas esses dois gêneros aqui.</p>
+<p>O gráfico <a href="o-modelo-de-regressão.html#fig:wage-cond-expec">5.3</a> apresenta as densidades sobrepostas por gênero.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="o-modelo-de-regressão.html#cb76-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb76-2"><a href="o-modelo-de-regressão.html#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>log_salario)) <span class="sc">+</span></span>
+<span id="cb76-3"><a href="o-modelo-de-regressão.html#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">weight =</span> V1028, <span class="at">group=</span>genero, <span class="at">colour=</span>genero)) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>)</span>
+<span id="cb76-4"><a href="o-modelo-de-regressão.html#cb76-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-5"><a href="o-modelo-de-regressão.html#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p3)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:wage-cond-expec"></span>
+<img src="bookdownproj_files/figure-html/wage-cond-expec-1.png" alt="Distribuição dos salários" width="672" />
+<p class="caption">
+Figure 5.3: Distribuição dos salários
+</p>
+</div>
+<p>A diferença fica um pouco mais claro se restringirmos os extremos da distribuição.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="o-modelo-de-regressão.html#cb77-1" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb77-2"><a href="o-modelo-de-regressão.html#cb77-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(log_salario <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">2.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb77-3"><a href="o-modelo-de-regressão.html#cb77-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(log_salario <span class="sc">&lt;</span> <span class="fl">7.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb77-4"><a href="o-modelo-de-regressão.html#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>log_salario)) <span class="sc">+</span></span>
+<span id="cb77-5"><a href="o-modelo-de-regressão.html#cb77-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">weight =</span> V1028, <span class="at">group=</span>genero, <span class="at">colour=</span>genero)) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>)</span>
+<span id="cb77-6"><a href="o-modelo-de-regressão.html#cb77-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-7"><a href="o-modelo-de-regressão.html#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p4)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:wage-cond-expec1"></span>
+<img src="bookdownproj_files/figure-html/wage-cond-expec1-1.png" alt="Distribuição dos salários" width="672" />
+<p class="caption">
+Figure 5.4: Distribuição dos salários
+</p>
+</div>
+<p>Fica claro que a maior parte da diferença entre homens e mulheres está no fato de que há mais mulheres no salário mediano do que homens (uma diferença de quase 20 pontos percentuais), com um pouco mais de homens à direita do valor modal.
+Vale lembrar também que nós já descontamos o efeito das horas trabalhadas. Se uma das formas pela qual homens ganham mais que mulheres é trabalhando mais, então a diferença no salário por hora trabalhada será menor. De fato, se olharmos para o salário total, e não mais salário por hora trabalhada, temos:</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="o-modelo-de-regressão.html#cb78-1" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb78-2"><a href="o-modelo-de-regressão.html#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_renda =</span> <span class="fu">log</span>(renda)) <span class="sc">%&gt;%</span></span>
+<span id="cb78-3"><a href="o-modelo-de-regressão.html#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>log_renda)) <span class="sc">+</span></span>
+<span id="cb78-4"><a href="o-modelo-de-regressão.html#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">weight =</span> V1028, <span class="at">group=</span>genero, <span class="at">colour=</span>genero)) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>)</span>
+<span id="cb78-5"><a href="o-modelo-de-regressão.html#cb78-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-6"><a href="o-modelo-de-regressão.html#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p5)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:wage-total-cond-expec"></span>
+<img src="bookdownproj_files/figure-html/wage-total-cond-expec-1.png" alt="Distribuição dos salários" width="672" />
+<p class="caption">
+Figure 5.5: Distribuição dos salários
+</p>
+</div>
+<p>E qual a diferença na média dos logaritmos da renda, condicional ao gênero? A resposta é 7.34 - 7.1, que é igual a:
+0.24. Essa diferença é importante porque ela é uma medida da diferença percentual entre as duas rendas, conforme veremos a seguir.</p>
+</div>
+<div id="logaritmos" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> Logaritmos<a href="o-modelo-de-regressão.html#logaritmos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>É muito comum a utilização de logaritmos em regressões, de modo que vale uma digresssão sobre a correta interpretação de logaritmos. A primeira razão é que a diferença de logaritmos é aproximadamente igual à diferença entre porcentagens. Vamos ilustrar isso por meio de um exemplo, e então mostaremos matematicamente que isso sempre é o caso.</p>
+<p>De acodo com dados da PNADc de 2017, quarto trimstre, que temos usado neste capítulo, o salário por hora dos homens é em média <span class="math inline">\(14.72\)</span> reais, e o das mulheres <span class="math inline">\(12.57\)</span> reais. A diferença percentual no salário é, portanto, <span class="math inline">\(100*(14.72 - 12.57)/12.57\)</span> ou <span class="math inline">\(17,1%\)</span>. Se em vez de calcular a diferença percentual, usar a aproximação <span class="math inline">\(log(14.72) - log(12.57) = 0.1578941\)</span> ou 15,8%, tenho um valor próximo do verdadeiro valor de 17,1%.</p>
+<p>O caso geral pode ser visto do seguinte modo. Sejam dois números positivos <span class="math inline">\(a\)</span> e <span class="math inline">\(B\)</span>, com <span class="math inline">\(a &gt; b\)</span>. A diferença percentual <span class="math inline">\(p\)</span> entre <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> é dada por:</p>
+<p><span class="math display">\[
+100*(a - b)/b = p
+\]</span>
+Que é o mesmo que:</p>
+<p><span class="math display">\[
+a/b = 1 + p/100
+\]</span>
+Se passarmos o logaritmo natural de ambos os lados, temos:</p>
+<p><span class="math display">\[
+log(a/b) = log(1 + p/100)
+\]</span>
+<span class="math display">\[
+log(a) - log(b) = log(1 + 17,1%/100)
+\]</span>
+Iremos usar a aproximação <span class="math inline">\(log( 1 + x) \approx x\)</span> para <span class="math inline">\(x\)</span> pequeno. Logo:</p>
+<p><span class="math display">\[
+log(a) - log(b) \approx p/100
+\]</span>
+A segunda razão é que se aplicarmos essa lógica para médias, estamos aproximando a diferença percentua na méda geométrica. Usando essa aproximação, vemos que se a diferença no salário por hora é aproximadamente 16%, a diferença no salário total é 24%, oito pontos percentuais a mais.</p>
+</div>
+<div id="gênero-e-raça" class="section level2 hasAnchor" number="5.8">
+<h2><span class="header-section-number">5.8</span> Gênero e Raça<a href="o-modelo-de-regressão.html#gênero-e-raça" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Do mesmo jeito que condicionamos o salário e a renda ao gênero, podemos também condicionar ao gênero e à raça simultaneamente.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="o-modelo-de-regressão.html#cb79-1" aria-hidden="true" tabindex="-1"></a>table1 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb79-2"><a href="o-modelo-de-regressão.html#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_renda =</span> <span class="fu">log</span>(renda),</span>
+<span id="cb79-3"><a href="o-modelo-de-regressão.html#cb79-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">raca1 =</span> <span class="fu">ifelse</span>(raca <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Preta&quot;</span>, <span class="st">&quot;Parda&quot;</span>), <span class="st">&quot;Negra&quot;</span>,<span class="fu">as.character</span>(raca))) <span class="sc">%&gt;%</span></span>
+<span id="cb79-4"><a href="o-modelo-de-regressão.html#cb79-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(raca1, genero) <span class="sc">%&gt;%</span></span>
+<span id="cb79-5"><a href="o-modelo-de-regressão.html#cb79-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">salario =</span> <span class="fu">round</span>(<span class="fu">weighted.mean</span>(salario, <span class="at">w=</span>V1028),<span class="dv">2</span>))</span>
+<span id="cb79-6"><a href="o-modelo-de-regressão.html#cb79-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-7"><a href="o-modelo-de-regressão.html#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(table1)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+raca1
+</th>
+<th style="text-align:left;">
+genero
+</th>
+<th style="text-align:right;">
+salario
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Amarela
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+33.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Amarela
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+25.76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Branca
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+19.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Branca
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+15.64
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ignorado
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+12.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ignorado
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+48.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Indígena
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+11.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Indígena
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+10.73
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Negra
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+11.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Negra
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+9.62
+</td>
+</tr>
+</tbody>
+</table>
+<p>E se não agruparmos pretos e pardos como negros, temos:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="o-modelo-de-regressão.html#cb80-1" aria-hidden="true" tabindex="-1"></a>table2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb80-2"><a href="o-modelo-de-regressão.html#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_n =</span> <span class="fu">sum</span>(V1028),</span>
+<span id="cb80-3"><a href="o-modelo-de-regressão.html#cb80-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">log_renda =</span> <span class="fu">log</span>(renda)) <span class="sc">%&gt;%</span></span>
+<span id="cb80-4"><a href="o-modelo-de-regressão.html#cb80-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(raca, genero) <span class="sc">%&gt;%</span></span>
+<span id="cb80-5"><a href="o-modelo-de-regressão.html#cb80-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">salario =</span> <span class="fu">round</span>(<span class="fu">weighted.mean</span>(salario, <span class="at">w=</span>V1028),<span class="dv">2</span>))</span>
+<span id="cb80-6"><a href="o-modelo-de-regressão.html#cb80-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-7"><a href="o-modelo-de-regressão.html#cb80-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(table2)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+raca
+</th>
+<th style="text-align:left;">
+genero
+</th>
+<th style="text-align:right;">
+salario
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Branca
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+19.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Branca
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+15.64
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Preta
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+11.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Preta
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+9.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Amarela
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+33.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Amarela
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+25.76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Parda
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+11.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Parda
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+9.66
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Indígena
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+11.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Indígena
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+10.73
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ignorado
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+12.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ignorado
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+48.41
+</td>
+</tr>
+</tbody>
+</table>
+<p>Para essa variável, vemos que faz sentido agrupar pretos e pardos como negros.</p>
+<p>As entradas nas tabelas nos dão a esperança condicional do salário dado gênero e raça. Por exemlo:</p>
+<p><span class="math display">\[
+\mathbb{E}[salario| gênero = Mulher, raça = branca] = 15,64
+\]</span></p>
+<p>E se computássemos as esperanças condicionais no logaritmo natural, teríamos uma diferença percentual na média geométrica.</p>
+<p>Esperanças condicionais são descrições (resumos) dos dados. Para explicar as descrições encontradas, precisamos de um modelo causal, o que vamos adiar por enquanto.</p>
+</div>
+<div id="prevendo-a-partir-da-esperança-condicional" class="section level2 hasAnchor" number="5.9">
+<h2><span class="header-section-number">5.9</span> Prevendo a partir da esperança condicional<a href="o-modelo-de-regressão.html#prevendo-a-partir-da-esperança-condicional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>No gráfico abaixo, as esperanãs condicionais para os dois valores de <span class="math inline">\(X\)</span> são dadas pelos triângulos vermelhos. Como vemos, há uma grande variabilidade nos dados de salário em torno da esperança condicional. Isso significa que se só tenho a variável gênero, prever <span class="math inline">\(Y\)</span> a partir da esperança condicional <span class="math inline">\(\mathbb{E}[Y|X]\)</span> resulta em um erro grande.</p>
+<p><img src="bookdownproj_files/figure-html/plot_exp_cond-1.png" width="672" /></p>
+<p>De fato, o erro que cometemos pode ser calculado por meio do <em>Erro Quadrático Médio</em>, que é definido como a soma dos erros ao quadrado (para não cancelar). No R, isso pode ser calculado como:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+log_salario
+</th>
+<th style="text-align:left;">
+genero
+</th>
+<th style="text-align:right;">
+cond_exp
+</th>
+<th style="text-align:right;">
+erro
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2.407946
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+2.027614
+</td>
+<td style="text-align:right;">
+0.3803316
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.051271
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+2.051232
+</td>
+<td style="text-align:right;">
+0.0000387
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.547708
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+2.027614
+</td>
+<td style="text-align:right;">
+0.5200935
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.407946
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+2.051232
+</td>
+<td style="text-align:right;">
+0.3567137
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.407946
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:right;">
+2.051232
+</td>
+<td style="text-align:right;">
+0.3567137
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.407946
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:right;">
+2.027614
+</td>
+<td style="text-align:right;">
+0.3803316
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+eq
+</th>
+<th style="text-align:right;">
+eqm
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+170978.7
+</td>
+</tr>
+</tbody>
+</table>
+<p>Como iremos mostrar depois, não existe nenhuma outra forma melhor de prever <span class="math inline">\(Y\)</span>, se só tivermos informação de <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span>. Ou seja, esse é o menor erro quadrático médio possível. Claro que, com mais variávels, podemos condicionais em mais informação e melhorar a previsão.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+log_salario
+</th>
+<th style="text-align:left;">
+genero
+</th>
+<th style="text-align:left;">
+raca
+</th>
+<th style="text-align:right;">
+cond_exp
+</th>
+<th style="text-align:right;">
+erro
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2.407946
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:left;">
+Parda
+</td>
+<td style="text-align:right;">
+1.852722
+</td>
+<td style="text-align:right;">
+0.5552238
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.051271
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:left;">
+Parda
+</td>
+<td style="text-align:right;">
+1.858977
+</td>
+<td style="text-align:right;">
+0.1922938
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.547708
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:left;">
+Parda
+</td>
+<td style="text-align:right;">
+1.852722
+</td>
+<td style="text-align:right;">
+0.6949858
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.407946
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:left;">
+Branca
+</td>
+<td style="text-align:right;">
+2.309516
+</td>
+<td style="text-align:right;">
+0.0984293
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.407946
+</td>
+<td style="text-align:left;">
+Homem
+</td>
+<td style="text-align:left;">
+Parda
+</td>
+<td style="text-align:right;">
+1.858977
+</td>
+<td style="text-align:right;">
+0.5489687
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.407946
+</td>
+<td style="text-align:left;">
+Mulher
+</td>
+<td style="text-align:left;">
+Parda
+</td>
+<td style="text-align:right;">
+1.852722
+</td>
+<td style="text-align:right;">
+0.5552238
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+eq
+</th>
+<th style="text-align:right;">
+eqm
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+161619
+</td>
+</tr>
+</tbody>
+</table>
+<p>Vemos que o EQM diminuiu ao condicionar em mais variáveis. Para reforçar, até aqui estamos falando da população. Embora no exemplo tenhamos dados da PNAD, que é uma amostra, e deveria mesmo trabalhar com o censo, estou simplificando e assumindo que a PNAD representa a população. Fazendo essa suposição, o erro que é cometido pela esperança condicional para prever <span class="math inline">\(Y\)</span> é o menor erro (quantificado pelo EQM) possível (iremos demonstrar isso no próximo capítulo).</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>A maior parte do curso será dedicadas a modelos preditivos, e apenas pontualmente falaremos de modelos causais<a href="o-modelo-de-regressão.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introdução-à-simulação.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cef-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mgaldino/book-regression/edit/main/05-intro_reg.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/mgaldino/book-regression/blob/main/05-intro_reg.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

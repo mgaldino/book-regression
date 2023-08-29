@@ -1,0 +1,189 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# - CEF
+
+Em geral, iremos simplificar a notação usando variáveis com uma letra.
+Assim, a variável dependente, salário (ou log do salário), será dado por
+$Y$, como constuma ser feito. Já os preditores, como gênero ou raça, por
+$X_1, X_2$ etc. O subscrito indica que é uma variável diferente. Assim,
+a esperança condicional pode ser reescrita para muitas variáveis
+preditoras como:
+
+```math
+\mathbb{E}[Y| X_1 = x_1, X_2 = x_2, ..., X_k=x_k] = m(x_1, x_2, ..., x_k)
+```
+
+A essa esperança damos o nome de *Função de Esperança Condicional*
+(Conditional Expectation Function, em inglês). Usaremos a sigla em
+inglês, *CEF*, para nos referirmos à Função de Esperança Condicional. A
+CEF é uma função porque seu valor varia a depender dos valores
+particulares que $X_1, X_2, ..., X_k$ assumem. Nós vimos que a raça pode
+ser, por exemplo, branca, preta etc. E a esperança condicional muda para
+cada valor das variáveis. O que é típico de uma função. Por fim, usamos
+a letra $m$ do lado direito da equação porque estamos falamos da média
+de $Y$ quando a CEF assume valores \$x_1, x_2, ..., x_k). Por fim, às
+vezes é útil pensar na CEF como uma função das variáveis aleatórias
+$X_1, X_2, ..., X_k$, de modo que escrevemos simplesmente:
+
+$$
+\mathbb{E}[Y| X_1, X_2, ..., X_k]
+$$
+
+Se tivermos apenas um único preditor, $X$, então a CEF é dada por: 
+
+$$
+\mathbb{E}[Y| X] = m(X)
+$$
+
+## Erro da CEF
+
+Quando estamos fazendo previsões sobre $Y$ a partir da CEF, cometemos um
+erro. Esse erro (para o caso de uma variável) é definido por: 
+
+$$
+e = Y - m(X)
+$$
+
+Se rearranjarmos, isso nos leva À seguinte equação: 
+$$
+Y = m(X) + e
+$$
+Notem que o erro $e$ depende de $X$ e $Y$ e, portanto, é também uma
+variável aleatória. E uma propriedade (não um pressuspoto) da CEF é que
+o erro e tem esperança condiconal a X igual a zero.
+
+## Simulando para entender a CEF
+
+Vamos fazer simulações no R para entender o erro da CEF. Suponha que
+$Y = X^2 + U$, em que $U \sim norm(0,1)$ e $X \sim norm(0,1)$.
+
+Vejam que:
+
+$$
+\mathbb{E}[e] = \mathbb{E}[Y - m(X)]
+$$
+
+e 
+
+$$
+\mathbb{E}[e|X] = \mathbb{E}[Y - m(X)|X]
+$$
+Pela propriedade de lineraridade da esperança, temos então:
+
+$$
+\mathbb{E}[e|X] = \mathbb{E}[Y|X] -  \mathbb{E}[m(X)|X]
+$$
+Do que segue:
+$$
+\mathbb{E}[e|X] = m(X) -  \mathbb{E}[m(X)|X]
+$$
+
+Existe um teorema, que não irei demonstrar, chamando de teorema do
+condicionamento que diz que em situações como $\mathbb{E}[m(X)|X]$, isso
+é igual e $m(X)$. O que torna nossa equação igual a zero. E existe um
+outro teorema, chamdo de lei da esperanças iteradas (Law of Iterated
+Expectation) que diz que a esperança da esperança condicional é a
+esperança não-condicional. Ou seja,\$\mathbb{E}[\mathbb{E}[Y\|X]] =
+\mathbb{E}[Y]. Utilizando esse fato, temos que a esperança
+não-condicional do erro também é zero.
+
+$$
+\mathbb{E}[e] = \mathbb{E}[\mathbb{E}[e|X]] = \mathbb{E}[0] = 0
+$$
+
+Por fim, uma última propriedade que não iremos demonstrar é que o erro
+da CEF é não-correlacionado com qualquer função de $X$. Formalmente isso
+é formulado como $\mathbb{E}[h(x)*e] = 0$. Em particular, se $h(x)=x$,
+então $\mathbb{E}[x*e] = 0$. Dizemos que o erro é independente na média
+de x, e isso implica que o erro não é correlacionado com x. Não iremos
+provar isso aqui, ms vamos dar uma intuição com um exemplo.
+
+Primeiramente, lembre-se da identidade da covariância:
+
+$$
+Cov(X,Y) = \mathbb{E}[X*Y] - \mathbb{E}[X]*\mathbb{E}[Y] =  \mathbb{E}[(X -  \mathbb{E}[X])*(Y -  \mathbb{E}[Y])]
+$$.
+
+Provar que $Cov(X,Y) = 0$ (e portanto quea correlação é zero) pode ser
+feita provando que $\mathbb{E}[X*Y] = \mathbb{E}[X]*\mathbb{E}[Y]$.
+
+Esta prova envolve a Lei das Esperanças Iteradas e fica como exercício
+para o leitor. Por hora, vamos dar um exemplo simples.
+
+Nós vimos que o log do salário (por hora) médio não condicional
+$\mathbb{E}[log(salário)]$ é 2.15. A tabela abaixo quebra esse valor por
+gênero, juntamente com a frequência relativa de categoria:
+
+```{r table-wage-gender, results='asis', message=FALSE, warning=F, cache=TRUE }
+      
+      
+table2 <- df %>%
+  mutate(total_n = sum(V1028),
+         log_renda = log(renda)) %>%
+  group_by(genero) %>%
+  summarise(salario = round(weighted.mean(salario, w=V1028),2), freq=sum(V1028)/total_n)
+     
+table2 %>%
+  head(10) %>%
+  kable()
+      
+```
+
+Vejam que:
+
+$$
+\mathbb{E}[log(salário)] = \mathbb{E}[log(salário)|homem]*p(homem) + \mathbb{E}[log(salário)|mulher]*p(mulher)
+$$
+
+$$
+x*p(x) + y*p(y)  = x1*y1 = 2.15
+$$
+
+Como vimos, é sempre verdade que (para o caso de $X$ assumir dois valores), que:
+
+$$
+\mathbb{E}[\mathbb{E}[Y|X]] = \mathbb{E}[Y|X=x_{1}]*p(X_1) + \mathbb{E}[Y|X =x_2]*p(x_2)
+$$
+
+Então, voltando ao nosso caso do erro, temos o seguinte (novamente para
+o casto particular de X assumindo dois valores).
+
+```math
+\mathbb{E}[e]*\mathbb{E}[X] = \mathbb{E}[e*\mathbb{E}[X]] = \mathbb{E}[e*\mathbb{E}[e|X]] = \mathbb{E}[X*Y|X=x_{1}]*p(X_1) + \mathbb{E}[X*Y|X =x_2]*p(x_2)
+```
+
+## O que falta
+
+        Falta o seguinte
+      
+
+## Modelo só com intercepto
+
+      O modelo só com intercepto é...
+      
+
+## Variância da Regressão
+
+      A variância não condicional do erro da CEF é dada por:
+        
+
+$$
+\sigma^2 = var[e] =  \mathbb{E}[(e - \mathbb{E}[e])^2] = \mathbb{E}[e^2]
+$$
+
+A variância da regressão mede a porção da variância que não é "explicada" pela esperança condicional.
+      
+
+## Chuva na Jamaica
+
+      Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). Por isso que uma professor meu dizia: se você mediu chuva n Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
+      
+
+## Melhor preditor
+
+      Blabla.
+      
