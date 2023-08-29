@@ -1,57 +1,26 @@
-# Introdução à regressão linear univariada
+# O Modelo de Regressão
 
-O modelo de regressão (não confundir com regressão linear) é uma forma bem ampla de modelar os dados para prever uma variável de interesse, usualmente designada pela letra $Y$. Se eu quero prever os votos de candidatas em uma eleição, a votação de cada candidata é minha variável de interesse, $Y$. Digamos que eu tenho uma amostra da intenção de votos das candidatas, obtidas por meio de uma pesquisa eleitoral.
+"Prediction is hard. Specially about the future". Fonte desconhecida.
+
+
+## Modelo de Regressão - Teoria
+O modelo de regressão (não confundir com regressão linear) é uma forma bem ampla de modelar os dados para prever uma variável de interesse, usualmente designada pela letra $Y$. Se eu quero prever os votos de candidatas em uma eleição, a votação de cada candidata é minha variável de interesse, $Y$. Digamos que eu tenho uma amostra da intenção de votos das candidatas, obtidas por meio de uma pesquisa eleitoral. Então, a regressão é uma forma de modelar os dados para prever justamente essa variável $Y$.
 
 Há muitas formas de apresentar ou motivar regressão linear. O método mais tradicional é pensar que a regressão linear é uma reta que é ajustada aos pontos observados. Porém, não tomaremos esse caminho aqui.
 
-Nós iremos tomar aqui o caminho de considerar que a regressão linear é uma formade aproximar a chamada "Conditional Regression Function" (CEF, na sigla em inglês). O objetivo é entender “as far as possible with the available data how the conditional distribution of some response y varies across subpopulations determined by the possible values of the predictor or predictors” (Cook and Weisberg, apud Berk, p. 4).
+Nós iremos tomar aqui o caminho de considerar que a regressão linear é uma forma de aproximar a chamada "Conditional Regression Function" (CEF, na sigla em inglês). O objetivo é entender “as far as possible with the available data how the conditional distribution of some response y varies across subpopulations determined by the possible values of the predictor or predictors” (Cook and Weisberg, apud Berk, p. 4).
 
-```{r, echo=FALSE, message=FALSE}
-library(ribge)
-library(ggplot2)
-library(tidyverse)
 
-# pib_cid <- pib_municipios(2013)
-
-pib_cid <- readRDS("dados/pib_cid.RDS")
-pib_cid %>%
-  ggplot(aes(y=pib_per_capita, x=amazonia_legal)) + geom_point(shape = 1) +
-  scale_y_continuous(labels = scales::dollar)
-
-# Esperança de Y (pib per capita)
-pib_cid %>%
-  summarise(mean(pib_per_capita))
-
-# esperança condicional a ser ou não amazônia legal
-pib_cid %>%
-  group_by(amazonia_legal) %>%
-  summarise(mean(pib_per_capita))
-
-```
-
-Portanto, vamos retomrar o conceito de esperança condicional, para introduzir em seguida a função de regressão condicional (CEF, em inglÊs) e então como a regressão pode ser pensada como uma forma de aproximar a CEF.
+Portanto, vamos retomrar o conceito de esperança condicional, para introduzir em seguida a função de regressão condicional (CEF, em inglês) e então como a regressão pode ser pensada como uma forma de aproximar a CEF.
 
 ## Esperança Condicional
 
-```{r package loads 04, echo=FALSE, message=FALSE}
+```{r package loads 02, echo=FALSE, message=FALSE}
 library(ggplot2)
+library(knitr)
+library(tidyverse)
 ```
 
-```{r session information 04, echo=FALSE, message=FALSE}
-blank_lines <- function(n = 10) {
-  if(knitr::is_latex_output()){
-    cat(paste0('\\vspace{', n, 'cm}'))
-  } else if(knitr::is_html_output()) { 
-    cat(rep("&nbsp;  ", n), sep="\n")
-  }
-}
-
- theme_set(theme_minimal())
-
-knitr::knit_engines$set(notes = function(options) {
-  code <- paste(options$code, collapse = "\n")
-})
-```
 
 Uma das primeiras distinções que temos de fazer é sobre previsão e explicação (causal). Quando queremos prever, estamos interessados em saber quais os provaveis valores de variáveis no futuro, a parte de informações sobre a própria variável e outras no passado. Nesse sentido, é preciso algum tipo de suposição de que o futuro se assemelha ao passado de algum modo. Esse tipo de suposição usualmente toma a forma de um modelo probabilísitco, mas não apenas.
 
@@ -209,17 +178,27 @@ De acodo com dados da PNADc de 2017, quarto trimstre, que temos usado neste cap�
 
 O caso geral pode ser visto do seguinte modo. Sejam dois números positivos $a$ e $B$, com $a > b$. A diferença percentual $p$ entre $a$ e $b$ é dada por:
 
-$$100*(a - b)/b = p$$
+$$
+100*(a - b)/b = p
+$$
 Que é o mesmo que:
 
-$$ a/b = 1 + p/100$$
+$$
+a/b = 1 + p/100
+$$
 Se passarmos o logaritmo natural de ambos os lados, temos:
 
-$$ log(a/b) = log(1 + p/100)$$
-$$ log(a) - log(b) = log(1 + 17,1%/100)$$
+$$
+log(a/b) = log(1 + p/100)
+$$
+$$
+log(a) - log(b) = log(1 + 17,1%/100)
+$$
 Iremos usar a aproximação $log( 1 + x) \approx x$ para $x$ pequeno.  Logo:
 
-$$ log(a) - log(b) \approx p/100$$
+$$ 
+log(a) - log(b) \approx p/100
+$$
 A segunda razão é que se aplicarmos essa lógica para médias, estamos aproximando a diferença percentua na méda geométrica. Usando essa aproximação, vemos que se a diferença no salário por hora é aproximadamente 16%, a diferença no salário total é 24%, oito pontos percentuais a mais.
 
 ## Gênero e Raça
@@ -265,89 +244,69 @@ E se computássemos as esperanças condicionais no logaritmo natural, teríamos 
 
 Esperanças condicionais são descrições (resumos) dos dados. Para explicar as descrições encontradas, precisamos de um modelo causal, o que vamos adiar por enquanto.
 
+## Prevendo a partir da esperança condicional
 
-## CEF
+No gráfico abaixo, as esperanãs condicionais para os dois valores de $X$ são dadas pelos triângulos vermelhos. Como vemos, há uma grande variabilidade nos dados de salário em torno da esperança condicional. Isso significa que se só tenho a variável gênero, prever $Y$ a partir da esperança condicional $\mathbb{E}[Y|X]$ resulta em um erro grande.
 
-Em geral, iremos simplificar a notação usando variáveis com uma letra. Assim, a variável dependente, salário (ou log do salário), será dado por $Y$, como constuma ser feito. Já os preditores, como gênero ou raça, por $X_1, X_2$ etc. O subscrito indica que é uma variável diferente. Assim, a esperança condicional pode ser reescrita para muitas variáveis preditoras como:
+```{r plot_exp_cond, echo=FALSE, message=FALSE}
 
-$$
-\mathbb{E}[Y| X_1 = x_1, X_2 = x_2, ..., X_k=x_k] = m(x_1, x_2, ..., x_k)
-$$
-A essa esperança damos o nome de *Função de Esperança Condicional* (Conditional Expectation Function, em inglês). Usaremos a sigla em inglês, *CEF*, para nos referirmos à Função de Esperança Condicional. A CEF é uma função porque seu valor varia a depender dos valores particulares que $X_1, X_2, ..., X_k$ assumem. Nós vimos que a raça pode ser, por exemplo, branca, preta etc. E a esperança condicional muda para cada valor das variáveis. O que é típico de uma função. Por fim, usamos a letra $m$ do lado direito da equação porque estamos falamos da média de $Y$ quando a CEF assume valores $x_1, x_2, ..., x_k). Por fim, às vezes é útil pensar na CEF como uma função das variáveis aleatórias $X_1, X_2, ..., X_k$, de modo que escrevemos simplesmente:
+df %>%
+  ggplot(aes(y=log_salario, x=genero)) + geom_point(shape = 1) +
+  scale_y_continuous(labels = scales::dollar) +
+  stat_summary(
+    geom = "point",
+    fun.y = "mean",
+    col = "black",
+    size = 3,
+    shape = 24,
+    fill = "red"
+  ) + theme_bw(base_size = 22)
 
-$$
-\mathbb{E}[Y| X_1, X_2, ..., X_k]
-$$
+```
 
-Se tivermos apenas um único preditor, $X$, então a CEF é dada por:
-$$
-\mathbb{E}[Y| X] = m(X)
-$$
+De fato, o erro que cometemos pode ser calculado por meio do *Erro Quadrático Médio*, que é definido como a soma dos erros ao quadrado (para não cancelar). No R, isso pode ser calculado como:
 
+```{r eqm_ex1, echo=FALSE, message=FALSE}
 
-## Erro da CEF
+df_erro <- df %>%
+  group_by(genero) %>%
+  mutate(cond_exp = mean(log_salario)) %>%
+  ungroup() %>%
+  mutate(erro = log_salario - cond_exp)
 
-Quando estamos fazendo previsões sobre $Y$ a partir da CEF, cometemos um erro. Esse erro (para o caso de uma variável) é definido por:
-$$
-e = Y - m(X)
-$$
+df_erro %>%
+  select(log_salario, genero, cond_exp, erro) %>%
+  head() %>%
+  kable()
 
-Se rearranjarmos, isso nos leva À seguinte equação:
-$$
-Y = m(X) + e
-$$
-Notem que o erro e depende de $X$ e $Y$ e, portanto, é também uma variável aleatória. E uma propriedade (não um pressuspoto) da CEF é que o erro e tem esperança condiconal a X igual a zero. Vejam que:
+df_erro %>%
+  summarise(eq = round(sum(erro),4),
+         eqm =  sum(erro^2)) %>%
+  kable()
 
-$$
-\mathbb{E}[e] = \mathbb{E}[Y - m(X)]
-$$
+```
 
-e 
-$$
-\mathbb{E}[e|X] = \mathbb{E}[Y - m(X)|X]
-$$
-Pela propriedade de lineraridade da esperança, temos então:
-$$
-\mathbb{E}[e|X] = \mathbb{E}[Y|X] -  \mathbb{E}[m(X)|X]
-$$
-$$
-\mathbb{E}[e|X] = m(X) -  \mathbb{E}[m(X)|X]
-$$
+Como iremos mostrar depois, não existe nenhuma outra forma melhor de prever $Y$, se só tivermos informação de $Y$ e $X$. Ou seja, esse é o menor erro quadrático médio possível. Claro que, com mais variávels, podemos condicionais em mais informação e melhorar a previsão.
 
-Existe um teorema, que não irei demonstrar, chamando de teorema do condicionamento que diz que em situações como $\mathbb{E}[m(X)|X]$, isso é igual e $m(X)$. O que torna nossa equação igual a zero. E existe um outro teorema, chamdo de lei da esperanças iteradas (Law of Iterated Expectation) que diz que a esperança da esperança condicional é a esperança não-condicional. Ou seja,$\mathbb{E}[\mathbb{E}[Y|X]] = \mathbb{E}[Y]. Utilizando esse fato, temos que a esperança não-condicional do erro também é zero.
+```{r eqm_ex2, echo=FALSE, message=FALSE, cache=TRUE}
 
-$$
-\mathbb{E}[e] = \mathbb{E}[\mathbb{E}[e|X]] = \mathbb{E}[0] = 0
-$$
+df_erro <- df %>%
+  group_by(genero, raca) %>%
+  mutate(cond_exp = mean(log_salario)) %>%
+  ungroup() %>%
+  mutate(erro = log_salario - cond_exp)
 
-Por fim, uma última propriedade que não iremos demonstrar é que o erro da CEF é não-correlacionado com qualquer função de $X$. Formalmente isso é formulado como $\mathbb{E}[h(x)*e] = 0$. Em particular, se $h(x)=x$, então $\mathbb{E}[x*e] = 0$. 
+df_erro %>%
+  select(log_salario, genero, raca, cond_exp, erro) %>%
+  head() %>%
+  kable()
 
-Para entender porque isso significa que a correlação é zero, lembre-se da identidade da covariância:
-$Cov(X,Y) = \mathbb{E}[X*Y] - \mathbb{E}[X]*\mathbb{E}[Y] =  \mathbb{E}[(X -  \mathbb{E}[X])*(Y -  \mathbb{E}[Y])]$.
+df_erro %>%
+  summarise(eq = round(sum(erro),4),
+         eqm =  sum(erro^2)) %>%
+  kable()
 
-Suponha que $Cov(X,Y) = 0$. Então, $\mathbb{E}[X*Y] = \mathbb{E}[X]*\mathbb{E}[Y]$
+```
 
-É importante entender que correlação zero não implica independência.
-
-## O que falta
-
-Falta o seguinte
-
-## Modelo só com intercepto
-
-O modelo só com intercepto é...
-
-## Variância da Regressão
-
-A variância não condicional do erro da CEF é dada por:
-
-$$ \sigma^2 = var[e] =  \mathbb{E}[(e - \mathbb{E}[e])^2] = \mathbb{E}[e^2]$$
-
-A variância da regressão mede a porção da variância que não é explicada pela esperança condicional.
-
-## Chuva na Jamaica
-
-Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). Por isso que uma professor meu diz: se você mediu chuva n Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
-
-## Melhor preditor
+Vemos que o EQM diminuiu ao condicionar em mais variáveis. Para reforçar, até aqui estamos falando da população. Embora no exemplo tenhamos dados da PNAD, que é uma amostra, e deveria mesmo trabalhar com o censo, estou simplificando e assumindo que a PNAD representa a população. Fazendo essa suposição, o erro que é cometido pela esperança condicional para prever $Y$ é o menor erro (quantificado pelo EQM) possível (iremos demonstrar isso no próximo capítulo).
 
