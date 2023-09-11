@@ -198,11 +198,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="cef-1.html"><a href="cef-1.html#erro-da-cef"><i class="fa fa-check"></i><b>6.1</b> Erro da CEF</a></li>
 <li class="chapter" data-level="6.2" data-path="cef-1.html"><a href="cef-1.html#simulando-para-entender-a-cef"><i class="fa fa-check"></i><b>6.2</b> Simulando para entender a CEF</a></li>
-<li class="chapter" data-level="6.3" data-path="cef-1.html"><a href="cef-1.html#o-que-falta"><i class="fa fa-check"></i><b>6.3</b> O que falta</a></li>
-<li class="chapter" data-level="6.4" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.4</b> Modelo só com intercepto</a></li>
-<li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.5</b> Variância da Regressão</a></li>
-<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.6</b> Chuva na Jamaica</a></li>
-<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#melhor-preditor"><i class="fa fa-check"></i><b>6.7</b> Melhor preditor</a></li>
+<li class="chapter" data-level="6.3" data-path="cef-1.html"><a href="cef-1.html#propriedades-da-cef"><i class="fa fa-check"></i><b>6.3</b> Propriedades da CEF</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="cef-1.html"><a href="cef-1.html#a-esperança-do-erro-condicional-a-x-é-zero"><i class="fa fa-check"></i><b>6.3.1</b> A Esperança do Erro Condicional a X é zero</a></li>
+<li class="chapter" data-level="6.3.2" data-path="cef-1.html"><a href="cef-1.html#a-esperança-não-condicional-do-erro-é-zero."><i class="fa fa-check"></i><b>6.3.2</b> A esperança (não-condicional) do erro é zero.</a></li>
+<li class="chapter" data-level="6.3.3" data-path="cef-1.html"><a href="cef-1.html#o-erro-da-cef-é-não-correlacionado-com-x"><i class="fa fa-check"></i><b>6.3.3</b> O erro da CEF é não-correlacionado com X</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="cef-1.html"><a href="cef-1.html#o-que-falta"><i class="fa fa-check"></i><b>6.4</b> O que falta</a></li>
+<li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.5</b> Modelo só com intercepto</a></li>
+<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.6</b> Variância da Regressão</a></li>
+<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.7</b> Chuva na Jamaica</a></li>
+<li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#melhor-preditor"><i class="fa fa-check"></i><b>6.8</b> Melhor preditor</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -285,6 +291,10 @@ o erro <span class="math inline">\(e\)</span> tem esperança condiconal a <span 
 <pre><code>## [1] 2987.139</code></pre>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="cef-1.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro2<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 3062.869</code></pre>
+<p>Nós imprimimos os dois erros quadráticos médios calculados, um usando a média de <span class="math inline">\(Y\)</span> como minha estimativa, e outro usando a mediana. A média teve um desempenho melhor. De maneira geral, é possível mostrar que a média é é a melhor estimativa não condicional possível.</p>
+</div>
+<div id="propriedades-da-cef" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Propriedades da CEF<a href="cef-1.html#propriedades-da-cef" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vejam que:</p>
 <p><span class="math display">\[
 \mathbb{E}[e] = \mathbb{E}[Y - m(X)]
@@ -301,22 +311,43 @@ Do que segue:
 <span class="math display">\[
 \mathbb{E}[e|X] = m(X) -  \mathbb{E}[m(X)|X]
 \]</span></p>
+<div id="a-esperança-do-erro-condicional-a-x-é-zero" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> A Esperança do Erro Condicional a X é zero<a href="cef-1.html#a-esperança-do-erro-condicional-a-x-é-zero" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Existe um teorema, que não irei demonstrar, chamando de teorema do
-condicionamento que diz que em situações como <span class="math inline">\(\mathbb{E}[m(X)|X]\)</span>, isso
-é igual e <span class="math inline">\(m(X)\)</span>. O que torna nossa equação igual a zero. E existe um
-outro teorema, chamdo de lei das esperanças iteradas (Law of Iterated
+condicionamento, que diz que em situações como <span class="math inline">\(\mathbb{E}[m(X)|X]\)</span>, isso
+é igual e <span class="math inline">\(m(X)\)</span>. O que torna nossa equação igual a zero. Ou seja:</p>
+<p><span class="math display">\[
+\mathbb{E}[e|X] = m(X) - m(X) = 0
+\]</span></p>
+</div>
+<div id="a-esperança-não-condicional-do-erro-é-zero." class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> A esperança (não-condicional) do erro é zero.<a href="cef-1.html#a-esperança-não-condicional-do-erro-é-zero." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>E existe um outro teorema, chamdo de lei das esperanças iteradas (Law of Iterated
 Expectations) que diz que a esperança da esperança condicional é a
 esperança não-condicional. Ou seja, <span class="math inline">\(\mathbb{E}[\mathbb{E}[Y\|X]] = \mathbb{E}[Y]\)</span>. Utilizando esse fato, temos que a esperança
 não-condicional do erro também é zero.</p>
 <p><span class="math display">\[
 \mathbb{E}[e] = \mathbb{E}[\mathbb{E}[e|X]] = \mathbb{E}[0] = 0
 \]</span></p>
-<p>Por fim, uma última propriedade que não iremos demonstrar é que o erro
-da CEF é não-correlacionado com qualquer função de <span class="math inline">\(X\)</span>. Formalmente isso
-é formulado como <span class="math inline">\(\mathbb{E}[h(x)*e] = 0\)</span>. Em particular, se <span class="math inline">\(h(x)=x\)</span>,
-então <span class="math inline">\(\mathbb{E}[x*e] = 0\)</span>. Dizemos que o erro é independente na média
-de x, e isso implica que o erro não é correlacionado com x. Não iremos
-provar isso aqui, ms vamos dar uma intuição com um exemplo.</p>
+<div id="intuição-da-lie" class="section level4 hasAnchor" number="6.3.2.1">
+<h4><span class="header-section-number">6.3.2.1</span> Intuição da LIE<a href="cef-1.html#intuição-da-lie" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Como a LIE é muito importante em muitas demonstração de estatística, vale a penda dar pelo menos a intuição de sua validade. Para isso, vamos usar a lei da probabilidade total. Digamos que tenho um dado de 6 faces, dado <span class="math inline">\(A\)</span>, e outro de 4 faces, o dado <span class="math inline">\(B\)</span>. E <span class="math inline">\(Y\)</span> é o valor que sai de jogar um dado e <span class="math inline">\(X\)</span> é qual dado eu joguei. Queremos mostrar que:</p>
+<p><span class="math display">\[
+\mathbb{E}[\mathbb{E}[Y|X]] = \mathbb{E}[Y]
+\]</span>
+A média das médias condicionais é dado pela média quando escolho o dado A (vezes sua probabilidade) mais a média quando escolho o dado B (vezes sua probabilidade).</p>
+<p>Se <span class="math inline">\(X = A\)</span>, o dado de 6 faces, então <span class="math inline">\(\mathbb{E}[Y|X=A]]\)</span>, isto é, a média do valor do dado é <span class="math inline">\((1+2+3+4+5+6)/6 = 3.5\)</span></p>
+<p>Se <span class="math inline">\(X = B\)</span>, o dado de 4 faces, então <span class="math inline">\(\mathbb{E}[Y|X=A]]\)</span>, isto é, a média do valor do dado é <span class="math inline">\((1+2+3+4)/4 = 2.5\)</span></p>
+<p>Se eu escolher cada dado aleatoriamente, isto é, com probabilidade 50%, então o valor médio de <span class="math inline">\(Y\)</span>, dado por <span class="math inline">\(\mathbb{E}[y]\)</span> é simplesmente <span class="math inline">\(3.5*.5 + 3.5*.5 = 3\)</span>. .</p>
+<p>No caso dos salários condicional ao gênero, efetivamente o que estamos dizendo é o seguinte:</p>
+<p><span class="math inline">\(\mathbb{E}[log(salário)|gênero = homem]*P[gênero = homem] + \mathbb{E}[log(salário)|gênero = mulher]*P[gênero = mulher]\)</span></p>
+</div>
+</div>
+<div id="o-erro-da-cef-é-não-correlacionado-com-x" class="section level3 hasAnchor" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> O erro da CEF é não-correlacionado com X<a href="cef-1.html#o-erro-da-cef-é-não-correlacionado-com-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Por fim, uma última propriedade que não iremos demonstrar é que o erro da CEF é não-correlacionado com qualquer função de <span class="math inline">\(X\)</span>. Formalmente isso é formulado como <span class="math inline">\(\mathbb{E}[h(x)*e] = 0\)</span>. Em particular, se <span class="math inline">\(h(x)=x\)</span>, então <span class="math inline">\(\mathbb{E}[x*e] = 0\)</span>. Esse resultado implica que o erro é não-correlacionado com <span class="math inline">\(X\)</span> (ou qualquer função de <span class="math inline">\(X\)</span>). Dizemos que o erro é independente na média de <span class="math inline">\(X\)</span>, ou seja, <span class="math inline">\(\mathbb{E}[e|X]=0\)</span> e isso implica que o erro não é correlacionado com x.</p>
+<p>Vejam que já sabemos que <span class="math inline">\(\mathbb{E}[e]=0\)</span>, portanto, <span class="math inline">\(\mathbb{E}[e|X]=0\)</span> é uma forma de dizer que a média do erro condicional a <span class="math inline">\(X\)</span> é a mesma coisa que a média do erro sem condicionar em <span class="math inline">\(X\)</span>. Em outras palavras, a informação de <span class="math inline">\(X\)</span> não muda minha estimativa da média do erro. Voltemos para o exemplo dos dados. Agora, suponha que tenho dois dados de <span class="math inline">\(6\)</span> faces. Nesse caso, saber que escolhi o dado <span class="math inline">\(A\)</span> não muda a médiade <span class="math inline">\(Y\)</span>, pois será igualmente <span class="math inline">\(3.5\)</span>. É fácil ver que não há correlação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> nesse caso.</p>
+<p>Aqui tem uma intuição de porque uma variável ser independente na média significa que não é correlacionada. Suponha que eu tenho uma medida da altura de pessoas, alguma medida do vocabulário delas e suas idades. Condicional à idade, saber a altura de uma pessoa não diz nada sobre o vocabulário dela (e vice-versa). Isso significa que não estão correlacionadas.</p>
 <p>Primeiramente, lembre-se da identidade da covariância:</p>
 <p><span class="math display">\[
 Cov(X,Y) = \mathbb{E}[X*Y] - \mathbb{E}[X]*\mathbb{E}[Y] =  \mathbb{E}[(X -  \mathbb{E}[X])*(Y -  \mathbb{E}[Y])]
@@ -479,18 +510,19 @@ x*p(x) + y*p(y)  = x1*y1 = 2.15
 o caso particular de X assumindo dois valores).</p>
 <pre class="math"><code>\mathbb{E}[e]*\mathbb{E}[X] = \mathbb{E}[e*\mathbb{E}[X]] = \mathbb{E}[e*\mathbb{E}[e|X]] = \mathbb{E}[X*Y|X=x_{1}]*p(X_1) + \mathbb{E}[X*Y|X =x_2]*p(x_2)</code></pre>
 </div>
-<div id="o-que-falta" class="section level2 hasAnchor" number="6.3">
-<h2><span class="header-section-number">6.3</span> O que falta<a href="cef-1.html#o-que-falta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="o-que-falta" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> O que falta<a href="cef-1.html#o-que-falta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>    Falta o seguinte
   </code></pre>
 </div>
-<div id="modelo-só-com-intercepto" class="section level2 hasAnchor" number="6.4">
-<h2><span class="header-section-number">6.4</span> Modelo só com intercepto<a href="cef-1.html#modelo-só-com-intercepto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="modelo-só-com-intercepto" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Modelo só com intercepto<a href="cef-1.html#modelo-só-com-intercepto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>  O modelo só com intercepto é...
   </code></pre>
 </div>
-<div id="variância-da-regressão" class="section level2 hasAnchor" number="6.5">
-<h2><span class="header-section-number">6.5</span> Variância da Regressão<a href="cef-1.html#variância-da-regressão" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="variância-da-regressão" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Variância da Regressão<a href="cef-1.html#variância-da-regressão" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>  A variância não condicional do erro da CEF é dada por:
     </code></pre>
 <p><span class="math display">\[
@@ -498,13 +530,13 @@ o caso particular de X assumindo dois valores).</p>
 \]</span></p>
 <p>A variância da regressão mede a porção da variância que não é “explicada” pela esperança condicional.</p>
 </div>
-<div id="chuva-na-jamaica" class="section level2 hasAnchor" number="6.6">
-<h2><span class="header-section-number">6.6</span> Chuva na Jamaica<a href="cef-1.html#chuva-na-jamaica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="chuva-na-jamaica" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Chuva na Jamaica<a href="cef-1.html#chuva-na-jamaica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>  Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). Por isso que uma professor meu dizia: se você mediu chuva n Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
   </code></pre>
 </div>
-<div id="melhor-preditor" class="section level2 hasAnchor" number="6.7">
-<h2><span class="header-section-number">6.7</span> Melhor preditor<a href="cef-1.html#melhor-preditor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="melhor-preditor" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> Melhor preditor<a href="cef-1.html#melhor-preditor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>  Blabla.
   </code></pre>
 

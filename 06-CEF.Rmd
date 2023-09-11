@@ -92,6 +92,11 @@ print(sum(erro1^2))
 print(sum(erro2^2))
 ```
 
+Nós imprimimos os dois erros quadráticos médios calculados, um usando a média de $Y$ como minha estimativa, e outro usando a mediana. A média teve um desempenho melhor. De maneira geral, é possível mostrar que a média é é a melhor estimativa não condicional possível. 
+
+## Propriedades da CEF
+
+
 Vejam que:
 
 $$
@@ -113,10 +118,19 @@ $$
 \mathbb{E}[e|X] = m(X) -  \mathbb{E}[m(X)|X]
 $$
 
+### A Esperança do Erro Condicional a X é zero
+
 Existe um teorema, que não irei demonstrar, chamando de teorema do
-condicionamento que diz que em situações como $\mathbb{E}[m(X)|X]$, isso
-é igual e $m(X)$. O que torna nossa equação igual a zero. E existe um
-outro teorema, chamdo de lei das esperanças iteradas (Law of Iterated
+condicionamento, que diz que em situações como $\mathbb{E}[m(X)|X]$, isso
+é igual e $m(X)$. O que torna nossa equação igual a zero. Ou seja:
+
+$$
+\mathbb{E}[e|X] = m(X) - m(X) = 0
+$$
+
+### A esperança (não-condicional) do erro é zero.
+
+E existe um outro teorema, chamdo de lei das esperanças iteradas (Law of Iterated
 Expectations) que diz que a esperança da esperança condicional é a
 esperança não-condicional. Ou seja, $\mathbb{E}[\mathbb{E}[Y\|X]] = \mathbb{E}[Y]$. Utilizando esse fato, temos que a esperança
 não-condicional do erro também é zero.
@@ -125,12 +139,35 @@ $$
 \mathbb{E}[e] = \mathbb{E}[\mathbb{E}[e|X]] = \mathbb{E}[0] = 0
 $$
 
-Por fim, uma última propriedade que não iremos demonstrar é que o erro
-da CEF é não-correlacionado com qualquer função de $X$. Formalmente isso
-é formulado como $\mathbb{E}[h(x)*e] = 0$. Em particular, se $h(x)=x$,
-então $\mathbb{E}[x*e] = 0$. Dizemos que o erro é independente na média
-de x, e isso implica que o erro não é correlacionado com x. Não iremos
-provar isso aqui, ms vamos dar uma intuição com um exemplo.
+#### Intuição da LIE
+Como a LIE é muito importante em muitas demonstração de estatística, vale a penda dar pelo menos a intuição de sua validade. Para isso, vamos usar a lei da probabilidade total. Digamos que tenho um dado de 6 faces, dado $A$, e outro de 4 faces, o dado $B$. E $Y$ é o valor que sai de jogar um dado e $X$ é qual dado eu joguei. Queremos mostrar que:
+
+$$
+\mathbb{E}[\mathbb{E}[Y|X]] = \mathbb{E}[Y]
+$$
+A média das médias condicionais é dado pela média quando escolho o dado A (vezes sua probabilidade) mais a média quando escolho o dado B (vezes sua probabilidade).
+
+Se $X = A$, o dado de 6 faces, então $\mathbb{E}[Y|X=A]]$, isto é, a média do valor do dado é $(1+2+3+4+5+6)/6 = 3.5$
+
+Se $X = B$, o dado de 4 faces, então $\mathbb{E}[Y|X=A]]$, isto é, a média do valor do dado é $(1+2+3+4)/4 = 2.5$
+
+Se eu escolher cada dado aleatoriamente, isto é, com probabilidade 50%, então o valor médio de $Y$, dado por $\mathbb{E}[y]$ é simplesmente $3.5*.5 + 3.5*.5 = 3$. .
+
+No caso dos salários condicional ao gênero, efetivamente o que estamos dizendo é o seguinte:
+
+$\mathbb{E}[log(salário)|gênero = homem]*P[gênero = homem] + \mathbb{E}[log(salário)|gênero = mulher]*P[gênero = mulher]$
+
+
+### O erro da CEF é não-correlacionado com X
+
+Por fim, uma última propriedade que não iremos demonstrar é que o erro da CEF é não-correlacionado com qualquer função de $X$. Formalmente isso é formulado como $\mathbb{E}[h(x)*e] = 0$. Em particular, se $h(x)=x$, então $\mathbb{E}[x*e] = 0$. Esse resultado implica que o erro é não-correlacionado com $X$ (ou qualquer função de $X$). Dizemos que o erro é independente na média de $X$, ou seja, $\mathbb{E}[e|X]=0$ e isso implica que o erro não é correlacionado com x.
+
+Vejam que já sabemos que $\mathbb{E}[e]=0$, portanto, $\mathbb{E}[e|X]=0$ é uma forma de dizer que a média do erro condicional a $X$ é a mesma coisa que a média do erro sem condicionar em $X$. Em outras palavras, a informação de $X$ não muda minha estimativa da média do erro. Voltemos para o exemplo dos dados. Agora, suponha que tenho dois dados de $6$ faces. Nesse caso, saber que escolhi o dado $A$ não muda a médiade $Y$, pois será igualmente $3.5$. É fácil ver que não há correlação entre $X$ e $Y$ nesse caso.
+
+Aqui tem uma intuição de porque uma variável ser independente na média significa que não é correlacionada. Suponha que eu tenho uma medida da altura de pessoas, alguma medida do vocabulário delas e suas idades. Condicional à idade, saber a altura de uma pessoa não diz nada sobre o vocabulário dela (e vice-versa). Isso significa que não estão correlacionadas. 
+
+
+
 
 Primeiramente, lembre-se da identidade da covariância:
 

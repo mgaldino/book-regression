@@ -198,11 +198,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="cef-1.html"><a href="cef-1.html#erro-da-cef"><i class="fa fa-check"></i><b>6.1</b> Erro da CEF</a></li>
 <li class="chapter" data-level="6.2" data-path="cef-1.html"><a href="cef-1.html#simulando-para-entender-a-cef"><i class="fa fa-check"></i><b>6.2</b> Simulando para entender a CEF</a></li>
-<li class="chapter" data-level="6.3" data-path="cef-1.html"><a href="cef-1.html#o-que-falta"><i class="fa fa-check"></i><b>6.3</b> O que falta</a></li>
-<li class="chapter" data-level="6.4" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.4</b> Modelo só com intercepto</a></li>
-<li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.5</b> Variância da Regressão</a></li>
-<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.6</b> Chuva na Jamaica</a></li>
-<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#melhor-preditor"><i class="fa fa-check"></i><b>6.7</b> Melhor preditor</a></li>
+<li class="chapter" data-level="6.3" data-path="cef-1.html"><a href="cef-1.html#propriedades-da-cef"><i class="fa fa-check"></i><b>6.3</b> Propriedades da CEF</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="cef-1.html"><a href="cef-1.html#a-esperança-do-erro-condicional-a-x-é-zero"><i class="fa fa-check"></i><b>6.3.1</b> A Esperança do Erro Condicional a X é zero</a></li>
+<li class="chapter" data-level="6.3.2" data-path="cef-1.html"><a href="cef-1.html#a-esperança-não-condicional-do-erro-é-zero."><i class="fa fa-check"></i><b>6.3.2</b> A esperança (não-condicional) do erro é zero.</a></li>
+<li class="chapter" data-level="6.3.3" data-path="cef-1.html"><a href="cef-1.html#o-erro-da-cef-é-não-correlacionado-com-x"><i class="fa fa-check"></i><b>6.3.3</b> O erro da CEF é não-correlacionado com X</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="cef-1.html"><a href="cef-1.html#o-que-falta"><i class="fa fa-check"></i><b>6.4</b> O que falta</a></li>
+<li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.5</b> Modelo só com intercepto</a></li>
+<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.6</b> Variância da Regressão</a></li>
+<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.7</b> Chuva na Jamaica</a></li>
+<li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#melhor-preditor"><i class="fa fa-check"></i><b>6.8</b> Melhor preditor</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -436,13 +442,13 @@ Z
 2009-01-01
 </td>
 <td style="text-align:right;">
--0.8917706
+-0.5942169
 </td>
 <td style="text-align:right;">
--1.6160574
+-2.5462534
 </td>
 <td style="text-align:right;">
-6.6482341
+-5.8756087
 </td>
 </tr>
 <tr>
@@ -450,13 +456,13 @@ Z
 2009-01-02
 </td>
 <td style="text-align:right;">
--0.7609718
+2.2381340
 </td>
 <td style="text-align:right;">
--3.9503291
+1.3045714
 </td>
 <td style="text-align:right;">
-2.7682562
+-6.3549874
 </td>
 </tr>
 <tr>
@@ -464,13 +470,13 @@ Z
 2009-01-03
 </td>
 <td style="text-align:right;">
--0.8373652
+0.6212960
 </td>
 <td style="text-align:right;">
-1.1038388
+0.3913685
 </td>
 <td style="text-align:right;">
--5.7846164
+-0.0843070
 </td>
 </tr>
 <tr>
@@ -478,13 +484,13 @@ Z
 2009-01-04
 </td>
 <td style="text-align:right;">
--0.2717826
+-2.0664466
 </td>
 <td style="text-align:right;">
--2.1712754
+0.5990876
 </td>
 <td style="text-align:right;">
--4.4883159
+-0.3469913
 </td>
 </tr>
 <tr>
@@ -492,13 +498,13 @@ Z
 2009-01-05
 </td>
 <td style="text-align:right;">
--0.7864575
+-0.8950288
 </td>
 <td style="text-align:right;">
-1.7715344
+-0.0482699
 </td>
 <td style="text-align:right;">
-7.1672363
+-6.0501447
 </td>
 </tr>
 <tr>
@@ -506,13 +512,13 @@ Z
 2009-01-06
 </td>
 <td style="text-align:right;">
-0.3756538
+-0.9732650
 </td>
 <td style="text-align:right;">
-1.4426868
+-1.0547529
 </td>
 <td style="text-align:right;">
-7.4105260
+-4.4589942
 </td>
 </tr>
 <tr>
@@ -520,13 +526,13 @@ Z
 2009-01-07
 </td>
 <td style="text-align:right;">
-0.0613428
+0.3799902
 </td>
 <td style="text-align:right;">
--1.3738367
+-2.8811420
 </td>
 <td style="text-align:right;">
--4.0988236
+1.8220280
 </td>
 </tr>
 <tr>
@@ -534,13 +540,13 @@ Z
 2009-01-08
 </td>
 <td style="text-align:right;">
--0.9264536
+1.0445470
 </td>
 <td style="text-align:right;">
-1.0474591
+-0.4754305
 </td>
 <td style="text-align:right;">
-0.5906843
+12.3860064
 </td>
 </tr>
 <tr>
@@ -548,13 +554,13 @@ Z
 2009-01-09
 </td>
 <td style="text-align:right;">
-0.6596550
+0.0214847
 </td>
 <td style="text-align:right;">
--0.3068626
+-1.2360396
 </td>
 <td style="text-align:right;">
-7.4485297
+1.2510656
 </td>
 </tr>
 <tr>
@@ -562,13 +568,13 @@ Z
 2009-01-10
 </td>
 <td style="text-align:right;">
-1.4299190
+1.1353331
 </td>
 <td style="text-align:right;">
--1.2051632
+2.2757195
 </td>
 <td style="text-align:right;">
--2.7603746
+2.8245165
 </td>
 </tr>
 </tbody>
@@ -603,13 +609,13 @@ Z
 2009-01-01
 </td>
 <td style="text-align:right;">
--0.0084056
+-1.3956945
 </td>
 <td style="text-align:right;">
--0.5785572
+-1.5691115
 </td>
 <td style="text-align:right;">
--6.224575
+2.5593133
 </td>
 </tr>
 <tr>
@@ -617,13 +623,13 @@ Z
 2009-01-02
 </td>
 <td style="text-align:right;">
--0.4461680
+-0.1338684
 </td>
 <td style="text-align:right;">
-3.9854664
+1.5393867
 </td>
 <td style="text-align:right;">
--3.878364
+-4.8258934
 </td>
 </tr>
 <tr>
@@ -631,13 +637,13 @@ Z
 2009-01-03
 </td>
 <td style="text-align:right;">
-0.5211243
+0.2753938
 </td>
 <td style="text-align:right;">
-1.2924310
+0.9741069
 </td>
 <td style="text-align:right;">
--4.465511
+4.1496071
 </td>
 </tr>
 <tr>
@@ -645,13 +651,13 @@ Z
 2009-01-04
 </td>
 <td style="text-align:right;">
-0.3696796
+-1.5046480
 </td>
 <td style="text-align:right;">
--3.7237401
+-3.8632062
 </td>
 <td style="text-align:right;">
--3.449745
+-8.5287340
 </td>
 </tr>
 <tr>
@@ -659,13 +665,13 @@ Z
 2009-01-05
 </td>
 <td style="text-align:right;">
-1.4473373
+0.6459368
 </td>
 <td style="text-align:right;">
--3.0773782
+-1.4767597
 </td>
 <td style="text-align:right;">
-4.369168
+-0.8104898
 </td>
 </tr>
 <tr>
@@ -673,13 +679,13 @@ Z
 2009-01-06
 </td>
 <td style="text-align:right;">
-1.0822884
+-0.3713497
 </td>
 <td style="text-align:right;">
-2.3440636
+-0.2747539
 </td>
 <td style="text-align:right;">
-8.318203
+1.1455279
 </td>
 </tr>
 <tr>
@@ -687,13 +693,13 @@ Z
 2009-01-07
 </td>
 <td style="text-align:right;">
--1.6203255
+-1.0837592
 </td>
 <td style="text-align:right;">
-1.6829925
+0.7822565
 </td>
 <td style="text-align:right;">
--5.316342
+-3.5126754
 </td>
 </tr>
 <tr>
@@ -701,13 +707,13 @@ Z
 2009-01-08
 </td>
 <td style="text-align:right;">
--0.0773624
+-0.5593102
 </td>
 <td style="text-align:right;">
-0.9457283
+-1.0192248
 </td>
 <td style="text-align:right;">
-4.843113
+3.6812021
 </td>
 </tr>
 <tr>
@@ -715,13 +721,13 @@ Z
 2009-01-09
 </td>
 <td style="text-align:right;">
-1.1767519
+0.8856205
 </td>
 <td style="text-align:right;">
-0.1155066
+0.0341255
 </td>
 <td style="text-align:right;">
-5.186285
+5.0712964
 </td>
 </tr>
 <tr>
@@ -729,13 +735,13 @@ Z
 2009-01-10
 </td>
 <td style="text-align:right;">
-2.1426014
+1.4783638
 </td>
 <td style="text-align:right;">
--0.0775002
+0.2114132
 </td>
 <td style="text-align:right;">
-2.156516
+-2.6515043
 </td>
 </tr>
 </tbody>
