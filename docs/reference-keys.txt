@@ -51,6 +51,11 @@ prevendo-a-partir-da-esperança-condicional
 cef-1
 erro-da-cef
 simulando-para-entender-a-cef
+propriedades-da-cef
+a-esperança-do-erro-condicional-a-x-é-zero
+a-esperança-não-condicional-do-erro-é-zero.
+intuição-da-lie
+o-erro-da-cef-é-não-correlacionado-com-x
 o-que-falta
 modelo-só-com-intercepto
 variância-da-regressão
