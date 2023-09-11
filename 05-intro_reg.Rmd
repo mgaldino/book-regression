@@ -15,7 +15,7 @@ Portanto, vamos retomrar o conceito de esperança condicional, para introduzir e
 
 ## Esperança Condicional
 
-```{r package loads 02, echo=FALSE, message=FALSE}
+```{r package loads cap5, echo=FALSE, message=FALSE}
 library(ggplot2)
 library(knitr)
 library(tidyverse)
@@ -246,9 +246,9 @@ Esperanças condicionais são descrições (resumos) dos dados. Para explicar as
 
 ## Prevendo a partir da esperança condicional
 
-No gráfico abaixo, as esperanãs condicionais para os dois valores de $X$ são dadas pelos triângulos vermelhos. Como vemos, há uma grande variabilidade nos dados de salário em torno da esperança condicional. Isso significa que se só tenho a variável gênero, prever $Y$ a partir da esperança condicional $\mathbb{E}[Y|X]$ resulta em um erro grande.
+No gráfico abaixo, as esperanças condicionais para os dois valores de $X$ são dadas pelos triângulos vermelhos. Como vemos, há uma grande variabilidade nos dados de salário em torno da esperança condicional. Isso significa que se só tenho a variável gênero, prever $Y$ a partir da esperança condicional $\mathbb{E}[Y|X]$ resulta em um erro grande.
 
-```{r plot_exp_cond, echo=FALSE, message=FALSE}
+```{r plot_exp_cond, echo=FALSE, message=FALSE, echo=TRUE}
 
 df %>%
   ggplot(aes(y=log_salario, x=genero)) + geom_point(shape = 1) +
@@ -266,7 +266,7 @@ df %>%
 
 De fato, o erro que cometemos pode ser calculado por meio do *Erro Quadrático Médio*, que é definido como a soma dos erros ao quadrado (para não cancelar). No R, isso pode ser calculado como:
 
-```{r eqm_ex1, echo=FALSE, message=FALSE}
+```{r eqm_ex1, echo=TRUE, message=FALSE}
 
 df_erro <- df %>%
   group_by(genero) %>%
@@ -286,7 +286,7 @@ df_erro %>%
 
 ```
 
-Como iremos mostrar depois, não existe nenhuma outra forma melhor de prever $Y$, se só tivermos informação de $Y$ e $X$. Ou seja, esse é o menor erro quadrático médio possível. Claro que, com mais variávels, podemos condicionais em mais informação e melhorar a previsão.
+Como iremos mostrar depois, não existe nenhuma outra forma melhor de prever $Y$, se só tivermos informação de $Y$ e $X$. Ou seja, esse é o menor erro quadrático médio possível. Claro que, com mais variávels, podemos condicionais em mais informação e melhorar a previsão. Por exemplo, se temos a variável raça, além de gênero, podemos condicionar nas duas variáveis.
 
 ```{r eqm_ex2, echo=FALSE, message=FALSE, cache=TRUE}
 
@@ -308,5 +308,7 @@ df_erro %>%
 
 ```
 
-Vemos que o EQM diminuiu ao condicionar em mais variáveis. Para reforçar, até aqui estamos falando da população. Embora no exemplo tenhamos dados da PNAD, que é uma amostra, e deveria mesmo trabalhar com o censo, estou simplificando e assumindo que a PNAD representa a população. Fazendo essa suposição, o erro que é cometido pela esperança condicional para prever $Y$ é o menor erro (quantificado pelo EQM) possível (iremos demonstrar isso no próximo capítulo).
+Vemos que o EQM diminuiu ao condicionar em mais variáveis. Para reforçar, até aqui estamos falando da população. Embora no exemplo tenhamos dados da PNAD, que é uma amostra, e em teoria deveríamos trabalhar com o censo, estou simplificando e assumindo que a PNAD representa a população. Fazendo essa suposição, o erro que é cometido pela esperança condicional para prever $Y$ é o menor erro (quantificado pelo EQM) possível (iremos demonstrar isso no próximo capítulo).
+
+
 

@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-08-29" />
+<meta name="date" content="2023-09-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -257,18 +257,34 @@ erro. Esse erro (para o caso de uma variável) é definido por:</p>
 <p><span class="math display">\[
 e = Y - m(X)
 \]</span></p>
-<p>Se rearranjarmos, isso nos leva À seguinte equação:
+<p>Se rearranjarmos, isso nos leva à seguinte equação:
 <span class="math display">\[
 Y = m(X) + e
 \]</span>
 Notem que o erro <span class="math inline">\(e\)</span> depende de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> e, portanto, é também uma
 variável aleatória. E uma propriedade (não um pressuspoto) da CEF é que
-o erro e tem esperança condiconal a X igual a zero.</p>
+o erro <span class="math inline">\(e\)</span> tem esperança condiconal a <span class="math inline">\(X\)</span> igual a zero.</p>
 </div>
 <div id="simulando-para-entender-a-cef" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Simulando para entender a CEF<a href="cef-1.html#simulando-para-entender-a-cef" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vamos fazer simulações no R para entender o erro da CEF. Suponha que
 <span class="math inline">\(Y = X^2 + U\)</span>, em que <span class="math inline">\(U \sim norm(0,1)\)</span> e <span class="math inline">\(X \sim norm(0,1)\)</span>.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="cef-1.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb85-2"><a href="cef-1.html#cb85-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb85-3"><a href="cef-1.html#cb85-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb85-4"><a href="cef-1.html#cb85-4" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb85-5"><a href="cef-1.html#cb85-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> u</span>
+<span id="cb85-6"><a href="cef-1.html#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-7"><a href="cef-1.html#cb85-7" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb85-8"><a href="cef-1.html#cb85-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-9"><a href="cef-1.html#cb85-9" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">median</span>(y)</span>
+<span id="cb85-10"><a href="cef-1.html#cb85-10" aria-hidden="true" tabindex="-1"></a>erro1 <span class="ot">&lt;-</span> y <span class="sc">-</span> m1</span>
+<span id="cb85-11"><a href="cef-1.html#cb85-11" aria-hidden="true" tabindex="-1"></a>erro2 <span class="ot">&lt;-</span> y <span class="sc">-</span> m2</span>
+<span id="cb85-12"><a href="cef-1.html#cb85-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-13"><a href="cef-1.html#cb85-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro1<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 2987.139</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="cef-1.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro2<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 3062.869</code></pre>
 <p>Vejam que:</p>
 <p><span class="math display">\[
 \mathbb{E}[e] = \mathbb{E}[Y - m(X)]
@@ -288,10 +304,9 @@ Do que segue:
 <p>Existe um teorema, que não irei demonstrar, chamando de teorema do
 condicionamento que diz que em situações como <span class="math inline">\(\mathbb{E}[m(X)|X]\)</span>, isso
 é igual e <span class="math inline">\(m(X)\)</span>. O que torna nossa equação igual a zero. E existe um
-outro teorema, chamdo de lei da esperanças iteradas (Law of Iterated
-Expectation) que diz que a esperança da esperança condicional é a
-esperança não-condicional. Ou seja,$[[Y|X]] =
-[Y]. Utilizando esse fato, temos que a esperança
+outro teorema, chamdo de lei das esperanças iteradas (Law of Iterated
+Expectations) que diz que a esperança da esperança condicional é a
+esperança não-condicional. Ou seja, <span class="math inline">\(\mathbb{E}[\mathbb{E}[Y\|X]] = \mathbb{E}[Y]\)</span>. Utilizando esse fato, temos que a esperança
 não-condicional do erro também é zero.</p>
 <p><span class="math display">\[
 \mathbb{E}[e] = \mathbb{E}[\mathbb{E}[e|X]] = \mathbb{E}[0] = 0
@@ -313,15 +328,15 @@ para o leitor. Por hora, vamos dar um exemplo simples.</p>
 <p>Nós vimos que o log do salário (por hora) médio não condicional
 <span class="math inline">\(\mathbb{E}[log(salário)]\)</span> é 2.15. A tabela abaixo quebra esse valor por
 gênero, juntamente com a frequência relativa de categoria:</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="cef-1.html#cb82-1" aria-hidden="true" tabindex="-1"></a>table2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb82-2"><a href="cef-1.html#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_n =</span> <span class="fu">sum</span>(V1028),</span>
-<span id="cb82-3"><a href="cef-1.html#cb82-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">log_renda =</span> <span class="fu">log</span>(renda)) <span class="sc">%&gt;%</span></span>
-<span id="cb82-4"><a href="cef-1.html#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span></span>
-<span id="cb82-5"><a href="cef-1.html#cb82-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">salario =</span> <span class="fu">round</span>(<span class="fu">weighted.mean</span>(salario, <span class="at">w=</span>V1028),<span class="dv">2</span>), <span class="at">freq=</span><span class="fu">sum</span>(V1028)<span class="sc">/</span>total_n)</span>
-<span id="cb82-6"><a href="cef-1.html#cb82-6" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb82-7"><a href="cef-1.html#cb82-7" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span></span>
-<span id="cb82-8"><a href="cef-1.html#cb82-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb82-9"><a href="cef-1.html#cb82-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="cef-1.html#cb89-1" aria-hidden="true" tabindex="-1"></a>table2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="cef-1.html#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_n =</span> <span class="fu">sum</span>(V1028),</span>
+<span id="cb89-3"><a href="cef-1.html#cb89-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">log_renda =</span> <span class="fu">log</span>(renda)) <span class="sc">%&gt;%</span></span>
+<span id="cb89-4"><a href="cef-1.html#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span></span>
+<span id="cb89-5"><a href="cef-1.html#cb89-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">salario =</span> <span class="fu">round</span>(<span class="fu">weighted.mean</span>(salario, <span class="at">w=</span>V1028),<span class="dv">2</span>), <span class="at">freq=</span><span class="fu">sum</span>(V1028)<span class="sc">/</span>total_n)</span>
+<span id="cb89-6"><a href="cef-1.html#cb89-6" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb89-7"><a href="cef-1.html#cb89-7" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span></span>
+<span id="cb89-8"><a href="cef-1.html#cb89-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb89-9"><a href="cef-1.html#cb89-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -461,7 +476,7 @@ x*p(x) + y*p(y)  = x1*y1 = 2.15
 \mathbb{E}[\mathbb{E}[Y|X]] = \mathbb{E}[Y|X=x_{1}]*p(X_1) + \mathbb{E}[Y|X =x_2]*p(x_2)
 \]</span></p>
 <p>Então, voltando ao nosso caso do erro, temos o seguinte (novamente para
-o casto particular de X assumindo dois valores).</p>
+o caso particular de X assumindo dois valores).</p>
 <pre class="math"><code>\mathbb{E}[e]*\mathbb{E}[X] = \mathbb{E}[e*\mathbb{E}[X]] = \mathbb{E}[e*\mathbb{E}[e|X]] = \mathbb{E}[X*Y|X=x_{1}]*p(X_1) + \mathbb{E}[X*Y|X =x_2]*p(x_2)</code></pre>
 </div>
 <div id="o-que-falta" class="section level2 hasAnchor" number="6.3">
