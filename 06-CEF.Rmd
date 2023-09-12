@@ -255,3 +255,36 @@ A variância da regressão mede a porção da variância que não é "explicada"
 
       Nós já antecipamos que a esperança conidcional é o melhor preditor de $Y$. vamos agora mostrar isso.
       
+      
+## Variância condicional
+
+Sabemos que a esperança condicional é o melhor preditor que existe. Porém, ainda assim pode ser uma previsão ruim, como vimos no caso dos salários condicional ao gênero. Nesses casos, é útil olahr também para a variância condicional.
+
+$$
+\sigma^2(x) = var[Y|X=x] =  \mathbb{E}[(Y - \mathbb{E}[Y|X=x])^2] = \mathbb{E}[e^2|X=x]
+$$
+A variância condicional do erro (ou de $Y$) em geral depende de $X$. Quando não depende, e portanto é uma constante, dizemos que o erro é homocedástico. Quando depende, que é o caso geral, dizemos que o erro é heterocedástico.
+
+## Efeito Marginal
+
+A regressão pode ser intepretada como efeito marginal...
+Incluir: mantém constante só os regressores incluídos. Se tiver não observado, não está constante para os não observados.
+Se for binário, é só a diferença.
+Se for contínua, é a derivada. Ou a variação na inclinação.
+
+## CEF linear
+
+A CEF linear é um caso particular.
+
+## CEF linear com peditores não-lineares
+
+É linear nos parâmetros.
+
+## Melhor preditor linear
+
+Entre os lineares, a esperança condicional é o melhor.
+
+Fórmula do Beta.
+
+Se tiver multicolineareade, a matriz não é invertível e não é identificada.
+
