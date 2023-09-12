@@ -204,11 +204,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.2" data-path="cef-1.html"><a href="cef-1.html#a-esperança-não-condicional-do-erro-é-zero."><i class="fa fa-check"></i><b>6.3.2</b> A esperança (não-condicional) do erro é zero.</a></li>
 <li class="chapter" data-level="6.3.3" data-path="cef-1.html"><a href="cef-1.html#o-erro-da-cef-é-não-correlacionado-com-x"><i class="fa fa-check"></i><b>6.3.3</b> O erro da CEF é não-correlacionado com X</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="cef-1.html"><a href="cef-1.html#o-que-falta"><i class="fa fa-check"></i><b>6.4</b> O que falta</a></li>
-<li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.5</b> Modelo só com intercepto</a></li>
-<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.6</b> Variância da Regressão</a></li>
-<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.7</b> Chuva na Jamaica</a></li>
-<li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#melhor-preditor"><i class="fa fa-check"></i><b>6.8</b> Melhor preditor</a></li>
+<li class="chapter" data-level="6.4" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.4</b> Modelo só com intercepto</a></li>
+<li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.5</b> Variância da Regressão</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.5.1</b> Chuva na Jamaica</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#melhor-preditor"><i class="fa fa-check"></i><b>6.6</b> Melhor preditor</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -508,36 +509,37 @@ x*p(x) + y*p(y)  = x1*y1 = 2.15
 \]</span></p>
 <p>Então, voltando ao nosso caso do erro, temos o seguinte (novamente para
 o caso particular de X assumindo dois valores).</p>
-<pre class="math"><code>\mathbb{E}[e]*\mathbb{E}[X] = \mathbb{E}[e*\mathbb{E}[X]] = \mathbb{E}[e*\mathbb{E}[e|X]] = \mathbb{E}[X*Y|X=x_{1}]*p(X_1) + \mathbb{E}[X*Y|X =x_2]*p(x_2)</code></pre>
+<p><span class="math display">\[
+\mathbb{E}[e]*\mathbb{E}[X] = \mathbb{E}[e*\mathbb{E}[X]] = \mathbb{E}[e*\mathbb{E}[e|X]] = \mathbb{E}[X*Y|X=x_{1}]*p(X_1) + \mathbb{E}[X*Y|X =x_2]*p(x_2)
+\]</span></p>
 </div>
 </div>
-<div id="o-que-falta" class="section level2 hasAnchor" number="6.4">
-<h2><span class="header-section-number">6.4</span> O que falta<a href="cef-1.html#o-que-falta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<pre><code>    Falta o seguinte
+<div id="modelo-só-com-intercepto" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Modelo só com intercepto<a href="cef-1.html#modelo-só-com-intercepto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<pre><code>  O exemplo mais simples de modelo de regressão é o modelo apenas com intercepto, isto é sem nenhum preditor $X$. Nesse caso, $m(x) = E[Y] = \mu$, a média não condicional de $Y$. Escrevendo a equação de regressão, temos:
   </code></pre>
+<p><span class="math display">\[
+Y = \mu + e
+\]</span>
+Com <span class="math inline">\(\mathbb{E}[e] = 0\)</span>.</p>
 </div>
-<div id="modelo-só-com-intercepto" class="section level2 hasAnchor" number="6.5">
-<h2><span class="header-section-number">6.5</span> Modelo só com intercepto<a href="cef-1.html#modelo-só-com-intercepto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<pre><code>  O modelo só com intercepto é...
-  </code></pre>
-</div>
-<div id="variância-da-regressão" class="section level2 hasAnchor" number="6.6">
-<h2><span class="header-section-number">6.6</span> Variância da Regressão<a href="cef-1.html#variância-da-regressão" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="variância-da-regressão" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Variância da Regressão<a href="cef-1.html#variância-da-regressão" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>  A variância não condicional do erro da CEF é dada por:
     </code></pre>
 <p><span class="math display">\[
 \sigma^2 = var[e] =  \mathbb{E}[(e - \mathbb{E}[e])^2] = \mathbb{E}[e^2]
 \]</span></p>
-<p>A variância da regressão mede a porção da variância que não é “explicada” pela esperança condicional.</p>
-</div>
-<div id="chuva-na-jamaica" class="section level2 hasAnchor" number="6.7">
-<h2><span class="header-section-number">6.7</span> Chuva na Jamaica<a href="cef-1.html#chuva-na-jamaica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<pre><code>  Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). Por isso que uma professor meu dizia: se você mediu chuva n Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
+<p>A variância da regressão mede a porção da variância que não é “explicada” ou predita pela esperança condicional, já que é definida pela variância do erro <span class="math inline">\(e\)</span>. Além disso, ela depende dos preditores. Se temos preditores diferentes, a varância da regressão será diferente.</p>
+<div id="chuva-na-jamaica" class="section level3 hasAnchor" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> Chuva na Jamaica<a href="cef-1.html#chuva-na-jamaica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<pre><code>  Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). É uma relação não-monotônica, isto é, a variância com maispreditores é sempre menor ou igual que a variância com menos preditores (se a com mais preditores incluir os mesmos preditores da com menos regressores). Por isso que uma professor meu dizia: se você mediu chuva na Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
   </code></pre>
 </div>
-<div id="melhor-preditor" class="section level2 hasAnchor" number="6.8">
-<h2><span class="header-section-number">6.8</span> Melhor preditor<a href="cef-1.html#melhor-preditor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<pre><code>  Blabla.
+</div>
+<div id="melhor-preditor" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Melhor preditor<a href="cef-1.html#melhor-preditor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<pre><code>  Nós já antecipamos que a esperança conidcional é o melhor preditor de $Y$. vamos agora mostrar isso.
   </code></pre>
 
 </div>
