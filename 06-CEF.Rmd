@@ -219,19 +219,20 @@ $$
 Então, voltando ao nosso caso do erro, temos o seguinte (novamente para
 o caso particular de X assumindo dois valores).
 
-```math
+$$
 \mathbb{E}[e]*\mathbb{E}[X] = \mathbb{E}[e*\mathbb{E}[X]] = \mathbb{E}[e*\mathbb{E}[e|X]] = \mathbb{E}[X*Y|X=x_{1}]*p(X_1) + \mathbb{E}[X*Y|X =x_2]*p(x_2)
-```
+$$
 
-## O que falta
-
-        Falta o seguinte
-      
 
 ## Modelo só com intercepto
 
-      O modelo só com intercepto é...
+      O exemplo mais simples de modelo de regressão é o modelo apenas com intercepto, isto é sem nenhum preditor $X$. Nesse caso, $m(x) = E[Y] = \mu$, a média não condicional de $Y$. Escrevendo a equação de regressão, temos:
       
+$$
+Y = \mu + e
+$$
+Com $\mathbb{E}[e] = 0$.
+
 
 ## Variância da Regressão
 
@@ -242,15 +243,15 @@ $$
 \sigma^2 = var[e] =  \mathbb{E}[(e - \mathbb{E}[e])^2] = \mathbb{E}[e^2]
 $$
 
-A variância da regressão mede a porção da variância que não é "explicada" pela esperança condicional.
+A variância da regressão mede a porção da variância que não é "explicada" ou predita pela esperança condicional, já que é definida pela variância do erro $e$. Além disso, ela depende dos preditores. Se temos preditores diferentes, a varância da regressão será diferente.
       
 
-## Chuva na Jamaica
+### Chuva na Jamaica
 
-      Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). Por isso que uma professor meu dizia: se você mediu chuva n Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
+      Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). É uma relação não-monotônica, isto é, a variância com maispreditores é sempre menor ou igual que a variância com menos preditores (se a com mais preditores incluir os mesmos preditores da com menos regressores). Por isso que uma professor meu dizia: se você mediu chuva na Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
       
 
 ## Melhor preditor
 
-      Blabla.
+      Nós já antecipamos que a esperança conidcional é o melhor preditor de $Y$. vamos agora mostrar isso.
       
