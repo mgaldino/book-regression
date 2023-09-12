@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-09-11" />
+<meta name="date" content="2023-09-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -210,6 +210,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.5.1" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.5.1</b> Chuva na Jamaica</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#melhor-preditor"><i class="fa fa-check"></i><b>6.6</b> Melhor preditor</a></li>
+<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#variância-condicional"><i class="fa fa-check"></i><b>6.7</b> Variância condicional</a></li>
+<li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#efeito-marginal"><i class="fa fa-check"></i><b>6.8</b> Efeito Marginal</a></li>
+<li class="chapter" data-level="6.9" data-path="cef-1.html"><a href="cef-1.html#cef-linear"><i class="fa fa-check"></i><b>6.9</b> CEF linear</a></li>
+<li class="chapter" data-level="6.10" data-path="cef-1.html"><a href="cef-1.html#cef-linear-com-peditores-não-lineares"><i class="fa fa-check"></i><b>6.10</b> CEF linear com peditores não-lineares</a></li>
+<li class="chapter" data-level="6.11" data-path="cef-1.html"><a href="cef-1.html#melhor-preditor-linear"><i class="fa fa-check"></i><b>6.11</b> Melhor preditor linear</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -540,7 +545,37 @@ Com <span class="math inline">\(\mathbb{E}[e] = 0\)</span>.</p>
 <div id="melhor-preditor" class="section level2 hasAnchor" number="6.6">
 <h2><span class="header-section-number">6.6</span> Melhor preditor<a href="cef-1.html#melhor-preditor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>  Nós já antecipamos que a esperança conidcional é o melhor preditor de $Y$. vamos agora mostrar isso.
+  
   </code></pre>
+</div>
+<div id="variância-condicional" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Variância condicional<a href="cef-1.html#variância-condicional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sabemos que a esperança condicional é o melhor preditor que existe. Porém, ainda assim pode ser uma previsão ruim, como vimos no caso dos salários condicional ao gênero. Nesses casos, é útil olahr também para a variância condicional.</p>
+<p><span class="math display">\[
+\sigma^2(x) = var[Y|X=x] =  \mathbb{E}[(Y - \mathbb{E}[Y|X=x])^2] = \mathbb{E}[e^2|X=x]
+\]</span>
+A variância condicional do erro (ou de <span class="math inline">\(Y\)</span>) em geral depende de <span class="math inline">\(X\)</span>. Quando não depende, e portanto é uma constante, dizemos que o erro é homocedástico. Quando depende, que é o caso geral, dizemos que o erro é heterocedástico.</p>
+</div>
+<div id="efeito-marginal" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> Efeito Marginal<a href="cef-1.html#efeito-marginal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A regressão pode ser intepretada como efeito marginal…
+Incluir: mantém constante só os regressores incluídos. Se tiver não observado, não está constante para os não observados.
+Se for binário, é só a diferença.
+Se for contínua, é a derivada. Ou a variação na inclinação.</p>
+</div>
+<div id="cef-linear" class="section level2 hasAnchor" number="6.9">
+<h2><span class="header-section-number">6.9</span> CEF linear<a href="cef-1.html#cef-linear" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A CEF linear é um caso particular.</p>
+</div>
+<div id="cef-linear-com-peditores-não-lineares" class="section level2 hasAnchor" number="6.10">
+<h2><span class="header-section-number">6.10</span> CEF linear com peditores não-lineares<a href="cef-1.html#cef-linear-com-peditores-não-lineares" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>É linear nos parâmetros.</p>
+</div>
+<div id="melhor-preditor-linear" class="section level2 hasAnchor" number="6.11">
+<h2><span class="header-section-number">6.11</span> Melhor preditor linear<a href="cef-1.html#melhor-preditor-linear" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Entre os lineares, a esperança condicional é o melhor.</p>
+<p>Fórmula do Beta.</p>
+<p>Se tiver multicolineareade, a matriz não é invertível e não é identificada.</p>
 
 </div>
 </div>

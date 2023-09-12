@@ -60,3 +60,8 @@ modelo-só-com-intercepto
 variância-da-regressão
 chuva-na-jamaica
 melhor-preditor
+variância-condicional
+efeito-marginal
+cef-linear
+cef-linear-com-peditores-não-lineares
+melhor-preditor-linear
