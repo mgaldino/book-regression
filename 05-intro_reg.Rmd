@@ -64,7 +64,6 @@ data <- get_pnadc(year=2017,
                   design=FALSE, savedir=tempdir())
 
 library(tidyverse)
-library(tidylog)
 data <- data %>%
   select(Ano, Trimestre, UF, V2007, VD4020, VD4035, V1028, V2010)
 # Renomeie as vari´aveis:
