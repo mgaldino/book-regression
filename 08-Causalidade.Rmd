@@ -1,0 +1,47 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# - Causalidade
+
+```{r package loads 08, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(knitr)
+library(tidyverse)
+```
+
+
+Até o momento estivemos estudando regressão em um sentido puramente preditivo (ou descritivo). Mas com frequência nosso interesse está em utilizar regressão para inferir causalidade. E uma regressão pode ser interpretada causalmente quando a CEF for causal. Obviamente, essa resposta é insatisfatória, pois a próxima pergunta é: quando a CEF é causal? A resposta é: A CEF é causal quando ela descreve diferenças nos resultados ponteciais (potencial outcomes) em uma dada população alvo.
+
+Vamos então definir causalidade a partir da noção de resultados potenciais, para em seguida ver como podemos utilizar regressão para fazer inferência causal.
+
+## Resultados Potenciais
+
+Digamos que estamos interessados em estimar o efeito causal de pertencer à base do governo sobre o percentual de votos de um deputado que será conforme indicado pelo líder do governo. Donald Rubin, em uma série de artigos nos anos 70, introduziu a noção de resultados potenciais a partir da noção mais familiar de contrafactual. Imagine um deputado que está na oposição e ele passa a fazer parte do governo. Se nós pudéssemos observar uma série de votações tanto no mundo factual em que é do governo, quando no contrafactual em que não é do governo, teríamos o efeito causal para aquele deputado de fazer parte do governo sobre seu percentual de votação em acordo com a indicação do líder do governo. Porém, não é possível observar ambos os mundos,  o factual e o contrafactual ao mesmo tempo, o que é conhecido como o problema fundamental da inferência causal. Se pudéssemos observar duas terras paralelas, exatamente iguais, exceto por esse único fato, conseguiríamos calcular o efeito causal. 
+
+Seja $Y_{1i}$ o percentual de votação do deputado $i$ quando ele é da base do governo (indicado pelo índice "1") e seja $Y_{0i}$ o percentual de votação do deputado $i$ quando ele não é da base do governo (indicado pelo índice "0").
+
+$Y_{1i} - Y_{0i}$ é o efeito causal para $i$ de fazer parte da base do governo e é o que gostaríamos de saber para cada deputado. Se eu pudesse observar essa diferença para cada deputado, poderia calcular o Efeito Causal Médio, $\mathbb{E}[Y_{1i} - Y_{0i}]$, em inglês, Average Causal Effect (ACE).
+
+Seja $B_i$ uma variável que indica se um deputado é ou não da base do governo ($1$ se é, $0$ caso contrário).
+
+O mundo factual pode ser descrito em termos dos resultados potenciais do seguinte modo:
+
+$$
+Y_i = Y_{0i} + (Y_{1i} - Y_{0i})*B_i
+$$
+Ou seja, nós só podemos observar um dos resultados potenciais, associado a ser ou não da base do governo, mas não ambos.
+Se nós utilizamos a média da diferença entre quem é da base do governo e quem não é, para estimar o efeito causal, não temos garantia de que isso irá funcionar.
+
+$$
+\mathbb{E}[Y_{i}|B_i = 1] - \mathbb{E}[Y_{i}| B_i = 0] 
+$$
+Nós iremos utilizar aquele truque de somar e subtrair a mesma coisa de nossa equação. Em particular, vamos subtrair e somar $\mathbb{E}[Y_{0i}|B_i = 1]$ 
+
+
+
+
+
+
