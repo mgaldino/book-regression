@@ -87,7 +87,7 @@ Agora, podemos utilizar aquele truque de subtrair e somar a mesma coisa que não
 Rearranjando a equação e utilizando as propriedades do operador esperança ,temos:
 
 \begin{equation}
-tag{8.3}
+\tag{8.3}
 \begin{aligned}
 \mathbb{E}[Y_{i}|B_i = 1] - \mathbb{E}[Y_{0i}|B_i=0] =  \\
 \color{green}{\mathbb{E}[Y_{1i} - Y_{0i}|B_i = 1]} +  \color{blue}{\mathbb{E}[Y_{0i}|B_i = 1] - \mathbb{E}[Y_{0i}| B_i = 0]}
