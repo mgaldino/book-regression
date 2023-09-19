@@ -71,3 +71,5 @@ causalidade
 resultados-potenciais
 decomposição-do-efeito-causal
 simulação-de-resultados-potenciais-e-causalidade
+erro-da-cef
+simulando-para-entender-a-cef
