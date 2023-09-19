@@ -30,6 +30,7 @@ Seja $B_i$ uma variável que indica se um deputado é ou não da base do governo
 O mundo factual (observado) pode ser descrito em termos dos resultados potenciais pela eqquação abaixo. É importante enfatizar que essa equação conecta os resultados observados com os resultados potenciais. Vale notar também a diferença de notação entre um resultado observado (indexado apenas o indivíduo $i$) e um potencial (indexado para o indivíduo $i$ e para o tratamento potencialmente recebido).
 
 \begin{equation}
+\tag{8.1}
 Y_i = Y_{0i} + (Y_{1i} - Y_{0i})*B_i
 \end{equation}
 
@@ -41,16 +42,141 @@ Para imaginar que consistência falhasse, imagine quando um deputado $i$ distant
 
 ### Decomposição do Efeito Causal
 
-A equação 
-Se nós utilizamos a média da diferença entre quem é da base do governo e quem não é, para estimar o efeito causal, não temos garantia de que isso irá funcionar.
+A equação 8.1 conecta resultados observados com resultados potenciais. Isso é particularmente útil quando quisermos estimar o efeito causal a prtir de dados observacionais. Digamos que tenho dados sobre deputados que fazem parte da base do governo e que não fazem. Nós iremos mostrar agora porque correlação (associação) não implica causalidade.
 
-$$
+Digamos que queremos computar a média percentual de votação conforme indicação do governo para deputados da base e fora da base. Isso é dado pela equação 8.2 abaixo.
+
+\begin{equation}
+\tag{8.2}
 \mathbb{E}[Y_{i}|B_i = 1] - \mathbb{E}[Y_{i}| B_i = 0] 
-$$
-Nós iremos utilizar aquele truque de somar e subtrair a mesma coisa de nossa equação. Em particular, vamos subtrair e somar $\mathbb{E}[Y_{0i}|B_i = 1]$ 
+\end{equation}
+
+Veja que por enquanto estamos tratando apenas de dados observados e, portanto, não podemos falar de dados potenciais. Contudo, se a suposição de consistência for válida, podemos utilizar a equação 8.1 para conectar o factual e o contrafactual.
+
+\begin{equation}
+\begin{aligned}
+\mathbb{E}[Y_{i}|B_i = 1] =  \mathbb{E}([Y_{0i} + (Y_{1i} - Y_{0i})*B_i)|B_i=1] \\
+
+\mathbb{E}[Y_{i}|B_i = 1] =  \mathbb{E}[(Y_{0i} + (Y_{1i} - Y_{0i})*1)|B_i=1] \\
+
+\mathbb{E}[Y_{i}|B_i = 1] =  \mathbb{E}[Y_{1i}|B_i=1]
+\end{aligned}
+\end{equation}
+
+E, similarmente,
+
+\begin{equation}
+\mathbb{E}[Y_{i}|B_i = 0] =  \mathbb{E}[Y_{0i}|B_i=0]
+\end{equation}
+
+De modo que a equação 8.2 pode ser reescrita do seguinte modo (supondo consistência):
+
+\begin{equation}
+\mathbb{E}[Y_{i}|B_i = 1] - \mathbb{E}[Y_{i}| B_i = 0] =  \mathbb{E}[Y_{1i}|B_i=1] -  \mathbb{E}[Y_{0i}| B_i = 0]
+\end{equation}
+
+Agora, podemos utilizar aquele truque de subtrair e somar a mesma coisa que não altera a equação. Em particular, somar um resultado pottencial contrafactual, isto é, o que em média um deputado que faz parte da base do governo faria se não estivesse no governo (denotado por $Y_{0i}|B_i = 1$). Em vermelho está o truqe matemático de subtrair e somar a mesma coisa sem alterar a equação.
+
+\begin{equation}
+\begin{aligned}
+\mathbb{E}[Y_{i}|B_i = 1] - \mathbb{E}[Y_{i}| B_i = 0] =  \\
+\mathbb{E}[Y_{1i}|B_i=1] \color{red}{- \mathbb{E}[Y_{0i}|B_i = 1] +  \mathbb{E}[Y_{0i}|B_i = 1]} - \mathbb{E}[Y_{0i}| B_i = 0]
+\end{aligned}
+\end{equation}
+
+Rearranjando a equação e utilizando as propriedades do operador esperança ,temos:
+
+\begin{equation}
+tag{8.3}
+\begin{aligned}
+\mathbb{E}[Y_{i}|B_i = 1] - \mathbb{E}[Y_{0i}|B_i=0] =  \\
+\color{green}{\mathbb{E}[Y_{1i} - Y_{0i}|B_i = 1]} +  \color{blue}{\mathbb{E}[Y_{0i}|B_i = 1] - \mathbb{E}[Y_{0i}| B_i = 0]}
+\end{aligned}
+\end{equation}
+
+A equação 8.3 apresenta em verde o que chamamos de efeito Médio do Tratamento entre as pessoas Tratadas (em inglês, **Average  effect of the Treatment on the Treated, ATT**) e em azul o viés de seleção.
+O ATT é o efeito médio porque estamos calculando a média (esperança), do efeito do Tratamento  por causa do termo $Y_{1i} - Y_{0i}$, e entre as pessoas Tratadas, isto é, que pertencem à base do governo, por que condiciona em $B_i = 1$.
+
+E a parte em azul é o viés de seleção porque reflete a diferença média (no percentual de votos seguindo o governo) entre as pessoas que escolheram ser da base do governo $|B_i = 1$ e as que escolheram não ser $|B_i = 0$ no mundo de resultados potenciais em que ambos não foram tratados ($Y_{0i}$). Ou seja, se pudéssemos observar o mundo contrafactual em que deputados da base estão fora do governo e computar o percentual médio de voto deles seguindo o governo, e comparar com o observado para os deputados fora da base, se houver diferença, isso é o viés de seleção.
+
+Quando o viés de seleção é diferente de zero, então a nossa comparação ingênua da diferença média de comportamento entre governo e oposição não recupera o efeito causal médio. Por exemplo, se deputados de esquerda possuem maior chance de fazer parte do governo Lula e, pelo fato de serem mais próximos ideologicamente, tendem a votar com o governo por esse motivo, então teriam um comportamento médio diferente da oposição, mesmo se não estivessem na base do governo. Nesse exemplo, a diferença média entre governo e oposição superestima o efeito causal médio de ser da base do governo.
 
 
+Esse resultado permite visualizar também porque, em um contexto experimental, podemos garantir que o viés de seleção é zero em média. Se cada pessoa é atribuída ao tratamento ou controle aleatoriamente (exemplo fictício, se der cara, é da base do governo, se der coroa, não é da base), então não há diferença média entre um grupo e outro. Obviamente, temos de supor que há compliance perfeito (isto é, um Bolsonarista alocado aleatorimnte para compor o governo deveria aceitar fazê-lo e, similarmente, um petista alocado na oposição deveria aceitar isso e serem ambos tratados assim pelo governo). Quando o compliance não é perfeito, há formas de tratar isso, mas se torna mais complicado.
+
+Em estudos observacionais, o mecanismo de alocação de pessoas entre tratamento e controle não está sob controle do pesquisador e, portanto, não podemos garantir que o viés de seleção é zero. Em um contexto dos assim chamados experimentos naturais ou quase experimentos, a aleatorização existe, mas não é feita pelo pesquisador (caso de uma política governamental usada segundo alguma regra aleatória, como no caso do **draft do Vietnam**) ou a aleatorização não existe, mas é plausível supor que, para um certo subconjunto dos dados, a alocação entre tratamento e controle é como se fosse aleatório (exemplo, quando da introdução da urna eletrônica de acordo com tamanho da população, cidades com um eleitor acima do ponto de corte versus com um abaixo possui diferença aleatória em relação a, por exemplo, percentual de votos nulos. Então é possível estimar o efeito causal da urna eletrônica sobre percentual de votos nulos nesse subgrupo de cidades próximas do ponto de corte).
+
+E em contextos mais gerais de estudos observacionais, para além de contextos quasi-experimentais, o efeito causal só pode ser recuperado (identificado) se a suposição de **Conditional Independence Assumption** (CIA) for válida. Essa suposição diz que, condicional a variáveis de controle, não há relação entre a alocação de tratamento e os resultados potenciais. No nosso exemplo, isso significa que, condicional a, por exemplo, a ideologia do deputado, não há correlação entre alocação para tratamento e controle e resultados potenciais. Ou seja, o viés de seleção seria zero em média. Se houver alguma variável que causa quem éselecionado (ou se seleciona) entre tratamento e  controle e tmbém causa os resultados potenciais, o viés de seleção não é zero e o efeito causal não é estimável. Por exemplo, digamos que a execução de emendas parlamentares fosse diferente entre governo e oposição e que essa variável também influencia a votação. Ao não controlar para essa variável, a suposição de CIA não é atendida.
+
+## Simulação de Resultados Potenciais e Causalidade
+
+Vamos rodar uma simulação
+Fonte da simulação: https://stats.stackexchange.com/questions/554113/potential-outcomes-selection-bias
 
 
+```{r sim PO, echo=TRUE, message=FALSE}
 
+library(tidyverse)
+
+# U affects both treatment and outcome (Y). 
+
+# simulation #
+set.seed(123)
+n = 1000
+u = rnorm(n, 1, 1) # generate latent variable affecting treatment selection
+d = rbinom(n, 1, prob = plogis(u)) # treatment
+e = rnorm(n, 0, 1)
+
+# homogenous causal effect #
+causal_effect = 2
+
+# Y(0)
+y0 = u + e
+# Y(1)
+y1 = causal_effect + u + e
+# Observed Y
+yobs = d*causal_effect + u + e
+#
+df = data.frame(u, d, y0, y1, yobs)
+#
+
+# individual causal effect #
+df$y1y0 = df$y1 - df$y0
+# grand mean #
+mean(df$y1y0)
+
+# ATT / ATC #
+df %>% group_by(d) %>% summarise(mean(y1 - y0))
+
+# naive group comparison #
+naive_group_comparison = df %>% group_by(d) %>% summarise(m = mean(yobs)) %>% summarise(m[d == 1] - m[d == 0])
+
+naive_group_comparison
+
+# ATT
+`Y(1) Y(0) | D =1` = df[df$d==1,] %>% summarise(mean(y1 - y0))
+
+# ATC
+`Y(1) Y(0) | D =0` = df[df$d==0,] %>% summarise(mean(y1 - y0))
+
+# unobserved quantities #
+`Y(0) | D =1` = df[df$d==1,] %>% summarise(mean(y0))
+`Y(1) | D =0` = df[df$d==0,] %>% summarise(mean(y1))
+
+# observed
+`Y(1) | D =1` = df[df$d==1,] %>% summarise(mean(y1))
+`Y(0) | D =0` = df[df$d==0,] %>% summarise(mean(y0))
+
+# ATT
+selection_bias_1 = `Y(0) | D =1` - `Y(0) | D =0`
+# ATT + selection bias 1 #
+`Y(1) Y(0) | D =1` + selection_bias_1
+# We get the correct result as 
+# naive_group_comparison
+
+# ATC
+selection_bias_2 = `Y(1) | D =0` - `Y(1) | D =1`
+# ATC + selection bias 1 #
+`Y(1) Y(0) | D =1` + selection_bias_2
+```
 
