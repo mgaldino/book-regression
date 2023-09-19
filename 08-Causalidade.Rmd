@@ -27,18 +27,21 @@ $Y_{1i} - Y_{0i}$ é o efeito causal para $i$ de fazer parte da base do governo 
 
 Seja $B_i$ uma variável que indica se um deputado é ou não da base do governo ($1$ se é, $0$ caso contrário).
 
-O mundo factual (observado) pode ser descrito em termos dos resultados potenciais pela eqquação abaixo. É importante enfatizar que essa equação conecta os resultados observados com os resultados potenciais. Vale notar também a diferença de notação entre um resultado observado e um potencial.
+O mundo factual (observado) pode ser descrito em termos dos resultados potenciais pela eqquação abaixo. É importante enfatizar que essa equação conecta os resultados observados com os resultados potenciais. Vale notar também a diferença de notação entre um resultado observado (indexado apenas o indivíduo $i$) e um potencial (indexado para o indivíduo $i$ e para o tratamento potencialmente recebido).
 
-$$
+\begin{equation}
 Y_i = Y_{0i} + (Y_{1i} - Y_{0i})*B_i
-$$
+\end{equation}
+
 A equação nos lembra também que nós só podemos observar um dos resultados potenciais, associado a ser ou não da base do governo, mas não ambos ao mesmo tempo. Veja que se para um indivíduo $i$ ele é da base do governo, isto é, $B_i = 1$, então tenho para este individuo em particularque $Y_i = Y_{1i}$, isto é, o resultado potencial coincide com o resultado observado. Essa igualdade é na verdade uma suposição, chamada de consistência. 
 
-Consistência: Essa suposiçõ implica que o resultado potencial de um indivíduo quando recebe um tratmento é igual ao observado na realidade. Em outras palavras, consistência significa que o que você observa é o que você supunha que aconteceria se a pessoa recebesse o tratamento.
+Consistência: Essa suposição implica que o resultado potencial de um indivíduo quando recebe um tratmento é igual ao observado na realidade. Em outras palavras, consistência significa que o que você observa é o que você supunha que aconteceria se a pessoa recebesse o tratamento.
 
 Para imaginar que consistência falhasse, imagine quando um deputado $i$ distante ideologicamente do governo vira da base do governo ele, buscando reduzir dissonância cognitiva, muda sua ideologia para algo mais proximo do governo. Já um deputado mais alinhado não precisa fazer isso. Então, na verdade temos dois "tratamentos" acontecendo, e não um, e a hipótese de consistência não será verificada.
 
+### Decomposição do Efeito Causal
 
+A equação 
 Se nós utilizamos a média da diferença entre quem é da base do governo e quem não é, para estimar o efeito causal, não temos garantia de que isso irá funcionar.
 
 $$

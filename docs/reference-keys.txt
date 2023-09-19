@@ -49,8 +49,6 @@ logaritmos
 gênero-e-raça
 prevendo-a-partir-da-esperança-condicional
 cef-1
-erro-da-cef
-simulando-para-entender-a-cef
 propriedades-da-cef
 a-esperança-do-erro-condicional-a-x-é-zero
 a-esperança-não-condicional-do-erro-é-zero.
@@ -68,3 +66,7 @@ chuva-na-jamaica
 variância-condicional
 efeito-marginal
 cef-linear-com-peditores-não-lineares
+estimação
+causalidade
+resultados-potenciais
+decomposição-do-efeito-causal

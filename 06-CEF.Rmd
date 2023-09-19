@@ -6,7 +6,7 @@ editor_options:
 
 # - CEF
 
-```{r package loads 02, echo=FALSE, message=FALSE}
+```{r package loads 06, echo=FALSE, message=FALSE}
 library(ggplot2)
 library(knitr)
 library(tidyverse)
@@ -21,7 +21,7 @@ preditoras como:
 
 ```math
 \mathbb{E}[Y| X_1 = x_1, X_2 = x_2, ..., X_k=x_k] = m(x_1, x_2, ..., x_k)
-```
+```math
 
 A essa esperança damos o nome de *Função de Esperança Condicional*
 (Conditional Expectation Function, em inglês). Usaremos a sigla em
@@ -68,12 +68,6 @@ Vamos fazer simulações no R para entender o erro da CEF. Suponha que
 $Y = X^2 + U$, em que $U \sim norm(0,1)$ e $X \sim norm(0,1)$.
 
 
-
-```{r package loads cap6, echo=FALSE, message=FALSE}
-library(ggplot2)
-library(knitr)
-library(tidyverse)
-```
 
 ```{r sim cef, echo=TRUE, message=FALSE}
 set.seed(234)
