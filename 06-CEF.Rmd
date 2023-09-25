@@ -19,9 +19,9 @@ $X_1, X_2$ etc. O subscrito indica que é uma variável diferente. Assim,
 a esperança condicional pode ser reescrita para muitas variáveis
 preditoras como:
 
-```math
+\begin{equation}
 \mathbb{E}[Y| X_1 = x_1, X_2 = x_2, ..., X_k=x_k] = m(x_1, x_2, ..., x_k)
-```math
+\end{equation}
 
 A essa esperança damos o nome de *Função de Esperança Condicional*
 (Conditional Expectation Function, em inglês). Usaremos a sigla em
@@ -149,7 +149,9 @@ Se eu escolher cada dado aleatoriamente, isto é, com probabilidade 50%, então 
 
 No caso dos salários condicional ao gênero, efetivamente o que estamos dizendo é o seguinte:
 
-$\mathbb{E}[log(salário)|gênero = homem]*P[gênero = homem] + \mathbb{E}[log(salário)|gênero = mulher]*P[gênero = mulher]$
+$$
+\mathbb{E}[log(salário)|gênero = homem]*P[gênero = homem] + \mathbb{E}[log(salário)|gênero = mulher]*P[gênero = mulher]
+$$
 
 
 ### O erro da CEF é não-correlacionado com X
@@ -260,7 +262,7 @@ df %>%
   geom_abline(slope= 0, intercept = 2, colour="grey", size=1)
 ```
 
-No gráfico @plot_ajuste_reta, vemos que a reta em azul é melhor do que a verde e vermelha.
+No gráfico \@ref(fig:plot_ajuste_reta), vemos que a reta em azul é melhor do que a verde e vermelha.
 
 Para achar os valores da reta azul (que aqui sabemos ser $\alpha =2$ e $\beta = 1.3$), podemos novamente minimizar o EQM. A derivação requer calcular a derivada ou utilização de álgebra linerar, requisitos matemáticos para além do curso. Para um preditor, a fórmula do $\beta$ é dada por $COV(Y,X)/Var(X)$ e a constante, $\alpha$ é dada por $\mathbb{E}[(Y)] - \beta*\mathbb{E}[X]$.
 
