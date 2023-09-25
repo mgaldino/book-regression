@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-09-19" />
+<meta name="date" content="2023-09-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -225,7 +227,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1.1" data-path="causalidade.html"><a href="causalidade.html#decomposição-do-efeito-causal"><i class="fa fa-check"></i><b>8.1.1</b> Decomposição do Efeito Causal</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="causalidade.html"><a href="causalidade.html#simulação-de-resultados-potenciais-e-causalidade"><i class="fa fa-check"></i><b>8.2</b> Simulação de Resultados Potenciais e Causalidade</a></li>
+<li class="chapter" data-level="8.2" data-path="causalidade.html"><a href="causalidade.html#modelo-estrutural-e-modelo-de-regressão"><i class="fa fa-check"></i><b>8.2</b> Modelo estrutural e modelo de regressão</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="causalidade.html"><a href="causalidade.html#exemplo-de-cef-e-cef-estrutural"><i class="fa fa-check"></i><b>8.2.1</b> Exemplo de CEF e CEF estrutural</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="causalidade.html"><a href="causalidade.html#simulação-de-resultados-potenciais-e-causalidade"><i class="fa fa-check"></i><b>8.3</b> Simulação de Resultados Potenciais e Causalidade</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -314,86 +320,107 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 <p>E em contextos mais gerais de estudos observacionais, para além de contextos quasi-experimentais, o efeito causal só pode ser recuperado (identificado) se a suposição de <strong>Conditional Independence Assumption</strong> (CIA) for válida. Essa suposição diz que, condicional a variáveis de controle, não há relação entre a alocação de tratamento e os resultados potenciais. No nosso exemplo, isso significa que, condicional a, por exemplo, a ideologia do deputado, não há correlação entre alocação para tratamento e controle e resultados potenciais. Ou seja, o viés de seleção seria zero em média. Se houver alguma variável que causa quem éselecionado (ou se seleciona) entre tratamento e controle e tmbém causa os resultados potenciais, o viés de seleção não é zero e o efeito causal não é estimável. Por exemplo, digamos que a execução de emendas parlamentares fosse diferente entre governo e oposição e que essa variável também influencia a votação. Ao não controlar para essa variável, a suposição de CIA não é atendida.</p>
 </div>
 </div>
-<div id="simulação-de-resultados-potenciais-e-causalidade" class="section level2 hasAnchor" number="8.2">
-<h2><span class="header-section-number">8.2</span> Simulação de Resultados Potenciais e Causalidade<a href="causalidade.html#simulação-de-resultados-potenciais-e-causalidade" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="modelo-estrutural-e-modelo-de-regressão" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Modelo estrutural e modelo de regressão<a href="causalidade.html#modelo-estrutural-e-modelo-de-regressão" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A distinção entre CEF e CEF causal é um ponto muito importante mas no geral negligenciado. Chen &amp; Pearl (2013), ao avaliaram livros de econometria, notaram que a maioria não fazia a distinção adequada entre modelo de regressão e modelo estrutural de regressão. Como a compreensão desse ponto é crítica para qualquer análise causal com regressão e frequentemente não feita, quero insistir nesse aspecto.</p>
+<p>Vamos recapitular o que nós aprendemos sobre regressão e sobre causalidade.</p>
+<p>O erro da regressão (na população) é definido como a diferença entre o <span class="math inline">\(Y\)</span> observado e a esperança condicional <span class="math inline">\(\mathbb{E}[Y|X]\)</span>. Uma consequência dessa definição é que o erro é não correlacionado com o regressor <span class="math inline">\(X\)</span>, sejam os dados observacionais ou não.</p>
+<p>A regressão linear pode ser jusitifcada de três modos distintos: 1. se a CEF for linear (como em um modelo saturado); 2. se queremos minimizar o erro quadrático médio das previsões; 3. é a melhor aproximação linear que existe para a CEF, seja linear ou não.</p>
+<p>Em estudos observacionais, a análise de regressão linear identifica o modelo causal se o viés de seleção for zero. Isso requer que a suposição de indepenência (ou independência condicional) seja verdade, isto é, que a correlação entre o erro e os regressores seja zero. Ou seja, é uma suposição do modelo (e não uma propriedade ou consequência da definição do erro).</p>
+<p>Para a suposição ser plausível, precisamos ter um modelo estrutural (como o de Resultados Potenciais) em que seja plausível (é uma suposição não testável) a independência condicional.</p>
+<p>Muitos livros textos de regressão não diferenciam as propriedades da CEF e as suposições de um modelo estrutural (causal). Vamos ilustrar, por meio de um exemplo, o ponto de como é possível o erro da CEF ser não correlacionado com o regressor e o modelo estrutural ter erro e regressor correlacionados (e portanto a causalidade não identificada se não controlarmos para variável que garanta independência condicional.</p>
+<div id="exemplo-de-cef-e-cef-estrutural" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Exemplo de CEF e CEF estrutural<a href="causalidade.html#exemplo-de-cef-e-cef-estrutural" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suponha que estou interessado em estimar o efeito causal de uma variável, que vou designar por tratamento. Meus dados são observacionais e há viés de seleção nos dados. Uma outra variável, <span class="math inline">\(X\)</span>, causa tanto o tratamento quando minha variável dependente, <span class="math inline">\(Y\)</span>. Porém, condicional a <span class="math inline">\(X\)</span>, o tratamento é independente dos resultados potenciais, ou seja, é válida a suposição de independência condicional. Vou mostrar que a o erro da CEF é independente dos regressores e, por outro lado, uma regressão sem controlar para <span class="math inline">\(X\)</span> tem resíduo correlacionado com o regressor e, portanto, não identifica o efeito causal. Por fim, uma regressão que controle para <span class="math inline">\(X\)</span> identifica o efeito causal.</p>
+<p>Chen, B., &amp; Pearl, J. (2013). Regression and causation: a critical examination of six econometrics textbooks. Real-World Economics Review, Issue, (65), 2-20.</p>
+</div>
+</div>
+<div id="simulação-de-resultados-potenciais-e-causalidade" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Simulação de Resultados Potenciais e Causalidade<a href="causalidade.html#simulação-de-resultados-potenciais-e-causalidade" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vamos rodar uma simulação
 Fonte da simulação: <a href="https://stats.stackexchange.com/questions/554113/potential-outcomes-selection-bias" class="uri">https://stats.stackexchange.com/questions/554113/potential-outcomes-selection-bias</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="causalidade.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="causalidade.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="causalidade.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># U affects both treatment and outcome (Y). </span></span>
-<span id="cb1-4"><a href="causalidade.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="causalidade.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># simulation #</span></span>
-<span id="cb1-6"><a href="causalidade.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb1-7"><a href="causalidade.html#cb1-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
-<span id="cb1-8"><a href="causalidade.html#cb1-8" aria-hidden="true" tabindex="-1"></a>u <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># generate latent variable affecting treatment selection</span></span>
-<span id="cb1-9"><a href="causalidade.html#cb1-9" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">plogis</span>(u)) <span class="co"># treatment</span></span>
-<span id="cb1-10"><a href="causalidade.html#cb1-10" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb1-11"><a href="causalidade.html#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="causalidade.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># homogenous causal effect #</span></span>
-<span id="cb1-13"><a href="causalidade.html#cb1-13" aria-hidden="true" tabindex="-1"></a>causal_effect <span class="ot">=</span> <span class="dv">2</span></span>
-<span id="cb1-14"><a href="causalidade.html#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="causalidade.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Y(0)</span></span>
-<span id="cb1-16"><a href="causalidade.html#cb1-16" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">=</span> u <span class="sc">+</span> e</span>
-<span id="cb1-17"><a href="causalidade.html#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Y(1)</span></span>
-<span id="cb1-18"><a href="causalidade.html#cb1-18" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">=</span> causal_effect <span class="sc">+</span> u <span class="sc">+</span> e</span>
-<span id="cb1-19"><a href="causalidade.html#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Observed Y</span></span>
-<span id="cb1-20"><a href="causalidade.html#cb1-20" aria-hidden="true" tabindex="-1"></a>yobs <span class="ot">=</span> d<span class="sc">*</span>causal_effect <span class="sc">+</span> u <span class="sc">+</span> e</span>
-<span id="cb1-21"><a href="causalidade.html#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb1-22"><a href="causalidade.html#cb1-22" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(u, d, y0, y1, yobs)</span>
-<span id="cb1-23"><a href="causalidade.html#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb1-24"><a href="causalidade.html#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="causalidade.html#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># individual causal effect #</span></span>
-<span id="cb1-26"><a href="causalidade.html#cb1-26" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>y1y0 <span class="ot">=</span> df<span class="sc">$</span>y1 <span class="sc">-</span> df<span class="sc">$</span>y0</span>
-<span id="cb1-27"><a href="causalidade.html#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># grand mean #</span></span>
-<span id="cb1-28"><a href="causalidade.html#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>y1y0)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="causalidade.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb95-2"><a href="causalidade.html#cb95-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-3"><a href="causalidade.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="co"># U affects both treatment and outcome (Y). </span></span>
+<span id="cb95-4"><a href="causalidade.html#cb95-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-5"><a href="causalidade.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="co"># simulation #</span></span>
+<span id="cb95-6"><a href="causalidade.html#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb95-7"><a href="causalidade.html#cb95-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb95-8"><a href="causalidade.html#cb95-8" aria-hidden="true" tabindex="-1"></a>u <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># generate latent variable affecting treatment selection</span></span>
+<span id="cb95-9"><a href="causalidade.html#cb95-9" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">plogis</span>(u)) <span class="co"># treatment</span></span>
+<span id="cb95-10"><a href="causalidade.html#cb95-10" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb95-11"><a href="causalidade.html#cb95-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-12"><a href="causalidade.html#cb95-12" aria-hidden="true" tabindex="-1"></a><span class="co"># homogenous causal effect #</span></span>
+<span id="cb95-13"><a href="causalidade.html#cb95-13" aria-hidden="true" tabindex="-1"></a>causal_effect <span class="ot">=</span> <span class="dv">2</span></span>
+<span id="cb95-14"><a href="causalidade.html#cb95-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-15"><a href="causalidade.html#cb95-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Y(0)</span></span>
+<span id="cb95-16"><a href="causalidade.html#cb95-16" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">=</span> u <span class="sc">+</span> e</span>
+<span id="cb95-17"><a href="causalidade.html#cb95-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Y(1)</span></span>
+<span id="cb95-18"><a href="causalidade.html#cb95-18" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">=</span> causal_effect <span class="sc">+</span> u <span class="sc">+</span> e</span>
+<span id="cb95-19"><a href="causalidade.html#cb95-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Observed Y</span></span>
+<span id="cb95-20"><a href="causalidade.html#cb95-20" aria-hidden="true" tabindex="-1"></a>yobs <span class="ot">=</span> d<span class="sc">*</span>causal_effect <span class="sc">+</span> u <span class="sc">+</span> e</span>
+<span id="cb95-21"><a href="causalidade.html#cb95-21" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb95-22"><a href="causalidade.html#cb95-22" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(u, d, y0, y1, yobs)</span>
+<span id="cb95-23"><a href="causalidade.html#cb95-23" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb95-24"><a href="causalidade.html#cb95-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-25"><a href="causalidade.html#cb95-25" aria-hidden="true" tabindex="-1"></a><span class="co"># individual causal effect #</span></span>
+<span id="cb95-26"><a href="causalidade.html#cb95-26" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>y1y0 <span class="ot">=</span> df<span class="sc">$</span>y1 <span class="sc">-</span> df<span class="sc">$</span>y0</span>
+<span id="cb95-27"><a href="causalidade.html#cb95-27" aria-hidden="true" tabindex="-1"></a><span class="co"># grand mean #</span></span>
+<span id="cb95-28"><a href="causalidade.html#cb95-28" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>y1y0)</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="causalidade.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ATT / ATC #</span></span>
-<span id="cb3-2"><a href="causalidade.html#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(d) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y1 <span class="sc">-</span> y0))</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="causalidade.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ATT / ATC #</span></span>
+<span id="cb97-2"><a href="causalidade.html#cb97-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(d) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y1 <span class="sc">-</span> y0))</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##       d `mean(y1 - y0)`
 ##   &lt;int&gt;           &lt;dbl&gt;
 ## 1     0               2
 ## 2     1               2</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="causalidade.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># naive group comparison #</span></span>
-<span id="cb5-2"><a href="causalidade.html#cb5-2" aria-hidden="true" tabindex="-1"></a>naive_group_comparison <span class="ot">=</span> df <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(d) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">m =</span> <span class="fu">mean</span>(yobs)) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(m[d <span class="sc">==</span> <span class="dv">1</span>] <span class="sc">-</span> m[d <span class="sc">==</span> <span class="dv">0</span>])</span>
-<span id="cb5-3"><a href="causalidade.html#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="causalidade.html#cb5-4" aria-hidden="true" tabindex="-1"></a>naive_group_comparison</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="causalidade.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># naive group comparison #</span></span>
+<span id="cb99-2"><a href="causalidade.html#cb99-2" aria-hidden="true" tabindex="-1"></a>naive_group_comparison <span class="ot">=</span> df <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(d) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">m =</span> <span class="fu">mean</span>(yobs)) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(m[d <span class="sc">==</span> <span class="dv">1</span>] <span class="sc">-</span> m[d <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb99-3"><a href="causalidade.html#cb99-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-4"><a href="causalidade.html#cb99-4" aria-hidden="true" tabindex="-1"></a>naive_group_comparison</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   `m[d == 1] - m[d == 0]`
 ##                     &lt;dbl&gt;
 ## 1                    2.76</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="causalidade.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ATT</span></span>
-<span id="cb7-2"><a href="causalidade.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) Y(0) | D =1</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">1</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y1 <span class="sc">-</span> y0))</span>
-<span id="cb7-3"><a href="causalidade.html#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="causalidade.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ATC</span></span>
-<span id="cb7-5"><a href="causalidade.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) Y(0) | D =0</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">0</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y1 <span class="sc">-</span> y0))</span>
-<span id="cb7-6"><a href="causalidade.html#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="causalidade.html#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># unobserved quantities #</span></span>
-<span id="cb7-8"><a href="causalidade.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(0) | D =1</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">1</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y0))</span>
-<span id="cb7-9"><a href="causalidade.html#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) | D =0</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">0</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y1))</span>
-<span id="cb7-10"><a href="causalidade.html#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="causalidade.html#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># observed</span></span>
-<span id="cb7-12"><a href="causalidade.html#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) | D =1</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">1</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y1))</span>
-<span id="cb7-13"><a href="causalidade.html#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(0) | D =0</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">0</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y0))</span>
-<span id="cb7-14"><a href="causalidade.html#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="causalidade.html#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ATT</span></span>
-<span id="cb7-16"><a href="causalidade.html#cb7-16" aria-hidden="true" tabindex="-1"></a>selection_bias_1 <span class="ot">=</span> <span class="st">`</span><span class="at">Y(0) | D =1</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">Y(0) | D =0</span><span class="st">`</span></span>
-<span id="cb7-17"><a href="causalidade.html#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ATT + selection bias 1 #</span></span>
-<span id="cb7-18"><a href="causalidade.html#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) Y(0) | D =1</span><span class="st">`</span> <span class="sc">+</span> selection_bias_1</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="causalidade.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ATT</span></span>
+<span id="cb101-2"><a href="causalidade.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) Y(0) | D =1</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">1</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y1 <span class="sc">-</span> y0))</span>
+<span id="cb101-3"><a href="causalidade.html#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-4"><a href="causalidade.html#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ATC</span></span>
+<span id="cb101-5"><a href="causalidade.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) Y(0) | D =0</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">0</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y1 <span class="sc">-</span> y0))</span>
+<span id="cb101-6"><a href="causalidade.html#cb101-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-7"><a href="causalidade.html#cb101-7" aria-hidden="true" tabindex="-1"></a><span class="co"># unobserved quantities #</span></span>
+<span id="cb101-8"><a href="causalidade.html#cb101-8" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(0) | D =1</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">1</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y0))</span>
+<span id="cb101-9"><a href="causalidade.html#cb101-9" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) | D =0</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">0</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y1))</span>
+<span id="cb101-10"><a href="causalidade.html#cb101-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-11"><a href="causalidade.html#cb101-11" aria-hidden="true" tabindex="-1"></a><span class="co"># observed</span></span>
+<span id="cb101-12"><a href="causalidade.html#cb101-12" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) | D =1</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">1</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y1))</span>
+<span id="cb101-13"><a href="causalidade.html#cb101-13" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(0) | D =0</span><span class="st">`</span> <span class="ot">=</span> df[df<span class="sc">$</span>d<span class="sc">==</span><span class="dv">0</span>,] <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(y0))</span>
+<span id="cb101-14"><a href="causalidade.html#cb101-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-15"><a href="causalidade.html#cb101-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ATT</span></span>
+<span id="cb101-16"><a href="causalidade.html#cb101-16" aria-hidden="true" tabindex="-1"></a>selection_bias_1 <span class="ot">=</span> <span class="st">`</span><span class="at">Y(0) | D =1</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">Y(0) | D =0</span><span class="st">`</span></span>
+<span id="cb101-17"><a href="causalidade.html#cb101-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ATT + selection bias 1 #</span></span>
+<span id="cb101-18"><a href="causalidade.html#cb101-18" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) Y(0) | D =1</span><span class="st">`</span> <span class="sc">+</span> selection_bias_1</span></code></pre></div>
 <pre><code>##   mean(y1 - y0)
 ## 1      2.757471</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="causalidade.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We get the correct result as </span></span>
-<span id="cb9-2"><a href="causalidade.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># naive_group_comparison</span></span>
-<span id="cb9-3"><a href="causalidade.html#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="causalidade.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ATC</span></span>
-<span id="cb9-5"><a href="causalidade.html#cb9-5" aria-hidden="true" tabindex="-1"></a>selection_bias_2 <span class="ot">=</span> <span class="st">`</span><span class="at">Y(1) | D =0</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">Y(1) | D =1</span><span class="st">`</span></span>
-<span id="cb9-6"><a href="causalidade.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ATC + selection bias 1 #</span></span>
-<span id="cb9-7"><a href="causalidade.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) Y(0) | D =1</span><span class="st">`</span> <span class="sc">+</span> selection_bias_2</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="causalidade.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We get the correct result as </span></span>
+<span id="cb103-2"><a href="causalidade.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="co"># naive_group_comparison</span></span>
+<span id="cb103-3"><a href="causalidade.html#cb103-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-4"><a href="causalidade.html#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ATC</span></span>
+<span id="cb103-5"><a href="causalidade.html#cb103-5" aria-hidden="true" tabindex="-1"></a>selection_bias_2 <span class="ot">=</span> <span class="st">`</span><span class="at">Y(1) | D =0</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">Y(1) | D =1</span><span class="st">`</span></span>
+<span id="cb103-6"><a href="causalidade.html#cb103-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ATC + selection bias 1 #</span></span>
+<span id="cb103-7"><a href="causalidade.html#cb103-7" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Y(1) Y(0) | D =1</span><span class="st">`</span> <span class="sc">+</span> selection_bias_2</span></code></pre></div>
 <pre><code>##   mean(y1 - y0)
 ## 1      1.242529</code></pre>
 
 </div>
 </div>
+
+
+
+
+
+
             </section>
 
           </div>

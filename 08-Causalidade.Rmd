@@ -108,6 +108,33 @@ Em estudos observacionais, o mecanismo de alocação de pessoas entre tratamento
 
 E em contextos mais gerais de estudos observacionais, para além de contextos quasi-experimentais, o efeito causal só pode ser recuperado (identificado) se a suposição de **Conditional Independence Assumption** (CIA) for válida. Essa suposição diz que, condicional a variáveis de controle, não há relação entre a alocação de tratamento e os resultados potenciais. No nosso exemplo, isso significa que, condicional a, por exemplo, a ideologia do deputado, não há correlação entre alocação para tratamento e controle e resultados potenciais. Ou seja, o viés de seleção seria zero em média. Se houver alguma variável que causa quem éselecionado (ou se seleciona) entre tratamento e  controle e tmbém causa os resultados potenciais, o viés de seleção não é zero e o efeito causal não é estimável. Por exemplo, digamos que a execução de emendas parlamentares fosse diferente entre governo e oposição e que essa variável também influencia a votação. Ao não controlar para essa variável, a suposição de CIA não é atendida.
 
+
+## Modelo estrutural e modelo de regressão
+
+A distinção entre CEF e CEF causal é um ponto muito importante mas no geral negligenciado. Chen & Pearl (2013), ao avaliaram livros de econometria, notaram que a maioria não fazia a distinção adequada entre modelo de regressão e modelo estrutural de regressão. Como a compreensão desse ponto é crítica para qualquer análise causal com regressão e frequentemente não feita, quero insistir nesse aspecto.
+
+Vamos recapitular o que nós aprendemos sobre regressão e sobre causalidade.
+
+O erro da regressão (na população) é definido como a diferença entre o $Y$ observado e a esperança condicional $\mathbb{E}[Y|X]$. Uma consequência dessa definição é que o erro é não correlacionado com o regressor $X$, sejam os dados observacionais ou não.
+
+A regressão linear pode ser jusitifcada de três modos distintos: 1. se a CEF for linear (como em um modelo saturado); 2. se queremos minimizar o erro quadrático médio das previsões; 3. é a melhor aproximação linear que existe para a CEF, seja linear ou não.
+
+Em estudos observacionais, a análise de regressão linear identifica o modelo causal se o viés de seleção for zero. Isso requer que a suposição de indepenência (ou independência condicional) seja verdade, isto é, que a correlação entre o erro e os regressores seja zero. Ou seja, é uma suposição do modelo (e não uma propriedade ou consequência da definição do erro). 
+
+Para a suposição ser plausível, precisamos ter um modelo estrutural (como o de Resultados Potenciais) em que seja plausível (é uma suposição não testável) a independência condicional.
+
+Muitos livros textos de regressão não diferenciam as propriedades da CEF e as suposições de um modelo estrutural (causal). Vamos ilustrar, por meio de um exemplo, o ponto de como é possível o erro da CEF ser não correlacionado com o regressor e o modelo estrutural ter erro e regressor correlacionados (e portanto a causalidade não identificada se não controlarmos para variável que garanta independência condicional.
+
+
+### Exemplo de CEF e CEF estrutural
+
+Suponha que estou interessado em estimar o efeito causal de uma variável, que vou designar por tratamento. Meus dados são observacionais e há viés de seleção nos dados. Uma outra variável, $X$, causa tanto o tratamento quando minha variável dependente, $Y$. Porém, condicional a $X$, o tratamento é independente dos resultados potenciais, ou seja, é válida a suposição de independência condicional. Vou mostrar que a o erro da CEF é independente dos regressores e, por outro lado, uma regressão sem controlar para $X$ tem resíduo correlacionado com o regressor e, portanto, não identifica o efeito causal. Por fim, uma regressão que controle para $X$ identifica o efeito causal.
+
+
+
+Chen, B., & Pearl, J. (2013). Regression and causation: a critical examination of six econometrics textbooks. Real-World Economics Review, Issue, (65), 2-20.
+
+
 ## Simulação de Resultados Potenciais e Causalidade
 
 Vamos rodar uma simulação
