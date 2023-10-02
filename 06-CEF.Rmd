@@ -268,11 +268,11 @@ No gráfico \@ref(fig:plot-ajuste-reta), vemos que a reta em azul é melhor do q
 Para achar os valores da reta azul (que aqui sabemos ser $\alpha =2$ e $\beta = 1.3$), podemos novamente minimizar o EQM. A derivação requer calcular a derivada ou utilização de álgebra linerar, requisitos matemáticos para além do curso. Para um preditor, a fórmula do $\beta$ é dada por $COV(Y,X)/Var(X)$ e a constante, $\alpha$ é dada por $\mathbb{E}[(Y)] - \beta*\mathbb{E}[X]$. Expressando a mesma fórmula com somatório (em vez de esperança), temos:
 
 $$
-\alpha = \bar{Y} - \beta*X
+\alpha = \bar{Y} - \beta*\bar{X}
 $$
 
 $$
-\beta = \sum\limits_{i=1}^n{}(y_i - \bar{y})(x_u - \bar{x})/\sum\limits_{i=1}^n{}(x_i - \bar{x})^2
+\beta = \sum\limits_{i=1}^n{}(y_i - \bar{y})(x_i - \bar{x})/\sum\limits_{i=1}^n{}(x_i - \bar{x})^2
 $$
 
 Se nós aplicarmos essa fórmula para os dados do gráfico acima, iremos recuperar um valor aproximado da verdadeira reta de regressão (aproximado porque no fundo estamos simulando uma amostra. Mas se tivéssemos infinitos valores, teríamos exatamente os parâmetros populacionais).
