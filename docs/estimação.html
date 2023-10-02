@@ -353,82 +353,82 @@ Supondo homocedasticidade, [e_i] = ^2$</p>
 <p>Depois, só escolher quais dos dados iremos olhar
 <a href="https://basedosdados.org/" class="uri">https://basedosdados.org/</a></p>
 <p>Escolhi mexer com dados do censo escolar</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="estimação.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># instalando a biblioteca</span></span>
-<span id="cb94-2"><a href="estimação.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;basedosdados&#39;)</span></span>
-<span id="cb94-3"><a href="estimação.html#cb94-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-4"><a href="estimação.html#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="co"># carregando a biblioteca na sessão</span></span>
-<span id="cb94-5"><a href="estimação.html#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(basedosdados)</span>
-<span id="cb94-6"><a href="estimação.html#cb94-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-7"><a href="estimação.html#cb94-7" aria-hidden="true" tabindex="-1"></a><span class="co"># para importar os dadosdiretamente no R, precisamos criar um id para acessar a base de dados</span></span>
-<span id="cb94-8"><a href="estimação.html#cb94-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set_billing_id</span>(<span class="st">&quot;aula-reg-manoel&quot;</span>)</span>
-<span id="cb94-9"><a href="estimação.html#cb94-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-10"><a href="estimação.html#cb94-10" aria-hidden="true" tabindex="-1"></a><span class="co"># checando que deu certo</span></span>
-<span id="cb94-11"><a href="estimação.html#cb94-11" aria-hidden="true" tabindex="-1"></a><span class="fu">get_billing_id</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="estimação.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># instalando a biblioteca</span></span>
+<span id="cb96-2"><a href="estimação.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;basedosdados&#39;)</span></span>
+<span id="cb96-3"><a href="estimação.html#cb96-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-4"><a href="estimação.html#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="co"># carregando a biblioteca na sessão</span></span>
+<span id="cb96-5"><a href="estimação.html#cb96-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(basedosdados)</span>
+<span id="cb96-6"><a href="estimação.html#cb96-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-7"><a href="estimação.html#cb96-7" aria-hidden="true" tabindex="-1"></a><span class="co"># para importar os dadosdiretamente no R, precisamos criar um id para acessar a base de dados</span></span>
+<span id="cb96-8"><a href="estimação.html#cb96-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set_billing_id</span>(<span class="st">&quot;aula-reg-manoel&quot;</span>)</span>
+<span id="cb96-9"><a href="estimação.html#cb96-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-10"><a href="estimação.html#cb96-10" aria-hidden="true" tabindex="-1"></a><span class="co"># checando que deu certo</span></span>
+<span id="cb96-11"><a href="estimação.html#cb96-11" aria-hidden="true" tabindex="-1"></a><span class="fu">get_billing_id</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;aula-reg-manoel&quot;</code></pre>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="estimação.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importando dados</span></span>
-<span id="cb96-2"><a href="estimação.html#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-3"><a href="estimação.html#cb96-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">&quot;imagens&quot;</span>, <span class="st">&quot;autenticacao base dados.jpg&quot;</span>))</span></code></pre></div>
-<p><img src="imagens/autenticacao%20base%20dados.jpg" /><!-- --></p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="estimação.html#cb97-1" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span> </span>
-<span id="cb97-2"><a href="estimação.html#cb97-2" aria-hidden="true" tabindex="-1"></a>escola <span class="ot">&lt;-</span> <span class="fu">read_sql</span>(query)</span>
-<span id="cb97-3"><a href="estimação.html#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-4"><a href="estimação.html#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-5"><a href="estimação.html#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="co"># query &lt;- &quot;SELECT count(*) as contagem, id_municipio FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and ano = 2019 group by id_municipio&quot; </span></span>
-<span id="cb97-6"><a href="estimação.html#cb97-6" aria-hidden="true" tabindex="-1"></a><span class="co"># escola &lt;- read_sql(query)</span></span>
-<span id="cb97-7"><a href="estimação.html#cb97-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-8"><a href="estimação.html#cb97-8" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.dicionario`&quot;</span></span>
-<span id="cb97-9"><a href="estimação.html#cb97-9" aria-hidden="true" tabindex="-1"></a>dicionario <span class="ot">&lt;-</span> <span class="fu">read_sql</span>(query)</span></code></pre></div>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="estimação.html#cb98-1" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.matricula` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span></span>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="estimação.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importando dados</span></span>
 <span id="cb98-2"><a href="estimação.html#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-3"><a href="estimação.html#cb98-3" aria-hidden="true" tabindex="-1"></a>aluno <span class="ot">&lt;-</span> <span class="fu">read_sql</span>(query)</span></code></pre></div>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="estimação.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dicionário de gênero e raça</span></span>
-<span id="cb99-2"><a href="estimação.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dicionario %&gt;%</span></span>
-<span id="cb99-3"><a href="estimação.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   dplyr::filter(id_tabela == &quot;matricula&quot;, nome_coluna %in% c(&quot;sexo&quot;, &quot;raca_cor&quot;))</span></span>
+<span id="cb98-3"><a href="estimação.html#cb98-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">&quot;imagens&quot;</span>, <span class="st">&quot;autenticacao base dados.jpg&quot;</span>))</span></code></pre></div>
+<p><img src="imagens/autenticacao%20base%20dados.jpg" /><!-- --></p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="estimação.html#cb99-1" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span> </span>
+<span id="cb99-2"><a href="estimação.html#cb99-2" aria-hidden="true" tabindex="-1"></a>escola <span class="ot">&lt;-</span> <span class="fu">read_sql</span>(query)</span>
+<span id="cb99-3"><a href="estimação.html#cb99-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb99-4"><a href="estimação.html#cb99-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-5"><a href="estimação.html#cb99-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-6"><a href="estimação.html#cb99-6" aria-hidden="true" tabindex="-1"></a>aluno_gen <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
-<span id="cb99-7"><a href="estimação.html#cb99-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb99-8"><a href="estimação.html#cb99-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, sexo) <span class="sc">%&gt;%</span></span>
-<span id="cb99-9"><a href="estimação.html#cb99-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_gen =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb99-10"><a href="estimação.html#cb99-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Male&quot;</span>, sexo),</span>
-<span id="cb99-11"><a href="estimação.html#cb99-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Female&quot;</span>, sexo)) <span class="sc">%&gt;%</span></span>
-<span id="cb99-12"><a href="estimação.html#cb99-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_gen),</span>
-<span id="cb99-13"><a href="estimação.html#cb99-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">percent =</span> num_aluno_gen<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
-<span id="cb99-14"><a href="estimação.html#cb99-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb99-15"><a href="estimação.html#cb99-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">percent_female =</span> percent) <span class="sc">%&gt;%</span></span>
-<span id="cb99-16"><a href="estimação.html#cb99-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id_escola, percent_female)</span>
-<span id="cb99-17"><a href="estimação.html#cb99-17" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb99-18"><a href="estimação.html#cb99-18" aria-hidden="true" tabindex="-1"></a>aluno_raca <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
-<span id="cb99-19"><a href="estimação.html#cb99-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb99-20"><a href="estimação.html#cb99-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, raca_cor) <span class="sc">%&gt;%</span></span>
-<span id="cb99-21"><a href="estimação.html#cb99-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_raca =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb99-22"><a href="estimação.html#cb99-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Branca&quot;</span>, raca_cor),</span>
-<span id="cb99-23"><a href="estimação.html#cb99-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Preta&quot;</span>, raca_cor),</span>
-<span id="cb99-24"><a href="estimação.html#cb99-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;3&quot;</span>, <span class="st">&quot;Parda&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
-<span id="cb99-25"><a href="estimação.html#cb99-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_raca),</span>
-<span id="cb99-26"><a href="estimação.html#cb99-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">percent =</span> num_aluno_raca<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
-<span id="cb99-27"><a href="estimação.html#cb99-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(raca_cor <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Branca&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;Preta&quot;</span>, <span class="st">&quot;Parda&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb99-28"><a href="estimação.html#cb99-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;não_declarado&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
-<span id="cb99-29"><a href="estimação.html#cb99-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_escola, raca_cor, percent) <span class="sc">%&gt;%</span></span>
-<span id="cb99-30"><a href="estimação.html#cb99-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> raca_cor , <span class="at">values_from =</span> percent )</span>
-<span id="cb99-31"><a href="estimação.html#cb99-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-32"><a href="estimação.html#cb99-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-33"><a href="estimação.html#cb99-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-34"><a href="estimação.html#cb99-34" aria-hidden="true" tabindex="-1"></a>aluno_escola <span class="ot">&lt;-</span> aluno_gen <span class="sc">%&gt;%</span></span>
-<span id="cb99-35"><a href="estimação.html#cb99-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(aluno_raca,  <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb99-36"><a href="estimação.html#cb99-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(escola, <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>)</span>
-<span id="cb99-37"><a href="estimação.html#cb99-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-38"><a href="estimação.html#cb99-38" aria-hidden="true" tabindex="-1"></a>aluno_escola_reg <span class="ot">&lt;-</span> aluno_escola <span class="sc">%&gt;%</span></span>
-<span id="cb99-39"><a href="estimação.html#cb99-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb99-40"><a href="estimação.html#cb99-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">negra =</span> Preta <span class="sc">+</span> Parda) <span class="sc">%&gt;%</span></span>
-<span id="cb99-41"><a href="estimação.html#cb99-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(negra, percent_female, tipo_localizacao, agua_potavel, esgoto_rede_publica, </span>
-<span id="cb99-42"><a href="estimação.html#cb99-42" aria-hidden="true" tabindex="-1"></a>         lixo_servico_coleta, area_verde, biblioteca, quantidade_profissional_psicologo) <span class="sc">%&gt;%</span></span>
-<span id="cb99-43"><a href="estimação.html#cb99-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
-<span id="cb99-44"><a href="estimação.html#cb99-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(bit64<span class="sc">::</span>is.integer64, as.factor)</span>
-<span id="cb99-45"><a href="estimação.html#cb99-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-46"><a href="estimação.html#cb99-46" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(negra <span class="sc">~</span>  percent_female <span class="sc">+</span> tipo_localizacao <span class="sc">+</span> agua_potavel  <span class="sc">+</span> esgoto_rede_publica <span class="sc">+</span> lixo_servico_coleta <span class="sc">+</span> area_verde <span class="sc">+</span> biblioteca <span class="sc">+</span> quantidade_profissional_psicologo, <span class="at">data=</span> aluno_escola_reg)</span>
-<span id="cb99-47"><a href="estimação.html#cb99-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-48"><a href="estimação.html#cb99-48" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg)</span></code></pre></div>
+<span id="cb99-5"><a href="estimação.html#cb99-5" aria-hidden="true" tabindex="-1"></a><span class="co"># query &lt;- &quot;SELECT count(*) as contagem, id_municipio FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and ano = 2019 group by id_municipio&quot; </span></span>
+<span id="cb99-6"><a href="estimação.html#cb99-6" aria-hidden="true" tabindex="-1"></a><span class="co"># escola &lt;- read_sql(query)</span></span>
+<span id="cb99-7"><a href="estimação.html#cb99-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-8"><a href="estimação.html#cb99-8" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.dicionario`&quot;</span></span>
+<span id="cb99-9"><a href="estimação.html#cb99-9" aria-hidden="true" tabindex="-1"></a>dicionario <span class="ot">&lt;-</span> <span class="fu">read_sql</span>(query)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="estimação.html#cb100-1" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.matricula` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span></span>
+<span id="cb100-2"><a href="estimação.html#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="estimação.html#cb100-3" aria-hidden="true" tabindex="-1"></a>aluno <span class="ot">&lt;-</span> <span class="fu">read_sql</span>(query)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="estimação.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dicionário de gênero e raça</span></span>
+<span id="cb101-2"><a href="estimação.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dicionario %&gt;%</span></span>
+<span id="cb101-3"><a href="estimação.html#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   dplyr::filter(id_tabela == &quot;matricula&quot;, nome_coluna %in% c(&quot;sexo&quot;, &quot;raca_cor&quot;))</span></span>
+<span id="cb101-4"><a href="estimação.html#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-5"><a href="estimação.html#cb101-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-6"><a href="estimação.html#cb101-6" aria-hidden="true" tabindex="-1"></a>aluno_gen <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
+<span id="cb101-7"><a href="estimação.html#cb101-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb101-8"><a href="estimação.html#cb101-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, sexo) <span class="sc">%&gt;%</span></span>
+<span id="cb101-9"><a href="estimação.html#cb101-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_gen =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb101-10"><a href="estimação.html#cb101-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Male&quot;</span>, sexo),</span>
+<span id="cb101-11"><a href="estimação.html#cb101-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Female&quot;</span>, sexo)) <span class="sc">%&gt;%</span></span>
+<span id="cb101-12"><a href="estimação.html#cb101-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_gen),</span>
+<span id="cb101-13"><a href="estimação.html#cb101-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">percent =</span> num_aluno_gen<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb101-14"><a href="estimação.html#cb101-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb101-15"><a href="estimação.html#cb101-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">percent_female =</span> percent) <span class="sc">%&gt;%</span></span>
+<span id="cb101-16"><a href="estimação.html#cb101-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id_escola, percent_female)</span>
+<span id="cb101-17"><a href="estimação.html#cb101-17" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb101-18"><a href="estimação.html#cb101-18" aria-hidden="true" tabindex="-1"></a>aluno_raca <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
+<span id="cb101-19"><a href="estimação.html#cb101-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb101-20"><a href="estimação.html#cb101-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, raca_cor) <span class="sc">%&gt;%</span></span>
+<span id="cb101-21"><a href="estimação.html#cb101-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_raca =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb101-22"><a href="estimação.html#cb101-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Branca&quot;</span>, raca_cor),</span>
+<span id="cb101-23"><a href="estimação.html#cb101-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Preta&quot;</span>, raca_cor),</span>
+<span id="cb101-24"><a href="estimação.html#cb101-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;3&quot;</span>, <span class="st">&quot;Parda&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
+<span id="cb101-25"><a href="estimação.html#cb101-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_raca),</span>
+<span id="cb101-26"><a href="estimação.html#cb101-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">percent =</span> num_aluno_raca<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb101-27"><a href="estimação.html#cb101-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(raca_cor <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Branca&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;Preta&quot;</span>, <span class="st">&quot;Parda&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb101-28"><a href="estimação.html#cb101-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;não_declarado&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
+<span id="cb101-29"><a href="estimação.html#cb101-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_escola, raca_cor, percent) <span class="sc">%&gt;%</span></span>
+<span id="cb101-30"><a href="estimação.html#cb101-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> raca_cor , <span class="at">values_from =</span> percent )</span>
+<span id="cb101-31"><a href="estimação.html#cb101-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-32"><a href="estimação.html#cb101-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-33"><a href="estimação.html#cb101-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-34"><a href="estimação.html#cb101-34" aria-hidden="true" tabindex="-1"></a>aluno_escola <span class="ot">&lt;-</span> aluno_gen <span class="sc">%&gt;%</span></span>
+<span id="cb101-35"><a href="estimação.html#cb101-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(aluno_raca,  <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb101-36"><a href="estimação.html#cb101-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(escola, <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>)</span>
+<span id="cb101-37"><a href="estimação.html#cb101-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-38"><a href="estimação.html#cb101-38" aria-hidden="true" tabindex="-1"></a>aluno_escola_reg <span class="ot">&lt;-</span> aluno_escola <span class="sc">%&gt;%</span></span>
+<span id="cb101-39"><a href="estimação.html#cb101-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb101-40"><a href="estimação.html#cb101-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">negra =</span> Preta <span class="sc">+</span> Parda) <span class="sc">%&gt;%</span></span>
+<span id="cb101-41"><a href="estimação.html#cb101-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(negra, percent_female, tipo_localizacao, agua_potavel, esgoto_rede_publica, </span>
+<span id="cb101-42"><a href="estimação.html#cb101-42" aria-hidden="true" tabindex="-1"></a>         lixo_servico_coleta, area_verde, biblioteca, quantidade_profissional_psicologo) <span class="sc">%&gt;%</span></span>
+<span id="cb101-43"><a href="estimação.html#cb101-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb101-44"><a href="estimação.html#cb101-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(bit64<span class="sc">::</span>is.integer64, as.factor)</span>
+<span id="cb101-45"><a href="estimação.html#cb101-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-46"><a href="estimação.html#cb101-46" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(negra <span class="sc">~</span>  percent_female <span class="sc">+</span> tipo_localizacao <span class="sc">+</span> agua_potavel  <span class="sc">+</span> esgoto_rede_publica <span class="sc">+</span> lixo_servico_coleta <span class="sc">+</span> area_verde <span class="sc">+</span> biblioteca <span class="sc">+</span> quantidade_profissional_psicologo, <span class="at">data=</span> aluno_escola_reg)</span>
+<span id="cb101-47"><a href="estimação.html#cb101-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-48"><a href="estimação.html#cb101-48" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = negra ~ percent_female + tipo_localizacao + agua_potavel + 

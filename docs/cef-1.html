@@ -305,21 +305,21 @@ o erro <span class="math inline">\(e\)</span> tem esperança condiconal a <span 
 <h2><span class="header-section-number">6.2</span> Simulando para entender a CEF<a href="cef-1.html#simulando-para-entender-a-cef" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vamos fazer simulações no R para entender o erro da CEF. Suponha que
 <span class="math inline">\(Y = X^2 + U\)</span>, em que <span class="math inline">\(U \sim norm(0,1)\)</span> e <span class="math inline">\(X \sim norm(0,1)\)</span>.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="cef-1.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
-<span id="cb84-2"><a href="cef-1.html#cb84-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb84-3"><a href="cef-1.html#cb84-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb84-4"><a href="cef-1.html#cb84-4" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb84-5"><a href="cef-1.html#cb84-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> u</span>
-<span id="cb84-6"><a href="cef-1.html#cb84-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-7"><a href="cef-1.html#cb84-7" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb84-8"><a href="cef-1.html#cb84-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-9"><a href="cef-1.html#cb84-9" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">median</span>(y)</span>
-<span id="cb84-10"><a href="cef-1.html#cb84-10" aria-hidden="true" tabindex="-1"></a>erro1 <span class="ot">&lt;-</span> y <span class="sc">-</span> m1</span>
-<span id="cb84-11"><a href="cef-1.html#cb84-11" aria-hidden="true" tabindex="-1"></a>erro2 <span class="ot">&lt;-</span> y <span class="sc">-</span> m2</span>
-<span id="cb84-12"><a href="cef-1.html#cb84-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-13"><a href="cef-1.html#cb84-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro1<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="cef-1.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb85-2"><a href="cef-1.html#cb85-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb85-3"><a href="cef-1.html#cb85-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb85-4"><a href="cef-1.html#cb85-4" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb85-5"><a href="cef-1.html#cb85-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> u</span>
+<span id="cb85-6"><a href="cef-1.html#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-7"><a href="cef-1.html#cb85-7" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb85-8"><a href="cef-1.html#cb85-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-9"><a href="cef-1.html#cb85-9" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">median</span>(y)</span>
+<span id="cb85-10"><a href="cef-1.html#cb85-10" aria-hidden="true" tabindex="-1"></a>erro1 <span class="ot">&lt;-</span> y <span class="sc">-</span> m1</span>
+<span id="cb85-11"><a href="cef-1.html#cb85-11" aria-hidden="true" tabindex="-1"></a>erro2 <span class="ot">&lt;-</span> y <span class="sc">-</span> m2</span>
+<span id="cb85-12"><a href="cef-1.html#cb85-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-13"><a href="cef-1.html#cb85-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro1<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 2987.139</code></pre>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="cef-1.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro2<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="cef-1.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro2<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 3062.869</code></pre>
 <p>Nós imprimimos os dois erros quadráticos médios calculados, um usando a média de <span class="math inline">\(Y\)</span> como minha estimativa, e outro usando a mediana. A média teve um desempenho melhor. De maneira geral, é possível mostrar que a média é é a melhor estimativa não condicional possível.</p>
 </div>
@@ -383,15 +383,15 @@ A média das médias condicionais é dado pela média quando escolho o dado A (v
 <p>Nós vimos que o log do salário (por hora) médio não condicional
 <span class="math inline">\(\mathbb{E}[log(salário)]\)</span> é 2.15. A tabela abaixo quebra esse valor por
 gênero, juntamente com a frequência relativa de categoria:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="cef-1.html#cb88-1" aria-hidden="true" tabindex="-1"></a>table2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb88-2"><a href="cef-1.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_n =</span> <span class="fu">sum</span>(V1028),</span>
-<span id="cb88-3"><a href="cef-1.html#cb88-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">log_renda =</span> <span class="fu">log</span>(renda)) <span class="sc">%&gt;%</span></span>
-<span id="cb88-4"><a href="cef-1.html#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span></span>
-<span id="cb88-5"><a href="cef-1.html#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">salario =</span> <span class="fu">round</span>(<span class="fu">weighted.mean</span>(salario, <span class="at">w=</span>V1028),<span class="dv">2</span>), <span class="at">freq=</span><span class="fu">sum</span>(V1028)<span class="sc">/</span>total_n)</span>
-<span id="cb88-6"><a href="cef-1.html#cb88-6" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb88-7"><a href="cef-1.html#cb88-7" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span></span>
-<span id="cb88-8"><a href="cef-1.html#cb88-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb88-9"><a href="cef-1.html#cb88-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="cef-1.html#cb89-1" aria-hidden="true" tabindex="-1"></a>table2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="cef-1.html#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_n =</span> <span class="fu">sum</span>(V1028),</span>
+<span id="cb89-3"><a href="cef-1.html#cb89-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">log_renda =</span> <span class="fu">log</span>(renda)) <span class="sc">%&gt;%</span></span>
+<span id="cb89-4"><a href="cef-1.html#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span></span>
+<span id="cb89-5"><a href="cef-1.html#cb89-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">salario =</span> <span class="fu">round</span>(<span class="fu">weighted.mean</span>(salario, <span class="at">w=</span>V1028),<span class="dv">2</span>), <span class="at">freq=</span><span class="fu">sum</span>(V1028)<span class="sc">/</span>total_n)</span>
+<span id="cb89-6"><a href="cef-1.html#cb89-6" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb89-7"><a href="cef-1.html#cb89-7" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span></span>
+<span id="cb89-8"><a href="cef-1.html#cb89-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb89-9"><a href="cef-1.html#cb89-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -570,34 +570,38 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 <div id="equação-da-reta" class="section level4 hasAnchor" number="6.4.1.1">
 <h4><span class="header-section-number">6.4.1.1</span> Equação da Reta<a href="cef-1.html#equação-da-reta" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Na nossa equação da reta, <span class="math inline">\(\alpha\)</span> é o intercepto, isto é, o ponto onde a reta cruza o eixo <span class="math inline">\(y\)</span> e <span class="math inline">\(\beta\)</span> é a inclinção ou coeficiente angular da reta. Se nós simularmos dados e plotarmos um scatter plot, veremos que podemos ajustar muitas retas aos dados.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="cef-1.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb89-2"><a href="cef-1.html#cb89-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb89-3"><a href="cef-1.html#cb89-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb89-4"><a href="cef-1.html#cb89-4" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb89-5"><a href="cef-1.html#cb89-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">1.3</span><span class="sc">*</span>x <span class="sc">+</span> u</span>
-<span id="cb89-6"><a href="cef-1.html#cb89-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb89-7"><a href="cef-1.html#cb89-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
-<span id="cb89-8"><a href="cef-1.html#cb89-8" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb89-9"><a href="cef-1.html#cb89-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">se=</span>F, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb89-10"><a href="cef-1.html#cb89-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> .<span class="dv">5</span>, <span class="at">intercept =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb89-11"><a href="cef-1.html#cb89-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="dv">3</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb89-12"><a href="cef-1.html#cb89-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="cef-1.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb90-2"><a href="cef-1.html#cb90-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb90-3"><a href="cef-1.html#cb90-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb90-4"><a href="cef-1.html#cb90-4" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb90-5"><a href="cef-1.html#cb90-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">1.3</span><span class="sc">*</span>x <span class="sc">+</span> u</span>
+<span id="cb90-6"><a href="cef-1.html#cb90-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-7"><a href="cef-1.html#cb90-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
+<span id="cb90-8"><a href="cef-1.html#cb90-8" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb90-9"><a href="cef-1.html#cb90-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">se=</span>F, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb90-10"><a href="cef-1.html#cb90-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> .<span class="dv">5</span>, <span class="at">intercept =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb90-11"><a href="cef-1.html#cb90-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="dv">3</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb90-12"><a href="cef-1.html#cb90-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
 <p><img src="bookdownproj_files/figure-html/plot-ajuste-reta-1.png" width="672" /></p>
 <p>No gráfico <a href="#fig:plot-ajuste-reta"><strong>??</strong></a>, vemos que a reta em azul é melhor do que a verde e vermelha.</p>
 <p>Para achar os valores da reta azul (que aqui sabemos ser <span class="math inline">\(\alpha =2\)</span> e <span class="math inline">\(\beta = 1.3\)</span>), podemos novamente minimizar o EQM. A derivação requer calcular a derivada ou utilização de álgebra linerar, requisitos matemáticos para além do curso. Para um preditor, a fórmula do <span class="math inline">\(\beta\)</span> é dada por <span class="math inline">\(COV(Y,X)/Var(X)\)</span> e a constante, <span class="math inline">\(\alpha\)</span> é dada por <span class="math inline">\(\mathbb{E}[(Y)] - \beta*\mathbb{E}[X]\)</span>. Expressando a mesma fórmula com somatório (em vez de esperança), temos:</p>
 <p><span class="math display">\[
-\alpha = \bar{Y} - \beta*X
+\alpha = \bar{Y} - \beta*\bar{X}
 \]</span></p>
 <p><span class="math display">\[
-\beta = \sum\limits_{i=1}^n{}(y_i - \bar{y})(x_u - \bar{x})/\sum\limits_{i=1}^n{}(x_i - \bar{x})^2
+\beta = \sum\limits_{i=1}^n{}(y_i - \bar{y})(x_i - \bar{x})/\sum\limits_{i=1}^n{}(x_i - \bar{x})^2
 \]</span></p>
 <p>Se nós aplicarmos essa fórmula para os dados do gráfico acima, iremos recuperar um valor aproximado da verdadeira reta de regressão (aproximado porque no fundo estamos simulando uma amostra. Mas se tivéssemos infinitos valores, teríamos exatamente os parâmetros populacionais).</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="cef-1.html#cb90-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb90-2"><a href="cef-1.html#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cov_yx =</span> <span class="fu">cov</span>(y,x),</span>
-<span id="cb90-3"><a href="cef-1.html#cb90-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_x =</span> <span class="fu">var</span>(x),</span>
-<span id="cb90-4"><a href="cef-1.html#cb90-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">beta =</span> cov_yx<span class="sc">/</span>var_x,</span>
-<span id="cb90-5"><a href="cef-1.html#cb90-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta<span class="sc">*</span><span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span></span>
-<span id="cb90-6"><a href="cef-1.html#cb90-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="cef-1.html#cb92-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="cef-1.html#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cov_yx =</span> <span class="fu">cov</span>(y,x),</span>
+<span id="cb92-3"><a href="cef-1.html#cb92-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_x =</span> <span class="fu">var</span>(x),</span>
+<span id="cb92-4"><a href="cef-1.html#cb92-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">beta =</span> cov_yx<span class="sc">/</span>var_x,</span>
+<span id="cb92-5"><a href="cef-1.html#cb92-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta<span class="sc">*</span><span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span></span>
+<span id="cb92-6"><a href="cef-1.html#cb92-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -633,7 +637,7 @@ alpha
 </tbody>
 </table>
 <p>Vejam que é a mesma estimativa se eu usar a função “lm” do R, que estima uma modelo de regressão linear.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="cef-1.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span>x, df)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="cef-1.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span>x, df)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x, data = df)
