@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-09-25" />
+<meta name="date" content="2023-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -220,7 +220,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#efeito-marginal"><i class="fa fa-check"></i><b>6.8</b> Efeito Marginal</a></li>
 <li class="chapter" data-level="6.9" data-path="cef-1.html"><a href="cef-1.html#cef-linear-com-peditores-não-lineares"><i class="fa fa-check"></i><b>6.9</b> CEF linear com peditores não-lineares</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>7</b> - Estimação</a></li>
+<li class="chapter" data-level="7" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>7</b> - Estimação</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="estimação.html"><a href="estimação.html#regressão-por-mínimos-quadrados"><i class="fa fa-check"></i><b>7.1</b> Regressão por mínimos quadrados</a></li>
+<li class="chapter" data-level="7.2" data-path="estimação.html"><a href="estimação.html#modelo-de-média-amostral"><i class="fa fa-check"></i><b>7.2</b> Modelo de Média amostral</a></li>
+<li class="chapter" data-level="7.3" data-path="estimação.html"><a href="estimação.html#modelo-de-regressão-linear"><i class="fa fa-check"></i><b>7.3</b> Modelo de Regressão Linear</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="causalidade.html"><a href="causalidade.html"><i class="fa fa-check"></i><b>8</b> - Causalidade</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="causalidade.html"><a href="causalidade.html#resultados-potenciais"><i class="fa fa-check"></i><b>8.1</b> Resultados Potenciais</a>
@@ -427,8 +432,7 @@ c
 <span id="cb22-3"><a href="revisão-de-r.html#cb22-3" aria-hidden="true" tabindex="-1"></a>data_ex1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data_ex)</span>
 <span id="cb22-4"><a href="revisão-de-r.html#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="revisão-de-r.html#cb22-5" aria-hidden="true" tabindex="-1"></a>data_ex1 <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span></code></pre></div>
-<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26” “2020-10-27” “2020-10-28” “2020-10-29” “2020-10-30” “2020-10-31”
-[10] “2020-11-01”</p>
+<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26” “2020-10-27” “2020-10-28” “2020-10-29” “2020-10-30” “2020-10-31” “2020-11-01”</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="revisão-de-r.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## fim da explicação rápida de data</span></span></code></pre></div>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="revisão-de-r.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## criando data de forma repetitiva e tediosa. O que queremos evitar!</span></span>
 <span id="cb24-2"><a href="revisão-de-r.html#cb24-2" aria-hidden="true" tabindex="-1"></a>minha_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-02&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-03&#39;</span>),</span>
@@ -465,13 +469,13 @@ Z
 2009-01-01
 </td>
 <td style="text-align:right;">
--0.6788076
+-0.9738186
 </td>
 <td style="text-align:right;">
-4.0839109
+-1.6396953
 </td>
 <td style="text-align:right;">
-4.971996
+3.8928886
 </td>
 </tr>
 <tr>
@@ -479,13 +483,13 @@ Z
 2009-01-02
 </td>
 <td style="text-align:right;">
-0.5743127
+-0.0996312
 </td>
 <td style="text-align:right;">
-1.2289625
+-1.9904191
 </td>
 <td style="text-align:right;">
-7.928839
+-2.1167762
 </td>
 </tr>
 <tr>
@@ -493,13 +497,13 @@ Z
 2009-01-03
 </td>
 <td style="text-align:right;">
--0.7045145
+-0.1107350
 </td>
 <td style="text-align:right;">
-0.8438623
+0.5946203
 </td>
 <td style="text-align:right;">
--2.585767
+0.1830739
 </td>
 </tr>
 <tr>
@@ -507,13 +511,13 @@ Z
 2009-01-04
 </td>
 <td style="text-align:right;">
--0.5339841
+1.1921946
 </td>
 <td style="text-align:right;">
--0.9928433
+1.1148330
 </td>
 <td style="text-align:right;">
-3.864757
+11.1787657
 </td>
 </tr>
 <tr>
@@ -521,13 +525,13 @@ Z
 2009-01-05
 </td>
 <td style="text-align:right;">
-0.7743846
+-1.6558859
 </td>
 <td style="text-align:right;">
-0.9819228
+-2.5466740
 </td>
 <td style="text-align:right;">
--5.709070
+-4.3520008
 </td>
 </tr>
 <tr>
@@ -535,13 +539,13 @@ Z
 2009-01-06
 </td>
 <td style="text-align:right;">
--0.4756214
+-1.0456433
 </td>
 <td style="text-align:right;">
--1.0039643
+2.0501452
 </td>
 <td style="text-align:right;">
--1.829935
+1.1817183
 </td>
 </tr>
 <tr>
@@ -549,13 +553,13 @@ Z
 2009-01-07
 </td>
 <td style="text-align:right;">
--0.0244274
+-1.7402391
 </td>
 <td style="text-align:right;">
-0.5763396
+0.9332243
 </td>
 <td style="text-align:right;">
-3.781867
+-5.7518583
 </td>
 </tr>
 <tr>
@@ -563,13 +567,13 @@ Z
 2009-01-08
 </td>
 <td style="text-align:right;">
-1.0190081
+0.5131208
 </td>
 <td style="text-align:right;">
--1.3732520
+0.4678366
 </td>
 <td style="text-align:right;">
--2.953557
+0.8523259
 </td>
 </tr>
 <tr>
@@ -577,13 +581,13 @@ Z
 2009-01-09
 </td>
 <td style="text-align:right;">
--1.2055804
+-0.4459568
 </td>
 <td style="text-align:right;">
-1.5768076
+0.5288838
 </td>
 <td style="text-align:right;">
-1.382563
+3.8998425
 </td>
 </tr>
 <tr>
@@ -591,13 +595,13 @@ Z
 2009-01-10
 </td>
 <td style="text-align:right;">
-1.5952939
+-1.8391938
 </td>
 <td style="text-align:right;">
-1.3827377
+0.8648398
 </td>
 <td style="text-align:right;">
--3.601779
+-9.4138486
 </td>
 </tr>
 </tbody>
@@ -632,13 +636,13 @@ Z
 2009-01-01
 </td>
 <td style="text-align:right;">
--0.3703507
+-0.5845178
 </td>
 <td style="text-align:right;">
--4.7473417
+0.7184077
 </td>
 <td style="text-align:right;">
-0.7853014
+0.3644960
 </td>
 </tr>
 <tr>
@@ -646,13 +650,13 @@ Z
 2009-01-02
 </td>
 <td style="text-align:right;">
--0.0407969
+2.2538741
 </td>
 <td style="text-align:right;">
-2.2491497
+0.7624451
 </td>
 <td style="text-align:right;">
-2.5152126
+6.9873812
 </td>
 </tr>
 <tr>
@@ -660,13 +664,13 @@ Z
 2009-01-03
 </td>
 <td style="text-align:right;">
--0.6123188
+-0.7740211
 </td>
 <td style="text-align:right;">
--3.5590955
+-4.1669171
 </td>
 <td style="text-align:right;">
-3.4437886
+0.1298087
 </td>
 </tr>
 <tr>
@@ -674,13 +678,13 @@ Z
 2009-01-04
 </td>
 <td style="text-align:right;">
--1.9458521
+-1.4236680
 </td>
 <td style="text-align:right;">
--0.6891007
+1.2556678
 </td>
 <td style="text-align:right;">
--3.8929894
+-2.0457309
 </td>
 </tr>
 <tr>
@@ -688,13 +692,13 @@ Z
 2009-01-05
 </td>
 <td style="text-align:right;">
-0.2430963
+0.4576694
 </td>
 <td style="text-align:right;">
--2.2183462
+0.6012265
 </td>
 <td style="text-align:right;">
-3.7501722
+4.6592210
 </td>
 </tr>
 <tr>
@@ -702,13 +706,13 @@ Z
 2009-01-06
 </td>
 <td style="text-align:right;">
-0.4749001
+-0.7230009
 </td>
 <td style="text-align:right;">
--1.2602116
+-2.1167945
 </td>
 <td style="text-align:right;">
--5.5808231
+-1.8611094
 </td>
 </tr>
 <tr>
@@ -716,13 +720,13 @@ Z
 2009-01-07
 </td>
 <td style="text-align:right;">
-0.1367146
+1.4837446
 </td>
 <td style="text-align:right;">
-2.6337675
+-0.4172989
 </td>
 <td style="text-align:right;">
-6.9549721
+-0.9225202
 </td>
 </tr>
 <tr>
@@ -730,13 +734,13 @@ Z
 2009-01-08
 </td>
 <td style="text-align:right;">
--0.4887477
+1.0820489
 </td>
 <td style="text-align:right;">
-1.0690268
+4.0959465
 </td>
 <td style="text-align:right;">
--3.1945372
+3.4232366
 </td>
 </tr>
 <tr>
@@ -744,13 +748,13 @@ Z
 2009-01-09
 </td>
 <td style="text-align:right;">
-0.9002037
+0.7997584
 </td>
 <td style="text-align:right;">
-0.9877962
+1.5681946
 </td>
 <td style="text-align:right;">
-3.0600975
+7.1165773
 </td>
 </tr>
 <tr>
@@ -758,13 +762,13 @@ Z
 2009-01-10
 </td>
 <td style="text-align:right;">
-1.0775357
+-1.4252158
 </td>
 <td style="text-align:right;">
--4.1559849
+-2.5544586
 </td>
 <td style="text-align:right;">
-1.2716454
+-3.3013709
 </td>
 </tr>
 </tbody>

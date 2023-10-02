@@ -10,8 +10,226 @@ editor_options:
 library(ggplot2)
 library(knitr)
 library(tidyverse)
+library(here)
+library(tidyr)
 ```
 
-Em geral, etc.
+É possível mostrar que o preditor linear ótimo com um único regressor é possui intercepto
+$\alpha = \mathbb{E}[Y] - \beta*\mathbb{E}[X]$ e inclinação $\beta = Cov(X,Y)/Var(X)$. Isso significa que, se nós considerarmos o modelo de regressão $y_i = \alpha + \beta*x_i + e_i$, e usarmos essas fórmulas para calcular os valores de $\alpha$ e $\beta$ em uma população, obteríamos uma reta ajustada que é o melhor preditor linear.
+
+Se tivermos uma amostra, e não a população, é razoável pensar que uma boa estimativa para os valores populacionais de $\alpha$ e $\beta$ são justamente essas fórmulas, calculadas para os dados amostrais. Esse estimador dos parâmetros populacionais nós chamamos de **plug-in estimates**, pois sem maiores teorias, assumimos que o que vale para a população vale para a amostra. Para diferenciar as estimativas amostrais dos valores populacionais, é comum usarmos $\hat{\beta}$ em vez de $\beta$, ou então letras latinas $b$ em vez das gregas $\beta$. Vou usar letras latinas, mas outros textos utilizam letras gregas com o "chapéu". 
+
+## Regressão por mínimos quadrados
+
+Quando temos uma amostra, é comum supormos que os dados são *i*ndependentes e *i*denticamente *d*istribuídos, *i.i.d*. Esse tipo de amostra às vezes é chamada de amostra aleatória simples. Isso é tipicamente válido em dados de corte transversal (cross-section) como uma pesquisa de opinião (survey) de intenção de voto, amostra pequena (mil, dois mil) de alunos do Brasil a partir de dados doe Censo Escolar e assim por diante. O ponto é que os dados precisam ser dispersos. Se você coletar alunos de uma mesma escola, eles não tenderão a ser independentes. Se amostrar eleitores de um mesmo bairro, tampouco haverá independência. Há formas de lidar com isso, e aprenderemos mais tarde. Por enquanto, tratemos do caso mais simples.
+
+A suposição de que dados são i.i.d significa que, em uma amostra com duas variáveis, $X$ e $Y$, o par $x_i, y_i$ é independente de $x_j, y_j$, com $i \neq j$ e identicamente distribuídos, isto é, com a mesma distribuição. Essa suposição é importante para calcular a variância dos nossos estimadores, não para a estimativa pontual deles.
+
+## Modelo de Média amostral
+
+O modelo de regressão mais simples é aquele sem preditores, em que $Y = \mu + e$. O estimador de mínimos quadrados para $\hat{\mu}$ é a média amostral, $\bar{y}$. Notem que $\mathbb{E}[Y]$ é a esperança populacional e $\mu$ é o valor da esperança, já que a esperança do erro $e$ é zero.  Vamso então calcular a média de nosso estimador $\bar{y}$ e sua variância.
+
+$$
+\mathbb{E}[\bar{y}] = \mathbb{E}[\sum{y_i}/n] = (1/n) * \sum{\mathbb{E}[y_i]} = (1/n)*\mu*n = \mu
+$$
+
+Portanto, o valor esperando do estimador de mínimos quadrados (a média amostral) é igual à média populacional. Quando isso acontece, isto é, quando a esperança de um estimador é igual ao parâmetro populacional dizemos que o estimador é não-viesado.
+
+Definição 7.1. Um estimador $\hat{\theta}$ é não-viesado quando $\mathbb{E}[\hat{\theta}] = \theta$.
+
+Agora, vamos calcular a variância da média amostral sob a sposição de que a amostra é i.i.d. Considerando $Y_i = \mu + e_i$, temos:
+
+$$
+\bar{y} = \sum{y_i}/n = \sum{(\mu + e_i)}/n = \sum{\mu}/n + \sum{e_i}/n = \mu + \sum{e_i}/n
+$$
+
+Rearranjando, temos: $\bar{y} - \mu = \sum{e_i}/n$
+
+A variância então pode ser calculada como:
+
+$$
+\mathbb{Var}[\bar{y}] = \mathbb{E}[(\bar{y} - mu)^2]
+$$
+$$
+= \mathbb{E}[( \sum\limits_{i=1}^n {e_i}/n)*( \sum\limits_{j=1}^n{e_j}/n)] = (1/n^2)* \sum\limits_{i=1}^n{} \sum\limits_{j=1}^n{}\mathbb{E}[e_ie_j]
+$$
+Se nós somarmos o somatório indexado no $j$, o primeiro erro fica constante (indexado no i) e vamos por todo os erros de $1$ até $n$. Eventualmente, vamos passar por $i$ e todos os outros diferentes de $i$. Sabendo que os erros são i.i.d, isso significa que erros diferentes são não correlacionados e possuem esperança zero, ou seja, $\mathbb{E}[e_ie_j] = 0, i \neq j$, e erros iguais, por serem da mesma distribuição, têm $\mathbb{E}[e_ie_i] = \sigma^2$. Então o resultado do último somatório é uma soma de zeros, exceto para o caso em que $i = j$, em que dá $\sigma^2$. De forma que a equação fica:
+
+$$
+(1/n^2)* \sum\limits_{i=1}^n{}\sigma^2 = (1/n^2)*n*\sigma^2 = \sigma^2/n
+$$
+Ou seja, a variância de nosso estimador é igual à variância populacional dividida pelo tamanho da amostra. A variância amostral do estimador também é chamada de erro padrão.
+
+## Modelo de Regressão Linear
+
+Tendo mostrado que o estimador é não-viesado e calculado a variância amostral para o caso mais simples, sem preditor, vamos agora fazer o mesm ocálculo com um preditor.
+
+Vamos assumir que o modelo de regressão linear é uma boa aproximação para CEF. Portanto, vamos supor que:
+1. O modelo linear $Y = \alpha + \beta*X + e$ é adequado.
+2. $\mathbb{E}[e|X] = 0$, isto é, o erro é não correlacionado com x.
+
+Lembremos que a fórmula para o $\hat{\beta}$ é $\mathbb{Cov}[X,Y]/\mathbb{Var}[X]$. Substituindo nossa equaçã ode regressão na fórmula, temos:
+
+$$
+\hat{\beta} = n^{-1}*\sum({x_i - \bar{x}})*({y_i - \bar{y}})/\mathbb{Var}[x] = n^{-1}*(\sum({x - \bar{x}})*y_i + \sum({x -\bar{x}})*\bar{y})/\mathbb{Var}[x] 
+$$
+
+Vamos agora usar o fato de que, para qualquer variável $z$, a diferença média de $z$ para a média amostral de $z$ é zero, isto é, $n^{-1}*\sum\limits_{i=1}^n{}z - \bar{z} = 0$
+
+Por fim, segue-se disso que, para qualquer constante $w$ que não varia com $i$, podemos escrever:
+$n^{-1}*\sum\limits_{i=1}^n{}(z - \bar{z})*w = 0$
+
+Portanto, $\sum({x -\bar{x}})*\bar{y}) = 0$.
+
+Logo,
+
+$$
+\hat{\beta} =  n^{-1}*\sum({x - \bar{x}})*y_i/\mathbb{Var}[x] 
+$$
+Lembremos que, $y_i = \alpha + \beta*X_i + e_i$. Se eu adicionar e subtrair $\beta*\bar{x}$ da equação, não altero ela. Utilizando esse truque e rearranjando, temos:
+
+$$
+y_i = \alpha + \beta*X_i + e_i = \alpha + \beta*\bar{x} + \beta*X_i - \beta*\bar{x} + e_i = \alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i
+$$
+Substituindo na equação anterior, temos:
+
+$$
+\hat{\beta} =  n^{-1}*\sum({x - \bar{x}})*(\alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i)/\mathbb{Var}[x] 
+$$
+$$
+\hat{\beta} =  n^{-1}*(\alpha + \beta)\bar{x}\sum({x - \bar{x}})*(\beta*(x_i - \bar{x}) + e_i)/\mathbb{Var}[x] 
+$$
+$$
+\hat{\beta} =  n^{-1}*(\alpha + \beta)\bar{x}\sum({x - \bar{x}}) +  n^{-1}\beta\sum(x_i - \bar{x})^2 + n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x] 
+$$
+A priemria soma é uma constante, vezes o somatório de $x_i$ menos sua média, o que é zero. A segunda soma é a variância de x multiplicada por $\beta$. Então, simplifcando, temos:
+
+$$
+\hat{\beta} =  \beta +  n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x] 
+$$
+
+Portanto, nós mostramos que o estimador $\hat{\beta}$ pode ser decomposto no parâmetro populacional $\beta$ mais uma soma ponderada do termo de erro. Uma vez que nossa amostra é i.i.d., sabemos que é uma média ponderada dos erros não-correlacionados. Podemos agora mostrar que o estimador é não-viesado.
 
 
+$$
+\mathbb{E}[\hat{\beta}] =  \beta +  n^{-1}\mathbb{E}[\sum({x - \bar{x}})*e_i)]/\mathbb{Var}[x] = \beta +\mathbb{E}[e]*\mathbb{E}[\sum({x - \bar{x}})]\mathbb{Var}[x] = \beta
+$$
+
+Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de x vezes o tamanho da amostra, $n$.
+
+$$
+\mathbb{Var}[\hat{\beta}] = \mathbb{Var}[\beta +  n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x]]
+$$
+
+Sabemos que $\mathbb{Var}[x + a] = \mathbb{Var}[x]$. Então, podemos eliminar o $\beta$ da equação.
+
+$$
+\mathbb{Var}[\hat{\beta}] = \mathbb{Var}[n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x]]
+$$
+
+Todas as observações do $x$ foram observadas e, portanto, a soma da diferença para a média é uma constante. Sabemos que $\mathbb{Var}[x*a] = a^2\mathbb{Var}[x]$
+
+
+$$
+\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2*\mathbb{Var}[e_i/\mathbb{Var}[x]]
+$$
+Supondo homocedasticidade, \mathbb{Var}[e_i] = \sigma^2$
+
+$$
+\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2*\mathbb{Var}[e_i/\mathbb{Var}[x]]
+$$
+
+
+Vamos começar com um exemplo, importando dados do site Base de Dados, que possui muitas bases de dados públicas, já tratadas. Para tanto, precisaremos criar um projeto no Google cloud, conforme os passos aqui: https://basedosdados.github.io/mais/access_data_packages/
+
+Depois, só escolher quais dos dados iremos olhar
+https://basedosdados.org/
+
+Escolhi mexer com dados do censo escolar
+
+```{r package base de dados, echo=T, message=FALSE, cache=T}
+# instalando a biblioteca
+# install.packages('basedosdados')
+
+# carregando a biblioteca na sessão
+library(basedosdados)
+
+# para importar os dadosdiretamente no R, precisamos criar um id para acessar a base de dados
+set_billing_id("aula-reg-manoel")
+
+# checando que deu certo
+get_billing_id()
+
+# importando dados
+
+knitr::include_graphics(here("imagens", "autenticacao base dados.jpg"))
+
+query <- "SELECT * FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = 'AL' and id_municipio = '2704302' and ano = 2019" 
+escola <- read_sql(query)
+
+
+# query <- "SELECT count(*) as contagem, id_municipio FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = 'AL' and ano = 2019 group by id_municipio" 
+# escola <- read_sql(query)
+
+query <- "SELECT * FROM `basedosdados.br_inep_censo_escolar.dicionario`"
+dicionario <- read_sql(query)
+```
+
+```{r base alunos, echo=T, message=FALSE, cache=T}
+query <- "SELECT * FROM `basedosdados.br_inep_censo_escolar.matricula` where sigla_uf = 'AL' and id_municipio = '2704302' and ano = 2019"
+
+aluno <- read_sql(query)
+```
+
+
+```{r reg censo escolar, echo=T, message=FALSE, cache=T}
+# dicionário de gênero e raça
+# dicionario %>%
+#   dplyr::filter(id_tabela == "matricula", nome_coluna %in% c("sexo", "raca_cor"))
+
+
+aluno_gen <- aluno %>%
+  dplyr::filter(regular == 1) %>%
+  group_by(id_escola, sexo) %>%
+  summarise(num_aluno_gen = n()) %>%
+  mutate(sexo = gsub("1", "Male", sexo),
+         sexo = gsub("2", "Female", sexo)) %>%
+  mutate(total = sum(num_aluno_gen),
+            percent = num_aluno_gen/total) %>%
+  filter(sexo == "Female") %>%
+  rename(percent_female = percent) %>%
+  dplyr::select(id_escola, percent_female)
+         
+aluno_raca <- aluno %>%
+  dplyr::filter(regular == 1) %>%
+  group_by(id_escola, raca_cor) %>%
+  summarise(num_aluno_raca = n()) %>%
+  mutate(raca_cor = gsub("1", "Branca", raca_cor),
+         raca_cor = gsub("2", "Preta", raca_cor),
+         raca_cor = gsub("3", "Parda", raca_cor)) %>%
+  mutate(total = sum(num_aluno_raca),
+         percent = num_aluno_raca/total) %>%
+  filter(raca_cor %in% c("Branca", "0", "Preta", "Parda")) %>%
+  mutate(raca_cor = gsub("0","não_declarado", raca_cor)) %>%
+  select(id_escola, raca_cor, percent) %>%
+  pivot_wider(names_from = raca_cor , values_from = percent )
+
+
+
+aluno_escola <- aluno_gen %>%
+  inner_join(aluno_raca,  by = "id_escola") %>%
+  inner_join(escola, by = "id_escola")
+
+aluno_escola_reg <- aluno_escola %>%
+  ungroup() %>%
+  mutate(negra = Preta + Parda) %>%
+  select(negra, percent_female, tipo_localizacao, agua_potavel, esgoto_rede_publica, 
+         lixo_servico_coleta, area_verde, biblioteca, quantidade_profissional_psicologo) %>%
+  filter(across(everything(), ~!is.na(.))) %>%
+  mutate_if(bit64::is.integer64, as.factor)
+
+reg <- lm(negra ~  percent_female + tipo_localizacao + agua_potavel  + esgoto_rede_publica + lixo_servico_coleta + area_verde + biblioteca + quantidade_profissional_psicologo, data= aluno_escola_reg)
+
+summary(reg)
+
+```
