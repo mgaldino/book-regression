@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-09-25" />
+<meta name="date" content="2023-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -220,7 +220,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#efeito-marginal"><i class="fa fa-check"></i><b>6.8</b> Efeito Marginal</a></li>
 <li class="chapter" data-level="6.9" data-path="cef-1.html"><a href="cef-1.html#cef-linear-com-peditores-não-lineares"><i class="fa fa-check"></i><b>6.9</b> CEF linear com peditores não-lineares</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>7</b> - Estimação</a></li>
+<li class="chapter" data-level="7" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>7</b> - Estimação</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="estimação.html"><a href="estimação.html#regressão-por-mínimos-quadrados"><i class="fa fa-check"></i><b>7.1</b> Regressão por mínimos quadrados</a></li>
+<li class="chapter" data-level="7.2" data-path="estimação.html"><a href="estimação.html#modelo-de-média-amostral"><i class="fa fa-check"></i><b>7.2</b> Modelo de Média amostral</a></li>
+<li class="chapter" data-level="7.3" data-path="estimação.html"><a href="estimação.html#modelo-de-regressão-linear"><i class="fa fa-check"></i><b>7.3</b> Modelo de Regressão Linear</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="causalidade.html"><a href="causalidade.html"><i class="fa fa-check"></i><b>8</b> - Causalidade</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="causalidade.html"><a href="causalidade.html#resultados-potenciais"><i class="fa fa-check"></i><b>8.1</b> Resultados Potenciais</a>
@@ -254,8 +259,207 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="estimação" class="section level1 hasAnchor" number="7">
 <h1><span class="header-section-number">Capítulo 7</span> - Estimação<a href="estimação.html#estimação" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Em geral, etc.</p>
+<p>É possível mostrar que o preditor linear ótimo com um único regressor é possui intercepto
+<span class="math inline">\(\alpha = \mathbb{E}[Y] - \beta*\mathbb{E}[X]\)</span> e inclinação <span class="math inline">\(\beta = Cov(X,Y)/Var(X)\)</span>. Isso significa que, se nós considerarmos o modelo de regressão <span class="math inline">\(y_i = \alpha + \beta*x_i + e_i\)</span>, e usarmos essas fórmulas para calcular os valores de <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> em uma população, obteríamos uma reta ajustada que é o melhor preditor linear.</p>
+<p>Se tivermos uma amostra, e não a população, é razoável pensar que uma boa estimativa para os valores populacionais de <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> são justamente essas fórmulas, calculadas para os dados amostrais. Esse estimador dos parâmetros populacionais nós chamamos de <strong>plug-in estimates</strong>, pois sem maiores teorias, assumimos que o que vale para a população vale para a amostra. Para diferenciar as estimativas amostrais dos valores populacionais, é comum usarmos <span class="math inline">\(\hat{\beta}\)</span> em vez de <span class="math inline">\(\beta\)</span>, ou então letras latinas <span class="math inline">\(b\)</span> em vez das gregas <span class="math inline">\(\beta\)</span>. Vou usar letras latinas, mas outros textos utilizam letras gregas com o “chapéu”.</p>
+<div id="regressão-por-mínimos-quadrados" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Regressão por mínimos quadrados<a href="estimação.html#regressão-por-mínimos-quadrados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Quando temos uma amostra, é comum supormos que os dados são <em>i</em>ndependentes e <em>i</em>denticamente <em>d</em>istribuídos, <em>i.i.d</em>. Esse tipo de amostra às vezes é chamada de amostra aleatória simples. Isso é tipicamente válido em dados de corte transversal (cross-section) como uma pesquisa de opinião (survey) de intenção de voto, amostra pequena (mil, dois mil) de alunos do Brasil a partir de dados doe Censo Escolar e assim por diante. O ponto é que os dados precisam ser dispersos. Se você coletar alunos de uma mesma escola, eles não tenderão a ser independentes. Se amostrar eleitores de um mesmo bairro, tampouco haverá independência. Há formas de lidar com isso, e aprenderemos mais tarde. Por enquanto, tratemos do caso mais simples.</p>
+<p>A suposição de que dados são i.i.d significa que, em uma amostra com duas variáveis, <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, o par <span class="math inline">\(x_i, y_i\)</span> é independente de <span class="math inline">\(x_j, y_j\)</span>, com <span class="math inline">\(i \neq j\)</span> e identicamente distribuídos, isto é, com a mesma distribuição. Essa suposição é importante para calcular a variância dos nossos estimadores, não para a estimativa pontual deles.</p>
+</div>
+<div id="modelo-de-média-amostral" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Modelo de Média amostral<a href="estimação.html#modelo-de-média-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O modelo de regressão mais simples é aquele sem preditores, em que <span class="math inline">\(Y = \mu + e\)</span>. O estimador de mínimos quadrados para <span class="math inline">\(\hat{\mu}\)</span> é a média amostral, <span class="math inline">\(\bar{y}\)</span>. Notem que <span class="math inline">\(\mathbb{E}[Y]\)</span> é a esperança populacional e <span class="math inline">\(\mu\)</span> é o valor da esperança, já que a esperança do erro <span class="math inline">\(e\)</span> é zero. Vamso então calcular a média de nosso estimador <span class="math inline">\(\bar{y}\)</span> e sua variância.</p>
+<p><span class="math display">\[
+\mathbb{E}[\bar{y}] = \mathbb{E}[\sum{y_i}/n] = (1/n) * \sum{\mathbb{E}[y_i]} = (1/n)*\mu*n = \mu
+\]</span></p>
+<p>Portanto, o valor esperando do estimador de mínimos quadrados (a média amostral) é igual à média populacional. Quando isso acontece, isto é, quando a esperança de um estimador é igual ao parâmetro populacional dizemos que o estimador é não-viesado.</p>
+<p>Definição 7.1. Um estimador <span class="math inline">\(\hat{\theta}\)</span> é não-viesado quando <span class="math inline">\(\mathbb{E}[\hat{\theta}] = \theta\)</span>.</p>
+<p>Agora, vamos calcular a variância da média amostral sob a sposição de que a amostra é i.i.d. Considerando <span class="math inline">\(Y_i = \mu + e_i\)</span>, temos:</p>
+<p><span class="math display">\[
+\bar{y} = \sum{y_i}/n = \sum{(\mu + e_i)}/n = \sum{\mu}/n + \sum{e_i}/n = \mu + \sum{e_i}/n
+\]</span></p>
+<p>Rearranjando, temos: <span class="math inline">\(\bar{y} - \mu = \sum{e_i}/n\)</span></p>
+<p>A variância então pode ser calculada como:</p>
+<p><span class="math display">\[
+\mathbb{Var}[\bar{y}] = \mathbb{E}[(\bar{y} - mu)^2]
+\]</span>
+<span class="math display">\[
+= \mathbb{E}[( \sum\limits_{i=1}^n {e_i}/n)*( \sum\limits_{j=1}^n{e_j}/n)] = (1/n^2)* \sum\limits_{i=1}^n{} \sum\limits_{j=1}^n{}\mathbb{E}[e_ie_j]
+\]</span>
+Se nós somarmos o somatório indexado no <span class="math inline">\(j\)</span>, o primeiro erro fica constante (indexado no i) e vamos por todo os erros de <span class="math inline">\(1\)</span> até <span class="math inline">\(n\)</span>. Eventualmente, vamos passar por <span class="math inline">\(i\)</span> e todos os outros diferentes de <span class="math inline">\(i\)</span>. Sabendo que os erros são i.i.d, isso significa que erros diferentes são não correlacionados e possuem esperança zero, ou seja, <span class="math inline">\(\mathbb{E}[e_ie_j] = 0, i \neq j\)</span>, e erros iguais, por serem da mesma distribuição, têm <span class="math inline">\(\mathbb{E}[e_ie_i] = \sigma^2\)</span>. Então o resultado do último somatório é uma soma de zeros, exceto para o caso em que <span class="math inline">\(i = j\)</span>, em que dá <span class="math inline">\(\sigma^2\)</span>. De forma que a equação fica:</p>
+<p><span class="math display">\[
+(1/n^2)* \sum\limits_{i=1}^n{}\sigma^2 = (1/n^2)*n*\sigma^2 = \sigma^2/n
+\]</span>
+Ou seja, a variância de nosso estimador é igual à variância populacional dividida pelo tamanho da amostra. A variância amostral do estimador também é chamada de erro padrão.</p>
+</div>
+<div id="modelo-de-regressão-linear" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Modelo de Regressão Linear<a href="estimação.html#modelo-de-regressão-linear" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Tendo mostrado que o estimador é não-viesado e calculado a variância amostral para o caso mais simples, sem preditor, vamos agora fazer o mesm ocálculo com um preditor.</p>
+<p>Vamos assumir que o modelo de regressão linear é uma boa aproximação para CEF. Portanto, vamos supor que:
+1. O modelo linear <span class="math inline">\(Y = \alpha + \beta*X + e\)</span> é adequado.
+2. <span class="math inline">\(\mathbb{E}[e|X] = 0\)</span>, isto é, o erro é não correlacionado com x.</p>
+<p>Lembremos que a fórmula para o <span class="math inline">\(\hat{\beta}\)</span> é <span class="math inline">\(\mathbb{Cov}[X,Y]/\mathbb{Var}[X]\)</span>. Substituindo nossa equaçã ode regressão na fórmula, temos:</p>
+<p><span class="math display">\[
+\hat{\beta} = n^{-1}*\sum({x_i - \bar{x}})*({y_i - \bar{y}})/\mathbb{Var}[x] = n^{-1}*(\sum({x - \bar{x}})*y_i + \sum({x -\bar{x}})*\bar{y})/\mathbb{Var}[x]
+\]</span></p>
+<p>Vamos agora usar o fato de que, para qualquer variável <span class="math inline">\(z\)</span>, a diferença média de <span class="math inline">\(z\)</span> para a média amostral de <span class="math inline">\(z\)</span> é zero, isto é, <span class="math inline">\(n^{-1}*\sum\limits_{i=1}^n{}z - \bar{z} = 0\)</span></p>
+<p>Por fim, segue-se disso que, para qualquer constante <span class="math inline">\(w\)</span> que não varia com <span class="math inline">\(i\)</span>, podemos escrever:
+<span class="math inline">\(n^{-1}*\sum\limits_{i=1}^n{}(z - \bar{z})*w = 0\)</span></p>
+<p>Portanto, <span class="math inline">\(\sum({x -\bar{x}})*\bar{y}) = 0\)</span>.</p>
+<p>Logo,</p>
+<p><span class="math display">\[
+\hat{\beta} =  n^{-1}*\sum({x - \bar{x}})*y_i/\mathbb{Var}[x]
+\]</span>
+Lembremos que, <span class="math inline">\(y_i = \alpha + \beta*X_i + e_i\)</span>. Se eu adicionar e subtrair <span class="math inline">\(\beta*\bar{x}\)</span> da equação, não altero ela. Utilizando esse truque e rearranjando, temos:</p>
+<p><span class="math display">\[
+y_i = \alpha + \beta*X_i + e_i = \alpha + \beta*\bar{x} + \beta*X_i - \beta*\bar{x} + e_i = \alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i
+\]</span>
+Substituindo na equação anterior, temos:</p>
+<p><span class="math display">\[
+\hat{\beta} =  n^{-1}*\sum({x - \bar{x}})*(\alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i)/\mathbb{Var}[x]
+\]</span>
+<span class="math display">\[
+\hat{\beta} =  n^{-1}*(\alpha + \beta)\bar{x}\sum({x - \bar{x}})*(\beta*(x_i - \bar{x}) + e_i)/\mathbb{Var}[x]
+\]</span>
+<span class="math display">\[
+\hat{\beta} =  n^{-1}*(\alpha + \beta)\bar{x}\sum({x - \bar{x}}) +  n^{-1}\beta\sum(x_i - \bar{x})^2 + n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x]
+\]</span>
+A priemria soma é uma constante, vezes o somatório de <span class="math inline">\(x_i\)</span> menos sua média, o que é zero. A segunda soma é a variância de x multiplicada por <span class="math inline">\(\beta\)</span>. Então, simplifcando, temos:</p>
+<p><span class="math display">\[
+\hat{\beta} =  \beta +  n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x]
+\]</span></p>
+<p>Portanto, nós mostramos que o estimador <span class="math inline">\(\hat{\beta}\)</span> pode ser decomposto no parâmetro populacional <span class="math inline">\(\beta\)</span> mais uma soma ponderada do termo de erro. Uma vez que nossa amostra é i.i.d., sabemos que é uma média ponderada dos erros não-correlacionados. Podemos agora mostrar que o estimador é não-viesado.</p>
+<p><span class="math display">\[
+\mathbb{E}[\hat{\beta}] =  \beta +  n^{-1}\mathbb{E}[\sum({x - \bar{x}})*e_i)]/\mathbb{Var}[x] = \beta +\mathbb{E}[e]*\mathbb{E}[\sum({x - \bar{x}})]\mathbb{Var}[x] = \beta
+\]</span></p>
+<p>Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de x vezes o tamanho da amostra, <span class="math inline">\(n\)</span>.</p>
+<p><span class="math display">\[
+\mathbb{Var}[\hat{\beta}] = \mathbb{Var}[\beta +  n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x]]
+\]</span></p>
+<p>Sabemos que <span class="math inline">\(\mathbb{Var}[x + a] = \mathbb{Var}[x]\)</span>. Então, podemos eliminar o <span class="math inline">\(\beta\)</span> da equação.</p>
+<p><span class="math display">\[
+\mathbb{Var}[\hat{\beta}] = \mathbb{Var}[n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x]]
+\]</span></p>
+<p>Todas as observações do <span class="math inline">\(x\)</span> foram observadas e, portanto, a soma da diferença para a média é uma constante. Sabemos que <span class="math inline">\(\mathbb{Var}[x*a] = a^2\mathbb{Var}[x]\)</span></p>
+<p><span class="math display">\[
+\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2*\mathbb{Var}[e_i/\mathbb{Var}[x]]
+\]</span>
+Supondo homocedasticidade, [e_i] = ^2$</p>
+<p><span class="math display">\[
+\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2*\mathbb{Var}[e_i/\mathbb{Var}[x]]
+\]</span></p>
+<p>Vamos começar com um exemplo, importando dados do site Base de Dados, que possui muitas bases de dados públicas, já tratadas. Para tanto, precisaremos criar um projeto no Google cloud, conforme os passos aqui: <a href="https://basedosdados.github.io/mais/access_data_packages/" class="uri">https://basedosdados.github.io/mais/access_data_packages/</a></p>
+<p>Depois, só escolher quais dos dados iremos olhar
+<a href="https://basedosdados.org/" class="uri">https://basedosdados.org/</a></p>
+<p>Escolhi mexer com dados do censo escolar</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="estimação.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># instalando a biblioteca</span></span>
+<span id="cb94-2"><a href="estimação.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;basedosdados&#39;)</span></span>
+<span id="cb94-3"><a href="estimação.html#cb94-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-4"><a href="estimação.html#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="co"># carregando a biblioteca na sessão</span></span>
+<span id="cb94-5"><a href="estimação.html#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(basedosdados)</span>
+<span id="cb94-6"><a href="estimação.html#cb94-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-7"><a href="estimação.html#cb94-7" aria-hidden="true" tabindex="-1"></a><span class="co"># para importar os dadosdiretamente no R, precisamos criar um id para acessar a base de dados</span></span>
+<span id="cb94-8"><a href="estimação.html#cb94-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set_billing_id</span>(<span class="st">&quot;aula-reg-manoel&quot;</span>)</span>
+<span id="cb94-9"><a href="estimação.html#cb94-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-10"><a href="estimação.html#cb94-10" aria-hidden="true" tabindex="-1"></a><span class="co"># checando que deu certo</span></span>
+<span id="cb94-11"><a href="estimação.html#cb94-11" aria-hidden="true" tabindex="-1"></a><span class="fu">get_billing_id</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;aula-reg-manoel&quot;</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="estimação.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importando dados</span></span>
+<span id="cb96-2"><a href="estimação.html#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="estimação.html#cb96-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">&quot;imagens&quot;</span>, <span class="st">&quot;autenticacao base dados.jpg&quot;</span>))</span></code></pre></div>
+<p><img src="imagens/autenticacao%20base%20dados.jpg" /><!-- --></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="estimação.html#cb97-1" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span> </span>
+<span id="cb97-2"><a href="estimação.html#cb97-2" aria-hidden="true" tabindex="-1"></a>escola <span class="ot">&lt;-</span> <span class="fu">read_sql</span>(query)</span>
+<span id="cb97-3"><a href="estimação.html#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-4"><a href="estimação.html#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="estimação.html#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="co"># query &lt;- &quot;SELECT count(*) as contagem, id_municipio FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and ano = 2019 group by id_municipio&quot; </span></span>
+<span id="cb97-6"><a href="estimação.html#cb97-6" aria-hidden="true" tabindex="-1"></a><span class="co"># escola &lt;- read_sql(query)</span></span>
+<span id="cb97-7"><a href="estimação.html#cb97-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-8"><a href="estimação.html#cb97-8" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.dicionario`&quot;</span></span>
+<span id="cb97-9"><a href="estimação.html#cb97-9" aria-hidden="true" tabindex="-1"></a>dicionario <span class="ot">&lt;-</span> <span class="fu">read_sql</span>(query)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="estimação.html#cb98-1" aria-hidden="true" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.matricula` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span></span>
+<span id="cb98-2"><a href="estimação.html#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-3"><a href="estimação.html#cb98-3" aria-hidden="true" tabindex="-1"></a>aluno <span class="ot">&lt;-</span> <span class="fu">read_sql</span>(query)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="estimação.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dicionário de gênero e raça</span></span>
+<span id="cb99-2"><a href="estimação.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dicionario %&gt;%</span></span>
+<span id="cb99-3"><a href="estimação.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   dplyr::filter(id_tabela == &quot;matricula&quot;, nome_coluna %in% c(&quot;sexo&quot;, &quot;raca_cor&quot;))</span></span>
+<span id="cb99-4"><a href="estimação.html#cb99-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-5"><a href="estimação.html#cb99-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-6"><a href="estimação.html#cb99-6" aria-hidden="true" tabindex="-1"></a>aluno_gen <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
+<span id="cb99-7"><a href="estimação.html#cb99-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb99-8"><a href="estimação.html#cb99-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, sexo) <span class="sc">%&gt;%</span></span>
+<span id="cb99-9"><a href="estimação.html#cb99-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_gen =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb99-10"><a href="estimação.html#cb99-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Male&quot;</span>, sexo),</span>
+<span id="cb99-11"><a href="estimação.html#cb99-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Female&quot;</span>, sexo)) <span class="sc">%&gt;%</span></span>
+<span id="cb99-12"><a href="estimação.html#cb99-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_gen),</span>
+<span id="cb99-13"><a href="estimação.html#cb99-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">percent =</span> num_aluno_gen<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb99-14"><a href="estimação.html#cb99-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb99-15"><a href="estimação.html#cb99-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">percent_female =</span> percent) <span class="sc">%&gt;%</span></span>
+<span id="cb99-16"><a href="estimação.html#cb99-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id_escola, percent_female)</span>
+<span id="cb99-17"><a href="estimação.html#cb99-17" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb99-18"><a href="estimação.html#cb99-18" aria-hidden="true" tabindex="-1"></a>aluno_raca <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
+<span id="cb99-19"><a href="estimação.html#cb99-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb99-20"><a href="estimação.html#cb99-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, raca_cor) <span class="sc">%&gt;%</span></span>
+<span id="cb99-21"><a href="estimação.html#cb99-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_raca =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb99-22"><a href="estimação.html#cb99-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Branca&quot;</span>, raca_cor),</span>
+<span id="cb99-23"><a href="estimação.html#cb99-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Preta&quot;</span>, raca_cor),</span>
+<span id="cb99-24"><a href="estimação.html#cb99-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;3&quot;</span>, <span class="st">&quot;Parda&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
+<span id="cb99-25"><a href="estimação.html#cb99-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_raca),</span>
+<span id="cb99-26"><a href="estimação.html#cb99-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">percent =</span> num_aluno_raca<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb99-27"><a href="estimação.html#cb99-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(raca_cor <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Branca&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;Preta&quot;</span>, <span class="st">&quot;Parda&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb99-28"><a href="estimação.html#cb99-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;não_declarado&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
+<span id="cb99-29"><a href="estimação.html#cb99-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_escola, raca_cor, percent) <span class="sc">%&gt;%</span></span>
+<span id="cb99-30"><a href="estimação.html#cb99-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> raca_cor , <span class="at">values_from =</span> percent )</span>
+<span id="cb99-31"><a href="estimação.html#cb99-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-32"><a href="estimação.html#cb99-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-33"><a href="estimação.html#cb99-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-34"><a href="estimação.html#cb99-34" aria-hidden="true" tabindex="-1"></a>aluno_escola <span class="ot">&lt;-</span> aluno_gen <span class="sc">%&gt;%</span></span>
+<span id="cb99-35"><a href="estimação.html#cb99-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(aluno_raca,  <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb99-36"><a href="estimação.html#cb99-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(escola, <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>)</span>
+<span id="cb99-37"><a href="estimação.html#cb99-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-38"><a href="estimação.html#cb99-38" aria-hidden="true" tabindex="-1"></a>aluno_escola_reg <span class="ot">&lt;-</span> aluno_escola <span class="sc">%&gt;%</span></span>
+<span id="cb99-39"><a href="estimação.html#cb99-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb99-40"><a href="estimação.html#cb99-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">negra =</span> Preta <span class="sc">+</span> Parda) <span class="sc">%&gt;%</span></span>
+<span id="cb99-41"><a href="estimação.html#cb99-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(negra, percent_female, tipo_localizacao, agua_potavel, esgoto_rede_publica, </span>
+<span id="cb99-42"><a href="estimação.html#cb99-42" aria-hidden="true" tabindex="-1"></a>         lixo_servico_coleta, area_verde, biblioteca, quantidade_profissional_psicologo) <span class="sc">%&gt;%</span></span>
+<span id="cb99-43"><a href="estimação.html#cb99-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb99-44"><a href="estimação.html#cb99-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(bit64<span class="sc">::</span>is.integer64, as.factor)</span>
+<span id="cb99-45"><a href="estimação.html#cb99-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-46"><a href="estimação.html#cb99-46" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(negra <span class="sc">~</span>  percent_female <span class="sc">+</span> tipo_localizacao <span class="sc">+</span> agua_potavel  <span class="sc">+</span> esgoto_rede_publica <span class="sc">+</span> lixo_servico_coleta <span class="sc">+</span> area_verde <span class="sc">+</span> biblioteca <span class="sc">+</span> quantidade_profissional_psicologo, <span class="at">data=</span> aluno_escola_reg)</span>
+<span id="cb99-47"><a href="estimação.html#cb99-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-48"><a href="estimação.html#cb99-48" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = negra ~ percent_female + tipo_localizacao + agua_potavel + 
+##     esgoto_rede_publica + lixo_servico_coleta + area_verde + 
+##     biblioteca + quantidade_profissional_psicologo, data = aluno_escola_reg)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.46731 -0.16217 -0.01934  0.17534  0.55176 
+## 
+## Coefficients:
+##                                     Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)                         0.070584   0.204310   0.345  0.72991   
+## percent_female                      0.400443   0.256195   1.563  0.11880   
+## tipo_localizacao2                  -0.251352   0.224599  -1.119  0.26373   
+## agua_potavel1                       0.067306   0.052684   1.278  0.20212   
+## esgoto_rede_publica1               -0.069037   0.022951  -3.008  0.00279 **
+## lixo_servico_coleta1                0.144155   0.158554   0.909  0.36378   
+## area_verde1                         0.047138   0.025681   1.836  0.06714 . 
+## biblioteca1                         0.009462   0.022531   0.420  0.67473   
+## quantidade_profissional_psicologo1 -0.069969   0.033593  -2.083  0.03787 * 
+## quantidade_profissional_psicologo2 -0.120828   0.092870  -1.301  0.19396   
+## quantidade_profissional_psicologo3 -0.306991   0.130754  -2.348  0.01935 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2222 on 418 degrees of freedom
+## Multiple R-squared:  0.07237,    Adjusted R-squared:  0.05017 
+## F-statistic: 3.261 on 10 and 418 DF,  p-value: 0.0004498</code></pre>
 
+</div>
 </div>
             </section>
 

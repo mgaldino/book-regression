@@ -69,6 +69,9 @@ variância-condicional
 efeito-marginal
 cef-linear-com-peditores-não-lineares
 estimação
+regressão-por-mínimos-quadrados
+modelo-de-média-amostral
+modelo-de-regressão-linear
 causalidade
 resultados-potenciais
 decomposição-do-efeito-causal
