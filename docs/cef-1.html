@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-10-02" />
+<meta name="date" content="2023-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -208,17 +208,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.4.1" data-path="cef-1.html"><a href="cef-1.html#mínimos-quadrados-ordinários"><i class="fa fa-check"></i><b>6.4.1</b> Mínimos Quadrados Ordinários</a></li>
 <li class="chapter" data-level="6.4.2" data-path="cef-1.html"><a href="cef-1.html#suponha-que-a-cef-é-linear-justificativa-i"><i class="fa fa-check"></i><b>6.4.2</b> Suponha que a CEF é Linear (Justificativa I)</a></li>
-<li class="chapter" data-level="6.4.3" data-path="cef-1.html"><a href="cef-1.html#é-o-melhor-preditor-linear-justificativa-ii"><i class="fa fa-check"></i><b>6.4.3</b> É o melhor preditor linear (justificativa II)</a></li>
-<li class="chapter" data-level="6.4.4" data-path="cef-1.html"><a href="cef-1.html#a-reta-de-regressão-é-a-aproxdimação-com-o-menor-erro-quadrático-médio-justificativa-iii"><i class="fa fa-check"></i><b>6.4.4</b> A reta de regressão é a aproxdimação com o menor erro quadrático médio (justificativa III)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="cef-1.html"><a href="cef-1.html#é-o-melhor-preditor-linear-do-y-justificativa-ii"><i class="fa fa-check"></i><b>6.4.3</b> É o melhor preditor linear do <span class="math inline">\(Y\)</span> (justificativa II)</a></li>
+<li class="chapter" data-level="6.4.4" data-path="cef-1.html"><a href="cef-1.html#a-reta-de-regressão-é-a-aproximação-com-o-menor-erro-quadrático-médio-justificativa-iii"><i class="fa fa-check"></i><b>6.4.4</b> A reta de regressão é a aproximação com o menor erro quadrático médio (justificativa III)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.5</b> Modelo só com intercepto</a></li>
-<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.6</b> Variância da Regressão</a>
+<li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#linearidade-e-causalidade"><i class="fa fa-check"></i><b>6.5</b> Linearidade e Causalidade</a></li>
+<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.6</b> Modelo só com intercepto</a></li>
+<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.7</b> Variância da Regressão</a>
 <ul>
-<li class="chapter" data-level="6.6.1" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.6.1</b> Chuva na Jamaica</a></li>
+<li class="chapter" data-level="6.7.1" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.7.1</b> Chuva na Jamaica</a></li>
 </ul></li>
-<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#variância-condicional"><i class="fa fa-check"></i><b>6.7</b> Variância condicional</a></li>
-<li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#efeito-marginal"><i class="fa fa-check"></i><b>6.8</b> Efeito Marginal</a></li>
-<li class="chapter" data-level="6.9" data-path="cef-1.html"><a href="cef-1.html#cef-linear-com-peditores-não-lineares"><i class="fa fa-check"></i><b>6.9</b> CEF linear com peditores não-lineares</a></li>
+<li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#variância-condicional"><i class="fa fa-check"></i><b>6.8</b> Variância condicional</a></li>
+<li class="chapter" data-level="6.9" data-path="cef-1.html"><a href="cef-1.html#efeito-marginal"><i class="fa fa-check"></i><b>6.9</b> Efeito Marginal</a></li>
+<li class="chapter" data-level="6.10" data-path="cef-1.html"><a href="cef-1.html#cef-linear-com-peditores-não-lineares"><i class="fa fa-check"></i><b>6.10</b> CEF linear com peditores não-lineares</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>7</b> - Estimação</a>
 <ul>
@@ -305,21 +306,21 @@ o erro <span class="math inline">\(e\)</span> tem esperança condiconal a <span 
 <h2><span class="header-section-number">6.2</span> Simulando para entender a CEF<a href="cef-1.html#simulando-para-entender-a-cef" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vamos fazer simulações no R para entender o erro da CEF. Suponha que
 <span class="math inline">\(Y = X^2 + U\)</span>, em que <span class="math inline">\(U \sim norm(0,1)\)</span> e <span class="math inline">\(X \sim norm(0,1)\)</span>.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="cef-1.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
-<span id="cb85-2"><a href="cef-1.html#cb85-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb85-3"><a href="cef-1.html#cb85-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb85-4"><a href="cef-1.html#cb85-4" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb85-5"><a href="cef-1.html#cb85-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> u</span>
-<span id="cb85-6"><a href="cef-1.html#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-7"><a href="cef-1.html#cb85-7" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb85-8"><a href="cef-1.html#cb85-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-9"><a href="cef-1.html#cb85-9" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">median</span>(y)</span>
-<span id="cb85-10"><a href="cef-1.html#cb85-10" aria-hidden="true" tabindex="-1"></a>erro1 <span class="ot">&lt;-</span> y <span class="sc">-</span> m1</span>
-<span id="cb85-11"><a href="cef-1.html#cb85-11" aria-hidden="true" tabindex="-1"></a>erro2 <span class="ot">&lt;-</span> y <span class="sc">-</span> m2</span>
-<span id="cb85-12"><a href="cef-1.html#cb85-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-13"><a href="cef-1.html#cb85-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro1<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="cef-1.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb84-2"><a href="cef-1.html#cb84-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb84-3"><a href="cef-1.html#cb84-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb84-4"><a href="cef-1.html#cb84-4" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb84-5"><a href="cef-1.html#cb84-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> u</span>
+<span id="cb84-6"><a href="cef-1.html#cb84-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-7"><a href="cef-1.html#cb84-7" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb84-8"><a href="cef-1.html#cb84-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-9"><a href="cef-1.html#cb84-9" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">median</span>(y)</span>
+<span id="cb84-10"><a href="cef-1.html#cb84-10" aria-hidden="true" tabindex="-1"></a>erro1 <span class="ot">&lt;-</span> y <span class="sc">-</span> m1</span>
+<span id="cb84-11"><a href="cef-1.html#cb84-11" aria-hidden="true" tabindex="-1"></a>erro2 <span class="ot">&lt;-</span> y <span class="sc">-</span> m2</span>
+<span id="cb84-12"><a href="cef-1.html#cb84-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-13"><a href="cef-1.html#cb84-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro1<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 2987.139</code></pre>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="cef-1.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro2<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="cef-1.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro2<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 3062.869</code></pre>
 <p>Nós imprimimos os dois erros quadráticos médios calculados, um usando a média de <span class="math inline">\(Y\)</span> como minha estimativa, e outro usando a mediana. A média teve um desempenho melhor. De maneira geral, é possível mostrar que a média é é a melhor estimativa não condicional possível.</p>
 </div>
@@ -383,15 +384,15 @@ A média das médias condicionais é dado pela média quando escolho o dado A (v
 <p>Nós vimos que o log do salário (por hora) médio não condicional
 <span class="math inline">\(\mathbb{E}[log(salário)]\)</span> é 2.15. A tabela abaixo quebra esse valor por
 gênero, juntamente com a frequência relativa de categoria:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="cef-1.html#cb89-1" aria-hidden="true" tabindex="-1"></a>table2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb89-2"><a href="cef-1.html#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_n =</span> <span class="fu">sum</span>(V1028),</span>
-<span id="cb89-3"><a href="cef-1.html#cb89-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">log_renda =</span> <span class="fu">log</span>(renda)) <span class="sc">%&gt;%</span></span>
-<span id="cb89-4"><a href="cef-1.html#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span></span>
-<span id="cb89-5"><a href="cef-1.html#cb89-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">salario =</span> <span class="fu">round</span>(<span class="fu">weighted.mean</span>(salario, <span class="at">w=</span>V1028),<span class="dv">2</span>), <span class="at">freq=</span><span class="fu">sum</span>(V1028)<span class="sc">/</span>total_n)</span>
-<span id="cb89-6"><a href="cef-1.html#cb89-6" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb89-7"><a href="cef-1.html#cb89-7" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span></span>
-<span id="cb89-8"><a href="cef-1.html#cb89-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb89-9"><a href="cef-1.html#cb89-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="cef-1.html#cb88-1" aria-hidden="true" tabindex="-1"></a>table2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="cef-1.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_n =</span> <span class="fu">sum</span>(V1028),</span>
+<span id="cb88-3"><a href="cef-1.html#cb88-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">log_renda =</span> <span class="fu">log</span>(renda)) <span class="sc">%&gt;%</span></span>
+<span id="cb88-4"><a href="cef-1.html#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span></span>
+<span id="cb88-5"><a href="cef-1.html#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">salario =</span> <span class="fu">round</span>(<span class="fu">weighted.mean</span>(salario, <span class="at">w=</span>V1028),<span class="dv">2</span>), <span class="at">freq=</span><span class="fu">sum</span>(V1028)<span class="sc">/</span>total_n)</span>
+<span id="cb88-6"><a href="cef-1.html#cb88-6" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb88-7"><a href="cef-1.html#cb88-7" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span></span>
+<span id="cb88-8"><a href="cef-1.html#cb88-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb88-9"><a href="cef-1.html#cb88-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -535,7 +536,7 @@ o caso particular de X assumindo dois valores).</p>
 <p><span class="math display">\[
 \mathbb{E}[e]*\mathbb{E}[X] = \mathbb{E}[e*\mathbb{E}[X]] = \mathbb{E}[e*\mathbb{E}[e|X]] = \mathbb{E}[X*Y|X=x_{1}]*p(X_1) + \mathbb{E}[X*Y|X =x_2]*p(x_2)
 \]</span>
-# A esperança condicional é o melhor preditor</p>
+## A esperança condicional é o melhor preditor</p>
 <p>Nós já antecipamos que a esperança conidcional é o melhor preditor de <span class="math inline">\(Y\)</span> no sentido de minimizar o EQM. vamos agora mostrar isso. Anteriormente definidmos a esperança condicional <span class="math inline">\(\mathbb{E}[Y|X]\)</span> como <span class="math inline">\(m(x)\)</span>. Vamos por um momento esquecer essa definição e assumir que <span class="math inline">\(m(x)\)</span> é valor que minimizar o EQM. Iremos provar que nesse caso, <span class="math inline">\(m(x) = \mathbb{E}[Y|X]\)</span>
 <span class="math display">\[
 EQM = \mathbb{E}[(Y - m(X))^2]
@@ -570,22 +571,18 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 <div id="equação-da-reta" class="section level4 hasAnchor" number="6.4.1.1">
 <h4><span class="header-section-number">6.4.1.1</span> Equação da Reta<a href="cef-1.html#equação-da-reta" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Na nossa equação da reta, <span class="math inline">\(\alpha\)</span> é o intercepto, isto é, o ponto onde a reta cruza o eixo <span class="math inline">\(y\)</span> e <span class="math inline">\(\beta\)</span> é a inclinção ou coeficiente angular da reta. Se nós simularmos dados e plotarmos um scatter plot, veremos que podemos ajustar muitas retas aos dados.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="cef-1.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb90-2"><a href="cef-1.html#cb90-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb90-3"><a href="cef-1.html#cb90-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb90-4"><a href="cef-1.html#cb90-4" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb90-5"><a href="cef-1.html#cb90-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">1.3</span><span class="sc">*</span>x <span class="sc">+</span> u</span>
-<span id="cb90-6"><a href="cef-1.html#cb90-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-7"><a href="cef-1.html#cb90-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
-<span id="cb90-8"><a href="cef-1.html#cb90-8" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb90-9"><a href="cef-1.html#cb90-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">se=</span>F, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb90-10"><a href="cef-1.html#cb90-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> .<span class="dv">5</span>, <span class="at">intercept =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb90-11"><a href="cef-1.html#cb90-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="dv">3</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb90-12"><a href="cef-1.html#cb90-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-## ℹ Please use `linewidth` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="cef-1.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb89-2"><a href="cef-1.html#cb89-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb89-3"><a href="cef-1.html#cb89-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb89-4"><a href="cef-1.html#cb89-4" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb89-5"><a href="cef-1.html#cb89-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">1.3</span><span class="sc">*</span>x <span class="sc">+</span> u</span>
+<span id="cb89-6"><a href="cef-1.html#cb89-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-7"><a href="cef-1.html#cb89-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
+<span id="cb89-8"><a href="cef-1.html#cb89-8" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb89-9"><a href="cef-1.html#cb89-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">se=</span>F, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb89-10"><a href="cef-1.html#cb89-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> .<span class="dv">5</span>, <span class="at">intercept =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb89-11"><a href="cef-1.html#cb89-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="dv">3</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb89-12"><a href="cef-1.html#cb89-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/plot-ajuste-reta-1.png" width="672" /></p>
 <p>No gráfico <a href="#fig:plot-ajuste-reta"><strong>??</strong></a>, vemos que a reta em azul é melhor do que a verde e vermelha.</p>
 <p>Para achar os valores da reta azul (que aqui sabemos ser <span class="math inline">\(\alpha =2\)</span> e <span class="math inline">\(\beta = 1.3\)</span>), podemos novamente minimizar o EQM. A derivação requer calcular a derivada ou utilização de álgebra linerar, requisitos matemáticos para além do curso. Para um preditor, a fórmula do <span class="math inline">\(\beta\)</span> é dada por <span class="math inline">\(COV(Y,X)/Var(X)\)</span> e a constante, <span class="math inline">\(\alpha\)</span> é dada por <span class="math inline">\(\mathbb{E}[(Y)] - \beta*\mathbb{E}[X]\)</span>. Expressando a mesma fórmula com somatório (em vez de esperança), temos:</p>
@@ -596,12 +593,12 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 \beta = \sum\limits_{i=1}^n{}(y_i - \bar{y})(x_i - \bar{x})/\sum\limits_{i=1}^n{}(x_i - \bar{x})^2
 \]</span></p>
 <p>Se nós aplicarmos essa fórmula para os dados do gráfico acima, iremos recuperar um valor aproximado da verdadeira reta de regressão (aproximado porque no fundo estamos simulando uma amostra. Mas se tivéssemos infinitos valores, teríamos exatamente os parâmetros populacionais).</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="cef-1.html#cb92-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb92-2"><a href="cef-1.html#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cov_yx =</span> <span class="fu">cov</span>(y,x),</span>
-<span id="cb92-3"><a href="cef-1.html#cb92-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_x =</span> <span class="fu">var</span>(x),</span>
-<span id="cb92-4"><a href="cef-1.html#cb92-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">beta =</span> cov_yx<span class="sc">/</span>var_x,</span>
-<span id="cb92-5"><a href="cef-1.html#cb92-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta<span class="sc">*</span><span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span></span>
-<span id="cb92-6"><a href="cef-1.html#cb92-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="cef-1.html#cb90-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb90-2"><a href="cef-1.html#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cov_yx =</span> <span class="fu">cov</span>(y,x),</span>
+<span id="cb90-3"><a href="cef-1.html#cb90-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">var_x =</span> <span class="fu">var</span>(x),</span>
+<span id="cb90-4"><a href="cef-1.html#cb90-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">beta =</span> cov_yx<span class="sc">/</span>var_x,</span>
+<span id="cb90-5"><a href="cef-1.html#cb90-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta<span class="sc">*</span><span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span></span>
+<span id="cb90-6"><a href="cef-1.html#cb90-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -637,7 +634,7 @@ alpha
 </tbody>
 </table>
 <p>Vejam que é a mesma estimativa se eu usar a função “lm” do R, que estima uma modelo de regressão linear.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="cef-1.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span>x, df)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="cef-1.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span>x, df)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x, data = df)
@@ -650,63 +647,66 @@ alpha
 </div>
 <div id="suponha-que-a-cef-é-linear-justificativa-i" class="section level3 hasAnchor" number="6.4.2">
 <h3><span class="header-section-number">6.4.2</span> Suponha que a CEF é Linear (Justificativa I)<a href="cef-1.html#suponha-que-a-cef-é-linear-justificativa-i" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Se a CEF for de fato linear, então devemos usar a reta de regressão para estimar a CEF. É possível demonstrar isso aqui. Ao leitor interesado, recomendo, por exemplo, o livro Mostly Harmless Econometrics (p. 37), que é de onde estou me baseando para esta parte do livro.</p>
-<p>Quando a CEF será linear? Um dos casos é quando a distribuição conjunta de probabilidade de <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> for normal. Foi o que Galton observou em seu estudo sobre a altura de pais e filhos. O outro caso conhecido é o chamado “modelo saturado”. Em um modelo de regressão linear saturado, existe um parâmetro para cada possível valor que os preditores podem assumir. Voltaremos a discutir modelos saturados no futuro e, portanto, postergarei a discussão desse caso. Assim, fora esses dois cenários, não temos muito motivo para supor que a CEF é linear. O que nos leva à segunda justificativa.</p>
+<p>Se a CEF for de fato linear, então devemos usar a reta de regressão para estimar a CEF. É possível demonstrar esse resultado, mas não vou fazê-lo. Ao leitor interessado, recomendo, por exemplo, o livro Mostly Harmless Econometrics (p. 37), a quem estou seguindo de perto.</p>
+<p>Quando a CEF será linear? Um dos casos é quando a distribuição conjunta de probabilidade de <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> for normal (normal bivariada, no caso de duas variáveis, ou multivariada, no caso de muitas variáveis). Foi o que Galton observou em seu estudo sobre a altura de pais e filhos, por exemplo, já que a altura é aproximadamente normal. O outro caso conhecido é o chamado “modelo saturado”. Em um modelo de regressão linear saturado, existe um parâmetro para cada possível valor que os preditores podem assumir. Voltaremos a discutir modelos saturados no futuro e, portanto, postergarei a discussão desse caso. Assim, fora esses dois cenários, não temos muito motivo para supor que a CEF é linear, posto que é improvável a priori que a CEF seja linear em geral. O que nos leva à segunda justificativa.</p>
 </div>
-<div id="é-o-melhor-preditor-linear-justificativa-ii" class="section level3 hasAnchor" number="6.4.3">
-<h3><span class="header-section-number">6.4.3</span> É o melhor preditor linear (justificativa II)<a href="cef-1.html#é-o-melhor-preditor-linear-justificativa-ii" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Outra justificativa para a CEF linear é que o modelo linear de regressão gera a melhor previsão possível para minha variável dependente, dentre todos os modelos lineares possíveis.</p>
+<div id="é-o-melhor-preditor-linear-do-y-justificativa-ii" class="section level3 hasAnchor" number="6.4.3">
+<h3><span class="header-section-number">6.4.3</span> É o melhor preditor linear do <span class="math inline">\(Y\)</span> (justificativa II)<a href="cef-1.html#é-o-melhor-preditor-linear-do-y-justificativa-ii" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Outra justificativa para a CEF linear é que o modelo linear de regressão gera a melhor previsão possível (no sentido de menor Erro Quadrático Médio) para minha variável dependente, dentre todos os modelos lineares possíveis. Ou seja, se eu minimizar o erro entre o <span class="math inline">\(Y\)</span> observado e minha previsão dada pelo modelo linear <span class="math inline">\(\alpha + \beta*x\)</span>, em que <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> são definidos pelas fórmulas derivadas de MQO, terei o menor erro possível. Formalmente estou minimizando <span class="math inline">\(\mathbb{E}[Y - m(x)]\)</span>.</p>
 </div>
-<div id="a-reta-de-regressão-é-a-aproxdimação-com-o-menor-erro-quadrático-médio-justificativa-iii" class="section level3 hasAnchor" number="6.4.4">
-<h3><span class="header-section-number">6.4.4</span> A reta de regressão é a aproxdimação com o menor erro quadrático médio (justificativa III)<a href="cef-1.html#a-reta-de-regressão-é-a-aproxdimação-com-o-menor-erro-quadrático-médio-justificativa-iii" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Justificativa II e III são parecidas, mas distintas. No primeiro caso estou pensando em termos de previsão. No terceiro, em termos de aproximação. Ou seja, se a CEF for não-linear, e quiser aproximá-la por meio de uma reta, a melhor aproximação possível é por meio da fórmula de regressão.</p>
+<div id="a-reta-de-regressão-é-a-aproximação-com-o-menor-erro-quadrático-médio-justificativa-iii" class="section level3 hasAnchor" number="6.4.4">
+<h3><span class="header-section-number">6.4.4</span> A reta de regressão é a aproximação com o menor erro quadrático médio (justificativa III)<a href="cef-1.html#a-reta-de-regressão-é-a-aproximação-com-o-menor-erro-quadrático-médio-justificativa-iii" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Justificativa II e III são parecidas, mas distintas. No primeiro caso estou pensando em termos de previsão. No terceiro, em termos de aproximação. Ou seja, se a CEF for não-linear, e quiser aproximá-la por meio de uma reta, a melhor aproximação possível é por meio da fórmula de regressão. Formalmente, estou minimizando <span class="math inline">\(\mathbb{E}[\mathbb{E}[Y|X] - m(x)]\)</span>. Matematicamente fica claro que estou falando de coisas distintas (na justificativa II, minimizo a diferença entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(m(x)\)</span>, e na justificativa III minimizo a diferença entre <span class="math inline">\(\mathbb{E}[Y|X]\)</span> e <span class="math inline">\(m(x)\)</span>). Em palavras, aqui estou aproximando a CEf (a esperança condicional), antes eu estava prevendo minha variável dependente.</p>
 </div>
 </div>
-<div id="modelo-só-com-intercepto" class="section level2 hasAnchor" number="6.5">
-<h2><span class="header-section-number">6.5</span> Modelo só com intercepto<a href="cef-1.html#modelo-só-com-intercepto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<pre><code>  O exemplo mais simples de modelo de regressão é o modelo apenas com intercepto, isto é, sem nenhum preditor $X$. Nesse caso, $m(x) = E[Y] = \mu$, a média não condicional de $Y$. Escrevendo a equação de regressão, temos:
-  </code></pre>
+<div id="linearidade-e-causalidade" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Linearidade e Causalidade<a href="cef-1.html#linearidade-e-causalidade" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Toda a discussão de lineraridade é importante pelo motivo óbvio de que estaremos estimando modelos lineares, então é bom ter justificativas para usar modelos lineares para além do fato de que usamos porque aprendemos a usar ou porque é o que sabemos fazer. Mas além disso, estamos muitaz vezes interessados em modelo causais e a pergunta natural é: Sob que condições a CEF nos diz o efeito causal de <span class="math inline">\(x\)</span> sobre <span class="math inline">\(y\)</span>? Voltaremos a esse ponto em um capítulo futuro, uma vez que tenhamos aprendido a estimar modelos de regressão linear para fins de previsão.</p>
+</div>
+<div id="modelo-só-com-intercepto" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Modelo só com intercepto<a href="cef-1.html#modelo-só-com-intercepto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O exemplo mais simples de modelo de regressão linear é o modelo apenas com intercepto, isto é, sem nenhum preditor <span class="math inline">\(X\)</span>. Nesse caso, <span class="math inline">\(m(x) = E[Y] = \mu\)</span>, a média não condicional de <span class="math inline">\(Y\)</span>. Escrevendo a equação de regressão, temos:</p>
 <p><span class="math display">\[
 Y = \mu + e
 \]</span>
 Com <span class="math inline">\(\mathbb{E}[e] = 0\)</span>.</p>
 </div>
-<div id="variância-da-regressão" class="section level2 hasAnchor" number="6.6">
-<h2><span class="header-section-number">6.6</span> Variância da Regressão<a href="cef-1.html#variância-da-regressão" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="variância-da-regressão" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Variância da Regressão<a href="cef-1.html#variância-da-regressão" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A variância não condicional do erro da CEF é dada por:</p>
 <p><span class="math display">\[
 \sigma^2 = var[e] =  \mathbb{E}[(e - \mathbb{E}[e])^2] = \mathbb{E}[e^2]
 \]</span></p>
 <p>A variância da regressão mede a porção da variância que não é “explicada” ou predita pela esperança condicional, já que é definida pela variância do erro <span class="math inline">\(e\)</span>. Além disso, ela depende dos preditores. Se temos preditores diferentes, a varância da regressão será diferente.</p>
-<div id="chuva-na-jamaica" class="section level3 hasAnchor" number="6.6.1">
-<h3><span class="header-section-number">6.6.1</span> Chuva na Jamaica<a href="cef-1.html#chuva-na-jamaica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). É uma relação não-monotônica, isto é, a variância com maispreditores é sempre menor ou igual que a variância com menos preditores (se a com mais preditores incluir os mesmos preditores da com menos regressores). Por isso que uma professor meu dizia: se você mediu chuva na Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.</p>
+<div id="chuva-na-jamaica" class="section level3 hasAnchor" number="6.7.1">
+<h3><span class="header-section-number">6.7.1</span> Chuva na Jamaica<a href="cef-1.html#chuva-na-jamaica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). É uma relação não-monotônica, isto é, a variância com mai spreditores é sempre menor ou igual que a variância com menos preditores (se a com mais preditores incluir os mesmos preditores da com menos regressores). Por isso que uma professor meu dizia: se você mediu chuva na Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.</p>
 </div>
 </div>
-<div id="variância-condicional" class="section level2 hasAnchor" number="6.7">
-<h2><span class="header-section-number">6.7</span> Variância condicional<a href="cef-1.html#variância-condicional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Sabemos que a esperança condicional é o melhor preditor que existe. Porém, ainda assim pode ser uma previsão ruim, como vimos no caso dos salários condicional ao gênero. Nesses casos, é útil olahr também para a variância condicional.</p>
+<div id="variância-condicional" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> Variância condicional<a href="cef-1.html#variância-condicional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sabemos que a esperança condicional é o melhor preditor que existe. Porém, ainda assim pode ser uma previsão ruim, como vimos no caso dos salários condicional ao gênero. Nesses casos, é útil olhar também para a variância condicional.</p>
 <p><span class="math display">\[
 \sigma^2(x) = var[Y|X=x] =  \mathbb{E}[(Y - \mathbb{E}[Y|X=x])^2] = \mathbb{E}[e^2|X=x]
 \]</span>
 A variância condicional do erro (ou de <span class="math inline">\(Y\)</span>) em geral depende de <span class="math inline">\(X\)</span>. Quando não depende, e portanto é uma constante, dizemos que o erro é homocedástico. Quando depende, que é o caso geral, dizemos que o erro é heterocedástico.</p>
 </div>
-<div id="efeito-marginal" class="section level2 hasAnchor" number="6.8">
-<h2><span class="header-section-number">6.8</span> Efeito Marginal<a href="cef-1.html#efeito-marginal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="efeito-marginal" class="section level2 hasAnchor" number="6.9">
+<h2><span class="header-section-number">6.9</span> Efeito Marginal<a href="cef-1.html#efeito-marginal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A regressão pode ser intepretada como efeito marginal. Se estivéssemos usando cálculo diferencial, o efeito marginal poderia ser definito como a derivada parcial de um preditor <span class="math inline">\(x\)</span> com relação à variável dependente <span class="math inline">\(y\)</span>. Sem cálculo, podemos pensar como o coeficiente angular da variável, ou seja, quanto um aumento em x prediz um aumento em y. Quando temos vários regressoes, eles são mantidos constantes. É o que em economia se chama de <strong>ceteris paribus</strong>. Isso significa que a intepretação do efeito marginal só mantém constante os regressores incluído na regressão.</p>
 </div>
-<div id="cef-linear-com-peditores-não-lineares" class="section level2 hasAnchor" number="6.9">
-<h2><span class="header-section-number">6.9</span> CEF linear com peditores não-lineares<a href="cef-1.html#cef-linear-com-peditores-não-lineares" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="cef-linear-com-peditores-não-lineares" class="section level2 hasAnchor" number="6.10">
+<h2><span class="header-section-number">6.10</span> CEF linear com peditores não-lineares<a href="cef-1.html#cef-linear-com-peditores-não-lineares" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Uma aspecto importante que deve fcar cláro que é o modelo de regressão linear que usamos para aproximar a CEF é linear nos parâmetros, mas pode ser não-linear nas variáveis.</p>
 <p>Assim, a seguinte equação de regressão é linear nos parâmetros:
 <span class="math display">\[
 y = a + b*x + c*x^2 + e
-\]</span>
-Porém, essa outra equação não é linear nos parâmetros:
+\]</span></p>
+<p>Porém, essa outra equação não é linear nos parâmetros:
 <span class="math display">\[
 y = a + b*x + c*x^d + e
 \]</span></p>
-<p>Vejam que o parâmetro <span class="math inline">\(d\)</span> entra exponenciado, portanto, não linearmente.</p>
+<p>Vejam que o parâmetro <span class="math inline">\(d\)</span> entra exponenciado e, portanto, não linearmente.</p>
 
 </div>
 </div>

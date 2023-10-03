@@ -60,8 +60,9 @@ regressão-linear-e-a-cef
 mínimos-quadrados-ordinários
 equação-da-reta
 suponha-que-a-cef-é-linear-justificativa-i
-é-o-melhor-preditor-linear-justificativa-ii
-a-reta-de-regressão-é-a-aproxdimação-com-o-menor-erro-quadrático-médio-justificativa-iii
+é-o-melhor-preditor-linear-do-y-justificativa-ii
+a-reta-de-regressão-é-a-aproximação-com-o-menor-erro-quadrático-médio-justificativa-iii
+linearidade-e-causalidade
 modelo-só-com-intercepto
 variância-da-regressão
 chuva-na-jamaica
