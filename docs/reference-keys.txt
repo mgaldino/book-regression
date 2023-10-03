@@ -68,8 +68,9 @@ variância-da-regressão
 chuva-na-jamaica
 variância-condicional
 efeito-marginal
-cef-linear-com-peditores-não-lineares
+cef-linear-com-preditores-não-lineares
 estimação
+plug-in-estimators
 regressão-por-mínimos-quadrados
 modelo-de-média-amostral
 modelo-de-regressão-linear

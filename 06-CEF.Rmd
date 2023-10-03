@@ -248,7 +248,7 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 
 Na nossa equação da reta, $\alpha$ é o intercepto, isto é, o ponto onde a reta cruza o eixo $y$ e $\beta$ é a inclinção ou coeficiente angular da reta. Se nós simularmos dados e plotarmos um scatter plot, veremos que podemos ajustar muitas retas aos dados.
 
-```{r plot-ajuste-reta, echo=TRUE, message=FALSE}
+```{r plotAjusteReta, echo=TRUE, message=FALSE}
 set.seed(1234)
 n <- 1000
 x <- rnorm(n)
@@ -263,7 +263,7 @@ df %>%
   geom_abline(slope= 0, intercept = 2, colour="grey", size=1)
 ```
 
-No gráfico \@ref(fig:plot-ajuste-reta), vemos que a reta em azul é melhor do que a verde e vermelha.
+No gráfico \@ref(fig:plotAjusteReta), vemos que a reta em azul é melhor do que a verde e vermelha.
 
 Para achar os valores da reta azul (que aqui sabemos ser $\alpha =2$ e $\beta = 1.3$), podemos novamente minimizar o EQM. A derivação requer calcular a derivada ou utilização de álgebra linerar, requisitos matemáticos para além do curso. Para um preditor, a fórmula do $\beta$ é dada por $COV(Y,X)/Var(X)$ e a constante, $\alpha$ é dada por $\mathbb{E}[(Y)] - \beta*\mathbb{E}[X]$. Expressando a mesma fórmula com somatório (em vez de esperança), temos:
 
@@ -339,7 +339,7 @@ A variância da regressão mede a porção da variância que não é "explicada"
 
 ### Chuva na Jamaica
 
-Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). É uma relação não-monotônica, isto é, a variância com mai spreditores é sempre menor ou igual que a variância com menos preditores (se a com mais preditores incluir os mesmos preditores da com menos regressores). Por isso que uma professor meu dizia: se você mediu chuva na Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
+Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). É uma relação não-monotônica, isto é, a variância com mais preditores é sempre menor ou igual que a variância com menos preditores (se a com mais preditores incluir os mesmos preditores da com menos regressores). Por isso que uma professor meu dizia: se você mediu chuva na Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
       
 
 ## Variância condicional
@@ -356,7 +356,7 @@ A variância condicional do erro (ou de $Y$) em geral depende de $X$. Quando nã
 A regressão pode ser intepretada como efeito marginal. Se estivéssemos usando cálculo diferencial, o efeito marginal poderia ser definito como a derivada parcial de um preditor $x$ com relação à variável dependente $y$. Sem cálculo, podemos pensar como o coeficiente angular da variável, ou seja, quanto um aumento em x prediz um aumento em y. Quando temos vários regressoes, eles são mantidos constantes. É o que em economia se chama de **ceteris paribus**. Isso significa que a intepretação do efeito marginal só mantém constante os regressores incluído na regressão.
 
 
-## CEF linear com peditores não-lineares
+## CEF linear com preditores não-lineares
 
 Uma aspecto importante que deve fcar cláro que é o modelo de regressão linear que usamos para aproximar a CEF é linear nos parâmetros, mas pode ser não-linear nas variáveis.
 

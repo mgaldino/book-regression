@@ -219,13 +219,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#variância-condicional"><i class="fa fa-check"></i><b>6.8</b> Variância condicional</a></li>
 <li class="chapter" data-level="6.9" data-path="cef-1.html"><a href="cef-1.html#efeito-marginal"><i class="fa fa-check"></i><b>6.9</b> Efeito Marginal</a></li>
-<li class="chapter" data-level="6.10" data-path="cef-1.html"><a href="cef-1.html#cef-linear-com-peditores-não-lineares"><i class="fa fa-check"></i><b>6.10</b> CEF linear com peditores não-lineares</a></li>
+<li class="chapter" data-level="6.10" data-path="cef-1.html"><a href="cef-1.html#cef-linear-com-preditores-não-lineares"><i class="fa fa-check"></i><b>6.10</b> CEF linear com preditores não-lineares</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>7</b> - Estimação</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="estimação.html"><a href="estimação.html#regressão-por-mínimos-quadrados"><i class="fa fa-check"></i><b>7.1</b> Regressão por mínimos quadrados</a></li>
-<li class="chapter" data-level="7.2" data-path="estimação.html"><a href="estimação.html#modelo-de-média-amostral"><i class="fa fa-check"></i><b>7.2</b> Modelo de Média amostral</a></li>
-<li class="chapter" data-level="7.3" data-path="estimação.html"><a href="estimação.html#modelo-de-regressão-linear"><i class="fa fa-check"></i><b>7.3</b> Modelo de Regressão Linear</a></li>
+<li class="chapter" data-level="7.1" data-path="estimação.html"><a href="estimação.html#plug-in-estimators"><i class="fa fa-check"></i><b>7.1</b> Plug-in estimators</a></li>
+<li class="chapter" data-level="7.2" data-path="estimação.html"><a href="estimação.html#regressão-por-mínimos-quadrados"><i class="fa fa-check"></i><b>7.2</b> Regressão por mínimos quadrados</a></li>
+<li class="chapter" data-level="7.3" data-path="estimação.html"><a href="estimação.html#modelo-de-média-amostral"><i class="fa fa-check"></i><b>7.3</b> Modelo de Média amostral</a></li>
+<li class="chapter" data-level="7.4" data-path="estimação.html"><a href="estimação.html#modelo-de-regressão-linear"><i class="fa fa-check"></i><b>7.4</b> Modelo de Regressão Linear</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="causalidade.html"><a href="causalidade.html"><i class="fa fa-check"></i><b>8</b> - Causalidade</a>
 <ul>
@@ -260,23 +261,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="estimação" class="section level1 hasAnchor" number="7">
 <h1><span class="header-section-number">Capítulo 7</span> - Estimação<a href="estimação.html#estimação" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>É possível mostrar que o preditor linear ótimo com um único regressor é possui intercepto
+<p>Nós já vimos que é possível mostrar que o preditor linear ótimo com um único regressor possui intercepto
 <span class="math inline">\(\alpha = \mathbb{E}[Y] - \beta*\mathbb{E}[X]\)</span> e inclinação <span class="math inline">\(\beta = Cov(X,Y)/Var(X)\)</span>. Isso significa que, se nós considerarmos o modelo de regressão <span class="math inline">\(y_i = \alpha + \beta*x_i + e_i\)</span>, e usarmos essas fórmulas para calcular os valores de <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> em uma população, obteríamos uma reta ajustada que é o melhor preditor linear.</p>
+<p>Até o momento, estávamos trabalhando com a população. Porém, na prática estaremos sempre lidando com uma amostra, de forma que precisamos entender como funciona a estimação de uma regressão a partir de uma amostra.</p>
+<div id="plug-in-estimators" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Plug-in estimators<a href="estimação.html#plug-in-estimators" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Se tivermos uma amostra, e não a população, é razoável pensar que uma boa estimativa para os valores populacionais de <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> são justamente essas fórmulas, calculadas para os dados amostrais. Esse estimador dos parâmetros populacionais nós chamamos de <strong>plug-in estimates</strong>, pois sem maiores teorias, assumimos que o que vale para a população vale para a amostra. Para diferenciar as estimativas amostrais dos valores populacionais, é comum usarmos <span class="math inline">\(\hat{\beta}\)</span> em vez de <span class="math inline">\(\beta\)</span>, ou então letras latinas <span class="math inline">\(b\)</span> em vez das gregas <span class="math inline">\(\beta\)</span>. Vou usar letras latinas, mas outros textos utilizam letras gregas com o “chapéu”.</p>
-<div id="regressão-por-mínimos-quadrados" class="section level2 hasAnchor" number="7.1">
-<h2><span class="header-section-number">7.1</span> Regressão por mínimos quadrados<a href="estimação.html#regressão-por-mínimos-quadrados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="regressão-por-mínimos-quadrados" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Regressão por mínimos quadrados<a href="estimação.html#regressão-por-mínimos-quadrados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Quando temos uma amostra, é comum supormos que os dados são <em>i</em>ndependentes e <em>i</em>denticamente <em>d</em>istribuídos, <em>i.i.d</em>. Esse tipo de amostra às vezes é chamada de amostra aleatória simples. Isso é tipicamente válido em dados de corte transversal (cross-section) como uma pesquisa de opinião (survey) de intenção de voto, amostra pequena (mil, dois mil) de alunos do Brasil a partir de dados doe Censo Escolar e assim por diante. O ponto é que os dados precisam ser dispersos. Se você coletar alunos de uma mesma escola, eles não tenderão a ser independentes. Se amostrar eleitores de um mesmo bairro, tampouco haverá independência. Há formas de lidar com isso, e aprenderemos mais tarde. Por enquanto, tratemos do caso mais simples.</p>
 <p>A suposição de que dados são i.i.d significa que, em uma amostra com duas variáveis, <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, o par <span class="math inline">\(x_i, y_i\)</span> é independente de <span class="math inline">\(x_j, y_j\)</span>, com <span class="math inline">\(i \neq j\)</span> e identicamente distribuídos, isto é, com a mesma distribuição. Essa suposição é importante para calcular a variância dos nossos estimadores, não para a estimativa pontual deles.</p>
 </div>
-<div id="modelo-de-média-amostral" class="section level2 hasAnchor" number="7.2">
-<h2><span class="header-section-number">7.2</span> Modelo de Média amostral<a href="estimação.html#modelo-de-média-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>O modelo de regressão mais simples é aquele sem preditores, em que <span class="math inline">\(Y = \mu + e\)</span>. O estimador de mínimos quadrados para <span class="math inline">\(\hat{\mu}\)</span> é a média amostral, <span class="math inline">\(\bar{y}\)</span>. Notem que <span class="math inline">\(\mathbb{E}[Y]\)</span> é a esperança populacional e <span class="math inline">\(\mu\)</span> é o valor da esperança, já que a esperança do erro <span class="math inline">\(e\)</span> é zero. Vamso então calcular a média de nosso estimador <span class="math inline">\(\bar{y}\)</span> e sua variância.</p>
+<div id="modelo-de-média-amostral" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Modelo de Média amostral<a href="estimação.html#modelo-de-média-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Como vimos, o modelo de regressão mais simples é aquele sem preditores, em que <span class="math inline">\(Y = \mu + e\)</span>. O estimador de mínimos quadrados para <span class="math inline">\(\hat{\mu}\)</span> é a média amostral, <span class="math inline">\(\bar{y}\)</span>. Notem que <span class="math inline">\(\mathbb{E}[Y]\)</span> é a esperança populacional e <span class="math inline">\(\mu\)</span> é o valor da esperança, já que a esperança do erro <span class="math inline">\(e\)</span> é zero. Vamos então calcular a média de nosso estimador <span class="math inline">\(\bar{y}\)</span> e sua variância.</p>
 <p><span class="math display">\[
 \mathbb{E}[\bar{y}] = \mathbb{E}[\sum{y_i}/n] = (1/n) * \sum{\mathbb{E}[y_i]} = (1/n)*\mu*n = \mu
 \]</span></p>
 <p>Portanto, o valor esperando do estimador de mínimos quadrados (a média amostral) é igual à média populacional. Quando isso acontece, isto é, quando a esperança de um estimador é igual ao parâmetro populacional dizemos que o estimador é não-viesado.</p>
 <p>Definição 7.1. Um estimador <span class="math inline">\(\hat{\theta}\)</span> é não-viesado quando <span class="math inline">\(\mathbb{E}[\hat{\theta}] = \theta\)</span>.</p>
-<p>Agora, vamos calcular a variância da média amostral sob a sposição de que a amostra é i.i.d. Considerando <span class="math inline">\(Y_i = \mu + e_i\)</span>, temos:</p>
+<p>Agora, vamos calcular a variância da média amostral sob a suposição de que a amostra é i.i.d. Considerando <span class="math inline">\(Y_i = \mu + e_i\)</span>, temos:</p>
 <p><span class="math display">\[
 \bar{y} = \sum{y_i}/n = \sum{(\mu + e_i)}/n = \sum{\mu}/n + \sum{e_i}/n = \mu + \sum{e_i}/n
 \]</span></p>
@@ -288,14 +293,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="math display">\[
 = \mathbb{E}[( \sum\limits_{i=1}^n {e_i}/n)*( \sum\limits_{j=1}^n{e_j}/n)] = (1/n^2)* \sum\limits_{i=1}^n{} \sum\limits_{j=1}^n{}\mathbb{E}[e_ie_j]
 \]</span>
-Se nós somarmos o somatório indexado no <span class="math inline">\(j\)</span>, o primeiro erro fica constante (indexado no i) e vamos por todo os erros de <span class="math inline">\(1\)</span> até <span class="math inline">\(n\)</span>. Eventualmente, vamos passar por <span class="math inline">\(i\)</span> e todos os outros diferentes de <span class="math inline">\(i\)</span>. Sabendo que os erros são i.i.d, isso significa que erros diferentes são não correlacionados e possuem esperança zero, ou seja, <span class="math inline">\(\mathbb{E}[e_ie_j] = 0, i \neq j\)</span>, e erros iguais, por serem da mesma distribuição, têm <span class="math inline">\(\mathbb{E}[e_ie_i] = \sigma^2\)</span>. Então o resultado do último somatório é uma soma de zeros, exceto para o caso em que <span class="math inline">\(i = j\)</span>, em que dá <span class="math inline">\(\sigma^2\)</span>. De forma que a equação fica:</p>
+Se nós somarmos o somatório indexado no <span class="math inline">\(j\)</span>, o primeiro erro fica constante (indexado no i) e vamos passar por todo os erros de <span class="math inline">\(1\)</span> até <span class="math inline">\(n\)</span>. Eventualmente, vamos passar por <span class="math inline">\(i\)</span> e todos os outros diferentes de <span class="math inline">\(i\)</span>. Sabendo que os erros são i.i.d, isso significa que erros diferentes são não correlacionados e possuem esperança zero, ou seja, <span class="math inline">\(\mathbb{E}[e_ie_j] = 0, i \neq j\)</span>, e erros iguais, por serem da mesma distribuição, têm <span class="math inline">\(\mathbb{E}[e_ie_i] = \sigma^2\)</span>. Então o resultado do último somatório é uma soma de zeros, exceto para o caso em que <span class="math inline">\(i = j\)</span>, em que dá <span class="math inline">\(\sigma^2\)</span>. De forma que a equação fica:</p>
 <p><span class="math display">\[
 (1/n^2)* \sum\limits_{i=1}^n{}\sigma^2 = (1/n^2)*n*\sigma^2 = \sigma^2/n
 \]</span>
 Ou seja, a variância de nosso estimador é igual à variância populacional dividida pelo tamanho da amostra. A variância amostral do estimador também é chamada de erro padrão.</p>
 </div>
-<div id="modelo-de-regressão-linear" class="section level2 hasAnchor" number="7.3">
-<h2><span class="header-section-number">7.3</span> Modelo de Regressão Linear<a href="estimação.html#modelo-de-regressão-linear" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="modelo-de-regressão-linear" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Modelo de Regressão Linear<a href="estimação.html#modelo-de-regressão-linear" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Tendo mostrado que o estimador é não-viesado e calculado a variância amostral para o caso mais simples, sem preditor, vamos agora fazer o mesm ocálculo com um preditor.</p>
 <p>Vamos assumir que o modelo de regressão linear é uma boa aproximação para CEF. Portanto, vamos supor que:
 1. O modelo linear <span class="math inline">\(Y = \alpha + \beta*X + e\)</span> é adequado.
