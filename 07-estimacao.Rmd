@@ -147,7 +147,7 @@ https://basedosdados.org/
 
 Escolhi mexer com dados do censo escolar
 
-```{r package base de dados, echo=T, message=FALSE, cache=T}
+```{r package base de dados, echo=T, message=FALSE}
 # instalando a biblioteca
 # install.packages('basedosdados')
 
@@ -175,7 +175,7 @@ query <- "SELECT * FROM `basedosdados.br_inep_censo_escolar.dicionario`"
 dicionario <- read_sql(query)
 ```
 
-```{r base alunos, echo=T, message=FALSE, cache=T}
+```{r base alunos, echo=T, message=FALSE}
 query <- "SELECT * FROM `basedosdados.br_inep_censo_escolar.matricula` where sigla_uf = 'AL' and id_municipio = '2704302' and ano = 2019"
 
 aluno <- read_sql(query)
