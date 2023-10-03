@@ -14,8 +14,12 @@ library(here)
 library(tidyr)
 ```
 
-É possível mostrar que o preditor linear ótimo com um único regressor é possui intercepto
+Nós já vimos que é possível mostrar que o preditor linear ótimo com um único regressor possui intercepto
 $\alpha = \mathbb{E}[Y] - \beta*\mathbb{E}[X]$ e inclinação $\beta = Cov(X,Y)/Var(X)$. Isso significa que, se nós considerarmos o modelo de regressão $y_i = \alpha + \beta*x_i + e_i$, e usarmos essas fórmulas para calcular os valores de $\alpha$ e $\beta$ em uma população, obteríamos uma reta ajustada que é o melhor preditor linear.
+
+Até o momento, estávamos trabalhando com a população. Porém, na prática estaremos sempre lidando com uma amostra, de forma que precisamos entender como funciona a estimação de uma regressão a partir de uma amostra.
+
+## Plug-in estimators
 
 Se tivermos uma amostra, e não a população, é razoável pensar que uma boa estimativa para os valores populacionais de $\alpha$ e $\beta$ são justamente essas fórmulas, calculadas para os dados amostrais. Esse estimador dos parâmetros populacionais nós chamamos de **plug-in estimates**, pois sem maiores teorias, assumimos que o que vale para a população vale para a amostra. Para diferenciar as estimativas amostrais dos valores populacionais, é comum usarmos $\hat{\beta}$ em vez de $\beta$, ou então letras latinas $b$ em vez das gregas $\beta$. Vou usar letras latinas, mas outros textos utilizam letras gregas com o "chapéu". 
 
@@ -27,7 +31,7 @@ A suposição de que dados são i.i.d significa que, em uma amostra com duas var
 
 ## Modelo de Média amostral
 
-O modelo de regressão mais simples é aquele sem preditores, em que $Y = \mu + e$. O estimador de mínimos quadrados para $\hat{\mu}$ é a média amostral, $\bar{y}$. Notem que $\mathbb{E}[Y]$ é a esperança populacional e $\mu$ é o valor da esperança, já que a esperança do erro $e$ é zero.  Vamso então calcular a média de nosso estimador $\bar{y}$ e sua variância.
+Como vimos, o modelo de regressão mais simples é aquele sem preditores, em que $Y = \mu + e$. O estimador de mínimos quadrados para $\hat{\mu}$ é a média amostral, $\bar{y}$. Notem que $\mathbb{E}[Y]$ é a esperança populacional e $\mu$ é o valor da esperança, já que a esperança do erro $e$ é zero.  Vamos então calcular a média de nosso estimador $\bar{y}$ e sua variância.
 
 $$
 \mathbb{E}[\bar{y}] = \mathbb{E}[\sum{y_i}/n] = (1/n) * \sum{\mathbb{E}[y_i]} = (1/n)*\mu*n = \mu
@@ -37,7 +41,7 @@ Portanto, o valor esperando do estimador de mínimos quadrados (a média amostra
 
 Definição 7.1. Um estimador $\hat{\theta}$ é não-viesado quando $\mathbb{E}[\hat{\theta}] = \theta$.
 
-Agora, vamos calcular a variância da média amostral sob a sposição de que a amostra é i.i.d. Considerando $Y_i = \mu + e_i$, temos:
+Agora, vamos calcular a variância da média amostral sob a suposição de que a amostra é i.i.d. Considerando $Y_i = \mu + e_i$, temos:
 
 $$
 \bar{y} = \sum{y_i}/n = \sum{(\mu + e_i)}/n = \sum{\mu}/n + \sum{e_i}/n = \mu + \sum{e_i}/n
@@ -53,7 +57,7 @@ $$
 $$
 = \mathbb{E}[( \sum\limits_{i=1}^n {e_i}/n)*( \sum\limits_{j=1}^n{e_j}/n)] = (1/n^2)* \sum\limits_{i=1}^n{} \sum\limits_{j=1}^n{}\mathbb{E}[e_ie_j]
 $$
-Se nós somarmos o somatório indexado no $j$, o primeiro erro fica constante (indexado no i) e vamos por todo os erros de $1$ até $n$. Eventualmente, vamos passar por $i$ e todos os outros diferentes de $i$. Sabendo que os erros são i.i.d, isso significa que erros diferentes são não correlacionados e possuem esperança zero, ou seja, $\mathbb{E}[e_ie_j] = 0, i \neq j$, e erros iguais, por serem da mesma distribuição, têm $\mathbb{E}[e_ie_i] = \sigma^2$. Então o resultado do último somatório é uma soma de zeros, exceto para o caso em que $i = j$, em que dá $\sigma^2$. De forma que a equação fica:
+Se nós somarmos o somatório indexado no $j$, o primeiro erro fica constante (indexado no i) e vamos passar por todo os erros de $1$ até $n$. Eventualmente, vamos passar por $i$ e todos os outros diferentes de $i$. Sabendo que os erros são i.i.d, isso significa que erros diferentes são não correlacionados e possuem esperança zero, ou seja, $\mathbb{E}[e_ie_j] = 0, i \neq j$, e erros iguais, por serem da mesma distribuição, têm $\mathbb{E}[e_ie_i] = \sigma^2$. Então o resultado do último somatório é uma soma de zeros, exceto para o caso em que $i = j$, em que dá $\sigma^2$. De forma que a equação fica:
 
 $$
 (1/n^2)* \sum\limits_{i=1}^n{}\sigma^2 = (1/n^2)*n*\sigma^2 = \sigma^2/n
@@ -62,7 +66,7 @@ Ou seja, a variância de nosso estimador é igual à variância populacional div
 
 ## Modelo de Regressão Linear
 
-Tendo mostrado que o estimador é não-viesado e calculado a variância amostral para o caso mais simples, sem preditor, vamos agora fazer o mesm ocálculo com um preditor.
+Tendo mostrado que o estimador é não-viesado e calculado a variância amostral para o caso mais simples, sem preditor, vamos agora fazer o mesmo cálculo com um preditor.
 
 Vamos assumir que o modelo de regressão linear é uma boa aproximação para CEF. Portanto, vamos supor que:
 1. O modelo linear $Y = \alpha + \beta*X + e$ é adequado.
