@@ -206,7 +206,7 @@ o caso particular de X assumindo dois valores).
 $$
 \mathbb{E}[e]*\mathbb{E}[X] = \mathbb{E}[e*\mathbb{E}[X]] = \mathbb{E}[e*\mathbb{E}[e|X]] = \mathbb{E}[X*Y|X=x_{1}]*p(X_1) + \mathbb{E}[X*Y|X =x_2]*p(x_2)
 $$
-# A esperança condicional é o melhor preditor
+## A esperança condicional é o melhor preditor
 
 Nós já antecipamos que a esperança conidcional é o melhor preditor de $Y$ no sentido de minimizar o EQM. vamos agora mostrar isso. Anteriormente definidmos a esperança condicional $\mathbb{E}[Y|X]$ como $m(x)$. Vamos por um momento esquecer essa definição e assumir que $m(x)$ é valor que minimizar o EQM. Iremos provar que nesse caso, $m(x) = \mathbb{E}[Y|X]$
 $$
@@ -290,28 +290,34 @@ Vejam que é a mesma estimativa se eu usar a função "lm" do R, que estima uma 
 ```{r lm fit, echo=TRUE, message=FALSE}
 lm(y ~x, df)
 ```
+
 Agora podemos justificar porque faz sentido ajustar uma reta de regressão para aproximar a CEF.
 
 ### Suponha que a CEF é Linear (Justificativa I)
 
-Se a CEF for de fato linear, então devemos usar a reta de regressão para estimar a CEF. É possível demonstrar isso aqui. Ao leitor interesado, recomendo, por exemplo, o livro Mostly Harmless Econometrics (p. 37), que é de onde estou me baseando para esta parte do livro.
+Se a CEF for de fato linear, então devemos usar a reta de regressão para estimar a CEF. É possível demonstrar esse resultado, mas não vou fazê-lo. Ao leitor interessado, recomendo, por exemplo, o livro Mostly Harmless Econometrics (p. 37), a quem estou seguindo de perto.
 
-Quando a CEF será linear? Um dos casos é quando a distribuição conjunta de probabilidade de $Y$ e $X$ for normal. Foi o que Galton observou em seu estudo sobre a altura de pais e filhos. O outro caso conhecido é o chamado "modelo saturado". Em um modelo de regressão linear saturado, existe um parâmetro para cada possível valor que os preditores podem assumir. Voltaremos a discutir modelos saturados no futuro e, portanto, postergarei a discussão desse caso. Assim, fora esses dois cenários, não temos muito motivo para supor que a CEF é linear. O que nos leva à segunda justificativa.
+Quando a CEF será linear? Um dos casos é quando a distribuição conjunta de probabilidade de $Y$ e $X$ for normal (normal bivariada, no caso de duas variáveis, ou multivariada, no caso de muitas variáveis). Foi o que Galton observou em seu estudo sobre a altura de pais e filhos, por exemplo, já que a altura é aproximadamente normal. O outro caso conhecido é o chamado "modelo saturado". Em um modelo de regressão linear saturado, existe um parâmetro para cada possível valor que os preditores podem assumir. Voltaremos a discutir modelos saturados no futuro e, portanto, postergarei a discussão desse caso. Assim, fora esses dois cenários, não temos muito motivo para supor que a CEF é linear, posto que é improvável a priori que a CEF seja linear em geral. O que nos leva à segunda justificativa.
 
-### É o melhor preditor linear (justificativa II)
+### É o melhor preditor linear do $Y$ (justificativa II)
 
-Outra justificativa para a CEF linear é que o modelo linear de regressão gera a melhor previsão possível para minha variável dependente, dentre todos os modelos lineares possíveis.
+Outra justificativa para a CEF linear é que o modelo linear de regressão gera a melhor previsão possível (no sentido de menor Erro Quadrático Médio) para minha variável dependente, dentre todos os modelos lineares possíveis. Ou seja, se eu minimizar o erro entre o $Y$ observado e minha previsão dada pelo modelo linear $\alpha + \beta*x$, em que $\alpha$ e $\beta$ são definidos pelas fórmulas derivadas de MQO, terei o menor erro possível. Formalmente estou minimizando $\mathbb{E}[Y - m(x)]$.
 
 
-### A reta de regressão é a aproxdimação com o menor erro quadrático médio (justificativa III)
+### A reta de regressão é a aproximação com o menor erro quadrático médio (justificativa III)
 
-Justificativa II e III são parecidas, mas distintas. No primeiro caso estou pensando em termos de previsão. No terceiro, em termos de aproximação. Ou seja, se a CEF for não-linear, e quiser aproximá-la por meio de uma reta, a melhor aproximação possível é por meio da fórmula de regressão.
+Justificativa II e III são parecidas, mas distintas. No primeiro caso estou pensando em termos de previsão. No terceiro, em termos de aproximação. Ou seja, se a CEF for não-linear, e quiser aproximá-la por meio de uma reta, a melhor aproximação possível é por meio da fórmula de regressão. Formalmente, estou minimizando $\mathbb{E}[\mathbb{E}[Y|X] - m(x)]$. Matematicamente fica claro que estou falando de coisas distintas (na justificativa II, minimizo a diferença entre $Y$ e $m(x)$, e na justificativa III minimizo a diferença entre $\mathbb{E}[Y|X]$ e $m(x)$). Em palavras, aqui estou aproximando a CEf (a esperança condicional), antes eu estava prevendo minha variável dependente.
+
+
+## Linearidade e Causalidade
+
+Toda a discussão de lineraridade é importante pelo motivo óbvio de que estaremos estimando modelos lineares, então é bom ter justificativas para usar modelos lineares para além do fato de que usamos porque aprendemos a usar ou porque é o que sabemos fazer. Mas além disso, estamos muitaz vezes interessados em modelo causais e a pergunta natural é: Sob que condições a CEF nos diz o efeito causal de $x$ sobre $y$? Voltaremos a esse ponto em um capítulo futuro, uma vez que tenhamos aprendido a estimar modelos de regressão linear para fins de previsão.
 
 
 
 ## Modelo só com intercepto
 
-      O exemplo mais simples de modelo de regressão é o modelo apenas com intercepto, isto é, sem nenhum preditor $X$. Nesse caso, $m(x) = E[Y] = \mu$, a média não condicional de $Y$. Escrevendo a equação de regressão, temos:
+O exemplo mais simples de modelo de regressão linear é o modelo apenas com intercepto, isto é, sem nenhum preditor $X$. Nesse caso, $m(x) = E[Y] = \mu$, a média não condicional de $Y$. Escrevendo a equação de regressão, temos:
       
 $$
 Y = \mu + e
@@ -333,12 +339,12 @@ A variância da regressão mede a porção da variância que não é "explicada"
 
 ### Chuva na Jamaica
 
-Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). É uma relação não-monotônica, isto é, a variância com maispreditores é sempre menor ou igual que a variância com menos preditores (se a com mais preditores incluir os mesmos preditores da com menos regressores). Por isso que uma professor meu dizia: se você mediu chuva na Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
+Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). É uma relação não-monotônica, isto é, a variância com mai spreditores é sempre menor ou igual que a variância com menos preditores (se a com mais preditores incluir os mesmos preditores da com menos regressores). Por isso que uma professor meu dizia: se você mediu chuva na Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
       
 
 ## Variância condicional
 
-Sabemos que a esperança condicional é o melhor preditor que existe. Porém, ainda assim pode ser uma previsão ruim, como vimos no caso dos salários condicional ao gênero. Nesses casos, é útil olahr também para a variância condicional.
+Sabemos que a esperança condicional é o melhor preditor que existe. Porém, ainda assim pode ser uma previsão ruim, como vimos no caso dos salários condicional ao gênero. Nesses casos, é útil olhar também para a variância condicional.
 
 $$
 \sigma^2(x) = var[Y|X=x] =  \mathbb{E}[(Y - \mathbb{E}[Y|X=x])^2] = \mathbb{E}[e^2|X=x]
@@ -358,11 +364,12 @@ Assim, a seguinte equação de regressão é linear nos parâmetros:
 $$
 y = a + b*x + c*x^2 + e
 $$
+
 Porém, essa outra equação não é linear nos parâmetros:
 $$
 y = a + b*x + c*x^d + e
 $$
 
-Vejam que o parâmetro $d$ entra exponenciado, portanto, não linearmente.
+Vejam que o parâmetro $d$ entra exponenciado e, portanto, não linearmente.
 
 
