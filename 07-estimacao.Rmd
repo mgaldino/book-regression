@@ -76,10 +76,6 @@ bivariada_tibble1 <- as_tibble(norm_bivariada, .name_repair = "universal") %>%
          y = '...2')
 
 bivariada_tibble1 %>%
-  head() %>%
-  kable()
-
-bivariada_tibble1 %>%
   ggplot(aes(x)) + geom_density()
 
 bivariada_tibble1 %>%
@@ -171,7 +167,7 @@ bivariada_tibble4 <- as_tibble(norm_bivariada, .name_repair = "universal") %>%
   rename(x = '...1', 
          y = '...2')
 
-bivariada_tibble3 %>%
+bivariada_tibble4 %>%
   ggplot(aes(x, y)) + geom_point()
 
 ```
