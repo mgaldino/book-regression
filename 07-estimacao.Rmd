@@ -152,6 +152,28 @@ bivariada_tibble3 <- as_tibble(norm_bivariada, .name_repair = "universal") %>%
 bivariada_tibble3 %>%
   ggplot(aes(x, y)) + geom_point()
 
+
+
+# cov maor, dp de x maior
+rho <- .15
+sigma_x <- 4
+sigma_y <- 2
+
+matriz_var_cov <- matrix(c(sigma_x^2, rho*sigma_x*sigma_y, rho*sigma_x*sigma_y,  sigma_y^2 ), byrow=T, nrow=2)
+
+matriz_var_cov %>%
+  kable()
+
+set.seed(345)
+norm_bivariada <- MASS::mvrnorm(n = 10000, mu = vetor_media, Sigma  = matriz_var_cov)
+
+bivariada_tibble4 <- as_tibble(norm_bivariada, .name_repair = "universal") %>%
+  rename(x = '...1', 
+         y = '...2')
+
+bivariada_tibble3 %>%
+  ggplot(aes(x, y)) + geom_point()
+
 ```
 
 O R mostra os resultados da regressão desse jeito, e vamos aprender a interpretá-lo, mas vamos também apresentar em um formato mais amigável e, caso vocês utilizem o rmarkdown, poderão utilizar em trabalhos acadêmicos. Para isso, utilizaremos o pacote stargazer
@@ -161,13 +183,17 @@ O R mostra os resultados da regressão desse jeito, e vamos aprender a interpret
 reg2 <- lm( y ~x , data = bivariada_tibble2)
 
 reg3 <- lm( y ~x , data = bivariada_tibble3)
+
+reg4 <- lm( y ~x , data = bivariada_tibble4)
 ```
 
 
 ```{r stargazer, echo=T, message=FALSE,  results = 'asis', style = "ajps"}
 library("stargazer")
 
-stargazer::stargazer(list(reg1, reg2, reg3), type =  "html", title = "Regressão linear", omit.stat = "f")
+stargazer::stargazer(list(reg1, reg2, reg3, reg4), type =  "html", 
+                     title = "Regressão linear", omit.stat = "f",
+                     column.labels=c("cov = 2.4, s_x = 2", "cov = 1.2, s_x = 2", "cov = 2.4, s_x = 4", "cov = 1.2, s_x = 4" ))
 ```
 
 ## Suposições amostrais de MQO
