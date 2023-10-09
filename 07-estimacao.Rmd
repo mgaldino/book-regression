@@ -21,7 +21,9 @@ Até o momento, estávamos trabalhando com a população. Porém, na prática es
 
 ## Plug-in estimators
 
-Se tivermos uma amostra, e não a população, é razoável pensar que uma boa estimativa para os valores populacionais de $\alpha$ e $\beta$ são justamente essas fórmulas, calculadas para os dados amostrais. Esse estimador dos parâmetros populacionais nós chamamos de **plug-in estimates**, pois sem maiores teorias, assumimos que o que vale para a população vale para a amostra. Para diferenciar as estimativas amostrais dos valores populacionais, é comum usarmos $\hat{\beta}$ em vez de $\beta$, ou então letras latinas $b$ em vez das gregas $\beta$. Vou usar letras latinas, mas outros textos utilizam letras gregas com o "chapéu". 
+Se tivermos uma amostra, e não a população, é razoável pensar que uma boa estimativa para os valores populacionais de $\alpha$ e $\beta$ são justamente essas fórmulas, calculadas para os dados amostrais. Esse estimador dos parâmetros populacionais nós chamamos de **plug-in estimates**, pois sem maiores teorias, assumimos que o que vale para a população vale para a amostra. Para diferenciar as estimativas amostrais dos valores populacionais, é comum usarmos $\hat{\beta}$ em vez de $\beta$, ou então letras latinas $b$ em vez das gregas $\beta$. Vou usar letras gregas com o "chapéu", mas outros textos utilizam letras latinas . 
+
+Ou seja, $\hat{\beta} = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{\hat{\sigma_x}^2}$
 
 
 ## Simulando de uma Normal Bivariada
