@@ -23,7 +23,152 @@ Até o momento, estávamos trabalhando com a população. Porém, na prática es
 
 Se tivermos uma amostra, e não a população, é razoável pensar que uma boa estimativa para os valores populacionais de $\alpha$ e $\beta$ são justamente essas fórmulas, calculadas para os dados amostrais. Esse estimador dos parâmetros populacionais nós chamamos de **plug-in estimates**, pois sem maiores teorias, assumimos que o que vale para a população vale para a amostra. Para diferenciar as estimativas amostrais dos valores populacionais, é comum usarmos $\hat{\beta}$ em vez de $\beta$, ou então letras latinas $b$ em vez das gregas $\beta$. Vou usar letras latinas, mas outros textos utilizam letras gregas com o "chapéu". 
 
-## Regressão por mínimos quadrados
+
+## Simulando de uma Normal Bivariada
+
+Uma distribuição de probabilidade de $X$ e $Y$ é Normal bivariada quando $aX + bY$ é Normal também, para quaisquer $a$ e $b$. Para nós, importa aqui que $X$ e $Y$ são normais cada uma, e a conjunta deles também é Normal.
+
+E diferentemente da Normal univariada, preciso representar os parâmetros por meio de vetores. A média, que antes era um escalar, agora será representada por um vetor: $\mu = (\mu_x, \mu_y)$. Mesmo que $\mu_x = \mu_y$, ainda assim preciso representar por um vetor. E a variância também não consegue especificartudo que preciso saber sobre a variação nos dados. Eu preciso saber, a variância de $X$, dada por $\sigma_x$, a variância de $Y$, $\sigma_x$ e a covariância entre $X$ e $Y$ e $Y$ e $X$, dadas respectivamente por $\mathbb{Cov}[X,Y]$ e $\mathbb{Cov}[Y,X]$, que obviamente serão iguais. E nós representamos essas quatro informações por meio de uma matriz, chamada de matriz de covariância ou matriz de variância-covariância:
+
+$$
+\Sigma = 
+\begin{bmatrix}
+\sigma_x & \mathbb{Cov}[Y,X] \\
+\mathbb{Cov}[X,Y] & \sigma_y
+\end{bmatrix}
+$$
+Essa matriz precisa ser positiva-definida, que é uma característica de matrizes, mas que basicamente tem a ver com o fato de que não existe variância negativa e dadas as variâncias de $X$ e $Y$, existem limites para o que a covariância pode ser.
+
+Como escolher os valores para essa matriz não é nada intuitivo, vamos trabalhar com a correlação, que temos ma noção melhor. Para isso, utilizaremos a seguinte relação:
+
+$$
+\Sigma = 
+\begin{bmatrix}
+\sigma_x^2 & \rho \cdot \sigma_x \cdot \sigma_y \\
+\rho \cdot \sigma_x\cdot \sigma_y & \sigma_y
+\end{bmatrix}
+$$
+Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em função dos desvios-padrões e da correlação entre as duas variáveis.
+
+```{r normal-bivariada, echo=T, message=FALSE}
+library(ggplot2)
+library(tidyverse)
+
+# vetor de médias
+vetor_media <- c(0,0)
+
+sigma_x <- 2
+sigma_y <- 2
+rho <- .6
+
+matriz_var_cov <- matrix(c(sigma_x^2, rho*sigma_x*sigma_y, rho*sigma_x*sigma_y,  sigma_y^2 ), byrow=T, nrow=2)
+
+matriz_var_cov %>%
+  kable()
+
+set.seed(345)
+norm_bivariada <- MASS::mvrnorm(n = 10000, mu = vetor_media, Sigma  = matriz_var_cov)
+
+bivariada_tibble1 <- as_tibble(norm_bivariada, .name_repair = "universal") %>%
+  rename(x = '...1', 
+         y = '...2')
+
+bivariada_tibble1 %>%
+  head() %>%
+  kable()
+
+bivariada_tibble %>%
+  ggplot(aes(x)) + geom_density()
+
+bivariada_tibble %>%
+  ggplot(aes(y)) + geom_density()
+
+bivariada_tibble %>%
+  ggplot(aes(x, y)) + geom_density_2d()
+
+bivariada_tibble %>%
+  ggplot(aes(x, y)) + geom_point()
+
+```
+
+Vamos usar esses dados para fazer uma regressão.
+
+```{r reg-bivariada, echo=T, message=FALSE}
+
+reg1 <- lm( y ~x , data = bivariada_tibble1)
+
+summary(reg1)
+```
+
+
+A fórmula do $\beta$ nós sabemos que depende da covariância entre as variáveis e o desvio-padrão de $X$. Vamos então simular os dados novamente, mudando as correlações e variâncias, para entender como isso impacta a regressão a partir da fórmula da inclinação da reta.
+
+
+```{r new_bivariada, echo=T, message=FALSE}
+library(ggplot2)
+library(tidyverse)
+
+# vetor de médias
+vetor_media <- c(0,0)
+
+# cov menor, dp o mesmo
+sigma_x <- 2
+sigma_y <- 2
+rho <- .3
+
+matriz_var_cov <- matrix(c(sigma_x^2, rho*sigma_x*sigma_y, rho*sigma_x*sigma_y,  sigma_y^2 ), byrow=T, nrow=2)
+
+matriz_var_cov %>%
+  kable()
+
+set.seed(345)
+norm_bivariada <- MASS::mvrnorm(n = 10000, mu = vetor_media, Sigma  = matriz_var_cov)
+
+bivariada_tibble2 <- as_tibble(norm_bivariada, .name_repair = "universal") %>%
+  rename(x = '...1', 
+         y = '...2')
+
+bivariada_tibble2 %>%
+  ggplot(aes(x, y)) + geom_point()
+
+# cov igual, dp de x maior
+rho <- .3
+sigma_x <- 4
+
+matriz_var_cov <- matrix(c(sigma_x^2, rho*sigma_x*sigma_y, rho*sigma_x*sigma_y,  sigma_y^2 ), byrow=T, nrow=2)
+
+matriz_var_cov %>%
+  kable()
+
+set.seed(345)
+norm_bivariada <- MASS::mvrnorm(n = 10000, mu = vetor_media, Sigma  = matriz_var_cov)
+
+bivariada_tibble3 <- as_tibble(norm_bivariada, .name_repair = "universal") %>%
+  rename(x = '...1', 
+         y = '...2')
+
+bivariada_tibble3 %>%
+  ggplot(aes(x, y)) + geom_point()
+
+```
+
+O R mostra os resultados da regressão desse jeito, e vamos aprender a interpretá-lo, mas vamos também apresentar em um formato mais amigável e, caso vocês utilizem o rmarkdown, poderão utilizar em trabalhos acadêmicos. Para isso, utilizaremos o pacote stargazer
+
+```{r new-reg-bivariada, echo=T, message=FALSE}
+
+reg2 <- lm( y ~x , data = bivariada_tibble2)
+
+reg3 <- lm( y ~x , data = bivariada_tibble3)
+```
+
+
+```{r stargazer, echo=T, message=FALSE}
+library("stargazer")
+
+stargazer::stargazer(list(reg1, reg2, reg3), type =  "html", title = "stargazer table")
+```
+
+## Suposições amostrais de MQO
 
 Quando temos uma amostra, é comum supormos que os dados são *i*ndependentes e *i*denticamente *d*istribuídos, *i.i.d*. Esse tipo de amostra às vezes é chamada de amostra aleatória simples. Isso é tipicamente válido em dados de corte transversal (cross-section) como uma pesquisa de opinião (survey) de intenção de voto, amostra pequena (mil, dois mil) de alunos do Brasil a partir de dados doe Censo Escolar e assim por diante. O ponto é que os dados precisam ser dispersos. Se você coletar alunos de uma mesma escola, eles não tenderão a ser independentes. Se amostrar eleitores de um mesmo bairro, tampouco haverá independência. Há formas de lidar com isso, e aprenderemos mais tarde. Por enquanto, tratemos do caso mais simples.
 
@@ -64,18 +209,21 @@ $$
 $$
 Ou seja, a variância de nosso estimador é igual à variância populacional dividida pelo tamanho da amostra. A variância amostral do estimador também é chamada de erro padrão.
 
-## Modelo de Regressão Linear
+## Modelo de Regressão Linear com preditores
 
 Tendo mostrado que o estimador é não-viesado e calculado a variância amostral para o caso mais simples, sem preditor, vamos agora fazer o mesmo cálculo com um preditor.
 
 Vamos assumir que o modelo de regressão linear é uma boa aproximação para CEF. Portanto, vamos supor que:
-1. O modelo linear $Y = \alpha + \beta*X + e$ é adequado.
+
+1. O modelo linear $y_i = \alpha + \beta*x_i + e_i$ é adequado.
+
 2. $\mathbb{E}[e|X] = 0$, isto é, o erro é não correlacionado com x.
 
-Lembremos que a fórmula para o $\hat{\beta}$ é $\mathbb{Cov}[X,Y]/\mathbb{Var}[X]$. Substituindo nossa equaçã ode regressão na fórmula, temos:
+Para essa demonstração, vamos utilizar uma parametrização alternativa para o modelo de regressão linear em torno da média de $x$. Para isso, vamos usar nosso truque matemático de adicionar e subtrair
+Lembremos que a fórmula para o $\hat{\beta}$ é $\mathbb{Cov}[X,Y]/\mathbb{Var}[X]$. Substituindo nossa equação de regressão na fórmula, temos:
 
 $$
-\hat{\beta} = n^{-1}*\sum({x_i - \bar{x}})*({y_i - \bar{y}})/\mathbb{Var}[x] = n^{-1}*(\sum({x - \bar{x}})*y_i + \sum({x -\bar{x}})*\bar{y})/\mathbb{Var}[x] 
+\hat{\beta} = \sum({x_i - \bar{x}})*({y_i - \bar{y}})/\mathbb{Var}[x] = (\sum({x - \bar{x}})*y_i + \sum({x -\bar{x}})*\bar{y})/\mathbb{Var}[x] 
 $$
 
 Vamos agora usar o fato de que, para qualquer variável $z$, a diferença média de $z$ para a média amostral de $z$ é zero, isto é, $n^{-1}*\sum\limits_{i=1}^n{}z - \bar{z} = 0$
