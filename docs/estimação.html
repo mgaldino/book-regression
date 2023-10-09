@@ -461,72 +461,31 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 <span id="cb12-8"><a href="estimação.html#cb12-8" tabindex="-1"></a>bivariada_tibble3 <span class="sc">%&gt;%</span></span>
 <span id="cb12-9"><a href="estimação.html#cb12-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/new_bivariada-2.png" width="672" /></p>
-<p>O R mostra os resultados da regressão desse jeito, e vamos aprender a interpretá-lo, mas vamos também apresentar em um formato mais amigável e, caso vocês utilizem o rmarkdown, poderão utilizar em trabalhos acadêmicos. Para isso, utilizaremos o pacote texreg.</p>
+<p>O R mostra os resultados da regressão desse jeito, e vamos aprender a interpretá-lo, mas vamos também apresentar em um formato mais amigável e, caso vocês utilizem o rmarkdown, poderão utilizar em trabalhos acadêmicos. Para isso, utilizaremos o pacote stargazer</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="estimação.html#cb13-1" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble2)</span>
 <span id="cb13-2"><a href="estimação.html#cb13-2" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="estimação.html#cb13-3" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble3)</span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="estimação.html#cb14-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;texreg&quot;</span>)</span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="estimação.html#cb14-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;stargazer&quot;</span>)</span>
 <span id="cb14-2"><a href="estimação.html#cb14-2" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="estimação.html#cb14-3" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">htmlreg</span>(<span class="fu">list</span>(reg1, reg2, reg3), <span class="at">doctype =</span> F, <span class="at">caption =</span> <span class="st">&quot;texreg table&quot;</span>)</span></code></pre></div>
-<pre><code>## &lt;table class=&quot;texreg&quot; style=&quot;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;&quot;&gt;
-## &lt;caption&gt;texreg table&lt;/caption&gt;
-## &lt;thead&gt;
-## &lt;tr&gt;
-## &lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/th&gt;
-## &lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Model 1&lt;/th&gt;
-## &lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Model 2&lt;/th&gt;
-## &lt;th style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Model 3&lt;/th&gt;
-## &lt;/tr&gt;
-## &lt;/thead&gt;
-## &lt;tbody&gt;
-## &lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(Intercept)&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.01&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.02&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.01&lt;/td&gt;
-## &lt;/tr&gt;
-## &lt;tr&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.02)&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.02)&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.02)&lt;/td&gt;
-## &lt;/tr&gt;
-## &lt;tr&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;x&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.59&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.28&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.15&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
-## &lt;/tr&gt;
-## &lt;tr&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.01)&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.01)&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.00)&lt;/td&gt;
-## &lt;/tr&gt;
-## &lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.35&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.08&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.09&lt;/td&gt;
-## &lt;/tr&gt;
-## &lt;tr&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.35&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.08&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.08&lt;/td&gt;
-## &lt;/tr&gt;
-## &lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;10000&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;10000&lt;/td&gt;
-## &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;10000&lt;/td&gt;
-## &lt;/tr&gt;
-## &lt;/tbody&gt;
-## &lt;tfoot&gt;
-## &lt;tr&gt;
-## &lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;4&quot;&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
-## &lt;/tr&gt;
-## &lt;/tfoot&gt;
+<span id="cb14-3"><a href="estimação.html#cb14-3" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(<span class="fu">list</span>(reg1, reg2, reg3), <span class="at">type =</span>  <span class="st">&quot;html&quot;</span>, <span class="at">title =</span> <span class="st">&quot;stargazer table&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## &lt;table style=&quot;text-align:center&quot;&gt;&lt;caption&gt;&lt;strong&gt;stargazer table&lt;/strong&gt;&lt;/caption&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot;&gt;&lt;em&gt;Dependent variable:&lt;/em&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot;&gt;y&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;x&lt;/td&gt;&lt;td&gt;0.588&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.284&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.148&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.008)&lt;/td&gt;&lt;td&gt;(0.010)&lt;/td&gt;&lt;td&gt;(0.005)&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Constant&lt;/td&gt;&lt;td&gt;-0.015&lt;/td&gt;&lt;td&gt;-0.019&lt;/td&gt;&lt;td&gt;0.014&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;(0.016)&lt;/td&gt;&lt;td&gt;(0.019)&lt;/td&gt;&lt;td&gt;(0.019)&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Observations&lt;/td&gt;&lt;td&gt;10,000&lt;/td&gt;&lt;td&gt;10,000&lt;/td&gt;&lt;td&gt;10,000&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.347&lt;/td&gt;&lt;td&gt;0.081&lt;/td&gt;&lt;td&gt;0.085&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.347&lt;/td&gt;&lt;td&gt;0.081&lt;/td&gt;&lt;td&gt;0.085&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Residual Std. Error (df = 9998)&lt;/td&gt;&lt;td&gt;1.591&lt;/td&gt;&lt;td&gt;1.892&lt;/td&gt;&lt;td&gt;1.904&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;F Statistic (df = 1; 9998)&lt;/td&gt;&lt;td&gt;5,309.975&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;879.742&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;929.207&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;4&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan=&quot;3&quot; style=&quot;text-align:right&quot;&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
 ## &lt;/table&gt;</code></pre>
 </div>
 <div id="suposições-amostrais-de-mqo" class="section level2 hasAnchor" number="7.3">
