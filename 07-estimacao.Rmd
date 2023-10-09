@@ -77,16 +77,16 @@ bivariada_tibble1 %>%
   head() %>%
   kable()
 
-bivariada_tibble %>%
+bivariada_tibble1 %>%
   ggplot(aes(x)) + geom_density()
 
-bivariada_tibble %>%
+bivariada_tibble1 %>%
   ggplot(aes(y)) + geom_density()
 
-bivariada_tibble %>%
+bivariada_tibble1 %>%
   ggplot(aes(x, y)) + geom_density_2d()
 
-bivariada_tibble %>%
+bivariada_tibble1 %>%
   ggplot(aes(x, y)) + geom_point()
 
 ```
@@ -162,10 +162,10 @@ reg3 <- lm( y ~x , data = bivariada_tibble3)
 ```
 
 
-```{r stargazer, echo=T, message=FALSE}
+```{r stargazer, echo=T, message=FALSE,  results = 'asis', style = "ajps"}
 library("stargazer")
 
-stargazer::stargazer(list(reg1, reg2, reg3), type =  "html", title = "stargazer table")
+stargazer::stargazer(list(reg1, reg2, reg3), type =  "html", title = "Regressão linear", omit.stat = "f")
 ```
 
 ## Suposições amostrais de MQO
