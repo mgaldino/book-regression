@@ -247,7 +247,7 @@ Para essa demonstração, vamos utilizar uma parametrização alternativa para o
 Lembremos que a fórmula para o $\hat{\beta}$ é $\mathbb{Cov}[X,Y]/\mathbb{Var}[X]$. Substituindo nossa equação de regressão na fórmula, temos:
 
 $$
-\hat{\beta} = \sum({x_i - \bar{x}})*({y_i - \bar{y}})/\mathbb{Var}[x] = (\sum({x - \bar{x}})*y_i + \sum({x -\bar{x}})*\bar{y})/\mathbb{Var}[x] 
+\hat{\beta} = \sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})/\mathbb{Var}[x] = \sum{(x_i - \bar{x}) \cdot y_i - (x_i - \bar{x})\bar{y}}/\mathbb{Var}[x] =  (\sum({x - \bar{x}}) \cdot y_i - \sum({x -\bar{x}}) \cdot\bar{y})/\mathbb{Var}[x] 
 $$
 
 Vamos agora usar o fato de que, para qualquer variável $z$, a diferença média de $z$ para a média amostral de $z$ é zero, isto é, $n^{-1}*\sum\limits_{i=1}^n{}z - \bar{z} = 0$
@@ -255,7 +255,7 @@ Vamos agora usar o fato de que, para qualquer variável $z$, a diferença média
 Por fim, segue-se disso que, para qualquer constante $w$ que não varia com $i$, podemos escrever:
 $n^{-1}*\sum\limits_{i=1}^n{}(z - \bar{z})*w = 0$
 
-Portanto, $\sum({x -\bar{x}})*\bar{y}) = 0$.
+Portanto, $\sum({x -\bar{x}})*\bar{y} = 0$.
 
 Logo,
 
