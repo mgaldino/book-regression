@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-10-09" />
+<meta name="date" content="2023-10-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -464,7 +464,7 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 <span id="cb14-5"><a href="estimação.html#cb14-5" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble4)</span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="estimação.html#cb15-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;stargazer&quot;</span>)</span>
 <span id="cb15-2"><a href="estimação.html#cb15-2" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="estimação.html#cb15-3" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(<span class="fu">list</span>(reg1, reg2, reg3, reg4), <span class="at">type =</span>  <span class="st">&quot;html&quot;</span>, </span>
+<span id="cb15-3"><a href="estimação.html#cb15-3" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(<span class="fu">list</span>(reg1, reg2, reg3, reg4), <span class="at">type =</span>  <span class="st">&quot;html&quot;</span>, <span class="at">style =</span> <span class="st">&quot;ajps&quot;</span>,</span>
 <span id="cb15-4"><a href="estimação.html#cb15-4" tabindex="-1"></a>                     <span class="at">title =</span> <span class="st">&quot;Regressão linear&quot;</span>, <span class="at">omit.stat =</span> <span class="st">&quot;f&quot;</span>,</span>
 <span id="cb15-5"><a href="estimação.html#cb15-5" tabindex="-1"></a>                     <span class="at">column.labels=</span><span class="fu">c</span>(<span class="st">&quot;cov = 2.4, s_x = 2&quot;</span>, <span class="st">&quot;cov = 1.2, s_x = 2&quot;</span>, <span class="st">&quot;cov = 2.4, s_x = 4&quot;</span>, <span class="st">&quot;cov = 1.2, s_x = 4&quot;</span> ))</span></code></pre></div>
 <table style="text-align:center">
@@ -479,52 +479,39 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 <td style="text-align:left">
 </td>
 <td colspan="4">
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="4" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="4">
-y
+<strong>y</strong>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-cov = 2.4, s= 2
+<strong>cov = 2.4, s= 2</strong>
 </td>
 <td>
-cov = 1.2, s= 2
+<strong>cov = 1.2, s= 2</strong>
 </td>
 <td>
-cov = 2.4, s= 4
+<strong>cov = 2.4, s= 4</strong>
 </td>
 <td>
-cov = 1.2, s= 4
+<strong>cov = 1.2, s= 4</strong>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1)
+<strong>Model 1</strong>
 </td>
 <td>
-(2)
+<strong>Model 2</strong>
 </td>
 <td>
-(3)
+<strong>Model 3</strong>
 </td>
 <td>
-(4)
+<strong>Model 4</strong>
 </td>
 </tr>
 <tr>
@@ -566,18 +553,6 @@ x
 </tr>
 <tr>
 <td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
 Constant
 </td>
 <td>
@@ -611,40 +586,24 @@ Constant
 </tr>
 <tr>
 <td style="text-align:left">
+N
 </td>
 <td>
+10000
 </td>
 <td>
+10000
 </td>
 <td>
+10000
 </td>
 <td>
-</td>
-</tr>
-<tr>
-<td colspan="5" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-10,000
-</td>
-<td>
-10,000
-</td>
-<td>
-10,000
-</td>
-<td>
-10,000
+10000
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
-R<sup>2</sup>
+R-squared
 </td>
 <td>
 0.347
@@ -661,7 +620,7 @@ R<sup>2</sup>
 </tr>
 <tr>
 <td style="text-align:left">
-Adjusted R<sup>2</sup>
+Adj. R-squared
 </td>
 <td>
 0.347
@@ -698,36 +657,33 @@ Residual Std. Error (df = 9998)
 </td>
 </tr>
 <tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td colspan="4" style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+<td colspan="5" style="text-align:left">
+<sup><em><strong></sup>p &lt; .01; <sup></strong></sup>p &lt; .05; <sup></em></sup>p &lt; .1
 </td>
 </tr>
 </table>
 </div>
 <div id="suposições-amostrais-de-mqo" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Suposições amostrais de MQO<a href="estimação.html#suposições-amostrais-de-mqo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Quando temos uma amostra, é comum supormos que os dados são <em>i</em>ndependentes e <em>i</em>denticamente <em>d</em>istribuídos, <em>i.i.d</em>. Esse tipo de amostra às vezes é chamada de amostra aleatória simples. Isso é tipicamente válido em dados de corte transversal (cross-section) como uma pesquisa de opinião (survey) de intenção de voto, amostra pequena (mil, dois mil) de alunos do Brasil a partir de dados doe Censo Escolar e assim por diante. O ponto é que os dados precisam ser dispersos. Se você coletar alunos de uma mesma escola, eles não tenderão a ser independentes. Se amostrar eleitores de um mesmo bairro, tampouco haverá independência. Há formas de lidar com isso, e aprenderemos mais tarde. Por enquanto, tratemos do caso mais simples.</p>
+<p>Quando temos uma amostra, é comum supormos que os dados são <strong>i</strong>ndependentes e <strong>i</strong>denticamente <strong>d</strong>istribuídos, <strong>i.i.d</strong>. Esse tipo de amostra às vezes é chamada de amostra aleatória simples. Isso é tipicamente válido em dados de corte transversal (cross-section) como uma pesquisa de opinião (survey) de intenção de voto, amostra pequena (mil, dois mil) de alunos do Brasil a partir de dados doe Censo Escolar e assim por diante. O ponto é que os dados precisam ser dispersos. Se você coletar alunos de uma mesma escola, eles não tenderão a ser independentes. Se amostrar eleitores de um mesmo bairro, tampouco haverá independência. Há formas de lidar com isso, e aprenderemos mais tarde. Por enquanto, tratemos do caso mais simples.</p>
 <p>A suposição de que dados são i.i.d significa que, em uma amostra com duas variáveis, <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, o par <span class="math inline">\(x_i, y_i\)</span> é independente de <span class="math inline">\(x_j, y_j\)</span>, com <span class="math inline">\(i \neq j\)</span> e identicamente distribuídos, isto é, com a mesma distribuição. Essa suposição é importante para calcular a variância dos nossos estimadores, não para a estimativa pontual deles.</p>
 </div>
 <div id="modelo-de-média-amostral" class="section level2 hasAnchor" number="7.4">
 <h2><span class="header-section-number">7.4</span> Modelo de Média amostral<a href="estimação.html#modelo-de-média-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Como vimos, o modelo de regressão mais simples é aquele sem preditores, em que <span class="math inline">\(Y = \mu + e\)</span>. O estimador de mínimos quadrados para <span class="math inline">\(\hat{\mu}\)</span> é a média amostral, <span class="math inline">\(\bar{y}\)</span>. Notem que <span class="math inline">\(\mathbb{E}[Y]\)</span> é a esperança populacional e <span class="math inline">\(\mu\)</span> é o valor da esperança, já que a esperança do erro <span class="math inline">\(e\)</span> é zero. Vamos então calcular a média de nosso estimador <span class="math inline">\(\bar{y}\)</span> e sua variância.</p>
 <p><span class="math display">\[
-\mathbb{E}[\bar{y}] = \mathbb{E}[\sum{y_i}/n] = (1/n) * \sum{\mathbb{E}[y_i]} = (1/n)*\mu*n = \mu
+\mathbb{E}[\bar{y}] = \mathbb{E}[\sum{y_i}/n] = (1/n) \cdot \sum{\mathbb{E}[y_i]} = (1/n)\cdot \mu \cdot n = \mu
 \]</span></p>
 <p>Portanto, o valor esperando do estimador de mínimos quadrados (a média amostral) é igual à média populacional. Quando isso acontece, isto é, quando a esperança de um estimador é igual ao parâmetro populacional dizemos que o estimador é não-viesado.</p>
-<p>Definição 7.1. Um estimador <span class="math inline">\(\hat{\theta}\)</span> é não-viesado quando <span class="math inline">\(\mathbb{E}[\hat{\theta}] = \theta\)</span>.</p>
-<p>Agora, vamos calcular a variância da média amostral sob a suposição de que a amostra é i.i.d. Considerando <span class="math inline">\(Y_i = \mu + e_i\)</span>, temos:</p>
+<p>Definição 7.4. Um estimador <span class="math inline">\(\hat{\theta}\)</span> é não-viesado quando <span class="math inline">\(\mathbb{E}[\hat{\theta}] = \theta\)</span>.</p>
+<p>Agora, vamos calcular a variância da média amostral sob a suposição de que a amostra é i.i.d. Considerando <span class="math inline">\(y_i = \mu + e_i\)</span>, temos:</p>
 <p><span class="math display">\[
 \bar{y} = \sum{y_i}/n = \sum{(\mu + e_i)}/n = \sum{\mu}/n + \sum{e_i}/n = \mu + \sum{e_i}/n
 \]</span></p>
 <p>Rearranjando, temos: <span class="math inline">\(\bar{y} - \mu = \sum{e_i}/n\)</span></p>
 <p>A variância então pode ser calculada como:</p>
 <p><span class="math display">\[
-\mathbb{Var}[\bar{y}] = \mathbb{E}[(\bar{y} - mu)^2]
+\mathbb{Var}[\bar{y}] = \mathbb{E}[(\bar{y} - \mu)^2]
 \]</span>
 <span class="math display">\[
 = \mathbb{E}[( \sum\limits_{i=1}^n {e_i}/n)*( \sum\limits_{j=1}^n{e_j}/n)] = (1/n^2)* \sum\limits_{i=1}^n{} \sum\limits_{j=1}^n{}\mathbb{E}[e_ie_j]

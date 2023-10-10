@@ -184,17 +184,17 @@ reg4 <- lm( y ~x , data = bivariada_tibble4)
 ```
 
 
-```{r stargazer, echo=T, message=FALSE,  results = 'asis', style = "ajps"}
+```{r stargazer, echo=T, message=FALSE,  results = 'asis'}
 library("stargazer")
 
-stargazer::stargazer(list(reg1, reg2, reg3, reg4), type =  "html", 
+stargazer::stargazer(list(reg1, reg2, reg3, reg4), type =  "html", style = "ajps",
                      title = "Regressão linear", omit.stat = "f",
                      column.labels=c("cov = 2.4, s_x = 2", "cov = 1.2, s_x = 2", "cov = 2.4, s_x = 4", "cov = 1.2, s_x = 4" ))
 ```
 
 ## Suposições amostrais de MQO
 
-Quando temos uma amostra, é comum supormos que os dados são *i*ndependentes e *i*denticamente *d*istribuídos, *i.i.d*. Esse tipo de amostra às vezes é chamada de amostra aleatória simples. Isso é tipicamente válido em dados de corte transversal (cross-section) como uma pesquisa de opinião (survey) de intenção de voto, amostra pequena (mil, dois mil) de alunos do Brasil a partir de dados doe Censo Escolar e assim por diante. O ponto é que os dados precisam ser dispersos. Se você coletar alunos de uma mesma escola, eles não tenderão a ser independentes. Se amostrar eleitores de um mesmo bairro, tampouco haverá independência. Há formas de lidar com isso, e aprenderemos mais tarde. Por enquanto, tratemos do caso mais simples.
+Quando temos uma amostra, é comum supormos que os dados são **i**ndependentes e **i**denticamente **d**istribuídos, **i.i.d**. Esse tipo de amostra às vezes é chamada de amostra aleatória simples. Isso é tipicamente válido em dados de corte transversal (cross-section) como uma pesquisa de opinião (survey) de intenção de voto, amostra pequena (mil, dois mil) de alunos do Brasil a partir de dados doe Censo Escolar e assim por diante. O ponto é que os dados precisam ser dispersos. Se você coletar alunos de uma mesma escola, eles não tenderão a ser independentes. Se amostrar eleitores de um mesmo bairro, tampouco haverá independência. Há formas de lidar com isso, e aprenderemos mais tarde. Por enquanto, tratemos do caso mais simples.
 
 A suposição de que dados são i.i.d significa que, em uma amostra com duas variáveis, $X$ e $Y$, o par $x_i, y_i$ é independente de $x_j, y_j$, com $i \neq j$ e identicamente distribuídos, isto é, com a mesma distribuição. Essa suposição é importante para calcular a variância dos nossos estimadores, não para a estimativa pontual deles.
 
@@ -203,14 +203,14 @@ A suposição de que dados são i.i.d significa que, em uma amostra com duas var
 Como vimos, o modelo de regressão mais simples é aquele sem preditores, em que $Y = \mu + e$. O estimador de mínimos quadrados para $\hat{\mu}$ é a média amostral, $\bar{y}$. Notem que $\mathbb{E}[Y]$ é a esperança populacional e $\mu$ é o valor da esperança, já que a esperança do erro $e$ é zero.  Vamos então calcular a média de nosso estimador $\bar{y}$ e sua variância.
 
 $$
-\mathbb{E}[\bar{y}] = \mathbb{E}[\sum{y_i}/n] = (1/n) * \sum{\mathbb{E}[y_i]} = (1/n)*\mu*n = \mu
+\mathbb{E}[\bar{y}] = \mathbb{E}[\sum{y_i}/n] = (1/n) \cdot \sum{\mathbb{E}[y_i]} = (1/n)\cdot \mu \cdot n = \mu
 $$
 
 Portanto, o valor esperando do estimador de mínimos quadrados (a média amostral) é igual à média populacional. Quando isso acontece, isto é, quando a esperança de um estimador é igual ao parâmetro populacional dizemos que o estimador é não-viesado.
 
-Definição 7.1. Um estimador $\hat{\theta}$ é não-viesado quando $\mathbb{E}[\hat{\theta}] = \theta$.
+Definição 7.4. Um estimador $\hat{\theta}$ é não-viesado quando $\mathbb{E}[\hat{\theta}] = \theta$.
 
-Agora, vamos calcular a variância da média amostral sob a suposição de que a amostra é i.i.d. Considerando $Y_i = \mu + e_i$, temos:
+Agora, vamos calcular a variância da média amostral sob a suposição de que a amostra é i.i.d. Considerando $y_i = \mu + e_i$, temos:
 
 $$
 \bar{y} = \sum{y_i}/n = \sum{(\mu + e_i)}/n = \sum{\mu}/n + \sum{e_i}/n = \mu + \sum{e_i}/n
@@ -221,7 +221,7 @@ Rearranjando, temos: $\bar{y} - \mu = \sum{e_i}/n$
 A variância então pode ser calculada como:
 
 $$
-\mathbb{Var}[\bar{y}] = \mathbb{E}[(\bar{y} - mu)^2]
+\mathbb{Var}[\bar{y}] = \mathbb{E}[(\bar{y} - \mu)^2]
 $$
 $$
 = \mathbb{E}[( \sum\limits_{i=1}^n {e_i}/n)*( \sum\limits_{j=1}^n{e_j}/n)] = (1/n^2)* \sum\limits_{i=1}^n{} \sum\limits_{j=1}^n{}\mathbb{E}[e_ie_j]
