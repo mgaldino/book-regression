@@ -84,3 +84,9 @@ simulação-de-resultados-potenciais-e-causalidade
 a-esperança-condicional-é-o-melhor-preditor
 estimando-um-modelo-de-regressão-real
 referências
+limitações-de-mqo
+distrações
+r-quadrado
+r-quadrado-ajustado
+limites-do-r-quadrado
+para-que-serve

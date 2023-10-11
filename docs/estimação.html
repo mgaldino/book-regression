@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-10-10" />
+<meta name="date" content="2023-10-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -228,6 +228,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.4" data-path="estimação.html"><a href="estimação.html#modelo-de-média-amostral"><i class="fa fa-check"></i><b>7.4</b> Modelo de Média amostral</a></li>
 <li class="chapter" data-level="7.5" data-path="estimação.html"><a href="estimação.html#modelo-de-regressão-linear-com-preditores"><i class="fa fa-check"></i><b>7.5</b> Modelo de Regressão Linear com preditores</a></li>
 <li class="chapter" data-level="7.6" data-path="estimação.html"><a href="estimação.html#estimando-um-modelo-de-regressão-real"><i class="fa fa-check"></i><b>7.6</b> Estimando um modelo de regressão real</a></li>
+<li class="chapter" data-level="7.7" data-path="estimação.html"><a href="estimação.html#limitações-de-mqo"><i class="fa fa-check"></i><b>7.7</b> Limitações de MQO</a></li>
+<li class="chapter" data-level="7.8" data-path="estimação.html"><a href="estimação.html#distrações"><i class="fa fa-check"></i><b>7.8</b> Distrações</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="estimação.html"><a href="estimação.html#r-quadrado"><i class="fa fa-check"></i><b>7.8.1</b> R-quadrado</a></li>
+<li class="chapter" data-level="7.8.2" data-path="estimação.html"><a href="estimação.html#r-quadrado-ajustado"><i class="fa fa-check"></i><b>7.8.2</b> R-quadrado ajustado</a></li>
+<li class="chapter" data-level="7.8.3" data-path="estimação.html"><a href="estimação.html#limites-do-r-quadrado"><i class="fa fa-check"></i><b>7.8.3</b> Limites do R-quadrado</a></li>
+<li class="chapter" data-level="7.8.4" data-path="estimação.html"><a href="estimação.html#para-que-serve"><i class="fa fa-check"></i><b>7.8.4</b> Para que serve?</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="causalidade.html"><a href="causalidade.html"><i class="fa fa-check"></i><b>8</b> - Causalidade</a>
 <ul>
@@ -240,6 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2.1" data-path="causalidade.html"><a href="causalidade.html#exemplo-de-cef-e-cef-estrutural"><i class="fa fa-check"></i><b>8.2.1</b> Exemplo de CEF e CEF estrutural</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="causalidade.html"><a href="causalidade.html#simulação-de-resultados-potenciais-e-causalidade"><i class="fa fa-check"></i><b>8.3</b> Simulação de Resultados Potenciais e Causalidade</a></li>
+<li class="chapter" data-level="8.4" data-path="causalidade.html"><a href="causalidade.html#referências"><i class="fa fa-check"></i><b>8.4</b> Referências</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -307,21 +316,13 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 <span id="cb1-14"><a href="estimação.html#cb1-14" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <tbody>
-<tr>
-<td style="text-align:right;">
-4.0
-</td>
-<td style="text-align:right;">
-2.4
-</td>
+<tr class="odd">
+<td align="right">4.0</td>
+<td align="right">2.4</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-2.4
-</td>
-<td style="text-align:right;">
-4.0
-</td>
+<tr class="even">
+<td align="right">2.4</td>
+<td align="right">4.0</td>
 </tr>
 </tbody>
 </table>
@@ -384,21 +385,13 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 <span id="cb8-15"><a href="estimação.html#cb8-15" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <tbody>
-<tr>
-<td style="text-align:right;">
-4.0
-</td>
-<td style="text-align:right;">
-1.2
-</td>
+<tr class="odd">
+<td align="right">4.0</td>
+<td align="right">1.2</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.2
-</td>
-<td style="text-align:right;">
-4.0
-</td>
+<tr class="even">
+<td align="right">1.2</td>
+<td align="right">4.0</td>
 </tr>
 </tbody>
 </table>
@@ -422,21 +415,13 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 <span id="cb10-8"><a href="estimação.html#cb10-8" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <tbody>
-<tr>
-<td style="text-align:right;">
-16.0
-</td>
-<td style="text-align:right;">
-2.4
-</td>
+<tr class="odd">
+<td align="right">16.0</td>
+<td align="right">2.4</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-2.4
-</td>
-<td style="text-align:right;">
-4.0
-</td>
+<tr class="even">
+<td align="right">2.4</td>
+<td align="right">4.0</td>
 </tr>
 </tbody>
 </table>
@@ -461,21 +446,13 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 <span id="cb12-9"><a href="estimação.html#cb12-9" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <tbody>
-<tr>
-<td style="text-align:right;">
-16.0
-</td>
-<td style="text-align:right;">
-1.2
-</td>
+<tr class="odd">
+<td align="right">16.0</td>
+<td align="right">1.2</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-1.2
-</td>
-<td style="text-align:right;">
-4.0
-</td>
+<tr class="even">
+<td align="right">1.2</td>
+<td align="right">4.0</td>
 </tr>
 </tbody>
 </table>
@@ -932,7 +909,99 @@ SE(\hat{\beta}) = \frac{\sigma}{\sqrt{n\sigma^2_x}}
 ## Residual standard error: 0.2222 on 418 degrees of freedom
 ## Multiple R-squared:  0.07237,    Adjusted R-squared:  0.05017 
 ## F-statistic: 3.261 on 10 and 418 DF,  p-value: 0.0004498</code></pre>
+</div>
+<div id="limitações-de-mqo" class="section level2 hasAnchor" number="7.7">
+<h2><span class="header-section-number">7.7</span> Limitações de MQO<a href="estimação.html#limitações-de-mqo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Os estimadores de MQO, nossos <span class="math inline">\(\ha{\beta}\)</span> e <span class="math inline">\(\hat{\alpha}\)</span>, são não-viesados e conseguimos derivar a variância amostral deles. Porém, não há muito mais que possamos dizer sobre eles a partir apenas das suposições que fizemos, ou seja, de que o modelo linear (nos parâmetros) é adequado, e que a espereança do erro, condicional ao preditor, é zero (e assumimos, em certo momento, homecedasticidade). O que não podemos dizer a mais que gostaríamos de poder fazer?</p>
+<p>Uma aspecto importante da inferência é, por exemplo, calcular o intervalo de confiança. Para isso, contudo, precisaremos de mais suposições do que o que fizemos até aqui. Portanto, tanto cálculos de intervalo de confiança como o p-valor e condução de testes de hipótese estão vedados com as suposições de MQO.</p>
+</div>
+<div id="distrações" class="section level2 hasAnchor" number="7.8">
+<h2><span class="header-section-number">7.8</span> Distrações<a href="estimação.html#distrações" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Quando nós imprimimos o resultado de uma regressão no R, além dos coeficientes e o erro padrão, há uma série de outras informações apresentadas. Muitas delas são apenas distrações, mas como existem e muita gente ainda as utiliza (às vezes com bom uso), vou falar rapidamente de uma delas, o que já é possível com nosso conhecimento atual.</p>
+<div id="r-quadrado" class="section level3 hasAnchor" number="7.8.1">
+<h3><span class="header-section-number">7.8.1</span> R-quadrado<a href="estimação.html#r-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uma das estatísticas apresentadas é o chamado <span class="math inline">\(R^2\)</span>, também denominado coeficiente de determinação, que pode ser definido de várias maneiras distintas e uma delas é a razão entre a variância dos valores preditos <span class="math inline">\(\hat{Y}\)</span> e a variância dos dados observados, <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math display">\[
+R^2 \equiv \frac{\hat{\sigma^2_{\hat{y}}}}{\sigma^2}
+\]</span></p>
+<p>Uma definição alternartiva é que o R-quadrado é a razão entre a covariância de <span class="math inline">\(y\)</span> e <span class="math inline">\(\hat{y}\)</span> e a variância de <span class="math inline">\(Y\)</span>:
+<span class="math display">\[
+R^2 \equiv \frac{\mathbb{Cov}[Y,\hat{Y}]}{\sigma^2}
+\]</span>
+Por fim, o R-quadrado pode ser escrito como o quadrado da covariância entee <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> dividido pelo produto dos desvios-pdrãos de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.
+<span class="math display">\[
+R^2 \equiv \left(\frac{\mathbb{Cov}[X,Y]}{\sigma_x \cdot \sigma_y}\right)^2
+\]</span></p>
+<p>Essa última parametrização é o que permite interpretar o R-quadrado como a correlação (entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>) ao quadrado. É fácil ver também que uma regressão de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span> gera o mesmo R-quadrado que uma regressão de <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(X\)</span>.</p>
+</div>
+<div id="r-quadrado-ajustado" class="section level3 hasAnchor" number="7.8.2">
+<h3><span class="header-section-number">7.8.2</span> R-quadrado ajustado<a href="estimação.html#r-quadrado-ajustado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O estimador <span class="math inline">\(\hat{\sigma^2}\)</span> é viesado com relação ao parâmetro <span class="math inline">\(\sigma^2\)</span>. Então, o R-quadrado ajustado usa <span class="math inline">\(\frac{n \cdot \hat{\sigma^2}}{n-2}\)</span> como estimador de <span class="math inline">\(\sigma^2\)</span>. Uma interpretação dada é que adicionar preditores no modelo em geral reduz a variância “não-explicada” <span class="math inline">\(\sigma^2\)</span> (lembrem-se do “chuva na Jamaica”). E isso induz um viés da estimativa do <span class="math inline">\(R^2\)</span>, que é corrigida pelo desconto no número de preditores + 1.</p>
+</div>
+<div id="limites-do-r-quadrado" class="section level3 hasAnchor" number="7.8.3">
+<h3><span class="header-section-number">7.8.3</span> Limites do R-quadrado<a href="estimação.html#limites-do-r-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pela primeira parametrização, éfácil ver que o <span class="math inline">\(R^2\)</span> jamais será negativo, pois a variância é sempre não-negativa. Além disso, jamais será mais que 1, pois a variância dos valores preditors será no máximo igual à variância observada, quando as previsões forem perfeitas.</p>
+</div>
+<div id="para-que-serve" class="section level3 hasAnchor" number="7.8.4">
+<h3><span class="header-section-number">7.8.4</span> Para que serve?<a href="estimação.html#para-que-serve" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Por muito tempo foi utilizada como uma medida do ajuste do modelo e, portanto, quanto maior o R-quadrado, melhor (ou quanto maior o R-quadrado ajustado). Hoje em dia, contudo, sabemos que é uma péssima medida de ajuste do modelo.</p>
+<ol style="list-style-type: decimal">
+<li><p>O modelo pode estar correto e produzir um R-quadrado pequeno, a depender a da variância de <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>O modelo pode estar totalmente errado e o R-quadrado ser próximo de 1. Quando o verdadeiro modelo é não-linear e a variância de <span class="math inline">\(X\)</span> é muito grande, isso pode acontecer se a reta de regressão ajustada não tiver <span class="math inline">\(\beta = 0\)</span>.</p></li>
+<li><p>Há também quem use o <span class="math inline">\(R^2\)</span> como medida de capacidade preditiva do modelo. Quanto mais espalhado o <span class="math inline">\(X\)</span>, melhor o <span class="math inline">\(R^2\)</span>. A simulação abaixo mostra isso:</p></li>
+</ol>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="estimação.html#cb23-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb23-2"><a href="estimação.html#cb23-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb23-3"><a href="estimação.html#cb23-3" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="estimação.html#cb23-4" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb23-5"><a href="estimação.html#cb23-5" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb23-6"><a href="estimação.html#cb23-6" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="estimação.html#cb23-7" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y1 <span class="sc">~</span>x1))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y1 ~ x1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.6583 -1.3405 -0.0505  1.4009  5.4428 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.920693   0.061515   31.22   &lt;2e-16 ***
+## x1          3.004342   0.006077  494.38   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.944 on 998 degrees of freedom
+## Multiple R-squared:  0.9959, Adjusted R-squared:  0.9959 
+## F-statistic: 2.444e+05 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="estimação.html#cb25-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y2<span class="sc">~</span>x2))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y2 ~ x2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.7352 -1.3327 -0.0361  1.3363  7.0571 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  2.09127    0.06152   33.99   &lt;2e-16 ***
+## x2           3.01394    0.03097   97.32   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.945 on 998 degrees of freedom
+## Multiple R-squared:  0.9047, Adjusted R-squared:  0.9046 
+## F-statistic:  9471 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Não é possível comparar o <span class="math inline">\(R^2\)</span> entre amostras distintas, como a simulação acima também mostra. O modelo é o mesmo, mas os dados são distintos e produzem <span class="math inline">\(R^2\)</span> distintos.</p></li>
+<li><p>Não faz sentido comparar o <span class="math inline">\(R^2\)</span> entre transformações da nossa variável dependente (com e sem log, por exemplo).</p></li>
+<li><p>Quando a amostra é a mesma e o <span class="math inline">\(y\)</span> é o mesmo, é possível comparar modelos com o <span class="math inline">\(R^2\)</span> e um R-quadrado maior significa um Erro Quadrático Médio menor. Mas nesse caso, é melhor usar direto o EQM.</p></li>
+<li><p>É fácil ver, por tudo isso, que o <span class="math inline">\(R^2\)</span> não é uma medida da variância explicada, com ou sem aspas. Eu não consigo entender o que é “explicar”, assim com aspas, e como é distinto de sem aspas. Portanto, melhor seria não usar e deixar de lado. Mas como é usado e os softwares mostram, tenho de perder tempo falando sobre ele para vocês.</p></li>
+</ol>
 
+</div>
 </div>
 </div>
             </section>
