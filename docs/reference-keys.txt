@@ -1,3 +1,12 @@
+tab:unnamed-chunk-29
+tab:unnamed-chunk-30
+tab:unnamed-chunk-31
+tab:unnamed-chunk-34
+fig:wage-pnad
+fig:wage-pnad-log
+fig:wage-cond-expec
+fig:wage-cond-expec1
+fig:wage-total-cond-expec
 prefácio
 revisão-de-r
 r-e-rstudio
@@ -47,7 +56,6 @@ a-esperança-do-erro-condicional-a-x-é-zero
 a-esperança-não-condicional-do-erro-é-zero.
 intuição-da-lie
 o-erro-da-cef-é-não-correlacionado-com-x
-a-esperança-condicional-é-o-melhor-preditor
 regressão-linear-e-a-cef
 mínimos-quadrados-ordinários
 equação-da-reta
@@ -73,3 +81,6 @@ decomposição-do-efeito-causal
 modelo-estrutural-e-modelo-de-regressão
 exemplo-de-cef-e-cef-estrutural
 simulação-de-resultados-potenciais-e-causalidade
+a-esperança-condicional-é-o-melhor-preditor
+estimando-um-modelo-de-regressão-real
+referências

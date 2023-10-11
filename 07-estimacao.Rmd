@@ -244,54 +244,88 @@ Vamos assumir que o modelo de regressão linear é uma boa aproximação para CE
 2. $\mathbb{E}[e|X] = 0$, isto é, o erro é não correlacionado com x.
 
 Para essa demonstração, vamos utilizar uma parametrização alternativa para o modelo de regressão linear em torno da média de $x$. Para isso, vamos usar nosso truque matemático de adicionar e subtrair
-Lembremos que a fórmula para o $\hat{\beta}$ é $\mathbb{Cov}[X,Y]/\mathbb{Var}[X]$. Substituindo nossa equação de regressão na fórmula, temos:
+Lembremos que a fórmula para o $\hat{\beta}$ é $\mathbb{Cov}[X,Y]/\mathbb{Var}[X]$.
+
+Notem que: 
+$$
+\hat{\beta} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\sum({x_i - \bar{x}})^2} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{n \cdot \sigma^2_x} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\cdot \sigma^2_x}
+$$
+
+Vamos então usar essa última parametrização para reescrever minha equação do $\hat{\beta}$ e então mostrar que ele é não-viesado e calcular sua variância. 
+
+Substituindo nossa equação de regressão na fórmula, temos:
 
 $$
-\hat{\beta} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\sigma^2_x} = \frac{\sum{(x_i - \bar{x}) \cdot y_i - (x_i - \bar{x})\bar{y}}}{\sigma^2_x} =  \frac{\sum({x - \bar{x}}) \cdot y_i - \sum({x -\bar{x}}) \cdot\bar{y}}{\sigma^2_x}
+\hat{\beta} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\cdot \sigma^2_x} = \frac{n^{-1}\sum{(x_i - \bar{x}) \cdot y_i - (x_i - \bar{x})\bar{y}}}{\sigma^2_x} =  \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot y_i - \sum({x_i -\bar{x}}) \cdot\bar{y}}{\sigma^2_x}
 $$
 
-Vamos agora usar o fato de que, para qualquer variável $z$, a diferença média de $z$ para a média amostral de $z$ é zero, isto é, $n^{-1}*\sum\limits_{i=1}^n{}z - \bar{z} = 0$
+Vamos agora usar o fato de que, para qualquer variável $z$, a diferença média de $z$ para a média amostral de $z$ é zero, isto é, $n^{-1}*\sum\limits_{i=1}^n{}z_i - \bar{z} = 0$
 
 Por fim, segue-se disso que, para qualquer constante $w$ que não varia com $i$, podemos escrever:
-$n^{-1}*\sum\limits_{i=1}^n{}(z - \bar{z})*w = 0$
+$n^{-1}*\sum\limits_{i=1}^n{}(z_i - \bar{z})*w = 0$
 
-Portanto, $\sum({x -\bar{x}})*\bar{y} = 0$.
+Portanto, $\sum({x_i -\bar{x}})*\bar{y} = 0$.
 
 Logo,
 
 $$
-\hat{\beta} =  n^{-1}*\sum({x - \bar{x}})*y_i/\mathbb{Var}[x] 
+\hat{\beta} =  \frac{n^{-1}\sum({x - \bar{x}})*y_i}{\sigma^2_x}
 $$
+
 Lembremos que, $y_i = \alpha + \beta*X_i + e_i$. Se eu adicionar e subtrair $\beta*\bar{x}$ da equação, não altero ela. Utilizando esse truque e rearranjando, temos:
 
 $$
 y_i = \alpha + \beta*X_i + e_i = \alpha + \beta*\bar{x} + \beta*X_i - \beta*\bar{x} + e_i = \alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i
 $$
+
 Substituindo na equação anterior, temos:
 
 $$
-\hat{\beta} =  n^{-1}*\sum({x - \bar{x}})*(\alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i)/\mathbb{Var}[x] 
+\hat{\beta} =  \frac{n^{-1}\sum({x_i - \bar{x}})*(\alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i)}{\sigma^2_x}
 $$
-$$
-\hat{\beta} =  n^{-1}*(\alpha + \beta)\bar{x}\sum({x - \bar{x}})*(\beta*(x_i - \bar{x}) + e_i)/\mathbb{Var}[x] 
-$$
-$$
-\hat{\beta} =  n^{-1}*(\alpha + \beta)\bar{x}\sum({x - \bar{x}}) +  n^{-1}\beta\sum(x_i - \bar{x})^2 + n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x] 
-$$
-A priemria soma é uma constante, vezes o somatório de $x_i$ menos sua média, o que é zero. A segunda soma é a variância de x multiplicada por $\beta$. Então, simplifcando, temos:
 
 $$
-\hat{\beta} =  \beta +  n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x] 
+\hat{\beta} =  \frac{ n^{-1} \cdot (\alpha + \beta)\bar{x}\sum({x_i - \bar{x}})*(\beta*(x_i - \bar{x}) + e_i)}{\sigma^2_x}
+$$
+
+$$
+\hat{\beta} = \frac{ n^{-1} (\alpha + \beta) \cdot \bar{x}\sum({x_i - \bar{x}}) + n^{-1} \beta\sum(x_i - \bar{x})^2 + n^{-1} \sum({x_i - \bar{x}})*e_i} {\sigma^2_x}
+$$
+A primeira soma é uma constante, vezes o somatório de $x_i$ menos sua média, o que é zero. Posso então eliminar da equação, resultando em:
+$$
+\hat{\beta} = \frac{\beta \cdot n^{-1} \cdot\sum({x_i - \bar{x}})^2 +  n^{-1}\sum({x_i - \bar{x}})*e_i}{\sigma^2_x}
+$$
+
+Agora, a primeira soma é a variância de x multiplicada por $\beta$. Reescrevendo a equação de outro modo, temos:
+
+$$
+\hat{\beta} =  \frac{\beta \cdot \sigma^2_x}{\sigma^2_x} + \frac{n^{-1}\sum({x_i - \bar{x}})*e_i}{\sigma^2_x}
+$$
+Simplificando, chegamos a:
+
+$$
+\hat{\beta} =  \beta  + \frac{n^{-1}\sum({x_i - \bar{x}})*e_i}{\sigma^2_x}
 $$
 
 Portanto, nós mostramos que o estimador $\hat{\beta}$ pode ser decomposto no parâmetro populacional $\beta$ mais uma soma ponderada do termo de erro. Uma vez que nossa amostra é i.i.d., sabemos que é uma média ponderada dos erros não-correlacionados. Podemos agora mostrar que o estimador é não-viesado.
 
+Primeiro, lembremos nossa suposição de que $\mathbb{E}[e|X] = 0$. Isso significa que, para qualquer valor de $x$ que eu condicionar, a esperança do erro é zero. Portanto, se a esperança do erro é sempre zero, temos:
 
 $$
-\mathbb{E}[\hat{\beta}] =  \beta +  n^{-1}\mathbb{E}[\sum({x - \bar{x}})*e_i)]/\mathbb{Var}[x] = \beta +\mathbb{E}[e]*\mathbb{E}[\sum({x - \bar{x}})]\mathbb{Var}[x] = \beta
+n^{-1}\sum({x_i - \bar{x}}) \cdot \mathbb{E}[e] = 0
 $$
 
-Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de x vezes o tamanho da amostra, $n$.
+
+$$
+\mathbb{E}[\hat{\beta}] = \beta +  n^{-1}\mathbb{E}[ \frac{ \sum({x_i - \bar{x}})*e_i}{\sigma^2}] = \beta +\frac{n^{-1}}{\sigma^2} \cdot \sum({x_i - \bar{x}}) \cdot \mathbb{E}[e] = \beta
+$$
+Nós utilizamos o fato de que:
+
+$$
+\mathbb{E}[ \sum{a_i*e_i}] = \mathbb{E}[a_1 \cdot e_1 + a_2 \cdot e_2 + ... + a_n \cdot e_n] =
+a_1 \cdot \mathbb{E}[e_1] + a_2 \cdot \mathbb{E}[ e_2] + ... + a_n \cdot \mathbb{E}[ e_n] = \sum{a_i} \cdot \mathbb{E}[e_i]
+$$
+Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de $x$ vezes o tamanho da amostra, $n$.
 
 $$
 \mathbb{Var}[\hat{\beta}] = \mathbb{Var}[\beta +  n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x]]
@@ -307,14 +341,30 @@ Todas as observações do $x$ foram observadas e, portanto, a soma da diferença
 
 
 $$
-\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2*\mathbb{Var}[e_i/\mathbb{Var}[x]]
-$$
-Supondo homocedasticidade, \mathbb{Var}[e_i] = \sigma^2$
-
-$$
-\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2*\mathbb{Var}[e_i/\mathbb{Var}[x]]
+\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2*\mathbb{Var}[e_i/\sigma^2_x]
 $$
 
+Supondo homocedasticidade, $\mathbb{Var}[e_i] = \sigma^2$
+
+$$
+\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x_i - \bar{x}}))^2*\mathbb{Var}[e_i/\sigma^2_x]
+$$
+$$
+\mathbb{Var}[\hat{\beta}] = \frac{n^{-2}\sum({x_i - \bar{x}})^2}{\sigma^4_x} \cdot \mathbb{Var}[e_i]
+$$
+$$
+\mathbb{Var}[\hat{\beta}] = \frac{n^{-1}\sigma^2_x}{\sigma^4_x} \cdot \mathbb{Var}[e_i] = \frac{\sigma^2}{n\sigma^2_x}
+$$
+
+Ou seja, a variância de nosso estimador é a variância do erro dividida pela variância de $x$ multiplicada pelo tamanho da amostra. Isso significa que quando mais disperso o $Y$, maior a variância do meu estimador, quanto maior a amostra, menor a variância e, por fim, quanto mais espalhado o $X$, menor a variância do estimador.
+
+Por fim, o erro padrão de uma estimativa é apenas o desvio padrão da variância. Portanto:
+
+$$
+SE(\hat{\beta}) = \frac{\sigma}{\sqrt{n\sigma^2_x}}
+$$
+
+## Estimando um modelo de regressão real
 
 Vamos começar com um exemplo, importando dados do site Base de Dados, que possui muitas bases de dados públicas, já tratadas. Para tanto, precisaremos criar um projeto no Google cloud, conforme os passos aqui: https://basedosdados.github.io/mais/access_data_packages/
 
