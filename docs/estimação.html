@@ -227,6 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3" data-path="estimação.html"><a href="estimação.html#suposições-amostrais-de-mqo"><i class="fa fa-check"></i><b>7.3</b> Suposições amostrais de MQO</a></li>
 <li class="chapter" data-level="7.4" data-path="estimação.html"><a href="estimação.html#modelo-de-média-amostral"><i class="fa fa-check"></i><b>7.4</b> Modelo de Média amostral</a></li>
 <li class="chapter" data-level="7.5" data-path="estimação.html"><a href="estimação.html#modelo-de-regressão-linear-com-preditores"><i class="fa fa-check"></i><b>7.5</b> Modelo de Regressão Linear com preditores</a></li>
+<li class="chapter" data-level="7.6" data-path="estimação.html"><a href="estimação.html#estimando-um-modelo-de-regressão-real"><i class="fa fa-check"></i><b>7.6</b> Estimando um modelo de regressão real</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="causalidade.html"><a href="causalidade.html"><i class="fa fa-check"></i><b>8</b> - Causalidade</a>
 <ul>
@@ -306,13 +307,21 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 <span id="cb1-14"><a href="estimação.html#cb1-14" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <tbody>
-<tr class="odd">
-<td align="right">4.0</td>
-<td align="right">2.4</td>
+<tr>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+2.4
+</td>
 </tr>
-<tr class="even">
-<td align="right">2.4</td>
-<td align="right">4.0</td>
+<tr>
+<td style="text-align:right;">
+2.4
+</td>
+<td style="text-align:right;">
+4.0
+</td>
 </tr>
 </tbody>
 </table>
@@ -375,13 +384,21 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 <span id="cb8-15"><a href="estimação.html#cb8-15" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <tbody>
-<tr class="odd">
-<td align="right">4.0</td>
-<td align="right">1.2</td>
+<tr>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+1.2
+</td>
 </tr>
-<tr class="even">
-<td align="right">1.2</td>
-<td align="right">4.0</td>
+<tr>
+<td style="text-align:right;">
+1.2
+</td>
+<td style="text-align:right;">
+4.0
+</td>
 </tr>
 </tbody>
 </table>
@@ -405,13 +422,21 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 <span id="cb10-8"><a href="estimação.html#cb10-8" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <tbody>
-<tr class="odd">
-<td align="right">16.0</td>
-<td align="right">2.4</td>
+<tr>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+2.4
+</td>
 </tr>
-<tr class="even">
-<td align="right">2.4</td>
-<td align="right">4.0</td>
+<tr>
+<td style="text-align:right;">
+2.4
+</td>
+<td style="text-align:right;">
+4.0
+</td>
 </tr>
 </tbody>
 </table>
@@ -436,13 +461,21 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 <span id="cb12-9"><a href="estimação.html#cb12-9" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <tbody>
-<tr class="odd">
-<td align="right">16.0</td>
-<td align="right">1.2</td>
+<tr>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+1.2
+</td>
 </tr>
-<tr class="even">
-<td align="right">1.2</td>
-<td align="right">4.0</td>
+<tr>
+<td style="text-align:right;">
+1.2
+</td>
+<td style="text-align:right;">
+4.0
+</td>
 </tr>
 </tbody>
 </table>
@@ -703,41 +736,64 @@ Ou seja, a variância de nosso estimador é igual à variância populacional div
 <li><p><span class="math inline">\(\mathbb{E}[e|X] = 0\)</span>, isto é, o erro é não correlacionado com x.</p></li>
 </ol>
 <p>Para essa demonstração, vamos utilizar uma parametrização alternativa para o modelo de regressão linear em torno da média de <span class="math inline">\(x\)</span>. Para isso, vamos usar nosso truque matemático de adicionar e subtrair
-Lembremos que a fórmula para o <span class="math inline">\(\hat{\beta}\)</span> é <span class="math inline">\(\mathbb{Cov}[X,Y]/\mathbb{Var}[X]\)</span>. Substituindo nossa equação de regressão na fórmula, temos:</p>
-<p><span class="math display">\[
-\hat{\beta} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\sigma^2_x} = \frac{\sum{(x_i - \bar{x}) \cdot y_i - (x_i - \bar{x})\bar{y}}}{\sigma^2_x} =  \frac{\sum({x - \bar{x}}) \cdot y_i - \sum({x -\bar{x}}) \cdot\bar{y}}{\sigma^2_x}
+Lembremos que a fórmula para o <span class="math inline">\(\hat{\beta}\)</span> é <span class="math inline">\(\mathbb{Cov}[X,Y]/\mathbb{Var}[X]\)</span>.</p>
+<p>Notem que:
+<span class="math display">\[
+\hat{\beta} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\sum({x_i - \bar{x}})^2} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{n \cdot \sigma^2_x} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\cdot \sigma^2_x}
 \]</span></p>
-<p>Vamos agora usar o fato de que, para qualquer variável <span class="math inline">\(z\)</span>, a diferença média de <span class="math inline">\(z\)</span> para a média amostral de <span class="math inline">\(z\)</span> é zero, isto é, <span class="math inline">\(n^{-1}*\sum\limits_{i=1}^n{}z - \bar{z} = 0\)</span></p>
+<p>Vamos então usar essa última parametrização para reescrever minha equação do <span class="math inline">\(\hat{\beta}\)</span> e então mostrar que ele é não-viesado e calcular sua variância.</p>
+<p>Substituindo nossa equação de regressão na fórmula, temos:</p>
+<p><span class="math display">\[
+\hat{\beta} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\cdot \sigma^2_x} = \frac{n^{-1}\sum{(x_i - \bar{x}) \cdot y_i - (x_i - \bar{x})\bar{y}}}{\sigma^2_x} =  \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot y_i - \sum({x_i -\bar{x}}) \cdot\bar{y}}{\sigma^2_x}
+\]</span></p>
+<p>Vamos agora usar o fato de que, para qualquer variável <span class="math inline">\(z\)</span>, a diferença média de <span class="math inline">\(z\)</span> para a média amostral de <span class="math inline">\(z\)</span> é zero, isto é, <span class="math inline">\(n^{-1}*\sum\limits_{i=1}^n{}z_i - \bar{z} = 0\)</span></p>
 <p>Por fim, segue-se disso que, para qualquer constante <span class="math inline">\(w\)</span> que não varia com <span class="math inline">\(i\)</span>, podemos escrever:
-<span class="math inline">\(n^{-1}*\sum\limits_{i=1}^n{}(z - \bar{z})*w = 0\)</span></p>
-<p>Portanto, <span class="math inline">\(\sum({x -\bar{x}})*\bar{y} = 0\)</span>.</p>
+<span class="math inline">\(n^{-1}*\sum\limits_{i=1}^n{}(z_i - \bar{z})*w = 0\)</span></p>
+<p>Portanto, <span class="math inline">\(\sum({x_i -\bar{x}})*\bar{y} = 0\)</span>.</p>
 <p>Logo,</p>
 <p><span class="math display">\[
-\hat{\beta} =  n^{-1}*\sum({x - \bar{x}})*y_i/\mathbb{Var}[x]
-\]</span>
-Lembremos que, <span class="math inline">\(y_i = \alpha + \beta*X_i + e_i\)</span>. Se eu adicionar e subtrair <span class="math inline">\(\beta*\bar{x}\)</span> da equação, não altero ela. Utilizando esse truque e rearranjando, temos:</p>
+\hat{\beta} =  \frac{n^{-1}\sum({x - \bar{x}})*y_i}{\sigma^2_x}
+\]</span></p>
+<p>Lembremos que, <span class="math inline">\(y_i = \alpha + \beta*X_i + e_i\)</span>. Se eu adicionar e subtrair <span class="math inline">\(\beta*\bar{x}\)</span> da equação, não altero ela. Utilizando esse truque e rearranjando, temos:</p>
 <p><span class="math display">\[
 y_i = \alpha + \beta*X_i + e_i = \alpha + \beta*\bar{x} + \beta*X_i - \beta*\bar{x} + e_i = \alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i
-\]</span>
-Substituindo na equação anterior, temos:</p>
+\]</span></p>
+<p>Substituindo na equação anterior, temos:</p>
 <p><span class="math display">\[
-\hat{\beta} =  n^{-1}*\sum({x - \bar{x}})*(\alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i)/\mathbb{Var}[x]
-\]</span>
-<span class="math display">\[
-\hat{\beta} =  n^{-1}*(\alpha + \beta)\bar{x}\sum({x - \bar{x}})*(\beta*(x_i - \bar{x}) + e_i)/\mathbb{Var}[x]
-\]</span>
-<span class="math display">\[
-\hat{\beta} =  n^{-1}*(\alpha + \beta)\bar{x}\sum({x - \bar{x}}) +  n^{-1}\beta\sum(x_i - \bar{x})^2 + n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x]
-\]</span>
-A priemria soma é uma constante, vezes o somatório de <span class="math inline">\(x_i\)</span> menos sua média, o que é zero. A segunda soma é a variância de x multiplicada por <span class="math inline">\(\beta\)</span>. Então, simplifcando, temos:</p>
+\hat{\beta} =  \frac{n^{-1}\sum({x_i - \bar{x}})*(\alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i)}{\sigma^2_x}
+\]</span></p>
 <p><span class="math display">\[
-\hat{\beta} =  \beta +  n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x]
+\hat{\beta} =  \frac{ n^{-1} \cdot (\alpha + \beta)\bar{x}\sum({x_i - \bar{x}})*(\beta*(x_i - \bar{x}) + e_i)}{\sigma^2_x}
+\]</span></p>
+<p><span class="math display">\[
+\hat{\beta} = \frac{ n^{-1} (\alpha + \beta) \cdot \bar{x}\sum({x_i - \bar{x}}) + n^{-1} \beta\sum(x_i - \bar{x})^2 + n^{-1} \sum({x_i - \bar{x}})*e_i} {\sigma^2_x}
+\]</span>
+A primeira soma é uma constante, vezes o somatório de <span class="math inline">\(x_i\)</span> menos sua média, o que é zero. Posso então eliminar da equação, resultando em:
+<span class="math display">\[
+\hat{\beta} = \frac{\beta \cdot n^{-1} \cdot\sum({x_i - \bar{x}})^2 +  n^{-1}\sum({x_i - \bar{x}})*e_i}{\sigma^2_x}
+\]</span></p>
+<p>Agora, a primeira soma é a variância de x multiplicada por <span class="math inline">\(\beta\)</span>. Reescrevendo a equação de outro modo, temos:</p>
+<p><span class="math display">\[
+\hat{\beta} =  \frac{\beta \cdot \sigma^2_x}{\sigma^2_x} + \frac{n^{-1}\sum({x_i - \bar{x}})*e_i}{\sigma^2_x}
+\]</span>
+Simplificando, chegamos a:</p>
+<p><span class="math display">\[
+\hat{\beta} =  \beta  + \frac{n^{-1}\sum({x_i - \bar{x}})*e_i}{\sigma^2_x}
 \]</span></p>
 <p>Portanto, nós mostramos que o estimador <span class="math inline">\(\hat{\beta}\)</span> pode ser decomposto no parâmetro populacional <span class="math inline">\(\beta\)</span> mais uma soma ponderada do termo de erro. Uma vez que nossa amostra é i.i.d., sabemos que é uma média ponderada dos erros não-correlacionados. Podemos agora mostrar que o estimador é não-viesado.</p>
+<p>Primeiro, lembremos nossa suposição de que <span class="math inline">\(\mathbb{E}[e|X] = 0\)</span>. Isso significa que, para qualquer valor de <span class="math inline">\(x\)</span> que eu condicionar, a esperança do erro é zero. Portanto, se a esperança do erro é sempre zero, temos:</p>
 <p><span class="math display">\[
-\mathbb{E}[\hat{\beta}] =  \beta +  n^{-1}\mathbb{E}[\sum({x - \bar{x}})*e_i)]/\mathbb{Var}[x] = \beta +\mathbb{E}[e]*\mathbb{E}[\sum({x - \bar{x}})]\mathbb{Var}[x] = \beta
+n^{-1}\sum({x_i - \bar{x}}) \cdot \mathbb{E}[e] = 0
 \]</span></p>
-<p>Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de x vezes o tamanho da amostra, <span class="math inline">\(n\)</span>.</p>
+<p><span class="math display">\[
+\mathbb{E}[\hat{\beta}] = \beta +  n^{-1}\mathbb{E}[ \frac{ \sum({x_i - \bar{x}})*e_i}{\sigma^2}] = \beta +\frac{n^{-1}}{\sigma^2} \cdot \sum({x_i - \bar{x}}) \cdot \mathbb{E}[e] = \beta
+\]</span>
+Nós utilizamos o fato de que:</p>
+<p><span class="math display">\[
+\mathbb{E}[ \sum{a_i*e_i}] = \mathbb{E}[a_1 \cdot e_1 + a_2 \cdot e_2 + ... + a_n \cdot e_n] =
+a_1 \cdot \mathbb{E}[e_1] + a_2 \cdot \mathbb{E}[ e_2] + ... + a_n \cdot \mathbb{E}[ e_n] = \sum{a_i} \cdot \mathbb{E}[e_i]
+\]</span>
+Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de <span class="math inline">\(x\)</span> vezes o tamanho da amostra, <span class="math inline">\(n\)</span>.</p>
 <p><span class="math display">\[
 \mathbb{Var}[\hat{\beta}] = \mathbb{Var}[\beta +  n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x]]
 \]</span></p>
@@ -747,12 +803,26 @@ A priemria soma é uma constante, vezes o somatório de <span class="math inline
 \]</span></p>
 <p>Todas as observações do <span class="math inline">\(x\)</span> foram observadas e, portanto, a soma da diferença para a média é uma constante. Sabemos que <span class="math inline">\(\mathbb{Var}[x*a] = a^2\mathbb{Var}[x]\)</span></p>
 <p><span class="math display">\[
-\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2*\mathbb{Var}[e_i/\mathbb{Var}[x]]
-\]</span>
-Supondo homocedasticidade, [e_i] = ^2$</p>
-<p><span class="math display">\[
-\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2*\mathbb{Var}[e_i/\mathbb{Var}[x]]
+\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2*\mathbb{Var}[e_i/\sigma^2_x]
 \]</span></p>
+<p>Supondo homocedasticidade, <span class="math inline">\(\mathbb{Var}[e_i] = \sigma^2\)</span></p>
+<p><span class="math display">\[
+\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x_i - \bar{x}}))^2*\mathbb{Var}[e_i/\sigma^2_x]
+\]</span>
+<span class="math display">\[
+\mathbb{Var}[\hat{\beta}] = \frac{n^{-2}\sum({x_i - \bar{x}})^2}{\sigma^4_x} \cdot \mathbb{Var}[e_i]
+\]</span>
+<span class="math display">\[
+\mathbb{Var}[\hat{\beta}] = \frac{n^{-1}\sigma^2_x}{\sigma^4_x} \cdot \mathbb{Var}[e_i] = \frac{\sigma^2}{n\sigma^2_x}
+\]</span></p>
+<p>Ou seja, a variância de nosso estimador é a variância do erro dividida pela variância de <span class="math inline">\(x\)</span> multiplicada pelo tamanho da amostra. Isso significa que quando mais disperso o <span class="math inline">\(Y\)</span>, maior a variância do meu estimador, quanto maior a amostra, menor a variância e, por fim, quanto mais espalhado o <span class="math inline">\(X\)</span>, menor a variância do estimador.</p>
+<p>Por fim, o erro padrão de uma estimativa é apenas o desvio padrão da variância. Portanto:</p>
+<p><span class="math display">\[
+SE(\hat{\beta}) = \frac{\sigma}{\sqrt{n\sigma^2_x}}
+\]</span></p>
+</div>
+<div id="estimando-um-modelo-de-regressão-real" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Estimando um modelo de regressão real<a href="estimação.html#estimando-um-modelo-de-regressão-real" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vamos começar com um exemplo, importando dados do site Base de Dados, que possui muitas bases de dados públicas, já tratadas. Para tanto, precisaremos criar um projeto no Google cloud, conforme os passos aqui: <a href="https://basedosdados.github.io/mais/access_data_packages/" class="uri">https://basedosdados.github.io/mais/access_data_packages/</a></p>
 <p>Depois, só escolher quais dos dados iremos olhar
 <a href="https://basedosdados.org/" class="uri">https://basedosdados.org/</a></p>
