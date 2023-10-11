@@ -459,3 +459,67 @@ reg <- lm(negra ~  percent_female + tipo_localizacao + agua_potavel  + esgoto_re
 summary(reg)
 
 ```
+## Limitações de MQO
+
+Os estimadores de MQO, nossos $\ha{\beta}$ e $\hat{\alpha}$, são não-viesados e conseguimos derivar a variância amostral deles. Porém, não há muito mais que possamos dizer sobre eles a partir apenas das suposições que fizemos, ou seja, de que o modelo linear (nos parâmetros) é adequado, e que a espereança do erro, condicional ao preditor, é zero (e assumimos, em certo momento, homecedasticidade). O que não podemos dizer a mais que gostaríamos de poder fazer?
+
+Uma aspecto importante da inferência é, por exemplo, calcular o intervalo de confiança. Para isso, contudo, precisaremos de mais suposições do que o que fizemos até aqui. Portanto, tanto cálculos de intervalo de confiança como o p-valor e condução de testes de hipótese estão vedados com as suposições de MQO.
+
+## Distrações
+
+Quando nós imprimimos o resultado de uma regressão no R, além dos coeficientes e o erro padrão, há uma série de outras informações apresentadas. Muitas delas são apenas distrações, mas como existem e muita gente ainda as utiliza (às vezes com bom uso), vou falar rapidamente de uma delas, o que já é possível com nosso conhecimento atual.
+
+### R-quadrado
+
+Uma das estatísticas apresentadas é o chamado $R^2$, também denominado coeficiente de determinação, que pode ser definido de várias maneiras distintas e uma delas é a razão entre a variância dos valores preditos $\hat{Y}$ e a variância dos dados observados, $Y$:
+
+$$
+R^2 \equiv \frac{\hat{\sigma^2_{\hat{y}}}}{\sigma^2}
+$$
+
+Uma definição alternartiva é que o R-quadrado é a razão entre a covariância de $y$ e $\hat{y}$ e a variância de $Y$:
+$$
+R^2 \equiv \frac{\mathbb{Cov}[Y,\hat{Y}]}{\sigma^2}
+$$
+Por fim, o R-quadrado pode ser escrito como o quadrado da covariância entee $X$ e $Y$ dividido pelo produto dos desvios-pdrãos de $X$ e $Y$.
+$$
+R^2 \equiv \left(\frac{\mathbb{Cov}[X,Y]}{\sigma_x \cdot \sigma_y}\right)^2
+$$
+
+Essa última parametrização é o que permite interpretar o R-quadrado como a correlação (entre $X$ e $Y$) ao quadrado. É fácil ver também que uma regressão de $X$ sobre $Y$ gera o mesmo R-quadrado que uma regressão de $Y$ sobre $X$.
+
+### R-quadrado ajustado
+
+O estimador $\hat{\sigma^2}$ é viesado com relação ao parâmetro $\sigma^2$. Então, o R-quadrado ajustado usa $\frac{n \cdot \hat{\sigma^2}}{n-2}$ como estimador de $\sigma^2$. Uma interpretação dada é que adicionar preditores no modelo em geral reduz a variância "não-explicada" $\sigma^2$ (lembrem-se do "chuva na Jamaica"). E isso induz um viés da estimativa do $R^2$, que é corrigida pelo desconto no número de preditores + 1.
+
+### Limites do R-quadrado
+
+Pela primeira parametrização, éfácil ver que o $R^2$ jamais será negativo, pois a variância é sempre não-negativa. Além disso, jamais será mais que 1, pois a variância dos valores preditors será no máximo igual à variância observada, quando as previsões forem perfeitas.
+
+### Para que serve?
+
+Por muito tempo foi utilizada como uma medida do ajuste do modelo e, portanto, quanto maior o R-quadrado, melhor (ou quanto maior o R-quadrado ajustado). Hoje em dia, contudo, sabemos que é uma péssima medida de ajuste do modelo.
+
+1. O modelo pode estar correto e produzir um R-quadrado pequeno, a depender a da variância de $Y$.
+
+2. O modelo pode estar totalmente errado e o R-quadrado ser próximo de 1. Quando o verdadeiro modelo é não-linear e a variância de $X$ é muito grande, isso pode acontecer se a reta de regressão ajustada não tiver $\beta = 0$.
+
+3. Há também quem use o $R^2$ como medida de capacidade preditiva do modelo. Quanto mais espalhado o $X$, melhor o $R^2$. A simulação abaixo mostra isso:
+
+```{r r-squared, message=FALSE}
+x1 <- rnorm(1000, 0, 10)
+x2 <- rnorm(1000, 0, 2)
+
+y1 <- 2 + 3*x1 + rnorm(1000, 0, 2)
+y2 <- 2 + 3*x2 + rnorm(1000, 0, 2)
+
+summary(lm(y1 ~x1))
+summary(lm(y2~x2))
+```
+4. Não é possível comparar o $R^2$ entre amostras distintas, como a simulação acima também mostra. O modelo é o mesmo, mas os dados são distintos e produzem $R^2$ distintos.
+
+5. Não faz sentido comparar o $R^2$ entre transformações da nossa variável dependente (com e sem log, por exemplo).
+
+6. Quando a amostra é a mesma e o $y$ é o mesmo, é possível comparar modelos com o $R^2$ e um R-quadrado maior significa um Erro Quadrático Médio menor. Mas nesse caso, é melhor usar direto o EQM.
+
+7. É fácil ver, por tudo isso, que o $R^2$ não é uma medida da variância explicada, com ou sem aspas. Eu não consigo entender o que é "explicar", assim com aspas, e como é distinto de sem aspas. Portanto, melhor seria não usar e deixar de lado. Mas como é usado e os softwares mostram, tenho de perder tempo falando sobre ele para vocês.
