@@ -131,79 +131,128 @@ Muitos livros textos de regressão não diferenciam as propriedades da CEF e as 
 Suponha que estou interessado em estimar o efeito causal de uma variável, que vou designar por tratamento. Meus dados são observacionais e há viés de seleção nos dados. Uma outra variável, $X$, causa tanto o tratamento quando minha variável dependente, $Y$. Porém, condicional a $X$, o tratamento é independente dos resultados potenciais, ou seja, é válida a suposição de independência condicional. Vou mostrar que a o erro da CEF é independente dos regressores e, por outro lado, uma regressão sem controlar para $X$ tem resíduo correlacionado com o regressor e, portanto, não identifica o efeito causal. Por fim, uma regressão que controle para $X$ identifica o efeito causal.
 
 
-
-Chen, B., & Pearl, J. (2013). Regression and causation: a critical examination of six econometrics textbooks. Real-World Economics Review, Issue, (65), 2-20.
-
-
 ## Simulação de Resultados Potenciais e Causalidade
 
-Vamos rodar uma simulação
-Fonte da simulação: https://stats.stackexchange.com/questions/554113/potential-outcomes-selection-bias
+Vamos rodar uma simulação para ilustrar o ponto.
 
 
 ```{r sim PO, echo=TRUE, message=FALSE}
 
+## potential outcomes
+
+n1 <- 5000
+tau <- 2 # ATE Average Treatment Effect (ATE) or Average Causal Effect (ACE)
+alpha <- 1
+eta_0 <- rnorm(n1)
+eta_1 <- rnorm(n1)
+
+
+##
+n <- n1+n1
+x <- rnorm(n1)
+
+gamma <- 2
+nu_0 <- rnorm(n1)
+nu_1 <- rnorm(n1)
+eta_0 <- gamma*x + nu_0
+eta_1 <- gamma*x + nu_1
+
+treatment <- rep(1:0, each=n1)
+
+# potential outcomes
+y_1 <- alpha + tau*treatment[1:n1] + eta_1
+y_0 <- alpha + tau*treatment[(n1+1):n] + eta_0
+
+# ATT ou ACE
+mean(y_1 - y_0)
+amostra <- sample(1:length(treatment), size = 1000)
+df <- data.frame(y = c(y_1, y_0)[amostra], x=c(x, x)[amostra], treatment = treatment[amostra])
+
+reg <- lm(y ~ 1, data=df)
+summary(reg)
+
+reg1 <- lm(y ~ x, data=df)
+summary(reg1)
+
+## Ignorability apenas com CIA (x)
+library(arm)
+x <- rnorm(n)
+treatment <- ifelse(x > 0, 1,0)
+
+gamma <- 2
+tau <- -2 # ATE Average Treatment Effect (ATE) or Average Causal Effect (ACE)
+alpha <- 1
+nu <- rnorm(n)
+eta <- gamma*x + nu
+
+y <- alpha + tau*treatment + eta
+
+df <- data.frame(y=y, x=x, treatment = treatment)
+reg3 <- lm(y ~ treatment, data=df)
+summary(reg3)
+
+reg4 <- lm(y ~ treatment +  x, data=df)
+summary(reg4)
+
 library(tidyverse)
+library(ggplot2)
 
-# U affects both treatment and outcome (Y). 
+df %>%
+  group_by(treatment) %>%
+  mutate(uncond_y = mean(y),
+         erro = (y - uncond_y),
+         sqs = sum(erro)^2) %>%
+  ggplot(aes(x, erro )) + geom_point()
 
-# simulation #
-set.seed(123)
-n = 1000
-u = rnorm(n, 1, 1) # generate latent variable affecting treatment selection
-d = rbinom(n, 1, prob = plogis(u)) # treatment
-e = rnorm(n, 0, 1)
+df %>%
+  mutate(bol_x = ifelse(x > 0 ,1,0)) %>%
+  group_by(treatment, bol_x) %>%
+  mutate(cond_y = mean(y)) %>%
+    ungroup() %>%
+    mutate(erro = (y - cond_y),
+         sqs = sum(erro)^2) %>%
+  ggplot(aes(x, erro )) + geom_point()
 
-# homogenous causal effect #
-causal_effect = 2
+# -5 ocorre 10%,02 10% etc. até 5, 10% das vezes
+x <- sample(1:11, size=n, replace=T) - 6
+treatment <- ifelse(x > 0, 1,0)
 
-# Y(0)
-y0 = u + e
-# Y(1)
-y1 = causal_effect + u + e
-# Observed Y
-yobs = d*causal_effect + u + e
-#
-df = data.frame(u, d, y0, y1, yobs)
-#
+gamma <- 2
+tau <- -2 # ATE Average Treatment Effect (ATE) or Average Causal Effect (ACE)
+alpha <- 1
+nu <- rnorm(n)
+eta <- gamma*x + nu
 
-# individual causal effect #
-df$y1y0 = df$y1 - df$y0
-# grand mean #
-mean(df$y1y0)
+y <- alpha + tau*treatment + eta
 
-# ATT / ATC #
-df %>% group_by(d) %>% summarise(mean(y1 - y0))
 
-# naive group comparison #
-naive_group_comparison = df %>% group_by(d) %>% summarise(m = mean(yobs)) %>% summarise(m[d == 1] - m[d == 0])
+df %>%
+  mutate(bol_x = ifelse(x > 0 ,1,0)) %>%
+  group_by(treatment, bol_x) %>%
+  mutate(cond_y = alpha + .5*tau + gamma*x ) %>%
+  ungroup() %>%
+  mutate(erro = (y - cond_y),
+         sqs = sum(erro)^2) %>%
+  ggplot(aes(x, erro )) + geom_point()
 
-naive_group_comparison
 
-# ATT
-`Y(1) Y(0) | D =1` = df[df$d==1,] %>% summarise(mean(y1 - y0))
+df %>%
+  mutate(bol_x = ifelse(x > 0 ,1,0),
+         cond_y = alpha + tau*treatment + gamma*x,
+         erro = (y - cond_y),
+         sqs = sum(erro)^2) %>%
+  ggplot(aes(y=erro, x=x )) + geom_point() + geom_smooth(method="lm")
 
-# ATC
-`Y(1) Y(0) | D =0` = df[df$d==0,] %>% summarise(mean(y1 - y0))
 
-# unobserved quantities #
-`Y(0) | D =1` = df[df$d==1,] %>% summarise(mean(y0))
-`Y(1) | D =0` = df[df$d==0,] %>% summarise(mean(y1))
+df %>%
+  mutate(bol_x = ifelse(x > 0 ,1,0),
+        cond_y = alpha + tau*treatment + gamma*x,
+        erro = (y - cond_y),
+         sqs = sum(erro)^2) %>%
+  summarise(cor(erro, x))
 
-# observed
-`Y(1) | D =1` = df[df$d==1,] %>% summarise(mean(y1))
-`Y(0) | D =0` = df[df$d==0,] %>% summarise(mean(y0))
-
-# ATT
-selection_bias_1 = `Y(0) | D =1` - `Y(0) | D =0`
-# ATT + selection bias 1 #
-`Y(1) Y(0) | D =1` + selection_bias_1
-# We get the correct result as 
-# naive_group_comparison
-
-# ATC
-selection_bias_2 = `Y(1) | D =0` - `Y(1) | D =1`
-# ATC + selection bias 1 #
-`Y(1) Y(0) | D =1` + selection_bias_2
 ```
 
+## Referências
+
+Chen, B., & Pearl, J. (2013). Regression and causation: a critical examination of six econometrics textbooks. Real-World Economics Review, Issue, (65), 2-20.
