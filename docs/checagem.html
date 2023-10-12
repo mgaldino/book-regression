@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Introdução à Regresssão para Ciências Sociais</title>
-  <meta name="description" content="Introdução à Regresssão para Ciências Sociais" />
+  <title>Capítulo 10 - Checagem | Introdução à Regresssão para Ciências Sociais</title>
+  <meta name="description" content="Capítulo 10 - Checagem | Introdução à Regresssão para Ciências Sociais" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta property="og:title" content="Capítulo 10 - Checagem | Introdução à Regresssão para Ciências Sociais" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta name="twitter:title" content="Capítulo 10 - Checagem | Introdução à Regresssão para Ciências Sociais" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="revisão-de-r.html"/>
+<link rel="prev" href="mle.html"/>
+<link rel="next" href="inferencia.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -305,29 +305,85 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Introdução à Regresssão para Ciências Sociais</h1>
-<p class="author"><em>Manoel Galdino</em></p>
-<p class="date"><em>2023-10-12</em></p>
+<div id="checagem" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Capítulo 10</span> - Checagem<a href="checagem.html#checagem" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Antes de proceder com a parte de inferência estatística, vamos apresentar como realizar checagem do modelo. A razão é que, em geral, a teoria de inferência depende da suposição do modelo ser correta. Então, faz sentido primeiro checar se o modelo satisfaz os pressupostos, e depois fazer inferência.</p>
+<p>Vamos então apresentar os principais testes e checagem que devemos fazer com nosso modelo de regressão linear. Aqui vale uma comentário sobre inferência Bayesiana, que não estamos utilizando em nosso curso, mas que eu particularmente utilizo em minha pesquisa aplicada. O prática de modelagem padrão na inferência Bayesiana é escrever formalmente uma verossimilhança (como fizemos com MLE) e estimar distribuições de porbabilidades para os parâmetros, e checar o modelo para ver se essas distribuições fazem sentido. Portanto, a checagem do modelo acontece automaticamente e de maneira integrada, ao contrário do que faremos aqui. Ou seja, recomendo que vocês aprendam a fazer inferência Bayesiana e prescindam de toda essa maquinaria que irei apresentar.</p>
+<div id="resíduos" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Resíduos<a href="checagem.html#resíduos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Os resíduo para cada obsrrvação <span class="math inline">\(i\)</span> é a diferença entre a previsão do modelo de regressão <span class="math inline">\(\hat{y_i}\)</span> e o valor observado <span class="math inline">\(y_i\)</span>, as vezes chamado de <span class="math inline">\(\hat{e}\)</span>, para diferenciar do erro populacional, <span class="math inline">\(e\)</span>. No caso de nosso modelo de regressão linear com um único preditor, temos:</p>
+<p><span class="math display">\[
+\hat{e_i} = y_i - (\hat{\alpha} + \hat{\beta} \cdot x_i)
+\]</span>
+Eis algumas propriedade dos resíduos.
+1. Os resíduos deveriam ter esperança zero, condicional aos preditores. Formalmente, <span class="math inline">\(\mathbb{E}[\hat{e}|X=x] = 0\)</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Se estivermos supondo homecedasticidade, devem ter variância constante (o que raramente será o caso).</p></li>
+<li><p>Os resíduos não podem ser completamente não-correlacionados entre si, mas a correlação deve ser baixa e convergir para zero à medida que <span class="math inline">\(n\)</span> cresce para infinito.</p></li>
+<li><p>Se estamos supondo que o erro é Gaussiano (Normal), como no modelo de MLE, os resíduos devem também ser normais.</p></li>
+</ol>
+<p>Cada uma dessas propriedades nos leva a um diagnóstico ou checagem.</p>
 </div>
-<div id="prefácio" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Capítulo 1</span> - Prefácio<a href="index.html#prefácio" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP0468 Métodos Quantitativos de Pesquisa na Ciência Política IV, de introdução à regressão, bem como o curso de pós-graduação, Métodos II.</p>
-<p>Agradeço aos alunos do curso pelos feedbacks (futuros e presentes) sobre esse material, bem como ao monitor do curso, Davi Veronese.</p>
-<p>Futuramente, pretendo transformar as notas de aulas em um livro, que poderá ser utilizado pela comunidade brasileira de ciências sociais interessada em aprender mais sobre métodos quantitativos, em particular regressão com R.</p>
-<p>A motivação para disponibilizar as notas de aula em formato de livro é a quase inexistência de um material bom de econometria básica, em português, voltado para a área de ciências sociais, em particular a ciência política. Existem bons manuais em inglês e bons manuais em português, mas voltado para a economia.</p>
-<p>Os livros existentes nem sempre fazem um bom trabalho de diferenciar regressão estatística e modelo estrutural (causal) de regressão. Uma abordagem moderna de inferência causal requer que essa distinção seja ensinada ao aluno e esse livro também pretende preencher essa lacuna.</p>
-<p>Por fim, a utilização do R é uma forma de dar ênfase à parte prática. Embora a teoria seja importante e a boa compreensão dos fundamentos é que permita o aprofundamento dos temas cobertos no livro, estatística é uma disciplina aplicada, cujo maior valor está na sua aplicação prática. Assim, boa parte do curso e do conteúdo do livro é dedicado a implementar a teoria no R, bem como na interpretação dos dados.</p>
-<p>O livro começa com capítulos iniciais de introdução/revisão do R e de estatística básica (incluindo probabilidade). Assim, pressupomos que um estudante que utilize esse curso tenha conhecimentos de estatística e probabilidade básica. Não é necessário conhecimento previo de R, nem de cálculo ou álgebra linerar.</p>
+<div id="modelo-no-r" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Modelo no R<a href="checagem.html#modelo-no-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para fazer os testes do nosso modelo, vamos fazer um modelo preditivo. Vou utilizar a votação no primeiro turno presidencial de 2018 para prever o voto no segundo turno, no estado de Alagoas. Para tanto, vamos baixar os dados de votação presidencial de 2018 ao nível de seção eleitoral do portal de dados abertos do TSE para o estado de Alagoas (para ter uma base de dados pequena):
+<a href="https://dadosabertos.tse.jus.br/dataset/resultados-2018" class="uri">https://dadosabertos.tse.jus.br/dataset/resultados-2018</a></p>
+<pre><code>## # A tibble: 15 × 2
+##    NM_VOTAVEL                                 `max(NR_VOTAVEL)`
+##    &lt;chr&gt;                                                  &lt;int&gt;
+##  1 ALVARO FERNANDES DIAS                                     19
+##  2 BENEVENUTO DACIOLO FONSECA DOS SANTOS                     51
+##  3 CIRO FERREIRA GOMES                                       12
+##  4 FERNANDO HADDAD                                           13
+##  5 GERALDO JOSÉ RODRIGUES ALCKMIN FILHO                      45
+##  6 GUILHERME CASTRO BOULOS                                   50
+##  7 HENRIQUE DE CAMPOS MEIRELLES                              15
+##  8 JAIR MESSIAS BOLSONARO                                    17
+##  9 JOSE MARIA EYMAEL                                         27
+## 10 JOÃO DIONISIO FILGUEIRA BARRETO AMOEDO                    30
+## 11 JOÃO VICENTE FONTELLA GOULART                             54
+## 12 MARIA OSMARINA MARINA DA SILVA VAZ DE LIMA                18
+## 13 VERA LUCIA PEREIRA DA SILVA SALGADO                       16
+## 14 VOTO BRANCO                                               95
+## 15 VOTO NULO                                                 96</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = perc_bolso_turno2 ~ perc_bolso_turno1, data = presid_al18_valido)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.147833 -0.018587 -0.000424  0.018027  0.170229 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       0.0011688  0.0008273   1.413    0.158    
+## perc_bolso_turno1 1.1640700  0.0022516 516.986   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.02885 on 6385 degrees of freedom
+## Multiple R-squared:  0.9767, Adjusted R-squared:  0.9767 
+## F-statistic: 2.673e+05 on 1 and 6385 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><img src="bookdownproj_files/figure-html/dados%2010-1.png" width="672" /></p>
+<div id="resíduos-contra-o-preditor" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Resíduos contra o preditor<a href="checagem.html#resíduos-contra-o-preditor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se os resíduos devem ter <span class="math inline">\(\mathbb{E}[\hat{e}|X=x] = 0\)</span>, isso significa que para cada <span class="math inline">\(x_i\)</span> os resíduos devem ter média zero. Em um gráfico, isso significa que, se eu tiver pontos suficientes na proximidade de cada <span class="math inline">\(x_i\)</span>, a dispersão dos resíduos deve ser aleatória, no sentido de não ter padrão claro, o que vai implicar uma reta horizontal cuja média é zero.</p>
+<p><img src="bookdownproj_files/figure-html/residuos-preditor-1.png" width="672" /></p>
+</div>
+</div>
+<div id="transformação-de-variáveis" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Transformação de Variáveis<a href="checagem.html#transformação-de-variáveis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Podemos transformar variáveis…</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="revisão-de-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mle.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inferencia.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -358,7 +414,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/mgaldino/book-regression/edit/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/edit/main/10-Checagem.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -366,7 +422,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/mgaldino/book-regression/blob/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/blob/main/10-Checagem.Rmd",
 "text": null
 },
 "download": null,
