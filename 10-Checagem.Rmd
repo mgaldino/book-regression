@@ -1,0 +1,110 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# - Checagem
+
+Antes de proceder com a parte de inferência estatística, vamos apresentar como realizar checagem do modelo. A razão é que, em geral, a teoria de inferência depende da suposição do modelo ser correta. Então, faz sentido primeiro checar se o modelo satisfaz os pressupostos, e depois fazer inferência.
+
+Vamos então apresentar os principais testes e checagem que devemos fazer com nosso modelo de regressão linear. Aqui vale uma comentário sobre inferência Bayesiana, que não estamos utilizando em nosso curso, mas que eu particularmente utilizo em minha pesquisa aplicada. O prática de modelagem padrão na inferência Bayesiana é escrever formalmente uma verossimilhança (como fizemos com MLE) e estimar distribuições de porbabilidades para os parâmetros, e checar o modelo para ver se essas distribuições fazem sentido. Portanto, a checagem do modelo acontece automaticamente e de maneira integrada, ao contrário do que faremos aqui. Ou seja, recomendo que vocês aprendam a fazer inferência Bayesiana e prescindam de toda essa maquinaria que irei apresentar.
+
+## Resíduos
+
+Os resíduo para cada obsrrvação $i$ é a diferença entre a previsão do modelo de regressão $\hat{y_i}$ e o valor observado $y_i$, as vezes chamado de $\hat{e}$, para diferenciar do erro populacional, $e$. No caso de nosso modelo de regressão linear com um único preditor, temos:
+
+$$
+\hat{e_i} = y_i - (\hat{\alpha} + \hat{\beta} \cdot x_i)
+$$
+Eis algumas propriedade dos resíduos. 
+1. Os resíduos deveriam ter esperança zero, condicional aos preditores. Formalmente, $\mathbb{E}[\hat{e}|X=x] = 0$
+
+2. Se estivermos supondo homecedasticidade, devem ter variância constante (o que raramente será o caso).
+
+3. Os resíduos não podem ser completamente não-correlacionados entre si, mas a correlação deve ser baixa e convergir para zero à medida que $n$ cresce para infinito.
+
+4. Se estamos supondo que o erro é Gaussiano (Normal), como no modelo de MLE, os resíduos devem também ser normais.
+
+Cada uma dessas propriedades nos leva a um diagnóstico ou checagem.
+
+```{r package loads 10, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(knitr)
+library(tidyverse)
+library(electionsBR)
+library(readr)
+library(here)
+library(tidyr)
+
+```
+
+## Modelo no R
+
+Para fazer os testes do nosso modelo, vamos fazer um modelo preditivo. Vou utilizar a votação no primeiro turno presidencial de 2018 para prever o voto no segundo turno, no estado de Alagoas. Para tanto, vamos baixar os dados de votação presidencial de 2018 ao nível de seção eleitoral do portal de dados abertos do TSE para o estado de Alagoas (para ter uma base de dados pequena): 
+https://dadosabertos.tse.jus.br/dataset/resultados-2018
+
+```{r dados 10, echo=FALSE, message=FALSE, cache=TRUE}
+library(data.table)
+
+# lista o nome do arquivo em csv
+# unzip(here("dados", "votacao_secao_2018_AL.zip"), list = TRUE)
+
+
+#read data1.csv into data frame
+presid_al18 <- fread(here("dados","votacao_secao_2018_BR.csv"), encoding = "Latin-1")
+
+# filtrando só AL
+
+presid_al18 <- presid_al18 %>%
+  filter(SG_UF == "AL")
+
+# modelo voto em Bolsonaro 1t prediz voto no 2t
+
+# descobre o que é voto nulo e branco
+presid_al18 %>%
+  group_by(NM_VOTAVEL) %>%
+  summarise(max(NR_VOTAVEL))
+ 
+# 95 e 96
+presid_al18_valido <- presid_al18 %>%
+  filter(!NR_VOTAVEL %in% c(95,96)) %>%
+  group_by(NR_SECAO,NR_ZONA, CD_MUNICIPIO, NR_TURNO, NR_VOTAVEL ) %>%
+  summarise(validos = sum(QT_VOTOS)) %>%
+  mutate(bol_bolsonaro = NR_VOTAVEL == 17,
+         validos_bolsonaro = sum(validos*bol_bolsonaro)) %>%
+  summarise(total_validos = sum(validos),
+            validos_bolsonaro = max(validos_bolsonaro),
+            perc_bolsonaro = validos_bolsonaro/total_validos) %>%
+  dplyr::select(-total_validos) %>%
+  pivot_wider(id_cols = c(NR_SECAO, NR_ZONA, CD_MUNICIPIO), names_from = NR_TURNO, values_from = perc_bolsonaro) %>%
+  rename(perc_bolso_turno1 = '1',
+         perc_bolso_turno2 = '2')
+
+# modelo de regressão
+
+reg1 <- lm(perc_bolso_turno2 ~ perc_bolso_turno1, data = presid_al18_valido)
+summary(reg1)
+
+presid_al18_valido %>%
+  ggplot(aes(x=perc_bolso_turno1, y=perc_bolso_turno2)) + geom_point() + 
+  geom_abline(slope = coef(reg1)[2] , intercept = coef(reg1)[1], colour  = "blue")
+
+
+```
+
+
+### Resíduos contra o preditor
+Se os resíduos devem ter $\mathbb{E}[\hat{e}|X=x] = 0$, isso significa que para cada $x_i$ os resíduos devem ter média zero. Em um gráfico, isso significa que, se eu tiver pontos suficientes na proximidade de cada $x_i$, a dispersão dos resíduos deve ser aleatória, no sentido de não ter padrão claro, o que vai implicar uma reta horizontal cuja média é zero.
+
+```{r residuos-preditor, echo=FALSE, message=FALSE}
+df <- data.frame(residuos = residuals(reg1), preditor = presid_al18_valido$perc_bolso_turno1)
+
+df %>%
+  ggplot(aes(x=preditor, y = residuos)) + geom_point() + geom_smooth(method="lm", se=F)
+
+```
+
+## Transformação de Variáveis
+
+Podemos transformar variáveis...
