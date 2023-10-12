@@ -1,0 +1,40 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# - Inferencia
+
+```{r package loads 11, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(knitr)
+library(tidyverse)
+library(here)
+library(tidyr)
+```
+
+Inferência estatística
+
+
+
+## Normal
+
+Os resíduos...
+
+## T-student
+
+A distribuição t de student...
+
+## Intervalo de Confiança
+
+O IC...
+
+## Teste de Hipótese
+
+O teste de hipótese...
+
+## P-valor
+
+O p-valor...
+
