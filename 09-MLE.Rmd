@@ -1,0 +1,17 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# - MLE
+
+```{r package loads 09, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(knitr)
+library(tidyverse)
+library(here)
+library(tidyr)
+```
+
+MLE é...
