@@ -1,0 +1,40 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# - Regressao Multipla
+
+```{r package loads 12, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(knitr)
+library(tidyverse)
+library(here)
+library(tidyr)
+```
+
+Regressão com múltiplos preditores...
+
+
+
+## Intuição
+
+A intuição
+
+## Viés de Variável Omitida
+
+
+
+## Distrações
+
+Algumas distrações
+
+## Teste de multicolinearidade
+
+### Quando multicolinearidade é um problema
+
+### Ridge Regression
+
+### LASSO
+

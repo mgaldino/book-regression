@@ -1,0 +1,27 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# - GLM
+
+```{r package loads 13, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(knitr)
+library(tidyverse)
+library(here)
+library(tidyr)
+```
+
+VD Categórica
+
+
+
+## PLM
+
+A intuição
+
+## Logística e Probit
+
+
