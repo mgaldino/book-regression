@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Introdução à Regresssão para Ciências Sociais</title>
-  <meta name="description" content="Introdução à Regresssão para Ciências Sociais" />
+  <title>Capítulo 12 - Regressao Multipla | Introdução à Regresssão para Ciências Sociais</title>
+  <meta name="description" content="Capítulo 12 - Regressao Multipla | Introdução à Regresssão para Ciências Sociais" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta property="og:title" content="Capítulo 12 - Regressao Multipla | Introdução à Regresssão para Ciências Sociais" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta name="twitter:title" content="Capítulo 12 - Regressao Multipla | Introdução à Regresssão para Ciências Sociais" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="revisão-de-r.html"/>
+<link rel="prev" href="inferencia.html"/>
+<link rel="next" href="glm.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -305,29 +305,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Introdução à Regresssão para Ciências Sociais</h1>
-<p class="author"><em>Manoel Galdino</em></p>
-<p class="date"><em>2023-10-12</em></p>
+<div id="regressao-multipla" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Capítulo 12</span> - Regressao Multipla<a href="regressao-multipla.html#regressao-multipla" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Regressão com múltiplos preditores…</p>
+<div id="intuição" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Intuição<a href="regressao-multipla.html#intuição" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A intuição</p>
 </div>
-<div id="prefácio" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Capítulo 1</span> - Prefácio<a href="index.html#prefácio" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP0468 Métodos Quantitativos de Pesquisa na Ciência Política IV, de introdução à regressão, bem como o curso de pós-graduação, Métodos II.</p>
-<p>Agradeço aos alunos do curso pelos feedbacks (futuros e presentes) sobre esse material, bem como ao monitor do curso, Davi Veronese.</p>
-<p>Futuramente, pretendo transformar as notas de aulas em um livro, que poderá ser utilizado pela comunidade brasileira de ciências sociais interessada em aprender mais sobre métodos quantitativos, em particular regressão com R.</p>
-<p>A motivação para disponibilizar as notas de aula em formato de livro é a quase inexistência de um material bom de econometria básica, em português, voltado para a área de ciências sociais, em particular a ciência política. Existem bons manuais em inglês e bons manuais em português, mas voltado para a economia.</p>
-<p>Os livros existentes nem sempre fazem um bom trabalho de diferenciar regressão estatística e modelo estrutural (causal) de regressão. Uma abordagem moderna de inferência causal requer que essa distinção seja ensinada ao aluno e esse livro também pretende preencher essa lacuna.</p>
-<p>Por fim, a utilização do R é uma forma de dar ênfase à parte prática. Embora a teoria seja importante e a boa compreensão dos fundamentos é que permita o aprofundamento dos temas cobertos no livro, estatística é uma disciplina aplicada, cujo maior valor está na sua aplicação prática. Assim, boa parte do curso e do conteúdo do livro é dedicado a implementar a teoria no R, bem como na interpretação dos dados.</p>
-<p>O livro começa com capítulos iniciais de introdução/revisão do R e de estatística básica (incluindo probabilidade). Assim, pressupomos que um estudante que utilize esse curso tenha conhecimentos de estatística e probabilidade básica. Não é necessário conhecimento previo de R, nem de cálculo ou álgebra linerar.</p>
+<div id="viés-de-variável-omitida" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Viés de Variável Omitida<a href="regressao-multipla.html#viés-de-variável-omitida" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="distrações-1" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Distrações<a href="regressao-multipla.html#distrações-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Algumas distrações</p>
+</div>
+<div id="teste-de-multicolinearidade" class="section level2 hasAnchor" number="12.4">
+<h2><span class="header-section-number">12.4</span> Teste de multicolinearidade<a href="regressao-multipla.html#teste-de-multicolinearidade" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="quando-multicolinearidade-é-um-problema" class="section level3 hasAnchor" number="12.4.1">
+<h3><span class="header-section-number">12.4.1</span> Quando multicolinearidade é um problema<a href="regressao-multipla.html#quando-multicolinearidade-é-um-problema" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="ridge-regression" class="section level3 hasAnchor" number="12.4.2">
+<h3><span class="header-section-number">12.4.2</span> Ridge Regression<a href="regressao-multipla.html#ridge-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="lasso" class="section level3 hasAnchor" number="12.4.3">
+<h3><span class="header-section-number">12.4.3</span> LASSO<a href="regressao-multipla.html#lasso" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="revisão-de-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="inferencia.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="glm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -358,7 +370,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/mgaldino/book-regression/edit/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/edit/main/12-Regressao-Multipla.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -366,7 +378,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/mgaldino/book-regression/blob/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/blob/main/12-Regressao-Multipla.Rmd",
 "text": null
 },
 "download": null,
