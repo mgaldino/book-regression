@@ -760,17 +760,17 @@ Lembremos que a fórmula para o <span class="math inline">\(\hat{\beta}\)</span>
 <p>Vamos então usar essa última parametrização para reescrever minha equação do <span class="math inline">\(\hat{\beta}\)</span> e então mostrar que ele é não-viesado e calcular sua variância.</p>
 <p>Substituindo nossa equação de regressão na fórmula, temos:</p>
 <p><span class="math display">\[
-\hat{\beta} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\cdot \sigma^2_x} = \frac{n^{-1}\sum{(x_i - \bar{x}) \cdot y_i - (x_i - \bar{x})\bar{y}}}{\sigma^2_x} =  \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot y_i - \sum({x_i -\bar{x}}) \cdot\bar{y}}{\sigma^2_x}
+\hat{\beta} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\sigma^2_x} = \frac{\sum{(x_i - \bar{x}) \cdot y_i - (x_i - \bar{x})\bar{y}}}{n \cdot \sigma^2_x} =  \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot y_i - \sum({x_i -\bar{x}}) \cdot\bar{y}}{\sigma^2_x}
 \]</span></p>
-<p>Vamos agora usar o fato de que, para qualquer variável <span class="math inline">\(z\)</span>, a diferença média de <span class="math inline">\(z\)</span> para a média amostral de <span class="math inline">\(z\)</span> é zero, isto é, <span class="math inline">\(n^{-1}*\sum\limits_{i=1}^n{}z_i - \bar{z} = 0\)</span></p>
+<p>Vamos agora usar o fato de que, para qualquer variável <span class="math inline">\(z\)</span>, a diferença média de <span class="math inline">\(z\)</span> para a média amostral de <span class="math inline">\(\bar{z}\)</span> é zero, isto é, <span class="math inline">\(n^{-1}*\sum\limits_{i=1}^n{}z_i - \bar{z} = 0\)</span></p>
 <p>Por fim, segue-se disso que, para qualquer constante <span class="math inline">\(w\)</span> que não varia com <span class="math inline">\(i\)</span>, podemos escrever:
-<span class="math inline">\(n^{-1}*\sum\limits_{i=1}^n{}(z_i - \bar{z})*w = 0\)</span></p>
-<p>Portanto, <span class="math inline">\(\sum({x_i -\bar{x}})*\bar{y} = 0\)</span>.</p>
+<span class="math inline">\(n^{-1} \cdot \sum\limits_{i=1}^n{}(z_i - \bar{z})*w = 0\)</span></p>
+<p>Portanto, <span class="math inline">\(n^{-1} \cdot \sum({x_i -\bar{x}})*\bar{y} = 0\)</span>.</p>
 <p>Logo,</p>
 <p><span class="math display">\[
 \hat{\beta} =  \frac{n^{-1}\sum({x - \bar{x}})*y_i}{\sigma^2_x}
 \]</span></p>
-<p>Lembremos que, <span class="math inline">\(y_i = \alpha + \beta*X_i + e_i\)</span>. Se eu adicionar e subtrair <span class="math inline">\(\beta*\bar{x}\)</span> da equação, não altero ela. Utilizando esse truque e rearranjando, temos:</p>
+<p>Lembremos que, <span class="math inline">\(y_i = \alpha + \beta*x_i + e_i\)</span>. Se eu adicionar e subtrair <span class="math inline">\(\beta*\bar{x}\)</span> da equação, não altero ela. Utilizando esse truque e rearranjando, temos:</p>
 <p><span class="math display">\[
 y_i = \alpha + \beta*X_i + e_i = \alpha + \beta*\bar{x} + \beta*X_i - \beta*\bar{x} + e_i = \alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i
 \]</span></p>
@@ -779,16 +779,16 @@ y_i = \alpha + \beta*X_i + e_i = \alpha + \beta*\bar{x} + \beta*X_i - \beta*\bar
 \hat{\beta} =  \frac{n^{-1}\sum({x_i - \bar{x}})*(\alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i)}{\sigma^2_x}
 \]</span></p>
 <p><span class="math display">\[
-\hat{\beta} =  \frac{ n^{-1} \cdot (\alpha + \beta)\bar{x}\sum({x_i - \bar{x}})*(\beta*(x_i - \bar{x}) + e_i)}{\sigma^2_x}
+\hat{\beta} =  \frac{ n^{-1} \cdot (\alpha + \beta)\bar{x}\sum({x_i - \bar{x}}) + \sum({x_i - \bar{x}}) \cdot [\beta \cdot (x_i - \bar{x}) + e_i]}{\sigma^2_x}
 \]</span></p>
 <p><span class="math display">\[
-\hat{\beta} = \frac{ n^{-1} (\alpha + \beta) \cdot \bar{x}\sum({x_i - \bar{x}}) + n^{-1} \beta\sum(x_i - \bar{x})^2 + n^{-1} \sum({x_i - \bar{x}})*e_i} {\sigma^2_x}
+\hat{\beta} = \frac{ n^{-1} \cdot (\alpha + \beta) \cdot \bar{x}\sum({x_i - \bar{x}}) + n^{-1} \beta\sum(x_i - \bar{x})^2 + n^{-1} \sum({x_i - \bar{x}})*e_i} {\sigma^2_x}
 \]</span>
 A primeira soma é uma constante, vezes o somatório de <span class="math inline">\(x_i\)</span> menos sua média, o que é zero. Posso então eliminar da equação, resultando em:
 <span class="math display">\[
 \hat{\beta} = \frac{\beta \cdot n^{-1} \cdot\sum({x_i - \bar{x}})^2 +  n^{-1}\sum({x_i - \bar{x}})*e_i}{\sigma^2_x}
 \]</span></p>
-<p>Agora, a primeira soma é a variância de x multiplicada por <span class="math inline">\(\beta\)</span>. Reescrevendo a equação de outro modo, temos:</p>
+<p>Agora, a primeira soma é a variância de <span class="math inline">\(x\)</span> multiplicada por <span class="math inline">\(\beta\)</span>. Reescrevendo a equação de outro modo, temos:</p>
 <p><span class="math display">\[
 \hat{\beta} =  \frac{\beta \cdot \sigma^2_x}{\sigma^2_x} + \frac{n^{-1}\sum({x_i - \bar{x}})*e_i}{\sigma^2_x}
 \]</span>
