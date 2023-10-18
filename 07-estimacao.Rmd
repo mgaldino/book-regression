@@ -256,15 +256,15 @@ Vamos então usar essa última parametrização para reescrever minha equação 
 Substituindo nossa equação de regressão na fórmula, temos:
 
 $$
-\hat{\beta} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\cdot \sigma^2_x} = \frac{n^{-1}\sum{(x_i - \bar{x}) \cdot y_i - (x_i - \bar{x})\bar{y}}}{\sigma^2_x} =  \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot y_i - \sum({x_i -\bar{x}}) \cdot\bar{y}}{\sigma^2_x}
+\hat{\beta} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\sigma^2_x} = \frac{\sum{(x_i - \bar{x}) \cdot y_i - (x_i - \bar{x})\bar{y}}}{n \cdot \sigma^2_x} =  \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot y_i - \sum({x_i -\bar{x}}) \cdot\bar{y}}{\sigma^2_x}
 $$
 
-Vamos agora usar o fato de que, para qualquer variável $z$, a diferença média de $z$ para a média amostral de $z$ é zero, isto é, $n^{-1}*\sum\limits_{i=1}^n{}z_i - \bar{z} = 0$
+Vamos agora usar o fato de que, para qualquer variável $z$, a diferença média de $z$ para a média amostral de $\bar{z}$ é zero, isto é, $n^{-1}*\sum\limits_{i=1}^n{}z_i - \bar{z} = 0$
 
 Por fim, segue-se disso que, para qualquer constante $w$ que não varia com $i$, podemos escrever:
-$n^{-1}*\sum\limits_{i=1}^n{}(z_i - \bar{z})*w = 0$
+$n^{-1} \cdot \sum\limits_{i=1}^n{}(z_i - \bar{z})*w = 0$
 
-Portanto, $\sum({x_i -\bar{x}})*\bar{y} = 0$.
+Portanto, $n^{-1} \cdot \sum({x_i -\bar{x}})*\bar{y} = 0$.
 
 Logo,
 
@@ -272,7 +272,7 @@ $$
 \hat{\beta} =  \frac{n^{-1}\sum({x - \bar{x}})*y_i}{\sigma^2_x}
 $$
 
-Lembremos que, $y_i = \alpha + \beta*X_i + e_i$. Se eu adicionar e subtrair $\beta*\bar{x}$ da equação, não altero ela. Utilizando esse truque e rearranjando, temos:
+Lembremos que, $y_i = \alpha + \beta*x_i + e_i$. Se eu adicionar e subtrair $\beta*\bar{x}$ da equação, não altero ela. Utilizando esse truque e rearranjando, temos:
 
 $$
 y_i = \alpha + \beta*X_i + e_i = \alpha + \beta*\bar{x} + \beta*X_i - \beta*\bar{x} + e_i = \alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i
@@ -285,18 +285,18 @@ $$
 $$
 
 $$
-\hat{\beta} =  \frac{ n^{-1} \cdot (\alpha + \beta)\bar{x}\sum({x_i - \bar{x}})*(\beta*(x_i - \bar{x}) + e_i)}{\sigma^2_x}
+\hat{\beta} =  \frac{ n^{-1} \cdot (\alpha + \beta)\bar{x}\sum({x_i - \bar{x}}) + \sum({x_i - \bar{x}}) \cdot [\beta \cdot (x_i - \bar{x}) + e_i]}{\sigma^2_x}
 $$
 
 $$
-\hat{\beta} = \frac{ n^{-1} (\alpha + \beta) \cdot \bar{x}\sum({x_i - \bar{x}}) + n^{-1} \beta\sum(x_i - \bar{x})^2 + n^{-1} \sum({x_i - \bar{x}})*e_i} {\sigma^2_x}
+\hat{\beta} = \frac{ n^{-1} \cdot (\alpha + \beta) \cdot \bar{x}\sum({x_i - \bar{x}}) + n^{-1} \beta\sum(x_i - \bar{x})^2 + n^{-1} \sum({x_i - \bar{x}})*e_i} {\sigma^2_x}
 $$
 A primeira soma é uma constante, vezes o somatório de $x_i$ menos sua média, o que é zero. Posso então eliminar da equação, resultando em:
 $$
 \hat{\beta} = \frac{\beta \cdot n^{-1} \cdot\sum({x_i - \bar{x}})^2 +  n^{-1}\sum({x_i - \bar{x}})*e_i}{\sigma^2_x}
 $$
 
-Agora, a primeira soma é a variância de x multiplicada por $\beta$. Reescrevendo a equação de outro modo, temos:
+Agora, a primeira soma é a variância de $x$ multiplicada por $\beta$. Reescrevendo a equação de outro modo, temos:
 
 $$
 \hat{\beta} =  \frac{\beta \cdot \sigma^2_x}{\sigma^2_x} + \frac{n^{-1}\sum({x_i - \bar{x}})*e_i}{\sigma^2_x}
