@@ -14,16 +14,60 @@ library(here)
 library(tidyr)
 ```
 
-Regressão com múltiplos preditores...
+É muito raro que tenhamos apenas um preditor em um contexto de regressão. Talvez em um experimento de laboratório, e mesmo assim é difícil não ter outros preditores. De modo que tudo que vimos até agora é um caso particular raríssimo e pouco útil per se. Para generalizar as derivações e resultados para múltiplos preditores é conveniente utilizar álgebra linear. Basicamente, isso significa usar vetores e matrizes para representar a regressão. As derivações das fórmulas ficam bem fáceis, bem como as propriedades do modelo de regressão. Como não estamos pressupondo que vocês conheçam o básico de Álgebra Linear, iremos pular as derivações e aprensentar apenasas intuições, esperando que o que vocês aprenderam com um preditor seja suficiente para entender com múltiplos preditores.
+
+## Modelo básico
+
+O modelo básico de regressão linear múltipla pode ser especificado por:
+
+1. Existem p preditores, $X_1$, $X_2$, ..., $X_p$. Não precisamos fazer suposições sobre a distribuição dos preditores, e podem ser correlacionados ou não.
+
+2. Há uma única variável resposta, $Y$. Se houvesse mais de uma, teríamos um modelo de regressão multivariada.
+
+3. $Y = \alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + ... + \beta_p \cdot X_p + e $. Portanto, temos $p+1$ parâmetros ou coeficientes de regressão a estimar.
+
+4. O erro $e$ possui esperança condicional zero e variância condicional constante no modelo homocedástico, e não correlacionado entre observações.
+
+Se assumirmos normalidade do termo de erro, temos também:
+
+5. O erro $e$ tem uma distribuição normal multivariada, com vetor de médias zero e matriz de variância e covariância cujos elementos fora da diagonal (covariância) são zero, e a diagonal principal é $\sigma^2$.
+
+## Interpretação dos coeficientes
 
 
+## Viés de variável omitida
 
-## Intuição
+Suponha que o verdadeiro modelo é $Y = \alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + e$. Nós, porém, ajustamos um modelo (com dados populacionais, para simplificar) apenas com $X_1$ como preditor. O que acontece com a interpretação de nosso coeficiente de regressão?
 
-A intuição
+Vamos usar as seguintes propriedades da covariância nessa derivação. 
 
-## Viés de Variável Omitida
+1. Sejam $X$ e $Y$ duas v.a., Seja $A$ uma constante. Então, $\mathbb{Cov}[X,Y + A] = \mathbb{Cov}[X,Y] + \mathbb{Cov}[X,A]$. Como $A$ é constante, $\mathbb{Cov}[X,A] = 0$ e, portanto, $\mathbb{Cov}[X,Y + A] = \mathbb{Cov}[X,Y].
 
+2. $\mathbb{Cov}[X,Y \cdot A] = A \cdot \mathbb{Cov}[X,Y]$.
+
+
+Sabemos que em uma regressão com um preditor, temos:
+$$
+\beta_1 = \frac{\mathbb{Cov}[X_1,Y]}{\sigma^2_x}
+$$
+Substituindo $Y$ pelo verdadeiro modelo, temos:
+
+$$
+\beta_1 = \frac{\mathbb{Cov}[X_1,\alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + e]}{\sigma^2_x} =  \frac{\mathbb{Cov}[X_1,\beta_1 \cdot X_1] + \mathbb{Cov}[X_1, \beta_2 \cdot X_2] + \mathbb{Cov}[X_1, e]}{\sigma^2_x}
+$$
+$$
+\beta_1 =  \frac{\beta_1 \cdot \mathbb{Cov}[X_1, X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + \mathbb{ Cov}[X_1,e]}{\sigma^2_x} = \frac{\beta_1 \cdot \mathbb{Var}[X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{\sigma^2_x} = \beta_1 + \frac{\cdot \mathbb{Var}[X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{\sigma^2_x}
+$$
+$$
+\beta_1 = \beta_1 + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2]}{\sigma^2_x}
+$$
+Vemos que a inclinação $\beta_1$ inclui a contribuição direta de $X_1$ mais a contribuição indireta, via correlação com $X_2$.
+
+Aqui não estamos falando de causalidade, apenas da contribuição para a previsão da nossa variável resposta. Naturalmente, antes da moderna abordagem de inferência causal por resultados potenciais de Rubin (ou redes Bayesianas em modelos estruturais de Pearl), as pessoas pensavam que, controlando para o máximo de variáveis possível, com sorte seria ossível eliminar (ou reduzir a um mínimo) o viés de variável omitida e, portanto, estar seguro que $\beta_1$ estimaria o efeito causal.
+
+Nós hoje sabemos que o modo mais seguro de pensar causalidade é usando uma das duas abordagens, e verificando (por exemplo com resultados potenciais) que a suposição de independência condicional (*CIA*, de Conditional Independence Assumption) é plausível para poder interpretar $\beta_1$ causalmente. Sem um modelo causal, a abordagem de introdução de regressores para controlar o viés de variável omitida não nos permite fazer inferência causal, exceto em casos muitos simples ou quando implicitamente temos garantida a validade da *CIA* (como em um experimento bem conduzido e com compliance), como é o caso das ciências naturais como física e química.
+
+## Multicolinearidade
 
 
 ## Distrações
@@ -34,7 +78,8 @@ Algumas distrações
 
 ### Quando multicolinearidade é um problema
 
-### Ridge Regression
+## Ridge Regression
 
-### LASSO
+## LASSO
 
+## Checagem do modelo

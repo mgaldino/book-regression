@@ -231,7 +231,7 @@ Se nós somarmos o somatório indexado no $j$, o primeiro erro fica constante (i
 $$
 (1/n^2)* \sum\limits_{i=1}^n{}\sigma^2 = (1/n^2)*n*\sigma^2 = \sigma^2/n
 $$
-Ou seja, a variância de nosso estimador é igual à variância populacional dividida pelo tamanho da amostra. A variância amostral do estimador também é chamada de erro padrão.
+Ou seja, a variância de nosso estimador é igual à variância populacional dividida pelo tamanho da amostra. O desvio-padrão (rais quadrada da variância) amostral do estimador também é chamada de erro padrão.
 
 ## Modelo de Regressão Linear com preditores
 
@@ -461,7 +461,7 @@ summary(reg)
 ```
 ## Limitações de MQO
 
-Os estimadores de MQO, nossos $\ha{\beta}$ e $\hat{\alpha}$, são não-viesados e conseguimos derivar a variância amostral deles. Porém, não há muito mais que possamos dizer sobre eles a partir apenas das suposições que fizemos, ou seja, de que o modelo linear (nos parâmetros) é adequado, e que a espereança do erro, condicional ao preditor, é zero (e assumimos, em certo momento, homecedasticidade). O que não podemos dizer a mais que gostaríamos de poder fazer?
+Os estimadores de MQO, nossos $\hat{\beta}$ e $\hat{\alpha}$, são não-viesados e conseguimos derivar a variância amostral deles. Porém, não há muito mais que possamos dizer sobre eles a partir apenas das suposições que fizemos, ou seja, de que o modelo linear (nos parâmetros) é adequado, e que a espereança do erro, condicional ao preditor, é zero (e assumimos, em certo momento, homecedasticidade). O que não podemos dizer a mais que gostaríamos de poder fazer?
 
 Uma aspecto importante da inferência é, por exemplo, calcular o intervalo de confiança. Para isso, contudo, precisaremos de mais suposições do que o que fizemos até aqui. Portanto, tanto cálculos de intervalo de confiança como o p-valor e condução de testes de hipótese estão vedados com as suposições de MQO.
 
