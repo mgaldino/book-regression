@@ -231,7 +231,7 @@ Se nós somarmos o somatório indexado no $j$, o primeiro erro fica constante (i
 $$
 (1/n^2)* \sum\limits_{i=1}^n{}\sigma^2 = (1/n^2)*n*\sigma^2 = \sigma^2/n
 $$
-Ou seja, a variância de nosso estimador é igual à variância populacional dividida pelo tamanho da amostra. O desvio-padrão (rais quadrada da variância) amostral do estimador também é chamada de erro padrão.
+Ou seja, a variância de nosso estimador é igual à variância populacional dividida pelo tamanho da amostra. O desvio-padrão (raiz quadrada da variância) amostral do estimador também é chamada de erro padrão.
 
 ## Modelo de Regressão Linear com preditores
 
