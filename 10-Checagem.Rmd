@@ -105,6 +105,67 @@ df %>%
 
 ```
 
-## Transformação de Variáveis
+Se houver outros preditores, faça a mesma coisa e o gráfico também deve ser uma reta em cima do eixo $x$.
 
-Podemos transformar variáveis...
+### Magnitude dos Resíduos Contra o Preditor
+
+Uma vez que $\mathbb{E}[\hat{e}|X] = 0$, segue-se que $\mathbb{Var}[\hat{e}|X] = \mathbb{E}[\hat{e^2}|X]$.
+
+Como exercício, verifique que isso é verdade matematicamente (pós) e por simulação (pós e graduação). Abaixo segue uma explicação:
+
+Seja $A$ uma v.a. Então, $\mathbb{Var}[A|X] = \mathbb{E}[(A - \mathbb{E}[A|X])^2|X]$
+$$
+\mathbb{Var}[\hat{e}|X] =  \mathbb{E}[(\hat{e} - \mathbb{E}[\hat{e}|X])^2|X] = \mathbb{E}[(\hat{e} - 0)^2|X] = \mathbb{E}[\hat{e}^2|X]
+$$
+Portanto, se estamos assumindo homecadisticidade, isto é, que $\mathbb{Var}[\hat{e}|X] = \sigma^2$, podemos checar esta suposição olhando para a esperança condicional do quadrado dos resíduos. E odemos fazer isso plotando o gráfico do quadrado dos resíduos contra o preditor.
+
+```{r residuos-sq-preditor, echo=FALSE, message=FALSE}
+df <- data.frame(residuos_sq = residuals(reg1)^2, preditor = presid_al18_valido$perc_bolso_turno1)
+
+df %>%
+  ggplot(aes(x=preditor, y = residuos_sq)) + geom_point() + geom_smooth(method="lm", se=F)
+
+```
+
+A reta deve ser horizontal, e não deveria ter mais pontos acima do que abaixo da reta. A altura da reta deveria ser aproximadamente o EQM. Conjuntos de pontos persistentemente acima ou abaixo da reta são sinais de problema com alguma de nossas hipóteses, ou há heterocedasticidade (a variância muda com o preditor) ou a forma funcional do modelo está errada de algum modo. No meu gráfico, a reta não é exatamente horizontal, mas é "good enough". Eu não me daria ao trabalhgo de estimar um modelo de regressão de mínimos quadrados ponderados (que não vamos aprender no curso) para lidar com uma variância heterocedástica.
+
+Ás vezes quando temos resíduos muito grandes, o quadrado deles fica gigante e o gráfico fica não-informativo (especialmente quando o modelo é problemático). Nesses casos, podemos plotar o valor absoluto dos resíduos, em vez do quadrado.
+
+```{r residuos-abs-preditor, echo=FALSE, message=FALSE}
+df <- data.frame(residuos_abs = abs(residuals(reg1)), preditor = presid_al18_valido$perc_bolso_turno1)
+
+df %>%
+  ggplot(aes(x=preditor, y = residuos_abs)) + geom_point() + geom_smooth(method="lm", se=F)
+```
+
+### Resíduos com dados Temporais e/ou Espaciais
+
+Com frequência nossos dados possuem uma certa ordem, seja temporal e/ou espacial. Em um modelo simples, isso não deveria importar (nossa amostra supostamente é i.i.d, e os erros populacionais são não correlacionados entre si). Se os erros forem correlacionados, podemos usar algo chamado mínimos quadrados generalizados, o que também não iremos cobrir no curso. Então, deveríamos sempre fazer um plot dos resíduos contra o tempo, ou contra o espaço. Aqui, como a ordem é apenas espacial, vamos fazer isso.
+
+Podemos fazer um plote dos resíduos contra seção/zona/município, zona/município ou município. Vamos tentar o primeiro, que possui mais granularidade.Vejamos como fica.
+
+```{r residuos-coordenadas, echo=FALSE, message=FALSE}
+presid_al18_valido <- presid_al18_valido %>%
+  mutate(id_secao = paste0(NR_SECAO, NR_ZONA , CD_MUNICIPIO))
+
+df <- data.frame(residuos = residuals(reg1), secao = as.numeric(presid_al18_valido$id_secao))
+
+df %>%
+  ggplot(aes(x=secao, y = residuos)) + geom_point() + geom_smooth(method="lm", se=F)
+```
+
+Uma técnica simples, que é uma versão simplificada de algo mais formal chamado "permutation test", é plotar os resíduos permutados aleatoriamente contra a data ou espaço (no nosso caso, espaço).
+
+```{r residuos-shufle-coordenadas, echo=FALSE, message=FALSE}
+presid_al18_valido <- presid_al18_valido %>%
+  mutate(id_secao = paste0(NR_SECAO, NR_ZONA , CD_MUNICIPIO))
+
+df <- data.frame(residuos_s = sample(residuals(reg1)), secao = as.numeric(presid_al18_valido$id_secao))
+
+df %>%
+  ggplot(aes(x=secao, y = residuos_s)) + geom_point() + geom_smooth(method="lm", se=F)
+```
+
+Rodando o código algumas vezes, podemos verificar que o "jeitão" dele é muito parecido com o nosso gráfico na ordem original, o que sugere que está tudo bem com nossos resíduos com relação à correlação espacial deles.
+
+
