@@ -797,17 +797,20 @@ Simplificando, chegamos a:</p>
 \hat{\beta} =  \beta  + \frac{n^{-1}\sum({x_i - \bar{x}})*e_i}{\sigma^2_x}
 \]</span></p>
 <p>Portanto, nós mostramos que o estimador <span class="math inline">\(\hat{\beta}\)</span> pode ser decomposto no parâmetro populacional <span class="math inline">\(\beta\)</span> mais uma soma ponderada do termo de erro. Uma vez que nossa amostra é i.i.d., sabemos que é uma média ponderada dos erros não-correlacionados. Podemos agora mostrar que o estimador é não-viesado.</p>
+<p>Essa interpretação dos erros como uma média ponderada é útil para nós aqui por causa do seguinte. Se eu chamar meus pesos (a ponderação) de <span class="math inline">\(a_i\)</span>, posso pensar que a esperança da média ponderada de erros não-correlacionados pode ser pensada como:</p>
+<p><span class="math display">\[
+\mathbb{E}[ \sum{a_i*e_i}] = \mathbb{E}[a_1 \cdot e_1 + a_2 \cdot e_2 + ... + a_n \cdot e_n] =
+a_1 \cdot \mathbb{E}[e_1] + a_2 \cdot \mathbb{E}[ e_2] + ... + a_n \cdot \mathbb{E}[ e_n]
+\]</span>
+<span class="math display">\[
+\mathbb{E}[ \sum{a_i*e_i}] = \sum{a_i} \cdot \mathbb{E}[e_i]
+\]</span></p>
 <p>Primeiro, lembremos nossa suposição de que <span class="math inline">\(\mathbb{E}[e|X] = 0\)</span>. Isso significa que, para qualquer valor de <span class="math inline">\(x\)</span> que eu condicionar, a esperança do erro é zero. Portanto, se a esperança do erro é sempre zero, temos:</p>
 <p><span class="math display">\[
 n^{-1}\sum({x_i - \bar{x}}) \cdot \mathbb{E}[e] = 0
 \]</span></p>
 <p><span class="math display">\[
-\mathbb{E}[\hat{\beta}] = \beta +  \mathbb{E}[ \frac{ \sum({x_i - \bar{x}})*e_i}{n \cdot \sigma^2}] = \beta +\frac{\cdot \sum({x_i - \bar{x}})}{\sigma^2_x} \cdot \mathbb{E}[e] = \beta
-\]</span>
-Nós utilizamos o fato de que:</p>
-<p><span class="math display">\[
-\mathbb{E}[ \sum{a_i*e_i}] = \mathbb{E}[a_1 \cdot e_1 + a_2 \cdot e_2 + ... + a_n \cdot e_n] =
-a_1 \cdot \mathbb{E}[e_1] + a_2 \cdot \mathbb{E}[ e_2] + ... + a_n \cdot \mathbb{E}[ e_n] = \sum{a_i} \cdot \mathbb{E}[e_i]
+\mathbb{E}[\hat{\beta}] = \beta +  \mathbb{E}[ \frac{ \sum({x_i - \bar{x}})*e_i}{n \cdot \sigma^2}] = \beta +\frac{\sum({x_i - \bar{x}})}{\sigma^2_x} \cdot \mathbb{E}[e] = \beta
 \]</span>
 Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de <span class="math inline">\(x\)</span> vezes o tamanho da amostra, <span class="math inline">\(n\)</span>.</p>
 <p><span class="math display">\[
