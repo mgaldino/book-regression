@@ -317,7 +317,7 @@ $$
 
 
 $$
-\mathbb{E}[\hat{\beta}] = \beta +  n^{-1}\mathbb{E}[ \frac{ \sum({x_i - \bar{x}})*e_i}{\sigma^2}] = \beta +\frac{n^{-1}}{\sigma^2} \cdot \sum({x_i - \bar{x}}) \cdot \mathbb{E}[e] = \beta
+\mathbb{E}[\hat{\beta}] = \beta +  \mathbb{E}[ \frac{ \sum({x_i - \bar{x}})*e_i}{n \cdot \sigma^2}] = \beta +\frac{\cdot \sum({x_i - \bar{x}})}{\sigma^2_x} \cdot \mathbb{E}[e] = \beta
 $$
 Nós utilizamos o fato de que:
 
