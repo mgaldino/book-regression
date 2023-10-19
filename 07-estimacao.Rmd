@@ -309,6 +309,16 @@ $$
 
 Portanto, nós mostramos que o estimador $\hat{\beta}$ pode ser decomposto no parâmetro populacional $\beta$ mais uma soma ponderada do termo de erro. Uma vez que nossa amostra é i.i.d., sabemos que é uma média ponderada dos erros não-correlacionados. Podemos agora mostrar que o estimador é não-viesado.
 
+Essa interpretação dos erros como uma média ponderada é útil para nós aqui por causa do seguinte. Se eu chamar meus pesos (a ponderação) de $a_i$, posso pensar que a esperança da média ponderada de erros não-correlacionados pode ser pensada como:
+
+$$
+\mathbb{E}[ \sum{a_i*e_i}] = \mathbb{E}[a_1 \cdot e_1 + a_2 \cdot e_2 + ... + a_n \cdot e_n] =
+a_1 \cdot \mathbb{E}[e_1] + a_2 \cdot \mathbb{E}[ e_2] + ... + a_n \cdot \mathbb{E}[ e_n]
+$$
+$$
+\mathbb{E}[ \sum{a_i*e_i}] = \sum{a_i} \cdot \mathbb{E}[e_i]
+$$
+
 Primeiro, lembremos nossa suposição de que $\mathbb{E}[e|X] = 0$. Isso significa que, para qualquer valor de $x$ que eu condicionar, a esperança do erro é zero. Portanto, se a esperança do erro é sempre zero, temos:
 
 $$
@@ -317,13 +327,7 @@ $$
 
 
 $$
-\mathbb{E}[\hat{\beta}] = \beta +  \mathbb{E}[ \frac{ \sum({x_i - \bar{x}})*e_i}{n \cdot \sigma^2}] = \beta +\frac{\cdot \sum({x_i - \bar{x}})}{\sigma^2_x} \cdot \mathbb{E}[e] = \beta
-$$
-Nós utilizamos o fato de que:
-
-$$
-\mathbb{E}[ \sum{a_i*e_i}] = \mathbb{E}[a_1 \cdot e_1 + a_2 \cdot e_2 + ... + a_n \cdot e_n] =
-a_1 \cdot \mathbb{E}[e_1] + a_2 \cdot \mathbb{E}[ e_2] + ... + a_n \cdot \mathbb{E}[ e_n] = \sum{a_i} \cdot \mathbb{E}[e_i]
+\mathbb{E}[\hat{\beta}] = \beta +  \mathbb{E}[ \frac{ \sum({x_i - \bar{x}})*e_i}{n \cdot \sigma^2}] = \beta +\frac{\sum({x_i - \bar{x}})}{\sigma^2_x} \cdot \mathbb{E}[e] = \beta
 $$
 Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de $x$ vezes o tamanho da amostra, $n$.
 
