@@ -325,7 +325,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Uma consequência dessas suposições é que a própria variável resposta <span class="math inline">\(Y\)</span> torna-se independente entre observações, condicional aos preditores. Podemos então computar a probabilidade condicional de observar os dados de nossa amostra <span class="math inline">\(y_i\)</span>, condicional aos <span class="math inline">\(x_i\)</span> e aos parâmetros da equação de regressão, <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> e a variância <span class="math inline">\(\sigma^2\)</span>. Como as observações são independentes, a probabilidade conjunta é o produto das probabilidades marginais. A verossimilhança é uma função dos parâmetros para essa probabilidade conjunta. Então, meu objetivo é escolher valores dos coeficientes que <strong>maximizem</strong> a probabilidade de observar os dados.</p>
 <p>Com a suposição de normalidade dos erros acima, é possível mostrar que os estimadores de Máxima Verossimilhança são iguais aos de MQO.</p>
 <p>A vantagem de estimar por Máxima Verossimilhança é que agora temos uma distribuição amostral para nossos estimadores e, portanto, podemos fazer inferências sobre ele.</p>
-<p>É possívem mostrar que:
+<p>É possível mostrar que:
 <span class="math display">\[
 \hat{\beta} \sim N(\beta_1, \frac{\sigma^2}{n \cdot s_x})
 \]</span></p>
@@ -470,7 +470,11 @@ O erro padrão é <span class="math inline">\(.0002\)</span>, ou seja, supondo n
 <span id="cb2-2"><a href="mle.html#cb2-2" tabindex="-1"></a><span class="fu">print</span>(z)</span></code></pre></div>
 <pre><code>##      age 
 ## 41.44094</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="mle.html#cb4-1" tabindex="-1"></a>p_valor <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="mle.html#cb4-1" tabindex="-1"></a>p_valor <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z)</span>
+<span id="cb4-2"><a href="mle.html#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="mle.html#cb4-3" tabindex="-1"></a><span class="fu">print</span>(p_valor)</span></code></pre></div>
+<pre><code>## age 
+##   0</code></pre>
 <p>E se o p-valor é menor que o nível de significância (5%), então rejeitamos a hipótese nula de que o coeficiente é zero.</p>
 <p>O problema desse tipo de teste de hipótese é que, à medida que o número de observaçoes cresce, sempre vamso rejeitar a hipótese nula. É muito raro que em ciências sociais o coeficiente de uma variável seja exatamente zero. Nesse sentido, é melhor utilizar o intervalo de confiança para quantificar a incerteza.</p>
 <p>Aqui, podemos calculá-lo do seguinte modo: <span class="math inline">\(\hat{\beta_1} -1.96 \cdot se; \hat{\beta_1} + 1.96 \cdot se = [0.007 - 1.96 \cdot 0.002; 0.007 + 1.96 \cdot 0.002] = [0.003; 0.01]\)</span>.</p>

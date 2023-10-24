@@ -27,7 +27,7 @@ Com a suposição de normalidade dos erros acima, é possível mostrar que os es
 
 A vantagem de estimar por Máxima Verossimilhança é que agora temos uma distribuição amostral para nossos estimadores e, portanto, podemos fazer inferências sobre ele.
 
-É possívem mostrar que:
+É possível mostrar que:
 $$
 \hat{\beta} \sim N(\beta_1, \frac{\sigma^2}{n \cdot s_x})
 $$
@@ -88,6 +88,8 @@ O erro padrão é $.0002$, ou seja, supondo normalidade (MLE), o p-valor é apro
 z <- coef(reg)[2]/summary(reg)$coefficients[2 , 2]
 print(z)
 p_valor <- 1 - pnorm(z)
+
+print(p_valor)
 ```
 E se o p-valor é menor que o nível de significância (5%), então rejeitamos a hipótese nula de que o coeficiente é zero.
 
