@@ -14,18 +14,51 @@ library(here)
 library(tidyr)
 ```
 
-Inferência estatística
+Nós já trabalhamos com um modelo de regressão em que supomos normalidade do termo de erro e isso permitiu calcular o estimador de máxima verossimilhança e fazer inferência desse estimador de máxima verossimilhança. Contudo, a suposição de normalidade do erro é bastante restritiva, já que se isso não for verdade nem aproximadamente, não poderemos fazer inferência. Isso é particularmente relevante em amostras finitas (pequenas), onde não poderemos contar com alguma versão do Teorema Central do Limite para justificar a suposição de normalidade.
 
-
+Assim, queremos ser capazes de realizar testes de hipótese, calcular o intervalo de confiança (IC) e também quantificar a incerteza de nossas estimativas por meio do cálculo do p-valor. Aqui não é o lugar para discutir os problemas de misturar o paradigma de teste de hipótese de Neyman-Pearson, com o cálcul do p-valor do Fisher. Basta dizer que essas duas abordagens não se misturam muito bem, mas na prática os pesquisadores têm combinado-as como se não houvesse nenhum problema e irei assumir essa mesma postura aqui. Mas o leitor fique avisado que há inconsistências em combinar ambas as abordagens e que ideialmente deveríamos utilizar apenas uma delas.
 
 ## Normal
 
-Os resíduos...
+Nós já vimos o caso mais simples em que podemos supor que os erros são normalmente distribuídos, isto é $e \sim N(0, \sigma^2)$.
+
+Nós vimos também que o meu estimador pode ser decomposto no parâmetro populacional mais uma média ponderada dos erros:
+$$
+\hat{\beta} = \beta +  \sum_{i=1}^{n} w_i \cdot e_i
+$$
+Ou seja, nosso estimador é igual a uma constante mais uma soma ponderada de variáveis aleatórias normais. E nós sabemos que a soma de variáveis aleatórias normais é uma normal, cuja média é $\beta$, já que o estimador é não-viesado e sua esperança é o parâmetro populacional e a variância nós também já calculamos e é dada por $\frac{\sigma^2}{n \cdot \sigma^2_x}$
+
+Se eu normalizar meu estimador, isto é,subtrair sua média e dividir pelo desvio-padrão amostral, tenho que o estimador normalizado segue a distribuição Normal padrão. Formalmente,
+
+$$
+z = \frac{\hat{\beta} - \beta}{\sqrt(\frac{\sigma^2}{n \cdot \sigma^2_x})} \sim N(0,1 )
+$$
 
 ## T-student
 
-A distribuição t de student...
+The problem with the above solution is that we do not know $\sigma^2$. We can estimate it, though, by the unbiased estimator given by the residual sum of squares $\sum_{i=1}^{n}e_i^2$ divided by the number of observations minus the number of parameters estimated (in our case of single predictor regression, $2$). Thus, we have: $\hat{\sigma^2} = \frac{\sum_{i=1}^{n}e_i^2}{n-2}$. E a quantidade $n-2$ é chamada de graus de liberdade.
 
+Esta maneira de explicar graus de liberade, embora intuitiva, é errada. Como disse Rachael Meager no Twitter uma vez, " I know enough to know it [degrees of freedom] can’t be 'N minus number of parameters' because once you do hierarchical/shrinkage it’s actually a substantively subtle and challenging task to 'count' how many parameters you have" ^[see (if twitter is still availble to look at) https://twitter.com/economeager/status/1596450647599190017)]. Eu não vou expandir muito aqui porque a definição correta requeriria conhecimento avançado de Álgebra Linear, mas basta dizer que o que ela está falando tem a ver com o fato de que em modelos multiníveis Bayesianos (por exemplo), o número de parâmetros não é facilmente determinado, de forma que essa fórmula de número de observações menos o número de parâmetros falha nesses e em outros casos (como modelos com regularização etc.).
+
+De todo modo, para nós importa que, substituindo meu estimador não-viesado para a variância em nossa fórmula, temos:
+
+$$
+z^* = \frac{\hat{\beta} - \beta}{\sqrt(\frac{\hat{\sigma^2}}{n \cdot \sigma^2_x})}
+$$
+Porém, essa estatística de teste não é mais normalmente distribuída e seria possível mostrar que ela na verdade segue uma distribuição t-Student com $n-2$ graus de liberdade.
+
+Ou seja, 
+
+$$
+z^* = \frac{\hat{\beta} - \beta}{\sqrt(\frac{\hat{\sigma^2}}{n \cdot \sigma^2_x})} \sim t_{n-2}
+$$
+E eu posso proceder da maneira usual para calcular um tese de hipótese. Se defino $\alpha$ o nível de significância (não confundir esse $\alpha$ com o intercepto da regressão) então podemos achar os valores críticos $t_{\alpha/n-2}$ e $t_{1 - \alpha/n-2}$. Se definir, como usual, $\alpha = 5%$, então podemos calcular no R os valores críticos facilmente:
+
+```{r package t-critico, echo=FALSE, message=FALSE}
+# se n = 30, tenho 28 d.f.
+qt(0.025, df=28)
+qt(0.975, df=28)
+```
 ## Intervalo de Confiança
 
 O IC...
