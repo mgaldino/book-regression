@@ -184,7 +184,7 @@ reg4 <- lm( y ~x , data = bivariada_tibble4)
 ```
 
 
-```{r stargazer, echo=T, message=FALSE,  results = 'asis'}
+```{r stargazer 7, echo=T, message=FALSE,  results = 'asis'}
 library("stargazer")
 
 stargazer::stargazer(list(reg1, reg2, reg3, reg4), type =  "html", style = "ajps",
