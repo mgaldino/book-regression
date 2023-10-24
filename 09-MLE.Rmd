@@ -31,7 +31,9 @@ A vantagem de estimar por Máxima Verossimilhança é que agora temos uma distri
 $$
 \hat{\beta} \sim N(\beta_1, \frac{\sigma^2}{n \cdot s_x})
 $$
+
 ## Teste de hipótese
+
 Nesse caso, o típico teste de hipótese que é feito em um modelo de regressão é testar a hipótese nula de que $\beta_1 = 0$. Sob a suposição de que isso é verdade, $\hat{\beta} \sim N(0, \frac{\sigma^2}{n \cdot s_x})$. E se quisermos cometer o erro de rejeitar a hipótese nula (isto é, rejeitar que $\beta_1 = 0$) no máximo 5% das vezes, se eu colhesse novas amostras repetidas vezes, então posso calcular se rejeito ou não minha hipótese nula ao nível de 5% de confiança.
 
 Vamos ver um exemplo a partir de dados de um survey no Reino Unido sobre o Brexit.

@@ -253,7 +253,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>9</b> - MLE</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="mle.html"><a href="mle.html#estimação-por-máxima-verossimilhança"><i class="fa fa-check"></i><b>9.1</b> Estimação por Máxima Verossimilhança</a></li>
-<li class="chapter" data-level="9.2" data-path="mle.html"><a href="mle.html#regressão"><i class="fa fa-check"></i><b>9.2</b> regressão</a></li>
+<li class="chapter" data-level="9.2" data-path="mle.html"><a href="mle.html#teste-de-hipótese"><i class="fa fa-check"></i><b>9.2</b> Teste de hipótese</a></li>
+<li class="chapter" data-level="9.3" data-path="mle.html"><a href="mle.html#regressão"><i class="fa fa-check"></i><b>9.3</b> regressão</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="checagem.html"><a href="checagem.html"><i class="fa fa-check"></i><b>10</b> - Checagem</a>
 <ul>
@@ -270,7 +271,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.1" data-path="inferencia.html"><a href="inferencia.html#normal"><i class="fa fa-check"></i><b>11.1</b> Normal</a></li>
 <li class="chapter" data-level="11.2" data-path="inferencia.html"><a href="inferencia.html#t-student"><i class="fa fa-check"></i><b>11.2</b> T-student</a></li>
 <li class="chapter" data-level="11.3" data-path="inferencia.html"><a href="inferencia.html#intervalo-de-confiança"><i class="fa fa-check"></i><b>11.3</b> Intervalo de Confiança</a></li>
-<li class="chapter" data-level="11.4" data-path="inferencia.html"><a href="inferencia.html#teste-de-hipótese"><i class="fa fa-check"></i><b>11.4</b> Teste de Hipótese</a></li>
+<li class="chapter" data-level="11.4" data-path="inferencia.html"><a href="inferencia.html#teste-de-hipótese-1"><i class="fa fa-check"></i><b>11.4</b> Teste de Hipótese</a></li>
 <li class="chapter" data-level="11.5" data-path="inferencia.html"><a href="inferencia.html#p-valor"><i class="fa fa-check"></i><b>11.5</b> P-valor</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="regressao-multipla.html"><a href="regressao-multipla.html"><i class="fa fa-check"></i><b>12</b> - Regressao Multipla</a>
@@ -327,9 +328,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>É possívem mostrar que:
 <span class="math display">\[
 \hat{\beta} \sim N(\beta_1, \frac{\sigma^2}{n \cdot s_x})
-\]</span>
-## Teste de hipótese
-Nesse caso, o típico teste de hipótese que é feito em um modelo de regressão é testar a hipótese nula de que <span class="math inline">\(\beta_1 = 0\)</span>. Sob a suposição de que isso é verdade, <span class="math inline">\(\hat{\beta} \sim N(0, \frac{\sigma^2}{n \cdot s_x})\)</span>. E se quisermos cometer o erro de rejeitar a hipótese nula (isto é, rejeitar que <span class="math inline">\(\beta_1 = 0\)</span>) no máximo 5% das vezes, se eu colhesse novas amostras repetidas vezes, então posso calcular se rejeito ou não minha hipótese nula ao nível de 5% de confiança.</p>
+\]</span></p>
+</div>
+<div id="teste-de-hipótese" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Teste de hipótese<a href="mle.html#teste-de-hipótese" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Nesse caso, o típico teste de hipótese que é feito em um modelo de regressão é testar a hipótese nula de que <span class="math inline">\(\beta_1 = 0\)</span>. Sob a suposição de que isso é verdade, <span class="math inline">\(\hat{\beta} \sim N(0, \frac{\sigma^2}{n \cdot s_x})\)</span>. E se quisermos cometer o erro de rejeitar a hipótese nula (isto é, rejeitar que <span class="math inline">\(\beta_1 = 0\)</span>) no máximo 5% das vezes, se eu colhesse novas amostras repetidas vezes, então posso calcular se rejeito ou não minha hipótese nula ao nível de 5% de confiança.</p>
 <p>Vamos ver um exemplo a partir de dados de um survey no Reino Unido sobre o Brexit.</p>
 <table>
 <colgroup>
@@ -362,8 +365,8 @@ Nesse caso, o típico teste de hipótese que é feito em um modelo de regressão
 </tbody>
 </table>
 </div>
-<div id="regressão" class="section level2 hasAnchor" number="9.2">
-<h2><span class="header-section-number">9.2</span> regressão<a href="mle.html#regressão" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="regressão" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> regressão<a href="mle.html#regressão" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="mle.html#cb1-1" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(leave <span class="sc">~</span> age, <span class="at">data=</span>bes, <span class="at">na.action =</span> na.omit )</span>
 <span id="cb1-2"><a href="mle.html#cb1-2" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="mle.html#cb1-3" tabindex="-1"></a></span>
