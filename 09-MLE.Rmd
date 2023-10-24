@@ -81,20 +81,36 @@ stargazer::stargazer(reg, type =  "html", style = "ajps",
 
 
 ```
-Nós vemos que pessoas mais velhas tenderiam a votar 1 (sair). O p-valor é a probabilidade de eu observar dados tão ou mais extremos do que o observado, sob a suposição de que a hipótese nula é verdadeira. 
+Nós vemos que pessoas mais velhas tenderiam a votar 1 (sair).
+
+```{r interpretando-coef}
+20*.007*100 # 20 anos
+40*.007*100 # 40 anos
+80*.007*100 # 40 anos
+```
+O p-valor é a probabilidade de eu observar dados tão ou mais extremos do que o observado, sob a suposição de que a hipótese nula é verdadeira. 
 O erro padrão é $.0002$, ou seja, supondo normalidade (MLE), o p-valor é aproximadamente zero:
 
-```{r}
+```{r p-valor}
 z <- coef(reg)[2]/summary(reg)$coefficients[2 , 2]
 print(z)
 p_valor <- 1 - pnorm(z)
 
 print(p_valor)
+
+hist(rnorm(10000))
 ```
 E se o p-valor é menor que o nível de significância (5%), então rejeitamos a hipótese nula de que o coeficiente é zero.
 
 O problema desse tipo de teste de hipótese é que, à medida que o número de observaçoes cresce, sempre vamso rejeitar a hipótese nula. É muito raro que em ciências sociais o coeficiente de uma variável seja exatamente zero. Nesse sentido, é melhor utilizar o intervalo de confiança para quantificar a incerteza.
 
 Aqui, podemos calculá-lo do seguinte modo: $\hat{\beta_1} -1.96 \cdot se; \hat{\beta_1}  + 1.96 \cdot se = [0.007 - 1.96 \cdot 0.002; 0.007 + 1.96 \cdot 0.002] = [0.003; 0.01]$.
+
+
+```{r intervalo confianca}
+40*.007*100 # 40 anos estimativa pontual
+40*.003*100 # 40 anos limite inferior
+40*.01*100 # 40 anos limite superior
+```
 
 Na prática podemos calcular de cabeça multiplicando por $2$ o erro-padrão e vendo se o coeficiente cruza o zero quando somo ou subtraio.
