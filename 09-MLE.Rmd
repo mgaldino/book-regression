@@ -21,7 +21,7 @@ Além do método de Mínimos Quadrados Ordinários, podemos estimar os coeficien
 1. Os erros $e_i \sim N(0, \sigma^2)$ e são independentes de $X$.
 2. Os erros são independentes entre observações.
 
-Uma consequência dessas suposições é que a própria variável resposta $Y$ torna-se independente entre observações, condicional aos preditores. Podemos então computar a probabilidade condicional de observar os dados de nossa amostra $y_i$, condicional aos $x_i$ e aos parâmetros da equação de regressão, $\alpha$ e $\beta$ e a variância $\sigma^2$. Como as observações são independentes, a probabilidade conjunta é o produto das probabilidades marginais. A verossimilhança é uma função dos parâmetros para essa probabilidade conjunta. Então, meu objetivo é escolher valores dos coeficientes que **maximizem** a probabilidade de observar os dados.
+Uma consequência dessas suposições é que a própria variável resposta $Y$ torna-se independente entre observações, condicional aos preditores. Podemos então computar a probabilidade condicional de observar os dados de nossa amostra $y_i$, condicional aos $x_i$ e aos parâmetros da equação de regressão, $\alpha$ e $\beta_1$ e a variância $\sigma^2$. Como as observações são independentes, a probabilidade conjunta é o produto das probabilidades marginais. A verossimilhança é uma função dos parâmetros para essa probabilidade conjunta. Então, meu objetivo é escolher valores dos coeficientes que **maximizem** a probabilidade de observar os dados.
 
 Com a suposição de normalidade dos erros acima, é possível mostrar que os estimadores de Máxima Verossimilhança são iguais aos de MQO.
 
@@ -29,12 +29,12 @@ A vantagem de estimar por Máxima Verossimilhança é que agora temos uma distri
 
 É possível mostrar que:
 $$
-\hat{\beta} \sim N(\beta_1, \frac{\sigma^2}{n \cdot s_x})
+\hat{\beta_1} \sim N(\beta_1, \frac{\sigma^2}{n \cdot s_x})
 $$
 
 ## Teste de hipótese
 
-Nesse caso, o típico teste de hipótese que é feito em um modelo de regressão é testar a hipótese nula de que $\beta_1 = 0$. Sob a suposição de que isso é verdade, $\hat{\beta} \sim N(0, \frac{\sigma^2}{n \cdot s_x})$. E se quisermos cometer o erro de rejeitar a hipótese nula (isto é, rejeitar que $\beta_1 = 0$) no máximo 5% das vezes, se eu colhesse novas amostras repetidas vezes, então posso calcular se rejeito ou não minha hipótese nula ao nível de 5% de confiança.
+Nesse caso, o típico teste de hipótese que é feito em um modelo de regressão é testar a hipótese nula de que $\beta_1 = 0$. Sob a suposição de que isso é verdade, $\hat{\beta_1} \sim N(0, \frac{\sigma^2}{n \cdot s_x})$. E se quisermos cometer o erro de rejeitar a hipótese nula (isto é, rejeitar que $\beta_1 = 0$) no máximo 5% das vezes, se eu colhesse novas amostras repetidas vezes, então posso calcular se rejeito ou não minha hipótese nula ao nível de 5% de confiança.
 
 Vamos ver um exemplo a partir de dados de um survey no Reino Unido sobre o Brexit.
 ```{r package loads 9, echo=FALSE, message=FALSE}

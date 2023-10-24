@@ -322,17 +322,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Os erros <span class="math inline">\(e_i \sim N(0, \sigma^2)\)</span> e são independentes de <span class="math inline">\(X\)</span>.</li>
 <li>Os erros são independentes entre observações.</li>
 </ol>
-<p>Uma consequência dessas suposições é que a própria variável resposta <span class="math inline">\(Y\)</span> torna-se independente entre observações, condicional aos preditores. Podemos então computar a probabilidade condicional de observar os dados de nossa amostra <span class="math inline">\(y_i\)</span>, condicional aos <span class="math inline">\(x_i\)</span> e aos parâmetros da equação de regressão, <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> e a variância <span class="math inline">\(\sigma^2\)</span>. Como as observações são independentes, a probabilidade conjunta é o produto das probabilidades marginais. A verossimilhança é uma função dos parâmetros para essa probabilidade conjunta. Então, meu objetivo é escolher valores dos coeficientes que <strong>maximizem</strong> a probabilidade de observar os dados.</p>
+<p>Uma consequência dessas suposições é que a própria variável resposta <span class="math inline">\(Y\)</span> torna-se independente entre observações, condicional aos preditores. Podemos então computar a probabilidade condicional de observar os dados de nossa amostra <span class="math inline">\(y_i\)</span>, condicional aos <span class="math inline">\(x_i\)</span> e aos parâmetros da equação de regressão, <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta_1\)</span> e a variância <span class="math inline">\(\sigma^2\)</span>. Como as observações são independentes, a probabilidade conjunta é o produto das probabilidades marginais. A verossimilhança é uma função dos parâmetros para essa probabilidade conjunta. Então, meu objetivo é escolher valores dos coeficientes que <strong>maximizem</strong> a probabilidade de observar os dados.</p>
 <p>Com a suposição de normalidade dos erros acima, é possível mostrar que os estimadores de Máxima Verossimilhança são iguais aos de MQO.</p>
 <p>A vantagem de estimar por Máxima Verossimilhança é que agora temos uma distribuição amostral para nossos estimadores e, portanto, podemos fazer inferências sobre ele.</p>
 <p>É possível mostrar que:
 <span class="math display">\[
-\hat{\beta} \sim N(\beta_1, \frac{\sigma^2}{n \cdot s_x})
+\hat{\beta_1} \sim N(\beta_1, \frac{\sigma^2}{n \cdot s_x})
 \]</span></p>
 </div>
 <div id="teste-de-hipótese" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Teste de hipótese<a href="mle.html#teste-de-hipótese" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Nesse caso, o típico teste de hipótese que é feito em um modelo de regressão é testar a hipótese nula de que <span class="math inline">\(\beta_1 = 0\)</span>. Sob a suposição de que isso é verdade, <span class="math inline">\(\hat{\beta} \sim N(0, \frac{\sigma^2}{n \cdot s_x})\)</span>. E se quisermos cometer o erro de rejeitar a hipótese nula (isto é, rejeitar que <span class="math inline">\(\beta_1 = 0\)</span>) no máximo 5% das vezes, se eu colhesse novas amostras repetidas vezes, então posso calcular se rejeito ou não minha hipótese nula ao nível de 5% de confiança.</p>
+<p>Nesse caso, o típico teste de hipótese que é feito em um modelo de regressão é testar a hipótese nula de que <span class="math inline">\(\beta_1 = 0\)</span>. Sob a suposição de que isso é verdade, <span class="math inline">\(\hat{\beta_1} \sim N(0, \frac{\sigma^2}{n \cdot s_x})\)</span>. E se quisermos cometer o erro de rejeitar a hipótese nula (isto é, rejeitar que <span class="math inline">\(\beta_1 = 0\)</span>) no máximo 5% das vezes, se eu colhesse novas amostras repetidas vezes, então posso calcular se rejeito ou não minha hipótese nula ao nível de 5% de confiança.</p>
 <p>Vamos ver um exemplo a partir de dados de um survey no Reino Unido sobre o Brexit.</p>
 <table>
 <colgroup>
