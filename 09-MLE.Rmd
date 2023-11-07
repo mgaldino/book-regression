@@ -16,7 +16,25 @@ library(tidyr)
 
 ## Estimação por Máxima Verossimilhança
 
-Além do método de Mínimos Quadrados Ordinários, podemos estimar os coeficientes de regressão pelo método de Máxima Verossimilhança, que é uma tradução ruim do inglês de *Maximum Likelihood*. Para isso, precisamos adicionar uma suposição ao nosso modelo de regressão:
+Além do método de Mínimos Quadrados Ordinários, podemos estimar os coeficientes de regressão pelo método de Máxima Verossimilhança, que é uma tradução ruim do inglês de *Maximum Likelihood*. 
+
+Para dar uma intuição do método de MLE, vamos considerar um caso mais simples. Suponha que coletamos uma amostra aleatória simples de $n$ observações, em que perguntamos a intenção de voto para segundo turno de uma eleição, e estamos interessados em estimar a proporção de votos válidos na candidata $A$. A proporção (na população) é dada pelo número de sucessos dividido pelo total de observações, $p$. Quero portanto estimar $p$ a partir da minha amostra. Podemos modelar esse dado como se cada observação, que pode ser $1$ se vota na candidata $A$, e $0$ caso contrário, como repetições de uma Bernoulli. Cada observação $i$ é $1$ (chamadada de "sucesso") com probabilidade $p$, e $0$ (chamada de "fracasso") com probabilidade $1-p$. Seha $x$ o número de sucesso, $n-x$ o número de fracassos e a resposta de cada pessoa dada por $x_i = {1,0}$. 
+
+Suponha que observo a primeira pessoa, então, $Pr(x_i = 1) = p$ e analogamente, $Pr(x_i = 0) = 1 -p$
+A probabilidade de obter $x$ sucessos em $n$ observações é a probabilidade conjunta, dada por:
+
+$$
+p^{x_1}(1-p)^{1 - x_1}\cdot p^{x_2}(1-p)^{1 - x_2} ... \cdot p^{x_n}(1-p)^{1 - x_n}
+$$
+$$
+\prod_{i=1}^n p^{x_i}(1-p)^{1 - x_i} = p^{\sum_1^n x_i}(1-p)^{\sum_1^n (1 - x_i)} = p^x(1-p)^{n-x}
+$$
+
+Note que há várias maneiras disso acontecer, um sucesso na pimeira observação, ou na segunda etc. Portanto, preciso multiplicar a probabilidade pelas possibilidades disso acontecer, que é dada por ${n\choose x}$. Então, a rigor deveria colocar ${n\choose x}$ na fórmula, ou seja, $Pr(X = x) = {n\choose x}p^x(1-p)^{n-x}$.
+
+Essa fórmula, com $n$ e $x$ observados é a verossmilhança. E a ideia é escolher um estimador de $p$ que maximize essa função, para os dados observados ($n$ e $x$). É possível mostrar que a função é máxima quando $p = x/n$. Ou seja, a verossimilhança é maximizada. Esse é o estimador de máxima verossimilhaça para uma proporção de uma distribuição binomial.
+
+Para uma regressão, é algo similar. Eu vou supor uma distribuição de probabilidade para os dados $y$ (Normal, por exemplo) e, dada uma amostra, derivo um estimador para os parÂmetros $\alpha$ e $\beta$. Em relação ao estimador de MQO, na prática estamos acrescentando uma suposição ao nosso modelo de regressão:
 
 1. Os erros $e_i \sim N(0, \sigma^2)$ e são independentes de $X$.
 2. Os erros são independentes entre observações.
@@ -31,6 +49,7 @@ A vantagem de estimar por Máxima Verossimilhança é que agora temos uma distri
 $$
 \hat{\beta_1} \sim N(\beta_1, \frac{\sigma^2}{n \cdot s_x})
 $$
+Notem que a variância é supostamente conhecida, o que na prática raramente será verificado. Voltaremos a isso na aula de inferência.
 
 ## Teste de hipótese
 
@@ -109,8 +128,11 @@ Aqui, podemos calculá-lo do seguinte modo: $\hat{\beta_1} -1.96 \cdot se; \hat{
 
 ```{r intervalo confianca}
 40*.007*100 # 40 anos estimativa pontual
+
 40*.003*100 # 40 anos limite inferior
+
 40*.01*100 # 40 anos limite superior
+
 ```
 
 Na prática podemos calcular de cabeça multiplicando por $2$ o erro-padrão e vendo se o coeficiente cruza o zero quando somo ou subtraio.
