@@ -44,7 +44,7 @@ library(tidyr)
 Para fazer os testes do nosso modelo, vamos fazer um modelo preditivo. Vou utilizar a votação no primeiro turno presidencial de 2018 para prever o voto no segundo turno, no estado de Alagoas. Para tanto, vamos baixar os dados de votação presidencial de 2018 ao nível de seção eleitoral do portal de dados abertos do TSE para o estado de Alagoas (para ter uma base de dados pequena): 
 https://dadosabertos.tse.jus.br/dataset/resultados-2018
 
-```{r dados 10, echo=FALSE, message=FALSE, cache=TRUE}
+```{r dados 10, message=FALSE, cache=TRUE}
 library(data.table)
 
 # lista o nome do arquivo em csv
@@ -97,7 +97,7 @@ presid_al18_valido %>%
 ### Resíduos contra o preditor
 Se os resíduos devem ter $\mathbb{E}[\hat{e}|X=x] = 0$, isso significa que para cada $x_i$ os resíduos devem ter média zero. Em um gráfico, isso significa que, se eu tiver pontos suficientes na proximidade de cada $x_i$, a dispersão dos resíduos deve ser aleatória, no sentido de não ter padrão claro, o que vai implicar uma reta horizontal cuja média é zero.
 
-```{r residuos-preditor, echo=FALSE, message=FALSE}
+```{r residuos-preditor, message=FALSE}
 df <- data.frame(residuos = residuals(reg1), preditor = presid_al18_valido$perc_bolso_turno1)
 
 df %>%
@@ -119,7 +119,7 @@ $$
 $$
 Portanto, se estamos assumindo homecadisticidade, isto é, que $\mathbb{Var}[\hat{e}|X] = \sigma^2$, podemos checar esta suposição olhando para a esperança condicional do quadrado dos resíduos. E odemos fazer isso plotando o gráfico do quadrado dos resíduos contra o preditor.
 
-```{r residuos-sq-preditor, echo=FALSE, message=FALSE}
+```{r residuos-sq-preditor,  message=FALSE}
 df <- data.frame(residuos_sq = residuals(reg1)^2, preditor = presid_al18_valido$perc_bolso_turno1)
 
 df %>%
@@ -131,7 +131,7 @@ A reta deve ser horizontal, e não deveria ter mais pontos acima do que abaixo d
 
 Ás vezes quando temos resíduos muito grandes, o quadrado deles fica gigante e o gráfico fica não-informativo (especialmente quando o modelo é problemático). Nesses casos, podemos plotar o valor absoluto dos resíduos, em vez do quadrado.
 
-```{r residuos-abs-preditor, echo=FALSE, message=FALSE}
+```{r residuos-abs-preditor, message=FALSE}
 df <- data.frame(residuos_abs = abs(residuals(reg1)), preditor = presid_al18_valido$perc_bolso_turno1)
 
 df %>%
@@ -144,7 +144,7 @@ Com frequência nossos dados possuem uma certa ordem, seja temporal e/ou espacia
 
 Podemos fazer um plote dos resíduos contra seção/zona/município, zona/município ou município. Vamos tentar o primeiro, que possui mais granularidade.Vejamos como fica.
 
-```{r residuos-coordenadas, echo=FALSE, message=FALSE}
+```{r residuos-coordenadas, message=FALSE}
 presid_al18_valido <- presid_al18_valido %>%
   mutate(id_secao = paste0(NR_SECAO, NR_ZONA , CD_MUNICIPIO))
 
@@ -156,7 +156,7 @@ df %>%
 
 Uma técnica simples, que é uma versão simplificada de algo mais formal chamado "permutation test", é plotar os resíduos permutados aleatoriamente contra a data ou espaço (no nosso caso, espaço).
 
-```{r residuos-shufle-coordenadas, echo=FALSE, message=FALSE}
+```{r residuos-shufle-coordenadas, message=FALSE}
 presid_al18_valido <- presid_al18_valido %>%
   mutate(id_secao = paste0(NR_SECAO, NR_ZONA , CD_MUNICIPIO))
 
