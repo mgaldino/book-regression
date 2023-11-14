@@ -18,17 +18,18 @@ $$
 \hat{e_i} = y_i - (\hat{\alpha} + \hat{\beta} \cdot x_i)
 $$
 Eis algumas propriedade dos resíduos. 
+
 1. Os resíduos deveriam ter esperança zero, condicional aos preditores. Formalmente, $\mathbb{E}[\hat{e}|X=x] = 0$
 
 2. Se estivermos supondo homecedasticidade, devem ter variância constante (o que raramente será o caso).
 
-3. Os resíduos não podem ser completamente não-correlacionados entre si, mas a correlação deve ser baixa e convergir para zero à medida que $n$ cresce para infinito.
+3. Por se tratar de uma amostra, a probabilidade dos resíduos serem completamente não-correlacionados entre si é zero, contudo a correlação deve ser baixa e convergir para zero à medida que $n$ cresce para infinito.
 
 4. Se estamos supondo que o erro é Gaussiano (Normal), como no modelo de MLE, os resíduos devem também ser normais.
 
 Cada uma dessas propriedades nos leva a um diagnóstico ou checagem.
 
-```{r package loads 10, message=FALSE}
+```{r package loads 10, message=FALSE, warning=FALSE}
 library(ggplot2)
 library(knitr)
 library(tidyverse)
@@ -41,12 +42,12 @@ library(tidyr)
 
 ## Modelo no R
 
-Para fazer os testes do nosso modelo, vamos fazer um modelo preditivo. Vou utilizar a votação no primeiro turno presidencial de 2018 para prever o voto no segundo turno, no estado de Alagoas. Para tanto, vamos baixar os dados de votação presidencial de 2018 ao nível de seção eleitoral do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/dataset/resultados-2018). Podem baixar o arquivo clicando no [link](https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_secao/votacao_secao_2018_BR.zip) do dataset. Depois vamos filtrar os dados para o estado de Alagoas (para ter uma base de dados pequena).
+Para fazer os testes do nosso modelo, vamos fazer um modelo preditivo. Vou utilizar a votação no primeiro turno presidencial de 2018 para prever o voto no segundo turno, no estado de Alagoas. Para tanto, vamos baixar os dados de votação presidencial de 2018 ao nível de seção eleitoral do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/dataset/resultados-2018). Podem baixar o arquivo clicando no [link](https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_secao/votacao_secao_2018_BR.zip) do dataset. Vamos deszipar e depois filtrar os dados para o estado de Alagoas (para ter uma base de dados pequena).
 
 
 
 
-```{r dados 10, message=FALSE, cache=TRUE}
+```{r dados 10, echo=TRUE, message=FALSE, cache=TRUE}
 library(data.table)
 
 # lista o nome do arquivo em csv
@@ -99,7 +100,7 @@ presid_al18_valido %>%
 ### Resíduos contra o preditor
 Se os resíduos devem ter $\mathbb{E}[\hat{e}|X=x] = 0$, isso significa que para cada $x_i$ os resíduos devem ter média zero. Em um gráfico, isso significa que, se eu tiver pontos suficientes na proximidade de cada $x_i$, a dispersão dos resíduos deve ser aleatória, no sentido de não ter padrão claro, o que vai implicar uma reta horizontal cuja média é zero.
 
-```{r residuos-preditor, message=FALSE}
+```{r residuos-preditor, echo=TRUE, message=FALSE}
 df <- data.frame(residuos = residuals(reg1), preditor = presid_al18_valido$perc_bolso_turno1)
 
 df %>%
@@ -111,15 +112,14 @@ Se houver outros preditores, faça a mesma coisa e o gráfico também deve ser u
 
 ### Magnitude dos Resíduos Contra o Preditor
 
-Uma vez que $\mathbb{E}[\hat{e}|X] = 0$, segue-se que $\mathbb{Var}[\hat{e}|X] = \mathbb{E}[\hat{e^2}|X]$.
+Uma vez que $\mathbb{E}[\hat{e}|X] = 0$, segue-se que $\mathbb{Var}[\hat{e}|X] = \mathbb{E}[\hat{e}^2|X]$.
 
-Como exercício, verifique que isso é verdade matematicamente (pós) e por simulação (pós e graduação). Abaixo segue uma explicação:
 
 Seja $A$ uma v.a. Então, $\mathbb{Var}[A|X] = \mathbb{E}[(A - \mathbb{E}[A|X])^2|X]$
 $$
 \mathbb{Var}[\hat{e}|X] =  \mathbb{E}[(\hat{e} - \mathbb{E}[\hat{e}|X])^2|X] = \mathbb{E}[(\hat{e} - 0)^2|X] = \mathbb{E}[\hat{e}^2|X]
 $$
-Portanto, se estamos assumindo homecadisticidade, isto é, que $\mathbb{Var}[\hat{e}|X] = \sigma^2$, podemos checar esta suposição olhando para a esperança condicional do quadrado dos resíduos. E odemos fazer isso plotando o gráfico do quadrado dos resíduos contra o preditor.
+Portanto, se estamos assumindo homecadisticidade, isto é, que $\mathbb{Var}[\hat{e}|X] = \sigma^2$, podemos checar esta suposição olhando para a esperança condicional do quadrado dos resíduos. E podemos fazer isso plotando o gráfico do quadrado dos resíduos contra o preditor.
 
 ```{r residuos-sq-preditor,  message=FALSE}
 df <- data.frame(residuos_sq = residuals(reg1)^2, preditor = presid_al18_valido$perc_bolso_turno1)
@@ -129,7 +129,7 @@ df %>%
 
 ```
 
-A reta deve ser horizontal, e não deveria ter mais pontos acima do que abaixo da reta. A altura da reta deveria ser aproximadamente o EQM. Conjuntos de pontos persistentemente acima ou abaixo da reta são sinais de problema com alguma de nossas hipóteses, ou há heterocedasticidade (a variância muda com o preditor) ou a forma funcional do modelo está errada de algum modo. No meu gráfico, a reta não é exatamente horizontal, mas é "good enough". Eu não me daria ao trabalhgo de estimar um modelo de regressão de mínimos quadrados ponderados (que não vamos aprender no curso) para lidar com uma variância heterocedástica.
+A reta deve ser horizontal, e não deveria ter mais pontos acima do que abaixo da reta. A altura da reta deveria ser aproximadamente o EQM. Conjuntos de pontos persistentemente acima ou abaixo da reta são sinais de problema com alguma de nossas hipóteses, ou há heterocedasticidade (a variância muda com o preditor) ou a forma funcional do modelo está errada de algum modo. No meu gráfico, a reta não é exatamente horizontal, mas talvez seja "good enough". Uma forma de olhar isso é computar erros padrões que lidem com a heterocedasticidade. Voltaremos a isso mais à frente.
 
 Ás vezes quando temos resíduos muito grandes, o quadrado deles fica gigante e o gráfico fica não-informativo (especialmente quando o modelo é problemático). Nesses casos, podemos plotar o valor absoluto dos resíduos, em vez do quadrado.
 
@@ -144,16 +144,16 @@ df %>%
 
 Com frequência nossos dados possuem uma certa ordem, seja temporal e/ou espacial. Em um modelo simples, isso não deveria importar (nossa amostra supostamente é i.i.d, e os erros populacionais são não correlacionados entre si). Se os erros forem correlacionados, podemos usar algo chamado mínimos quadrados generalizados, o que também não iremos cobrir no curso. Então, deveríamos sempre fazer um plot dos resíduos contra o tempo, ou contra o espaço. Aqui, como a ordem é apenas espacial, vamos fazer isso.
 
-Podemos fazer um plote dos resíduos contra seção/zona/município, zona/município ou município. Vamos tentar o primeiro, que possui mais granularidade.Vejamos como fica.
+Podemos fazer um plot dos resíduos contra seção.Vejamos como fica.
 
 ```{r residuos-coordenadas, message=FALSE}
 presid_al18_valido <- presid_al18_valido %>%
   mutate(id_secao = paste0(NR_SECAO, NR_ZONA , CD_MUNICIPIO))
 
-df <- data.frame(residuos = residuals(reg1), secao = as.numeric(presid_al18_valido$id_secao))
+df <- data.frame(residuos = residuals(reg1), id = as.numeric(presid_al18_valido$id_secao))
 
 df %>%
-  ggplot(aes(x=secao, y = residuos)) + geom_point() + geom_smooth(method="lm", se=F)
+  ggplot(aes(x=id, y = residuos)) + geom_point() + geom_smooth(method="lm", se=F)
 ```
 
 Uma técnica simples, que é uma versão simplificada de algo mais formal chamado "permutation test", é plotar os resíduos permutados aleatoriamente contra a data ou espaço (no nosso caso, espaço). Vamos usar o pacote [nullabor](https://dicook.github.io/nullabor/) library(nullabor)
@@ -183,9 +183,73 @@ df %>%
   ggplot(aes(x=secao, y = residuos_s)) + geom_point() + geom_smooth(method="lm", se=F)
 ```
 
-Rodando o código algumas vezes, podemos verificar que o "jeitão" dele é muito parecido com o nosso gráfico na ordem original, o que sugere que está tudo bem com nossos resíduos com relação à correlação espacial deles.
+Como podemos ver, dá para identificar que o plot 2 é diferente do resto. E de fato, ele é o original. Isso significa que existe algum padrão nos resíduos que não estamos levando em consideração.
+
+
+## Normalidade dos resíduos
+
+Se estamos supondo normalidade dos resíduos, podemos verificar se são de fato normais. Uma forma de verificar é plotando o histograma dos resíduos e por cima a densidade de uma distribuição normal com média zero (resíduos têm média zero) e desvio-padrão igual ao desvio-padrão dos resíduos.
+
+```{r residuos-normalidade, message=FALSE}
+df <- data.frame(residuos = residuals(reg1), preditor = presid_al18_valido$perc_bolso_turno1, 
+                 density_points = rnorm(length(residuals(reg1)) , 0, sd(residuals(reg1))))
+
+print(sd(residuals(reg1)))
+
+df %>%
+  ggplot(aes(residuos)) + geom_histogram(aes(y=..density..)) + geom_density(aes(density_points), colour = "blue")
+```
+
+Uma alternativa mais tradicional são os chamados Q-Q plots, cujo nome deriva de sere um plot "quantil-quantil". A função quantil me diz qual é o ponto que divide a minha distribuição de probabilidade em exatamente $p\%$. Por exemplo, posso me perguntar qual ponto divide meus dados exatamente no meio (mediana), ou no primeiro quartil, primeiro percentil, em suma, em qualquer percentual da distribuição. O R tem uma função para isso que vale vermos para entender.
+
+```{r quantile, message=FALSE}
+x <- rnorm( 1000)
+
+q50 <- quantile(x, .5)
+q025 <- quantile(x, .025)
+q975 <-quantile(x, .975)
+
+print(c(q50, q025, q975))
+
+y <- rnorm(1000)
+
+df <- data.frame(y=y, x=x)
+# plot de x contra y
+df %>%
+  ggplot(aes(x=x, y=y)) + geom_point()
+
+# plot de x ordenado contra y ordenado
+df %>%
+  ggplot(aes(x=sort(x), y=sort(y))) + geom_point() +  geom_abline(intercept = 0, slope = 1, colour ="blue")
+```
+
+Vejam que $p$ varia entre $0$ e $1$, e o menor valor que a função quantil retorna é o menor valor possível da minha distribuição de probabilidade, e o maior é o máximo da distribuição de probabilidade. No caso da Normal, o mínimo é menos infinito e o máximo é mais infinito, porém, em uma amostra serão valores finitos.
+
+Se plotarmos duas variáveis ordenadas, podemos verificar se têm a mesma distribuição. Em caso positivo, deveriam seguir uma linha reta de 45 graus. Quando queremos testar os resíduos, uma das variáveis são os resíduos e a outra a distribuição teórica dos mesmos (Normal).
+
+O Q-Q plot de uma regressão é uma versão um pouco mais complicadinha disso, que não irei mostrar aqui (pois precisaria trabalhar com a inversa da distribuição Normal), mas a lógica final é a mesma. Podemos ver isso plotando o Q-Q plot  do R, e um construído por nós, utilizando a lógica que apresentei.
+
+```{r q-q plot, message=FALSE}
+df <- data.frame(residuos = residuals(reg1), preditor = presid_al18_valido$perc_bolso_turno1, 
+                 density_points = rnorm(length(residuals(reg1)) , 0, sd(residuals(reg1))),
+                 fi_percentil = 1:length(residuals(reg1))/1:length(residuals(reg1)))
+
+print(sd(residuals(reg1)))
+
+# plot de x ordenado contra y ordenado
+df %>%
+  ggplot(aes(y=sort(residuos), x=sort(density_points))) + geom_point() +
+  geom_abline(intercept = 0, slope = 1, colour ="blue")
+
+qqnorm(residuals(reg1))
+qqline(residuals(reg1))
+```
+
+Obviamente o melhor é usar a função do R, já implementada, que faz tudo "by the book", mas a intuição você já sabem qual é. Se os resíduos tiverem distribuição aproximadamente normal, devem ficar em torno da reta e não haver padrões significativos. Os extremos, por serem valores mais improváveis, terão poucos casos e tendem a ficar um pouco mais distante da reta.
 
 ## Erro padrão robusto
+
+Uma possibilidade é que tenha heterocedasticidade.
 
 O que acontece se nosso termo de erro violar a suposição de homecedasticidade? Vamos discutir como isso pode acontecer, exemplos visuais desses problemas e soluções para ele.
 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 10 - Checagem | Introdução à Regresssão para Ciências Sociais</title>
   <meta name="description" content="Capítulo 10 - Checagem | Introdução à Regresssão para Ciências Sociais" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 10 - Checagem | Introdução à Regresssão para Ciências Sociais" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-11-07" />
+<meta name="date" content="2023-11-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -265,6 +265,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.2.2" data-path="checagem.html"><a href="checagem.html#magnitude-dos-resíduos-contra-o-preditor"><i class="fa fa-check"></i><b>10.2.2</b> Magnitude dos Resíduos Contra o Preditor</a></li>
 <li class="chapter" data-level="10.2.3" data-path="checagem.html"><a href="checagem.html#resíduos-com-dados-temporais-eou-espaciais"><i class="fa fa-check"></i><b>10.2.3</b> Resíduos com dados Temporais e/ou Espaciais</a></li>
 </ul></li>
+<li class="chapter" data-level="10.3" data-path="checagem.html"><a href="checagem.html#normalidade-dos-resíduos"><i class="fa fa-check"></i><b>10.3</b> Normalidade dos resíduos</a></li>
+<li class="chapter" data-level="10.4" data-path="checagem.html"><a href="checagem.html#erro-padrão-robusto"><i class="fa fa-check"></i><b>10.4</b> Erro padrão robusto</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="checagem.html"><a href="checagem.html#heterocedasticidade"><i class="fa fa-check"></i><b>10.4.1</b> Heterocedasticidade</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="inferencia.html"><a href="inferencia.html"><i class="fa fa-check"></i><b>11</b> - Inferencia</a>
 <ul>
@@ -323,39 +328,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[
 \hat{e_i} = y_i - (\hat{\alpha} + \hat{\beta} \cdot x_i)
 \]</span>
-Eis algumas propriedade dos resíduos.
-1. Os resíduos deveriam ter esperança zero, condicional aos preditores. Formalmente, <span class="math inline">\(\mathbb{E}[\hat{e}|X=x] = 0\)</span></p>
-<ol start="2" style="list-style-type: decimal">
+Eis algumas propriedade dos resíduos.</p>
+<ol style="list-style-type: decimal">
+<li><p>Os resíduos deveriam ter esperança zero, condicional aos preditores. Formalmente, <span class="math inline">\(\mathbb{E}[\hat{e}|X=x] = 0\)</span></p></li>
 <li><p>Se estivermos supondo homecedasticidade, devem ter variância constante (o que raramente será o caso).</p></li>
-<li><p>Os resíduos não podem ser completamente não-correlacionados entre si, mas a correlação deve ser baixa e convergir para zero à medida que <span class="math inline">\(n\)</span> cresce para infinito.</p></li>
+<li><p>Por se tratar de uma amostra, a probabilidade dos resíduos serem completamente não-correlacionados entre si é zero, contudo a correlação deve ser baixa e convergir para zero à medida que <span class="math inline">\(n\)</span> cresce para infinito.</p></li>
 <li><p>Se estamos supondo que o erro é Gaussiano (Normal), como no modelo de MLE, os resíduos devem também ser normais.</p></li>
 </ol>
 <p>Cada uma dessas propriedades nos leva a um diagnóstico ou checagem.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="checagem.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="checagem.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-3"><a href="checagem.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="checagem.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(electionsBR)</span>
+<span id="cb1-5"><a href="checagem.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-6"><a href="checagem.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-7"><a href="checagem.html#cb1-7" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div>
 </div>
 <div id="modelo-no-r" class="section level2 hasAnchor" number="10.2">
 <h2><span class="header-section-number">10.2</span> Modelo no R<a href="checagem.html#modelo-no-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Para fazer os testes do nosso modelo, vamos fazer um modelo preditivo. Vou utilizar a votação no primeiro turno presidencial de 2018 para prever o voto no segundo turno, no estado de Alagoas. Para tanto, vamos baixar os dados de votação presidencial de 2018 ao nível de seção eleitoral do portal de dados abertos do TSE para o estado de Alagoas (para ter uma base de dados pequena):
-<a href="https://dadosabertos.tse.jus.br/dataset/resultados-2018" class="uri">https://dadosabertos.tse.jus.br/dataset/resultados-2018</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="checagem.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb1-2"><a href="checagem.html#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="checagem.html#cb1-3" tabindex="-1"></a><span class="co"># lista o nome do arquivo em csv</span></span>
-<span id="cb1-4"><a href="checagem.html#cb1-4" tabindex="-1"></a><span class="co"># unzip(here(&quot;dados&quot;, &quot;votacao_secao_2018_AL.zip&quot;), list = TRUE)</span></span>
-<span id="cb1-5"><a href="checagem.html#cb1-5" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="checagem.html#cb1-6" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="checagem.html#cb1-7" tabindex="-1"></a><span class="co">#read data1.csv into data frame</span></span>
-<span id="cb1-8"><a href="checagem.html#cb1-8" tabindex="-1"></a>presid_al18 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2018_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
-<span id="cb1-9"><a href="checagem.html#cb1-9" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="checagem.html#cb1-10" tabindex="-1"></a><span class="co"># filtrando só AL</span></span>
-<span id="cb1-11"><a href="checagem.html#cb1-11" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="checagem.html#cb1-12" tabindex="-1"></a>presid_al18 <span class="ot">&lt;-</span> presid_al18 <span class="sc">%&gt;%</span></span>
-<span id="cb1-13"><a href="checagem.html#cb1-13" tabindex="-1"></a>  <span class="fu">filter</span>(SG_UF <span class="sc">==</span> <span class="st">&quot;AL&quot;</span>)</span>
-<span id="cb1-14"><a href="checagem.html#cb1-14" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="checagem.html#cb1-15" tabindex="-1"></a><span class="co"># modelo voto em Bolsonaro 1t prediz voto no 2t</span></span>
-<span id="cb1-16"><a href="checagem.html#cb1-16" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="checagem.html#cb1-17" tabindex="-1"></a><span class="co"># descobre o que é voto nulo e branco</span></span>
-<span id="cb1-18"><a href="checagem.html#cb1-18" tabindex="-1"></a>presid_al18 <span class="sc">%&gt;%</span></span>
-<span id="cb1-19"><a href="checagem.html#cb1-19" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_VOTAVEL) <span class="sc">%&gt;%</span></span>
-<span id="cb1-20"><a href="checagem.html#cb1-20" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">max</span>(NR_VOTAVEL))</span></code></pre></div>
+<p>Para fazer os testes do nosso modelo, vamos fazer um modelo preditivo. Vou utilizar a votação no primeiro turno presidencial de 2018 para prever o voto no segundo turno, no estado de Alagoas. Para tanto, vamos baixar os dados de votação presidencial de 2018 ao nível de seção eleitoral do <a href="https://dadosabertos.tse.jus.br/dataset/resultados-2018">portal de dados abertos do TSE</a>. Podem baixar o arquivo clicando no <a href="https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_secao/votacao_secao_2018_BR.zip">link</a> do dataset. Vamos deszipar e depois filtrar os dados para o estado de Alagoas (para ter uma base de dados pequena).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="checagem.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb2-2"><a href="checagem.html#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="checagem.html#cb2-3" tabindex="-1"></a><span class="co"># lista o nome do arquivo em csv</span></span>
+<span id="cb2-4"><a href="checagem.html#cb2-4" tabindex="-1"></a><span class="co"># unzip(here(&quot;dados&quot;, &quot;votacao_secao_2018_BR.zip&quot;), list = TRUE)</span></span>
+<span id="cb2-5"><a href="checagem.html#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="checagem.html#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="checagem.html#cb2-7" tabindex="-1"></a><span class="co">#read data1.csv into data frame</span></span>
+<span id="cb2-8"><a href="checagem.html#cb2-8" tabindex="-1"></a>presid_al18 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2018_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
+<span id="cb2-9"><a href="checagem.html#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="checagem.html#cb2-10" tabindex="-1"></a><span class="co"># filtrando só AL</span></span>
+<span id="cb2-11"><a href="checagem.html#cb2-11" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="checagem.html#cb2-12" tabindex="-1"></a>presid_al18 <span class="ot">&lt;-</span> presid_al18 <span class="sc">%&gt;%</span></span>
+<span id="cb2-13"><a href="checagem.html#cb2-13" tabindex="-1"></a>  <span class="fu">filter</span>(SG_UF <span class="sc">==</span> <span class="st">&quot;AL&quot;</span>)</span>
+<span id="cb2-14"><a href="checagem.html#cb2-14" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="checagem.html#cb2-15" tabindex="-1"></a><span class="co"># modelo voto em Bolsonaro 1t prediz voto no 2t</span></span>
+<span id="cb2-16"><a href="checagem.html#cb2-16" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="checagem.html#cb2-17" tabindex="-1"></a><span class="co"># descobre o que é voto nulo e branco</span></span>
+<span id="cb2-18"><a href="checagem.html#cb2-18" tabindex="-1"></a>presid_al18 <span class="sc">%&gt;%</span></span>
+<span id="cb2-19"><a href="checagem.html#cb2-19" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_VOTAVEL) <span class="sc">%&gt;%</span></span>
+<span id="cb2-20"><a href="checagem.html#cb2-20" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">max</span>(NR_VOTAVEL))</span></code></pre></div>
 <pre><code>## # A tibble: 15 × 2
 ##    NM_VOTAVEL                                 `max(NR_VOTAVEL)`
 ##    &lt;chr&gt;                                                  &lt;int&gt;
@@ -374,25 +385,25 @@ Eis algumas propriedade dos resíduos.
 ## 13 VERA LUCIA PEREIRA DA SILVA SALGADO                       16
 ## 14 VOTO BRANCO                                               95
 ## 15 VOTO NULO                                                 96</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="checagem.html#cb3-1" tabindex="-1"></a><span class="co"># 95 e 96</span></span>
-<span id="cb3-2"><a href="checagem.html#cb3-2" tabindex="-1"></a>presid_al18_valido <span class="ot">&lt;-</span> presid_al18 <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="checagem.html#cb3-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="checagem.html#cb3-4" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_SECAO,NR_ZONA, CD_MUNICIPIO, NR_TURNO, NR_VOTAVEL ) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="checagem.html#cb3-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">validos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-6"><a href="checagem.html#cb3-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_bolsonaro =</span> NR_VOTAVEL <span class="sc">==</span> <span class="dv">17</span>,</span>
-<span id="cb3-7"><a href="checagem.html#cb3-7" tabindex="-1"></a>         <span class="at">validos_bolsonaro =</span> <span class="fu">sum</span>(validos<span class="sc">*</span>bol_bolsonaro)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-8"><a href="checagem.html#cb3-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_validos =</span> <span class="fu">sum</span>(validos),</span>
-<span id="cb3-9"><a href="checagem.html#cb3-9" tabindex="-1"></a>            <span class="at">validos_bolsonaro =</span> <span class="fu">max</span>(validos_bolsonaro),</span>
-<span id="cb3-10"><a href="checagem.html#cb3-10" tabindex="-1"></a>            <span class="at">perc_bolsonaro =</span> validos_bolsonaro<span class="sc">/</span>total_validos) <span class="sc">%&gt;%</span></span>
-<span id="cb3-11"><a href="checagem.html#cb3-11" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>total_validos) <span class="sc">%&gt;%</span></span>
-<span id="cb3-12"><a href="checagem.html#cb3-12" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(NR_SECAO, NR_ZONA, CD_MUNICIPIO), <span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> perc_bolsonaro) <span class="sc">%&gt;%</span></span>
-<span id="cb3-13"><a href="checagem.html#cb3-13" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">perc_bolso_turno1 =</span> <span class="st">&#39;1&#39;</span>,</span>
-<span id="cb3-14"><a href="checagem.html#cb3-14" tabindex="-1"></a>         <span class="at">perc_bolso_turno2 =</span> <span class="st">&#39;2&#39;</span>)</span>
-<span id="cb3-15"><a href="checagem.html#cb3-15" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="checagem.html#cb3-16" tabindex="-1"></a><span class="co"># modelo de regressão</span></span>
-<span id="cb3-17"><a href="checagem.html#cb3-17" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="checagem.html#cb3-18" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(perc_bolso_turno2 <span class="sc">~</span> perc_bolso_turno1, <span class="at">data =</span> presid_al18_valido)</span>
-<span id="cb3-19"><a href="checagem.html#cb3-19" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="checagem.html#cb4-1" tabindex="-1"></a><span class="co"># 95 e 96</span></span>
+<span id="cb4-2"><a href="checagem.html#cb4-2" tabindex="-1"></a>presid_al18_valido <span class="ot">&lt;-</span> presid_al18 <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="checagem.html#cb4-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="checagem.html#cb4-4" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_SECAO,NR_ZONA, CD_MUNICIPIO, NR_TURNO, NR_VOTAVEL ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="checagem.html#cb4-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">validos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="checagem.html#cb4-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_bolsonaro =</span> NR_VOTAVEL <span class="sc">==</span> <span class="dv">17</span>,</span>
+<span id="cb4-7"><a href="checagem.html#cb4-7" tabindex="-1"></a>         <span class="at">validos_bolsonaro =</span> <span class="fu">sum</span>(validos<span class="sc">*</span>bol_bolsonaro)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-8"><a href="checagem.html#cb4-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_validos =</span> <span class="fu">sum</span>(validos),</span>
+<span id="cb4-9"><a href="checagem.html#cb4-9" tabindex="-1"></a>            <span class="at">validos_bolsonaro =</span> <span class="fu">max</span>(validos_bolsonaro),</span>
+<span id="cb4-10"><a href="checagem.html#cb4-10" tabindex="-1"></a>            <span class="at">perc_bolsonaro =</span> validos_bolsonaro<span class="sc">/</span>total_validos) <span class="sc">%&gt;%</span></span>
+<span id="cb4-11"><a href="checagem.html#cb4-11" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>total_validos) <span class="sc">%&gt;%</span></span>
+<span id="cb4-12"><a href="checagem.html#cb4-12" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(NR_SECAO, NR_ZONA, CD_MUNICIPIO), <span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> perc_bolsonaro) <span class="sc">%&gt;%</span></span>
+<span id="cb4-13"><a href="checagem.html#cb4-13" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">perc_bolso_turno1 =</span> <span class="st">&#39;1&#39;</span>,</span>
+<span id="cb4-14"><a href="checagem.html#cb4-14" tabindex="-1"></a>         <span class="at">perc_bolso_turno2 =</span> <span class="st">&#39;2&#39;</span>)</span>
+<span id="cb4-15"><a href="checagem.html#cb4-15" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="checagem.html#cb4-16" tabindex="-1"></a><span class="co"># modelo de regressão</span></span>
+<span id="cb4-17"><a href="checagem.html#cb4-17" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="checagem.html#cb4-18" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(perc_bolso_turno2 <span class="sc">~</span> perc_bolso_turno1, <span class="at">data =</span> presid_al18_valido)</span>
+<span id="cb4-19"><a href="checagem.html#cb4-19" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = perc_bolso_turno2 ~ perc_bolso_turno1, data = presid_al18_valido)
@@ -411,64 +422,143 @@ Eis algumas propriedade dos resíduos.
 ## Residual standard error: 0.02885 on 6385 degrees of freedom
 ## Multiple R-squared:  0.9767, Adjusted R-squared:  0.9767 
 ## F-statistic: 2.673e+05 on 1 and 6385 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="checagem.html#cb5-1" tabindex="-1"></a>presid_al18_valido <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="checagem.html#cb5-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_bolso_turno1, <span class="at">y=</span>perc_bolso_turno2)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb5-3"><a href="checagem.html#cb5-3" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="fu">coef</span>(reg1)[<span class="dv">2</span>] , <span class="at">intercept =</span> <span class="fu">coef</span>(reg1)[<span class="dv">1</span>], <span class="at">colour  =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="checagem.html#cb6-1" tabindex="-1"></a>presid_al18_valido <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="checagem.html#cb6-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_bolso_turno1, <span class="at">y=</span>perc_bolso_turno2)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb6-3"><a href="checagem.html#cb6-3" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="fu">coef</span>(reg1)[<span class="dv">2</span>] , <span class="at">intercept =</span> <span class="fu">coef</span>(reg1)[<span class="dv">1</span>], <span class="at">colour  =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/dados%2010-1.png" width="672" /></p>
 <div id="resíduos-contra-o-preditor" class="section level3 hasAnchor" number="10.2.1">
 <h3><span class="header-section-number">10.2.1</span> Resíduos contra o preditor<a href="checagem.html#resíduos-contra-o-preditor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Se os resíduos devem ter <span class="math inline">\(\mathbb{E}[\hat{e}|X=x] = 0\)</span>, isso significa que para cada <span class="math inline">\(x_i\)</span> os resíduos devem ter média zero. Em um gráfico, isso significa que, se eu tiver pontos suficientes na proximidade de cada <span class="math inline">\(x_i\)</span>, a dispersão dos resíduos deve ser aleatória, no sentido de não ter padrão claro, o que vai implicar uma reta horizontal cuja média é zero.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="checagem.html#cb6-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos =</span> <span class="fu">residuals</span>(reg1), <span class="at">preditor =</span> presid_al18_valido<span class="sc">$</span>perc_bolso_turno1)</span>
-<span id="cb6-2"><a href="checagem.html#cb6-2" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="checagem.html#cb6-3" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="checagem.html#cb6-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>preditor, <span class="at">y =</span> residuos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="checagem.html#cb7-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos =</span> <span class="fu">residuals</span>(reg1), <span class="at">preditor =</span> presid_al18_valido<span class="sc">$</span>perc_bolso_turno1)</span>
+<span id="cb7-2"><a href="checagem.html#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="checagem.html#cb7-3" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="checagem.html#cb7-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>preditor, <span class="at">y =</span> residuos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/residuos-preditor-1.png" width="672" /></p>
 <p>Se houver outros preditores, faça a mesma coisa e o gráfico também deve ser uma reta em cima do eixo <span class="math inline">\(x\)</span>.</p>
 </div>
 <div id="magnitude-dos-resíduos-contra-o-preditor" class="section level3 hasAnchor" number="10.2.2">
 <h3><span class="header-section-number">10.2.2</span> Magnitude dos Resíduos Contra o Preditor<a href="checagem.html#magnitude-dos-resíduos-contra-o-preditor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Uma vez que <span class="math inline">\(\mathbb{E}[\hat{e}|X] = 0\)</span>, segue-se que <span class="math inline">\(\mathbb{Var}[\hat{e}|X] = \mathbb{E}[\hat{e^2}|X]\)</span>.</p>
-<p>Como exercício, verifique que isso é verdade matematicamente (pós) e por simulação (pós e graduação). Abaixo segue uma explicação:</p>
+<p>Uma vez que <span class="math inline">\(\mathbb{E}[\hat{e}|X] = 0\)</span>, segue-se que <span class="math inline">\(\mathbb{Var}[\hat{e}|X] = \mathbb{E}[\hat{e}^2|X]\)</span>.</p>
 <p>Seja <span class="math inline">\(A\)</span> uma v.a. Então, <span class="math inline">\(\mathbb{Var}[A|X] = \mathbb{E}[(A - \mathbb{E}[A|X])^2|X]\)</span>
 <span class="math display">\[
 \mathbb{Var}[\hat{e}|X] =  \mathbb{E}[(\hat{e} - \mathbb{E}[\hat{e}|X])^2|X] = \mathbb{E}[(\hat{e} - 0)^2|X] = \mathbb{E}[\hat{e}^2|X]
 \]</span>
-Portanto, se estamos assumindo homecadisticidade, isto é, que <span class="math inline">\(\mathbb{Var}[\hat{e}|X] = \sigma^2\)</span>, podemos checar esta suposição olhando para a esperança condicional do quadrado dos resíduos. E odemos fazer isso plotando o gráfico do quadrado dos resíduos contra o preditor.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="checagem.html#cb7-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos_sq =</span> <span class="fu">residuals</span>(reg1)<span class="sc">^</span><span class="dv">2</span>, <span class="at">preditor =</span> presid_al18_valido<span class="sc">$</span>perc_bolso_turno1)</span>
-<span id="cb7-2"><a href="checagem.html#cb7-2" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="checagem.html#cb7-3" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href="checagem.html#cb7-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>preditor, <span class="at">y =</span> residuos_sq)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/residuos-sq-preditor-1.png" width="672" /></p>
-<p>A reta deve ser horizontal, e não deveria ter mais pontos acima do que abaixo da reta. A altura da reta deveria ser aproximadamente o EQM. Conjuntos de pontos persistentemente acima ou abaixo da reta são sinais de problema com alguma de nossas hipóteses, ou há heterocedasticidade (a variância muda com o preditor) ou a forma funcional do modelo está errada de algum modo. No meu gráfico, a reta não é exatamente horizontal, mas é “good enough”. Eu não me daria ao trabalhgo de estimar um modelo de regressão de mínimos quadrados ponderados (que não vamos aprender no curso) para lidar com uma variância heterocedástica.</p>
-<p>Ás vezes quando temos resíduos muito grandes, o quadrado deles fica gigante e o gráfico fica não-informativo (especialmente quando o modelo é problemático). Nesses casos, podemos plotar o valor absoluto dos resíduos, em vez do quadrado.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="checagem.html#cb8-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos_abs =</span> <span class="fu">abs</span>(<span class="fu">residuals</span>(reg1)), <span class="at">preditor =</span> presid_al18_valido<span class="sc">$</span>perc_bolso_turno1)</span>
+Portanto, se estamos assumindo homecadisticidade, isto é, que <span class="math inline">\(\mathbb{Var}[\hat{e}|X] = \sigma^2\)</span>, podemos checar esta suposição olhando para a esperança condicional do quadrado dos resíduos. E podemos fazer isso plotando o gráfico do quadrado dos resíduos contra o preditor.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="checagem.html#cb8-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos_sq =</span> <span class="fu">residuals</span>(reg1)<span class="sc">^</span><span class="dv">2</span>, <span class="at">preditor =</span> presid_al18_valido<span class="sc">$</span>perc_bolso_turno1)</span>
 <span id="cb8-2"><a href="checagem.html#cb8-2" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="checagem.html#cb8-3" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="checagem.html#cb8-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>preditor, <span class="at">y =</span> residuos_abs)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)</span></code></pre></div>
+<span id="cb8-4"><a href="checagem.html#cb8-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>preditor, <span class="at">y =</span> residuos_sq)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/residuos-sq-preditor-1.png" width="672" /></p>
+<p>A reta deve ser horizontal, e não deveria ter mais pontos acima do que abaixo da reta. A altura da reta deveria ser aproximadamente o EQM. Conjuntos de pontos persistentemente acima ou abaixo da reta são sinais de problema com alguma de nossas hipóteses, ou há heterocedasticidade (a variância muda com o preditor) ou a forma funcional do modelo está errada de algum modo. No meu gráfico, a reta não é exatamente horizontal, mas talvez seja “good enough”. Uma forma de olhar isso é computar erros padrões que lidem com a heterocedasticidade. Voltaremos a isso mais à frente.</p>
+<p>Ás vezes quando temos resíduos muito grandes, o quadrado deles fica gigante e o gráfico fica não-informativo (especialmente quando o modelo é problemático). Nesses casos, podemos plotar o valor absoluto dos resíduos, em vez do quadrado.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="checagem.html#cb9-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos_abs =</span> <span class="fu">abs</span>(<span class="fu">residuals</span>(reg1)), <span class="at">preditor =</span> presid_al18_valido<span class="sc">$</span>perc_bolso_turno1)</span>
+<span id="cb9-2"><a href="checagem.html#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="checagem.html#cb9-3" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="checagem.html#cb9-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>preditor, <span class="at">y =</span> residuos_abs)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/residuos-abs-preditor-1.png" width="672" /></p>
 </div>
 <div id="resíduos-com-dados-temporais-eou-espaciais" class="section level3 hasAnchor" number="10.2.3">
 <h3><span class="header-section-number">10.2.3</span> Resíduos com dados Temporais e/ou Espaciais<a href="checagem.html#resíduos-com-dados-temporais-eou-espaciais" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Com frequência nossos dados possuem uma certa ordem, seja temporal e/ou espacial. Em um modelo simples, isso não deveria importar (nossa amostra supostamente é i.i.d, e os erros populacionais são não correlacionados entre si). Se os erros forem correlacionados, podemos usar algo chamado mínimos quadrados generalizados, o que também não iremos cobrir no curso. Então, deveríamos sempre fazer um plot dos resíduos contra o tempo, ou contra o espaço. Aqui, como a ordem é apenas espacial, vamos fazer isso.</p>
-<p>Podemos fazer um plote dos resíduos contra seção/zona/município, zona/município ou município. Vamos tentar o primeiro, que possui mais granularidade.Vejamos como fica.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="checagem.html#cb9-1" tabindex="-1"></a>presid_al18_valido <span class="ot">&lt;-</span> presid_al18_valido <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="checagem.html#cb9-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_secao =</span> <span class="fu">paste0</span>(NR_SECAO, NR_ZONA , CD_MUNICIPIO))</span>
-<span id="cb9-3"><a href="checagem.html#cb9-3" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="checagem.html#cb9-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos =</span> <span class="fu">residuals</span>(reg1), <span class="at">secao =</span> <span class="fu">as.numeric</span>(presid_al18_valido<span class="sc">$</span>id_secao))</span>
-<span id="cb9-5"><a href="checagem.html#cb9-5" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="checagem.html#cb9-6" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb9-7"><a href="checagem.html#cb9-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>secao, <span class="at">y =</span> residuos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/residuos-coordenadas-1.png" width="672" /></p>
-<p>Uma técnica simples, que é uma versão simplificada de algo mais formal chamado “permutation test”, é plotar os resíduos permutados aleatoriamente contra a data ou espaço (no nosso caso, espaço).</p>
+<p>Podemos fazer um plot dos resíduos contra seção.Vejamos como fica.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="checagem.html#cb10-1" tabindex="-1"></a>presid_al18_valido <span class="ot">&lt;-</span> presid_al18_valido <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="checagem.html#cb10-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_secao =</span> <span class="fu">paste0</span>(NR_SECAO, NR_ZONA , CD_MUNICIPIO))</span>
 <span id="cb10-3"><a href="checagem.html#cb10-3" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="checagem.html#cb10-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos_s =</span> <span class="fu">sample</span>(<span class="fu">residuals</span>(reg1)), <span class="at">secao =</span> <span class="fu">as.numeric</span>(presid_al18_valido<span class="sc">$</span>id_secao))</span>
+<span id="cb10-4"><a href="checagem.html#cb10-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos =</span> <span class="fu">residuals</span>(reg1), <span class="at">id =</span> <span class="fu">as.numeric</span>(presid_al18_valido<span class="sc">$</span>id_secao))</span>
 <span id="cb10-5"><a href="checagem.html#cb10-5" tabindex="-1"></a></span>
 <span id="cb10-6"><a href="checagem.html#cb10-6" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb10-7"><a href="checagem.html#cb10-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>secao, <span class="at">y =</span> residuos_s)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)</span></code></pre></div>
+<span id="cb10-7"><a href="checagem.html#cb10-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>id, <span class="at">y =</span> residuos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/residuos-coordenadas-1.png" width="672" /></p>
+<p>Uma técnica simples, que é uma versão simplificada de algo mais formal chamado “permutation test”, é plotar os resíduos permutados aleatoriamente contra a data ou espaço (no nosso caso, espaço). Vamos usar o pacote <a href="https://dicook.github.io/nullabor/">nullabor</a> library(nullabor)</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="checagem.html#cb11-1" tabindex="-1"></a><span class="fu">library</span>(nullabor)</span>
+<span id="cb11-2"><a href="checagem.html#cb11-2" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="checagem.html#cb11-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)  <span class="co"># Aleatoriza do mesmo jeito sempre</span></span>
+<span id="cb11-4"><a href="checagem.html#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="checagem.html#cb11-5" tabindex="-1"></a>elec_reg <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(presid_al18_valido, <span class="at">.resid =</span> <span class="fu">residuals</span>(reg1), <span class="at">.fitted =</span> <span class="fu">fitted</span>(reg1))</span>
+<span id="cb11-6"><a href="checagem.html#cb11-6" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="checagem.html#cb11-7" tabindex="-1"></a>shuffled_residuals <span class="ot">&lt;-</span> <span class="fu">lineup</span>(<span class="fu">null_lm</span>(perc_bolso_turno2 <span class="sc">~</span> perc_bolso_turno1,</span>
+<span id="cb11-8"><a href="checagem.html#cb11-8" tabindex="-1"></a>                                     <span class="at">method =</span> <span class="st">&quot;rotate&quot;</span>), <span class="at">true =</span> elec_reg,</span>
+<span id="cb11-9"><a href="checagem.html#cb11-9" tabindex="-1"></a>                             <span class="at">n =</span> <span class="dv">9</span>)</span>
+<span id="cb11-10"><a href="checagem.html#cb11-10" tabindex="-1"></a><span class="do">## decrypt(&quot;ve5B DEyE l6 GuClylu6 dT&quot;)</span></span>
+<span id="cb11-11"><a href="checagem.html#cb11-11" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="checagem.html#cb11-12" tabindex="-1"></a><span class="fu">ggplot</span>(shuffled_residuals, <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid)) <span class="sc">+</span></span>
+<span id="cb11-13"><a href="checagem.html#cb11-13" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-14"><a href="checagem.html#cb11-14" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(.sample))</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/residuos-shufle-coordenadas-1.png" width="672" /></p>
-<p>Rodando o código algumas vezes, podemos verificar que o “jeitão” dele é muito parecido com o nosso gráfico na ordem original, o que sugere que está tudo bem com nossos resíduos com relação à correlação espacial deles.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="checagem.html#cb12-1" tabindex="-1"></a>presid_al18_valido <span class="ot">&lt;-</span> presid_al18_valido <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="checagem.html#cb12-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_secao =</span> <span class="fu">paste0</span>(NR_SECAO, NR_ZONA , CD_MUNICIPIO))</span>
+<span id="cb12-3"><a href="checagem.html#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="checagem.html#cb12-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos_s =</span> <span class="fu">sample</span>(<span class="fu">residuals</span>(reg1)), <span class="at">secao =</span> <span class="fu">as.numeric</span>(presid_al18_valido<span class="sc">$</span>id_secao))</span>
+<span id="cb12-5"><a href="checagem.html#cb12-5" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="checagem.html#cb12-6" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb12-7"><a href="checagem.html#cb12-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>secao, <span class="at">y =</span> residuos_s)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/residuos-shufle-coordenadas-2.png" width="672" /></p>
+<p>Como podemos ver, dá para identificar que o plot 2 é diferente do resto. E de fato, ele é o original. Isso significa que existe algum padrão nos resíduos que não estamos levando em consideração.</p>
+</div>
+</div>
+<div id="normalidade-dos-resíduos" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Normalidade dos resíduos<a href="checagem.html#normalidade-dos-resíduos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se estamos supondo normalidade dos resíduos, podemos verificar se são de fato normais. Uma forma de verificar é plotando o histograma dos resíduos e por cima a densidade de uma distribuição normal com média zero (resíduos têm média zero) e desvio-padrão igual ao desvio-padrão dos resíduos.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="checagem.html#cb13-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos =</span> <span class="fu">residuals</span>(reg1), <span class="at">preditor =</span> presid_al18_valido<span class="sc">$</span>perc_bolso_turno1, </span>
+<span id="cb13-2"><a href="checagem.html#cb13-2" tabindex="-1"></a>                 <span class="at">density_points =</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(<span class="fu">residuals</span>(reg1)) , <span class="dv">0</span>, <span class="fu">sd</span>(<span class="fu">residuals</span>(reg1))))</span>
+<span id="cb13-3"><a href="checagem.html#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="checagem.html#cb13-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sd</span>(<span class="fu">residuals</span>(reg1)))</span></code></pre></div>
+<pre><code>## [1] 0.02884366</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="checagem.html#cb15-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="checagem.html#cb15-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(residuos)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="fu">aes</span>(density_points), <span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
+## ℹ Please use `after_stat(density)` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<p><img src="bookdownproj_files/figure-html/residuos-normalidade-1.png" width="672" /></p>
+<p>Uma alternativa mais tradicional são os chamados Q-Q plots, cujo nome deriva de sere um plot “quantil-quantil”. A função quantil me diz qual é o ponto que divide a minha distribuição de probabilidade em exatamente <span class="math inline">\(p\%\)</span>. Por exemplo, posso me perguntar qual ponto divide meus dados exatamente no meio (mediana), ou no primeiro quartil, primeiro percentil, em suma, em qualquer percentual da distribuição. O R tem uma função para isso que vale vermos para entender.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="checagem.html#cb17-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>( <span class="dv">1000</span>)</span>
+<span id="cb17-2"><a href="checagem.html#cb17-2" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="checagem.html#cb17-3" tabindex="-1"></a>q50 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x, .<span class="dv">5</span>)</span>
+<span id="cb17-4"><a href="checagem.html#cb17-4" tabindex="-1"></a>q025 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x, .<span class="dv">025</span>)</span>
+<span id="cb17-5"><a href="checagem.html#cb17-5" tabindex="-1"></a>q975 <span class="ot">&lt;-</span><span class="fu">quantile</span>(x, .<span class="dv">975</span>)</span>
+<span id="cb17-6"><a href="checagem.html#cb17-6" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="checagem.html#cb17-7" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(q50, q025, q975))</span></code></pre></div>
+<pre><code>##         50%        2.5%       97.5% 
+##  0.03044133 -1.93087605  2.06395970</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="checagem.html#cb19-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb19-2"><a href="checagem.html#cb19-2" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="checagem.html#cb19-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
+<span id="cb19-4"><a href="checagem.html#cb19-4" tabindex="-1"></a><span class="co"># plot de x contra y</span></span>
+<span id="cb19-5"><a href="checagem.html#cb19-5" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="checagem.html#cb19-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/quantile-1.png" width="672" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="checagem.html#cb20-1" tabindex="-1"></a><span class="co"># plot de x ordenado contra y ordenado</span></span>
+<span id="cb20-2"><a href="checagem.html#cb20-2" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="checagem.html#cb20-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">sort</span>(x), <span class="at">y=</span><span class="fu">sort</span>(y))) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">colour =</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/quantile-2.png" width="672" /></p>
+<p>Vejam que <span class="math inline">\(p\)</span> varia entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>, e o menor valor que a função quantil retorna é o menor valor possível da minha distribuição de probabilidade, e o maior é o máximo da distribuição de probabilidade. No caso da Normal, o mínimo é menos infinito e o máximo é mais infinito, porém, em uma amostra serão valores finitos.</p>
+<p>Se plotarmos duas variáveis ordenadas, podemos verificar se têm a mesma distribuição. Em caso positivo, deveriam seguir uma linha reta de 45 graus. Quando queremos testar os resíduos, uma das variáveis são os resíduos e a outra a distribuição teórica dos mesmos (Normal).</p>
+<p>O Q-Q plot de uma regressão é uma versão um pouco mais complicadinha disso, que não irei mostrar aqui (pois precisaria trabalhar com a inversa da distribuição Normal), mas a lógica final é a mesma. Podemos ver isso plotando o Q-Q plot do R, e um construído por nós, utilizando a lógica que apresentei.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="checagem.html#cb21-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">residuos =</span> <span class="fu">residuals</span>(reg1), <span class="at">preditor =</span> presid_al18_valido<span class="sc">$</span>perc_bolso_turno1, </span>
+<span id="cb21-2"><a href="checagem.html#cb21-2" tabindex="-1"></a>                 <span class="at">density_points =</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(<span class="fu">residuals</span>(reg1)) , <span class="dv">0</span>, <span class="fu">sd</span>(<span class="fu">residuals</span>(reg1))),</span>
+<span id="cb21-3"><a href="checagem.html#cb21-3" tabindex="-1"></a>                 <span class="at">fi_percentil =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">residuals</span>(reg1))<span class="sc">/</span><span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">residuals</span>(reg1)))</span>
+<span id="cb21-4"><a href="checagem.html#cb21-4" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="checagem.html#cb21-5" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sd</span>(<span class="fu">residuals</span>(reg1)))</span></code></pre></div>
+<pre><code>## [1] 0.02884366</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="checagem.html#cb23-1" tabindex="-1"></a><span class="co"># plot de x ordenado contra y ordenado</span></span>
+<span id="cb23-2"><a href="checagem.html#cb23-2" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="checagem.html#cb23-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">sort</span>(residuos), <span class="at">x=</span><span class="fu">sort</span>(density_points))) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-4"><a href="checagem.html#cb23-4" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">colour =</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/q-q%20plot-1.png" width="672" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="checagem.html#cb24-1" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(reg1))</span>
+<span id="cb24-2"><a href="checagem.html#cb24-2" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">residuals</span>(reg1))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/q-q%20plot-2.png" width="672" /></p>
+<p>Obviamente o melhor é usar a função do R, já implementada, que faz tudo “by the book”, mas a intuição você já sabem qual é. Se os resíduos tiverem distribuição aproximadamente normal, devem ficar em torno da reta e não haver padrões significativos. Os extremos, por serem valores mais improváveis, terão poucos casos e tendem a ficar um pouco mais distante da reta.</p>
+</div>
+<div id="erro-padrão-robusto" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Erro padrão robusto<a href="checagem.html#erro-padrão-robusto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Uma possibilidade é que tenha heterocedasticidade.</p>
+<p>O que acontece se nosso termo de erro violar a suposição de homecedasticidade? Vamos discutir como isso pode acontecer, exemplos visuais desses problemas e soluções para ele.</p>
+<div id="heterocedasticidade" class="section level3 hasAnchor" number="10.4.1">
+<h3><span class="header-section-number">10.4.1</span> Heterocedasticidade<a href="checagem.html#heterocedasticidade" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Heterocedasticidade é quando a variância do erro mudada a depender do valor de um ou mais dos preditores.</p>
 
 </div>
 </div>
