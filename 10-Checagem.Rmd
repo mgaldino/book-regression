@@ -28,7 +28,7 @@ Eis algumas propriedade dos resíduos.
 
 Cada uma dessas propriedades nos leva a um diagnóstico ou checagem.
 
-```{r package loads 10, echo=FALSE, message=FALSE}
+```{r package loads 10, message=FALSE}
 library(ggplot2)
 library(knitr)
 library(tidyverse)
@@ -41,14 +41,16 @@ library(tidyr)
 
 ## Modelo no R
 
-Para fazer os testes do nosso modelo, vamos fazer um modelo preditivo. Vou utilizar a votação no primeiro turno presidencial de 2018 para prever o voto no segundo turno, no estado de Alagoas. Para tanto, vamos baixar os dados de votação presidencial de 2018 ao nível de seção eleitoral do portal de dados abertos do TSE para o estado de Alagoas (para ter uma base de dados pequena): 
-https://dadosabertos.tse.jus.br/dataset/resultados-2018
+Para fazer os testes do nosso modelo, vamos fazer um modelo preditivo. Vou utilizar a votação no primeiro turno presidencial de 2018 para prever o voto no segundo turno, no estado de Alagoas. Para tanto, vamos baixar os dados de votação presidencial de 2018 ao nível de seção eleitoral do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/dataset/resultados-2018). Podem baixar o arquivo clicando no [link](https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_secao/votacao_secao_2018_BR.zip) do dataset. Depois vamos filtrar os dados para o estado de Alagoas (para ter uma base de dados pequena).
+
+
+
 
 ```{r dados 10, message=FALSE, cache=TRUE}
 library(data.table)
 
 # lista o nome do arquivo em csv
-# unzip(here("dados", "votacao_secao_2018_AL.zip"), list = TRUE)
+# unzip(here("dados", "votacao_secao_2018_BR.zip"), list = TRUE)
 
 
 #read data1.csv into data frame
@@ -154,9 +156,24 @@ df %>%
   ggplot(aes(x=secao, y = residuos)) + geom_point() + geom_smooth(method="lm", se=F)
 ```
 
-Uma técnica simples, que é uma versão simplificada de algo mais formal chamado "permutation test", é plotar os resíduos permutados aleatoriamente contra a data ou espaço (no nosso caso, espaço).
+Uma técnica simples, que é uma versão simplificada de algo mais formal chamado "permutation test", é plotar os resíduos permutados aleatoriamente contra a data ou espaço (no nosso caso, espaço). Vamos usar o pacote [nullabor](https://dicook.github.io/nullabor/) library(nullabor)
 
 ```{r residuos-shufle-coordenadas, message=FALSE}
+library(nullabor)
+
+set.seed(1234)  # Aleatoriza do mesmo jeito sempre
+
+elec_reg <- data.frame(presid_al18_valido, .resid = residuals(reg1), .fitted = fitted(reg1))
+
+shuffled_residuals <- lineup(null_lm(perc_bolso_turno2 ~ perc_bolso_turno1,
+                                     method = "rotate"), true = elec_reg,
+                             n = 9)
+## decrypt("ve5B DEyE l6 GuClylu6 dT")
+
+ggplot(shuffled_residuals, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  facet_wrap(vars(.sample))
+
 presid_al18_valido <- presid_al18_valido %>%
   mutate(id_secao = paste0(NR_SECAO, NR_ZONA , CD_MUNICIPIO))
 
@@ -168,4 +185,10 @@ df %>%
 
 Rodando o código algumas vezes, podemos verificar que o "jeitão" dele é muito parecido com o nosso gráfico na ordem original, o que sugere que está tudo bem com nossos resíduos com relação à correlação espacial deles.
 
+## Erro padrão robusto
 
+O que acontece se nosso termo de erro violar a suposição de homecedasticidade? Vamos discutir como isso pode acontecer, exemplos visuais desses problemas e soluções para ele.
+
+### Heterocedasticidade
+
+Heterocedasticidade é quando a variância do erro mudada a depender do valor de um ou mais dos preditores.
