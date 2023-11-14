@@ -120,3 +120,6 @@ a-esperança-condicional-é-o-melhor-preditor
 estimação-por-máxima-verossimilhança
 regressão
 teste-de-hipótese-1
+erro-padrão-robusto
+heterocedasticidade
+normalidade-dos-resíduos
