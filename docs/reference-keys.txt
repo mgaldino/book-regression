@@ -123,3 +123,7 @@ teste-de-hipótese-1
 erro-padrão-robusto
 heterocedasticidade
 normalidade-dos-resíduos
+teste-de-hipótese-e-ic
+propriedades-assintóticas
+inferência
+inferência-preditiva
