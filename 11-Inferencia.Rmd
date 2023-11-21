@@ -115,9 +115,9 @@ O que acontece à medida que $n$ cresce? Como exercício, faça uma simulação 
 
 É muito comum que queiramos fazer inferência para nossas previsões, isto é, quantificar a incerteza de nossas previsões da amostra para a população. Vamos retomar o modelo preditivo para eleições como exemplo. Vamos carregar os dados de 2018, que usamos para estimar um modelo preditivo, e vamos utilizar o modelo para prever o resultado de 2022. Como o TSE disponibilizou os dados por Zona eleitoral, vou utilizá-la como unidade (em vez de seção) para as observações.
 
-Peguem os dados [desse link](https://dadosabertos.tse.jus.br/dataset/resultados-2022).
+Peguem os dados [desse link](https://dadosabertos.tse.jus.br/dataset/resultados-2022). Baixem, descompactem e salvem na pasta onde o R aponta.
 
-```{r dados 11, echo=TRUE, message=FALSE, cache=TRUE}
+```{r dados-18 11, echo=TRUE, message=FALSE, cache=TRUE}
 library(data.table)
 
 # lista o nome do arquivo em csv
@@ -152,7 +152,9 @@ summary(reg1)
 df_resultados %>%
   ggplot(aes(x=percentual_bolso_1t, y=percentual_bolso_2t)) + geom_point() + 
   geom_abline(slope = coef(reg1)[2] , intercept = coef(reg1)[1], colour  = "blue")
+```
 
+```{r dados-22 11, echo=TRUE, message=FALSE, cache=TRUE}
 # dados de 2022
 
 #read  into data frame
