@@ -76,7 +76,7 @@ Por um raciocínio similar podemos derivar que o intercepto (padronizado) també
 
 ## Teste de Hipótese e IC
 
-Como conseguência, podemos derivar o seguinte, para qualquer $k >0$
+Como consequência, podemos derivar o seguinte, para qualquer $k >0$
 
 $$
 \begin{align*}
@@ -114,6 +114,8 @@ O que acontece à medida que $n$ cresce? Como exercício, faça uma simulação 
 ## Inferência Preditiva
 
 É muito comum que queiramos fazer inferência para nossas previsões, isto é, quantificar a incerteza de nossas previsões da amostra para a população. Vamos retomar o modelo preditivo para eleições como exemplo. Vamos carregar os dados de 2018, que usamos para estimar um modelo preditivo, e vamos utilizar o modelo para prever o resultado de 2022. Como o TSE disponibilizou os dados por Zona eleitoral, vou utilizá-la como unidade (em vez de seção) para as observações.
+
+Peguem os dados [desse link](https://dadosabertos.tse.jus.br/dataset/resultados-2022).
 
 ```{r dados 11, echo=TRUE, message=FALSE, cache=TRUE}
 library(data.table)
@@ -224,3 +226,4 @@ df_resultados_22 %>%
 Como vimos, apenas com base nos dados do primeiro turno, ao nível da zona eleitoral, não era possível prever o resultado final. E à medida que os dados por zona eleitoral foram divulgados, podíamos melhorar nossa previsão de algum modo?
 
 E será que se incluírmos mais variáveis, podemos melhorar o modelo?
+Vamos deixar isso para a próxima aula. Por enquanto, vamos fazer o seguinte exercício. Como nossas previsões iriam evoluir, com basse nesse modelo, à medida que acontecia a apuração?
