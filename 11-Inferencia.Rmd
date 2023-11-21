@@ -42,11 +42,11 @@ $$
 \begin{align*}
 \mathrm{P}(\beta - 1.96 \cdot se[\hat{\beta}] \le \hat{\beta} \le \beta + 1.96 \cdot se[\hat{\beta}] ) \\
 
-= \mathrm{P}( 1.96 \cdot se[\hat{\beta}] \le \hat{\beta} - \beta \le  1.96 \cdot se[\hat{\beta}] ) \\
+= \mathrm{P}( -1.96 \cdot se[\hat{\beta}] \le \hat{\beta} - \beta \le  1.96 \cdot se[\hat{\beta}] ) \\
 
-= \mathrm{P}( 1.96 \le \frac{\hat{\beta} - \beta}{se[\hat{\beta}]} \le  1.96 ) \\
+= \mathrm{P}( -1.96 \le \frac{\hat{\beta} - \beta}{se[\hat{\beta}]} \le  1.96 ) \\
 
-= \Phi(1.96) - \Phi(=1.96) \\
+= \Phi(-1.96) - \Phi(=1.96) \\
 = .95
 \end{align*}
 $$
@@ -54,7 +54,7 @@ Em que $\Phi(x)$ representa a probabilidade de observar um valor menor que $x$ n
 
 ## T-student
 
-O problema é que nós não sabemos o valor de $\sigma^2$. A gente pode tentar substituir $\sigma^2$ por $\hat{\sigma}^2$, o estimador da variância. Um estimador da variância é dado pela soma dos resíduos ao quadrado (já que a média é zero) dividido pelo $n$. Esse estimador é viesado e normalmente dividimos por $n-2$, que são os chamdos graus de liberdade: $\frac{\sum_{i=1}^{n}e_i^2}{n-2}$.
+O problema é que nós não sabemos o valor de $\sigma^2$. A gente pode tentar substituir $\sigma^2$ por $\hat{\sigma}^2$, o estimador da variância. Um estimador da variância é dado pela soma dos resíduos ao quadrado (já que a média é zero) dividido pelo $n$. Esse estimador é viesado e normalmente dividimos por $n-2$, que são os chamdos graus de liberdade: $\frac{\sum_{i=1}^{n}\hat{e}_i^2}{n-2}$.
 
 Esta maneira de explicar graus de liberade, embora intuitiva, é errada. Como disse Rachael Meager no Twitter uma vez, " I know enough to know it [degrees of freedom] can’t be 'N minus number of parameters' because once you do hierarchical/shrinkage it’s actually a substantively subtle and challenging task to 'count' how many parameters you have" ^[see (if twitter is still availble to look at) https://twitter.com/economeager/status/1596450647599190017)]. Eu não vou expandir muito aqui porque a definição correta requeriria conhecimento avançado de Álgebra Linear, mas basta dizer que o que ela está falando tem a ver com o fato de que em modelos multiníveis Bayesianos (por exemplo), o número de parâmetros não é facilmente determinado, de forma que essa fórmula de número de observações menos o número de parâmetros falha nesses e em outros casos (como modelos com regularização etc.).
 
@@ -63,7 +63,7 @@ De todo modo, para nós importa que, substituindo meu estimador não-viesado par
 $$
 z^* = \frac{\hat{\beta} - \beta}{\sqrt{\frac{\hat{\sigma^2}}{n \cdot S^2_x}}}
 $$
-Em que $ \hat{se}(\hat{\beta}) = \sqrt{\frac{\hat{\sigma^2}}{n \cdot S^2_x}}$ é o erro-padrão chapéu do beta chapéu.
+Em que $\hat{se}(\hat{\beta}) = \sqrt{\frac{\hat{\sigma^2}}{n \cdot S^2_x}}$ é o erro-padrão chapéu do beta chapéu.
 E essa estatística de teste não é mais normalmente distribuída. Na verdade, é possível mostrar que ela na verdade segue uma distribuição t-Student com $n-2$ graus de liberdade, usando a distribuição qui-quadrado na derivação.
 
 Ou seja, 
