@@ -4,7 +4,7 @@ editor_options:
     wrap: 72
 ---
 
-# - Inferência
+# - Inferencia
 
 ```{r package loads 11, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
