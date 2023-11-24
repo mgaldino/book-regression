@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-10-17" />
+<meta name="date" content="2023-11-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -251,7 +251,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3" data-path="causalidade.html"><a href="causalidade.html#simulação-de-resultados-potenciais-e-causalidade"><i class="fa fa-check"></i><b>8.3</b> Simulação de Resultados Potenciais e Causalidade</a></li>
 <li class="chapter" data-level="8.4" data-path="causalidade.html"><a href="causalidade.html#referências"><i class="fa fa-check"></i><b>8.4</b> Referências</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>9</b> - MLE</a></li>
+<li class="chapter" data-level="9" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>9</b> - MLE</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="mle.html"><a href="mle.html#estimação-por-máxima-verossimilhança"><i class="fa fa-check"></i><b>9.1</b> Estimação por Máxima Verossimilhança</a></li>
+<li class="chapter" data-level="9.2" data-path="mle.html"><a href="mle.html#teste-de-hipótese"><i class="fa fa-check"></i><b>9.2</b> Teste de hipótese</a></li>
+<li class="chapter" data-level="9.3" data-path="mle.html"><a href="mle.html#regressão"><i class="fa fa-check"></i><b>9.3</b> regressão</a></li>
+</ul></li>
 <li class="chapter" data-level="10" data-path="checagem.html"><a href="checagem.html"><i class="fa fa-check"></i><b>10</b> - Checagem</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="checagem.html"><a href="checagem.html#resíduos"><i class="fa fa-check"></i><b>10.1</b> Resíduos</a></li>
@@ -261,14 +266,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.2.2" data-path="checagem.html"><a href="checagem.html#magnitude-dos-resíduos-contra-o-preditor"><i class="fa fa-check"></i><b>10.2.2</b> Magnitude dos Resíduos Contra o Preditor</a></li>
 <li class="chapter" data-level="10.2.3" data-path="checagem.html"><a href="checagem.html#resíduos-com-dados-temporais-eou-espaciais"><i class="fa fa-check"></i><b>10.2.3</b> Resíduos com dados Temporais e/ou Espaciais</a></li>
 </ul></li>
+<li class="chapter" data-level="10.3" data-path="checagem.html"><a href="checagem.html#normalidade-dos-resíduos"><i class="fa fa-check"></i><b>10.3</b> Normalidade dos resíduos</a></li>
+<li class="chapter" data-level="10.4" data-path="checagem.html"><a href="checagem.html#erro-padrão-robusto"><i class="fa fa-check"></i><b>10.4</b> Erro padrão robusto</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="checagem.html"><a href="checagem.html#heterocedasticidade"><i class="fa fa-check"></i><b>10.4.1</b> Heterocedasticidade</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="inferencia.html"><a href="inferencia.html"><i class="fa fa-check"></i><b>11</b> - Inferencia</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="inferencia.html"><a href="inferencia.html#normal"><i class="fa fa-check"></i><b>11.1</b> Normal</a></li>
 <li class="chapter" data-level="11.2" data-path="inferencia.html"><a href="inferencia.html#t-student"><i class="fa fa-check"></i><b>11.2</b> T-student</a></li>
-<li class="chapter" data-level="11.3" data-path="inferencia.html"><a href="inferencia.html#intervalo-de-confiança"><i class="fa fa-check"></i><b>11.3</b> Intervalo de Confiança</a></li>
-<li class="chapter" data-level="11.4" data-path="inferencia.html"><a href="inferencia.html#teste-de-hipótese"><i class="fa fa-check"></i><b>11.4</b> Teste de Hipótese</a></li>
-<li class="chapter" data-level="11.5" data-path="inferencia.html"><a href="inferencia.html#p-valor"><i class="fa fa-check"></i><b>11.5</b> P-valor</a></li>
+<li class="chapter" data-level="11.3" data-path="inferencia.html"><a href="inferencia.html#teste-de-hipótese-e-ic"><i class="fa fa-check"></i><b>11.3</b> Teste de Hipótese e IC</a></li>
+<li class="chapter" data-level="11.4" data-path="inferencia.html"><a href="inferencia.html#propriedades-assintóticas"><i class="fa fa-check"></i><b>11.4</b> Propriedades Assintóticas</a></li>
+<li class="chapter" data-level="11.5" data-path="inferencia.html"><a href="inferencia.html#inferência-preditiva"><i class="fa fa-check"></i><b>11.5</b> Inferência Preditiva</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="regressao-multipla.html"><a href="regressao-multipla.html"><i class="fa fa-check"></i><b>12</b> - Regressao Multipla</a>
 <ul>
@@ -484,8 +494,8 @@ c
 <span id="cb22-3"><a href="revisão-de-r.html#cb22-3" tabindex="-1"></a>data_ex1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data_ex)</span>
 <span id="cb22-4"><a href="revisão-de-r.html#cb22-4" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="revisão-de-r.html#cb22-5" tabindex="-1"></a>data_ex1 <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span></code></pre></div>
-<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26” “2020-10-27” “2020-10-28” “2020-10-29”
-[8] “2020-10-30” “2020-10-31” “2020-11-01”</p>
+<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26” “2020-10-27”
+[6] “2020-10-28” “2020-10-29” “2020-10-30” “2020-10-31” “2020-11-01”</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="revisão-de-r.html#cb23-1" tabindex="-1"></a><span class="do">## fim da explicação rápida de data</span></span></code></pre></div>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="revisão-de-r.html#cb24-1" tabindex="-1"></a><span class="do">## criando data de forma repetitiva e tediosa. O que queremos evitar!</span></span>
 <span id="cb24-2"><a href="revisão-de-r.html#cb24-2" tabindex="-1"></a>minha_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-02&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-03&#39;</span>),</span>
@@ -522,13 +532,13 @@ Z
 2009-01-01
 </td>
 <td style="text-align:right;">
--0.2317218
+0.2796504
 </td>
 <td style="text-align:right;">
--4.2982159
+1.2942852
 </td>
 <td style="text-align:right;">
-5.0831435
+-0.5912671
 </td>
 </tr>
 <tr>
@@ -536,13 +546,13 @@ Z
 2009-01-02
 </td>
 <td style="text-align:right;">
--1.5200147
+1.2132695
 </td>
 <td style="text-align:right;">
-3.5519078
+1.2390562
 </td>
 <td style="text-align:right;">
-3.9718293
+-2.3378310
 </td>
 </tr>
 <tr>
@@ -550,13 +560,13 @@ Z
 2009-01-03
 </td>
 <td style="text-align:right;">
-0.3289701
+-0.1107729
 </td>
 <td style="text-align:right;">
-3.2899857
+4.7434252
 </td>
 <td style="text-align:right;">
--5.1292422
+-2.6654305
 </td>
 </tr>
 <tr>
@@ -564,13 +574,13 @@ Z
 2009-01-04
 </td>
 <td style="text-align:right;">
--0.0817845
+1.3270934
 </td>
 <td style="text-align:right;">
--1.6171228
+-3.4717742
 </td>
 <td style="text-align:right;">
--1.7881764
+-2.7435049
 </td>
 </tr>
 <tr>
@@ -578,13 +588,13 @@ Z
 2009-01-05
 </td>
 <td style="text-align:right;">
--0.5235002
+0.7817429
 </td>
 <td style="text-align:right;">
-2.8374423
+-1.4878930
 </td>
 <td style="text-align:right;">
--0.6402275
+-3.2597807
 </td>
 </tr>
 <tr>
@@ -592,13 +602,13 @@ Z
 2009-01-06
 </td>
 <td style="text-align:right;">
-0.4380789
+-0.3978581
 </td>
 <td style="text-align:right;">
--2.7525444
+4.1160057
 </td>
 <td style="text-align:right;">
-3.1539281
+3.2643136
 </td>
 </tr>
 <tr>
@@ -606,13 +616,13 @@ Z
 2009-01-07
 </td>
 <td style="text-align:right;">
-0.4300383
+-0.1568653
 </td>
 <td style="text-align:right;">
-1.2399390
+3.6006805
 </td>
 <td style="text-align:right;">
-3.9471592
+-0.2626322
 </td>
 </tr>
 <tr>
@@ -620,13 +630,13 @@ Z
 2009-01-08
 </td>
 <td style="text-align:right;">
-0.4729484
+1.3294595
 </td>
 <td style="text-align:right;">
-0.2651913
+0.2272364
 </td>
 <td style="text-align:right;">
-2.4993128
+-7.2249374
 </td>
 </tr>
 <tr>
@@ -634,13 +644,13 @@ Z
 2009-01-09
 </td>
 <td style="text-align:right;">
-0.0115623
+2.4491870
 </td>
 <td style="text-align:right;">
-0.5111709
+2.2170925
 </td>
 <td style="text-align:right;">
--6.3559803
+0.8934347
 </td>
 </tr>
 <tr>
@@ -648,13 +658,13 @@ Z
 2009-01-10
 </td>
 <td style="text-align:right;">
-0.3065638
+-0.9437027
 </td>
 <td style="text-align:right;">
--2.0943098
+-1.2804674
 </td>
 <td style="text-align:right;">
-4.8607173
+-0.6045812
 </td>
 </tr>
 </tbody>
@@ -689,13 +699,13 @@ Z
 2009-01-01
 </td>
 <td style="text-align:right;">
-1.7119441
+0.5313331
 </td>
 <td style="text-align:right;">
-1.7514806
+1.7808540
 </td>
 <td style="text-align:right;">
--3.9337884
+4.852470
 </td>
 </tr>
 <tr>
@@ -703,13 +713,13 @@ Z
 2009-01-02
 </td>
 <td style="text-align:right;">
--1.2063379
+-1.7351530
 </td>
 <td style="text-align:right;">
-1.2239596
+3.0800428
 </td>
 <td style="text-align:right;">
--1.8316292
+-1.452014
 </td>
 </tr>
 <tr>
@@ -717,13 +727,13 @@ Z
 2009-01-03
 </td>
 <td style="text-align:right;">
--0.0323515
+-0.2197431
 </td>
 <td style="text-align:right;">
-0.4770760
+-0.4709483
 </td>
 <td style="text-align:right;">
-0.0790206
+-3.659960
 </td>
 </tr>
 <tr>
@@ -731,13 +741,13 @@ Z
 2009-01-04
 </td>
 <td style="text-align:right;">
-3.6970698
+0.4864991
 </td>
 <td style="text-align:right;">
-0.7570871
+-0.4404460
 </td>
 <td style="text-align:right;">
--11.4046805
+3.046630
 </td>
 </tr>
 <tr>
@@ -745,13 +755,13 @@ Z
 2009-01-05
 </td>
 <td style="text-align:right;">
-0.1133081
+-0.1769476
 </td>
 <td style="text-align:right;">
-0.0023601
+1.1082419
 </td>
 <td style="text-align:right;">
-4.4869023
+11.678878
 </td>
 </tr>
 <tr>
@@ -759,13 +769,13 @@ Z
 2009-01-06
 </td>
 <td style="text-align:right;">
--0.4787908
+1.8179808
 </td>
 <td style="text-align:right;">
-2.2917414
+2.6795794
 </td>
 <td style="text-align:right;">
-6.1674106
+-2.348642
 </td>
 </tr>
 <tr>
@@ -773,13 +783,13 @@ Z
 2009-01-07
 </td>
 <td style="text-align:right;">
-0.2233077
+-0.4519288
 </td>
 <td style="text-align:right;">
--0.9062781
+-2.0167575
 </td>
 <td style="text-align:right;">
--1.3606403
+1.484918
 </td>
 </tr>
 <tr>
@@ -787,13 +797,13 @@ Z
 2009-01-08
 </td>
 <td style="text-align:right;">
-0.9814216
+-0.4636173
 </td>
 <td style="text-align:right;">
-1.8118127
+-0.1913285
 </td>
 <td style="text-align:right;">
--2.9150380
+6.948007
 </td>
 </tr>
 <tr>
@@ -801,13 +811,13 @@ Z
 2009-01-09
 </td>
 <td style="text-align:right;">
-1.0753696
+-1.1132661
 </td>
 <td style="text-align:right;">
--0.4928458
+-0.4713962
 </td>
 <td style="text-align:right;">
--5.6850575
+-1.347098
 </td>
 </tr>
 <tr>
@@ -815,13 +825,13 @@ Z
 2009-01-10
 </td>
 <td style="text-align:right;">
-0.5255888
+-1.8697222
 </td>
 <td style="text-align:right;">
--0.7948237
+0.0180165
 </td>
 <td style="text-align:right;">
-0.6890403
+-3.945911
 </td>
 </tr>
 </tbody>
