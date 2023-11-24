@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-10-17" />
+<meta name="date" content="2023-11-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -251,7 +251,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3" data-path="causalidade.html"><a href="causalidade.html#simulação-de-resultados-potenciais-e-causalidade"><i class="fa fa-check"></i><b>8.3</b> Simulação de Resultados Potenciais e Causalidade</a></li>
 <li class="chapter" data-level="8.4" data-path="causalidade.html"><a href="causalidade.html#referências"><i class="fa fa-check"></i><b>8.4</b> Referências</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>9</b> - MLE</a></li>
+<li class="chapter" data-level="9" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>9</b> - MLE</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="mle.html"><a href="mle.html#estimação-por-máxima-verossimilhança"><i class="fa fa-check"></i><b>9.1</b> Estimação por Máxima Verossimilhança</a></li>
+<li class="chapter" data-level="9.2" data-path="mle.html"><a href="mle.html#teste-de-hipótese"><i class="fa fa-check"></i><b>9.2</b> Teste de hipótese</a></li>
+<li class="chapter" data-level="9.3" data-path="mle.html"><a href="mle.html#regressão"><i class="fa fa-check"></i><b>9.3</b> regressão</a></li>
+</ul></li>
 <li class="chapter" data-level="10" data-path="checagem.html"><a href="checagem.html"><i class="fa fa-check"></i><b>10</b> - Checagem</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="checagem.html"><a href="checagem.html#resíduos"><i class="fa fa-check"></i><b>10.1</b> Resíduos</a></li>
@@ -261,14 +266,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.2.2" data-path="checagem.html"><a href="checagem.html#magnitude-dos-resíduos-contra-o-preditor"><i class="fa fa-check"></i><b>10.2.2</b> Magnitude dos Resíduos Contra o Preditor</a></li>
 <li class="chapter" data-level="10.2.3" data-path="checagem.html"><a href="checagem.html#resíduos-com-dados-temporais-eou-espaciais"><i class="fa fa-check"></i><b>10.2.3</b> Resíduos com dados Temporais e/ou Espaciais</a></li>
 </ul></li>
+<li class="chapter" data-level="10.3" data-path="checagem.html"><a href="checagem.html#normalidade-dos-resíduos"><i class="fa fa-check"></i><b>10.3</b> Normalidade dos resíduos</a></li>
+<li class="chapter" data-level="10.4" data-path="checagem.html"><a href="checagem.html#erro-padrão-robusto"><i class="fa fa-check"></i><b>10.4</b> Erro padrão robusto</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="checagem.html"><a href="checagem.html#heterocedasticidade"><i class="fa fa-check"></i><b>10.4.1</b> Heterocedasticidade</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="inferencia.html"><a href="inferencia.html"><i class="fa fa-check"></i><b>11</b> - Inferencia</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="inferencia.html"><a href="inferencia.html#normal"><i class="fa fa-check"></i><b>11.1</b> Normal</a></li>
 <li class="chapter" data-level="11.2" data-path="inferencia.html"><a href="inferencia.html#t-student"><i class="fa fa-check"></i><b>11.2</b> T-student</a></li>
-<li class="chapter" data-level="11.3" data-path="inferencia.html"><a href="inferencia.html#intervalo-de-confiança"><i class="fa fa-check"></i><b>11.3</b> Intervalo de Confiança</a></li>
-<li class="chapter" data-level="11.4" data-path="inferencia.html"><a href="inferencia.html#teste-de-hipótese"><i class="fa fa-check"></i><b>11.4</b> Teste de Hipótese</a></li>
-<li class="chapter" data-level="11.5" data-path="inferencia.html"><a href="inferencia.html#p-valor"><i class="fa fa-check"></i><b>11.5</b> P-valor</a></li>
+<li class="chapter" data-level="11.3" data-path="inferencia.html"><a href="inferencia.html#teste-de-hipótese-e-ic"><i class="fa fa-check"></i><b>11.3</b> Teste de Hipótese e IC</a></li>
+<li class="chapter" data-level="11.4" data-path="inferencia.html"><a href="inferencia.html#propriedades-assintóticas"><i class="fa fa-check"></i><b>11.4</b> Propriedades Assintóticas</a></li>
+<li class="chapter" data-level="11.5" data-path="inferencia.html"><a href="inferencia.html#inferência-preditiva"><i class="fa fa-check"></i><b>11.5</b> Inferência Preditiva</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="regressao-multipla.html"><a href="regressao-multipla.html"><i class="fa fa-check"></i><b>12</b> - Regressao Multipla</a>
 <ul>
@@ -637,7 +647,8 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 <pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
 <p><img src="bookdownproj_files/figure-html/plotAjusteReta-1.png" width="672" /></p>
 <p>No gráfico <a href="#fig:plotAjusteReta"><strong>??</strong></a>, vemos que a reta em azul é melhor do que a verde e vermelha.</p>
 <p>Para achar os valores da reta azul (que aqui sabemos ser <span class="math inline">\(\alpha =2\)</span> e <span class="math inline">\(\beta = 1.3\)</span>), podemos novamente minimizar o EQM. A derivação requer calcular a derivada ou utilização de álgebra linerar, requisitos matemáticos para além do curso. Para um preditor, a fórmula do <span class="math inline">\(\beta\)</span> é dada por <span class="math inline">\(COV(Y,X)/Var(X)\)</span> e a constante, <span class="math inline">\(\alpha\)</span> é dada por <span class="math inline">\(\mathbb{E}[(Y)] - \beta*\mathbb{E}[X]\)</span>. Expressando a mesma fórmula com somatório (em vez de esperança), temos:</p>
