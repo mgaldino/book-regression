@@ -122,3 +122,7 @@ checagem-do-modelo
 glm
 plm
 logística-e-probit
+a-esperança-condicional-é-o-melhor-preditor
+revisão-de-matriz-e-vetores
+modelo-com-matrizes
+erro-padrão-robusto-1
