@@ -1,0 +1,478 @@
+---
+title: "Introdução à Regresssão para Ciências Sociais"
+author: "Manoel Galdino"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+lang: pt
+---
+---
+title: "Introdução à Regresssão para Ciências Sociais"
+author: "Manoel Galdino"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+lang: pt
+---
+
+# - Prefácio
+
+Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP0468 Métodos Quantitativos de Pesquisa na Ciência Política IV, de introdução à regressão, bem como o curso de pós-graduação, Métodos II.
+
+Agradeço aos alunos do curso pelos feedbacks (futuros e presentes) sobre esse material, bem como ao monitor do curso, Davi Veronese.
+
+Futuramente, pretendo transformar as notas de aulas em um livro, que poderá ser utilizado pela comunidade brasileira de ciências sociais interessada em aprender mais sobre métodos quantitativos, em particular regressão com R.
+
+A motivação para disponibilizar as notas de aula em formato de livro é a quase inexistência de um material bom de econometria básica, em português, voltado para a área de ciências sociais, em particular a ciência política. Existem bons manuais em inglês e bons manuais em português, mas voltado para a economia.
+
+Os livros existentes nem sempre fazem um bom trabalho de diferenciar regressão estatística e modelo estrutural (causal) de regressão. Uma abordagem moderna de inferência causal requer que essa distinção seja ensinada ao aluno e esse livro também pretende preencher essa lacuna.
+
+Por fim, a utilização do R é uma forma de dar ênfase à parte prática. Embora a teoria seja importante e a boa compreensão dos fundamentos é que permita o aprofundamento dos temas cobertos no livro, estatística é uma disciplina aplicada, cujo maior valor está na sua aplicação prática. Assim, boa parte do curso e do conteúdo do livro é dedicado a implementar a teoria no R, bem como na interpretação dos dados.
+
+O livro começa com  capítulos iniciais de introdução/revisão do R e de estatística básica (incluindo probabilidade). Assim, pressupomos que um estudante que utilize esse curso tenha conhecimentos de estatística e probabilidade básica. Não é necessário conhecimento previo de R, nem de cálculo ou álgebra linerar.
+
+<!--chapter:end:index.Rmd-->
+
+
+# - Revisão de R
+
+Placeholder
+
+
+## R e Rstudio
+## R como calculadora
+## Objetos no R
+## Tipos de objetos
+### Numeric
+### character
+## Armazenando dados
+### Vetor
+### Matriz
+### Data Frame
+#### datas
+## Bibliotecas/pacotes
+## importando dados
+## Data wrangling
+## Visualização
+
+<!--chapter:end:02-revisão-R.Rmd-->
+
+
+# - Revisão de estatística e probabilidade
+
+Placeholder
+
+
+## Variável Aleatória
+## Esperança matemática
+## Variância
+## Algebra com Esperança, Variância e Covariância
+## Distribuição de Probabilidade Conjunta
+## Pobabilidade Condicional
+## Esperança Condicional
+
+<!--chapter:end:03-revisão-stat.Rmd-->
+
+
+# Introdução à Simulação
+
+Placeholder
+
+
+## Configuração
+## Simular
+## Resumir
+## Análise de sensibilidade
+## Aplicação de simulação
+
+<!--chapter:end:04-sim.Rmd-->
+
+
+# O Modelo de Regressão
+
+Placeholder
+
+
+## Modelo de Regressão - Teoria
+## Esperança Condicional
+## CEF
+## Objetivos de aprendizagem ao final do capítulo
+## Distribuição dos salários
+## Distribuição Condicional dos salários
+## Logaritmos
+## Gênero e Raça
+## Prevendo a partir da esperança condicional
+
+<!--chapter:end:05-intro_reg.Rmd-->
+
+
+# - CEF
+
+Placeholder
+
+
+## Erro da CEF
+## Simulando para entender a CEF
+## Propriedades da CEF
+### A Esperança do Erro Condicional a X é zero
+### A esperança (não-condicional) do erro é zero.
+#### Intuição da LIE
+### O erro da CEF é não-correlacionado com X
+## A esperança condicional é o melhor preditor
+## Regressão Linear e a CEF
+### Mínimos Quadrados Ordinários
+#### Equação da Reta
+### Suponha que a CEF é Linear (Justificativa I)
+### É o melhor preditor linear do $Y$ (justificativa II)
+### A reta de regressão é a aproximação com o menor erro quadrático médio (justificativa III)
+## Linearidade e Causalidade
+## Modelo só com intercepto
+## Variância da Regressão
+### Chuva na Jamaica
+## Variância condicional
+## Efeito Marginal
+## CEF linear com preditores não-lineares
+
+<!--chapter:end:06-CEF.Rmd-->
+
+
+# - Estimação
+
+Placeholder
+
+
+## Plug-in estimators
+## Simulando de uma Normal Bivariada
+## Suposições amostrais de MQO
+## Modelo de Média amostral
+## Modelo de Regressão Linear com preditores
+## Estimando um modelo de regressão real
+## Limitações de MQO
+## Distrações
+### R-quadrado
+### R-quadrado ajustado
+### Limites do R-quadrado
+### Para que serve?
+
+<!--chapter:end:07-estimacao.Rmd-->
+
+
+# - Causalidade
+
+Placeholder
+
+
+## Resultados Potenciais
+### Decomposição do Efeito Causal
+## Modelo estrutural e modelo de regressão
+### Exemplo de CEF e CEF estrutural
+## Simulação de Resultados Potenciais e Causalidade
+## Referências
+
+<!--chapter:end:08-Causalidade.Rmd-->
+
+
+# - MLE
+
+Placeholder
+
+
+## Estimação por Máxima Verossimilhança
+## Teste de hipótese
+## regressão
+
+<!--chapter:end:09-MLE.Rmd-->
+
+
+# - Checagem
+
+Placeholder
+
+
+## Resíduos
+## Modelo no R
+### Resíduos contra o preditor
+### Magnitude dos Resíduos Contra o Preditor
+### Resíduos com dados Temporais e/ou Espaciais
+## Normalidade dos resíduos
+## Erro padrão robusto
+### Heterocedasticidade
+
+<!--chapter:end:10-Checagem.Rmd-->
+
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# - Inferência
+
+```{r package loads 11, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(knitr)
+library(tidyverse)
+library(here)
+library(tidyr)
+library(janitor)
+```
+
+Nós já trabalhamos com um modelo de regressão em que supomos normalidade do termo de erro e isso permitiu calcular o estimador de máxima verossimilhança e fazer inferência desse estimador de máxima verossimilhança. Contudo, a suposição de normalidade do erro é bastante restritiva, já que se isso não for verdade nem aproximadamente, não poderemos fazer inferência. Isso é particularmente relevante em amostras finitas (pequenas), onde não poderemos contar com alguma versão do Teorema Central do Limite para justificar a suposição de normalidade.
+
+Assim, queremos ser capazes de realizar testes de hipótese, calcular o intervalo de confiança (IC) e também quantificar a incerteza de nossas estimativas por meio do cálculo do p-valor. Aqui não é o lugar para discutir os problemas de misturar o paradigma de teste de hipótese de Neyman-Pearson, com o cálcul do p-valor do Fisher. Basta dizer que essas duas abordagens não se misturam muito bem, mas na prática os pesquisadores as têm combinado como se não houvesse nenhum problema e irei assumir essa mesma postura aqui. Mas o leitor fique avisado que há inconsistências em combinar ambas as abordagens e que ideialmente deveríamos utilizar apenas uma delas.
+
+## Normal
+
+Nós já vimos o caso mais simples em que podemos supor que os erros são normalmente distribuídos, isto é $e \sim N(0, \sigma^2)$.
+
+Nós vimos também que o meu estimador pode ser decomposto no parâmetro populacional mais uma média ponderada dos erros:
+$$
+\hat{\beta} = \beta +  \sum_{i=1}^{n} w_i \cdot e_i
+$$
+Ou seja, nosso estimador é igual a uma constante mais uma soma ponderada de variáveis aleatórias normais. E nós sabemos que a soma de variáveis aleatórias normais é uma normal, cuja média é $\beta$, já que o estimador é não-viesado e sua esperança é o parâmetro populacional e a variância nós também já calculamos e é dada por $\frac{\sigma^2}{n \cdot \sigma^2_x}$
+
+Se eu normalizar meu estimador, isto é, subtrair sua média e dividir pelo desvio-padrão amostral, tenho que o estimador normalizado segue a distribuição Normal padrão. Formalmente,
+
+$$
+z = \frac{\hat{\beta} - \beta}{\sqrt{\frac{\sigma^2}{n \cdot S^2_x}}} \sim N(0,1 )
+$$
+
+Em que $S^2_x$ é a variância amostral de $X$ e $se[\hat{\beta}] = \sqrt{\frac{\sigma^2}{n \cdot S^2_x}}$ é o erro padrão do $\hat{\beta}$. 
+
+Com isso pudemos realizar testes de hipótese, da seguinte maneira:
+$$
+\begin{align*}
+\mathrm{P}(\beta - 1.96 \cdot se[\hat{\beta}] \le \hat{\beta} \le \beta + 1.96 \cdot se[\hat{\beta}] ) \\
+
+= \mathrm{P}( 1.96 \cdot se[\hat{\beta}] \le \hat{\beta} - \beta \le  1.96 \cdot se[\hat{\beta}] ) \\
+
+= \mathrm{P}( 1.96 \le \frac{\hat{\beta} - \beta}{se[\hat{\beta}]} \le  1.96 ) \\
+
+= \Phi(1.96) - \Phi(=1.96) \\
+= .95
+\end{align*}
+$$
+Em que $\Phi(x)$ representa a probabilidade de observar um valor menor que $x$ na distrinbuição normal padrão. Como a probabilidade de observar um valor menor que $1.96$ é $97.5\%$, e a probabilidade de observar um valor menor que $-1.96$ é $2.5\%$, temos o resultado de $95\%$ de confiança usual.
+
+## T-student
+
+O problema é que nós não sabemos o valor de $\sigma^2$. A gente pode tentar substituir $\sigma^2$ por $\hat{\sigma}^2$, o estimador da variância. Um estimador da variância é dado pela soma dos resíduos ao quadrado (já que a média é zero) dividido pelo $n$. Esse estimador é viesado e normalmente dividimos por $n-2$, que são os chamdos graus de liberdade: $\frac{\sum_{i=1}^{n}e_i^2}{n-2}$.
+
+Esta maneira de explicar graus de liberade, embora intuitiva, é errada. Como disse Rachael Meager no Twitter uma vez, " I know enough to know it [degrees of freedom] can’t be 'N minus number of parameters' because once you do hierarchical/shrinkage it’s actually a substantively subtle and challenging task to 'count' how many parameters you have" ^[see (if twitter is still availble to look at) https://twitter.com/economeager/status/1596450647599190017)]. Eu não vou expandir muito aqui porque a definição correta requeriria conhecimento avançado de Álgebra Linear, mas basta dizer que o que ela está falando tem a ver com o fato de que em modelos multiníveis Bayesianos (por exemplo), o número de parâmetros não é facilmente determinado, de forma que essa fórmula de número de observações menos o número de parâmetros falha nesses e em outros casos (como modelos com regularização etc.).
+
+De todo modo, para nós importa que, substituindo meu estimador não-viesado para a variância em nossa fórmula, temos:
+
+$$
+z^* = \frac{\hat{\beta} - \beta}{\sqrt{\frac{\hat{\sigma^2}}{n \cdot S^2_x}}}
+$$
+Em que $ \hat{se}(\hat{\beta}) = \sqrt{\frac{\hat{\sigma^2}}{n \cdot S^2_x}}$ é o erro-padrão chapéu do beta chapéu.
+E essa estatística de teste não é mais normalmente distribuída. Na verdade, é possível mostrar que ela na verdade segue uma distribuição t-Student com $n-2$ graus de liberdade, usando a distribuição qui-quadrado na derivação.
+
+Ou seja, 
+
+$$
+z^* = \frac{\hat{\beta} - \beta}{\sqrt(\frac{\hat{\sigma^2}}{n \S^2_x})} \sim t_{n-2}
+$$
+
+Por um raciocínio similar podemos derivar que o intercepto (padronizado) também segue uma distribuição $t$ com $n-2$ graus de liberdade.
+
+## Teste de Hipótese e IC
+
+Como conseguência, podemos derivar o seguinte, para qualquer $k >0$
+
+$$
+\begin{align*}
+\mathrm{P}(\beta - k \cdot \hat{se}[\hat{\beta}] \le \hat{\beta} \le \beta + k \cdot \hat{se}[\hat{\beta}] ) \\
+
+= \mathrm{P}( -k \cdot \hat{se}[\hat{\beta}] \le \hat{\beta} - \beta \le  k \cdot \hat{se}[\hat{\beta}] ) \\
+
+= \mathrm{P}( -k \le \frac{\hat{\beta} - \beta}{\hat{se}[\hat{\beta}]} \le  k ) \\
+
+= t_{n-2}(k)
+\end{align*}
+$$
+
+Em que, com um grande abuso de notação, estou chamando $ t_{n-2}(k)$ a probabilidade, na distribuição $t$ de student com $n-2$ graus de liberdade, de $\hat{\beta}$ estar no intervalo $-k, k$.
+
+Se eu definir um nível de significância $\alpha$ entre $0$ e $1$, sempre exisitrá um $k$ que que a equação acima seja verdadeira.
+
+```{r package t-critico, echo=TRUE, message=FALSE}
+# se n = 11, tenho 9 d.f.
+# alpha = 5%
+qt(0.025, df=9)
+qt(0.975, df=9)
+
+# alpha = 50%
+qt(0.25, df=9)
+qt(0.75, df=9)
+```
+
+Vamos então definir o **intervalo amostral** para $\hat{\beta}$ como: $[\beta - k(n,\alpha)\hat{se}(\hat{\beta}),\beta + k(n,\alpha)\hat{se}(\hat{\beta})]$, ou seja, se a verdadeira inclinação da reta é $\beta$, então meu $\hat{\beta}$ estará nesse intervalo com probabilidade $1 - \alpha$. O que nos leva ao teste de hipóte nulo de que $\beta = \beta^*$, em particular, de que $\beta^* = 0$, mas não precisa ser essa hipótese nula. E rejeitamos a nula se meu estimador está fora dese intervalo $[\beta^* - k(n,\alpha)\hat{se}(\hat{\beta}),\beta^* + k(n,\alpha)\hat{se}(\hat{\beta})]$, e aceitamos a nula se ele está no intervalo.
+
+## Propriedades Assintóticas
+
+O que acontece à medida que $n$ cresce? Como exercício, faça uma simulação no R, aumentando o $n$ e verificando como fica o histograma da t de student.
+
+## Inferência Preditiva
+
+É muito comum que queiramos fazer inferência para nossas previsões, isto é, quantificar a incerteza de nossas previsões da amostra para a população. Vamos retomar o modelo preditivo para eleições como exemplo. Vamos carregar os dados de 2018, que usamos para estimar um modelo preditivo, e vamos utilizar o modelo para prever o resultado de 2022. Como o TSE disponibilizou os dados por Zona eleitoral, vou utilizá-la como unidade (em vez de seção) para as observações.
+
+```{r dados 11, echo=TRUE, message=FALSE, cache=TRUE}
+library(data.table)
+
+# lista o nome do arquivo em csv
+# unzip(here("dados", "votacao_secao_2018_BR.zip"), list = TRUE)
+
+
+#read data1.csv into data frame
+presid_18 <- fread(here("dados","votacao_secao_2018_BR.csv"), encoding = "Latin-1")
+
+# Supondo que seu dataframe seja chamado df
+df_resultados <- presid_18 %>%
+  dplyr::filter(!NR_VOTAVEL %in% c(95,96)) %>%
+  group_by(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) %>%
+  summarise(total_votos = sum(QT_VOTOS)) %>%
+  pivot_wider(names_from = NR_TURNO, values_from = total_votos, values_fill = 0) %>%
+  clean_names() %>%
+  group_by(nr_zona, cd_municipio, sg_uf) %>%
+  mutate(total_validos_1t = sum(x1),
+         total_validos_2t = sum(x2)) %>%
+  dplyr::filter(nr_votavel == 17) %>%
+  mutate(percentual_bolso_1t = x1 /total_validos_1t ,
+         percentual_bolso_2t = x2 / total_validos_2t)
+
+# remove
+# rm(presid_18)
+
+# modelo de regressão
+
+reg1 <- lm(percentual_bolso_2t ~ percentual_bolso_1t, data = df_resultados)
+summary(reg1)
+
+df_resultados %>%
+  ggplot(aes(x=percentual_bolso_1t, y=percentual_bolso_2t)) + geom_point() + 
+  geom_abline(slope = coef(reg1)[2] , intercept = coef(reg1)[1], colour  = "blue")
+
+# dados de 2022
+
+#read  into data frame
+presid_22 <- fread(here("dados","votacao_secao_2022_BR.csv"), encoding = "Latin-1")
+
+df_resultados_22 <- presid_22 %>%
+  dplyr::filter(!NR_VOTAVEL %in% c(95,96)) %>%
+  group_by(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) %>%
+  summarise(total_votos = sum(QT_VOTOS)) %>%
+  pivot_wider(names_from = NR_TURNO, values_from = total_votos, values_fill = 0) %>%
+  clean_names() %>%
+  group_by(nr_zona, cd_municipio, sg_uf) %>%
+  mutate(total_validos_1t = sum(x1),
+         total_validos_2t = sum(x2)) %>%
+  dplyr::filter(nr_votavel == 22) %>%
+  dplyr::filter(total_validos_1t >0) %>%
+  mutate(percentual_bolso_1t = x1 /total_validos_1t ,
+         percentual_bolso_2t = x2 / total_validos_2t)
+
+```
+
+Agora que importamos os dados de 22, podemos fazer nossa previsão, usando os resultados do primeiro turno.
+
+```{r previsao 11, echo=TRUE, message=FALSE, cache=TRUE}
+df_resultados_22 <- df_resultados_22 %>%
+  mutate(y_prev_2t = coef(reg1)[1] + coef(reg1)[2]*percentual_bolso_1t,
+         validos_previsto = total_validos_1t*y_prev_2t)
+
+# previsão do resultado eleitoral antes de observar apuração do 2t, supondo comparecimento igual ao 1t
+df_resultados_22 %>%
+  ungroup() %>%
+  summarise(total_bolso = sum(validos_previsto),
+            total_valido_previsto = sum(total_validos_1t),
+            perc_previsto = total_bolso/total_valido_previsto)
+
+# previsão do resultado eleitoral com o comparecimento do 2o turno real
+df_resultados_22 <- df_resultados_22 %>%
+  mutate(y_prev_2t_alt = coef(reg1)[1] + coef(reg1)[2]*percentual_bolso_1t,
+         validos_previsto_alt = total_validos_2t*y_prev_2t_alt)
+
+
+df_resultados_22 %>%
+  ungroup() %>%
+  summarise(total_bolso = sum(validos_previsto_alt),
+            total_valido_previsto = sum(total_validos_2t),
+            perc_previsto = total_bolso/total_valido_previsto)
+
+# mesma coisa
+
+#E incerteza nas previsões?
+  
+previsoes <- predict(reg1, newdata = df_resultados_22, interval = "prediction", level = .95) %>%
+  as.data.frame()
+
+df_resultados_22 <- df_resultados_22 %>%
+  ungroup() %>%
+  mutate(prev_perc = previsoes$fit,
+         prev_perc_lower = previsoes$lwr,
+         prev_perc_upper = previsoes$upr,
+         validos_prev = total_validos_2t*prev_perc,
+         validos_prev_lower = total_validos_2t*prev_perc_lower,
+         validos_prev_upper = total_validos_2t*prev_perc_upper)
+
+df_resultados_22 %>%
+  summarise(perc_previsto = sum(validos_prev)/sum(total_validos_2t),
+            perc_previsto_lower = sum(validos_prev_lower)/sum(total_validos_2t),
+            perc_previsto_upper = sum(validos_prev_upper)/sum(total_validos_2t))
+
+```
+
+Como vimos, apenas com base nos dados do primeiro turno, ao nível da zona eleitoral, não era possível prever o resultado final. E à medida que os dados por zona eleitoral foram divulgados, podíamos melhorar nossa previsão de algum modo?
+
+E será que se incluírmos mais variáveis, podemos melhorar o modelo?
+
+<!--chapter:end:11-Inferencia.Rmd-->
+
+
+# - Regressao Multipla
+
+Placeholder
+
+
+## Modelo básico
+## Interpretação dos coeficientes
+## Viés de variável omitida
+## Multicolinearidade
+## Distrações
+## Teste de multicolinearidade
+### Quando multicolinearidade é um problema
+## Ridge Regression
+## LASSO
+## Checagem do modelo
+
+<!--chapter:end:12-Regressao-Multipla.Rmd-->
+
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# - GLM
+
+```{r package loads 13, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(knitr)
+library(tidyverse)
+library(here)
+library(tidyr)
+```
+
+VD Categórica
+
+
+
+## PLM
+
+A intuição
+
+## Logística e Probit
+
+
+
+<!--chapter:end:13-GLM.Rmd-->
+

@@ -6,7 +6,7 @@ editor_options:
 
 # - Regressao Multipla
 
-```{r package loads 12, echo=FALSE, message=FALSE}
+```{r package loads 12, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
 library(knitr)
 library(tidyverse)
@@ -14,7 +14,64 @@ library(here)
 library(tidyr)
 ```
 
-É muito raro que tenhamos apenas um preditor em um contexto de regressão. Talvez em um experimento de laboratório, e mesmo assim é difícil não ter outros preditores. De modo que tudo que vimos até agora é um caso particular raríssimo e pouco útil per se. Para generalizar as derivações e resultados para múltiplos preditores é conveniente utilizar álgebra linear. Basicamente, isso significa usar vetores e matrizes para representar a regressão. As derivações das fórmulas ficam bem fáceis, bem como as propriedades do modelo de regressão. Como não estamos pressupondo que vocês conheçam o básico de Álgebra Linear, iremos pular as derivações e aprensentar apenasas intuições, esperando que o que vocês aprenderam com um preditor seja suficiente para entender com múltiplos preditores.
+É muito raro que tenhamos apenas um preditor em um contexto de regressão. Talvez em um experimento de laboratório, e mesmo assim é difícil não ter outros preditores. De modo que tudo que vimos até agora é um caso particular raríssimo e pouco útil per se. Para generalizar as derivações e resultados para múltiplos preditores é conveniente utilizar álgebra linear. Basicamente, isso significa usar vetores e matrizes para representar a regressão. As derivações das fórmulas ficam bem fáceis, bem como as propriedades do modelo de regressão. Como não estamos pressupondo que vocês conheçam o básico de Álgebra Linear, iremos pular as derivações e apresentar apenas as intuições, esperando que o que vocês aprenderam com um preditor seja suficiente para entender com múltiplos preditores.
+
+## Revisão de Matriz e Vetores
+
+Regressão múiltipla é mais facilmente compreendida com uso de matrizes. Portanto, vamos fazer uma rápida revisão da álgebra de vetores e matrizes.
+
+Se eu tenho um vetor $x = [ a_1, a_2, ..., a_n]$, digo que este é um vetor linha com $n$ elementos. É possível também ter um vetor coluna:
+
+$$
+\begin{align}
+    x &= \begin{bmatrix}
+           a_{1} \\
+           a_{2} \\
+           \vdots \\
+           a_{n}
+         \end{bmatrix}
+\end{align}
+$$
+Eu posso somar dois vetores linhas ou dois vetores colunas, se tiverem o mesmo número de elementos. Por exemplo, dois vetores colunas.
+$$
+  \begin{align}
+          \begin{bmatrix}
+           a_{1} \\           
+           \vdots \\
+           a_{n}
+          \end{bmatrix} +
+          \begin{bmatrix}
+           b_{1} \\
+           \vdots \\
+           b_{n}
+         \end{bmatrix}
+    &= \begin{bmatrix}
+           a_1 + b_{1} \\           
+           \vdots \\
+           a_n + b_{n}
+          \end{bmatrix}     
+  \end{align}
+$$
+E posso fazer multiplicação de vetores (existem vários tipos, aqui me restringo ao produto interno ou produto ponto de vetores), desde que a gente multiplique um vetor linha por uma vetor coluna, mas não o contrário.
+
+$$
+  \begin{align}
+          \begin{bmatrix}
+           a_{1}, a_2, \cdots, a_{n}
+          \end{bmatrix} \cdot
+          \begin{bmatrix}
+           b_{1} \\
+           b_{2} \\
+           \vdots \\
+           b_{n}
+         \end{bmatrix}
+    &=  a_1 \cdot b_{1} + a_2 \cdot b_2 \cdots + a_n \cdot b_{n} 
+  \end{align}
+$$
+A razão é que a multiplicação de vetores (e matrizes em geral) é basicamente multiplicar linha com coluna. No caso de um vetor coluna multiplicado por um linha, isso não é possível.
+
+A adição e multiplicação de matrizes é basicamente a generalização da ágebra com vetores
+
 
 ## Modelo básico
 
@@ -24,46 +81,128 @@ O modelo básico de regressão linear múltipla pode ser especificado por:
 
 2. Há uma única variável resposta, $Y$. Se houvesse mais de uma, teríamos um modelo de regressão multivariada.
 
-3. $Y = \alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + ... + \beta_p \cdot X_p + e $. Portanto, temos $p+1$ parâmetros ou coeficientes de regressão a estimar.
+3. $y_i = \alpha + \beta_1 \cdot x_{1i} + \beta_2 \cdot x_{2i} + ... + \beta_p \cdot x_{pi} + e_i$. Portanto, temos $p+1$ parâmetros ou coeficientes de regressão a estimar.
 
-4. O erro $e$ possui esperança condicional zero e variância condicional constante no modelo homocedástico, e não correlacionado entre observações.
+4. O erro $e_i$ possui esperança condicional zero e variância condicional constante no modelo homocedástico, e não correlacionado entre observações.
 
 Se assumirmos normalidade do termo de erro, temos também:
 
-5. O erro $e$ tem uma distribuição normal multivariada, com vetor de médias zero e matriz de variância e covariância cujos elementos fora da diagonal (covariância) são zero, e a diagonal principal é $\sigma^2$.
+5. O erro $e_i$ tem uma distribuição normal multivariada, com vetor de médias zero e matriz de variância e covariância cujos elementos fora da diagonal (covariância) são zero, e a diagonal principal é $\sigma^2$.
+
+## Modelo com matrizes
+
+Vejam que $\alpha + \beta_1 \cdot x_{1i} + \beta_2 \cdot x_{2i} + ... + \beta_p \cdot x_{pi} + e_i$ é uma soma de produtos, similar ao que eu tinha com vetores no exemplo acima. Exceto que $\alpha$ não multiplica nada. Então, vou considerar que tenhao um preditor cujo valor é uma constante e igual a $1$, e os demais preditores, de forma que o lado direito da equação de regressão pode ser reescrito como soma e multiplicação de matrizes. Para o caso de um preditor $y_i = \alpha + \beta_ix_{1i} + e_i$, a equação de regressão com matrizes, fica:
+
+$$
+  \begin{align}
+  \begin{bmatrix}
+    y_1 \\
+     y_2 \\
+     \vdots \\
+     y_{n}
+     \end{bmatrix}
+     &= 
+          \begin{bmatrix}
+           1 & x_{11} \\
+           1 & x_{12} \\
+           \vdots \\
+           1 & x_{1n}
+         \end{bmatrix}
+          \begin{bmatrix}
+           \alpha \\
+           \beta_1 \\
+         \end{bmatrix} +
+        \begin{bmatrix}
+           e_1 \\
+           e_2 \\
+           \vdots \\
+           e_n
+         \end{bmatrix}
+  \end{align}
+$$
+Se eu chamar o vetor coluna com os $y$ de $Y$, a matriz com a constante $1$ e $x_{1i}$ de $X$, o vetor de coeficientes de $B$ e o vetor de erros $\epsilon$, tenho então:
+
+$$
+Y = XB + \epsilon
+$$
+Veja que a generalização para $p$ preditores gera a mesma equação:
+
+$$
+  \begin{align}
+  \begin{bmatrix}
+    y_1 \\
+     y_2 \\
+     \vdots \\
+     y_{n}
+     \end{bmatrix}
+     &= 
+          \begin{bmatrix}
+           1 & x_{11} & x_{21} \cdots & x_{p1}\\
+           1 & x_{12} & x_{22} \cdots & x_{p2}\\
+           \vdots \\
+           1 & x_{1n} & x_{2n} \cdots & x_{pn}
+         \end{bmatrix}
+          \begin{bmatrix}
+           \alpha \\
+           \beta_1 \\
+           \beta_2 \\
+           \vdots \\
+           \beta_p
+         \end{bmatrix} +
+        \begin{bmatrix}
+           e_1 \\
+           e_2 \\
+           \vdots \\
+           e_n
+         \end{bmatrix}
+  \end{align}
+$$
+
+$$
+Y = XB + \epsilon
+$$
+
+A única diferença é o tamanho da matrix $X$ e $B$.
+
+É possível mostrar que o estimador de mínimos quadrados ordinários é dados por:
+
+$$
+B = X'X^{-1} \cdot X'Y
+$$
+Veja que $X'Y$ é um produto (com soma) entre $X$ e $Y$, ou seja, é como se fosse a covariância entre $X$ e $Y$, e $X'X$ se assemelha à variância de $X$. E está elevado a $-1$ porque não existe divisão em matriz, de forma que preciso multiplicar pela inversa.
 
 ## Interpretação dos coeficientes
 
 
 ## Viés de variável omitida
 
-Suponha que o verdadeiro modelo é $Y = \alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + e$. Nós, porém, ajustamos um modelo (com dados populacionais, para simplificar) apenas com $X_1$ como preditor. O que acontece com a interpretação de nosso coeficiente de regressão?
+Suponha que o verdadeiro modelo é $y_i = \alpha + \beta_1 \cdot x_{1i} + \beta_2 \cdot x_{2i} + e_i$. Nós, porém, ajustamos um modelo (com dados populacionais, para simplificar) apenas com $x_1$ como preditor. O que acontece com a interpretação de nosso coeficiente de regressão?
 
 Vamos usar as seguintes propriedades da covariância nessa derivação. 
 
-1. Sejam $X$ e $Y$ duas v.a., Seja $A$ uma constante. Então, $\mathbb{Cov}[X,Y + A] = \mathbb{Cov}[X,Y] + \mathbb{Cov}[X,A]$. Como $A$ é constante, $\mathbb{Cov}[X,A] = 0$ e, portanto, $\mathbb{Cov}[X,Y + A] = \mathbb{Cov}[X,Y].
+1. Sejam $X$ e $Y$ duas v.a., Seja $A$ uma constante. Então, $\mathbb{Cov}[X,Y + A] = \mathbb{Cov}[X,Y] + \mathbb{Cov}[X,A]$. Como $A$ é constante, $\mathbb{Cov}[X,A] = 0$ e, portanto, $\mathbb{Cov}[X,Y + A] = \mathbb{Cov}[X,Y]$.
 
 2. $\mathbb{Cov}[X,Y \cdot A] = A \cdot \mathbb{Cov}[X,Y]$.
 
 
 Sabemos que em uma regressão com um preditor, temos:
 $$
-\beta_1 = \frac{\mathbb{Cov}[X_1,Y]}{\sigma^2_x}
+\beta_1 = \frac{\mathbb{Cov}[X_1,Y]}{S^2_x}
 $$
 Substituindo $Y$ pelo verdadeiro modelo, temos:
 
 $$
-\beta_1 = \frac{\mathbb{Cov}[X_1,\alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + e]}{\sigma^2_x} =  \frac{\mathbb{Cov}[X_1,\beta_1 \cdot X_1] + \mathbb{Cov}[X_1, \beta_2 \cdot X_2] + \mathbb{Cov}[X_1, e]}{\sigma^2_x}
+\beta_1 = \frac{\mathbb{Cov}[X_1,\alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + e]}{S^2_x} =  \frac{\mathbb{Cov}[X_1,\beta_1 \cdot X_1] + \mathbb{Cov}[X_1, \beta_2 \cdot X_2] + \mathbb{Cov}[X_1, e]}{S^2_x}
 $$
 $$
-\beta_1 =  \frac{\beta_1 \cdot \mathbb{Cov}[X_1, X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + \mathbb{ Cov}[X_1,e]}{\sigma^2_x} = \frac{\beta_1 \cdot \mathbb{Var}[X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{\sigma^2_x} = \beta_1 + \frac{\cdot \mathbb{Var}[X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{\sigma^2_x}
+\beta_1 =  \frac{\beta_1 \cdot \mathbb{Cov}[X_1, X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + \mathbb{ Cov}[X_1,e]}{S^2_x} = \frac{\beta_1 \cdot \mathbb{Var}[X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{S^2_x} = \beta_1 + \frac{\cdot \mathbb{Var}[X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{S^2_x}
 $$
 $$
-\beta_1 = \beta_1 + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2]}{\sigma^2_x}
+\beta_1 = \beta_1 + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2]}{S^2_x}
 $$
-Vemos que a inclinação $\beta_1$ inclui a contribuição direta de $X_1$ mais a contribuição indireta, via correlação com $X_2$.
+Vemos que a inclinação $\beta_1$ inclui a contribuição direta de $X_1$ mais a contribuição indireta, via correlação, com $X_2$.
 
-Aqui não estamos falando de causalidade, apenas da contribuição para a previsão da nossa variável resposta. Naturalmente, antes da moderna abordagem de inferência causal por resultados potenciais de Rubin (ou redes Bayesianas em modelos estruturais de Pearl), as pessoas pensavam que, controlando para o máximo de variáveis possível, com sorte seria ossível eliminar (ou reduzir a um mínimo) o viés de variável omitida e, portanto, estar seguro que $\beta_1$ estimaria o efeito causal.
+Aqui não estamos falando de causalidade, apenas da contribuição para a previsão da nossa variável resposta. Naturalmente, antes da moderna abordagem de inferência causal por resultados potenciais de Rubin (ou redes Bayesianas em modelos estruturais de Pearl), as pessoas pensavam que, controlando para o máximo de variáveis possível, com sorte seria possível eliminar (ou reduzir a um mínimo) o viés de variável omitida e, portanto, estar seguro que $\beta_1$ estimaria o efeito causal.
 
 Nós hoje sabemos que o modo mais seguro de pensar causalidade é usando uma das duas abordagens, e verificando (por exemplo com resultados potenciais) que a suposição de independência condicional (*CIA*, de Conditional Independence Assumption) é plausível para poder interpretar $\beta_1$ causalmente. Sem um modelo causal, a abordagem de introdução de regressores para controlar o viés de variável omitida não nos permite fazer inferência causal, exceto em casos muitos simples ou quando implicitamente temos garantida a validade da *CIA* (como em um experimento bem conduzido e com compliance), como é o caso das ciências naturais como física e química.
 
@@ -81,5 +220,11 @@ Algumas distrações
 ## Ridge Regression
 
 ## LASSO
+
+## Erro padrão Robusto
+
+Na presernça de heterocedasticidade ou correlação nos erros (como autocorrelação temporal ou autocorrelação espacial), precisamos corrigir o cálculo do erro padrão. Ao aplicar alguma correção no cálculo do erro padrão, chammos de erro padrão robusto, para distringuir o erro padrão usual que o R solta.
+
+
 
 ## Checagem do modelo
