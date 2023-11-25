@@ -6,7 +6,7 @@ editor_options:
 
 # - Regressao Multipla
 
-```{r package loads 12, echo=FALSE, message=FALSE, warning=FALSE}
+```{r package loads 12, echo=TRUE, message=FALSE, warning=FALSE}
 library(ggplot2)
 library(knitr)
 library(tidyverse)
@@ -162,7 +162,9 @@ $$
 Y = XB + \epsilon
 $$
 
-A única diferença é o tamanho da matrix $X$ e $B$.
+A única diferença é o tamanho da matriz $X$ e $B$, em que $X$ é uma matriz $n \times (p+1)$, isto é, com $n$ linhas e $p+1$ colunas, e $B$ é uma matriz de tamanho $(p+1) \times 1$ e $Y$ e $\epsilon$ são $n \times 1$. E as suposições podem ser escritas como $\mathbb{E}[\epsilon|X] = 0$ e $\mathbb{Var}[\epsilon|X] = \sigma^2I$, em que $I$ é a matriz identidade, isto é, uma matriz cuja diagonal principal é $1$ e o resto é $zero$.
+
+### Estimador de MQO
 
 É possível mostrar que o estimador de mínimos quadrados ordinários é dados por:
 
@@ -173,10 +175,69 @@ Veja que $X'Y$ é um produto (com soma) entre $X$ e $Y$, ou seja, é como se fos
 
 ## Interpretação dos coeficientes
 
+Nosso coeficiente $\alpha$ é novamente o valor esperado do $Y$ na origem, isto é:
 
-## Viés de variável omitida
+$$
+\alpha = \mathbb{E}[Y|X_1=0, X_2=0, \cdots, X_p=0]$
+$$
+Em um modelo sem interações, o efeito de cada variávei $X_i$ é a contribuição separada para a resposta esperada (média). Portanto, $B_i$ mede a contribuição de como $\mathbb{E}[Y]$ muda à medida que $X_i$ (e apenas $X_i$) muda, para qualquer valor de $X_i$ (se a equação for linear nas variáveis) e para qualquer valor das demais variáveis (pressuposto de aditividade, sem interação, dos preditores).
 
-Suponha que o verdadeiro modelo é $y_i = \alpha + \beta_1 \cdot x_{1i} + \beta_2 \cdot x_{2i} + e_i$. Nós, porém, ajustamos um modelo (com dados populacionais, para simplificar) apenas com $x_1$ como preditor. O que acontece com a interpretação de nosso coeficiente de regressão?
+
+Vamos retomar nosso modelo de previsão eleitoral e rodar no R, agora adicionando múltipals variáveis.
+
+```{r dados-18 12, echo=TRUE, message=FALSE, cache=TRUE}
+library(data.table)
+
+# lista o nome do arquivo em csv
+# unzip(here("dados", "votacao_secao_2018_BR.zip"), list = TRUE)
+
+
+#read data1.csv into data frame
+presid_18 <- fread(here("dados","votacao_secao_2018_BR.csv"), encoding = "Latin-1")
+
+# Supondo que seu dataframe seja chamado df
+df_resultados <- presid_18 %>%
+  dplyr::filter(!NR_VOTAVEL %in% c(95,96)) %>%
+  group_by(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) %>%
+  summarise(total_votos = sum(QT_VOTOS)) %>%
+  pivot_wider(names_from = NR_TURNO, values_from = total_votos, values_fill = 0) %>%
+  clean_names() %>%
+  group_by(nr_zona, cd_municipio, sg_uf) %>%
+  mutate(total_validos_1t = sum(x1),
+         total_validos_2t = sum(x2)) %>%
+  dplyr::filter(nr_votavel %in% c(13,17)) %>%
+  group_by(nr_votavel) %>%
+  mutate(percentual_1t = x1 /total_validos_1t,
+         percentual_2t = x2 / total_validos_2t) %>%
+  ungroup() %>%
+  dplyr::select(-c(x1, x2, total_validos_1t, total_validos_2t)) %>%
+  pivot_wider(names_from = nr_votavel, 
+              values_from = c(percentual_1t, percentual_2t))
+
+# remove
+# rm(presid_18)
+
+df_resultados %>%
+  ggplot(aes(x=percentual_1t_17, y=percentual_2t_17)) + geom_point() + facet_wrap(~sg_uf) + geom_smooth(method="lm", se=F, linewidth = .5)
+
+# modelo de regressão
+
+reg1 <- lm(percentual_2t_17 ~ percentual_1t_17 + percentual_1t_13 + sg_uf, data = df_resultados)
+summary(reg1)
+
+# AC é a categoria de referência
+
+```
+
+A interpretação das variáveis, portanto, é a seguinte:
+
+1. O intercepto mede o percentual médio no segundo turno quando todas as variáveis são zero. Ou seja, Haddad e Bolsonaro tiveram 0 pontos percentuais (não existe caso assim!) e a UF é o Acre, que é a categoria de referência.
+
+2. A variável "percentual_1t_17" mede o efeito preditivo no voto do 2o turno do Bolsonaro de aumento de um ponto percentual no voto do primeiro turno, que é de 0,77 pontos percentuais. A variável "percentual_1t_13" mede similarmente o efeito preditivo de aumento de um ponto percentual do voto do Haddad no primeiro turno sobre o voto do Bolsonaro no 2o turno. Como esperado, a relação é negativa, isto é, quanto melhor o Haddad foi no primeiro turno, pior o Bolsonaro no segundo turno naquela seção eleitoral. E o efeito de cada UF é o efeito de estar naquela UF, em comparação com a categoria de referência, ACRE.
+
+## Regressão múltipla versus Múltiplas Regressões Separadas ou Viés de variável omitida
+
+Rodar uma regressão com duas variáveis (digamos), não é o mesmo que rodar duas regressões separadas, uma com cada variável. A razão é que os preditores em geral terão alguma correlação entre si. Para ver isso, suponha que o verdadeiro modelo é $Y = \alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + \epsilon$. O que aconteceria se rodássemos uma regressão com um preditor apenas ($X_1$)?
 
 Vamos usar as seguintes propriedades da covariância nessa derivação. 
 
@@ -184,38 +245,55 @@ Vamos usar as seguintes propriedades da covariância nessa derivação.
 
 2. $\mathbb{Cov}[X,Y \cdot A] = A \cdot \mathbb{Cov}[X,Y]$.
 
+Nós sabemos que $\beta_1 = \frac{\mathbb{Cov}[X_1,Y]}{\mathbb{Var}[X_1]}$
 
-Sabemos que em uma regressão com um preditor, temos:
-$$
-\beta_1 = \frac{\mathbb{Cov}[X_1,Y]}{S^2_x}
-$$
-Substituindo $Y$ pelo verdadeiro modelo, temos:
+Vamos substituir o $Y$ do modelo verdadeiro na equação do $\beta_1$.
 
 $$
-\beta_1 = \frac{\mathbb{Cov}[X_1,\alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + e]}{S^2_x} =  \frac{\mathbb{Cov}[X_1,\beta_1 \cdot X_1] + \mathbb{Cov}[X_1, \beta_2 \cdot X_2] + \mathbb{Cov}[X_1, e]}{S^2_x}
+\beta_1 = \frac{\mathbb{Cov}[X_1,\alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + e]}{\mathbb{Var}[X_1]} = \\
+\frac{\mathbb{Cov}[X_1,\beta_1 \cdot X_1] + \mathbb{Cov}[X_1, \beta_2 \cdot X_2] + \mathbb{Cov}[X_1, e]}{\mathbb{Var}[X_1]} = \\
+
+ \frac{\beta_1 \cdot \mathbb{Cov}[X_1, X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + \mathbb{ Cov}[X_1,e]}{\mathbb{Var}[X_1]} = \\
+ 
+\frac{\beta_1 \cdot \mathbb{Var}[X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{\mathbb{Var}[X_1]} = \\
+
+\frac{\beta_1 \cdot \mathbb{Var}[X_1]}{\mathbb{Var}[X_1]} + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{\mathbb{Var}[X_1]} = \\
+
+\beta_1 + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{\mathbb{Var}[X_1]}
 $$
 $$
-\beta_1 =  \frac{\beta_1 \cdot \mathbb{Cov}[X_1, X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + \mathbb{ Cov}[X_1,e]}{S^2_x} = \frac{\beta_1 \cdot \mathbb{Var}[X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{S^2_x} = \beta_1 + \frac{\cdot \mathbb{Var}[X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{S^2_x}
-$$
-$$
-\beta_1 = \beta_1 + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2]}{S^2_x}
+\beta_1 = \beta_1 + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2]}{\mathbb{Var}[X_1]}
 $$
 Vemos que a inclinação $\beta_1$ inclui a contribuição direta de $X_1$ mais a contribuição indireta, via correlação, com $X_2$.
 
+Portanto, se eu rodar uma regressão com um preditor quando o verdadeiro modelo tem dois preditores, o coeficiente de $\beta_1$ será uma média entre $\beta_1$ e $\beta_2$. Por outro lado, se eu rodar a regressão com o modelo correto com os dois preditores, consigo que $\beta_1$ reflita só a contribuição de $\beta_1$.
+
+Talvez você esteja se perguntando a essa altura: quem garante que o verdadeiro modelo possua só dois preditores? Isso é o que chamamos de viés de variável omitida. Se omitirmos da regressão uma variável $X_k$ correlacionada com $X_j$, $j \neq k$, então o coeficiente $\beta_j$ reflitirá também o efeito de $\beta_k$. 
+
 Aqui não estamos falando de causalidade, apenas da contribuição para a previsão da nossa variável resposta. Naturalmente, antes da moderna abordagem de inferência causal por resultados potenciais de Rubin (ou redes Bayesianas em modelos estruturais de Pearl), as pessoas pensavam que, controlando para o máximo de variáveis possível, com sorte seria possível eliminar (ou reduzir a um mínimo) o viés de variável omitida e, portanto, estar seguro que $\beta_1$ estimaria o efeito causal.
 
-Nós hoje sabemos que o modo mais seguro de pensar causalidade é usando uma das duas abordagens, e verificando (por exemplo com resultados potenciais) que a suposição de independência condicional (*CIA*, de Conditional Independence Assumption) é plausível para poder interpretar $\beta_1$ causalmente. Sem um modelo causal, a abordagem de introdução de regressores para controlar o viés de variável omitida não nos permite fazer inferência causal, exceto em casos muitos simples ou quando implicitamente temos garantida a validade da *CIA* (como em um experimento bem conduzido e com compliance), como é o caso das ciências naturais como física e química.
+Nós hoje sabemos que o modo mais seguro de pensar causalidade é usando uma das duas abordagens (as iniciadas por Rubin ou Pearl), e verificando (por exemplo com resultados potenciais) que a suposição de independência condicional (*CIA*, de Conditional Independence Assumption) é plausível para poder interpretar $\beta_1$ causalmente. Sem um modelo causal, a abordagem de introdução de regressores para controlar o viés de variável omitida não nos permite fazer inferência causal, exceto em casos muitos simples ou quando implicitamente temos garantida a validade da *CIA* (como em um experimento bem conduzido e com compliance), como é o caso das ciências naturais como física e química.
+
+
+## Matriz chapéu
+
+Uma forma interessante de visualizar as previsões do modelo é que podemos escrever $\hat{Y} = XB$. Substituindo a fórmula do $B$, temos que:
+$$
+\hat{Y} = X X'X^{-1}X'Y = \\
+(X X'X^{-1}X')Y = \\
+HY
+$$
+Essa equação mostra que as previsões são dadas pelas respostas observadas, ponderadas pela matriz chapéu (*hat*), $H$.
 
 ## Multicolinearidade
 
+Até o momento não falamos sobre em que condições a matrix inversa $X'X^{-1}$ existe. Nós sabemos que nem todas as matrizes podem ser invertíveis. Matrizes com determinante zero são não-invertíveis. A intuição é como pensar que não é possível dividir um escalar por zero. O determinante é zero quando as colunas não são linearmente independentes. Ou seja, quando uma coluna (ou mais) é uma combinação linear de um ou mais colunas. No nosso caso, quando a correlação for $1$ (ou $-1$). Nesses casos, não é possível estimar os coeficientes da regressão e acontece quando temos multicolinearidade.
+
+Softwares modernos, como R, irão "dropar" uma (ouas mais) variável(eis) se isso ocorrer, automaticamente, para evitar que a matriz não seja invertível. Assim, a menos que acorrelação seja perfeita, multicolinearidade não costuma ser um problema.
 
 ## Distrações
 
 Algumas distrações
-
-## Teste de multicolinearidade
-
-### Quando multicolinearidade é um problema
 
 ## Ridge Regression
 
@@ -223,7 +301,69 @@ Algumas distrações
 
 ## Erro padrão Robusto
 
-Na presernça de heterocedasticidade ou correlação nos erros (como autocorrelação temporal ou autocorrelação espacial), precisamos corrigir o cálculo do erro padrão. Ao aplicar alguma correção no cálculo do erro padrão, chammos de erro padrão robusto, para distringuir o erro padrão usual que o R solta.
+Na presernça de heterocedasticidade ou correlação nos erros (como autocorrelação temporal ou autocorrelação espacial), precisamos corrigir o cálculo do erro padrão. Ao aplicar alguma correção no cálculo do erro padrão, chamamos de erro padrão robusto, para distringuir o erro padrão usual que o R solta.
+ 
+
+```{r dados-22 12, echo=TRUE, message=FALSE, cache=TRUE}
+# dados de 2022
+
+#read  into data frame
+presid_22 <- fread(here("dados","votacao_secao_2022_BR.csv"), encoding = "Latin-1")
+
+df_resultados_22_aux <- presid_22 %>%
+  dplyr::filter(!NR_VOTAVEL %in% c(95,96)) %>%
+  group_by(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) %>%
+  summarise(total_votos = sum(QT_VOTOS)) %>%
+  pivot_wider(names_from = NR_TURNO, values_from = total_votos, values_fill = 0) %>%
+  clean_names() %>%
+  group_by(nr_zona, cd_municipio, sg_uf) %>%
+  mutate(total_validos_1t = sum(x1),
+         total_validos_2t = sum(x2)) %>%
+  dplyr::filter(nr_votavel %in% c(13,22)) %>%
+  group_by(nr_votavel) %>%
+  mutate(percentual_1t = x1/total_validos_1t,
+         percentual_2t = x2/total_validos_2t) %>%
+  ungroup()
+
+df_resultados_22 <- df_resultados_22_aux%>%
+  dplyr::select(-c(x1, x2, total_validos_1t, total_validos_2t)) %>%
+  pivot_wider(names_from = nr_votavel, 
+              values_from = c(percentual_1t, percentual_2t)) %>%
+  rename(percentual_1t_17 = percentual_1t_22,
+         percentual_2t_17 = percentual_2t_22)
+
+```
+
+Agora que importamos os dados de 22, podemos fazer nossa previsão, usando os resultados do primeiro turno.
+
+```{r previsao 12, echo=TRUE, message=FALSE, cache=TRUE}
+df_resultados_22_aux1 <- df_resultados_22_aux %>%
+  ungroup() %>%
+  group_by(nr_zona, cd_municipio, sg_uf) %>%
+  summarise(total_validos_1t = sum(total_validos_1t))
+  
+#Previsão
+  
+previsoes <- predict(reg1, newdata = df_resultados_22, interval = "prediction", level = .95) %>%
+  as.data.frame()
+
+df_resultados_22_final <- df_resultados_22 %>%
+  ungroup() %>%
+  mutate(prev_perc = previsoes$fit,
+         prev_perc_lower = previsoes$lwr,
+         prev_perc_upper = previsoes$upr,
+         validos_prev = df_resultados_22_aux1$total_validos_1t*prev_perc,
+         validos_prev_lower = df_resultados_22_aux1$total_validos_1t*prev_perc_lower,
+         validos_prev_upper = df_resultados_22_aux1$total_validos_1t*prev_perc_upper)
+
+tot_valido <- sum(df_resultados_22_aux1$total_validos_1t)
+df_resultados_22_final %>%
+  summarise(perc_previsto = sum(validos_prev,na.rm = T)/tot_valido,
+            perc_previsto_lower = sum(validos_prev_lower,na.rm = T)/tot_valido,
+            perc_previsto_upper = sum(validos_prev_upper,na.rm = T)/tot_valido)
+
+```
+
 
 
 
