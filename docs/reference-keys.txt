@@ -126,3 +126,6 @@ a-esperança-condicional-é-o-melhor-preditor
 revisão-de-matriz-e-vetores
 modelo-com-matrizes
 erro-padrão-robusto-1
+estimador-de-mqo
+regressão-múltipla-versus-múltiplas-regressões-separadas-ou-viés-de-variável-omitida
+matriz-chapéu
