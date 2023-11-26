@@ -129,3 +129,4 @@ erro-padrão-robusto-1
 estimador-de-mqo
 regressão-múltipla-versus-múltiplas-regressões-separadas-ou-viés-de-variável-omitida
 matriz-chapéu
+entendendo-o-erro-padrão-robusto
