@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-11-25" />
+<meta name="date" content="2023-11-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -294,7 +294,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.8" data-path="regressao-multipla.html"><a href="regressao-multipla.html#distrações-1"><i class="fa fa-check"></i><b>12.8</b> Distrações</a></li>
 <li class="chapter" data-level="12.9" data-path="regressao-multipla.html"><a href="regressao-multipla.html#ridge-regression"><i class="fa fa-check"></i><b>12.9</b> Ridge Regression</a></li>
 <li class="chapter" data-level="12.10" data-path="regressao-multipla.html"><a href="regressao-multipla.html#lasso"><i class="fa fa-check"></i><b>12.10</b> LASSO</a></li>
-<li class="chapter" data-level="12.11" data-path="regressao-multipla.html"><a href="regressao-multipla.html#erro-padrão-robusto-1"><i class="fa fa-check"></i><b>12.11</b> Erro padrão Robusto</a></li>
+<li class="chapter" data-level="12.11" data-path="regressao-multipla.html"><a href="regressao-multipla.html#erro-padrão-robusto-1"><i class="fa fa-check"></i><b>12.11</b> Erro padrão Robusto</a>
+<ul>
+<li class="chapter" data-level="12.11.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#entendendo-o-erro-padrão-robusto"><i class="fa fa-check"></i><b>12.11.1</b> Entendendo o erro padrão robusto</a></li>
+</ul></li>
 <li class="chapter" data-level="12.12" data-path="regressao-multipla.html"><a href="regressao-multipla.html#checagem-do-modelo"><i class="fa fa-check"></i><b>12.12</b> Checagem do modelo</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>13</b> - GLM</a>
@@ -629,61 +632,2317 @@ Essa equação mostra que as previsões são dadas pelas respostas observadas, p
 <div id="erro-padrão-robusto-1" class="section level2 hasAnchor" number="12.11">
 <h2><span class="header-section-number">12.11</span> Erro padrão Robusto<a href="regressao-multipla.html#erro-padrão-robusto-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Na presernça de heterocedasticidade ou correlação nos erros (como autocorrelação temporal ou autocorrelação espacial), precisamos corrigir o cálculo do erro padrão. Ao aplicar alguma correção no cálculo do erro padrão, chamamos de erro padrão robusto, para distringuir o erro padrão usual que o R solta.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="regressao-multipla.html#cb6-1" tabindex="-1"></a><span class="co"># dados de 2022</span></span>
-<span id="cb6-2"><a href="regressao-multipla.html#cb6-2" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="regressao-multipla.html#cb6-3" tabindex="-1"></a><span class="co">#read  into data frame</span></span>
-<span id="cb6-4"><a href="regressao-multipla.html#cb6-4" tabindex="-1"></a>presid_22 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2022_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
-<span id="cb6-5"><a href="regressao-multipla.html#cb6-5" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="regressao-multipla.html#cb6-6" tabindex="-1"></a>df_resultados_22_aux <span class="ot">&lt;-</span> presid_22 <span class="sc">%&gt;%</span></span>
-<span id="cb6-7"><a href="regressao-multipla.html#cb6-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-8"><a href="regressao-multipla.html#cb6-8" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) <span class="sc">%&gt;%</span></span>
-<span id="cb6-9"><a href="regressao-multipla.html#cb6-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_votos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-10"><a href="regressao-multipla.html#cb6-10" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> total_votos, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-11"><a href="regressao-multipla.html#cb6-11" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-12"><a href="regressao-multipla.html#cb6-12" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb6-13"><a href="regressao-multipla.html#cb6-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(x1),</span>
-<span id="cb6-14"><a href="regressao-multipla.html#cb6-14" tabindex="-1"></a>         <span class="at">total_validos_2t =</span> <span class="fu">sum</span>(x2)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-15"><a href="regressao-multipla.html#cb6-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(nr_votavel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>,<span class="dv">22</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-16"><a href="regressao-multipla.html#cb6-16" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_votavel) <span class="sc">%&gt;%</span></span>
-<span id="cb6-17"><a href="regressao-multipla.html#cb6-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentual_1t =</span> x1<span class="sc">/</span>total_validos_1t,</span>
-<span id="cb6-18"><a href="regressao-multipla.html#cb6-18" tabindex="-1"></a>         <span class="at">percentual_2t =</span> x2<span class="sc">/</span>total_validos_2t) <span class="sc">%&gt;%</span></span>
-<span id="cb6-19"><a href="regressao-multipla.html#cb6-19" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb6-20"><a href="regressao-multipla.html#cb6-20" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="regressao-multipla.html#cb6-21" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> df_resultados_22_aux<span class="sc">%&gt;%</span></span>
-<span id="cb6-22"><a href="regressao-multipla.html#cb6-22" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(x1, x2, total_validos_1t, total_validos_2t)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-23"><a href="regressao-multipla.html#cb6-23" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> nr_votavel, </span>
-<span id="cb6-24"><a href="regressao-multipla.html#cb6-24" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(percentual_1t, percentual_2t)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-25"><a href="regressao-multipla.html#cb6-25" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">percentual_1t_17 =</span> percentual_1t_22,</span>
-<span id="cb6-26"><a href="regressao-multipla.html#cb6-26" tabindex="-1"></a>         <span class="at">percentual_2t_17 =</span> percentual_2t_22)</span></code></pre></div>
+<p>Para utilizar erro padrão robusto, vamos usar principalmente o pacote “sandwich”. Há vários tipos de erros padrão robustos, “HC0”, “HC1”, “HC2”, “HC3”, entre outros. Vamos falar rapidamente sobre cada uma deles. Antes disso, vamos comparar para nossa regressão como o erro padrão muda para cada um desses tipos.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="regressao-multipla.html#cb6-1" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span></code></pre></div>
+<pre><code>## Warning: package &#39;sandwich&#39; was built under R version 4.3.2</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="regressao-multipla.html#cb8-1" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span></code></pre></div>
+<pre><code>## 
+## Please cite as:</code></pre>
+<pre><code>##  Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.</code></pre>
+<pre><code>##  R package version 5.2.3. https://CRAN.R-project.org/package=stargazer</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="regressao-multipla.html#cb12-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span></code></pre></div>
+<pre><code>## Carregando pacotes exigidos: zoo</code></pre>
+<pre><code>## 
+## Attaching package: &#39;zoo&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     as.Date, as.Date.numeric</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="regressao-multipla.html#cb16-1" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC0&quot;</span>))</span>
+<span id="cb16-2"><a href="regressao-multipla.html#cb16-2" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span>
+<span id="cb16-3"><a href="regressao-multipla.html#cb16-3" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC2&quot;</span>))</span>
+<span id="cb16-4"><a href="regressao-multipla.html#cb16-4" tabindex="-1"></a>m5 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC3&quot;</span>))</span>
+<span id="cb16-5"><a href="regressao-multipla.html#cb16-5" tabindex="-1"></a><span class="fu">stargazer</span>(reg1, </span>
+<span id="cb16-6"><a href="regressao-multipla.html#cb16-6" tabindex="-1"></a>          m2,</span>
+<span id="cb16-7"><a href="regressao-multipla.html#cb16-7" tabindex="-1"></a>          m3,</span>
+<span id="cb16-8"><a href="regressao-multipla.html#cb16-8" tabindex="-1"></a>          m4,</span>
+<span id="cb16-9"><a href="regressao-multipla.html#cb16-9" tabindex="-1"></a>          m5, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="5">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+percentual_2t_17
+</td>
+<td colspan="4">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>OLS</em>
+</td>
+<td colspan="4">
+<em>coefficient</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em></em>
+</td>
+<td colspan="4">
+<em>test</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+<td>
+(5)
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+percentual_1t_17
+</td>
+<td>
+0.778<sup>***</sup>
+</td>
+<td>
+0.778<sup>***</sup>
+</td>
+<td>
+0.778<sup>***</sup>
+</td>
+<td>
+0.778<sup>***</sup>
+</td>
+<td>
+0.778<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+percentual_1t_13
+</td>
+<td>
+-0.277<sup>***</sup>
+</td>
+<td>
+-0.277<sup>***</sup>
+</td>
+<td>
+-0.277<sup>***</sup>
+</td>
+<td>
+-0.277<sup>***</sup>
+</td>
+<td>
+-0.277<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufAL
+</td>
+<td>
+-0.101<sup>***</sup>
+</td>
+<td>
+-0.101<sup>***</sup>
+</td>
+<td>
+-0.101<sup>***</sup>
+</td>
+<td>
+-0.101<sup>***</sup>
+</td>
+<td>
+-0.101<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufAM
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufAP
+</td>
+<td>
+-0.087<sup>***</sup>
+</td>
+<td>
+-0.087<sup>***</sup>
+</td>
+<td>
+-0.087<sup>***</sup>
+</td>
+<td>
+-0.087<sup>***</sup>
+</td>
+<td>
+-0.087<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.006)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufBA
+</td>
+<td>
+-0.086<sup>***</sup>
+</td>
+<td>
+-0.086<sup>***</sup>
+</td>
+<td>
+-0.086<sup>***</sup>
+</td>
+<td>
+-0.086<sup>***</sup>
+</td>
+<td>
+-0.086<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufCE
+</td>
+<td>
+-0.151<sup>***</sup>
+</td>
+<td>
+-0.151<sup>***</sup>
+</td>
+<td>
+-0.151<sup>***</sup>
+</td>
+<td>
+-0.151<sup>***</sup>
+</td>
+<td>
+-0.151<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufDF
+</td>
+<td>
+-0.077<sup>***</sup>
+</td>
+<td>
+-0.077<sup>***</sup>
+</td>
+<td>
+-0.077<sup>***</sup>
+</td>
+<td>
+-0.077<sup>***</sup>
+</td>
+<td>
+-0.077<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.006)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufES
+</td>
+<td>
+-0.080<sup>***</sup>
+</td>
+<td>
+-0.080<sup>***</sup>
+</td>
+<td>
+-0.080<sup>***</sup>
+</td>
+<td>
+-0.080<sup>***</sup>
+</td>
+<td>
+-0.080<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufGO
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufMA
+</td>
+<td>
+-0.105<sup>***</sup>
+</td>
+<td>
+-0.105<sup>***</sup>
+</td>
+<td>
+-0.105<sup>***</sup>
+</td>
+<td>
+-0.105<sup>***</sup>
+</td>
+<td>
+-0.105<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufMG
+</td>
+<td>
+-0.065<sup>***</sup>
+</td>
+<td>
+-0.065<sup>***</sup>
+</td>
+<td>
+-0.065<sup>***</sup>
+</td>
+<td>
+-0.065<sup>***</sup>
+</td>
+<td>
+-0.065<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufMS
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufMT
+</td>
+<td>
+-0.089<sup>***</sup>
+</td>
+<td>
+-0.089<sup>***</sup>
+</td>
+<td>
+-0.089<sup>***</sup>
+</td>
+<td>
+-0.089<sup>***</sup>
+</td>
+<td>
+-0.089<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufPA
+</td>
+<td>
+-0.071<sup>***</sup>
+</td>
+<td>
+-0.071<sup>***</sup>
+</td>
+<td>
+-0.071<sup>***</sup>
+</td>
+<td>
+-0.071<sup>***</sup>
+</td>
+<td>
+-0.071<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufPB
+</td>
+<td>
+-0.119<sup>***</sup>
+</td>
+<td>
+-0.119<sup>***</sup>
+</td>
+<td>
+-0.119<sup>***</sup>
+</td>
+<td>
+-0.119<sup>***</sup>
+</td>
+<td>
+-0.119<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufPE
+</td>
+<td>
+-0.113<sup>***</sup>
+</td>
+<td>
+-0.113<sup>***</sup>
+</td>
+<td>
+-0.113<sup>***</sup>
+</td>
+<td>
+-0.113<sup>***</sup>
+</td>
+<td>
+-0.113<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufPI
+</td>
+<td>
+-0.091<sup>***</sup>
+</td>
+<td>
+-0.091<sup>***</sup>
+</td>
+<td>
+-0.091<sup>***</sup>
+</td>
+<td>
+-0.091<sup>***</sup>
+</td>
+<td>
+-0.091<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufPR
+</td>
+<td>
+-0.061<sup>***</sup>
+</td>
+<td>
+-0.061<sup>***</sup>
+</td>
+<td>
+-0.061<sup>***</sup>
+</td>
+<td>
+-0.061<sup>***</sup>
+</td>
+<td>
+-0.061<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufRJ
+</td>
+<td>
+-0.097<sup>***</sup>
+</td>
+<td>
+-0.097<sup>***</sup>
+</td>
+<td>
+-0.097<sup>***</sup>
+</td>
+<td>
+-0.097<sup>***</sup>
+</td>
+<td>
+-0.097<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufRN
+</td>
+<td>
+-0.112<sup>***</sup>
+</td>
+<td>
+-0.112<sup>***</sup>
+</td>
+<td>
+-0.112<sup>***</sup>
+</td>
+<td>
+-0.112<sup>***</sup>
+</td>
+<td>
+-0.112<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufRO
+</td>
+<td>
+-0.060<sup>***</sup>
+</td>
+<td>
+-0.060<sup>***</sup>
+</td>
+<td>
+-0.060<sup>***</sup>
+</td>
+<td>
+-0.060<sup>***</sup>
+</td>
+<td>
+-0.060<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufRR
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+<td>
+-0.085<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufRS
+</td>
+<td>
+-0.061<sup>***</sup>
+</td>
+<td>
+-0.061<sup>***</sup>
+</td>
+<td>
+-0.061<sup>***</sup>
+</td>
+<td>
+-0.061<sup>***</sup>
+</td>
+<td>
+-0.061<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufSC
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufSE
+</td>
+<td>
+-0.094<sup>***</sup>
+</td>
+<td>
+-0.094<sup>***</sup>
+</td>
+<td>
+-0.094<sup>***</sup>
+</td>
+<td>
+-0.094<sup>***</sup>
+</td>
+<td>
+-0.094<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufSP
+</td>
+<td>
+-0.039<sup>***</sup>
+</td>
+<td>
+-0.039<sup>***</sup>
+</td>
+<td>
+-0.039<sup>***</sup>
+</td>
+<td>
+-0.039<sup>***</sup>
+</td>
+<td>
+-0.039<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufTO
+</td>
+<td>
+-0.096<sup>***</sup>
+</td>
+<td>
+-0.096<sup>***</sup>
+</td>
+<td>
+-0.096<sup>***</sup>
+</td>
+<td>
+-0.096<sup>***</sup>
+</td>
+<td>
+-0.096<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+sg_ufZZ
+</td>
+<td>
+-0.082<sup>***</sup>
+</td>
+<td>
+-0.082<sup>***</sup>
+</td>
+<td>
+-0.082<sup>***</sup>
+</td>
+<td>
+-0.082<sup>***</sup>
+</td>
+<td>
+-0.082<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.005)
+</td>
+<td>
+(0.009)
+</td>
+<td>
+(0.009)
+</td>
+<td>
+(0.009)
+</td>
+<td>
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.356<sup>***</sup>
+</td>
+<td>
+0.356<sup>***</sup>
+</td>
+<td>
+0.356<sup>***</sup>
+</td>
+<td>
+0.356<sup>***</sup>
+</td>
+<td>
+0.356<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.006)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+6,239
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.992
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.992
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.020 (df = 6209)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+25,882.990<sup>***</sup> (df = 29; 6209)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="5" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="regressao-multipla.html#cb17-1" tabindex="-1"></a><span class="co"># conf int</span></span>
+<span id="cb17-2"><a href="regressao-multipla.html#cb17-2" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb17-3"><a href="regressao-multipla.html#cb17-3" tabindex="-1"></a><span class="fu">coefci</span>(reg1, <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&#39;HC1&#39;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="regressao-multipla.html#cb17-4" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">2.5 %</th>
+<th align="right">97.5 %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.3350033</td>
+<td align="right">0.3760590</td>
+</tr>
+<tr class="even">
+<td align="left">percentual_1t_17</td>
+<td align="right">0.7583797</td>
+<td align="right">0.7972015</td>
+</tr>
+<tr class="odd">
+<td align="left">percentual_1t_13</td>
+<td align="right">-0.2936573</td>
+<td align="right">-0.2610519</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufAL</td>
+<td align="right">-0.1151015</td>
+<td align="right">-0.0872385</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufAM</td>
+<td align="right">-0.0986993</td>
+<td align="right">-0.0707314</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufAP</td>
+<td align="right">-0.1026175</td>
+<td align="right">-0.0715529</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufBA</td>
+<td align="right">-0.1003028</td>
+<td align="right">-0.0724807</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufCE</td>
+<td align="right">-0.1662120</td>
+<td align="right">-0.1354263</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufDF</td>
+<td align="right">-0.0915291</td>
+<td align="right">-0.0632155</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufES</td>
+<td align="right">-0.0937037</td>
+<td align="right">-0.0658873</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufGO</td>
+<td align="right">-0.0991474</td>
+<td align="right">-0.0716567</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufMA</td>
+<td align="right">-0.1192041</td>
+<td align="right">-0.0914571</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufMG</td>
+<td align="right">-0.0792045</td>
+<td align="right">-0.0516851</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufMS</td>
+<td align="right">-0.0757868</td>
+<td align="right">-0.0480581</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufMT</td>
+<td align="right">-0.1024452</td>
+<td align="right">-0.0747959</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufPA</td>
+<td align="right">-0.0851832</td>
+<td align="right">-0.0573345</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufPB</td>
+<td align="right">-0.1332370</td>
+<td align="right">-0.1051214</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufPE</td>
+<td align="right">-0.1273447</td>
+<td align="right">-0.0994480</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufPI</td>
+<td align="right">-0.1054809</td>
+<td align="right">-0.0773482</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufPR</td>
+<td align="right">-0.0743198</td>
+<td align="right">-0.0468815</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufRJ</td>
+<td align="right">-0.1104185</td>
+<td align="right">-0.0828524</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufRN</td>
+<td align="right">-0.1266669</td>
+<td align="right">-0.0978309</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufRO</td>
+<td align="right">-0.0735371</td>
+<td align="right">-0.0456145</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufRR</td>
+<td align="right">-0.0999596</td>
+<td align="right">-0.0706939</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufRS</td>
+<td align="right">-0.0748960</td>
+<td align="right">-0.0474614</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufSC</td>
+<td align="right">-0.0752199</td>
+<td align="right">-0.0478245</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufSE</td>
+<td align="right">-0.1085156</td>
+<td align="right">-0.0799776</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufSP</td>
+<td align="right">-0.0531533</td>
+<td align="right">-0.0256020</td>
+</tr>
+<tr class="odd">
+<td align="left">sg_ufTO</td>
+<td align="right">-0.1098511</td>
+<td align="right">-0.0820642</td>
+</tr>
+<tr class="even">
+<td align="left">sg_ufZZ</td>
+<td align="right">-0.0987445</td>
+<td align="right">-0.0643491</td>
+</tr>
+</tbody>
+</table>
+<div id="entendendo-o-erro-padrão-robusto" class="section level3 hasAnchor" number="12.11.1">
+<h3><span class="header-section-number">12.11.1</span> Entendendo o erro padrão robusto<a href="regressao-multipla.html#entendendo-o-erro-padrão-robusto" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Vamos fazer uma simulação no R para entender os vários tipos de erro padrão robusto. Vamos criar um modelo com heterocedasticidade.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="regressao-multipla.html#cb18-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb18-2"><a href="regressao-multipla.html#cb18-2" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, x<span class="sc">^</span><span class="dv">2</span>) <span class="co"># o DP do erro é igual a .5*x^2</span></span>
+<span id="cb18-3"><a href="regressao-multipla.html#cb18-3" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb18-4"><a href="regressao-multipla.html#cb18-4" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span></span>
+<span id="cb18-5"><a href="regressao-multipla.html#cb18-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> a <span class="sc">+</span> b<span class="sc">*</span>x <span class="sc">+</span> e</span>
+<span id="cb18-6"><a href="regressao-multipla.html#cb18-6" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="regressao-multipla.html#cb18-7" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
+<span id="cb18-8"><a href="regressao-multipla.html#cb18-8" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="regressao-multipla.html#cb18-9" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb18-10"><a href="regressao-multipla.html#cb18-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdownproj_files/figure-html/robust-se-sim-1.png" width="672" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="regressao-multipla.html#cb20-1" tabindex="-1"></a>m_sim <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>df)</span>
+<span id="cb20-2"><a href="regressao-multipla.html#cb20-2" tabindex="-1"></a><span class="co"># plots de checagem do modelo</span></span>
+<span id="cb20-3"><a href="regressao-multipla.html#cb20-3" tabindex="-1"></a><span class="fu">library</span>(easystats)</span></code></pre></div>
+<pre><code>## Warning: package &#39;easystats&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## # Attaching packages: easystats 0.7.0
+## ✔ bayestestR  0.13.1   ✔ correlation 0.8.4 
+## ✔ datawizard  0.9.0    ✔ effectsize  0.8.6 
+## ✔ insight     0.19.6   ✔ modelbased  0.8.6 
+## ✔ performance 0.10.8   ✔ parameters  0.21.3
+## ✔ report      0.5.7    ✔ see         0.8.1</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="regressao-multipla.html#cb23-1" tabindex="-1"></a><span class="fu">check_model</span>(m_sim)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/robust-se-sim-2.png" width="672" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="regressao-multipla.html#cb24-1" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC0&quot;</span>))</span>
+<span id="cb24-2"><a href="regressao-multipla.html#cb24-2" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span>
+<span id="cb24-3"><a href="regressao-multipla.html#cb24-3" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC2&quot;</span>))</span>
+<span id="cb24-4"><a href="regressao-multipla.html#cb24-4" tabindex="-1"></a>f5 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC3&quot;</span>))</span>
+<span id="cb24-5"><a href="regressao-multipla.html#cb24-5" tabindex="-1"></a><span class="fu">stargazer</span>(m_sim, </span>
+<span id="cb24-6"><a href="regressao-multipla.html#cb24-6" tabindex="-1"></a>          f2,</span>
+<span id="cb24-7"><a href="regressao-multipla.html#cb24-7" tabindex="-1"></a>          f3,</span>
+<span id="cb24-8"><a href="regressao-multipla.html#cb24-8" tabindex="-1"></a>          f4,</span>
+<span id="cb24-9"><a href="regressao-multipla.html#cb24-9" tabindex="-1"></a>          f5, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="5">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+y
+</td>
+<td colspan="4">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>OLS</em>
+</td>
+<td colspan="4">
+<em>coefficient</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em></em>
+</td>
+<td colspan="4">
+<em>test</em>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+<td>
+(5)
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x
+</td>
+<td>
+-3.440<sup>***</sup>
+</td>
+<td>
+-3.440<sup>***</sup>
+</td>
+<td>
+-3.440<sup>***</sup>
+</td>
+<td>
+-3.440<sup>***</sup>
+</td>
+<td>
+-3.440<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.567)
+</td>
+<td>
+(0.605)
+</td>
+<td>
+(0.676)
+</td>
+<td>
+(0.723)
+</td>
+<td>
+(0.867)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+1.496<sup>*</sup>
+</td>
+<td>
+1.496<sup>**</sup>
+</td>
+<td>
+1.496<sup>**</sup>
+</td>
+<td>
+1.496<sup>**</sup>
+</td>
+<td>
+1.496<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.737)
+</td>
+<td>
+(0.520)
+</td>
+<td>
+(0.581)
+</td>
+<td>
+(0.592)
+</td>
+<td>
+(0.677)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+10
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.821
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.799
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+2.274 (df = 8)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+36.755<sup>***</sup> (df = 1; 8)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="5" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="regressao-multipla.html#cb25-1" tabindex="-1"></a><span class="co"># dados de 2022</span></span>
+<span id="cb25-2"><a href="regressao-multipla.html#cb25-2" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="regressao-multipla.html#cb25-3" tabindex="-1"></a><span class="co">#read  into data frame</span></span>
+<span id="cb25-4"><a href="regressao-multipla.html#cb25-4" tabindex="-1"></a>presid_22 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2022_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
+<span id="cb25-5"><a href="regressao-multipla.html#cb25-5" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="regressao-multipla.html#cb25-6" tabindex="-1"></a>df_resultados_22_aux <span class="ot">&lt;-</span> presid_22 <span class="sc">%&gt;%</span></span>
+<span id="cb25-7"><a href="regressao-multipla.html#cb25-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-8"><a href="regressao-multipla.html#cb25-8" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) <span class="sc">%&gt;%</span></span>
+<span id="cb25-9"><a href="regressao-multipla.html#cb25-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_votos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-10"><a href="regressao-multipla.html#cb25-10" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> total_votos, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-11"><a href="regressao-multipla.html#cb25-11" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb25-12"><a href="regressao-multipla.html#cb25-12" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb25-13"><a href="regressao-multipla.html#cb25-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(x1),</span>
+<span id="cb25-14"><a href="regressao-multipla.html#cb25-14" tabindex="-1"></a>         <span class="at">total_validos_2t =</span> <span class="fu">sum</span>(x2)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-15"><a href="regressao-multipla.html#cb25-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(nr_votavel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>,<span class="dv">22</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-16"><a href="regressao-multipla.html#cb25-16" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_votavel) <span class="sc">%&gt;%</span></span>
+<span id="cb25-17"><a href="regressao-multipla.html#cb25-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentual_1t =</span> x1<span class="sc">/</span>total_validos_1t,</span>
+<span id="cb25-18"><a href="regressao-multipla.html#cb25-18" tabindex="-1"></a>         <span class="at">percentual_2t =</span> x2<span class="sc">/</span>total_validos_2t) <span class="sc">%&gt;%</span></span>
+<span id="cb25-19"><a href="regressao-multipla.html#cb25-19" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb25-20"><a href="regressao-multipla.html#cb25-20" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="regressao-multipla.html#cb25-21" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> df_resultados_22_aux<span class="sc">%&gt;%</span></span>
+<span id="cb25-22"><a href="regressao-multipla.html#cb25-22" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(x1, x2, total_validos_1t, total_validos_2t)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-23"><a href="regressao-multipla.html#cb25-23" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> nr_votavel, </span>
+<span id="cb25-24"><a href="regressao-multipla.html#cb25-24" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(percentual_1t, percentual_2t)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-25"><a href="regressao-multipla.html#cb25-25" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">percentual_1t_17 =</span> percentual_1t_22,</span>
+<span id="cb25-26"><a href="regressao-multipla.html#cb25-26" tabindex="-1"></a>         <span class="at">percentual_2t_17 =</span> percentual_2t_22)</span></code></pre></div>
 <p>Agora que importamos os dados de 22, podemos fazer nossa previsão, usando os resultados do primeiro turno.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="regressao-multipla.html#cb7-1" tabindex="-1"></a>df_resultados_22_aux1 <span class="ot">&lt;-</span> df_resultados_22_aux <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="regressao-multipla.html#cb7-2" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="regressao-multipla.html#cb7-3" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href="regressao-multipla.html#cb7-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(total_validos_1t))</span>
-<span id="cb7-5"><a href="regressao-multipla.html#cb7-5" tabindex="-1"></a>  </span>
-<span id="cb7-6"><a href="regressao-multipla.html#cb7-6" tabindex="-1"></a><span class="co">#Previsão</span></span>
-<span id="cb7-7"><a href="regressao-multipla.html#cb7-7" tabindex="-1"></a>  </span>
-<span id="cb7-8"><a href="regressao-multipla.html#cb7-8" tabindex="-1"></a>previsoes <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg1, <span class="at">newdata =</span> df_resultados_22, <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>, <span class="at">level =</span> .<span class="dv">95</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-9"><a href="regressao-multipla.html#cb7-9" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
-<span id="cb7-10"><a href="regressao-multipla.html#cb7-10" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="regressao-multipla.html#cb7-11" tabindex="-1"></a>df_resultados_22_final <span class="ot">&lt;-</span> df_resultados_22 <span class="sc">%&gt;%</span></span>
-<span id="cb7-12"><a href="regressao-multipla.html#cb7-12" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-13"><a href="regressao-multipla.html#cb7-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prev_perc =</span> previsoes<span class="sc">$</span>fit,</span>
-<span id="cb7-14"><a href="regressao-multipla.html#cb7-14" tabindex="-1"></a>         <span class="at">prev_perc_lower =</span> previsoes<span class="sc">$</span>lwr,</span>
-<span id="cb7-15"><a href="regressao-multipla.html#cb7-15" tabindex="-1"></a>         <span class="at">prev_perc_upper =</span> previsoes<span class="sc">$</span>upr,</span>
-<span id="cb7-16"><a href="regressao-multipla.html#cb7-16" tabindex="-1"></a>         <span class="at">validos_prev =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc,</span>
-<span id="cb7-17"><a href="regressao-multipla.html#cb7-17" tabindex="-1"></a>         <span class="at">validos_prev_lower =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc_lower,</span>
-<span id="cb7-18"><a href="regressao-multipla.html#cb7-18" tabindex="-1"></a>         <span class="at">validos_prev_upper =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc_upper)</span>
-<span id="cb7-19"><a href="regressao-multipla.html#cb7-19" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="regressao-multipla.html#cb7-20" tabindex="-1"></a>tot_valido <span class="ot">&lt;-</span> <span class="fu">sum</span>(df_resultados_22_aux1<span class="sc">$</span>total_validos_1t)</span>
-<span id="cb7-21"><a href="regressao-multipla.html#cb7-21" tabindex="-1"></a>df_resultados_22_final <span class="sc">%&gt;%</span></span>
-<span id="cb7-22"><a href="regressao-multipla.html#cb7-22" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">perc_previsto =</span> <span class="fu">sum</span>(validos_prev,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido,</span>
-<span id="cb7-23"><a href="regressao-multipla.html#cb7-23" tabindex="-1"></a>            <span class="at">perc_previsto_lower =</span> <span class="fu">sum</span>(validos_prev_lower,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido,</span>
-<span id="cb7-24"><a href="regressao-multipla.html#cb7-24" tabindex="-1"></a>            <span class="at">perc_previsto_upper =</span> <span class="fu">sum</span>(validos_prev_upper,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="regressao-multipla.html#cb26-1" tabindex="-1"></a>df_resultados_22_aux1 <span class="ot">&lt;-</span> df_resultados_22_aux <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="regressao-multipla.html#cb26-2" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="regressao-multipla.html#cb26-3" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="regressao-multipla.html#cb26-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(total_validos_1t))</span>
+<span id="cb26-5"><a href="regressao-multipla.html#cb26-5" tabindex="-1"></a>  </span>
+<span id="cb26-6"><a href="regressao-multipla.html#cb26-6" tabindex="-1"></a><span class="co">#Previsão</span></span>
+<span id="cb26-7"><a href="regressao-multipla.html#cb26-7" tabindex="-1"></a>  </span>
+<span id="cb26-8"><a href="regressao-multipla.html#cb26-8" tabindex="-1"></a>previsoes <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg1, <span class="at">newdata =</span> df_resultados_22, <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>, <span class="at">level =</span> .<span class="dv">95</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-9"><a href="regressao-multipla.html#cb26-9" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb26-10"><a href="regressao-multipla.html#cb26-10" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="regressao-multipla.html#cb26-11" tabindex="-1"></a>df_resultados_22_final <span class="ot">&lt;-</span> df_resultados_22 <span class="sc">%&gt;%</span></span>
+<span id="cb26-12"><a href="regressao-multipla.html#cb26-12" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb26-13"><a href="regressao-multipla.html#cb26-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prev_perc =</span> previsoes<span class="sc">$</span>fit,</span>
+<span id="cb26-14"><a href="regressao-multipla.html#cb26-14" tabindex="-1"></a>         <span class="at">prev_perc_lower =</span> previsoes<span class="sc">$</span>lwr,</span>
+<span id="cb26-15"><a href="regressao-multipla.html#cb26-15" tabindex="-1"></a>         <span class="at">prev_perc_upper =</span> previsoes<span class="sc">$</span>upr,</span>
+<span id="cb26-16"><a href="regressao-multipla.html#cb26-16" tabindex="-1"></a>         <span class="at">validos_prev =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc,</span>
+<span id="cb26-17"><a href="regressao-multipla.html#cb26-17" tabindex="-1"></a>         <span class="at">validos_prev_lower =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc_lower,</span>
+<span id="cb26-18"><a href="regressao-multipla.html#cb26-18" tabindex="-1"></a>         <span class="at">validos_prev_upper =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc_upper)</span>
+<span id="cb26-19"><a href="regressao-multipla.html#cb26-19" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="regressao-multipla.html#cb26-20" tabindex="-1"></a>tot_valido <span class="ot">&lt;-</span> <span class="fu">sum</span>(df_resultados_22_aux1<span class="sc">$</span>total_validos_1t)</span>
+<span id="cb26-21"><a href="regressao-multipla.html#cb26-21" tabindex="-1"></a>df_resultados_22_final <span class="sc">%&gt;%</span></span>
+<span id="cb26-22"><a href="regressao-multipla.html#cb26-22" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">perc_previsto =</span> <span class="fu">sum</span>(validos_prev,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido,</span>
+<span id="cb26-23"><a href="regressao-multipla.html#cb26-23" tabindex="-1"></a>            <span class="at">perc_previsto_lower =</span> <span class="fu">sum</span>(validos_prev_lower,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido,</span>
+<span id="cb26-24"><a href="regressao-multipla.html#cb26-24" tabindex="-1"></a>            <span class="at">perc_previsto_upper =</span> <span class="fu">sum</span>(validos_prev_upper,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   perc_previsto perc_previsto_lower perc_previsto_upper
 ##           &lt;dbl&gt;               &lt;dbl&gt;               &lt;dbl&gt;
 ## 1         0.481               0.442               0.521</code></pre>
+</div>
 </div>
 <div id="checagem-do-modelo" class="section level2 hasAnchor" number="12.12">
 <h2><span class="header-section-number">12.12</span> Checagem do modelo<a href="regressao-multipla.html#checagem-do-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>

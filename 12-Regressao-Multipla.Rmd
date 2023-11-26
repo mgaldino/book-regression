@@ -302,7 +302,60 @@ Algumas distrações
 ## Erro padrão Robusto
 
 Na presernça de heterocedasticidade ou correlação nos erros (como autocorrelação temporal ou autocorrelação espacial), precisamos corrigir o cálculo do erro padrão. Ao aplicar alguma correção no cálculo do erro padrão, chamamos de erro padrão robusto, para distringuir o erro padrão usual que o R solta.
- 
+
+Para utilizar erro padrão robusto, vamos usar principalmente o pacote "sandwich". Há vários tipos de erros padrão robustos, "HC0", "HC1", "HC2", "HC3", entre outros. Vamos falar rapidamente sobre cada uma deles. Antes disso, vamos comparar para nossa regressão como o erro padrão muda para cada um desses tipos.
+
+```{r robust-se, , results='asis'}
+library(sandwich)
+library(stargazer)
+library(lmtest)
+m2 <- coeftest(reg1, vcovHC(reg1, type = "HC0"))
+m3 <- coeftest(reg1, vcovHC(reg1, type = "HC1"))
+m4 <- coeftest(reg1, vcovHC(reg1, type = "HC2"))
+m5 <- coeftest(reg1, vcovHC(reg1, type = "HC3"))
+stargazer(reg1, 
+          m2,
+          m3,
+          m4,
+          m5, type = "html")
+
+# conf int
+library(knitr)
+coefci(reg1, vcov. = vcovHC(reg1, type = 'HC1')) %>%
+  kable()
+```
+
+### Entendendo o erro padrão robusto
+
+Vamos fazer uma simulação no R para entender os vários tipos de erro padrão robusto. Vamos criar um modelo com heterocedasticidade.
+
+```{r robust-se-sim, results='asis'}
+x <- rnorm(10)
+e <- rnorm(10, 0, x^2) # o DP do erro é igual a .5*x^2
+a <- 2
+b <- -2
+y <- a + b*x + e
+
+df <- data.frame(y=y, x=x)
+
+df %>%
+  ggplot(aes(y=y, x=x)) + geom_point() + geom_smooth(method="lm")
+
+m_sim <- lm(y ~ x, data=df)
+# plots de checagem do modelo
+library(easystats)
+check_model(m_sim)
+
+f2 <- coeftest(m_sim, vcovHC(m_sim, type = "HC0"))
+f3 <- coeftest(m_sim, vcovHC(m_sim, type = "HC1"))
+f4 <- coeftest(m_sim, vcovHC(m_sim, type = "HC2"))
+f5 <- coeftest(m_sim, vcovHC(m_sim, type = "HC3"))
+stargazer(m_sim, 
+          f2,
+          f3,
+          f4,
+          f5, type = "html")
+```
 
 ```{r dados-22 12, echo=TRUE, message=FALSE, cache=TRUE}
 # dados de 2022
