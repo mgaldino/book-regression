@@ -245,12 +245,18 @@ Vamos usar as seguintes propriedades da covariância nessa derivação.
 
 2. $\mathbb{Cov}[X,Y \cdot A] = A \cdot \mathbb{Cov}[X,Y]$.
 
-Nós sabemos que $\beta_1 = \frac{\mathbb{Cov}[X_1,Y]}{\mathbb{Var}[X_1]}$
+Em um modelo com um único preditor, teremos: 
+$Y = \alpha + \beta_1^* \cdot X_1 + \epsilon$
 
-Vamos substituir o $Y$ do modelo verdadeiro na equação do $\beta_1$.
+Designei o beta da equação com um preditor por $\beta_1^*$, para diferenciar do $\beta_1$ da verdadeira equação, com dois preditores.
 
-$$
-\beta_1 = \frac{\mathbb{Cov}[X_1,\alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + e]}{\mathbb{Var}[X_1]} = \\
+Nós sabemos que $\beta_1^* = \frac{\mathbb{Cov}[X_1,Y]}{\mathbb{Var}[X_1]}$
+
+Vamos substituir o $Y$ do modelo verdadeiro na equação do $\beta_1^*$.
+
+
+\begin{align*}
+\beta_1^* = \frac{\mathbb{Cov}[X_1,\alpha + \beta_1 \cdot X_1 + \beta_2 \cdot X_2 + e]}{\mathbb{Var}[X_1]} = \\
 \frac{\mathbb{Cov}[X_1,\beta_1 \cdot X_1] + \mathbb{Cov}[X_1, \beta_2 \cdot X_2] + \mathbb{Cov}[X_1, e]}{\mathbb{Var}[X_1]} = \\
 
  \frac{\beta_1 \cdot \mathbb{Cov}[X_1, X_1] + \beta_2 \cdot \mathbb{Cov}[X_1, X_2] + \mathbb{ Cov}[X_1,e]}{\mathbb{Var}[X_1]} = \\
@@ -259,14 +265,15 @@ $$
 
 \frac{\beta_1 \cdot \mathbb{Var}[X_1]}{\mathbb{Var}[X_1]} + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{\mathbb{Var}[X_1]} = \\
 
-\beta_1 + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{\mathbb{Var}[X_1]}
-$$
-$$
-\beta_1 = \beta_1 + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2]}{\mathbb{Var}[X_1]}
-$$
-Vemos que a inclinação $\beta_1$ inclui a contribuição direta de $X_1$ mais a contribuição indireta, via correlação, com $X_2$.
+\beta_1 + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2] + 0}{\mathbb{Var}[X_1]} = \\
 
-Portanto, se eu rodar uma regressão com um preditor quando o verdadeiro modelo tem dois preditores, o coeficiente de $\beta_1$ será uma média entre $\beta_1$ e $\beta_2$. Por outro lado, se eu rodar a regressão com o modelo correto com os dois preditores, consigo que $\beta_1$ reflita só a contribuição de $\beta_1$.
+\beta_1^* = \beta_1 + \frac{\beta_2 \cdot \mathbb{Cov}[X_1, X_2]}{\mathbb{Var}[X_1]}
+\end{align*}
+
+
+Vemos que a inclinação $\beta_1^*$ inclui a contribuição direta de $X_1$ via $\beta_1$ mais a contribuição indireta da correlação com $X_2$, via $\beta_2$.
+
+Portanto, se eu rodar uma regressão com um preditor quando o verdadeiro modelo tem dois preditores, o coeficiente de $\beta_1^*$ será uma média entre $\beta_1$ e $\beta_2$. Por outro lado, se eu rodar a regressão com o modelo correto com os dois preditores, consigo que $\beta_1^*$ reflita só a contribuição de $\beta_1$.
 
 Talvez você esteja se perguntando a essa altura: quem garante que o verdadeiro modelo possua só dois preditores? Isso é o que chamamos de viés de variável omitida. Se omitirmos da regressão uma variável $X_k$ correlacionada com $X_j$, $j \neq k$, então o coeficiente $\beta_j$ reflitirá também o efeito de $\beta_k$. 
 
