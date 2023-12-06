@@ -550,7 +550,97 @@ df_resultados_22_final %>%
 
 ```
 
+## Análise de sensibilidade causal
+
+Diante do problema de viés de variável omitida, podemos realizar análises de sensibilidade. Essa é uma área que em que houve bastante desenvolvimentos recentes. Apresento aqui dois dos principais testes disponíveis. O primeiro é o desenvolvido pela economia Emily Oster (2019).
+
+Quando falamos em identificação causal, é comum dividir as variáveis em observáveis (aquelas que podemos observar e mensurar e, portanto, incluir na regressão) e não-observáveis (aquelas que não conseguimos observar e, portanto, medir). O problema de variávem omitida é mais sério, obviamente, quando se trata de uma variável não-observável. Como sempre, vamos considerar que tenho um tratamento de interesse e as demais variáveis são apenas controle. O pressuposto dos testes é que consigo estimar de algum modo a relação entre tratamento e não-observáveis a partir da relação entre tratamento e observáveis.
+
+Oster vai tratar do seguinte caso simples. Imagine que a verdadeire regressão em um caso qualquer é dada pela seguinte equação: $Y = \alpha + \beta T + \varphi X + \omega Z + e$, em que $Y$ é a variável resposta, $T$ o tratamento, $\alpha$ e $\beta_$) parâmetros usuais, e $X$ um vetor de controles (observáveis) e $Z$ um vetor de variáveis não observáveis (omitidas). Vamos supor que $X$ e $Z$ são ortogonais (isto é, covariância zero), e $e$ o termo de erro.
+
+Suponha que a relação entre $T$ e $Z$ seja dada pelo DAG abaixo, em que $U$ é um termo de erro:
+
+```{r dadg 12}
+library(ggdag)
+dag <- dagify(Z ~ T,
+              Y ~ T + X + Z)
+ggdag(dag)
+```
+
+Se essa relação for linear, podemos escrevê-la como: $Z = \psi + \eta T + u$. Ao não incluirmos $Z$ na regressão, temos viés de variável omitida, pois nossa equação de regressão fica:
+\begin{align}
+Y = \alpha + \beta T +  \varphi X + \omega\psi + \omega\eta T + \omega u +  e \\
+Y = (\alpha + \omega\psi) + \beta T + \omega\eta T + \varphi X  + \omega u +  e \\
+Y = (\alpha + \omega\psi) + (\beta + \omega\eta) T + \varphi X  + \omega u +  e \\
+\end{align}
+
+$$
+Y = (\alpha + \omega\psi) + (\beta + \omega\eta) T + \varphi X  + \omega u +  e 
+$$
+Ou seja, estiamos $\beta_{bias} = \beta + \omega\eta$, que é uma estimativa viesada do $\beta$.
 
 
+E vamos assumir que $Var(W) >>> Var(C)$.
 
+## Alternativas
+Nós vimos que o viés de variável omitida (no caso de uma variável omitida), em uma amostra, pode ser explicitado por:
+$$
+\hat{\beta_1^*} = \hat{\beta_1} + \frac{\hat{\beta_2} \cdot \mathbb{Cov}[X_1, X_2]}{\mathbb{Var}[X_1]}
+$$
+Vamos reescrever essa equação do seguinte modo. Seja $\frac{\mathbb{Cov}[X_1, X_2]}{\mathbb{Var}[X_1]} = \hat{\gamma}$, então noss equação fica:
+$$
+\hat{\beta_1^*} = \hat{\beta_1} + \hat{\beta_2} \cdot \hat{\gamma}
+$$
+Em que $\hat{\beta_2}$ mede o "impacto" da variável omitida sobre Y. Ou seja, ela mede a diferença na esperança linear da resposta (diferença média) entre indivíduos que diferem em uma unidade na variável omitida e têm o mesmo status no tratamento, bem como o mesmo valor para todas as variáveis de controle restante. Digamos que estou interessado em estimar o efeito causal da experiência (variávle binária, experiente ou não experiente) sobre votação. Candidatas mais experientes devem ter mais votos, mas também maior visibilidade e reconhecimento, o que viesa a regressão (efeito da experiência). Suponha que controlei para arrecadação de campanha. Então, $\hat{\gamma}$ mede a diferença esperada (média) na votação entre pessoas experinetes (tratamento = 1) com uma mesma dada arrecadação de campanha, mas que difiram em uma unidade em visibilidade. 
+
+Já a Quantidade $\hat{\gamma}$ parece que mede o impacto de Z sobre o tratamento, mas na verdade ela é resultado da regressão reversa, isto é, $Z = \hat{alpha_1} + \hat{\gamma} T + \hat{\psi} X + \hat{u}$. Ou seja, mede a diferença média na variável de confusão entre indivíduos que diferem de uma unidade no tratamento. Em nosso exemplo, como candidatas experientes diferem em visibilidade, em média, de não experientes. Ainda em outras palavras, mede o "balanceamento" (condicional aos controles) entre indivíduos alocados pro tratamento e controle no que diz respeito à variável omitida.
+
+Essa formulação é útil para pensar sobre como o viés de variável omitida impacta nossas estimativas. Quanto maior o "imbalance", maior será $\hat{\gamma}$. Similarmente, quanto maior o impacto da variável omitida na resposta, maior $\hat{\beta_2}$. Por isso que é comum checar o imbalance nas variáveis de controle. Se ele é alto, pode significar alto viés das variáveis omitidas, se o imbalance delas for correlacionado com o imbalance das variáveis de controle.
+
+### Derivação do R-quadrado
+
+Será útil reescrever o viés de variável omitida em termos do R-quadrado. Então, vamos derivar o R-quadrado.
+Antes vamos definir algumas quantidades que serão úteis. Seja $T$ quanto o vetor de respostas $Y$ se desvia da média amostral $\bar{Y}$.
+$$
+T = Y - \bar{Y}
+$$
+E $T$ pode ser decomposto em duas partes. Primeiro, a porção do desvio em $T$ que é determinado pelo modelo de regressão, dada pelo vetor $\hat{M}$, definido como:
+$$
+\hat{M} = \hat{Y} - \bar{Y}
+$$
+
+E em segundo lugar, a proção do desvio em $T$ determinado pelos resíduos:
+$$
+\hat{e} = Y - \hat{Y}
+$$
+Portanto, $T = \hat{M} + \hat{e}$.
+Se nós somarmos o quadrado dessas três quantidades para toda a amostra, teremos:
+$$
+SST = \sum{(Y - \bar{Y})^2}
+$$
+
+Seja a Soma dos Quadrados do Resíduos (SQR), $\sum{\hat{e}^2} = \sum{(y_i - \hat{y}_i)^2}$ 
+
+E seja a Soma dos Quadados Totais (SQT) dada por: $\sum{(y_i - \bar{y})^2}$
+
+O $R^2$ pode ser definido como a proporção da variância de $Y$ predita pelas variáveis independentes relativa à variância total de $Y$. 
+
+A Soma dos Quadrados Prevista (SQP) pode ser definida como:  $\sum{(\hat{y}_i - \bar{y})^2}$, ou seja, a soma da diferença (a quadrado) entre a previsão e a média (modelo só com intercepto).
+
+https://rpubs.com/beane/n3_1b
+
+$$
+R^2 = SQP/SQT = \frac{\sum{(\hat{y}_i - \bar{y})^2}}{\sum{(y_i - \bar{y})^2}}
+$$
+
+Veja que $SQT = SQP + SQR$, pois
+$$
+\sum{(y_i - \bar{y})^2} = //
+\sum{(y_i - \bar{y} + \hat{y}_i - \hat{y}_i)^2} = //
+\sum{(\hat{y}_i - \bar{y} + y_i - \hat{y}_i)^2} = //
+\sum{[(\hat{y}_i - \bar{y}) + (y_i - \hat{y}_i)]^2} = //
+\sum{[(\hat{y}_i - \bar{y}) + (\hat{e}_i)]^2} = //
+\sum{(\hat{y}_i - \bar{y})^2} + 2 \sum{\hat{e}_i(\hat{y}_i - \bar{y})} + \sum{\hat{e}_i^2} = //
+\sum{(\hat{y}_i - \bar{y})^2} + \sum{\hat{e}_i^2} + 2 \sum{\hat{e}_i(X\hat{B} - \bar{y})}  = //
+$$
 ## Checagem do modelo
