@@ -609,14 +609,21 @@ $$
 \hat{M} = \hat{Y} - \bar{Y}
 $$
 
-E em segundo lugar, a proção do desvio em $T$ determinado pelos resíduos:
+E em segundo lugar, a porção do desvio em $T$ determinado pelos resíduos:
 $$
 \hat{e} = Y - \hat{Y}
 $$
 Portanto, $T = \hat{M} + \hat{e}$.
 Se nós somarmos o quadrado dessas três quantidades para toda a amostra, teremos:
 $$
-SST = \sum{(Y - \bar{Y})^2}
+SST = \sum{(y_i - \bar{y_i})^2} = (Y - \bar{Y})'(Y - \bar{Y})
+$$
+
+$$
+SSM = \sum{(\hat{y_i} - \bar{y})^2} = (\hat{Y} - \bar{Y})'(\hat{Y} - \bar{Y})
+$$
+$$
+SSE = \sum{\hat{e_i}^2} = \hat{e}'\hat{e}
 $$
 
 Seja a Soma dos Quadrados do Resíduos (SQR), $\sum{\hat{e}^2} = \sum{(y_i - \hat{y}_i)^2}$ 
