@@ -615,17 +615,46 @@ $$
 $$
 Portanto, $T = \hat{M} + \hat{e}$.
 Se nós somarmos o quadrado dessas três quantidades para toda a amostra, teremos:
+Soma dos Quadrados Totais (em inglês SST)
 $$
-SST = \sum{(y_i - \bar{y_i})^2} = (Y - \bar{Y})'(Y - \bar{Y})
-$$
-
-$$
-SSM = \sum{(\hat{y_i} - \bar{y})^2} = (\hat{Y} - \bar{Y})'(\hat{Y} - \bar{Y})
-$$
-$$
-SSE = \sum{\hat{e_i}^2} = \hat{e}'\hat{e}
+SST = \sum{(y_i - \bar{y_i})^2}
 $$
 
+Soma dos Quadrados Médios (SQM)
+$$
+SSM = \sum{(\hat{y_i} - \bar{y})^2}
+$$
+
+Soma dos Quadrados dos Resíduos (SSE)
+$$
+SSE = \sum{\hat{e_i}^2} 
+$$
+
+Vamos mostrar que, do memso jeito que $\hat{T} = \hat{M} + \hat{E}$, $SST = SSM + SSE$
+
+Lembremos que $\sum{\hat{e_i}} = 0$ e $\sum{\hat{e_i}\hat{y_i}} = 0$
+\begin{align}
+SST = \sum{(y_i - \bar{y_i})^2} = \\
+\sum{(\hat{e_i} + \hat{y_i} - \bar{y_i})^2} = \\
+\sum{(\hat{e_i} + (\hat{y_i} - \bar{y_i}))^2} = \\
+\sum{\hat{e_i}^2 + 2\hat{e_i}(\hat{y_i} - \bar{y_i}) + (\hat{y_i} - \bar{y_i})^2} = \\
+\sum{\hat{e_i}^2} + 2\sum{\hat{e_i}(\hat{y_i} - \bar{y_i})} + \sum{(\hat{y_i} - \bar{y_i})^2} = \\
+SSE + 2\sum{(\hat{e_i}\hat{y_i} - \hat{e_i}\bar{y_i})} + SSM = \\
+SSE + 2\sum{(\hat{e_i}\hat{y_i}} - 2\sum{\hat{e_i}\bar{y_i})} + SSM = \\
+SSE + 0 - 0 + SSM = \\
+SST = SSE + SSM = \\
+\end{align}
+
+A intuição dessas quantidades é que SST é uma medida da variação na resposta, $Y$ (é a variância sem dividir por $n$); SSM é uma medida dessa variação em $Y$ preditiva ou captada pela variação do modelo, e SSE a variação em $Y$ não capturada pelo modelo. Note também que se eu dividir ambos os lados da equação por $n$, tenho a variância do lado esquerdo, e não altero a igualdade da equação.
+
+E o $R^2$ é definido pela razão entre SSM e SST:
+$$
+R^2 = \frac{SSM}{SST} = Var(\hat{y})/Var(y)
+$$
+E pode ser escrito também como:
+$$
+R^2 = \frac{SSM}{SST} = \frac{SSM}{SSM + SSE} = \frac{\frac{SSM}{SSM}}{\frac{(SSM + SSE)}{SSM}} = \frac{1}{1 + \frac{SSE}{SSM}} = \frac{1}{1 + \frac{SST - SSM}{SSM}} = \frac{1}{1 + \frac{SST}{SSM} - 1} = \frac{1}{\frac{SST}{SSM}} = \frac{SSM}{SST} = 
+$$
 Seja a Soma dos Quadrados do Resíduos (SQR), $\sum{\hat{e}^2} = \sum{(y_i - \hat{y}_i)^2}$ 
 
 E seja a Soma dos Quadados Totais (SQT) dada por: $\sum{(y_i - \bar{y})^2}$
