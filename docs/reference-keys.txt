@@ -130,3 +130,7 @@ estimador-de-mqo
 regressão-múltipla-versus-múltiplas-regressões-separadas-ou-viés-de-variável-omitida
 matriz-chapéu
 entendendo-o-erro-padrão-robusto
+análise-de-sensibilidade-causal
+alternativas
+derivação-do-r-quadrado
+viés-de-variável-omitida-em-função-do-r-quadrado
