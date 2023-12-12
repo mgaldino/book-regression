@@ -552,50 +552,7 @@ df_resultados_22_final %>%
 
 ## Análise de sensibilidade causal
 
-Diante do problema de viés de variável omitida, podemos realizar análises de sensibilidade. Essa é uma área que em que houve bastante desenvolvimentos recentes. Apresento aqui dois dos principais testes disponíveis. O primeiro é o desenvolvido pela economia Emily Oster (2019).
-
-Quando falamos em identificação causal, é comum dividir as variáveis em observáveis (aquelas que podemos observar e mensurar e, portanto, incluir na regressão) e não-observáveis (aquelas que não conseguimos observar e, portanto, medir). O problema de variávem omitida é mais sério, obviamente, quando se trata de uma variável não-observável. Como sempre, vamos considerar que tenho um tratamento de interesse e as demais variáveis são apenas controle. O pressuposto dos testes é que consigo estimar de algum modo a relação entre tratamento e não-observáveis a partir da relação entre tratamento e observáveis.
-
-Oster vai tratar do seguinte caso simples. Imagine que a verdadeire regressão em um caso qualquer é dada pela seguinte equação: $Y = \alpha + \beta T + \varphi X + \omega Z + e$, em que $Y$ é a variável resposta, $T$ o tratamento, $\alpha$ e $\beta_$) parâmetros usuais, e $X$ um vetor de controles (observáveis) e $Z$ um vetor de variáveis não observáveis (omitidas). Vamos supor que $X$ e $Z$ são ortogonais (isto é, covariância zero), e $e$ o termo de erro.
-
-Suponha que a relação entre $T$ e $Z$ seja dada pelo DAG abaixo, em que $U$ é um termo de erro:
-
-```{r dadg 12}
-library(ggdag)
-dag <- dagify(Z ~ T,
-              Y ~ T + X + Z)
-ggdag(dag)
-```
-
-Se essa relação for linear, podemos escrevê-la como: $Z = \psi + \eta T + u$. Ao não incluirmos $Z$ na regressão, temos viés de variável omitida, pois nossa equação de regressão fica:
-\begin{align}
-Y = \alpha + \beta T +  \varphi X + \omega\psi + \omega\eta T + \omega u +  e \\
-Y = (\alpha + \omega\psi) + \beta T + \omega\eta T + \varphi X  + \omega u +  e \\
-Y = (\alpha + \omega\psi) + (\beta + \omega\eta) T + \varphi X  + \omega u +  e \\
-\end{align}
-
-$$
-Y = (\alpha + \omega\psi) + (\beta + \omega\eta) T + \varphi X  + \omega u +  e 
-$$
-Ou seja, estiamos $\beta_{bias} = \beta + \omega\eta$, que é uma estimativa viesada do $\beta$.
-
-
-E vamos assumir que $Var(W) >>> Var(C)$.
-
-## Alternativas
-Nós vimos que o viés de variável omitida (no caso de uma variável omitida), em uma amostra, pode ser explicitado por:
-$$
-\hat{\beta_1^*} = \hat{\beta_1} + \frac{\hat{\beta_2} \cdot \mathbb{Cov}[X_1, X_2]}{\mathbb{Var}[X_1]}
-$$
-Vamos reescrever essa equação do seguinte modo. Seja $\frac{\mathbb{Cov}[X_1, X_2]}{\mathbb{Var}[X_1]} = \hat{\gamma}$, então noss equação fica:
-$$
-\hat{\beta_1^*} = \hat{\beta_1} + \hat{\beta_2} \cdot \hat{\gamma}
-$$
-Em que $\hat{\beta_2}$ mede o "impacto" da variável omitida sobre Y. Ou seja, ela mede a diferença na esperança linear da resposta (diferença média) entre indivíduos que diferem em uma unidade na variável omitida e têm o mesmo status no tratamento, bem como o mesmo valor para todas as variáveis de controle restante. Digamos que estou interessado em estimar o efeito causal da experiência (variávle binária, experiente ou não experiente) sobre votação. Candidatas mais experientes devem ter mais votos, mas também maior visibilidade e reconhecimento, o que viesa a regressão (efeito da experiência). Suponha que controlei para arrecadação de campanha. Então, $\hat{\gamma}$ mede a diferença esperada (média) na votação entre pessoas experinetes (tratamento = 1) com uma mesma dada arrecadação de campanha, mas que difiram em uma unidade em visibilidade. 
-
-Já a Quantidade $\hat{\gamma}$ parece que mede o impacto de Z sobre o tratamento, mas na verdade ela é resultado da regressão reversa, isto é, $Z = \hat{alpha_1} + \hat{\gamma} T + \hat{\psi} X + \hat{u}$. Ou seja, mede a diferença média na variável de confusão entre indivíduos que diferem de uma unidade no tratamento. Em nosso exemplo, como candidatas experientes diferem em visibilidade, em média, de não experientes. Ainda em outras palavras, mede o "balanceamento" (condicional aos controles) entre indivíduos alocados pro tratamento e controle no que diz respeito à variável omitida.
-
-Essa formulação é útil para pensar sobre como o viés de variável omitida impacta nossas estimativas. Quanto maior o "imbalance", maior será $\hat{\gamma}$. Similarmente, quanto maior o impacto da variável omitida na resposta, maior $\hat{\beta_2}$. Por isso que é comum checar o imbalance nas variáveis de controle. Se ele é alto, pode significar alto viés das variáveis omitidas, se o imbalance delas for correlacionado com o imbalance das variáveis de controle.
+Diante do problema de viés de variável omitida, podemos realizar análises de sensibilidade. Essa é uma área que em que houve bastante desenvolvimentos recentes. Apresento aqui o trabalho do Cinelli e Hazlet (2019). Antes, porém, vamos revisar o R-quadrado e derivar algumas formas de definir essa quantidade.
 
 ### Derivação do R-quadrado
 
@@ -649,34 +606,117 @@ A intuição dessas quantidades é que SST é uma medida da variação na respos
 
 E o $R^2$ é definido pela razão entre SSM e SST:
 $$
-R^2 = \frac{SSM}{SST} = Var(\hat{y})/Var(y)
+R^2 = \frac{SSM}{SST} = \frac{Var(\hat{y})}{Var(y)}
 $$
-E pode ser escrito também como:
-$$
-R^2 = \frac{SSM}{SST} = \frac{SSM}{SSM + SSE} = \frac{\frac{SSM}{SSM}}{\frac{(SSM + SSE)}{SSM}} = \frac{1}{1 + \frac{SSE}{SSM}} = \frac{1}{1 + \frac{SST - SSM}{SSM}} = \frac{1}{1 + \frac{SST}{SSM} - 1} = \frac{1}{\frac{SST}{SSM}} = \frac{SSM}{SST} = 
-$$
-Seja a Soma dos Quadrados do Resíduos (SQR), $\sum{\hat{e}^2} = \sum{(y_i - \hat{y}_i)^2}$ 
-
-E seja a Soma dos Quadados Totais (SQT) dada por: $\sum{(y_i - \bar{y})^2}$
-
-O $R^2$ pode ser definido como a proporção da variância de $Y$ predita pelas variáveis independentes relativa à variância total de $Y$. 
-
-A Soma dos Quadrados Prevista (SQP) pode ser definida como:  $\sum{(\hat{y}_i - \bar{y})^2}$, ou seja, a soma da diferença (a quadrado) entre a previsão e a média (modelo só com intercepto).
-
-https://rpubs.com/beane/n3_1b
+O $R^2$ pode ser reescrito de várias maneiras. 
+Veja que $y = \hat{y} + \hat{e}$, logo, $\hat{y} = y - \hat{e}$. E note que $Cov(\hat{y}, \hat{e}) = 0$. Portanto, temos:
 
 $$
-R^2 = SQP/SQT = \frac{\sum{(\hat{y}_i - \bar{y})^2}}{\sum{(y_i - \bar{y})^2}}
+R^2 = \frac{Var(y - \hat{e})}{Var(y)} = 1 - \frac{Var(\hat{e})}{Var(y)} = 1 - \frac{Var(Y^{\perp X}))}{Var(y)}
+$$
+Ou seja, o R-quadrado é $1$ menos a variância em $Y$ não é predita por $X$, dividido pela variância de $Y$. Vamos mostrar agora que o R-quadrado pode ser também definido como a correlação (ao quadrado) entre $Y$ e $\hat{y}$.
+
+Primeiro, vamos mostrar que
+$$
+R^2 = \frac{Cov(Y, \hat{y})}{Var(y)}
 $$
 
-Veja que $SQT = SQP + SQR$, pois
 $$
-\sum{(y_i - \bar{y})^2} = //
-\sum{(y_i - \bar{y} + \hat{y}_i - \hat{y}_i)^2} = //
-\sum{(\hat{y}_i - \bar{y} + y_i - \hat{y}_i)^2} = //
-\sum{[(\hat{y}_i - \bar{y}) + (y_i - \hat{y}_i)]^2} = //
-\sum{[(\hat{y}_i - \bar{y}) + (\hat{e}_i)]^2} = //
-\sum{(\hat{y}_i - \bar{y})^2} + 2 \sum{\hat{e}_i(\hat{y}_i - \bar{y})} + \sum{\hat{e}_i^2} = //
-\sum{(\hat{y}_i - \bar{y})^2} + \sum{\hat{e}_i^2} + 2 \sum{\hat{e}_i(X\hat{B} - \bar{y})}  = //
+Cov(Y, \hat{y}) = Cov(\hat{y} + \hat{e}, \hat{y}) = Var(\hat{y}) + Cov(\hat{e}, \hat{y}) = Var(\hat{y}) 
 $$
-## Checagem do modelo
+E podemos mostrar que:
+$$
+Var(\hat{y}) = Var(\hat{\alpha} + \hat{\beta} X) = Var(\hat{\beta}X) = \hat{\beta}^2 Var( X)
+$$
+Portanto,
+$$
+R^2 = \frac{\hat{\beta}^2 Var(X)}{Var(y)}
+$$
+E a fórmula do $\hat{\beta} = Cov(X,Y)/Var(x)$. Logo:
+
+$$
+R^2 = \frac{ Cov(X,Y)^2 Var(X)}{Var(x)^2 Var(y)} = \frac{ Cov(X,Y)^2}{Var(x)Var(y)}
+$$
+Designando a variância de $x$ por $S_x^2$ e similarmente para $y$, temos:
+
+$$
+R^2 = \frac{ Cov(X,Y)^2}{S_x^2S_y^2} = \left(\frac{ Cov(X,Y)}{S_xS_y}\right)^2
+$$
+Vamos agora definir o R-quadrado parcial, para regressão múltiplas.
+
+Seja uma regressão completa (full) $y_i = \alpha + \beta_1 x_{1i} + \beta_2 x_{2i} + e_i$ e a regressão restrita, dada por: $y_i = \alpha + \beta_1 x_{1i}  + e_i$. O R-quadrado parcial é definido como:
+$$
+R^2_{partial} = \frac{SSE(reduced) - SSE(full)}{SSE(reduced)}
+$$
+Veja que posso definir o R-quadrado parcial a partir da regressão restria só com intercepto, sem preditor, e a regressão completa com um preditor. No modelo restrito, $\hat{y} = \bar{y}$, o que implica que $SSE(reduced) = SST$. Logo, temos:
+
+$$
+R^2_{partial} = \frac{SST - SSE(full)}{SST} = 1 - \frac{SSE}{SST}
+$$
+Que é nossa definição de R-quadrado em modelo de regressão simples.
+Então, o R-quadrado parcial me dá uma medida da proporção da variância predita pelo modelo completo que não pode ser predita pelo modelo simples.Ainda em outras palavras, o R quadrado parcial mede o poder preditivo adicional do modelo reduzido comparado ao completo. No caso de modelos com uma e duas variáveis, estou vendo o poder preditivo de adicionar uma variável ao modelo. Em termos de notação, podemos escrever o R-quadrado parcial do seguinte modo:
+
+$$
+R^2_{y \sim x1|x2} = 1 - \frac{Var(y^{\perp x_1, x_2})}{Var(y^{\perp x_1})} = \left(Cor(x_1^{\perp x_2}, y^{\perp x_2})\right)^2
+$$
+
+
+E agora podemos reescrever o viés de variável omitida em termos do R-quadrado parcial.
+
+### Viés de variável omitida
+Nós vimos que o viés de variável omitida, em uma amostra, pode ser explicitado por:
+$$
+\hat{\beta_1^*} = \hat{\beta_1} + \frac{\hat{\beta_2} \cdot \mathbb{Cov}[X_1, X_2]}{\mathbb{Var}[X_1]}
+$$
+Vamos reescrever essa equação do seguinte modo. Seja $\frac{\mathbb{Cov}[X_1, X_2]}{\mathbb{Var}[X_1]} = \hat{\gamma}$, então noss equação fica:
+$$
+\hat{\beta_1^*} = \hat{\beta_1} + \hat{\beta_2} \cdot \hat{\gamma}
+$$
+
+Em que $\hat{\beta_2}$ mede o "impacto" da variável omitida sobre Y. Ou seja, ela mede a diferença na esperança linear da resposta (diferença média) entre indivíduos que diferem em uma unidade na variável omitida e têm o mesmo status no tratamento, bem como o mesmo valor para todas as variáveis de controle restante. Digamos que estou interessado em estimar o efeito causal da experiência (variávle binária, experiente ou não experiente) sobre votação. Candidatas mais experientes devem ter mais votos, mas também maior visibilidade e reconhecimento, o que viesa a regressão (efeito da experiência). Suponha que controlei para arrecadação de campanha. Então, $\hat{\gamma}$ mede a diferença esperada (média) na votação entre pessoas experinetes (tratamento = 1) com uma mesma dada arrecadação de campanha, mas que difiram em uma unidade em visibilidade. 
+
+Já a Quantidade $\hat{\gamma}$ parece que mede o impacto de Z sobre o tratamento, mas na verdade ela é resultado da regressão reversa, isto é, $Z = \hat{\alpha_1} + \hat{\gamma} T + \hat{\psi} X + \hat{u}$. Ou seja, mede a diferença média na variável de confusão entre indivíduos que diferem de uma unidade no tratamento. Em nosso exemplo, como candidatas experientes diferem em visibilidade, em média, de não experientes. Ainda em outras palavras, mede o "balanceamento" (condicional aos controles) entre indivíduos alocados pro tratamento e controle no que diz respeito à variável omitida.
+
+Essa formulação é útil para pensar sobre como o viés de variável omitida impacta nossas estimativas. Quanto maior o "imbalance", maior será $\hat{\gamma}$. Similarmente, quanto maior o impacto da variável omitida na resposta, maior $\hat{\beta_2}$. Por isso que é comum checar o imbalance nas variáveis de controle. Se ele é alto, pode significar alto viés das variáveis omitidas, se o imbalance delas for correlacionado com o imbalance das variáveis de controle.
+
+Numa regressão mais completa, da forma, $y = \alpha + \delta T + \beta X + \beta_2 Z + e$, em que $T$ é o tratamento, $X$ controles e $Z$ a variável omitida, o viés pode ser reescrito como:
+$$
+\hat{<viés>} = \hat{\beta_2} \cdot \hat{\gamma}
+$$
+Em que $ hat{\gamma} = \frac{Cov(T^{\perp X},Z^{\perp X} )}{Var(T^{\perp X})}$
+
+### Viés de variável omitida em função do R-quadrado
+
+$$
+\hat{<viés>} = \sqrt{\frac{R^2_{y\sim Z|T,X} R^2_{D \sim Z|X}}{1 - R^2_{D \sim Z|X}}} \cdot \frac{sd(Y^{\perp X,T})}{sd(T^{\perp X})}
+$$
+O que essa equação nos mostra é que o viés depende de quanto a variável omitida explica o tratamento e quanto o tratamento é explicado pela variável omitida. O que é bastante intuitivo. E para entender melhor essa equação, vale falar o viés de relativo, definido como a razão entre o viés estimado e o coeifciente do tratamento estimado.
+
+$$
+Viés relatrivo = \frac{\hat{<viés>}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim Z|T,X},  R^2_{D \sim Z|X)})}{t_-do_-tratamento \cdot \sqrt(df)}
+$$
+
+a parcela da variável resposta que o tratamento explica (medida pelo R-quadrado parcial do tratamento) dá uma medida da robustez da regressão à potenciais vieses de variável omitida. Uma intuição simples é que se o tratamento explicar 100% da variação, então não há, por definição, viés de variável omitida. Se explicar 95%, há muito pouco que um viés de variável omitida pode viesar as estimativas.
+
+```{r analise sensibilidade, echo=TRUE, message=FALSE}
+library(sensemakr)
+
+# loads dataset
+data("darfur")
+
+# runs regression model
+model <- lm(peacefactor ~ directlyharmed + age + farmer_dar + herder_dar +
+                         pastvoted + hhsize_darfur + female + village, data = darfur)
+
+summary(model)
+# runs sensemakr for sensitivity analysis
+sensitivity <- sensemakr(model = model, 
+                         treatment = "directlyharmed",
+                         benchmark_covariates = "female",
+                         kd = 1:3)
+
+# short description of results
+sensitivity
+
+summary(sensitivity)
+```
