@@ -587,7 +587,7 @@ $$
 SSE = \sum{\hat{e_i}^2} 
 $$
 
-Vamos mostrar que, do memso jeito que $\hat{T} = \hat{M} + \hat{E}$, $SST = SSM + SSE$
+Vamos mostrar que, do mesmo jeito que $\hat{T} = \hat{M} + \hat{E}$, $SST = SSM + SSE$
 
 Lembremos que $\sum{\hat{e_i}} = 0$ e $\sum{\hat{e_i}\hat{y_i}} = 0$
 \begin{align}
@@ -609,6 +609,8 @@ $$
 R^2 = \frac{SSM}{SST} = \frac{Var(\hat{y})}{Var(y)}
 $$
 O $R^2$ pode ser reescrito de várias maneiras. 
+
+
 Veja que $y = \hat{y} + \hat{e}$, logo, $\hat{y} = y - \hat{e}$. E note que $Cov(\hat{y}, \hat{e}) = 0$. Portanto, temos:
 
 $$
@@ -654,13 +656,81 @@ $$
 R^2_{partial} = \frac{SST - SSE(full)}{SST} = 1 - \frac{SSE}{SST}
 $$
 Que é nossa definição de R-quadrado em modelo de regressão simples.
+
 Então, o R-quadrado parcial me dá uma medida da proporção da variância predita pelo modelo completo que não pode ser predita pelo modelo simples.Ainda em outras palavras, o R quadrado parcial mede o poder preditivo adicional do modelo reduzido comparado ao completo. No caso de modelos com uma e duas variáveis, estou vendo o poder preditivo de adicionar uma variável ao modelo. Em termos de notação, podemos escrever o R-quadrado parcial do seguinte modo:
 
 $$
 R^2_{y \sim x1|x2} = 1 - \frac{Var(y^{\perp x_1, x_2})}{Var(y^{\perp x_1})} = \left(Cor(x_1^{\perp x_2}, y^{\perp x_2})\right)^2
 $$
 
+```{r r-quadrado-parcial, echo=TRUE, message=FALSE}
+library(here)
+library(data.table)
+library(tidyverse)
+library(sjlabelled) # pra remover labelled variables
+library(haven)
+library(janitor)
+library(lubridate)
 
+## dados
+# https://www.latinobarometro.org/latContents.jsp
+
+lat_bar23 <- sjlabelled::read_spss(here("Dados", "Latinobarometro_2023_Eng_Spss_v1_0.sav"),
+                               drop.labels = TRUE) %>%
+  mutate(S17 = as.Date(as.character(S17), "%Y%m%d")) %>%
+  clean_names()
+
+# get_label(lat_bar23)
+
+lat_bar23 <- lat_bar23 %>%
+  mutate(data_base = as.Date(paste(diareal, mesreal, "2023", sep="-"), "%d-%m-%Y"),
+         idade = year(as.period(interval(s17,data_base))),
+         econ_12_meses = ifelse(p6stgbs %in% c(1,2), "better", 
+                                ifelse(p6stgbs == 8, NA, "other")),
+         econ_12_meses = relevel(as.factor(econ_12_meses), ref = "other"),
+         aprovacao_presidente = ifelse(p15stgbs == 0, NA, p15stgbs),
+         ideologia = ifelse(p16st %in% c(97, 98, 99), NA, p16st),
+         votaria_governo = ifelse(perpart == 4, NA,
+                                  ifelse(perpart == 1, 1, 0)),
+         genero = factor(sexo, labels = c("homem", "mulher")),
+         evangelico = ifelse(s1 %in% c(0,98), NA,
+                             ifelse(s1 %in% c(2,3,4,5), 1, 0))) # não considera adventista, testemunha Jeová, Mórmon
+br_latbar_23 <- lat_bar23 %>%
+  mutate(idenpa = remove_all_labels(idenpa)) %>% # haven_labelled problems
+  filter(idenpa == 76) %>% ## seelciona brasil
+  filter(!is.na(votaria_governo) & !is.na(evangelico) & !is.na(ideologia) & !is.na(econ_12_meses))
+
+glimpse(br_latbar_23)
+
+reg_full <- lm(votaria_governo ~ ideologia + idade + genero + econ_12_meses + evangelico, data=br_latbar_23 )
+summary(reg_full)
+residuos_full <- resid(reg_full)
+
+reg_res_evan <- lm(votaria_governo ~ ideologia + idade + genero + econ_12_meses, data=br_latbar_23 )
+summary(reg_res_evan)
+residuos_res_evan <- resid(reg_res_evan)
+
+partial_R2_evangelico <- (sum(residuos_res_evan^2) - sum(residuos_full^2))/sum(residuos_res_evan^2)
+print(partial_R2_evangelico)
+
+# alternative
+partial_R2_evangelico_alt <-  1 - var(resid(reg_full))/var(resid(reg_res_evan))
+print(partial_R2_evangelico_alt)
+
+# another alternative
+reg_evan <- lm(evangelico ~ ideologia + idade + genero + econ_12_meses , data=br_latbar_23)
+
+partial_R2_evangelico_alt1 <- cor(resid(reg_evan), resid(reg_res_evan))^2
+print(partial_R2_evangelico_alt1)
+
+ ## Cohen partial f2
+r_squared_full <- summary(reg_full)$r.squared
+r_squared_res <- summary(reg_res_evan)$r.squared
+
+partial_f2 <- (r_squared_full - r_squared_res)/(1-r_squared_full)
+print(partial_f2)
+
+```
 E agora podemos reescrever o viés de variável omitida em termos do R-quadrado parcial.
 
 ### Viés de variável omitida
@@ -688,8 +758,47 @@ Em que $ hat{\gamma} = \frac{Cov(T^{\perp X},Z^{\perp X} )}{Var(T^{\perp X})}$
 ### Viés de variável omitida em função do R-quadrado
 
 $$
-\hat{<viés>} = \sqrt{\frac{R^2_{y\sim Z|T,X} R^2_{D \sim Z|X}}{1 - R^2_{D \sim Z|X}}} \cdot \frac{sd(Y^{\perp X,T})}{sd(T^{\perp X})}
+\hat{<viés>} = \sqrt{\frac{R^2_{y\sim Z|T,X} R^2_{T \sim Z|X}}{1 - R^2_{T \sim Z|X}}} \cdot \frac{sd(Y^{\perp X,T})}{sd(T^{\perp X})}
 $$
+
+Vamos olhar cada componente dessa parametrização do viés:
+
+1. $R^2_{y\sim Z|T,X}$ é o R-quadrado parcial de $Z$ com relação à variável resposta $y$ controlando para $T$, o tratamento, e $X$ os controles. Ou seja, quanto $Z$ contribui para explicar a variação em $Y$, após descontar a explicação de $X$ e $T$.
+
+2. $R^2_{T \sim Z|X}$ é o R-quadrado parcial de $Z$ com relação à variável dependente $T$, o tratamento. Ou seja, quanto a variável omitida explica do tratamento, após descontar a explicação na variância dos controles.
+
+3. $1 - R^2_{T \sim Z|X}$ é o complemento do R-quadrado parcial de Z sobre T, após controlar para $X$. Representa a variância não-explicada em $T$ por $Z$ após descontar a influência de $X$.
+
+E os demais termos são os desvios-padrões dos resíduos da regressão restrita, sem a variável não-observada $Z$ e da regressão do tratamento em função dos controles. Em nosso exemplo, nós observamos a variável regilião evangélica, mas vamos supor que não e calcular o viés de variável omitida pela fórmula tradicional e em função do R-quadrado.
+
+```{r vies r-squared, echo=TRUE, message=FALSE}
+
+###
+# tratamento é ideologia.
+# omitida é religião
+
+beta2 <- coef(reg_full)[6]
+cov_x1x2 <- cov(br_latbar_23$ideologia, br_latbar_23$evangelico)
+var_x1 <- var(br_latbar_23$ideologia)
+vies <- beta2*cov_x1x2/var_x1
+print(vies)
+
+coef_res_sem_vies = coef(reg_res)[2] - vies
+all.equal(coef_res_sem_vies, coef(reg_full)[2])
+coef_res_sem_vies - coef(reg_full)[2]
+
+# alternativa com mais controles
+library(sensemakr)
+
+reg_trat_omitida <- lm(ideologia ~ evangelico + ideologia + idade + genero + econ_12_meses, data = br_latbar_23 )
+r2_parcial_z_y <- partial_r2(reg_full, covariates = "evangelico")
+r2_parcial_z_y <- partial_r2(reg_trat_omitida, covariates = "evangelico")
+reg_aux <- lm(ideologia ~ idade + genero + econ_12_meses, data=br_latbar_23 )
+sd_y_parcial <- sd(resid(reg_res))
+sd_t_parcial <- sd(resid(reg_aux))
+vies_alt <- sqrt(r2_parcial_z_y*r2_parcial_z_y/(1 - r2_parcial_z_y))*(sd_y_parcial/sd_t_parcial)
+print(vies_alt)
+```
 O que essa equação nos mostra é que o viés depende de quanto a variável omitida explica o tratamento e quanto o tratamento é explicado pela variável omitida. O que é bastante intuitivo. E para entender melhor essa equação, vale falar o viés de relativo, definido como a razão entre o viés estimado e o coeifciente do tratamento estimado.
 
 $$
