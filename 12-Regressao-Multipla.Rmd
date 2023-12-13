@@ -769,7 +769,7 @@ Vamos olhar cada componente dessa parametrização do viés:
 
 3. $1 - R^2_{T \sim Z|X}$ é o complemento do R-quadrado parcial de Z sobre T, após controlar para $X$. Representa a variância não-explicada em $T$ por $Z$ após descontar a influência de $X$.
 
-E os demais termos são os desvios-padrões dos resíduos da regressão restrita, sem a variável não-observada $Z$ e da regressão do tratamento em função dos controles. Em nosso exemplo, nós observamos a variável regilião evangélica, mas vamos supor que não e calcular o viés de variável omitida pela fórmula tradicional e em função do R-quadrado.
+E os demais termos são os desvios-padrões dos resíduos da regressão restrita, sem a variável não-observada $Z$ e da regressão do tratamento em função dos controles. Em nosso exemplo, nós observamos a variável regilião evangélica, mas vamos supor que não é calcular o viés de variável omitida pela fórmula tradicional.
 
 ```{r vies r-squared, echo=TRUE, message=FALSE}
 
@@ -787,17 +787,6 @@ coef_res_sem_vies = coef(reg_res)[2] - vies
 all.equal(coef_res_sem_vies, coef(reg_full)[2])
 coef_res_sem_vies - coef(reg_full)[2]
 
-# alternativa com mais controles
-library(sensemakr)
-
-reg_trat_omitida <- lm(ideologia ~ evangelico + ideologia + idade + genero + econ_12_meses, data = br_latbar_23 )
-r2_parcial_z_y <- partial_r2(reg_full, covariates = "evangelico")
-r2_parcial_z_y <- partial_r2(reg_trat_omitida, covariates = "evangelico")
-reg_aux <- lm(ideologia ~ idade + genero + econ_12_meses, data=br_latbar_23 )
-sd_y_parcial <- sd(resid(reg_res))
-sd_t_parcial <- sd(resid(reg_aux))
-vies_alt <- sqrt(r2_parcial_z_y*r2_parcial_z_y/(1 - r2_parcial_z_y))*(sd_y_parcial/sd_t_parcial)
-print(vies_alt)
 ```
 O que essa equação nos mostra é que o viés depende de quanto a variável omitida explica o tratamento e quanto o tratamento é explicado pela variável omitida. O que é bastante intuitivo. E para entender melhor essa equação, vale falar o viés de relativo, definido como a razão entre o viés estimado e o coeifciente do tratamento estimado.
 
