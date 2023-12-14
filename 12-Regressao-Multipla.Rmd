@@ -783,7 +783,7 @@ var_x1 <- var(br_latbar_23$ideologia)
 vies <- beta2*cov_x1x2/var_x1
 print(vies)
 
-coef_res_sem_vies = coef(reg_res)[2] - vies
+coef_res_sem_vies = coef(reg_res_evan)[2] - vies
 all.equal(coef_res_sem_vies, coef(reg_full)[2])
 coef_res_sem_vies - coef(reg_full)[2]
 

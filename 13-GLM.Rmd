@@ -20,8 +20,67 @@ VD Categórica
 
 ## PLM
 
-A intuição
+Até o momento, variáveis respostas categóricas binárias foram modeladas com regressão linear. 
+
+$$
+y_i \sim N(\alpha + \beta x_i, \sigma^2)
+$$
+
+Nessa parametrização do modelo de regressão, vemos que a resposta é modelada como uma variável Gaussiana, e portanto, é uma variável contínua (em vez de binária), além disso, não está limitada, possuindo suporte entre $-\infty$ e $+\infty$. Esses modelos são chamados também de modelos de probabilidade linear (MPL, ou LPM na sigla em inglês). A introdução dos modelos de regres~sao logística e probit deixam claro porque são chamados desse modo, de forma que faz sentido apresentarmos o que é a regressão logística e probit, antes de voltarmos À discussão da adequação ou inadequação do MPL.
 
 ## Logística e Probit
 
+Há várias formas de apresentar e/ou justificar a regressão logística. Qual delas você irá usar para pensar esse tipo de modelo depende do seu problema de pesquisa e das suas preferências sobre o que funciona melhor para você.
 
+### Logística como melhoria em relação ao MPL
+
+Como nós vimos, o problema da regressão linear para dados binários é que considera que a variável resposta possui distribuição Gaussiana. Faz muito mais sentido modelar dados binários como seguindo uma distribuição de Bernoulli, com parÂmetro $p_i$. Poderíamos portanto tentar reescrever um modelo para $y$ binário da seguinte forma:
+
+$$
+y_i \sim Ber(p_i)
+$$
+Em que $p_i$ é a probabilidade de sucesso para a unidade $1$. Dessa forma, contudo, não incluí nenhum preditor para estimar o $p_i$, e gostaríamos de fazê-lo. Posso então escrever algo como:
+$$
+p_i(x_i) = \alpha + \beta x_i
+$$
+
+O problema dessa formulação é que probabilidades devem estar entre $0$ e $1$, e nada garante que $\alpha + \beta x_i$ seja um número entre $0$ e $1$. Então, uma saída é tentar achar uma função $f$ que transforme $\alpha + \beta x_i$ em números entre $0$ e $1$, ou seja, $0 \le  f(\alpha + \beta x_i) \le 1$. E uma função que tem essa propriedade é a logística padrão (também chamada de sigmóide), dada por: 
+$$
+f(x) = \frac{1}{1 + \exp(-x)}
+$$
+Então, nossa relação entre a probabilidade e os preditores fica:
+$$
+p_i = \frac{1}{1 + \exp(-(\alpha + \beta x_i))}
+$$
+Conectando com nossa variável resposta, temos:
+
+$$
+y_i \sim Ber(\frac{1}{1 + \exp(-(\alpha + \beta x_i))})
+$$
+Às vezes a logística é designada como a função inversa da logito, em que a logito é dada por:
+$$
+logito(p) = log(\frac{p}{1-p})
+$$
+## Probabilidade e chance
+
+Se eu jogo uma moeda e observo 4 caras de um total de 9 lançamentos. Isso significa que observei cara $44,44\%$ das vezes e podemos pensar isso como uma probabilidade de observar cara. Outra forma de dizer a mesma coisa é notar que observamos $4$ caras e $5$ coroas. E podemos falar na razão $4/5$, ou seja, o número de caras para o número de não-caras (que nesse caso é igual ao de coroas) que chamamos de chance. Ou seja, esperamos que para cada 4 caras observemos 5 coroas. A razão pode ser dada como fração, então $0,8$. E podemos converter as chances em probabilidades e vice-versa de maneira relativamente fácil (mas não muito intuitiva).
+
+$$
+probabilidade = \frac{chance}{1+chance}
+$$
+E 
+$$
+chance = \frac{probabilidade}{1- probabilidade}
+$$
+Notem que a definição de chance em termos de probabilidade é o que está na equação da logito. Isso sugere que podemos transformar a logito na logística e a logística na logito.
+
+$$
+f(x) = \frac{1}{1 + \exp(-x)} = \frac{\exp(x)}{1 + \exp(x)}
+$$
+Se eu passar o logaritmo (de base $exp$) em ambos os lados, temos:
+$$
+log(f(x)) =log(\frac{1 + \exp(-x)}{\exp(-x)}) = 1 - 1 - exp(-x)
+$$
+### Logística como variável latente
+
+## Logística como GLM

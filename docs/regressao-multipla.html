@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-12-13" />
+<meta name="date" content="2023-12-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -3603,46 +3603,47 @@ Em que $ hat{} = $</p>
 <div id="viés-de-variável-omitida-em-função-do-r-quadrado" class="section level3 hasAnchor" number="12.9.3">
 <h3><span class="header-section-number">12.9.3</span> Viés de variável omitida em função do R-quadrado<a href="regressao-multipla.html#viés-de-variável-omitida-em-função-do-r-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="math display">\[
-\hat{&lt;viés&gt;} = \sqrt{\frac{R^2_{y\sim Z|T,X} R^2_{D \sim Z|X}}{1 - R^2_{T \sim Z|X}}} \cdot \frac{sd(Y^{\perp X,T})}{sd(T^{\perp X})}
+\hat{&lt;viés&gt;} = \sqrt{\frac{R^2_{y\sim Z|T,X} R^2_{T \sim Z|X}}{1 - R^2_{T \sim Z|X}}} \cdot \frac{sd(Y^{\perp X,T})}{sd(T^{\perp X})}
 \]</span></p>
 <p>Vamos olhar cada componente dessa parametrização do viés:</p>
 <ol style="list-style-type: decimal">
 <li><p><span class="math inline">\(R^2_{y\sim Z|T,X}\)</span> é o R-quadrado parcial de <span class="math inline">\(Z\)</span> com relação à variável resposta <span class="math inline">\(y\)</span> controlando para <span class="math inline">\(T\)</span>, o tratamento, e <span class="math inline">\(X\)</span> os controles. Ou seja, quanto <span class="math inline">\(Z\)</span> contribui para explicar a variação em <span class="math inline">\(Y\)</span>, após descontar a explicação de <span class="math inline">\(X\)</span> e <span class="math inline">\(T\)</span>.</p></li>
 <li><p><span class="math inline">\(R^2_{T \sim Z|X}\)</span> é o R-quadrado parcial de <span class="math inline">\(Z\)</span> com relação à variável dependente <span class="math inline">\(T\)</span>, o tratamento. Ou seja, quanto a variável omitida explica do tratamento, após descontar a explicação na variância dos controles.</p></li>
-<li><p><span class="math inline">\(1 - R^2_{T \sim Z|X}}\)</span> é o complemento do R-quadrado parcial de Z sobre T, após controlar para <span class="math inline">\(X\)</span>. Representa a variância não-explicada em <span class="math inline">\(T\)</span> por <span class="math inline">\(Z\)</span> após descontar a influência de <span class="math inline">\(X\)</span>.</p></li>
+<li><p><span class="math inline">\(1 - R^2_{T \sim Z|X}\)</span> é o complemento do R-quadrado parcial de Z sobre T, após controlar para <span class="math inline">\(X\)</span>. Representa a variância não-explicada em <span class="math inline">\(T\)</span> por <span class="math inline">\(Z\)</span> após descontar a influência de <span class="math inline">\(X\)</span>.</p></li>
 </ol>
-<p>E os demais termos são os desvios-padrões dos resíduos da regressão restrita, sem a variável não-observada <span class="math inline">\(Z\)</span> e da regressão do tratamento em função dos controles. Em nosso exemplo, nós observamos a variável regilião evangélica, mas vamos supor que não e calcular o viés de variável omitida pela fórmula tradicional e em função do R-quadrado.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="regressao-multipla.html#cb64-1" tabindex="-1"></a>reg_full <span class="ot">&lt;-</span>  <span class="fu">lm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> evangelico, <span class="at">data=</span>br_latbar_23 )</span>
-<span id="cb64-2"><a href="regressao-multipla.html#cb64-2" tabindex="-1"></a>reg_res <span class="ot">&lt;-</span>  <span class="fu">lm</span>(votaria_governo <span class="sc">~</span> ideologia, <span class="at">data=</span>br_latbar_23 )</span>
-<span id="cb64-3"><a href="regressao-multipla.html#cb64-3" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="fu">coef</span>(reg_full)[<span class="dv">3</span>]</span>
-<span id="cb64-4"><a href="regressao-multipla.html#cb64-4" tabindex="-1"></a>cov_x1x2 <span class="ot">&lt;-</span> <span class="fu">cov</span>(br_latbar_23<span class="sc">$</span>ideologia, br_latbar_23<span class="sc">$</span>evangelico)</span>
-<span id="cb64-5"><a href="regressao-multipla.html#cb64-5" tabindex="-1"></a>var_x1 <span class="ot">&lt;-</span> <span class="fu">var</span>(br_latbar_23<span class="sc">$</span>ideologia)</span>
-<span id="cb64-6"><a href="regressao-multipla.html#cb64-6" tabindex="-1"></a>vies <span class="ot">&lt;-</span> beta2<span class="sc">*</span>cov_x1x2<span class="sc">/</span>var_x1</span>
-<span id="cb64-7"><a href="regressao-multipla.html#cb64-7" tabindex="-1"></a><span class="fu">print</span>(vies)</span></code></pre></div>
+<p>E os demais termos são os desvios-padrões dos resíduos da regressão restrita, sem a variável não-observada <span class="math inline">\(Z\)</span> e da regressão do tratamento em função dos controles. Em nosso exemplo, nós observamos a variável regilião evangélica, mas vamos supor que não é calcular o viés de variável omitida pela fórmula tradicional.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="regressao-multipla.html#cb64-1" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb64-2"><a href="regressao-multipla.html#cb64-2" tabindex="-1"></a><span class="co"># tratamento é ideologia.</span></span>
+<span id="cb64-3"><a href="regressao-multipla.html#cb64-3" tabindex="-1"></a><span class="co"># omitida é religião</span></span>
+<span id="cb64-4"><a href="regressao-multipla.html#cb64-4" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="regressao-multipla.html#cb64-5" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="fu">coef</span>(reg_full)[<span class="dv">6</span>]</span>
+<span id="cb64-6"><a href="regressao-multipla.html#cb64-6" tabindex="-1"></a>cov_x1x2 <span class="ot">&lt;-</span> <span class="fu">cov</span>(br_latbar_23<span class="sc">$</span>ideologia, br_latbar_23<span class="sc">$</span>evangelico)</span>
+<span id="cb64-7"><a href="regressao-multipla.html#cb64-7" tabindex="-1"></a>var_x1 <span class="ot">&lt;-</span> <span class="fu">var</span>(br_latbar_23<span class="sc">$</span>ideologia)</span>
+<span id="cb64-8"><a href="regressao-multipla.html#cb64-8" tabindex="-1"></a>vies <span class="ot">&lt;-</span> beta2<span class="sc">*</span>cov_x1x2<span class="sc">/</span>var_x1</span>
+<span id="cb64-9"><a href="regressao-multipla.html#cb64-9" tabindex="-1"></a><span class="fu">print</span>(vies)</span></code></pre></div>
 <pre><code>##   evangelico 
-## -0.002494342</code></pre>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="regressao-multipla.html#cb66-1" tabindex="-1"></a>coef_res_sem_vies <span class="ot">=</span> <span class="fu">coef</span>(reg_res)[<span class="dv">2</span>] <span class="sc">-</span> vies</span>
+## -0.002231453</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="regressao-multipla.html#cb66-1" tabindex="-1"></a>coef_res_sem_vies <span class="ot">=</span> <span class="fu">coef</span>(reg_res_evan)[<span class="dv">2</span>] <span class="sc">-</span> vies</span>
 <span id="cb66-2"><a href="regressao-multipla.html#cb66-2" tabindex="-1"></a><span class="fu">all.equal</span>(coef_res_sem_vies, <span class="fu">coef</span>(reg_full)[<span class="dv">2</span>])</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
+<pre><code>## [1] &quot;Mean relative difference: 0.00958272&quot;</code></pre>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="regressao-multipla.html#cb68-1" tabindex="-1"></a>coef_res_sem_vies <span class="sc">-</span> <span class="fu">coef</span>(reg_full)[<span class="dv">2</span>]</span></code></pre></div>
-<pre><code>## ideologia 
-##         0</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="regressao-multipla.html#cb70-1" tabindex="-1"></a><span class="co"># alternativa</span></span></code></pre></div>
+<pre><code>##    ideologia 
+## 0.0003489015</code></pre>
 <p>O que essa equação nos mostra é que o viés depende de quanto a variável omitida explica o tratamento e quanto o tratamento é explicado pela variável omitida. O que é bastante intuitivo. E para entender melhor essa equação, vale falar o viés de relativo, definido como a razão entre o viés estimado e o coeifciente do tratamento estimado.</p>
 <p><span class="math display">\[
 Viés relatrivo = \frac{\hat{&lt;viés&gt;}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim Z|T,X},  R^2_{D \sim Z|X)})}{t_-do_-tratamento \cdot \sqrt(df)}
 \]</span></p>
 <p>a parcela da variável resposta que o tratamento explica (medida pelo R-quadrado parcial do tratamento) dá uma medida da robustez da regressão à potenciais vieses de variável omitida. Uma intuição simples é que se o tratamento explicar 100% da variação, então não há, por definição, viés de variável omitida. Se explicar 95%, há muito pouco que um viés de variável omitida pode viesar as estimativas.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="regressao-multipla.html#cb71-1" tabindex="-1"></a><span class="fu">library</span>(sensemakr)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="regressao-multipla.html#cb70-1" tabindex="-1"></a><span class="fu">library</span>(sensemakr)</span></code></pre></div>
 <pre><code>## Warning: package &#39;sensemakr&#39; was built under R version 4.3.2</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="regressao-multipla.html#cb73-1" tabindex="-1"></a><span class="co"># loads dataset</span></span>
-<span id="cb73-2"><a href="regressao-multipla.html#cb73-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;darfur&quot;</span>)</span>
-<span id="cb73-3"><a href="regressao-multipla.html#cb73-3" tabindex="-1"></a></span>
-<span id="cb73-4"><a href="regressao-multipla.html#cb73-4" tabindex="-1"></a><span class="co"># runs regression model</span></span>
-<span id="cb73-5"><a href="regressao-multipla.html#cb73-5" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(peacefactor <span class="sc">~</span> directlyharmed <span class="sc">+</span> age <span class="sc">+</span> farmer_dar <span class="sc">+</span> herder_dar <span class="sc">+</span></span>
-<span id="cb73-6"><a href="regressao-multipla.html#cb73-6" tabindex="-1"></a>                         pastvoted <span class="sc">+</span> hhsize_darfur <span class="sc">+</span> female <span class="sc">+</span> village, <span class="at">data =</span> darfur)</span>
-<span id="cb73-7"><a href="regressao-multipla.html#cb73-7" tabindex="-1"></a></span>
-<span id="cb73-8"><a href="regressao-multipla.html#cb73-8" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="regressao-multipla.html#cb72-1" tabindex="-1"></a><span class="co"># loads dataset</span></span>
+<span id="cb72-2"><a href="regressao-multipla.html#cb72-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;darfur&quot;</span>)</span>
+<span id="cb72-3"><a href="regressao-multipla.html#cb72-3" tabindex="-1"></a></span>
+<span id="cb72-4"><a href="regressao-multipla.html#cb72-4" tabindex="-1"></a><span class="co"># runs regression model</span></span>
+<span id="cb72-5"><a href="regressao-multipla.html#cb72-5" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(peacefactor <span class="sc">~</span> directlyharmed <span class="sc">+</span> age <span class="sc">+</span> farmer_dar <span class="sc">+</span> herder_dar <span class="sc">+</span></span>
+<span id="cb72-6"><a href="regressao-multipla.html#cb72-6" tabindex="-1"></a>                         pastvoted <span class="sc">+</span> hhsize_darfur <span class="sc">+</span> female <span class="sc">+</span> village, <span class="at">data =</span> darfur)</span>
+<span id="cb72-7"><a href="regressao-multipla.html#cb72-7" tabindex="-1"></a></span>
+<span id="cb72-8"><a href="regressao-multipla.html#cb72-8" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = peacefactor ~ directlyharmed + age + farmer_dar + 
@@ -4154,14 +4155,14 @@ Viés relatrivo = \frac{\hat{&lt;viés&gt;}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim
 ## Residual standard error: 0.3102 on 783 degrees of freedom
 ## Multiple R-squared:  0.5115, Adjusted R-squared:  0.2046 
 ## F-statistic: 1.667 on 492 and 783 DF,  p-value: 9.367e-11</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="regressao-multipla.html#cb75-1" tabindex="-1"></a><span class="co"># runs sensemakr for sensitivity analysis</span></span>
-<span id="cb75-2"><a href="regressao-multipla.html#cb75-2" tabindex="-1"></a>sensitivity <span class="ot">&lt;-</span> <span class="fu">sensemakr</span>(<span class="at">model =</span> model, </span>
-<span id="cb75-3"><a href="regressao-multipla.html#cb75-3" tabindex="-1"></a>                         <span class="at">treatment =</span> <span class="st">&quot;directlyharmed&quot;</span>,</span>
-<span id="cb75-4"><a href="regressao-multipla.html#cb75-4" tabindex="-1"></a>                         <span class="at">benchmark_covariates =</span> <span class="st">&quot;female&quot;</span>,</span>
-<span id="cb75-5"><a href="regressao-multipla.html#cb75-5" tabindex="-1"></a>                         <span class="at">kd =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb75-6"><a href="regressao-multipla.html#cb75-6" tabindex="-1"></a></span>
-<span id="cb75-7"><a href="regressao-multipla.html#cb75-7" tabindex="-1"></a><span class="co"># short description of results</span></span>
-<span id="cb75-8"><a href="regressao-multipla.html#cb75-8" tabindex="-1"></a>sensitivity</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="regressao-multipla.html#cb74-1" tabindex="-1"></a><span class="co"># runs sensemakr for sensitivity analysis</span></span>
+<span id="cb74-2"><a href="regressao-multipla.html#cb74-2" tabindex="-1"></a>sensitivity <span class="ot">&lt;-</span> <span class="fu">sensemakr</span>(<span class="at">model =</span> model, </span>
+<span id="cb74-3"><a href="regressao-multipla.html#cb74-3" tabindex="-1"></a>                         <span class="at">treatment =</span> <span class="st">&quot;directlyharmed&quot;</span>,</span>
+<span id="cb74-4"><a href="regressao-multipla.html#cb74-4" tabindex="-1"></a>                         <span class="at">benchmark_covariates =</span> <span class="st">&quot;female&quot;</span>,</span>
+<span id="cb74-5"><a href="regressao-multipla.html#cb74-5" tabindex="-1"></a>                         <span class="at">kd =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb74-6"><a href="regressao-multipla.html#cb74-6" tabindex="-1"></a></span>
+<span id="cb74-7"><a href="regressao-multipla.html#cb74-7" tabindex="-1"></a><span class="co"># short description of results</span></span>
+<span id="cb74-8"><a href="regressao-multipla.html#cb74-8" tabindex="-1"></a>sensitivity</span></code></pre></div>
 <pre><code>## Sensitivity Analysis to Unobserved Confounding
 ## 
 ## Model Formula: peacefactor ~ directlyharmed + age + farmer_dar + herder_dar + 
@@ -4180,7 +4181,7 @@ Viés relatrivo = \frac{\hat{&lt;viés&gt;}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim
 ##   Robustness Value, q = 1 alpha = 0.05 : 0.07626 
 ## 
 ## For more information, check summary.</code></pre>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="regressao-multipla.html#cb77-1" tabindex="-1"></a><span class="fu">summary</span>(sensitivity)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="regressao-multipla.html#cb76-1" tabindex="-1"></a><span class="fu">summary</span>(sensitivity)</span></code></pre></div>
 <pre><code>## Sensitivity Analysis to Unobserved Confounding
 ## 
 ## Model Formula: peacefactor ~ directlyharmed + age + farmer_dar + herder_dar + 
