@@ -134,3 +134,6 @@ análise-de-sensibilidade-causal
 alternativas
 derivação-do-r-quadrado
 viés-de-variável-omitida-em-função-do-r-quadrado
+logística-como-melhoria-em-relação-ao-mpl
+probabilidade-e-chance
+logística-como-glm
