@@ -61,6 +61,44 @@ $$
 $$
 logito(p) = log(\frac{p}{1-p})
 $$
+Para entender isso, vamos lembrar que, se $f(x) = x + 2$ é uma função, sua inversa $f^{-1}(x)$, se existir, pode ser descoberta pelo algoritmo em que chamamos $f(x)$ de $y$, trocamos $y$ por $x$ e resolvemos para $y$:
+\begin{align}
+y = x + 2 \\
+x = y + 2 \\
+y = x - 2 \\
+f^{-1}(x) = x - 2
+\end{align}
+
+Para uma função $f(x) = log(x+2)$, a inversa é:
+
+\begin{align}
+y = log(x + 2) \\
+x = log(y + 2) \\
+\exp(x) = \exp(log(y + 2)) \\
+\exp(x) = y + 2 \\
+y = \exp(x) + 2 \\
+f^{-1}(x) = \exp(x) + 2
+\end{align}
+
+Então, se $f(X) = log(x)$, $f^{-1}(x) = x$. Disso se segue que:
+
+\begin{align}
+f(x) = log(\frac{x}{1-x}) \\
+y = log(\frac{x}{1-x}) \\
+x = log(\frac{y}{1-y}) \\
+\exp(x) = \exp(log(\frac{y}{1-y})) \\
+\exp(x) = \frac{y}{1-y} \\
+\exp(x)(1-y) = y \\
+\exp(x)- y\exp(x) = y \\
+\exp(x) = y +  y\exp(x) \\
+\exp(x) = y(1 +  \exp(x)) \\
+\frac{\exp(x)}{(1 +  \exp(x))} = y \\
+f^{-1}(x) = \frac{\exp(x)}{1 +  \exp(x)} \\
+f^{-1}(x) = \frac{\frac{\exp(x)}{\exp(x)}}{\frac{1 +  \exp(x)}{\exp(x)}} \\
+f^{-1}(x) = \frac{1}{\exp(-x) + 1}\\
+f^{-1}(x) = \frac{1}{1 + \exp(-x)}\\
+\end{align}
+
 ## Probabilidade e chance
 
 Se eu jogo uma moeda e observo 4 caras de um total de 9 lançamentos. Isso significa que observei cara $44,44\%$ das vezes e podemos pensar isso como uma probabilidade de observar cara. Outra forma de dizer a mesma coisa é notar que observamos $4$ caras e $5$ coroas. E podemos falar na razão $4/5$, ou seja, o número de caras para o número de não-caras (que nesse caso é igual ao de coroas) que chamamos de chance. Ou seja, esperamos que para cada 4 caras observemos 5 coroas. A razão pode ser dada como fração, então $0,8$. E podemos converter as chances em probabilidades e vice-versa de maneira relativamente fácil (mas não muito intuitiva).
@@ -81,6 +119,80 @@ Se eu passar o logaritmo (de base $exp$) em ambos os lados, temos:
 $$
 log(f(x)) =log(\frac{1 + \exp(-x)}{\exp(-x)}) = 1 - 1 - exp(-x)
 $$
+
+$$
+\exp(logito(p)) = \exp(log(\frac{p}{1-p})) = 
+$$
+No R, podemos acessar as duas funções por meio de:
+```{r funcoes logit}
+logit <- qlogis
+invlogit <- plogis
+
+```
+
+E podemos modelar os dados de uma logística com nosso exemplo do Latinobarômetro do seguinte modo.
+
+```{r 13 logistica1, echo=TRUE, message=FALSE}
+library(here)
+library(data.table)
+library(tidyverse)
+library(sjlabelled) # pra remover labelled variables
+library(haven)
+library(janitor)
+library(lubridate)
+
+## dados
+# https://www.latinobarometro.org/latContents.jsp
+
+lat_bar23 <- sjlabelled::read_spss(here("Dados", "Latinobarometro_2023_Eng_Spss_v1_0.sav"),
+                               drop.labels = TRUE) %>%
+  mutate(S17 = as.Date(as.character(S17), "%Y%m%d")) %>%
+  clean_names()
+
+# get_label(lat_bar23)
+
+lat_bar23 <- lat_bar23 %>%
+  mutate(data_base = as.Date(paste(diareal, mesreal, "2023", sep="-"), "%d-%m-%Y"),
+         idade = year(as.period(interval(s17,data_base))),
+         econ_12_meses = ifelse(p6stgbs %in% c(1,2), "better", 
+                                ifelse(p6stgbs == 8, NA, "other")),
+         econ_12_meses = relevel(as.factor(econ_12_meses), ref = "other"),
+         aprovacao_presidente = ifelse(p15stgbs == 0, NA, p15stgbs),
+         ideologia = ifelse(p16st %in% c(97, 98, 99), NA, p16st),
+         votaria_governo = ifelse(perpart == 4, NA,
+                                  ifelse(perpart == 1, 1, 0)),
+         genero = factor(sexo, labels = c("homem", "mulher")),
+         evangelico = ifelse(s1 %in% c(0,98), NA,
+                             ifelse(s1 %in% c(2,3,4,5), 1, 0))) # não considera adventista, testemunha Jeová, Mórmon
+br_latbar_23 <- lat_bar23 %>%
+  mutate(idenpa = remove_all_labels(idenpa)) %>% # haven_labelled problems
+  filter(idenpa == 76) %>% ## seelciona brasil
+  filter(!is.na(votaria_governo) & !is.na(evangelico) & !is.na(ideologia) & !is.na(econ_12_meses))
+
+reg_logistica <- glm(votaria_governo ~ ideologia, data=br_latbar_23,
+                family=binomial(link= "logit"))
+summary(reg_logistica)
+
+# plotando
+probabilities <- predict.glm(reg_logistica, type = "response")
+df_logistica <- data.frame(probabilities = probabilities, x = model.matrix(reg_logistica)[,2])
+
+library(ggplot2)
+
+df_logistica %>%
+  ggplot(aes(y=probabilities, x=x)) + geom_point() + ylim(1,0) +
+  geom_smooth(method = "glm", 
+    method.args = list(family = "binomial"), 
+    se = FALSE) + geom_point(data=br_latbar_23, aes(y= votaria_governo, x=ideologia))
+
+
+reg_logistica <- glm(votaria_governo ~ ideologia + idade + genero + econ_12_meses + evangelico, data=br_latbar_23,
+                family=binomial(link= "logit")) +
+  geom_point(data=br_latbar_23, aes(y= votaria_governo, x=ideologia))
+summary(reg_logistica)
+
+
 ### Logística como variável latente
+
 
 ## Logística como GLM

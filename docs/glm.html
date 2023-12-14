@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 13 - GLM | Introdução à Regresssão para Ciências Sociais</title>
   <meta name="description" content="Capítulo 13 - GLM | Introdução à Regresssão para Ciências Sociais" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 13 - GLM | Introdução à Regresssão para Ciências Sociais" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-11-24" />
+<meta name="date" content="2023-12-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,74 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <style type="text/css">
   
@@ -204,22 +138,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.2" data-path="cef-1.html"><a href="cef-1.html#a-esperança-não-condicional-do-erro-é-zero."><i class="fa fa-check"></i><b>6.3.2</b> A esperança (não-condicional) do erro é zero.</a></li>
 <li class="chapter" data-level="6.3.3" data-path="cef-1.html"><a href="cef-1.html#o-erro-da-cef-é-não-correlacionado-com-x"><i class="fa fa-check"></i><b>6.3.3</b> O erro da CEF é não-correlacionado com X</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="cef-1.html"><a href="cef-1.html#regressão-linear-e-a-cef"><i class="fa fa-check"></i><b>6.4</b> Regressão Linear e a CEF</a>
+<li class="chapter" data-level="6.4" data-path="cef-1.html"><a href="cef-1.html#a-esperança-condicional-é-o-melhor-preditor"><i class="fa fa-check"></i><b>6.4</b> A esperança condicional é o melhor preditor</a></li>
+<li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#regressão-linear-e-a-cef"><i class="fa fa-check"></i><b>6.5</b> Regressão Linear e a CEF</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="cef-1.html"><a href="cef-1.html#mínimos-quadrados-ordinários"><i class="fa fa-check"></i><b>6.4.1</b> Mínimos Quadrados Ordinários</a></li>
-<li class="chapter" data-level="6.4.2" data-path="cef-1.html"><a href="cef-1.html#suponha-que-a-cef-é-linear-justificativa-i"><i class="fa fa-check"></i><b>6.4.2</b> Suponha que a CEF é Linear (Justificativa I)</a></li>
-<li class="chapter" data-level="6.4.3" data-path="cef-1.html"><a href="cef-1.html#é-o-melhor-preditor-linear-do-y-justificativa-ii"><i class="fa fa-check"></i><b>6.4.3</b> É o melhor preditor linear do <span class="math inline">\(Y\)</span> (justificativa II)</a></li>
-<li class="chapter" data-level="6.4.4" data-path="cef-1.html"><a href="cef-1.html#a-reta-de-regressão-é-a-aproximação-com-o-menor-erro-quadrático-médio-justificativa-iii"><i class="fa fa-check"></i><b>6.4.4</b> A reta de regressão é a aproximação com o menor erro quadrático médio (justificativa III)</a></li>
+<li class="chapter" data-level="6.5.1" data-path="cef-1.html"><a href="cef-1.html#mínimos-quadrados-ordinários"><i class="fa fa-check"></i><b>6.5.1</b> Mínimos Quadrados Ordinários</a></li>
+<li class="chapter" data-level="6.5.2" data-path="cef-1.html"><a href="cef-1.html#suponha-que-a-cef-é-linear-justificativa-i"><i class="fa fa-check"></i><b>6.5.2</b> Suponha que a CEF é Linear (Justificativa I)</a></li>
+<li class="chapter" data-level="6.5.3" data-path="cef-1.html"><a href="cef-1.html#é-o-melhor-preditor-linear-do-y-justificativa-ii"><i class="fa fa-check"></i><b>6.5.3</b> É o melhor preditor linear do <span class="math inline">\(Y\)</span> (justificativa II)</a></li>
+<li class="chapter" data-level="6.5.4" data-path="cef-1.html"><a href="cef-1.html#a-reta-de-regressão-é-a-aproximação-com-o-menor-erro-quadrático-médio-justificativa-iii"><i class="fa fa-check"></i><b>6.5.4</b> A reta de regressão é a aproximação com o menor erro quadrático médio (justificativa III)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#linearidade-e-causalidade"><i class="fa fa-check"></i><b>6.5</b> Linearidade e Causalidade</a></li>
-<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.6</b> Modelo só com intercepto</a></li>
-<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.7</b> Variância da Regressão</a>
+<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#linearidade-e-causalidade"><i class="fa fa-check"></i><b>6.6</b> Linearidade e Causalidade</a></li>
+<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.7</b> Modelo só com intercepto</a></li>
+<li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.8</b> Variância da Regressão</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.7.1</b> Chuva na Jamaica</a></li>
+<li class="chapter" data-level="6.8.1" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.8.1</b> Chuva na Jamaica</a></li>
 </ul></li>
-<li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#variância-condicional"><i class="fa fa-check"></i><b>6.8</b> Variância condicional</a></li>
-<li class="chapter" data-level="6.9" data-path="cef-1.html"><a href="cef-1.html#efeito-marginal"><i class="fa fa-check"></i><b>6.9</b> Efeito Marginal</a></li>
-<li class="chapter" data-level="6.10" data-path="cef-1.html"><a href="cef-1.html#cef-linear-com-preditores-não-lineares"><i class="fa fa-check"></i><b>6.10</b> CEF linear com preditores não-lineares</a></li>
+<li class="chapter" data-level="6.9" data-path="cef-1.html"><a href="cef-1.html#variância-condicional"><i class="fa fa-check"></i><b>6.9</b> Variância condicional</a></li>
+<li class="chapter" data-level="6.10" data-path="cef-1.html"><a href="cef-1.html#efeito-marginal"><i class="fa fa-check"></i><b>6.10</b> Efeito Marginal</a></li>
+<li class="chapter" data-level="6.11" data-path="cef-1.html"><a href="cef-1.html#cef-linear-com-preditores-não-lineares"><i class="fa fa-check"></i><b>6.11</b> CEF linear com preditores não-lineares</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>7</b> - Estimação</a>
 <ul>
@@ -282,23 +217,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="12" data-path="regressao-multipla.html"><a href="regressao-multipla.html"><i class="fa fa-check"></i><b>12</b> - Regressao Multipla</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#modelo-básico"><i class="fa fa-check"></i><b>12.1</b> Modelo básico</a></li>
-<li class="chapter" data-level="12.2" data-path="regressao-multipla.html"><a href="regressao-multipla.html#interpretação-dos-coeficientes"><i class="fa fa-check"></i><b>12.2</b> Interpretação dos coeficientes</a></li>
-<li class="chapter" data-level="12.3" data-path="regressao-multipla.html"><a href="regressao-multipla.html#viés-de-variável-omitida"><i class="fa fa-check"></i><b>12.3</b> Viés de variável omitida</a></li>
-<li class="chapter" data-level="12.4" data-path="regressao-multipla.html"><a href="regressao-multipla.html#multicolinearidade"><i class="fa fa-check"></i><b>12.4</b> Multicolinearidade</a></li>
-<li class="chapter" data-level="12.5" data-path="regressao-multipla.html"><a href="regressao-multipla.html#distrações-1"><i class="fa fa-check"></i><b>12.5</b> Distrações</a></li>
-<li class="chapter" data-level="12.6" data-path="regressao-multipla.html"><a href="regressao-multipla.html#teste-de-multicolinearidade"><i class="fa fa-check"></i><b>12.6</b> Teste de multicolinearidade</a>
+<li class="chapter" data-level="12.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#revisão-de-matriz-e-vetores"><i class="fa fa-check"></i><b>12.1</b> Revisão de Matriz e Vetores</a></li>
+<li class="chapter" data-level="12.2" data-path="regressao-multipla.html"><a href="regressao-multipla.html#modelo-básico"><i class="fa fa-check"></i><b>12.2</b> Modelo básico</a></li>
+<li class="chapter" data-level="12.3" data-path="regressao-multipla.html"><a href="regressao-multipla.html#modelo-com-matrizes"><i class="fa fa-check"></i><b>12.3</b> Modelo com matrizes</a>
 <ul>
-<li class="chapter" data-level="12.6.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#quando-multicolinearidade-é-um-problema"><i class="fa fa-check"></i><b>12.6.1</b> Quando multicolinearidade é um problema</a></li>
+<li class="chapter" data-level="12.3.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#estimador-de-mqo"><i class="fa fa-check"></i><b>12.3.1</b> Estimador de MQO</a></li>
 </ul></li>
-<li class="chapter" data-level="12.7" data-path="regressao-multipla.html"><a href="regressao-multipla.html#ridge-regression"><i class="fa fa-check"></i><b>12.7</b> Ridge Regression</a></li>
-<li class="chapter" data-level="12.8" data-path="regressao-multipla.html"><a href="regressao-multipla.html#lasso"><i class="fa fa-check"></i><b>12.8</b> LASSO</a></li>
-<li class="chapter" data-level="12.9" data-path="regressao-multipla.html"><a href="regressao-multipla.html#checagem-do-modelo"><i class="fa fa-check"></i><b>12.9</b> Checagem do modelo</a></li>
+<li class="chapter" data-level="12.4" data-path="regressao-multipla.html"><a href="regressao-multipla.html#interpretação-dos-coeficientes"><i class="fa fa-check"></i><b>12.4</b> Interpretação dos coeficientes</a></li>
+<li class="chapter" data-level="12.5" data-path="regressao-multipla.html"><a href="regressao-multipla.html#regressão-múltipla-versus-múltiplas-regressões-separadas-ou-viés-de-variável-omitida"><i class="fa fa-check"></i><b>12.5</b> Regressão múltipla versus Múltiplas Regressões Separadas ou Viés de variável omitida</a></li>
+<li class="chapter" data-level="12.6" data-path="regressao-multipla.html"><a href="regressao-multipla.html#matriz-chapéu"><i class="fa fa-check"></i><b>12.6</b> Matriz chapéu</a></li>
+<li class="chapter" data-level="12.7" data-path="regressao-multipla.html"><a href="regressao-multipla.html#multicolinearidade"><i class="fa fa-check"></i><b>12.7</b> Multicolinearidade</a></li>
+<li class="chapter" data-level="12.8" data-path="regressao-multipla.html"><a href="regressao-multipla.html#erro-padrão-robusto-1"><i class="fa fa-check"></i><b>12.8</b> Erro padrão Robusto</a>
+<ul>
+<li class="chapter" data-level="12.8.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#entendendo-o-erro-padrão-robusto"><i class="fa fa-check"></i><b>12.8.1</b> Entendendo o erro padrão robusto</a></li>
+</ul></li>
+<li class="chapter" data-level="12.9" data-path="regressao-multipla.html"><a href="regressao-multipla.html#análise-de-sensibilidade-causal"><i class="fa fa-check"></i><b>12.9</b> Análise de sensibilidade causal</a>
+<ul>
+<li class="chapter" data-level="12.9.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#derivação-do-r-quadrado"><i class="fa fa-check"></i><b>12.9.1</b> Derivação do R-quadrado</a></li>
+<li class="chapter" data-level="12.9.2" data-path="regressao-multipla.html"><a href="regressao-multipla.html#viés-de-variável-omitida"><i class="fa fa-check"></i><b>12.9.2</b> Viés de variável omitida</a></li>
+<li class="chapter" data-level="12.9.3" data-path="regressao-multipla.html"><a href="regressao-multipla.html#viés-de-variável-omitida-em-função-do-r-quadrado"><i class="fa fa-check"></i><b>12.9.3</b> Viés de variável omitida em função do R-quadrado</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>13</b> - GLM</a>
 <ul>
 <li class="chapter" data-level="13.1" data-path="glm.html"><a href="glm.html#plm"><i class="fa fa-check"></i><b>13.1</b> PLM</a></li>
-<li class="chapter" data-level="13.2" data-path="glm.html"><a href="glm.html#logística-e-probit"><i class="fa fa-check"></i><b>13.2</b> Logística e Probit</a></li>
+<li class="chapter" data-level="13.2" data-path="glm.html"><a href="glm.html#logística-e-probit"><i class="fa fa-check"></i><b>13.2</b> Logística e Probit</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="glm.html"><a href="glm.html#logística-como-melhoria-em-relação-ao-mpl"><i class="fa fa-check"></i><b>13.2.1</b> Logística como melhoria em relação ao MPL</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="glm.html"><a href="glm.html#probabilidade-e-chance"><i class="fa fa-check"></i><b>13.3</b> Probabilidade e chance</a></li>
+<li class="chapter" data-level="13.4" data-path="glm.html"><a href="glm.html#logística-como-glm"><i class="fa fa-check"></i><b>13.4</b> Logística como GLM</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -321,23 +269,110 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="glm" class="section level1 hasAnchor" number="13">
 <h1><span class="header-section-number">Capítulo 13</span> - GLM<a href="glm.html#glm" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## Warning: package &#39;purrr&#39; was built under R version 4.3.1</code></pre>
+<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## Warning: package &#39;here&#39; was built under R version 4.3.2</code></pre>
 <p>VD Categórica</p>
 <div id="plm" class="section level2 hasAnchor" number="13.1">
 <h2><span class="header-section-number">13.1</span> PLM<a href="glm.html#plm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A intuição</p>
+<p>Até o momento, variáveis respostas categóricas binárias foram modeladas com regressão linear.</p>
+<p><span class="math display">\[
+y_i \sim N(\alpha + \beta x_i, \sigma^2)
+\]</span></p>
+<p>Nessa parametrização do modelo de regressão, vemos que a resposta é modelada como uma variável Gaussiana, e portanto, é uma variável contínua (em vez de binária), além disso, não está limitada, possuindo suporte entre <span class="math inline">\(-\infty\)</span> e <span class="math inline">\(+\infty\)</span>. Esses modelos são chamados também de modelos de probabilidade linear (MPL, ou LPM na sigla em inglês). A introdução dos modelos de regres~sao logística e probit deixam claro porque são chamados desse modo, de forma que faz sentido apresentarmos o que é a regressão logística e probit, antes de voltarmos À discussão da adequação ou inadequação do MPL.</p>
 </div>
 <div id="logística-e-probit" class="section level2 hasAnchor" number="13.2">
 <h2><span class="header-section-number">13.2</span> Logística e Probit<a href="glm.html#logística-e-probit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Há várias formas de apresentar e/ou justificar a regressão logística. Qual delas você irá usar para pensar esse tipo de modelo depende do seu problema de pesquisa e das suas preferências sobre o que funciona melhor para você.</p>
+<div id="logística-como-melhoria-em-relação-ao-mpl" class="section level3 hasAnchor" number="13.2.1">
+<h3><span class="header-section-number">13.2.1</span> Logística como melhoria em relação ao MPL<a href="glm.html#logística-como-melhoria-em-relação-ao-mpl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Como nós vimos, o problema da regressão linear para dados binários é que considera que a variável resposta possui distribuição Gaussiana. Faz muito mais sentido modelar dados binários como seguindo uma distribuição de Bernoulli, com parÂmetro <span class="math inline">\(p_i\)</span>. Poderíamos portanto tentar reescrever um modelo para <span class="math inline">\(y\)</span> binário da seguinte forma:</p>
+<p><span class="math display">\[
+y_i \sim Ber(p_i)
+\]</span>
+Em que <span class="math inline">\(p_i\)</span> é a probabilidade de sucesso para a unidade <span class="math inline">\(1\)</span>. Dessa forma, contudo, não incluí nenhum preditor para estimar o <span class="math inline">\(p_i\)</span>, e gostaríamos de fazê-lo. Posso então escrever algo como:
+<span class="math display">\[
+p_i(x_i) = \alpha + \beta x_i
+\]</span></p>
+<p>O problema dessa formulação é que probabilidades devem estar entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>, e nada garante que <span class="math inline">\(\alpha + \beta x_i\)</span> seja um número entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>. Então, uma saída é tentar achar uma função <span class="math inline">\(f\)</span> que transforme <span class="math inline">\(\alpha + \beta x_i\)</span> em números entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>, ou seja, <span class="math inline">\(0 \le f(\alpha + \beta x_i) \le 1\)</span>. E uma função que tem essa propriedade é a logística padrão (também chamada de sigmóide), dada por:
+<span class="math display">\[
+f(x) = \frac{1}{1 + \exp(-x)}
+\]</span>
+Então, nossa relação entre a probabilidade e os preditores fica:
+<span class="math display">\[
+p_i = \frac{1}{1 + \exp(-(\alpha + \beta x_i))}
+\]</span>
+Conectando com nossa variável resposta, temos:</p>
+<p><span class="math display">\[
+y_i \sim Ber(\frac{1}{1 + \exp(-(\alpha + \beta x_i))})
+\]</span>
+Às vezes a logística é designada como a função inversa da logito, em que a logito é dada por:
+<span class="math display">\[
+logito(p) = log(\frac{p}{1-p})
+\]</span>
+Para entender isso, vamos lembrar que, se <span class="math inline">\(f(x) = x + 2\)</span> é uma função, sua inversa <span class="math inline">\(f^{-1}(x)\)</span>, se existir, pode ser descoberta pelo algoritmo em que chamamos <span class="math inline">\(f(x)\)</span> de <span class="math inline">\(y\)</span>, trocamos <span class="math inline">\(y\)</span> por <span class="math inline">\(x\)</span> e resolvemos para <span class="math inline">\(y\)</span>:
+<span class="math display">\[\begin{align}
+y = x + 2 \\
+x = y + 2 \\
+y = x - 2 \\
+f^{-1}(x) = x - 2
+\end{align}\]</span></p>
+<p>Para uma função <span class="math inline">\(f(x) = log(x+2)\)</span>, a inversa é:</p>
+<p><span class="math display">\[\begin{align}
+y = log(x + 2) \\
+x = log(y + 2) \\
+\exp(x) = \exp(log(y + 2)) \\
+\exp(x) = y + 2 \\
+y = \exp(x) + 2 \\
+f^{-1}(x) = \exp(x) + 2
+\end{align}\]</span></p>
+<p>Então, se <span class="math inline">\(f(X) = log(x)\)</span>, <span class="math inline">\(f^{-1}(x) = x\)</span>. Disso se segue que:
+<span class="math display">\[\begin{align}
+f(x) = log(\frac{x}{1-x})
+y = log(\frac{x}{1-x}) \\
+x = log(\frac{y}{1-y}) \\
+\exp(x) = \exp(log(\frac{y}{1-y})) \\
+\exp(x) = \frac{y}{1-y} \\
+\exp(x)(1-y) = y \\
+\exp(x)- y\exp(x) = y \\
+\exp(x) = y +  y\exp(x) \\
+\exp(x) = y(1 +  \exp(x)) \\
+\frac{\exp(x)}{(1 +  \exp(x))} = y \\
+f^{-1}(x) = \frac{\exp(x)}{(1 +  \exp(x))} \\
+f^{-1}(x) = \frac{\frac{\exp(x)}{\exp(x)}}{\frac{(1 +  \exp(x))}{\exp(x)}} \\
+f^{-1}(x) = \frac{1}{\exp(-x) + 1}\\
+\end{align}\]</span></p>
+</div>
+</div>
+<div id="probabilidade-e-chance" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> Probabilidade e chance<a href="glm.html#probabilidade-e-chance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se eu jogo uma moeda e observo 4 caras de um total de 9 lançamentos. Isso significa que observei cara <span class="math inline">\(44,44\%\)</span> das vezes e podemos pensar isso como uma probabilidade de observar cara. Outra forma de dizer a mesma coisa é notar que observamos <span class="math inline">\(4\)</span> caras e <span class="math inline">\(5\)</span> coroas. E podemos falar na razão <span class="math inline">\(4/5\)</span>, ou seja, o número de caras para o número de não-caras (que nesse caso é igual ao de coroas) que chamamos de chance. Ou seja, esperamos que para cada 4 caras observemos 5 coroas. A razão pode ser dada como fração, então <span class="math inline">\(0,8\)</span>. E podemos converter as chances em probabilidades e vice-versa de maneira relativamente fácil (mas não muito intuitiva).</p>
+<p><span class="math display">\[
+probabilidade = \frac{chance}{1+chance}
+\]</span>
+E
+<span class="math display">\[
+chance = \frac{probabilidade}{1- probabilidade}
+\]</span>
+Notem que a definição de chance em termos de probabilidade é o que está na equação da logito. Isso sugere que podemos transformar a logito na logística e a logística na logito.</p>
+<p><span class="math display">\[
+f(x) = \frac{1}{1 + \exp(-x)} = \frac{\exp(x)}{1 + \exp(x)}
+\]</span>
+Se eu passar o logaritmo (de base <span class="math inline">\(exp\)</span>) em ambos os lados, temos:
+<span class="math display">\[
+log(f(x)) =log(\frac{1 + \exp(-x)}{\exp(-x)}) = 1 - 1 - exp(-x)
+\]</span></p>
+<p><span class="math display">\[
+\exp(logito(p)) = \exp(log(\frac{p}{1-p})) =
+\]</span>
+### Logística como variável latente</p>
+</div>
+<div id="logística-como-glm" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> Logística como GLM<a href="glm.html#logística-como-glm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
-
-
-
-
-
-
-
             </section>
 
           </div>
