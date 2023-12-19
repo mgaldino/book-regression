@@ -137,3 +137,12 @@ viés-de-variável-omitida-em-função-do-r-quadrado
 logística-como-melhoria-em-relação-ao-mpl
 probabilidade-e-chance
 logística-como-glm
+logito
+logística-como-variável-latente
+logística
+odds-ratio---razão-de-chances
+coeficientes-e-erros-padrões
+logisítica-com-múltiplos-preditores
+probit
+ajuste-do-modelo
+referências-1

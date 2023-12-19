@@ -6,7 +6,10 @@ editor_options:
 
 # - GLM
 
-```{r package loads 13, echo=FALSE, message=FALSE}
+GLM é a sigla de Modelos Lineares Generalizados. A regressão logística pode ser considerada como um dos tipos de modelos lineares generalizados. Vamos nos concentrar em entender a regressão logística, como ela se conecta com GLM e, rapidamente, ver outros modelos de GLM que existem, como Poisson e probit.
+Até o momento, variáveis resposta binárias foram modeladas com regressão linear.
+
+```{r package loads 13, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
 library(knitr)
 library(tidyverse)
@@ -14,49 +17,54 @@ library(here)
 library(tidyr)
 ```
 
-VD Categórica
-
-
-
 ## PLM
 
-Até o momento, variáveis respostas categóricas binárias foram modeladas com regressão linear. 
+Até o momento, variáveis respostas binárias foram modeladas com regressão linear. 
 
 $$
 y_i \sim N(\alpha + \beta x_i, \sigma^2)
 $$
 
-Nessa parametrização do modelo de regressão, vemos que a resposta é modelada como uma variável Gaussiana, e portanto, é uma variável contínua (em vez de binária), além disso, não está limitada, possuindo suporte entre $-\infty$ e $+\infty$. Esses modelos são chamados também de modelos de probabilidade linear (MPL, ou LPM na sigla em inglês). A introdução dos modelos de regres~sao logística e probit deixam claro porque são chamados desse modo, de forma que faz sentido apresentarmos o que é a regressão logística e probit, antes de voltarmos À discussão da adequação ou inadequação do MPL.
+Nessa parametrização do modelo de regressão, vemos que a resposta é modelada como uma variável Gaussiana e, portanto, é uma variável contínua (em vez de binária). Além disso, não está limitada, possuindo suporte entre −∞ e +∞. Esses modelos são chamados também de Modelos de Probabilidade Linear (MPL, ou LPM na sigla em inglês). Explicaremos mais à frente porque são chamados desse modo, após apresentarmos a regressão logística e probit. E então poderemos comparar modelos logísticos ou probit e MPL.
 
-## Logística e Probit
+## Logística
 
 Há várias formas de apresentar e/ou justificar a regressão logística. Qual delas você irá usar para pensar esse tipo de modelo depende do seu problema de pesquisa e das suas preferências sobre o que funciona melhor para você.
 
 ### Logística como melhoria em relação ao MPL
 
-Como nós vimos, o problema da regressão linear para dados binários é que considera que a variável resposta possui distribuição Gaussiana. Faz muito mais sentido modelar dados binários como seguindo uma distribuição de Bernoulli, com parÂmetro $p_i$. Poderíamos portanto tentar reescrever um modelo para $y$ binário da seguinte forma:
+Como vimos, o problema da regressão linear para dados binários é que considera que a variável resposta possui distribuição Gaussiana. Faz muito mais sentido modelar dados binários como seguindo uma distribuição de Bernoulli, com parâmetro $p_i$. Poderíamos, portanto, tentar reescrever um modelo para $y$ binário da seguinte forma:
 
 $$
 y_i \sim Ber(p_i)
 $$
-Em que $p_i$ é a probabilidade de sucesso para a unidade $1$. Dessa forma, contudo, não incluí nenhum preditor para estimar o $p_i$, e gostaríamos de fazê-lo. Posso então escrever algo como:
+Em que $p_i$ é a probabilidade de sucesso para a unidade $i$. Dessa forma, contudo, não incluí nenhum preditor para estimar o $p_i$, e gostaríamos de fazê-lo. Posso então escrever algo como:
 $$
 p_i(x_i) = \alpha + \beta x_i
 $$
 
-O problema dessa formulação é que probabilidades devem estar entre $0$ e $1$, e nada garante que $\alpha + \beta x_i$ seja um número entre $0$ e $1$. Então, uma saída é tentar achar uma função $f$ que transforme $\alpha + \beta x_i$ em números entre $0$ e $1$, ou seja, $0 \le  f(\alpha + \beta x_i) \le 1$. E uma função que tem essa propriedade é a logística padrão (também chamada de sigmóide), dada por: 
+O problema dessa formulação é que probabilidades devem estar entre 0 e 1, e nada garante que $\alpha + \beta x_i$ seja um número entre 0 e 1. Então, uma saída é tentar achar uma função $f$ que transforme $\alpha + \beta x_i$ em números entre 0 e 1, ou seja, $0 \le f(\alpha + \beta x_i) \le 1$. E uma função que tem essa propriedade é a logística padrão (também chamada de sigmoide), dada por:
+
 $$
 f(x) = \frac{1}{1 + \exp(-x)}
 $$
+
 Então, nossa relação entre a probabilidade e os preditores fica:
+
 $$
 p_i = \frac{1}{1 + \exp(-(\alpha + \beta x_i))}
 $$
+
 Conectando com nossa variável resposta, temos:
 
 $$
 y_i \sim Ber(\frac{1}{1 + \exp(-(\alpha + \beta x_i))})
 $$
+
+Assim, a modelagem de variável binária por meio da regressão linear pode ser pensada como um modelo em que a probabilidade $p_i$ é modelada sem a função logística, o que significa que podemos acabar com previsões de probabilidades negativas ou maiores que 1, o que não faz sentido. Essa é uma razão para usar modelos logísticos em vez de lineares.
+
+### Logito
+
 Às vezes a logística é designada como a função inversa da logito, em que a logito é dada por:
 $$
 logito(p) = log(\frac{p}{1-p})
@@ -80,7 +88,7 @@ y = \exp(x) + 2 \\
 f^{-1}(x) = \exp(x) + 2
 \end{align}
 
-Então, se $f(X) = log(x)$, $f^{-1}(x) = x$. Disso se segue que:
+Então, se $f(X) = log(x)$, $f^{-1}(x) = \exp(x)$. Disso se segue que:
 
 \begin{align}
 f(x) = log(\frac{x}{1-x}) \\
@@ -99,30 +107,6 @@ f^{-1}(x) = \frac{1}{\exp(-x) + 1}\\
 f^{-1}(x) = \frac{1}{1 + \exp(-x)}\\
 \end{align}
 
-## Probabilidade e chance
-
-Se eu jogo uma moeda e observo 4 caras de um total de 9 lançamentos. Isso significa que observei cara $44,44\%$ das vezes e podemos pensar isso como uma probabilidade de observar cara. Outra forma de dizer a mesma coisa é notar que observamos $4$ caras e $5$ coroas. E podemos falar na razão $4/5$, ou seja, o número de caras para o número de não-caras (que nesse caso é igual ao de coroas) que chamamos de chance. Ou seja, esperamos que para cada 4 caras observemos 5 coroas. A razão pode ser dada como fração, então $0,8$. E podemos converter as chances em probabilidades e vice-versa de maneira relativamente fácil (mas não muito intuitiva).
-
-$$
-probabilidade = \frac{chance}{1+chance}
-$$
-E 
-$$
-chance = \frac{probabilidade}{1- probabilidade}
-$$
-Notem que a definição de chance em termos de probabilidade é o que está na equação da logito. Isso sugere que podemos transformar a logito na logística e a logística na logito.
-
-$$
-f(x) = \frac{1}{1 + \exp(-x)} = \frac{\exp(x)}{1 + \exp(x)}
-$$
-Se eu passar o logaritmo (de base $exp$) em ambos os lados, temos:
-$$
-log(f(x)) =log(\frac{1 + \exp(-x)}{\exp(-x)}) = 1 - 1 - exp(-x)
-$$
-
-$$
-\exp(logito(p)) = \exp(log(\frac{p}{1-p})) = 
-$$
 No R, podemos acessar as duas funções por meio de:
 ```{r funcoes logit}
 logit <- qlogis
@@ -130,9 +114,9 @@ invlogit <- plogis
 
 ```
 
-E podemos modelar os dados de uma logística com nosso exemplo do Latinobarômetro do seguinte modo.
+E podemos modelar os dados de uma logística com nosso exemplo do Latinobarômetro usando apenas um preditor, ideologia, para simplificar.
 
-```{r 13 logistica1, echo=TRUE, message=FALSE}
+```{r 13 logistica1, echo=TRUE, message=FALSE, cache=TRUE}
 library(here)
 library(data.table)
 library(tidyverse)
@@ -140,6 +124,8 @@ library(sjlabelled) # pra remover labelled variables
 library(haven)
 library(janitor)
 library(lubridate)
+library(knitr)
+library(broom)
 
 ## dados
 # https://www.latinobarometro.org/latContents.jsp
@@ -171,28 +157,169 @@ br_latbar_23 <- lat_bar23 %>%
 
 reg_logistica <- glm(votaria_governo ~ ideologia, data=br_latbar_23,
                 family=binomial(link= "logit"))
-summary(reg_logistica)
 
-# plotando
-probabilities <- predict.glm(reg_logistica, type = "response")
-df_logistica <- data.frame(probabilities = probabilities, x = model.matrix(reg_logistica)[,2])
+reg_logistica %>%
+  tidy() %>%
+  kable()
 
-library(ggplot2)
+# plotando # usando base R
+# código adaptado de Regression and Other Stories (Gelman et. al.)
+library(arm)
 
-df_logistica %>%
-  ggplot(aes(y=probabilities, x=x)) + geom_point() + ylim(1,0) +
-  geom_smooth(method = "glm", 
-    method.args = list(family = "binomial"), 
-    se = FALSE) + geom_point(data=br_latbar_23, aes(y= votaria_governo, x=ideologia))
+n <- nrow(br_latbar_23)
+ideologia_jitt <- br_latbar_23$ideologia + runif(n, -.2, .2)
+vote_jitt <- br_latbar_23$votaria_governo + ifelse(br_latbar_23$votaria_governo==0, runif(n, .005, .05), runif(n, -.05, -.005))
+curve(invlogit(reg_logistica$coef[1] + reg_logistica$coef[2]*x), from = -5,to=24, ylim=c(0,1), xlim=c(-5, 24), xaxt="n", xaxs="i", 
+  ylab="Pr (voto governo)", xlab="Ideologia", lwd=.5, yaxs="i")
+curve(invlogit(reg_logistica$coef[1] + reg_logistica$coef[2]*x), 1, 11, lwd=3, add=TRUE)
+axis(1, 1:11)
+mtext("(left)", side=1, line=1.7, at=1, adj=.5)
+mtext("(right)", 1, 1.7, at=11, adj=.5)
+points(ideologia_jitt, vote_jitt, pch=20, cex=.1)
+```
 
+O gráfico apresenta o modelo ajustado da logística, juntamente com os dados (jittered). Cada ponto na curva representa $Pr(Y=1|X=x)$. A linha mais escura é o modelo ajustado para os pontos da amostra. Podemos observar que há mais dados de pessoas que votariam com o governo entre os indivíduos de esquerda, com mais observações votando contra o governo apenas entre as pessoas mais centristas, o que faz sentido. Também observamos muitas pessoas de direita votando com o governo, indicando que entre as pessoas de direita, o dado não diferencia tanto quem vota a favor ou contra o governo, sugerindo que precisamos considerar outras variáveis.
 
-reg_logistica <- glm(votaria_governo ~ ideologia + idade + genero + econ_12_meses + evangelico, data=br_latbar_23,
-                family=binomial(link= "logit")) +
-  geom_point(data=br_latbar_23, aes(y= votaria_governo, x=ideologia))
-summary(reg_logistica)
+Como a logística é curva, o efeito preditivo de $x$ sobre a probabilidade $y=1$ não é constante (ao contrário de regressões lineares). No caso do nosso gráfico, passar de $1$ para $2$ na ideologia tem um efeito significativamente menor (de 95% para 93%) do que passar de $6$ para $7$ (de 81% para 76%), por exemplo. Para calcular o efeito preditivo nesses casos, fazemos:
 
+```{r 13 logistica2, echo=T}
+newdata <- data.frame(ideologia = 1:11)
+previsao <- predict(reg_logistica, newdata =newdata, type = "response")
+print(round(previsao, 2))
+```
+
+A interpretação do coeficiente é um pouco difícil na logística, mas um caminho é pensar que o efeito é máximo no centro da curva, em que $\alpha + \beta x = 0$. Nesse caso, a inclinação da curva (a derivada) é dada por $\beta/4$. Ou seja, podemos dividir o coeficiente estimado por quatro para ter uma ideia do máximo impacto preditivo. Em nosso caso, com um coeficiente aproximado de $-0,29$, temos que no máximo a mudança em uma unidade diminui a probabilidade em no máximo 7,25%. E nos dados, esse efeito máximo é alcançado quando $3.14 + -0.29*x = 0$, ou seja, aproximadamente $x = 11$. 
+
+### Odds Ratio - Razão de chances
+
+Outra forma de interpretar a regressão logística é utilizando a parametrização do logito. O coeficiente assume a forma de razão de chances, onde uma chance é $p/(1-p)$, e razão de chances é a divisão de duas chances (o que quer que isso signifique). Uma vantagem de trabalhar com razão de chances é que a interpretação do coeficiente se torna linear, em vez de não-linear, conforme mostra a equação abaixo.
+
+$$
+log(\frac{Pr(Y=1|X=x)}{Pr(Y=0|X=x)}) = \alpha + \beta x
+$$
+
+Eu acho complicado entender o que é uma razão de chances, então preferimos trabalhar com probabilidade. Mas existe essa outra parametrização.
+
+### Coeficientes e erros padrões
+
+Como a logística é estimada por máxima verossimilhança, os procedimentos usuais valem e podemos aproximar a interpretação dos coeficientes para uma normal com amostras grandes.
 
 ### Logística como variável latente
 
+Uma outra forma de interpretar ou justificar a logística é com a formulação de variável latente. Imagine que existe uma variável latente (não observada), $z$, que é contínua e reflete a propensão a votar no governo. Porém, nós só observamos os valores $1$ ou $0$, de tal modo que podemos escrever:
+
+\begin{align}
+y_i = 1, se z_i > 0 \\
+y_i = 0, c.c.,
+z_i = \alpha + \beta x_i + e_i, e_i \sim logistica
+\end{align}
+
+A distribuição logística é dada por:
+$$ 
+Pr(e_i < x) = \frac{1}{1 + \exp(-x)}
+$$
+
+Portanto, temos que:
+\begin{align}
+Pr(y_i = 1) = Pr(z_i > 0) = //
+Pr(e_i > -\alpha - \beta x_i) = //
+\frac{1}{1 + \exp(\alpha + \beta x_i)}
+\end{align}
+
+Vimos assim que as parametrizações são equivalentes.
+
+## Probit 
+
+Se, por outro lado, supusermos que o termo de erro tem distribuição normal, em vez de distribuição logística, teremos um modelo probit. Que é basicamente o modelo logístico, com desvio-padrão da logística dividito por 1.6. Isso significa que o coeficiente da probit é aproximadamente o da logística/1.6 e vice-versa, isto é, podemos multiplicar o coeficiente da probit por 1.6. Vamos checar no R.
+
+```{r 13 probit, echo=TRUE, message=FALSE, results='asis'}
+
+reg_logistica <- glm(votaria_governo ~ ideologia, data=br_latbar_23,
+                family=binomial(link= "logit"))
+
+reg_probit <- glm(votaria_governo ~ ideologia, data=br_latbar_23,
+                family=binomial(link= "probit"))
+
+library(stargazer)
+
+stargazer(reg_logistica, reg_probit, type = "html")
+
+
+```
 
 ## Logística como GLM
+
+Uma outra forma de pensar a logística é como um modelo linear generalizado. Nós vimos que o modelo linear precisou entrar em uma função $f$ que transformasse os intervalos entre $0$ e $1$. Podemos considerar o modelo de regressão linear como um caso particular, em que temos a função identidade $f(x) = x$ e a distribuição da resposta é modelada como Gaussiana. Na logística,a função de ligação é logística, e a resposta modelada como Bernoulli (e para $n$ dados, binomial).
+
+Similarmente, se tenho dados discretos $1, 2, 3, ..., n$, posso modelar meus dados com uma Poisson e com uma função $f$ específica, que chamamos de função de ligação.
+
+## Logisítica com múltiplos preditores
+
+```{r 13 logistica3, echo=TRUE, message=FALSE, cache=TRUE}
+
+reg_logistica1 <- glm(votaria_governo ~ ideologia + evangelico, data=br_latbar_23,
+                family=binomial(link= "logit"))
+
+reg_logistica1 %>%
+  tidy() %>%
+  kable()
+
+```
+Para facilitar a comparação de coeficientes, pode ser mais fácil padronizar as variáveis. No caso, vamos padronizar apenas ideologia (precisamos supor que é uma variável contínua, medida com valores discretos).
+
+```{r 13 logistica4, echo=TRUE, message=FALSE, cache=TRUE}
+
+br_latbar_23 <- br_latbar_23 %>%
+  mutate(ideologia_pad = (ideologia - mean(ideologia))/sd(ideologia))
+
+reg_logistica2 <- glm(votaria_governo ~ ideologia_pad + evangelico, data=br_latbar_23,
+                family=binomial(link= "logit"))
+
+reg_logistica2 %>%
+  tidy() %>%
+  kable()
+
+```
+
+Usando a regra de dividir por quatro, temos que: ideologia tem efeito máximo de redzir a probabilidade em 25%, e evangélico de diminuir em 18%.
+
+Plotando graficamente os dois preditores, temos:
+```{r 13 logistica5, echo=TRUE, message=FALSE, cache=TRUE}
+
+jitter_binary <- function(a, jitt=0.05){
+ifelse(a==0, runif(length(a), 0, jitt), runif(length(a), 1 - jitt, 1))
+}
+
+br_latbar_23$votaria_governo_jitter <- jitter_binary(br_latbar_23$votaria_governo)
+
+ideologia_jitt <- br_latbar_23$ideologia_pad + runif(n, -.05, .05)
+
+plot(ideologia_jitt, br_latbar_23$votaria_governo_jitter, xlim=c(0,max(ideologia_jitt)))
+
+curve(invlogit(cbind(1, x, 0) %*% coef(reg_logistica2)), add=TRUE)
+curve(invlogit(cbind(1, x, 1.0) %*% coef(reg_logistica2)), add=TRUE)
+```
+
+## Ajuste do modelo
+
+Nós vimos que podemos usar o erro quadrático médio com regressão linear para comparar ajustes do modelo. Porém, para variáveis binárias, há formas melhores de comparar a capacidade preditiva do modelo. A mais tradicional é o log da verossimilhança, dado pela soma para todos as observações de: $(ylog(p) + (1-y)log(1-p))$. No limite, um modelo perfeito, que classifica corretmente todas as observações (isto é, coloca probabilidade $1$ de sucesso e $0$ de fracasso) teria um log da verossimilhança igual a zero. Portanto, quanto mais próximo de zero, melhor o ajuste do modelo. E um modelo "burro", que previsse probabilidade de 50% para cada ponto, teria um total  de $n \cdot log(.5) = n \cdot -0.693$. Um modelo um pouco melhor seria um que previsse a média, isto é, se 60% dos casos são sucesso, pode prever para todas as observações $p=.6$. Esses modelos simples servem como comparação.  No R:
+
+
+```{r 13 ajuste, results='asis'}
+y_hat <- predict(reg_logistica, type="response")
+y_obs <- br_latbar_23$votaria_governo
+
+log_likelihood <- sum(y_obs*log(y_hat) + (1-y_obs)*log(1 - y_hat))
+print(log_likelihood)
+print(sum(y_obs*log(mean(y_obs)) + (1-y_obs)*log(1 - mean(y_obs))))
+print(nrow(br_latbar_23)*log(.5))
+stargazer(reg_logistica, reg_logistica1, type = "html")
+
+```
+
+Para mais detalhes sobre regressão logística, nossa referência favorita é o livro de Gelman, Hill e Vehtati, Regression and other Stories, de onde tiramos alguns dos códigos do presente capítulo. Capítulos 13 e 14 contém bastante material a um nível que exige um nível de matemática similar ao que temos usado em nosso livro.
+
+
+## Referências
+
+Gelman, A., Hill, J., & Vehtari, A. (2020). Regression and other stories. Cambridge University Press.
