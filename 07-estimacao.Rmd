@@ -25,6 +25,7 @@ Se tivermos uma amostra, e não a população, é razoável pensar que uma boa e
 
 Ou seja, $\hat{\beta} = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{\hat{\sigma_x}^2}$
 
+No caso da variância amostral de $x$, também é comum designá-la por $S_x^2$.
 
 ## Simulando de uma Normal Bivariada
 
@@ -41,7 +42,7 @@ $$
 $$
 Essa matriz precisa ser positiva-definida, que é uma característica de matrizes, mas que basicamente tem a ver com o fato de que não existe variância negativa e dadas as variâncias de $X$ e $Y$, existem limites para o que a covariância pode ser.
 
-Como escolher os valores para essa matriz não é nada intuitivo, vamos trabalhar com a correlação, que temos ma noção melhor. Para isso, utilizaremos a seguinte relação:
+Como escolher os valores para essa matriz não é nada intuitivo, vamos trabalhar com a correlação, que temos uma noção melhor. Para isso, utilizaremos a seguinte relação:
 
 $$
 \Sigma = 

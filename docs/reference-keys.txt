@@ -146,3 +146,6 @@ logisítica-com-múltiplos-preditores
 probit
 ajuste-do-modelo
 referências-1
+logística-com-múltiplos-preditores
+eq:logistic-latent
+eq:logistic
