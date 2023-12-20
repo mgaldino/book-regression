@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-12-19" />
+<meta name="date" content="2023-12-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -311,13 +311,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.2.2" data-path="glm.html"><a href="glm.html#logito"><i class="fa fa-check"></i><b>13.2.2</b> Logito</a></li>
 <li class="chapter" data-level="13.2.3" data-path="glm.html"><a href="glm.html#odds-ratio---razão-de-chances"><i class="fa fa-check"></i><b>13.2.3</b> Odds Ratio - Razão de chances</a></li>
 <li class="chapter" data-level="13.2.4" data-path="glm.html"><a href="glm.html#coeficientes-e-erros-padrões"><i class="fa fa-check"></i><b>13.2.4</b> Coeficientes e erros padrões</a></li>
-<li class="chapter" data-level="13.2.5" data-path="glm.html"><a href="glm.html#logística-como-variável-latente"><i class="fa fa-check"></i><b>13.2.5</b> Logística como variável latente</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="glm.html"><a href="glm.html#probit"><i class="fa fa-check"></i><b>13.3</b> Probit</a></li>
-<li class="chapter" data-level="13.4" data-path="glm.html"><a href="glm.html#logística-como-glm"><i class="fa fa-check"></i><b>13.4</b> Logística como GLM</a></li>
-<li class="chapter" data-level="13.5" data-path="glm.html"><a href="glm.html#logisítica-com-múltiplos-preditores"><i class="fa fa-check"></i><b>13.5</b> Logisítica com múltiplos preditores</a></li>
-<li class="chapter" data-level="13.6" data-path="glm.html"><a href="glm.html#ajuste-do-modelo"><i class="fa fa-check"></i><b>13.6</b> Ajuste do modelo</a></li>
-<li class="chapter" data-level="13.7" data-path="glm.html"><a href="glm.html#referências-1"><i class="fa fa-check"></i><b>13.7</b> Referências</a></li>
+<li class="chapter" data-level="13.3" data-path="glm.html"><a href="glm.html#logística-como-variável-latente"><i class="fa fa-check"></i><b>13.3</b> Logística como variável latente</a></li>
+<li class="chapter" data-level="13.4" data-path="glm.html"><a href="glm.html#probit"><i class="fa fa-check"></i><b>13.4</b> Probit</a></li>
+<li class="chapter" data-level="13.5" data-path="glm.html"><a href="glm.html#logística-como-glm"><i class="fa fa-check"></i><b>13.5</b> Logística como GLM</a></li>
+<li class="chapter" data-level="13.6" data-path="glm.html"><a href="glm.html#logística-com-múltiplos-preditores"><i class="fa fa-check"></i><b>13.6</b> Logística com múltiplos preditores</a></li>
+<li class="chapter" data-level="13.7" data-path="glm.html"><a href="glm.html#ajuste-do-modelo"><i class="fa fa-check"></i><b>13.7</b> Ajuste do modelo</a></li>
+<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#referências-1"><i class="fa fa-check"></i><b>13.8</b> Referências</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -374,7 +374,11 @@ p_i = \frac{1}{1 + \exp(-(\alpha + \beta x_i))}
 <p>Conectando com nossa variável resposta, temos:</p>
 <p><span class="math display">\[
 y_i \sim Ber(\frac{1}{1 + \exp(-(\alpha + \beta x_i))})
-\]</span></p>
+\]</span>
+A probabilidade de sucesso, condicional ao preditor, fica então:
+<span class="math display" id="eq:logistic">\[\begin{align}
+Pr(y_i=1|x) = \frac{1}{1 + \exp(-(\alpha + \beta x_i))} \tag{13.1}
+\end{align}\]</span></p>
 <p>Assim, a modelagem de variável binária por meio da regressão linear pode ser pensada como um modelo em que a probabilidade <span class="math inline">\(p_i\)</span> é modelada sem a função logística, o que significa que podemos acabar com previsões de probabilidades negativas ou maiores que 1, o que não faz sentido. Essa é uma razão para usar modelos logísticos em vez de lineares.</p>
 </div>
 <div id="logito" class="section level3 hasAnchor" number="13.2.2">
@@ -561,30 +565,39 @@ log(\frac{Pr(Y=1|X=x)}{Pr(Y=0|X=x)}) = \alpha + \beta x
 <h3><span class="header-section-number">13.2.4</span> Coeficientes e erros padrões<a href="glm.html#coeficientes-e-erros-padrões" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Como a logística é estimada por máxima verossimilhança, os procedimentos usuais valem e podemos aproximar a interpretação dos coeficientes para uma normal com amostras grandes.</p>
 </div>
-<div id="logística-como-variável-latente" class="section level3 hasAnchor" number="13.2.5">
-<h3><span class="header-section-number">13.2.5</span> Logística como variável latente<a href="glm.html#logística-como-variável-latente" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="logística-como-variável-latente" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> Logística como variável latente<a href="glm.html#logística-como-variável-latente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Uma outra forma de interpretar ou justificar a logística é com a formulação de variável latente. Imagine que existe uma variável latente (não observada), <span class="math inline">\(z\)</span>, que é contínua e reflete a propensão a votar no governo. Porém, nós só observamos os valores <span class="math inline">\(1\)</span> ou <span class="math inline">\(0\)</span>, de tal modo que podemos escrever:</p>
 <p><span class="math display">\[\begin{align}
-y_i = 1, se z_i &gt; 0 \\
-y_i = 0, c.c.,
+y_i = 1, se &amp; &amp; z_i &gt; 0 \\
+y_i = 0, c.c. \\
 z_i = \alpha + \beta x_i + e_i, e_i \sim logistica
 \end{align}\]</span></p>
 <p>A distribuição logística é dada por:
 <span class="math display">\[
-Pr(e_i &lt; x) = \frac{1}{1 + \exp(-x)}
+Pr(e_i &lt; x) = \frac{\exp(x)}{1 + \exp(x)}
 \]</span></p>
 <p>Portanto, temos que:
-<span class="math display">\[\begin{align}
-Pr(y_i = 1) = Pr(z_i &gt; 0) = //
-Pr(e_i &gt; -\alpha - \beta x_i) = //
-\frac{1}{1 + \exp(\alpha + \beta x_i)}
+<span class="math display" id="eq:logistic-latent">\[\begin{align}
+Pr(y_i = 1) = Pr(z_i &gt; 0) = \\
+Pr(e_i + \alpha + \beta x_i &gt; 0) = \\
+Pr(e_i &gt; -\alpha - \beta x_i) \\
+\textrm{Pela regra do complemento:} \\
+Pr(e_i &gt; \alpha + \beta x_i) = 1 - Pr(e_i &lt; -\alpha - \beta x_i) = \\
+1 - \frac{\exp(- \alpha - \beta x_i)}{1 + \exp(- \alpha - \beta x_i)} = \\
+\frac{1 + \exp(- \alpha - \beta x_i) - \exp(- \alpha - \beta x_i)}{1 + \exp(- \alpha - \beta x_i)} = \\
+\frac{1}{1 + \exp(- \alpha - \beta x_i)}  \tag{13.2}
 \end{align}\]</span></p>
-<p>Vimos assim que as parametrizações são equivalentes.</p>
+<p>Vimos assim que as parametrizações de <a href="glm.html#eq:logistic">(13.1)</a> e <a href="glm.html#eq:logistic-latent">(13.2)</a> são equivalentes.</p>
 </div>
-</div>
-<div id="probit" class="section level2 hasAnchor" number="13.3">
-<h2><span class="header-section-number">13.3</span> Probit<a href="glm.html#probit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Se, por outro lado, supusermos que o termo de erro tem distribuição normal, em vez de distribuição logística, teremos um modelo probit. Que é basicamente o modelo logístico, com desvio-padrão da logística dividito por 1.6. Isso significa que o coeficiente da probit é aproximadamente o da logística/1.6 e vice-versa, isto é, podemos multiplicar o coeficiente da probit por 1.6. Vamos checar no R.</p>
+<div id="probit" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> Probit<a href="glm.html#probit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se, por outro lado, supusermos que o termo de erro tem distribuição normal, em vez de distribuição logística, teremos um modelo probit.</p>
+<p><span class="math display">\[
+z_i = \alpha + \beta x_i + e_i, e_i \sim N(0, \sigma^2)
+\]</span>
+Quando <span class="math inline">\(\sigma = 1.6\)</span>, essa formulação é aproximadamente a regressão logística. Isso significa que o coeficiente da probit é aproximadamente o da logística/1.6 e vice-versa, isto é, podemos multiplicar o coeficiente da probit por 1.6. Vamos checar no R.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="glm.html#cb10-1" tabindex="-1"></a>reg_logistica <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia, <span class="at">data=</span>br_latbar_23,</span>
 <span id="cb10-2"><a href="glm.html#cb10-2" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;logit&quot;</span>))</span>
 <span id="cb10-3"><a href="glm.html#cb10-3" tabindex="-1"></a></span>
@@ -752,13 +765,13 @@ Akaike Inf. Crit.
 </tr>
 </table>
 </div>
-<div id="logística-como-glm" class="section level2 hasAnchor" number="13.4">
-<h2><span class="header-section-number">13.4</span> Logística como GLM<a href="glm.html#logística-como-glm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="logística-como-glm" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> Logística como GLM<a href="glm.html#logística-como-glm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Uma outra forma de pensar a logística é como um modelo linear generalizado. Nós vimos que o modelo linear precisou entrar em uma função <span class="math inline">\(f\)</span> que transformasse os intervalos entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>. Podemos considerar o modelo de regressão linear como um caso particular, em que temos a função identidade <span class="math inline">\(f(x) = x\)</span> e a distribuição da resposta é modelada como Gaussiana. Na logística,a função de ligação é logística, e a resposta modelada como Bernoulli (e para <span class="math inline">\(n\)</span> dados, binomial).</p>
-<p>Similarmente, se tenho dados discretos <span class="math inline">\(1, 2, 3, ..., n\)</span>, posso modelar meus dados com uma Poisson e com uma função <span class="math inline">\(f\)</span> específica, que chamamos de função de ligação.</p>
+<p>Similarmente, se tenho dados discretos <span class="math inline">\(\{1, 2, 3, ..., n\}\)</span>, posso modelar meus dados com uma Poisson e com uma função <span class="math inline">\(f\)</span> específica, que chamamos de função de ligação.</p>
 </div>
-<div id="logisítica-com-múltiplos-preditores" class="section level2 hasAnchor" number="13.5">
-<h2><span class="header-section-number">13.5</span> Logisítica com múltiplos preditores<a href="glm.html#logisítica-com-múltiplos-preditores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="logística-com-múltiplos-preditores" class="section level2 hasAnchor" number="13.6">
+<h2><span class="header-section-number">13.6</span> Logística com múltiplos preditores<a href="glm.html#logística-com-múltiplos-preditores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="glm.html#cb11-1" tabindex="-1"></a>reg_logistica1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> evangelico, <span class="at">data=</span>br_latbar_23,</span>
 <span id="cb11-2"><a href="glm.html#cb11-2" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;logit&quot;</span>))</span>
 <span id="cb11-3"><a href="glm.html#cb11-3" tabindex="-1"></a></span>
@@ -939,8 +952,8 @@ evangelico
 <span id="cb13-12"><a href="glm.html#cb13-12" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">invlogit</span>(<span class="fu">cbind</span>(<span class="dv">1</span>, x, <span class="fl">1.0</span>) <span class="sc">%*%</span> <span class="fu">coef</span>(reg_logistica2)), <span class="at">add=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/13%20logistica5-1.png" width="672" /></p>
 </div>
-<div id="ajuste-do-modelo" class="section level2 hasAnchor" number="13.6">
-<h2><span class="header-section-number">13.6</span> Ajuste do modelo<a href="glm.html#ajuste-do-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ajuste-do-modelo" class="section level2 hasAnchor" number="13.7">
+<h2><span class="header-section-number">13.7</span> Ajuste do modelo<a href="glm.html#ajuste-do-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Nós vimos que podemos usar o erro quadrático médio com regressão linear para comparar ajustes do modelo. Porém, para variáveis binárias, há formas melhores de comparar a capacidade preditiva do modelo. A mais tradicional é o log da verossimilhança, dado pela soma para todos as observações de: <span class="math inline">\((ylog(p) + (1-y)log(1-p))\)</span>. No limite, um modelo perfeito, que classifica corretmente todas as observações (isto é, coloca probabilidade <span class="math inline">\(1\)</span> de sucesso e <span class="math inline">\(0\)</span> de fracasso) teria um log da verossimilhança igual a zero. Portanto, quanto mais próximo de zero, melhor o ajuste do modelo. E um modelo “burro”, que previsse probabilidade de 50% para cada ponto, teria um total de <span class="math inline">\(n \cdot log(.5) = n \cdot -0.693\)</span>. Um modelo um pouco melhor seria um que previsse a média, isto é, se 60% dos casos são sucesso, pode prever para todas as observações <span class="math inline">\(p=.6\)</span>. Esses modelos simples servem como comparação. No R:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="glm.html#cb14-1" tabindex="-1"></a>y_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg_logistica, <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
 <span id="cb14-2"><a href="glm.html#cb14-2" tabindex="-1"></a>y_obs <span class="ot">&lt;-</span> br_latbar_23<span class="sc">$</span>votaria_governo</span>
@@ -1129,8 +1142,8 @@ Akaike Inf. Crit.
 </table>
 <p>Para mais detalhes sobre regressão logística, nossa referência favorita é o livro de Gelman, Hill e Vehtati, Regression and other Stories, de onde tiramos alguns dos códigos do presente capítulo. Capítulos 13 e 14 contém bastante material a um nível que exige um nível de matemática similar ao que temos usado em nosso livro.</p>
 </div>
-<div id="referências-1" class="section level2 hasAnchor" number="13.7">
-<h2><span class="header-section-number">13.7</span> Referências<a href="glm.html#referências-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="referências-1" class="section level2 hasAnchor" number="13.8">
+<h2><span class="header-section-number">13.8</span> Referências<a href="glm.html#referências-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Gelman, A., Hill, J., &amp; Vehtari, A. (2020). Regression and other stories. Cambridge University Press.</p>
 
 </div>

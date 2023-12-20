@@ -60,6 +60,10 @@ Conectando com nossa variável resposta, temos:
 $$
 y_i \sim Ber(\frac{1}{1 + \exp(-(\alpha + \beta x_i))})
 $$
+A probabilidade de sucesso, condicional ao preditor, fica então:
+\begin{align}
+Pr(y_i=1|x) = \frac{1}{1 + \exp(-(\alpha + \beta x_i))} (\#eq:logistic)
+\end{align}
 
 Assim, a modelagem de variável binária por meio da regressão linear pode ser pensada como um modelo em que a probabilidade $p_i$ é modelada sem a função logística, o que significa que podemos acabar com previsões de probabilidades negativas ou maiores que 1, o que não faz sentido. Essa é uma razão para usar modelos logísticos em vez de lineares.
 
@@ -204,33 +208,44 @@ Eu acho complicado entender o que é uma razão de chances, então preferimos tr
 
 Como a logística é estimada por máxima verossimilhança, os procedimentos usuais valem e podemos aproximar a interpretação dos coeficientes para uma normal com amostras grandes.
 
-### Logística como variável latente
+## Logística como variável latente
 
 Uma outra forma de interpretar ou justificar a logística é com a formulação de variável latente. Imagine que existe uma variável latente (não observada), $z$, que é contínua e reflete a propensão a votar no governo. Porém, nós só observamos os valores $1$ ou $0$, de tal modo que podemos escrever:
 
 \begin{align}
-y_i = 1, se z_i > 0 \\
-y_i = 0, c.c.,
+y_i = 1, se & & z_i > 0 \\
+y_i = 0, c.c. \\
 z_i = \alpha + \beta x_i + e_i, e_i \sim logistica
 \end{align}
 
 A distribuição logística é dada por:
 $$ 
-Pr(e_i < x) = \frac{1}{1 + \exp(-x)}
+Pr(e_i < x) = \frac{\exp(x)}{1 + \exp(x)}
 $$
 
 Portanto, temos que:
 \begin{align}
-Pr(y_i = 1) = Pr(z_i > 0) = //
-Pr(e_i > -\alpha - \beta x_i) = //
-\frac{1}{1 + \exp(\alpha + \beta x_i)}
+Pr(y_i = 1) = Pr(z_i > 0) = \\
+Pr(e_i + \alpha + \beta x_i > 0) = \\
+Pr(e_i > -\alpha - \beta x_i) \\
+\textrm{Pela regra do complemento:} \\
+Pr(e_i > \alpha + \beta x_i) = 1 - Pr(e_i < -\alpha - \beta x_i) = \\
+1 - \frac{\exp(- \alpha - \beta x_i)}{1 + \exp(- \alpha - \beta x_i)} = \\
+\frac{1 + \exp(- \alpha - \beta x_i) - \exp(- \alpha - \beta x_i)}{1 + \exp(- \alpha - \beta x_i)} = \\
+\frac{1}{1 + \exp(- \alpha - \beta x_i)}  (\#eq:logistic-latent)
 \end{align}
 
-Vimos assim que as parametrizações são equivalentes.
+
+Vimos assim que as parametrizações de \@ref(eq:logistic) e \@ref(eq:logistic-latent) são equivalentes.
 
 ## Probit 
 
-Se, por outro lado, supusermos que o termo de erro tem distribuição normal, em vez de distribuição logística, teremos um modelo probit. Que é basicamente o modelo logístico, com desvio-padrão da logística dividito por 1.6. Isso significa que o coeficiente da probit é aproximadamente o da logística/1.6 e vice-versa, isto é, podemos multiplicar o coeficiente da probit por 1.6. Vamos checar no R.
+Se, por outro lado, supusermos que o termo de erro tem distribuição normal, em vez de distribuição logística, teremos um modelo probit. 
+
+$$
+z_i = \alpha + \beta x_i + e_i, e_i \sim N(0, \sigma^2)
+$$
+Quando $\sigma = 1.6$, essa formulação é aproximadamente a regressão logística. Isso significa que o coeficiente da probit é aproximadamente o da logística/1.6 e vice-versa, isto é, podemos multiplicar o coeficiente da probit por 1.6. Vamos checar no R.
 
 ```{r 13 probit, echo=TRUE, message=FALSE, results='asis'}
 
@@ -251,9 +266,9 @@ stargazer(reg_logistica, reg_probit, type = "html")
 
 Uma outra forma de pensar a logística é como um modelo linear generalizado. Nós vimos que o modelo linear precisou entrar em uma função $f$ que transformasse os intervalos entre $0$ e $1$. Podemos considerar o modelo de regressão linear como um caso particular, em que temos a função identidade $f(x) = x$ e a distribuição da resposta é modelada como Gaussiana. Na logística,a função de ligação é logística, e a resposta modelada como Bernoulli (e para $n$ dados, binomial).
 
-Similarmente, se tenho dados discretos $1, 2, 3, ..., n$, posso modelar meus dados com uma Poisson e com uma função $f$ específica, que chamamos de função de ligação.
+Similarmente, se tenho dados discretos $\{1, 2, 3, ..., n\}$, posso modelar meus dados com uma Poisson e com uma função $f$ específica, que chamamos de função de ligação.
 
-## Logisítica com múltiplos preditores
+## Logística com múltiplos preditores
 
 ```{r 13 logistica3, echo=TRUE, message=FALSE, cache=TRUE}
 
