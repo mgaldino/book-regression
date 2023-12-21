@@ -167,3 +167,4 @@ logística-como-glm-1
 logística-com-múltiplos-preditores-1
 ajuste-do-modelo-1
 referências-2
+gráficos-e-tabelas
