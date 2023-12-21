@@ -4,10 +4,29 @@ editor_options:
     wrap: 72
 ---
 
-# - GLM
+# - Apêndice
 
-GLM é a sigla de Modelos Lineares Generalizados. A regressão logística pode ser considerada como um dos tipos de modelos lineares generalizados. Vamos nos concentrar em entender a regressão logística, como ela se conecta com GLM e, rapidamente, ver outros modelos de GLM que existem, como Poisson e probit.
-Até o momento, variáveis resposta binárias foram modeladas com regressão linear.
+Vamos listar aqui os pacotes do R que eu mais utilizo e as principais funções.
+
+## Importação
+Para ler arquivos em csv ou formato tabular, prefiro a função fread do data.table.
+
+Para ler arquivos de outrossoftwares, como stata ou SPSS, vejam as funções do pacote haven.
+
+## Gráficos
+
+Para visualização, uso o ggplot e pacotes que dialogam com o ggplot. A única exceção é para plotar o gráfico da logística, que usei o R base e a função curve.
+
+## Limpeza de dados
+Para limpeza de dados, além do tidyverse, uso o pacote janitor (particularmente a função clean_names) e lubridate para trabalhar com datas. Com relação a textos, stringr.
+
+## Modelagem de dados
+Para regressões limpes, uso o R base e suas funções lm e glm. Para dados em painel, prefiro fixest, que evita de eu ter de chamar o pacote sandwich para erro padrão robusto. Para modelos Bayesianos, vario entre rstanarm e brms.
+
+## Outros
+Checagem do modelo, o pacote performance.
+Para instalação do gihutb, devtools.
+
 
 ```{r package loads 13, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
@@ -229,7 +248,7 @@ Pr(y_i = 1) = Pr(z_i > 0) = \\
 Pr(e_i + \alpha + \beta x_i > 0) = \\
 Pr(e_i > -\alpha - \beta x_i) \\
 \textrm{Pela regra do complemento:} \\
-Pr(e_i > -\alpha - \beta x_i) = 1 - Pr(e_i < -\alpha - \beta x_i) = \\
+Pr(e_i > \alpha + \beta x_i) = 1 - Pr(e_i < -\alpha - \beta x_i) = \\
 1 - \frac{\exp(- \alpha - \beta x_i)}{1 + \exp(- \alpha - \beta x_i)} = \\
 \frac{1 + \exp(- \alpha - \beta x_i) - \exp(- \alpha - \beta x_i)}{1 + \exp(- \alpha - \beta x_i)} = \\
 \frac{1}{1 + \exp(- \alpha - \beta x_i)}  (\#eq:logistic-latent)
