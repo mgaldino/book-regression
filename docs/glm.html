@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2023-12-20" />
+<meta name="date" content="2023-12-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="regressao-multipla.html"/>
-
+<link rel="next" href="apêndice.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -319,6 +319,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.7" data-path="glm.html"><a href="glm.html#ajuste-do-modelo"><i class="fa fa-check"></i><b>13.7</b> Ajuste do modelo</a></li>
 <li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#referências-1"><i class="fa fa-check"></i><b>13.8</b> Referências</a></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="apêndice.html"><a href="apêndice.html"><i class="fa fa-check"></i><b>14</b> - Apêndice</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="apêndice.html"><a href="apêndice.html#importação"><i class="fa fa-check"></i><b>14.1</b> Importação</a></li>
+<li class="chapter" data-level="14.2" data-path="apêndice.html"><a href="apêndice.html#gráficos"><i class="fa fa-check"></i><b>14.2</b> Gráficos</a></li>
+<li class="chapter" data-level="14.3" data-path="apêndice.html"><a href="apêndice.html#limpeza-de-dados"><i class="fa fa-check"></i><b>14.3</b> Limpeza de dados</a></li>
+<li class="chapter" data-level="14.4" data-path="apêndice.html"><a href="apêndice.html#modelagem-de-dados"><i class="fa fa-check"></i><b>14.4</b> Modelagem de dados</a></li>
+<li class="chapter" data-level="14.5" data-path="apêndice.html"><a href="apêndice.html#outros"><i class="fa fa-check"></i><b>14.5</b> Outros</a></li>
+<li class="chapter" data-level="14.6" data-path="apêndice.html"><a href="apêndice.html#plm-1"><i class="fa fa-check"></i><b>14.6</b> PLM</a></li>
+<li class="chapter" data-level="14.7" data-path="apêndice.html"><a href="apêndice.html#logística-1"><i class="fa fa-check"></i><b>14.7</b> Logística</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="apêndice.html"><a href="apêndice.html#logística-como-melhoria-em-relação-ao-mpl-1"><i class="fa fa-check"></i><b>14.7.1</b> Logística como melhoria em relação ao MPL</a></li>
+<li class="chapter" data-level="14.7.2" data-path="apêndice.html"><a href="apêndice.html#logito-1"><i class="fa fa-check"></i><b>14.7.2</b> Logito</a></li>
+<li class="chapter" data-level="14.7.3" data-path="apêndice.html"><a href="apêndice.html#odds-ratio---razão-de-chances-1"><i class="fa fa-check"></i><b>14.7.3</b> Odds Ratio - Razão de chances</a></li>
+<li class="chapter" data-level="14.7.4" data-path="apêndice.html"><a href="apêndice.html#coeficientes-e-erros-padrões-1"><i class="fa fa-check"></i><b>14.7.4</b> Coeficientes e erros padrões</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="apêndice.html"><a href="apêndice.html#logística-como-variável-latente-1"><i class="fa fa-check"></i><b>14.8</b> Logística como variável latente</a></li>
+<li class="chapter" data-level="14.9" data-path="apêndice.html"><a href="apêndice.html#probit-1"><i class="fa fa-check"></i><b>14.9</b> Probit</a></li>
+<li class="chapter" data-level="14.10" data-path="apêndice.html"><a href="apêndice.html#logística-como-glm-1"><i class="fa fa-check"></i><b>14.10</b> Logística como GLM</a></li>
+<li class="chapter" data-level="14.11" data-path="apêndice.html"><a href="apêndice.html#logística-com-múltiplos-preditores-1"><i class="fa fa-check"></i><b>14.11</b> Logística com múltiplos preditores</a></li>
+<li class="chapter" data-level="14.12" data-path="apêndice.html"><a href="apêndice.html#ajuste-do-modelo-1"><i class="fa fa-check"></i><b>14.12</b> Ajuste do modelo</a></li>
+<li class="chapter" data-level="14.13" data-path="apêndice.html"><a href="apêndice.html#referências-2"><i class="fa fa-check"></i><b>14.13</b> Referências</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -584,7 +606,7 @@ Pr(y_i = 1) = Pr(z_i &gt; 0) = \\
 Pr(e_i + \alpha + \beta x_i &gt; 0) = \\
 Pr(e_i &gt; -\alpha - \beta x_i) \\
 \textrm{Pela regra do complemento:} \\
-Pr(e_i &gt; \alpha + \beta x_i) = 1 - Pr(e_i &lt; -\alpha - \beta x_i) = \\
+Pr(e_i &gt; -\alpha - \beta x_i) = 1 - Pr(e_i &lt; -\alpha - \beta x_i) = \\
 1 - \frac{\exp(- \alpha - \beta x_i)}{1 + \exp(- \alpha - \beta x_i)} = \\
 \frac{1 + \exp(- \alpha - \beta x_i) - \exp(- \alpha - \beta x_i)}{1 + \exp(- \alpha - \beta x_i)} = \\
 \frac{1}{1 + \exp(- \alpha - \beta x_i)}  \tag{13.2}
@@ -1153,8 +1175,8 @@ Akaike Inf. Crit.
           </div>
         </div>
       </div>
-<a href="regressao-multipla.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="regressao-multipla.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="apêndice.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -169,7 +169,7 @@ A única diferença é o tamanho da matriz $X$ e $B$, em que $X$ é uma matriz $
 É possível mostrar que o estimador de mínimos quadrados ordinários é dados por:
 
 $$
-B = X'X^{-1} \cdot X'Y
+B = (X'X)^{-1} \cdot X'Y
 $$
 Veja que $X'Y$ é um produto (com soma) entre $X$ e $Y$, ou seja, é como se fosse a covariância entre $X$ e $Y$, e $X'X$ se assemelha à variância de $X$. E está elevado a $-1$ porque não existe divisão em matriz, de forma que preciso multiplicar pela inversa.
 
@@ -286,8 +286,8 @@ Nós hoje sabemos que o modo mais seguro de pensar causalidade é usando uma das
 
 Uma forma interessante de visualizar as previsões do modelo é que podemos escrever $\hat{Y} = XB$. Substituindo a fórmula do $B$, temos que:
 $$
-\hat{Y} = X X'X^{-1}X'Y = \\
-(X X'X^{-1}X')Y = \\
+\hat{Y} = X (X'X)^{-1}X'Y = \\
+(X (X'X)^{-1}X')Y = \\
 HY
 $$
 Essa equação mostra que as previsões são dadas pelas respostas observadas, ponderadas pela matriz chapéu (*hat*), $H$.
@@ -324,7 +324,7 @@ E a partir dessa equação, podemos calcular a variância dos estimadores.
 
 Para ficar mais familiar para a gente, posso multipliar e dividir por $n$, que não altero a equação. Assim, temos:
 $$
-\mathbb{Var}[\hat{B}|X] = \frac{\sigma^2}{n}(n^{-1}X'X)^{-1}
+\mathbb{Var}[\hat{B}|X] = \frac{\sigma^2}{n}(n^{-1}(X'X)^{-1})
 $$
 Lembrem-e que a variância do $\hat{\beta|x}$ no modelo de regressão simples era dada por: $\frac{\sigma^2}{nS_x^2}$
 
