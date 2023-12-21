@@ -12,7 +12,7 @@ Vamos então apresentar os principais testes e checagem que devemos fazer com no
 
 ## Resíduos
 
-Os resíduo para cada obsrrvação $i$ é a diferença entre a previsão do modelo de regressão $\hat{y_i}$ e o valor observado $y_i$, as vezes chamado de $\hat{e}$, para diferenciar do erro populacional, $e$. No caso de nosso modelo de regressão linear com um único preditor, temos:
+Os resíduo para cada observação $i$ é a diferença entre a previsão do modelo de regressão $\hat{y_i}$ e o valor observado $y_i$, as vezes chamado de $\hat{e}$, para diferenciar do erro populacional, $e$. No caso de nosso modelo de regressão linear com um único preditor, temos:
 
 $$
 \hat{e_i} = y_i - (\hat{\alpha} + \hat{\beta} \cdot x_i)
@@ -96,8 +96,8 @@ presid_al18_valido %>%
 
 ```
 
-
 ### Resíduos contra o preditor
+
 Se os resíduos devem ter $\mathbb{E}[\hat{e}|X=x] = 0$, isso significa que para cada $x_i$ os resíduos devem ter média zero. Em um gráfico, isso significa que, se eu tiver pontos suficientes na proximidade de cada $x_i$, a dispersão dos resíduos deve ser aleatória, no sentido de não ter padrão claro, o que vai implicar uma reta horizontal cuja média é zero.
 
 ```{r residuos-preditor, echo=TRUE, message=FALSE}
@@ -154,15 +154,29 @@ df <- data.frame(residuos = residuals(reg1), id = as.numeric(presid_al18_valido$
 
 df %>%
   ggplot(aes(x=id, y = residuos)) + geom_point() + geom_smooth(method="lm", se=F)
+
 ```
 
-Uma técnica simples, que é uma versão simplificada de algo mais formal chamado "permutation test", é plotar os resíduos permutados aleatoriamente contra a data ou espaço (no nosso caso, espaço). Vamos usar o pacote [nullabor](https://dicook.github.io/nullabor/) library(nullabor)
+Uma técnica simples, que é uma versão simplificada de algo mais formal chamado "permutation test", é plotar os resíduos permutados aleatoriamente contra o plot real que queremos fazer. Vamos usar o pacote [nullabor](https://dicook.github.io/nullabor/) para isso. Vamos replicar o teste de homecedasticidade e olhar os resíduos ao quadrado contra os preditores, e olhar os resíduos contra os valores previstos Primeiro contra o preditor.  
 
-```{r residuos-shufle-coordenadas, message=FALSE}
+```{r residuos-shufle-coordenadas1, message=FALSE}
 library(nullabor)
 
 set.seed(1234)  # Aleatoriza do mesmo jeito sempre
+elec_reg <- data.frame(presid_al18_valido, .resid = residuals(reg1),
+                       .predicted = model.matrix(reg1)[,2])
 
+shuffled_residuals <- lineup(null_lm(perc_bolso_turno2 ~ perc_bolso_turno1,
+                                     method = "rotate"), true = elec_reg,
+                             n = 9)
+
+ggplot(shuffled_residuals, aes(x = .predicted, y = .resid^2)) +
+  geom_point() +
+  facet_wrap(vars(.sample))
+```
+
+Depois contra os valores previstos.
+```{r residuos-shufle-coordenadas2, message=FALSE}
 elec_reg <- data.frame(presid_al18_valido, .resid = residuals(reg1), .fitted = fitted(reg1))
 
 shuffled_residuals <- lineup(null_lm(perc_bolso_turno2 ~ perc_bolso_turno1,
@@ -174,16 +188,10 @@ ggplot(shuffled_residuals, aes(x = .fitted, y = .resid)) +
   geom_point() +
   facet_wrap(vars(.sample))
 
-presid_al18_valido <- presid_al18_valido %>%
-  mutate(id_secao = paste0(NR_SECAO, NR_ZONA , CD_MUNICIPIO))
 
-df <- data.frame(residuos_s = sample(residuals(reg1)), secao = as.numeric(presid_al18_valido$id_secao))
-
-df %>%
-  ggplot(aes(x=secao, y = residuos_s)) + geom_point() + geom_smooth(method="lm", se=F)
 ```
 
-Como podemos ver, dá para identificar que o plot 2 é diferente do resto. E de fato, ele é o original. Isso significa que existe algum padrão nos resíduos que não estamos levando em consideração.
+A mensagem encriptada tem o plot real, contrao o nulo. Se for possível identificar o plot real, é porque existe algum padrão nos dados.
 
 
 ## Normalidade dos resíduos
