@@ -224,6 +224,7 @@ Pr(e_i < x) = \frac{\exp(x)}{1 + \exp(x)}
 $$
 
 Portanto, temos que:
+
 \begin{align}
 Pr(y_i = 1) = Pr(z_i > 0) = \\
 Pr(e_i + \alpha + \beta x_i > 0) = \\

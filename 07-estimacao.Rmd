@@ -99,7 +99,6 @@ reg1 <- lm( y ~x , data = bivariada_tibble1)
 summary(reg1)
 ```
 
-
 A fórmula do $\beta$ nós sabemos que depende da covariância entre as variáveis e o desvio-padrão de $X$. Vamos então simular os dados novamente, mudando as correlações e variâncias, para entender como isso impacta a regressão a partir da fórmula da inclinação da reta.
 
 
@@ -275,7 +274,7 @@ $$
 \hat{\beta} =  \frac{n^{-1}\sum({x - \bar{x}})*y_i}{S^2_x}
 $$
 
-Lembremos que, $y_i = \alpha + \beta*x_i + e_i$. Se eu adicionar e subtrair $\beta*\bar{x}$ da equação, não altero ela. Utilizando esse truque e rearranjando, temos:
+Lembremos que, $y_i = \alpha + \beta*x_i + e_i$. Se eu adicionar e subtrair $\beta*\bar{x}$ da equação, não altero ela. Utilizando esse truque e rearranjando, temos o seguinte:
 
 $$
 y_i = \alpha + \beta*X_i + e_i = \\
