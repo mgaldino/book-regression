@@ -19,7 +19,7 @@ Para arquivos em formato xls ou xlsx, do Excel, uso a função `read_excel` do p
 
 Para visualização, uso o ggplot e pacotes que dialogam com o **ggplot2**. A única exceção é para plotar o gráfico da logística, que usei o R base e a função `curve`.
 
-Para gerar tabelas em Rmarkdown, uso três funções (deveria ser mais consistente e usar só uma ou duas), `kable` do **knitr**, `gt` do pacote de mesmo nome e a função `etable` do pacote **fixest**, quando rodo regressões desse pacote.
+Para gerar tabelas em Rmarkdown, uso quatro funções (deveria ser mais consistente e usar só uma ou duas), `kable` do **knitr**, `gt` do pacote de mesmo nome, `stargazer`, também do pacote de mesmo nome e a função `etable` do pacote **fixest**, quando rodo regressões desse pacote.
 
 ## Limpeza de dados
 Para limpeza de dados, além do **tidyverse** e **tidyr**, uso o pacote **janitor** (particularmente a função `clean_names`) e o pacote **lubridate** para trabalhar com datas. Com relação a textos, o pacote **stringr**.
