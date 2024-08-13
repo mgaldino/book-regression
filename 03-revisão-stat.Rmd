@@ -1,6 +1,6 @@
 # - Revisão de estatística e probabilidade
 
-A média de um conjunto de valores é dada pela soma dos valores, dividdo pelo número de observações. Matematicamente:
+A média de um conjunto de valores é dada pela soma dos valores, dividido pelo número de observações. Matematicamente:
 $media = \sum_{i=1}^n{x_i}/n$ para observações $\{ x_1, x_2, x_3, ..., x_n \}$
 
 Em geral, as observações são uma amostra, e falamos de média amostral, $\overline x$. Ou seja:
@@ -40,13 +40,14 @@ mean(x)
 
 ## Variável Aleatória
 
-Uma variável aleatória (v.a.) mede numericamente resultad0s de eventos aleatórios. dPor exemplo, um dado de $6$ faces possui um espaço amostral de eventos possíveis dados pelos números $\{1,2,3,4,5,6\}$. Ao atribuirmos uma probabilidade a cada resultado possível do espaço amostral por exemplo, $1/6$, temos uma distribuição de probabilidade.
+Uma variável aleatória (v.a.) mede numericamente resultados de eventos aleatórios. Por exemplo, um dado de $6$ faces possui um espaço amostral de eventos possíveis dados pelos números $\{1,2,3,4,5,6\}$. Ao atribuirmos uma probabilidade a cada resultado possível do espaço amostral, por exemplo $1/6$, temos uma distribuição de probabilidade.
 
 Variáveis aleatórias podem ser discretas ou contínuas. Uma v.a. discreta pode assumir um número finito (contável) de valores. Já uma contínua pode assumir infinitos (não-contáveis) valores.
 
 Um conjunto é contável se ele for finito ou se puder ser estabelecida uma correspondência um para um com o conjunto (infinito) dos números naturais.
 
 ## Esperança matemática
+
 A esperança de uma variável aleatória discreta $X$, cuja probabilidade de massa de $x \in X$ é dada por $p(x)$, é definida por: $\sum(x*p(x))$.
 
 A esperança de uma v.a. contínua X, cuja densidade é $f(x)$, é definida por: $\int f(x)*x\,dx$.
@@ -66,22 +67,25 @@ Notem que $Cov(X,X) = Var(X)$.
 
 A covariância é positiva quando ambos X e Y tendem a ter valores acima (ou abaixo) de sua média simultaneamente, enquanto ela é negativa quando uma v.a. tende a ter valores acima da sua média e a outra abaixo.
 
-## Algebra com Esperança, Variância e Covariância
+## Àlgebra com Esperança, Variância e Covariância
 
 Sejam $a$ e $b$ constantes.
 
-1.  Linearidade da Esperença
+1.  Linearidade da Esperança
 $\mathbb{E}[aX + bY] =\mathbb{E}[aX] + \mathbb{E}[by] =  a*\mathbb{E}[X] + b*\mathbb{E}[Y]$
 
 Exercício: verifique, com exemplos, que isso é verdade.
 
 2. Identidade da variância
+
  $Var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - \mathbb{E}^2[X]$
+ 
  A prova será demonstrada mais adiante.
 
 3. Identidade da Covariância
 
 $Cov(X,Y) = \mathbb{E}[X*Y] - \mathbb{E}[X]*\mathbb{E}[Y] =  \mathbb{E}[(X -  \mathbb{E}[X])*(Y -  \mathbb{E}[Y])]$
+
 Exercício para o leitor. Prove que isso é verdade.
 
 4, Covariância é simétrica
@@ -89,11 +93,12 @@ Exercício para o leitor. Prove que isso é verdade.
 $Cov(X,Y) = Cov(Y,X)$
 
 5. Variância não é linear
- $Var(a*X + b) = a^2*Var(x)$
+$Var(a*X + b) = a^2*Var(x)$
 
- 6. Covariância não é linear
+6. Covariância não é linear
 
  $Cov(a*X + b,Y) = a*Cov(Y,X)$
+ 
 # Prova da identidade da variância
 Vamos mostrar que $\mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - \mathbb{E}^2[X]$
 
