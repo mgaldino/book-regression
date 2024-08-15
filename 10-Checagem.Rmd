@@ -72,7 +72,7 @@ presid_al18 %>%
 # 95 e 96
 presid_al18_valido <- presid_al18 %>%
   filter(!NR_VOTAVEL %in% c(95,96)) %>%
-  group_by(NR_SECAO,NR_ZONA, CD_MUNICIPIO, NR_TURNO, NR_VOTAVEL ) %>%
+  group_by(NR_SECAO,NR_ZONA, CD_MUNICIPIO,NM_MUNICIPIO, NR_TURNO, NR_VOTAVEL ) %>%
   summarise(validos = sum(QT_VOTOS)) %>%
   mutate(bol_bolsonaro = NR_VOTAVEL == 17,
          validos_bolsonaro = sum(validos*bol_bolsonaro)) %>%
@@ -80,7 +80,7 @@ presid_al18_valido <- presid_al18 %>%
             validos_bolsonaro = max(validos_bolsonaro),
             perc_bolsonaro = validos_bolsonaro/total_validos) %>%
   dplyr::select(-total_validos) %>%
-  pivot_wider(id_cols = c(NR_SECAO, NR_ZONA, CD_MUNICIPIO), names_from = NR_TURNO, values_from = perc_bolsonaro) %>%
+  pivot_wider(id_cols = c(NR_SECAO, NR_ZONA, CD_MUNICIPIO, NM_MUNICIPIO), names_from = NR_TURNO, values_from = perc_bolsonaro) %>%
   rename(perc_bolso_turno1 = '1',
          perc_bolso_turno2 = '2')
 

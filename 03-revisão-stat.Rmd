@@ -119,11 +119,11 @@ $Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[\mathbb{E}[X]*X] + \mathbb{E}[\mathbb{E
 
 5. Nós sabemos que $\mathbb{E}[X]$ é uma constante (é uma média da v.a.). E a média de uma constante é a própria constante. Portanto, $\mathbb{E}[\mathbb{E}[X]] = \mathbb{E}[X]$. E usaremos também que $\mathbb{E}[a*X] = a*\mathbb{E}[X]$ e, por fim, o fato de que uma constante ao quadrado é em si uma constante.
 
-$Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X] * \mathbb{E}[\mathbb{E}[X]] + \mathbb{E}[X]^2]$
+$Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X] * \mathbb{E}[\mathbb{E}[X]] + \mathbb{E}[X]^2$
 
-$Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X] * \mathbb{E}[X] + \mathbb{E}[X]^2]$
+$Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X] * \mathbb{E}[X] + \mathbb{E}[X]^2$
 
-$Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X]^2 + \mathbb{E}[X]^2]$
+$Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X]^2 + \mathbb{E}[X]^2$
 
 $Var(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2$
 
@@ -179,7 +179,7 @@ kable(tabela, caption = "Tabela representando a distribuição conjunta da soma 
 
 ```
 
-## Pobabilidade Condicional
+## Probabilidade Condicional
 
 Nós vimos o que é uma distribuição de probabilidade conjunta. É comum que nós tenhamos apenas uma observação parcial sobre uma das variáveis. Digamos, que $y = 2$. De posse dessa informação, como podemos atualizar nossa tabela de probabilidades? Se o maior valor foi $2$, então a soma dos dados $X$ só pode ser 3 ou 4. Se a soma for 3, temos algo como $(1,2)$ ou $(2,1)$. Se a soma for 4, então deve ter saído $(2,2)$. Esse é o novo espaço amostral dado que $y=2$.Todos os outros números não podem ocorrer e, portanto, possuem probabilidade zero. Logo, $P(X=1|Y=2) = 2/3$ e $P(X=2|Y=2) = 1/3$.
 
