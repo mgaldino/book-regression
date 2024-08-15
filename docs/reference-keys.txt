@@ -134,3 +134,4 @@ gráficos-e-tabelas
 limpeza-de-dados
 modelagem-de-dados
 outros
+probabilidade-condicional
