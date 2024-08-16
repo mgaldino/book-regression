@@ -53,7 +53,7 @@ $$
 $$
 Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em função dos desvios-padrões e da correlação entre as duas variáveis.
 
-```{r normal-bivariada, echo=T, message=FALSE}
+```{r cap7-normal-bivariada, echo=T, message=FALSE}
 library(ggplot2)
 library(tidyverse)
 
@@ -92,7 +92,7 @@ bivariada_tibble1 %>%
 
 Vamos usar esses dados para fazer uma regressão.
 
-```{r reg-bivariada, echo=T, message=FALSE}
+```{r cap7-reg-bivariada, echo=T, message=FALSE}
 
 reg1 <- lm( y ~x , data = bivariada_tibble1)
 
@@ -102,7 +102,7 @@ summary(reg1)
 A fórmula do $\beta$ nós sabemos que depende da covariância entre as variáveis e o desvio-padrão de $X$. Vamos então simular os dados novamente, mudando as correlações e variâncias, para entender como isso impacta a regressão a partir da fórmula da inclinação da reta.
 
 
-```{r new_bivariada, echo=T, message=FALSE}
+```{r cap7-new_bivariada, echo=T, message=FALSE}
 library(ggplot2)
 library(tidyverse)
 
@@ -382,40 +382,37 @@ https://basedosdados.org/
 
 Escolhi mexer com dados do censo escolar
 
-```{r package base de dados, echo=T, message=FALSE}
+```{r cap7 package base de dados, echo=T, message=FALSE, cache=TRUE}
 # instalando a biblioteca
 # install.packages('basedosdados')
 
 # carregando a biblioteca na sessão
 library(basedosdados)
-
+library(bigrquery)
 # para importar os dadosdiretamente no R, precisamos criar um id para acessar a base de dados
 set_billing_id("aula-reg-manoel")
 
-# checando que deu certo
-get_billing_id()
+#bq_auth()
+# se autenticação falhar
 
 # importando dados
 
 knitr::include_graphics(here("imagens", "autenticacao base dados.jpg"))
 
 query <- "SELECT * FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = 'AL' and id_municipio = '2704302' and ano = 2019" 
-escola <- read_sql(query)
+escola <- basedosdados::read_sql(query)
 
 
 # query <- "SELECT count(*) as contagem, id_municipio FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = 'AL' and ano = 2019 group by id_municipio" 
 # escola <- read_sql(query)
 
 query <- "SELECT * FROM `basedosdados.br_inep_censo_escolar.dicionario`"
-dicionario <- read_sql(query)
-```
+dicionario <- basedosdados::read_sql(query)
 
-```{r base alunos, echo=T, message=FALSE}
 query <- "SELECT * FROM `basedosdados.br_inep_censo_escolar.matricula` where sigla_uf = 'AL' and id_municipio = '2704302' and ano = 2019"
 
-aluno <- read_sql(query)
+aluno <- basedosdados::read_sql(query)
 ```
-
 
 ```{r reg censo escolar, echo=T, message=FALSE, cache=T}
 # dicionário de gênero e raça

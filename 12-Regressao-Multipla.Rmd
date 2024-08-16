@@ -348,7 +348,7 @@ Eu suponho que isso seja engraçado de alguma forma (ou talvez fosse uma forma m
 
 Veja que definimos $\Omega = \sigma^2I$. E $\sigma^2I$ pressupõe que temos homecedasticidade, já que a variância do erro é constante. Temos portanto de modificar a "carne" para calcular o erro padrão-robusto. Vamos fazer isso manualmente, primeiro calculando o erro padrão tradicional, e depois o que seria um erro padrão robusto.
 
-```{r se-robusto toy, message=FALSE}
+```{r cap12-se-robusto toy, message=FALSE}
 library(ggplot2)
 library(tidyverse)
 set.seed(123)
@@ -663,7 +663,7 @@ $$
 R^2_{y \sim x1|x2} = 1 - \frac{Var(y^{\perp x_1, x_2})}{Var(y^{\perp x_1})} = \left(Cor(x_1^{\perp x_2}, y^{\perp x_2})\right)^2
 $$
 
-```{r r-quadrado-parcial, echo=TRUE, message=FALSE}
+```{r cap12-r-quadrado-parcial, echo=TRUE, message=FALSE}
 library(here)
 library(data.table)
 library(tidyverse)
@@ -676,9 +676,13 @@ library(lubridate)
 # https://www.latinobarometro.org/latContents.jsp
 
 lat_bar23 <- sjlabelled::read_spss(here("Dados", "Latinobarometro_2023_Eng_Spss_v1_0.sav"),
-                               drop.labels = TRUE) %>%
-  mutate(S17 = as.Date(as.character(S17), "%Y%m%d")) %>%
-  clean_names()
+                               drop.labels = TRUE) 
+
+lat_bar23 <- lat_bar23 %>%
+  mutate(S17 = as.Date(as.character(S17), format="%Y%m%d")) 
+
+lat_bar23 <- lat_bar23 %>%
+  janitor::clean_names()
 
 # get_label(lat_bar23)
 
