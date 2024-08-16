@@ -31,7 +31,7 @@ Comecemos lembrando que probabilidades podem ser interpretadas como frequências
 Suponha que quero simular a probabilidade do número 6 sair em um dado de seis lados.
 
 Exemplo 4.1.1
-```{r, results='asis'}
+```{r cap4, results='asis'}
 # especificando semente, para simulação ser reproduzível
 set.seed(234)
 # número de amostras
@@ -79,7 +79,7 @@ print(vec_prob6)
 
 Se supusermos que todos os números possuem a mesma chance de sair quando jogamos os dados, então, a distribuição conjunta de $X$ e $Y$ pode ser dada por:
 
-```{r, results='asis'}
+```{r cap4 tab1, results='asis'}
 library(knitr)
 library(kableExtra)
 
@@ -110,14 +110,14 @@ Definir o modelo de probabilidade, variáveis aleatórias e eventos a serem mode
 Vamos considerar o exemplo dos dados novamente. Vamos usar a função sample para simular lançamento de um dado de quatro faces.
 
 Para "jogar o dado" uma vez, sorteio um número entre 1 e 4.
-```{r, results='asis'}
+```{r cap4 dado1, results='asis'}
 X <- sample(1:4, size=1)
 
 ```
 
 Como quero a frequência de longo prazo, preciso repetir esse processo (de maneira independente a cada jogada) $n$ vezes.
 
-```{r, results='asis'}
+```{r cap4 dado n vezes, results='asis'}
 # número de jogadas/simulações
 n <- 1000
 
@@ -134,9 +134,10 @@ head(X, 20)
 ```
 
 ## Resumir
+
 Após realizada a simulação, queremos não olhar todos os números simulados, mas resumir a simulação. Por exemplo, obtendo a minha distribuição de probabilidade, ou a esperança.
 
-```{r, results='asis'}
+```{r cap4 resumo, results='asis'}
 # prob X = 1
 sum(X==1)/n
 
@@ -157,10 +158,11 @@ summary(X)
 ```
 
 ## Análise de sensibilidade
+
 Como estamos simulando e aproximando com um $n$ finito o que deveria ser infinito, temos de saber se nossa aproximação é boa. Se sabemos a verdade, podemos calcular como o erro se comporta com o $n$ que escolhemos, ou ver como muda à medida que o $n$ cresce. Vamos fazer isso.
 
 
-```{r, results='asis'}
+```{r cap4 sensibilidade, results='asis'}
 
 # número de jogadas/simulações
 n <- 1000
@@ -205,7 +207,7 @@ Vamos verificar esse teorema por meio de simulação?
 Configuração: suponha que $p = .51$ e $q = .49$. O que sigifnica que é $(p-q)/(p+q) = .02/1 = 2\%$
 Primeiro, faremos uma simulação, e depois repetiremos k vezes a simulação para obter a frequência relativa.
 
-```{r, results='asis'}
+```{r cap4 aplic, results='asis'}
 
 set.seed(234)
 # número de votos na urna

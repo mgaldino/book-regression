@@ -19,7 +19,7 @@ Normalmente, iremos escrever um comando aqui no Script, clicar em executar (run)
 o R pode funcionar como calculadora.
 
 
-```{r, results='asis', message=FALSE}
+```{r cap2 calc, results='asis', message=FALSE}
 2+2
 3*4
 10/2
@@ -29,20 +29,20 @@ o R pode funcionar como calculadora.
 
 Tudo no R é um objeto. Isso significa que um número é um objeto.
 
-```{r, results='asis', message=FALSE}
+```{r cap2 obj, results='asis', message=FALSE}
 pi
 ```
 
 Isso significa que funções (comandos) também são objetos
 
-```{r, results='asis', message=FALSE}
+```{r cap2 func obj, results='asis', message=FALSE}
 sum(c(1,2,3))
 sum
 ```
 
 E nós podemos criar nossos próprios objetos, dando os nomes que quisermos (exceto se já existe um objeto no R com aquele nome, como por exemplo o objeto "sum").
 
-```{r, results='asis', message=FALSE}
+```{r cap2 soma, results='asis', message=FALSE}
 x <- 3
 y <- 7
 x+y
@@ -56,7 +56,7 @@ O R tem muitos tipos de objetos. Vamos listar aqui apenas os mais básicos.
 
 Objetos do tipo numeric são ... números ("reais").
 
-```{r, results='asis', message=FALSE}
+```{r cap2 numeric, results='asis', message=FALSE}
 # Exemplos
 pi
 1/3
@@ -67,7 +67,7 @@ pi
 
 Objetos do tipo character são do tipo texto. Sempre são escritos entre aspas (simples ou duplas, tanto faz)
 
-```{r, results='asis', message=FALSE}
+```{r cap 2 character, results='asis', message=FALSE}
 # Exemplos
 "Manoel Galdino"
 'abc'
@@ -79,9 +79,10 @@ Objetos do tipo character são do tipo texto. Sempre são escritos entre aspas (
 Para armazenar dados, usualmente teremos 4 tipos de objetos: 1. vetor, 2. Matriz. 3. data.frame, 4. lista. Não vou falar de lista agora (nem de array, que é uma generalização da matriz para mais de duas dimensões).
 
 ### Vetor
+
 Um vetor é uma sequência de objetos.
 
-```{r, results='asis', message=FALSE}
+```{r cap2 vetor, results='asis', message=FALSE}
 # Exemplos
 c(1,2,3)
 1:3
@@ -90,7 +91,7 @@ c(c(1,2,3), c(2,3,1))
 ```
 
 os elementos de um vetor devem ser todos do mesmo tipo:
-```{r, results='asis', message=FALSE}
+```{r cap2 vec1, results='asis', message=FALSE}
 # Exemplos
 x <- c("1", 1)
 x[2]
@@ -104,7 +105,7 @@ x[2]
 
 Uma matriz são vetores organizados por coluna, todas as colunas (vetores) só podem ser de um tipo, ou seja, não posso ter uma coluna numeric e outra de character, por exemplo.
 
-```{r, results='asis', message=FALSE}
+```{r cap2 matriz, results='asis', message=FALSE}
 library(knitr)
 library(kableExtra)
 
@@ -115,10 +116,11 @@ kable(mat)
 ```
 
 ### Data Frame
+
 O data.frame é uma tabela/planilha, e é onde normalmente armazenamos nossos bancos de dados no R.
 
 
-```{r, results='asis', message=FALSE}
+```{r cap2 df, results='asis', message=FALSE}
 
 
 # Exemplos
@@ -128,7 +130,8 @@ kable(df)
 
 
 #### datas
-```{r, results='asis', message=FALSE}
+
+```{r cap2 datas, results='asis', message=FALSE}
 ## explicando data rapidamente
 data_ex <- "2020-10-23"
 data_ex1 <- as.Date(data_ex)
@@ -154,11 +157,11 @@ acoes <- data.frame(
 )
 ```
 
-```{r, echo=F, results='asis', message=FALSE}
+```{r cap2 acoes, echo=F, results='asis', message=FALSE}
 kable(acoes)
 ```
 
-```{r, results='asis', message=FALSE}
+```{r cap2 acoes-df, results='asis', message=FALSE}
 # criando data.frame de maneira mais inteligente
 acoes <- data.frame(
   tempo = as.Date('2009-01-01') + 0:9,
@@ -168,7 +171,7 @@ acoes <- data.frame(
 )
 ```
 
-```{r, echo=F, results='asis', message=FALSE}
+```{r cap2 acoes-tab, echo=F, results='asis', message=FALSE}
 kable(acoes)
 ```
 
@@ -178,7 +181,7 @@ kable(acoes)
 O R permite que a gente importe comandos que não vêm por padrão no R. Em gerla esses comandos es~toa agrupados sob um pacote. PAra usar esses comandos, primeiro a gente instala o pacote, e depois carrega a biblioteca.
 
 
-```{r, results='asis', message=FALSE}
+```{r cap2 package, results='asis', message=FALSE}
 # Exemplos
 #install.packages("data.table")
 #library(data.table)
@@ -218,7 +221,7 @@ library(dplyr) # para glimpse
 
 Para manipulação, limpeza e processamento de dados, iremos utilizar o chamado "tidyverse".
 
-```{r, results='asis', message=FALSE}
+```{r cap2 datawrangling, results='asis', message=FALSE}
 library(tidyverse)
 
 # digamos que quero o pib total médio e o pib per capita médio
@@ -231,7 +234,7 @@ df <- pib_cid %>%
 kable(df)
 ```
 
-```{r, results='asis', message=FALSE}
+```{r cap2 pib, results='asis', message=FALSE}
 # se eu quiser a soma dos pibs municipais
 df <- pib_cid %>%
   summarise(soma_pib = sum(pib_total)) %>%
@@ -240,7 +243,7 @@ df <- pib_cid %>%
 kable(df)
 ```
 
-```{r, results='asis', message=FALSE}
+```{r cap2 pib1, results='asis', message=FALSE}
 # maior e menos pibs e pibs per capita entre municípios
 df <- pib_cid %>%
   summarise(pib_max = max(pib_total),
@@ -252,7 +255,7 @@ df <- pib_cid %>%
 kable(df)
 ```
 
-```{r, results='asis', message=FALSE}
+```{r cap2 pib2, results='asis', message=FALSE}
 # se eu quiser apenas dos municípios od estado de SP?
 # basta filtrar pelo estado de SP, com o comando filter
 df <- pib_cid %>%
@@ -263,7 +266,7 @@ df <- pib_cid %>%
 kable(df)
 ```
 
-```{r, results='asis', message=FALSE}
+```{r cap2 pib3, results='asis', message=FALSE}
 df <- pib_cid %>%
   filter(sigla_uf == "SP") %>%
   summarise(pib_medio = mean(pib_total),
@@ -273,7 +276,7 @@ df <- pib_cid %>%
 kable(df)
 ```
 
-```{r, results='asis', message=FALSE}
+```{r cap2 pib4, results='asis', message=FALSE}
 # se eu quiser esse cálculo por uf (or cada umas das ufs?)
 # Aí é melhor aguprar por uf
 # ideia é: split by, apply (function), combine (summarise?)
@@ -286,12 +289,13 @@ df <- pib_cid %>%
 kable(df)
 ```
 
-```{r, results='asis', message=FALSE}
+```{r cap2 pib5, results='asis', message=FALSE}
 # agora, quero criar uma nova variável, que é o pib estadual
 df <- pib_cid %>%
   group_by(sigla_uf) %>%
-  mutate(pib_uf = sum(pib_total)) %>%
-  head()
+  mutate(pib_uf = sum(pib_total))
+
+df <- head(df)
 
 kable(df)
 
@@ -299,7 +303,7 @@ kable(df)
 
 Coisas estranhas. O maior pib per capita municipal deu muito alto. vamos ver qual município é?
 Vamos filtrar e depois selecionar apenas algumas colunas
-```{r, results='asis', message=FALSE}
+```{r cap2 pib6, results='asis', message=FALSE}
 # agora, quero criar uma nova variável, que é o pib estadual
 df <- pib_cid %>%
   filter(pib_per_capita > 700000) %>%

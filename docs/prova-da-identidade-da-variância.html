@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Introdução à Regresssão para Ciências Sociais</title>
-  <meta name="description" content="Introdução à Regresssão para Ciências Sociais" />
+  <title>Capítulo 4 Prova da identidade da variância | Introdução à Regresssão para Ciências Sociais</title>
+  <meta name="description" content="Capítulo 4 Prova da identidade da variância | Introdução à Regresssão para Ciências Sociais" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta property="og:title" content="Capítulo 4 Prova da identidade da variância | Introdução à Regresssão para Ciências Sociais" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Introdução à Regresssão para Ciências Sociais" />
+  <meta name="twitter:title" content="Capítulo 4 Prova da identidade da variância | Introdução à Regresssão para Ciências Sociais" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="revisão-de-r.html"/>
+<link rel="prev" href="revisão-de-estatística-e-probabilidade.html"/>
+<link rel="next" href="introdução-à-simulação.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -350,33 +350,536 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Introdução à Regresssão para Ciências Sociais</h1>
-<p class="author"><em>Manoel Galdino</em></p>
-<p class="date"><em>2024-08-16</em></p>
+<div id="prova-da-identidade-da-variância" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Capítulo 4</span> Prova da identidade da variância<a href="prova-da-identidade-da-variância.html#prova-da-identidade-da-variância" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Vamos mostrar que <span class="math inline">\(\mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - \mathbb{E}^2[X]\)</span></p>
+<ol style="list-style-type: decimal">
+<li><p>Começamos expandido o quadrado da esperança:
+<span class="math inline">\(Var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[(X - \mathbb{E}[X]) * (X - \mathbb{E}[X])]\)</span>.</p></li>
+<li><p>Aplicando a regra do quadrado, temos:
+<span class="math inline">\(\mathbb{E}[(X - \mathbb{E}[X]) * (X - \mathbb{E}[X])] = \mathbb{E}[(X^2 - 2* \mathbb{E}[X]*X + \mathbb{E}[X]^2)]\)</span></p></li>
+<li><p>Pela propriedade da experança, sabemos que, sejam <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> duas v.a. independentes, então <span class="math inline">\(\mathbb{E}[A + B] = \mathbb{E}[A] + \mathbb{E}[B]\)</span>. Então:</p></li>
+</ol>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - \mathbb{E}[2*\mathbb{E}[X]*X] + \mathbb{E}[\mathbb{E}[X]^2]]\)</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Outra propriedade da esperança é que, seja <span class="math inline">\(a\)</span> uma constante e <span class="math inline">\(X\)</span> uma v.a., então <span class="math inline">\(\mathbb{E}[a*X] = a*\mathbb{E}[X]\)</span>.</li>
+</ol>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[\mathbb{E}[X]*X] + \mathbb{E}[\mathbb{E}[X]^2]]\)</span></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Nós sabemos que <span class="math inline">\(\mathbb{E}[X]\)</span> é uma constante (é uma média da v.a.). E a média de uma constante é a própria constante. Portanto, <span class="math inline">\(\mathbb{E}[\mathbb{E}[X]] = \mathbb{E}[X]\)</span>. E usaremos também que <span class="math inline">\(\mathbb{E}[a*X] = a*\mathbb{E}[X]\)</span> e, por fim, o fato de que uma constante ao quadrado é em si uma constante.</li>
+</ol>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X] * \mathbb{E}[\mathbb{E}[X]] + \mathbb{E}[X]^2\)</span></p>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X] * \mathbb{E}[X] + \mathbb{E}[X]^2\)</span></p>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X]^2 + \mathbb{E}[X]^2\)</span></p>
+<p><span class="math inline">\(Var(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2\)</span></p>
+<p>Como Queriamos Demonstrar (CQD).</p>
+<div id="distribuição-de-probabilidade-conjunta" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Distribuição de Probabilidade Conjunta<a href="prova-da-identidade-da-variância.html#distribuição-de-probabilidade-conjunta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A Distribuição de probabilidade conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> (definida no mesmo espaço de probabilidade) é uma distribuição de probabilidade dos pares <span class="math inline">\((x,y)\)</span> e descreve como os valores de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> variam conjuntamente. Cada uma das distribuições <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> sozinhas são chamadas de distribuições marginais. Uma distribuição conjunta é como uma máquina que, de acordo com certas regras de probabilidade, retorna dois pares de valores.</p>
+<p>ex. 1.
+Roleta. Em um casino, um jogo comum é a roleta. Ela consiste normalmente de 32 números (0 a 31), e cada número tem uma cor (preto, vermelho ou verde). Ao girar a roleta, ela solta um número e uma cor. Portanto, podemos pensar que a roleta é uma distribuição conjunta de duas variáveis (números e cores).</p>
+<p>Ex. 2.:
+Considere um dado de 4 faces <span class="math inline">\(( 1, 2, 3, 4 )\)</span>. Seja <span class="math inline">\(X\)</span> a soma dos números dos dois dados, e <span class="math inline">\(Y\)</span> o maior valor dos dois dados. O espaço amostral é dado pela tabela abaixo.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="prova-da-identidade-da-variância.html#cb52-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb52-2"><a href="prova-da-identidade-da-variância.html#cb52-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb52-3"><a href="prova-da-identidade-da-variância.html#cb52-3" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb52-4"><a href="prova-da-identidade-da-variância.html#cb52-4" tabindex="-1"></a><span class="co">#Definir o espaço amostral</span></span>
+<span id="cb52-5"><a href="prova-da-identidade-da-variância.html#cb52-5" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="prova-da-identidade-da-variância.html#cb52-6" tabindex="-1"></a>espaco_amostral <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb52-7"><a href="prova-da-identidade-da-variância.html#cb52-7" tabindex="-1"></a>espaco_amostral<span class="sc">$</span>X <span class="ot">&lt;-</span> espaco_amostral<span class="sc">$</span>Var1 <span class="sc">+</span> espaco_amostral<span class="sc">$</span>Var2</span>
+<span id="cb52-8"><a href="prova-da-identidade-da-variância.html#cb52-8" tabindex="-1"></a>espaco_amostral<span class="sc">$</span>Y <span class="ot">&lt;-</span> <span class="fu">pmax</span>(espaco_amostral<span class="sc">$</span>Var1, espaco_amostral<span class="sc">$</span>Var2)</span>
+<span id="cb52-9"><a href="prova-da-identidade-da-variância.html#cb52-9" tabindex="-1"></a></span>
+<span id="cb52-10"><a href="prova-da-identidade-da-variância.html#cb52-10" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
+<span id="cb52-11"><a href="prova-da-identidade-da-variância.html#cb52-11" tabindex="-1"></a><span class="fu">kable</span>(espaco_amostral, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;resultado do primeiro dado&quot;</span>, <span class="st">&quot;resultado do segundo dado&quot;</span>, <span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>),</span>
+<span id="cb52-12"><a href="prova-da-identidade-da-variância.html#cb52-12" tabindex="-1"></a>                <span class="at">caption =</span> <span class="st">&quot;Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-13"><a href="prova-da-identidade-da-variância.html#cb52-13" tabindex="-1"></a> <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span></code></pre></div>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-6">Table 4.1: </span>Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+resultado do primeiro dado
+</th>
+<th style="text-align:right;">
+resultado do segundo dado
+</th>
+<th style="text-align:right;">
+X
+</th>
+<th style="text-align:right;">
+Y
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>Se supusermos que todos os números possuem a mesma chance de sair quando jogamos os dados, então, a distribuição conjunta de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> pode ser dada por:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="prova-da-identidade-da-variância.html#cb53-1" tabindex="-1"></a><span class="co"># Definir os valores de (x, y) e P(X = x, Y = y)</span></span>
+<span id="cb53-2"><a href="prova-da-identidade-da-variância.html#cb53-2" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(2, 1)&quot;</span>, <span class="st">&quot;(3, 2)&quot;</span>, <span class="st">&quot;(4, 2)&quot;</span>, <span class="st">&quot;(4, 3)&quot;</span>, <span class="st">&quot;(5, 3)&quot;</span>, <span class="st">&quot;(5, 4)&quot;</span>, <span class="st">&quot;(6, 3)&quot;</span>, <span class="st">&quot;(6, 4)&quot;</span>, <span class="st">&quot;(7, 4)&quot;</span>, <span class="st">&quot;(8, 4)&quot;</span>)</span>
+<span id="cb53-3"><a href="prova-da-identidade-da-variância.html#cb53-3" tabindex="-1"></a>probabilidades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>, <span class="fl">0.1250</span>, <span class="fl">0.1250</span>, <span class="fl">0.0625</span>)</span>
+<span id="cb53-4"><a href="prova-da-identidade-da-variância.html#cb53-4" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="prova-da-identidade-da-variância.html#cb53-5" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
+<span id="cb53-6"><a href="prova-da-identidade-da-variância.html#cb53-6" tabindex="-1"></a>tabela <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;(x, y)&quot;</span> <span class="ot">=</span> valores, <span class="st">&quot;P(X = x, Y = y)&quot;</span> <span class="ot">=</span> probabilidades)</span>
+<span id="cb53-7"><a href="prova-da-identidade-da-variância.html#cb53-7" tabindex="-1"></a></span>
+<span id="cb53-8"><a href="prova-da-identidade-da-variância.html#cb53-8" tabindex="-1"></a><span class="co"># Formatar a tabela</span></span>
+<span id="cb53-9"><a href="prova-da-identidade-da-variância.html#cb53-9" tabindex="-1"></a><span class="fu">kable</span>(tabela, <span class="at">caption =</span> <span class="st">&quot;Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces&quot;</span>,</span>
+<span id="cb53-10"><a href="prova-da-identidade-da-variância.html#cb53-10" tabindex="-1"></a>                          <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;$(X,Y)$&quot;</span>, <span class="st">&quot;$P(X=x, Y=y)$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb53-11"><a href="prova-da-identidade-da-variância.html#cb53-11" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span></code></pre></div>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-7">Table 4.2: </span>Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\((X,Y)\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(P(X=x, Y=y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(2, 1)
+</td>
+<td style="text-align:right;">
+0.0625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(3, 2)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(4, 2)
+</td>
+<td style="text-align:right;">
+0.0625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(4, 3)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(5, 3)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(5, 4)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(6, 3)
+</td>
+<td style="text-align:right;">
+0.0625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(6, 4)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(7, 4)
+</td>
+<td style="text-align:right;">
+0.1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(8, 4)
+</td>
+<td style="text-align:right;">
+0.0625
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="prefácio" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Capítulo 1</span> - Prefácio<a href="index.html#prefácio" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP0468 Métodos Quantitativos de Pesquisa na Ciência Política IV, de introdução à regressão, bem como o curso de pós-graduação, Métodos II.</p>
-<p>Agradeço aos alunos do curso pelos feedbacks (futuros e presentes) sobre esse material, bem como ao monitor do curso, Davi Veronese.</p>
-<p>Futuramente, pretendo transformar as notas de aulas em um livro, que poderá ser utilizado pela comunidade brasileira de ciências sociais interessada em aprender mais sobre métodos quantitativos, em particular regressão com R.</p>
-<p>A motivação para disponibilizar as notas de aula em formato de livro é a quase inexistência de um material bom de econometria básica, em português, voltado para a área de ciências sociais, em particular a ciência política. Existem bons manuais em inglês para ciência política e bons manuais em português para economia, mas não em portugês para ciência política.</p>
-<p>Além disso, os livros existentes nem sempre fazem um bom trabalho de diferenciar regressão estatística e modelo estrutural (causal) de regressão. Uma abordagem moderna de inferência causal requer que essa distinção seja ensinada ao aluno e esse livro também pretende preencher essa lacuna.</p>
-<p>Por fim, a utilização do R é uma forma de dar ênfase à parte prática. Embora a teoria seja importante e a boa compreensão dos fundamentos é o que permite o aprofundamento dos temas cobertos no livro, estatística é uma disciplina aplicada, cujo maior valor está na sua aplicação prática. Assim, boa parte do curso e do conteúdo do livro é dedicado a implementar a teoria no R, bem como na interpretação dos dados.</p>
-<p>O livro começa com capítulos iniciais de introdução/revisão do R e de estatística básica (incluindo probabilidade). Assim, pressupomos que um estudante que utilize esse curso tenha conhecimentos de estatística e probabilidade básica. Não é necessário conhecimento previo de R, nem de cálculo ou álgebra linerar.</p>
-<p>O restante do livro está organizado da seguinte maneira. Após as revisões, o texto introduz o conceito de esperança condicional, para motivar a regressão como aproximação da esperança condicional. Apresentamos então alguns estimadores (plug-in estimators e MQO), para então discutir causalidade, a partir da abordagem de resultados potenciais. Mostramso então estimação por Máxima Verossimilhança e checagem do modelo. Seguinos a ordem do livro do Cosma Shalizi (The Truth About Linear Regression), de discutir checagem antes de inferência, pois esta depende dos presssupostos serem válidos. Passamos então à inferência, regressão múltipla e por fim uma rápida introdução à regressão logística.</p>
-<p>As referências principais para o presente livro são o já referido livro do Shalizi, além do manual consagrado do Hansen, Econometrics. O capítulo de resultados potenciais e intepretação da regrexão como aproximação da CEF beberam extensamente do livro de Angrrst e Pschike, Mostly Harmless Econometris, e o capítulo sobre logística do Livro de Gelman, Hill e vehtari, Regression and other Stories. O leitor atento verá que várias derivações seguem fielmente o que se encontra nesse livros.</p>
-<p>Por fim, destaco a discussão sobre análise de sensibilidade, ausente de todos os manuais de econometria que olhei. Ainda um tanto confusa, creio que é tópico fundamental e da fronteira das análises causais e que acho uma boa contribuição (quando revisar o texto) para quem se interesse por análise causal e não encontra tutoriais sobre o tema disponível, nem mesmo na internet.</p>
-<p>E um alerta. Durante as aulas, notei vários erros de derivação, ausência de parêntesis (que mudavam completamente os resultados) entre muitos erros que não consigo reportar aqui. Alguns foram corrigidos, a maioria não. Os alunos puderam anotar as passagens erradas, mas quem ler o texto pela internet sem acesso às aulas, não. Então, chequem em outras fontes todas as derivações. Espero poder corrigir os erros logo. Mas até lá, fica o alerta.</p>
+<div id="probabilidade-condicional" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Probabilidade Condicional<a href="prova-da-identidade-da-variância.html#probabilidade-condicional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Nós vimos o que é uma distribuição de probabilidade conjunta. É comum que nós tenhamos apenas uma observação parcial sobre uma das variáveis. Digamos, que <span class="math inline">\(y = 2\)</span>. De posse dessa informação, como podemos atualizar nossa tabela de probabilidades? Se o maior valor foi <span class="math inline">\(2\)</span>, então a soma dos dados <span class="math inline">\(X\)</span> só pode ser 3 ou 4. Se a soma for 3, temos algo como <span class="math inline">\((1,2)\)</span> ou <span class="math inline">\((2,1)\)</span>. Se a soma for 4, então deve ter saído <span class="math inline">\((2,2)\)</span>. Esse é o novo espaço amostral dado que <span class="math inline">\(y=2\)</span>.Todos os outros números não podem ocorrer e, portanto, possuem probabilidade zero. Logo, <span class="math inline">\(P(X=1|Y=2) = 2/3\)</span> e <span class="math inline">\(P(X=2|Y=2) = 1/3\)</span>.</p>
+<p>Isso é o que chamamos de probabilidade condicional. No caso, a probabilidade condicional de <span class="math inline">\(X\)</span>, dado <span class="math inline">\(Y=y\)</span>.</p>
+<p>A probabilidade condicional é em si uma distribuição de probabilidade. Do mesmo jeito que temos as distribuições de probabilidade de <span class="math inline">\(X\)</span>, de <span class="math inline">\(Y\)</span> e de <span class="math inline">\(X,Y\)</span>, também temos a de <span class="math inline">\(X|y=y\)</span> (e, claro, a de <span class="math inline">\(Y|X=x\)</span>). A tabela abaixo apresenta essa distribuição de probabilidade condicional para o caso de <span class="math inline">\(Y=2\)</span>.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="prova-da-identidade-da-variância.html#cb54-1" tabindex="-1"></a><span class="co"># Definir os valores de (x, y) e P(X = x, Y = y)</span></span>
+<span id="cb54-2"><a href="prova-da-identidade-da-variância.html#cb54-2" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(2, 1)&quot;</span>, <span class="st">&quot;(3, 2)&quot;</span>, <span class="st">&quot;(4, 2)&quot;</span>, <span class="st">&quot;(4, 3)&quot;</span>, <span class="st">&quot;(5, 3)&quot;</span>, <span class="st">&quot;(5, 4)&quot;</span>, <span class="st">&quot;(6, 3)&quot;</span>, <span class="st">&quot;(6, 4)&quot;</span>, <span class="st">&quot;(7, 4)&quot;</span>, <span class="st">&quot;(8, 4)&quot;</span>)</span>
+<span id="cb54-3"><a href="prova-da-identidade-da-variância.html#cb54-3" tabindex="-1"></a>probabilidades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb54-4"><a href="prova-da-identidade-da-variância.html#cb54-4" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="prova-da-identidade-da-variância.html#cb54-5" tabindex="-1"></a><span class="co"># Criar a tabela</span></span>
+<span id="cb54-6"><a href="prova-da-identidade-da-variância.html#cb54-6" tabindex="-1"></a>tabela <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;(x, y)&quot;</span> <span class="ot">=</span> valores, <span class="st">&quot;P(X = x| Y = 2)&quot;</span> <span class="ot">=</span> probabilidades)</span>
+<span id="cb54-7"><a href="prova-da-identidade-da-variância.html#cb54-7" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="prova-da-identidade-da-variância.html#cb54-8" tabindex="-1"></a><span class="co"># Formatar a tabela</span></span>
+<span id="cb54-9"><a href="prova-da-identidade-da-variância.html#cb54-9" tabindex="-1"></a><span class="fu">kable</span>(tabela, <span class="at">caption =</span> <span class="st">&quot;Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces&quot;</span>,</span>
+<span id="cb54-10"><a href="prova-da-identidade-da-variância.html#cb54-10" tabindex="-1"></a>                          <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;$(X,Y)$&quot;</span>, <span class="st">&quot;$P(X=x| Y=2)$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb54-11"><a href="prova-da-identidade-da-variância.html#cb54-11" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>)</span></code></pre></div>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-8">Table 4.3: </span>Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\((X,Y)\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(P(X=x| Y=2)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(2, 1)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(3, 2)
+</td>
+<td style="text-align:right;">
+0.6666667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(4, 2)
+</td>
+<td style="text-align:right;">
+0.3333333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(4, 3)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(5, 3)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(5, 4)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(6, 3)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(6, 4)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(7, 4)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(8, 4)
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="esperança-condicional" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Esperança Condicional<a href="prova-da-identidade-da-variância.html#esperança-condicional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se a probabilidade condicional é uma distribuição de probabilidade no seu próprio direito, então podemos calcular a esperança dessa distribuição, exatamente como fazíamos antes. No caso, falamos de esperança condicional. Qual o valor médio de <span class="math inline">\(X\)</span>, quando <span class="math inline">\(Y=2\)</span>?</p>
+<p><span class="math inline">\(3*(2/3) + 4*(1/3)\)</span>
+<span class="math inline">\(2 + 4/3 = 6/3 + 4/3 = 10/3 = 3.333\)</span></p>
+<p>A notação matemática para a esperança condicional, nesse caso, é: <span class="math inline">\(E[X|Y=2]\)</span>.</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="revisão-de-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="revisão-de-estatística-e-probabilidade.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introdução-à-simulação.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -407,7 +910,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/mgaldino/book-regression/edit/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/edit/main/03-revisão-stat.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -415,7 +918,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/mgaldino/book-regression/blob/main/index.Rmd",
+"link": "https://github.com/mgaldino/book-regression/blob/main/03-revisão-stat.Rmd",
 "text": null
 },
 "download": null,

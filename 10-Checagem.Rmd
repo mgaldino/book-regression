@@ -29,7 +29,7 @@ Eis algumas propriedade dos resíduos.
 
 Cada uma dessas propriedades nos leva a um diagnóstico ou checagem.
 
-```{r package loads 10, message=FALSE, warning=FALSE}
+```{r cap 10 package loads 10, message=FALSE, warning=FALSE}
 library(ggplot2)
 library(knitr)
 library(tidyverse)
@@ -159,7 +159,7 @@ df %>%
 
 Uma técnica simples, que é uma versão simplificada de algo mais formal chamado "permutation test", é plotar os resíduos permutados aleatoriamente contra o plot real que queremos fazer. Vamos usar o pacote [nullabor](https://dicook.github.io/nullabor/) para isso. Vamos replicar o teste de homecedasticidade e olhar os resíduos ao quadrado contra os preditores, e olhar os resíduos contra os valores previstos Primeiro contra o preditor.  
 
-```{r residuos-shufle-coordenadas1, message=FALSE}
+```{r cap10-residuos-shufle-coordenadas1, message=FALSE}
 library(nullabor)
 
 set.seed(1234)  # Aleatoriza do mesmo jeito sempre
