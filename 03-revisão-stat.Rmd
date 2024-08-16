@@ -67,7 +67,7 @@ Notem que $Cov(X,X) = Var(X)$.
 
 A covariância é positiva quando ambos X e Y tendem a ter valores acima (ou abaixo) de sua média simultaneamente, enquanto ela é negativa quando uma v.a. tende a ter valores acima da sua média e a outra abaixo.
 
-## Àlgebra com Esperança, Variância e Covariância
+## Álgebra com Esperança, Variância e Covariância
 
 Sejam $a$ e $b$ constantes.
 
@@ -99,7 +99,8 @@ $Var(a*X + b) = a^2*Var(x)$
 
  $Cov(a*X + b,Y) = a*Cov(Y,X)$
  
-# Prova da identidade da variância
+## Prova da identidade da variância
+
 Vamos mostrar que $\mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - \mathbb{E}^2[X]$
 
 1. Começamos expandido o quadrado da esperança:

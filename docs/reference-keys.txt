@@ -29,7 +29,7 @@ revisão-de-estatística-e-probabilidade
 variável-aleatória
 esperança-matemática
 variância
-àlgebra-com-esperança-variância-e-covariância
+álgebra-com-esperança-variância-e-covariância
 prova-da-identidade-da-variância
 distribuição-de-probabilidade-conjunta
 probabilidade-condicional
