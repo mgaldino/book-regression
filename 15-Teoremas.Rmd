@@ -1,0 +1,35 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# - Teoremas
+
+Apresentamos aqui alguns teoremas importantes para um aprofundamento em Regressão e Estatística
+
+## Independência e Correlação
+
+Sejam $X$ e $Z$ duas variáveis aleatórias, com médias $\mu_x$ e $\mu_z$ respectivamente.
+
+Definição 15.1 (independência): Dizemos que $X$ e $Z$ são independentes, denotado por $X \perp Z$, se $Z$ não traz nenhuma informação sobre $X$ e vice-versa. Formalmente, isso quer dizer que:
+
+$f(x,z) = f_x(x)f_z(x)$, isto é, a função densidade conjunta é o produto das marginais.
+
+Proposição 15.1 (independência na média): Se $X$ e $Z$ são independentes, então são independentes na média (o reverso não é verdade). 
+
+Prova:
+
+$\mathbb{E}[X|Z] = \sum xP_{x|z}(x) = \sum x \frac{P_x(x)P_Z(z)}{P_Z(z)} = \sum x P_x(x) = \mu_x$
+
+Da segunda igualdade para a terceira usamos a definição de probabilidade condicional.
+
+Definição 15.2 (independência linear): Dizemos que $X$ e $X$ são não-correlacionados ou linearmente independentes se $\mathbb{E}[XZ] = \mu_x\mu_z \iff cov(X,Z) = 0$
+
+Proposição 15.2 (independência na média para independência linear): Se $X$ e $Y$ São independentes na média, então são linearmente independentes. O reverso não é verdade.
+
+Prova:
+
+$\mathbb{E}[XZ] = \mathbb{E}[\mathbb{E}[XZ|Z]] = \mathbb{E}[Z\mathbb{E}[X|Z]] = \mathbb{E}[Z\mathbb{E}[X]] = \mathbb{E}[Z]\mathbb{E}[X] = \mu_x\mu_z$
+
+No primeiro passo, utilizamos a lei das esperanças iteradas. No segundo passo, o fato de que ao condicionar em $Z$, podemos considerar $Z$ constante. No terceiro passo, a suposição de que $X$ e $Z$ são independentes na média, e portanto $\mathbb{E}[X|Z] = \mathbb{E}[X]$. No quarto passo o fato de que $\mathbb{E}[X]$ é uma constante e, portanto, podemos tirar fora da primeira esperança.
