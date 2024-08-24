@@ -144,3 +144,10 @@ gráficos-e-tabelas
 limpeza-de-dados
 modelagem-de-dados
 outros
+a-esperança-condicional-é-o-melhor-preditor
+álgebra-linear
+espaço-de-vetores-e-subspaço
+projeção-linear
+load-required-libraries
+teoremas
+independência-e-correlação
