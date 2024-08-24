@@ -1,0 +1,23 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{amsmath}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\begin{tikzpicture}[scale=1]
+    % Draw axes
+    \draw[->] (0,0) -- (5,0) node[right] {$x$};
+    \draw[->] (0,0) -- (0,5) node[above] {$y$};
+
+    % Draw vector u
+    \draw[thick,->,blue] (0,0) -- (3,4) node[above right] {$\mathbf{u} = \begin{pmatrix} 3 \\ 4 \end{pmatrix}$};
+
+    % Draw vector v
+    \draw[thick,->,red] (0,0) -- (1,2) node[above right] {$\mathbf{v} = \begin{pmatrix} 1 \\ 2 \end{pmatrix}$};
+
+    % Draw projection of u onto v
+    \draw[thick,->,green,dashed] (0,0) -- (2.2,4.4) node[above right] {$\text{proj}_{\mathbf{v}} \mathbf{u} = \begin{pmatrix} 2.2 \\ 4.4 \end{pmatrix}$};
+
+    % Draw perpendicular line from u to proj_v_u
+    \draw[dashed] (3,4) -- (2.2,4.4);
+\end{tikzpicture}
+\end{document}
+

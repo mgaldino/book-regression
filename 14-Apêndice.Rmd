@@ -33,3 +33,59 @@ Para testes informais de permutação, o pacote **nullabor**.
 Para instalação de pacotes direto do gihutb, **devtools**.
 Para ajudar na reproducibilidade, uso o pacote **here** para não vincular aos meus diretórios específicos e evito usar o`setwd` para apontar o diretório.
 
+## Álgebra Linear
+
+Aqui apresentamos alguns tópicos de álgebra linear que podem ser úteis.
+
+### Espaço de vetores e subspaço
+O espaço vetorial de dimensão $n$ é o conjunto infinito de todos os vetores $x = [x_1, x_2, \cdots, x_n]$, e as coordenadas $x-i$ podem ser quaisquer números reais.
+
+Dizemos que um subespaço do espaço vetorial $n$-dimensional que é *gerado* por um conjunto de $k$ vetores $x = [x_1, x_2, \cdots, x_k]$, em que $k$ pode ser eventualmente igual a $n$ (ou menor), é o subconjunto de vetores $y$ naquele espaço que pode ser expresso como uma combinação linear do conjunto gerador:
+
+$y = a_1x_1 + a_2x_2 + \cdots + a_kx_k$
+
+Dizemos que o conjunto de vetores $x = [x_1, x_2, \cdots, x_k]$ gera o subespaço que ele define.
+
+### Projeção linear
+
+
+### 2. **Load Required Libraries**
+
+You’ll need the `ggplot2` library for the visualization. Add this to your setup chunk:
+
+```{r linear-proj ex1}
+# Load necessary library
+library(ggplot2)
+
+# Define vectors u and v
+u <- c(3, 2)
+v <- c(4, 0)
+
+# Calculate the projection of u onto v
+proj_v_u <- (sum(u * v) / sum(v * v)) * v
+
+# Create a data frame for plotting
+data <- data.frame(
+  x = c(0, u[1], 0, v[1], 0, proj_v_u[1]),
+  y = c(0, u[2], 0, v[2], 0, proj_v_u[2]),
+  label = c("Origin", "u", "Origin", "v", "Origin", "Projection")
+)
+
+# Create the plot
+ggplot(data) +
+  geom_segment(aes(x = x[1], y = y[1], xend = x[2], yend = y[2]), arrow = arrow(length = unit(0.3, "cm")), color = "blue", size = 1.2) +
+  geom_segment(aes(x = x[3], y = y[3], xend = x[4], yend = y[4]), arrow = arrow(length = unit(0.3, "cm")), color = "red", size = 1.2) +
+  geom_segment(aes(x = x[5], y = y[5], xend = x[6], yend = y[6]), linetype = "dashed", color = "green", size = 1.2) +
+  annotate("text", x = u[1] + 0.5, y = u[2], label = "u", color = "blue") +
+  annotate("text", x = v[1] + 0.5, y = v[2], label = "v", color = "red") +
+  annotate("text", x = proj_v_u[1] + 0.5, y = proj_v_u[2], label = "proj_v_u", color = "green") +
+  xlim(0, max(u[1], v[1], proj_v_u[1]) + 1) +
+  ylim(0, max(u[2], v[2], proj_v_u[2]) + 1) +
+  theme_minimal() +
+  labs(title = "Projection of Vector u onto Vector v",
+       x = "X-axis",
+       y = "Y-axis")
+
+```
+
+The plot above shows the vectors \(\mathbf{u}\) (in blue) and \(\mathbf{v}\) (in red), along with the projection of \(\mathbf{u}\) onto \(\mathbf{v}\) (in green, dashed line). The projection is the closest point on the line defined by \(\mathbf{v}\) to the point represented by \(\mathbf{u}\). This visualization helps in understanding how projections work in a geometric sense.
