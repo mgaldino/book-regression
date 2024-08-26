@@ -24,6 +24,8 @@ $\mathbb{E}[X|Z] = \sum xP_{x|z}(x) = \sum x \frac{P_x(x)P_Z(z)}{P_Z(z)} = \sum 
 
 Da segunda igualdade para a terceira usamos a definição de probabilidade condicional.
 
+
+
 Definição 15.2 (independência linear): Dizemos que $X$ e $X$ são não-correlacionados ou linearmente independentes se $\mathbb{E}[XZ] = \mu_x\mu_z \iff cov(X,Z) = 0$
 
 Proposição 15.2 (independência na média para independência linear): Se $X$ e $Y$ São independentes na média, então são linearmente independentes. O reverso não é verdade.
@@ -33,3 +35,43 @@ Prova:
 $\mathbb{E}[XZ] = \mathbb{E}[\mathbb{E}[XZ|Z]] = \mathbb{E}[Z\mathbb{E}[X|Z]] = \mathbb{E}[Z\mathbb{E}[X]] = \mathbb{E}[Z]\mathbb{E}[X] = \mu_x\mu_z$
 
 No primeiro passo, utilizamos a lei das esperanças iteradas. No segundo passo, o fato de que ao condicionar em $Z$, podemos considerar $Z$ constante. No terceiro passo, a suposição de que $X$ e $Z$ são independentes na média, e portanto $\mathbb{E}[X|Z] = \mathbb{E}[X]$. No quarto passo o fato de que $\mathbb{E}[X]$ é uma constante e, portanto, podemos tirar fora da primeira esperança.
+
+## Propriedade de estimadores
+
+### Viés
+
+Definição xx (viés). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um um estimador de $\theta_0$. O viés de um estimador é o desvio absoluto entre o verdadeiro valor do parâmetro e a esperança do estimador. 
+
+$|\theta_0 - \mathbb{E}[\hat{\theta}]|$. 
+
+Dizemos que um estimador é não-viesado se e somente se o viés é zero. Lembrem-se que **se e somente se** é uma relação de biimplicação, ou seja, se é não viesado, o viés é zero. Se o viés é zero, é não viesado.
+
+### Variância
+
+Definição x.x. (variância do estimador). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um um estimador de $\theta_0$. A variância de um estimador é valor esperado do quadrado dos desvios amostrais.
+
+$Var[\hat{\theta}] = \mathbb{E}[\left(\hat{\theta} - \mathbb{E}[\hat{\theta}]  \right)^2]$
+
+Proposição x.x. Seja $Z_1, Z_2, ...$ uma sequência de variáveis aleatórias i.i.d tal que, para todo $i$, $\mathbb{E}[Z_i] = \mu$ e $Var[Z_i] = \sigma^2$. Seja $X_n$ a média amostral das primeiras $n$ variáveis. A variância amostral é igual à variância de $Z$ dividida por $n$.
+
+$Var[X_n] = \frac{Var[Z]}{n} = \frac{\sigma^2}{n}$
+
+Prova:
+
+### Eficiência
+
+Entre um número de estimadores da mesma classe, o estimador com a menor variância é chamado de estimador eficiente. Ademais, o limite inferior da variância de um estimador qualquer é chamado de limite de Cramer-Rao.
+
+## Exercícios para o leitor 
+
+1. Suponha que $Z$ é uma distribuição uniforme $Z \sim U(-1,1)$. 
+Mosrte que se $X = Z^2$, então são independentes na média, mas não independentes entre si.
+
+
+Mostre que $X$ e $Z$ são independentes na média, mas não independentes entre si no seguinte caso:
+
+2. Seja $Y$ uma variável aleatória uniforme $Y \sim U(-1,1)$. Defina $X = Y+ \epsilon_1$ e $Z = Y+ \epsilon_2$, em que $\epsilon_1$ e $\epsilon_2$ são ruídos aleatórios com média zero, independentes entre si, $X$, $Z$ e $Y$.
+
+Dica: em algum momento, use a definição (15.2) de que se $Cov(X,Z) \neq 0$, então $X$ e $Z$ não são independentes.
+
+3. Mostre que a média amostral é um estimador não-viesado para a média populacional.
