@@ -32,39 +32,37 @@ Assim, nosso curso será dedicado apenas a modelos de previsão e modelos de cau
 
 ## Exemplo de CEF
 
-```{r import-voto, echo=FALSE, message=FALSE, cache=TRUE}
+```{r import-voto, echo=FALSE, message=FALSE, cache=TRUE, warning=FALSE}
 # Carregue o pacote PNADcIBGE
 library(here)
 library(data.table)
 library(tidyverse)
 # Importe os dados desejados
 
-dados <- fread(here("dados\\votacao_partido_munzona_2020\\", "votacao_partido_munzona_2020_SP.csv"), encoding = "Latin-1")
+# dados <- fread(here("dados\\votacao_secao_2020_SP\\", "votacao_secao_2020_SP.csv"), encoding = "Latin-1")
+```
 
-dados_finais <- dados %>%
-  dplyr::filter(DS_CARGO == "Prefeito" & ANO_ELEICAO == 2020) %>%
-  group_by(DS_ELEICAO,NR_TURNO, NM_MUNICIPIO, NR_ZONA, NR_PARTIDO) %>%
-  summarise(votos_nominais = sum(QT_VOTOS_NOMINAIS_VALIDOS),
-            votos_legenda = sum(QT_TOTAL_VOTOS_LEG_VALIDOS)) 
+```{r processa-voto, echo=FALSE, message=FALSE, cache=TRUE}
+# dados_finais <- dados %>%
+#   dplyr::filter(DS_CARGO == "Prefeito" & ANO_ELEICAO == 2020 & NM_TIPO_ELEICAO == "Eleição Ordinária") %>%
+#   group_by(DS_ELEICAO, NR_TURNO, NM_MUNICIPIO, 
+#            NR_ZONA, NR_SECAO, NR_VOTAVEL) %>%
+#   summarise(votos_nominais = sum(QT_VOTOS)) 
+# saveRDS(dados_finais, file=here("dados\\", "dados_finais.rds"))
+
+dados_finais <- readRDS(here("dados\\", "dados_finais.rds"))
 
 # Identificar os municípios que possuem segundo turno
 municipios_segundo_turno <- dados_finais %>%
+  ungroup() %>%
   filter(NR_TURNO == 2) %>%
   select(NM_MUNICIPIO) %>%
   distinct()
 
 # Filtrar os dados para incluir apenas os municípios que têm segundo turno
 dados_filtrados <- dados_finais %>%
-  filter(NM_MUNICIPIO %in% municipios_segundo_turno$NM_MUNICIPIO) %>%
-  group_by(NM_MUNICIPIO, NR_TURNO) %>%
-  mutate(votos_totais = sum(votos_nominais + votos_legenda),
-         perc_voto = votos_nominais + votos_legenda/votos_totais)
-
-candidatos_segundo_turno <- dados_finais %>%
-  filter(NR_TURNO == 2) %>%
-  select(NM_MUNICIPIO, NR_PARTIDO) %>%
-  distinct()
-
+  ungroup() %>%
+  inner_join(municipios_segundo_turno, by = "NM_MUNICIPIO")
 ```
 
 
@@ -77,14 +75,63 @@ O que consgtitui uma boa previsão? Tradicionalmente, empregamos a noção de Er
 
 Naturalmente, se esse é o caso, a próxima pergunta que todos nós iremos fazer é: por que não aprender apenas a usar a CEF, que é o melhor preditor possível, e ser feliz para sempre? Porque a natureza não nos diz qual é a CEF. Nós nunca sabemos qual a verdadeira função de esperança condicional. Então tentamos aproximar o melhor possível a CEF, a partir de simplificações da realidade. Em particular, nosso curso pode ser pensado em torno das seguintes perguntas: como aproximar a CEF por meio de regressão linear (combinação lineares de preditores)? Quais as propridades dessa aproximação? Em que condições ela é uma boa aproximação e em que sentido (quantitativo e preciso) podemos falar de boa aproximação? Mais para o final do curso faremos a conexão entre a CEF, modelos preditivos e modelos causais.
 
+## Gráfico de voto 
 
-## Objetivos de aprendizagem ao final do capítulo
 
-Estudantes deverão ter aprendido ao final do capítulo:
+```{r voto_turnos_todos_municipios, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "voto" }
 
-1. **Reconhecer** que a função de esperança condicional,  a *CEF*, em sua forma pura, é o melhor preditor possível para uma variável alvo, dadas as informações de outras variáveis. 
-2. **Memorizar** que todos os outros predidores, sejam lineares ou não-lineares, incluindo preditores de deep learning, são tentativas de aproximar a CEF.
-3. **Apreciar** que o melhor predito linear (isto é, considerando apenas preditores que incluem combinação lineares de variáveis) produz previsões razoáveis, e **antecipar** que esse preditor nos leva à regressão linear. 
+library(ggplot2)
+library(tidyr)
+dados_turno <- dados_filtrados %>%
+  filter(!NR_VOTAVEL %in% c(95, 96)) %>% # nulos e brancos fora
+   pivot_wider(
+    id_cols = c(DS_ELEICAO, NM_MUNICIPIO, NR_ZONA, NR_SECAO, NR_VOTAVEL),
+    names_from = NR_TURNO,
+    values_from = votos_nominais,
+    names_prefix = "votos_turno_"
+  ) %>%
+  rename(votos_1turno = votos_turno_1,
+         votos_2turno = votos_turno_2)
+
+dados_turno1 <- dados_turno %>%
+  group_by(NR_VOTAVEL, NM_MUNICIPIO) %>%
+  mutate(voto_total_candidato_2t = sum(votos_2turno, na.rm=T),
+         voto_total_candidato_1t = sum(votos_1turno, na.rm=T)) %>%
+  ungroup() %>%
+  group_by(NM_MUNICIPIO, NR_ZONA, NR_SECAO) %>%
+  mutate(votos_validos_1t = sum(votos_1turno),
+         votos_validos_2t = sum(votos_2turno, na.rm=T)) %>%
+  filter(voto_total_candidato_2t > 0) %>%
+  group_by(NM_MUNICIPIO, NR_ZONA, NR_SECAO, NR_VOTAVEL) %>%
+  mutate(perc_validos_1t = votos_1turno/votos_validos_1t,
+         perc_validos_2t = votos_2turno/votos_validos_2t) %>%
+  ungroup()
+
+p1 <- dados_turno1 %>%
+  ggplot(aes(x=perc_validos_1t , y = perc_validos_2t )) + geom_point() + theme_bw(base_size = 22) +
+  scale_x_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent)
+
+print(p1)
+```
+
+
+O gráfico agrupando todos os muniícipios de São Paulo sem distinção mostra uma correlação positiva, mas muita variabilidade. Vamos ver por município.
+
+```{r voto_turnos_por_municipios, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "voto_por_municipio" }
+
+
+p2 <- dados_turno1 %>%
+  ggplot(aes(x=perc_validos_1t , y = perc_validos_2t )) + geom_point() + theme_bw(base_size = 22) +
+  facet_wrap(~ NM_MUNICIPIO) +
+  scale_x_continuous(labels = scales::percent) + 
+  scale_y_continuous(labels = scales::percent)
+
+print(p2)
+
+
+```
+
 
 ## Distribuição dos salários
 
@@ -134,6 +181,8 @@ p1 <- df %>%
 print(p1)
 
 ```
+
+
 ```{r wage-pnad-log, results='asis', message=FALSE, cache=TRUE, fig.cap = "Distribuição do log dos salários" }
 
 p2 <- df %>%

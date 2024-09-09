@@ -150,3 +150,11 @@ projeção-linear
 load-required-libraries
 teoremas
 independência-e-correlação
+exemplo-de-cef
+gráfico-de-voto
+a-esperança-condicional-é-o-melhor-preditor
+propriedade-de-estimadores
+viés
+variância-1
+eficiência
+exercícios-para-o-leitor
