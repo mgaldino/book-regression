@@ -30,6 +30,44 @@ A maior parte dos métodos quantitativos existentes são bons para responder per
 
 Assim, nosso curso será dedicado apenas a modelos de previsão e modelos de causa dos efeitos, que é o que temos de metodologias já desenvolvidas e consolidadas. Começamos por essa explicação porque uma perspectiva mais antiga, e ainda comum nas ciências sociais, é que modelos de regressão múltiplas permitem estimar o efeito de várias causas. Isso raramente é o caso e não adotaremos essa perspecitva aqui ^[A maior parte do curso será dedicadas a modelos preditivos, e apenas pontualmente falaremos de modelos causais]. 
 
+## Exemplo de CEF
+
+```{r import-voto, echo=FALSE, message=FALSE, cache=TRUE}
+# Carregue o pacote PNADcIBGE
+library(here)
+library(data.table)
+library(tidyverse)
+# Importe os dados desejados
+
+dados <- fread(here("dados\\votacao_partido_munzona_2020\\", "votacao_partido_munzona_2020_SP.csv"), encoding = "Latin-1")
+
+dados_finais <- dados %>%
+  dplyr::filter(DS_CARGO == "Prefeito" & ANO_ELEICAO == 2020) %>%
+  group_by(DS_ELEICAO,NR_TURNO, NM_MUNICIPIO, NR_ZONA, NR_PARTIDO) %>%
+  summarise(votos_nominais = sum(QT_VOTOS_NOMINAIS_VALIDOS),
+            votos_legenda = sum(QT_TOTAL_VOTOS_LEG_VALIDOS)) 
+
+# Identificar os municípios que possuem segundo turno
+municipios_segundo_turno <- dados_finais %>%
+  filter(NR_TURNO == 2) %>%
+  select(NM_MUNICIPIO) %>%
+  distinct()
+
+# Filtrar os dados para incluir apenas os municípios que têm segundo turno
+dados_filtrados <- dados_finais %>%
+  filter(NM_MUNICIPIO %in% municipios_segundo_turno$NM_MUNICIPIO) %>%
+  group_by(NM_MUNICIPIO, NR_TURNO) %>%
+  mutate(votos_totais = sum(votos_nominais + votos_legenda),
+         perc_voto = votos_nominais + votos_legenda/votos_totais)
+
+candidatos_segundo_turno <- dados_finais %>%
+  filter(NR_TURNO == 2) %>%
+  select(NM_MUNICIPIO, NR_PARTIDO) %>%
+  distinct()
+
+```
+
+
 
 ## CEF
 
@@ -46,7 +84,7 @@ Estudantes deverão ter aprendido ao final do capítulo:
 
 1. **Reconhecer** que a função de esperança condicional,  a *CEF*, em sua forma pura, é o melhor preditor possível para uma variável alvo, dadas as informações de outras variáveis. 
 2. **Memorizar** que todos os outros predidores, sejam lineares ou não-lineares, incluindo preditores de deep learning, são tentativas de aproximar a CEF.
-3. **Apreciar** que o melhor predito linear (isto é, considerando apenas preditores que incluem combinação lineares de variáveis) produz previsões razoáveis, e **antecipar** que esse preditor nosleva à regressão linear. 
+3. **Apreciar** que o melhor predito linear (isto é, considerando apenas preditores que incluem combinação lineares de variáveis) produz previsões razoáveis, e **antecipar** que esse preditor nos leva à regressão linear. 
 
 ## Distribuição dos salários
 
