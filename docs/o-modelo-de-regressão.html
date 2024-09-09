@@ -377,7 +377,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="esperança-condicional-1" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Esperança Condicional<a href="o-modelo-de-regressão.html#esperança-condicional-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<pre><code>## Warning: package &#39;knitr&#39; was built under R version 4.3.3</code></pre>
 <p>Uma das primeiras distinções que temos de fazer é sobre previsão e explicação (causal). Quando queremos prever, estamos interessados em saber quais os provaveis valores de variáveis no futuro, a parte de informações sobre a própria variável e outras no passado. Nesse sentido, é preciso algum tipo de suposição de que o futuro se assemelha ao passado de algum modo. Esse tipo de suposição usualmente toma a forma de um modelo probabilísitco, mas não apenas.</p>
 <p>Quando estamos interessados em explicações causais, temos dois tipos de perguntas de pesquisa possíveis. Uma sobre a chamada causa dos efeitos e outra sobre o efeito das causas (Gelman &amp; Imbens, 2013). A causa dos efeitos são perguntas do tipo: o que causal a II Grande Guerra? Ou qual a causa da eleição de Trump ou Bolsonaro? O que explica a desigualdade de renda no Brasil? São todas perguntas em que queremos explicar um efeito, isto é, identificar as causas de um fenômeno (efeito). Já o efeito das causas ão perguntas do tipo: qual o efeito da vacina de covid-19 sobre a mortalidade por Covid-19? Qual o efeito de checagem de notícias sobre a crença de pessoas em desinformação? Qual o efeito da magnitude eleitoral sobre fragmentação partidária? E assim por diante. Aqui, estamos interessados em entender o efeito causal de uma variável sobre outra, sem pretender esgotar todas as explicações de causa possíveis.</p>
 <p>A maior parte dos métodos quantitativos existentes são bons para responder perguntas de previsão e de causa dos efeitos. Grosso modo, não há método quantitativo para estimação do efeito das causas, exceto realizar uma série de estudos independentes sobre várias causas dos efeitos, olhando uma causa distinta do mesmo efeito por vez e esperar que isso gere um conhecimento combinado sobre essas múltiplas causas. Mas não há, contudo, uma metodologia bem definida de como combinar esses estudos independentes em um único conhecimento do efeito conjunto das causas.</p>
@@ -396,39 +395,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="gráfico-de-voto" class="section level2 hasAnchor" number="5.5">
 <h2><span class="header-section-number">5.5</span> Gráfico de voto<a href="o-modelo-de-regressão.html#gráfico-de-voto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="o-modelo-de-regressão.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-2"><a href="o-modelo-de-regressão.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb2-3"><a href="o-modelo-de-regressão.html#cb2-3" tabindex="-1"></a>dados_turno <span class="ot">&lt;-</span> dados_filtrados <span class="sc">%&gt;%</span></span>
-<span id="cb2-4"><a href="o-modelo-de-regressão.html#cb2-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>, <span class="dv">96</span>)) <span class="sc">%&gt;%</span> <span class="co"># nulos e brancos fora</span></span>
-<span id="cb2-5"><a href="o-modelo-de-regressão.html#cb2-5" tabindex="-1"></a>   <span class="fu">pivot_wider</span>(</span>
-<span id="cb2-6"><a href="o-modelo-de-regressão.html#cb2-6" tabindex="-1"></a>    <span class="at">id_cols =</span> <span class="fu">c</span>(DS_ELEICAO, NM_MUNICIPIO, NR_ZONA, NR_SECAO, NR_VOTAVEL),</span>
-<span id="cb2-7"><a href="o-modelo-de-regressão.html#cb2-7" tabindex="-1"></a>    <span class="at">names_from =</span> NR_TURNO,</span>
-<span id="cb2-8"><a href="o-modelo-de-regressão.html#cb2-8" tabindex="-1"></a>    <span class="at">values_from =</span> votos_nominais,</span>
-<span id="cb2-9"><a href="o-modelo-de-regressão.html#cb2-9" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">&quot;votos_turno_&quot;</span></span>
-<span id="cb2-10"><a href="o-modelo-de-regressão.html#cb2-10" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb2-11"><a href="o-modelo-de-regressão.html#cb2-11" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">votos_1turno =</span> votos_turno_1,</span>
-<span id="cb2-12"><a href="o-modelo-de-regressão.html#cb2-12" tabindex="-1"></a>         <span class="at">votos_2turno =</span> votos_turno_2)</span>
-<span id="cb2-13"><a href="o-modelo-de-regressão.html#cb2-13" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="o-modelo-de-regressão.html#cb2-14" tabindex="-1"></a>dados_turno1 <span class="ot">&lt;-</span> dados_turno <span class="sc">%&gt;%</span></span>
-<span id="cb2-15"><a href="o-modelo-de-regressão.html#cb2-15" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_VOTAVEL, NM_MUNICIPIO) <span class="sc">%&gt;%</span></span>
-<span id="cb2-16"><a href="o-modelo-de-regressão.html#cb2-16" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">voto_total_candidato_2t =</span> <span class="fu">sum</span>(votos_2turno, <span class="at">na.rm=</span>T),</span>
-<span id="cb2-17"><a href="o-modelo-de-regressão.html#cb2-17" tabindex="-1"></a>         <span class="at">voto_total_candidato_1t =</span> <span class="fu">sum</span>(votos_1turno, <span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-18"><a href="o-modelo-de-regressão.html#cb2-18" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb2-19"><a href="o-modelo-de-regressão.html#cb2-19" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_MUNICIPIO, NR_ZONA, NR_SECAO) <span class="sc">%&gt;%</span></span>
-<span id="cb2-20"><a href="o-modelo-de-regressão.html#cb2-20" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">votos_validos_1t =</span> <span class="fu">sum</span>(votos_1turno),</span>
-<span id="cb2-21"><a href="o-modelo-de-regressão.html#cb2-21" tabindex="-1"></a>         <span class="at">votos_validos_2t =</span> <span class="fu">sum</span>(votos_2turno, <span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-22"><a href="o-modelo-de-regressão.html#cb2-22" tabindex="-1"></a>  <span class="fu">filter</span>(voto_total_candidato_2t <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-23"><a href="o-modelo-de-regressão.html#cb2-23" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_MUNICIPIO, NR_ZONA, NR_SECAO, NR_VOTAVEL) <span class="sc">%&gt;%</span></span>
-<span id="cb2-24"><a href="o-modelo-de-regressão.html#cb2-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">perc_validos_1t =</span> votos_1turno<span class="sc">/</span>votos_validos_1t,</span>
-<span id="cb2-25"><a href="o-modelo-de-regressão.html#cb2-25" tabindex="-1"></a>         <span class="at">perc_validos_2t =</span> votos_2turno<span class="sc">/</span>votos_validos_2t) <span class="sc">%&gt;%</span></span>
-<span id="cb2-26"><a href="o-modelo-de-regressão.html#cb2-26" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb2-27"><a href="o-modelo-de-regressão.html#cb2-27" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="o-modelo-de-regressão.html#cb2-28" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
-<span id="cb2-29"><a href="o-modelo-de-regressão.html#cb2-29" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_validos_1t , <span class="at">y =</span> perc_validos_2t )) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
-<span id="cb2-30"><a href="o-modelo-de-regressão.html#cb2-30" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb2-31"><a href="o-modelo-de-regressão.html#cb2-31" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
-<span id="cb2-32"><a href="o-modelo-de-regressão.html#cb2-32" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="o-modelo-de-regressão.html#cb2-33" tabindex="-1"></a><span class="fu">print</span>(p1)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="o-modelo-de-regressão.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="o-modelo-de-regressão.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-3"><a href="o-modelo-de-regressão.html#cb1-3" tabindex="-1"></a>dados_turno <span class="ot">&lt;-</span> dados_filtrados <span class="sc">%&gt;%</span></span>
+<span id="cb1-4"><a href="o-modelo-de-regressão.html#cb1-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>, <span class="dv">96</span>)) <span class="sc">%&gt;%</span> <span class="co"># nulos e brancos fora</span></span>
+<span id="cb1-5"><a href="o-modelo-de-regressão.html#cb1-5" tabindex="-1"></a>   <span class="fu">pivot_wider</span>(</span>
+<span id="cb1-6"><a href="o-modelo-de-regressão.html#cb1-6" tabindex="-1"></a>    <span class="at">id_cols =</span> <span class="fu">c</span>(DS_ELEICAO, NM_MUNICIPIO, NR_ZONA, NR_SECAO, NR_VOTAVEL),</span>
+<span id="cb1-7"><a href="o-modelo-de-regressão.html#cb1-7" tabindex="-1"></a>    <span class="at">names_from =</span> NR_TURNO,</span>
+<span id="cb1-8"><a href="o-modelo-de-regressão.html#cb1-8" tabindex="-1"></a>    <span class="at">values_from =</span> votos_nominais,</span>
+<span id="cb1-9"><a href="o-modelo-de-regressão.html#cb1-9" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">&quot;votos_turno_&quot;</span></span>
+<span id="cb1-10"><a href="o-modelo-de-regressão.html#cb1-10" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-11"><a href="o-modelo-de-regressão.html#cb1-11" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">votos_1turno =</span> votos_turno_1,</span>
+<span id="cb1-12"><a href="o-modelo-de-regressão.html#cb1-12" tabindex="-1"></a>         <span class="at">votos_2turno =</span> votos_turno_2)</span>
+<span id="cb1-13"><a href="o-modelo-de-regressão.html#cb1-13" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="o-modelo-de-regressão.html#cb1-14" tabindex="-1"></a>dados_turno1 <span class="ot">&lt;-</span> dados_turno <span class="sc">%&gt;%</span></span>
+<span id="cb1-15"><a href="o-modelo-de-regressão.html#cb1-15" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_VOTAVEL, NM_MUNICIPIO) <span class="sc">%&gt;%</span></span>
+<span id="cb1-16"><a href="o-modelo-de-regressão.html#cb1-16" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">voto_total_candidato_2t =</span> <span class="fu">sum</span>(votos_2turno, <span class="at">na.rm=</span>T),</span>
+<span id="cb1-17"><a href="o-modelo-de-regressão.html#cb1-17" tabindex="-1"></a>         <span class="at">voto_total_candidato_1t =</span> <span class="fu">sum</span>(votos_1turno, <span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-18"><a href="o-modelo-de-regressão.html#cb1-18" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-19"><a href="o-modelo-de-regressão.html#cb1-19" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_MUNICIPIO, NR_ZONA, NR_SECAO) <span class="sc">%&gt;%</span></span>
+<span id="cb1-20"><a href="o-modelo-de-regressão.html#cb1-20" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">votos_validos_1t =</span> <span class="fu">sum</span>(votos_1turno),</span>
+<span id="cb1-21"><a href="o-modelo-de-regressão.html#cb1-21" tabindex="-1"></a>         <span class="at">votos_validos_2t =</span> <span class="fu">sum</span>(votos_2turno, <span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-22"><a href="o-modelo-de-regressão.html#cb1-22" tabindex="-1"></a>  <span class="fu">filter</span>(voto_total_candidato_2t <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-23"><a href="o-modelo-de-regressão.html#cb1-23" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_MUNICIPIO, NR_ZONA, NR_SECAO, NR_VOTAVEL) <span class="sc">%&gt;%</span></span>
+<span id="cb1-24"><a href="o-modelo-de-regressão.html#cb1-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">perc_validos_1t =</span> votos_1turno<span class="sc">/</span>votos_validos_1t,</span>
+<span id="cb1-25"><a href="o-modelo-de-regressão.html#cb1-25" tabindex="-1"></a>         <span class="at">perc_validos_2t =</span> votos_2turno<span class="sc">/</span>votos_validos_2t) <span class="sc">%&gt;%</span></span>
+<span id="cb1-26"><a href="o-modelo-de-regressão.html#cb1-26" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb1-27"><a href="o-modelo-de-regressão.html#cb1-27" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="o-modelo-de-regressão.html#cb1-28" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
+<span id="cb1-29"><a href="o-modelo-de-regressão.html#cb1-29" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_validos_1t , <span class="at">y =</span> perc_validos_2t )) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
+<span id="cb1-30"><a href="o-modelo-de-regressão.html#cb1-30" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb1-31"><a href="o-modelo-de-regressão.html#cb1-31" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
+<span id="cb1-32"><a href="o-modelo-de-regressão.html#cb1-32" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="o-modelo-de-regressão.html#cb1-33" tabindex="-1"></a><span class="fu">print</span>(p1)</span></code></pre></div>
 <div class="figure">
 <img src="bookdownproj_files/figure-html/voto_turnos_todos_municipios-1.png" alt="voto" width="672" />
 <p class="caption">
@@ -436,17 +435,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </p>
 </div>
 <p>O gráfico agrupando todos os muniícipios de São Paulo sem distinção mostra uma correlação positiva, mas muita variabilidade. Vamos ver por município.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="o-modelo-de-regressão.html#cb3-1" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="o-modelo-de-regressão.html#cb3-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_validos_1t , <span class="at">y =</span> perc_validos_2t )) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="o-modelo-de-regressão.html#cb3-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> NM_MUNICIPIO) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="o-modelo-de-regressão.html#cb3-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span> </span>
-<span id="cb3-5"><a href="o-modelo-de-regressão.html#cb3-5" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
-<span id="cb3-6"><a href="o-modelo-de-regressão.html#cb3-6" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="o-modelo-de-regressão.html#cb3-7" tabindex="-1"></a><span class="fu">print</span>(p2)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="o-modelo-de-regressão.html#cb2-1" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="o-modelo-de-regressão.html#cb2-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_validos_1t , <span class="at">y =</span> perc_validos_2t )) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="o-modelo-de-regressão.html#cb2-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> NM_MUNICIPIO) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="o-modelo-de-regressão.html#cb2-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span> </span>
+<span id="cb2-5"><a href="o-modelo-de-regressão.html#cb2-5" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
+<span id="cb2-6"><a href="o-modelo-de-regressão.html#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="o-modelo-de-regressão.html#cb2-7" tabindex="-1"></a><span class="fu">print</span>(p2)</span></code></pre></div>
 <div class="figure">
 <img src="bookdownproj_files/figure-html/voto_turnos_por_municipios-1.png" alt="voto_por_municipio" width="672" />
 <p class="caption">
 (#fig:voto_turnos_por_municipios)voto_por_municipio
+</p>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="o-modelo-de-regressão.html#cb3-1" tabindex="-1"></a><span class="co"># Criar bins para perc_validos_1t</span></span>
+<span id="cb3-2"><a href="o-modelo-de-regressão.html#cb3-2" tabindex="-1"></a>dados_binned <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="o-modelo-de-regressão.html#cb3-3" tabindex="-1"></a>  <span class="fu">filter</span>(NM_MUNICIPIO <span class="sc">==</span> <span class="st">&quot;LIMEIRA&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="o-modelo-de-regressão.html#cb3-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bin_1t =</span> <span class="fu">cut</span>(perc_validos_1t, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.025</span>)))</span>
+<span id="cb3-5"><a href="o-modelo-de-regressão.html#cb3-5" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="o-modelo-de-regressão.html#cb3-6" tabindex="-1"></a><span class="co"># Calcular a média para cada bin</span></span>
+<span id="cb3-7"><a href="o-modelo-de-regressão.html#cb3-7" tabindex="-1"></a>cef_data <span class="ot">&lt;-</span> dados_binned <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="o-modelo-de-regressão.html#cb3-8" tabindex="-1"></a>  <span class="fu">group_by</span>(bin_1t) <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="o-modelo-de-regressão.html#cb3-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">perc_validos_2t_mean =</span> <span class="fu">mean</span>(perc_validos_2t, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-10"><a href="o-modelo-de-regressão.html#cb3-10" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="o-modelo-de-regressão.html#cb3-11" tabindex="-1"></a><span class="co"># Criar o gráfico</span></span>
+<span id="cb3-12"><a href="o-modelo-de-regressão.html#cb3-12" tabindex="-1"></a>grafico_cef <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb3-13"><a href="o-modelo-de-regressão.html#cb3-13" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> dados_binned, <span class="fu">aes</span>(<span class="at">x =</span> perc_validos_1t, <span class="at">y =</span> perc_validos_2t), </span>
+<span id="cb3-14"><a href="o-modelo-de-regressão.html#cb3-14" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="o-modelo-de-regressão.html#cb3-15" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> cef_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(bin_1t)), <span class="at">y =</span> perc_validos_2t_mean), </span>
+<span id="cb3-16"><a href="o-modelo-de-regressão.html#cb3-16" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb3-17"><a href="o-modelo-de-regressão.html#cb3-17" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> cef_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(bin_1t)), <span class="at">y =</span> perc_validos_2t_mean), </span>
+<span id="cb3-18"><a href="o-modelo-de-regressão.html#cb3-18" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-19"><a href="o-modelo-de-regressão.html#cb3-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Função de Expectativa Condicional (CEF)&quot;</span>,</span>
+<span id="cb3-20"><a href="o-modelo-de-regressão.html#cb3-20" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Percentual de Votos Válidos no 1º Turno&quot;</span>,</span>
+<span id="cb3-21"><a href="o-modelo-de-regressão.html#cb3-21" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Percentual Médio de Votos Válidos no 2º Turno&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-22"><a href="o-modelo-de-regressão.html#cb3-22" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb3-23"><a href="o-modelo-de-regressão.html#cb3-23" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="o-modelo-de-regressão.html#cb3-24" tabindex="-1"></a><span class="fu">print</span>(grafico_cef)</span></code></pre></div>
+<div class="figure">
+<img src="bookdownproj_files/figure-html/CEF_voto_turnos_Limeira-1.png" alt="voto_por_municipio" width="672" />
+<p class="caption">
+(#fig:CEF_voto_turnos_Limeira)voto_por_municipio
 </p>
 </div>
 </div>
@@ -884,23 +913,18 @@ Mulher
 <span id="cb13-9"><a href="o-modelo-de-regressão.html#cb13-9" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">24</span>,</span>
 <span id="cb13-10"><a href="o-modelo-de-regressão.html#cb13-10" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;red&quot;</span></span>
 <span id="cb13-11"><a href="o-modelo-de-regressão.html#cb13-11" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>)</span></code></pre></div>
-<pre><code>## Warning: The `fun.y` argument of `stat_summary()` is deprecated as of ggplot2 3.3.0.
-## ℹ Please use the `fun` argument instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
 <p><img src="bookdownproj_files/figure-html/plot_exp_cond-1.png" width="672" /></p>
 <p>De fato, o erro que cometemos pode ser calculado por meio do <em>Erro Quadrático Médio</em>, que é definido como a soma dos erros ao quadrado (para não cancelar). No R, isso pode ser calculado como:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="o-modelo-de-regressão.html#cb15-1" tabindex="-1"></a>df_erro <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="o-modelo-de-regressão.html#cb15-2" tabindex="-1"></a>  <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="o-modelo-de-regressão.html#cb15-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cond_exp =</span> <span class="fu">mean</span>(log_salario)) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="o-modelo-de-regressão.html#cb15-4" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb15-5"><a href="o-modelo-de-regressão.html#cb15-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">erro =</span> log_salario <span class="sc">-</span> cond_exp)</span>
-<span id="cb15-6"><a href="o-modelo-de-regressão.html#cb15-6" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="o-modelo-de-regressão.html#cb15-7" tabindex="-1"></a>df_erro <span class="sc">%&gt;%</span></span>
-<span id="cb15-8"><a href="o-modelo-de-regressão.html#cb15-8" tabindex="-1"></a>  <span class="fu">select</span>(log_salario, genero, cond_exp, erro) <span class="sc">%&gt;%</span></span>
-<span id="cb15-9"><a href="o-modelo-de-regressão.html#cb15-9" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb15-10"><a href="o-modelo-de-regressão.html#cb15-10" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="o-modelo-de-regressão.html#cb14-1" tabindex="-1"></a>df_erro <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="o-modelo-de-regressão.html#cb14-2" tabindex="-1"></a>  <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="o-modelo-de-regressão.html#cb14-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cond_exp =</span> <span class="fu">mean</span>(log_salario)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="o-modelo-de-regressão.html#cb14-4" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="o-modelo-de-regressão.html#cb14-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">erro =</span> log_salario <span class="sc">-</span> cond_exp)</span>
+<span id="cb14-6"><a href="o-modelo-de-regressão.html#cb14-6" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="o-modelo-de-regressão.html#cb14-7" tabindex="-1"></a>df_erro <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="o-modelo-de-regressão.html#cb14-8" tabindex="-1"></a>  <span class="fu">select</span>(log_salario, genero, cond_exp, erro) <span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="o-modelo-de-regressão.html#cb14-9" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-10"><a href="o-modelo-de-regressão.html#cb14-10" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1005,10 +1029,10 @@ Mulher
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="o-modelo-de-regressão.html#cb16-1" tabindex="-1"></a>df_erro <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="o-modelo-de-regressão.html#cb16-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">eq =</span> <span class="fu">round</span>(<span class="fu">sum</span>(erro),<span class="dv">4</span>),</span>
-<span id="cb16-3"><a href="o-modelo-de-regressão.html#cb16-3" tabindex="-1"></a>         <span class="at">eqm =</span>  <span class="fu">sum</span>(erro<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="o-modelo-de-regressão.html#cb16-4" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="o-modelo-de-regressão.html#cb15-1" tabindex="-1"></a>df_erro <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="o-modelo-de-regressão.html#cb15-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">eq =</span> <span class="fu">round</span>(<span class="fu">sum</span>(erro),<span class="dv">4</span>),</span>
+<span id="cb15-3"><a href="o-modelo-de-regressão.html#cb15-3" tabindex="-1"></a>         <span class="at">eqm =</span>  <span class="fu">sum</span>(erro<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="o-modelo-de-regressão.html#cb15-4" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <thead>
 <tr>
