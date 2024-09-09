@@ -138,7 +138,7 @@ print(p2)
 # Criar bins para perc_validos_1t
 dados_binned <- dados_turno1 %>%
   filter(NM_MUNICIPIO == "LIMEIRA") %>%
-  mutate(bin_1t = cut(perc_validos_1t, breaks = seq(0, 1, by = 0.025)))
+  mutate(bin_1t = cut(perc_validos_1t, breaks = seq(0, 1, by = 0.05)))
 
 # Calcular a média para cada bin
 cef_data <- dados_binned %>%
@@ -147,8 +147,6 @@ cef_data <- dados_binned %>%
 
 # Criar o gráfico
 grafico_cef <- ggplot() +
-  geom_point(data = dados_binned, aes(x = perc_validos_1t, y = perc_validos_2t), 
-             alpha = 0.2, color = "gray") +
   geom_point(data = cef_data, aes(x = as.numeric(as.character(bin_1t)), y = perc_validos_2t_mean), 
              color = "red", size = 3) +
   geom_line(data = cef_data, aes(x = as.numeric(as.character(bin_1t)), y = perc_validos_2t_mean), 
