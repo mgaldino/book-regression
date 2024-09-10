@@ -259,9 +259,11 @@ print(grafico_cef_reg)
 
 É muito comum a utilização de logaritmos em regressões, de modo que vale uma digresssão sobre a correta interpretação de logaritmos. A primeira razão é que a diferença de logaritmos é aproximadamente igual à diferença entre porcentagens. Vamos ilustrar isso por meio de um exemplo, e então mostaremos matematicamente que isso sempre é o caso.
 
-De acodo com dados da PNADc de 2017, quarto trimstre, que temos usado neste capítulo, o salário por hora dos homens é em média $14.72$ reais, e o das mulheres $12.57$ reais. A diferença percentual no salário é, portanto, $100*(14.72 - 12.57)/12.57$ ou $17,1%$. Se em vez de calcular a diferença percentual, usar a aproximação $log(14.72) - log(12.57) = 0.1578941$ ou 15,8%,  tenho um valor próximo do verdadeiro valor de 17,1%.
+### Logartimos como diferença de porcentagens
 
-O caso geral pode ser visto do seguinte modo. Sejam dois números positivos $a$ e $B$, com $a > b$. A diferença percentual $p$ entre $a$ e $b$ é dada por:
+De acodo com dados da PNADc de 2017, quarto trimstre, o salário por hora dos homens é em média $14.72$ reais, e o das mulheres $12.57$ reais. A diferença percentual no salário é, portanto, $100*(14.72 - 12.57)/12.57$ ou $17,1%$. Se em vez de calcular a diferença percentual, usar a aproximação $log(14.72) - log(12.57) = 0.1578941$ ou 15,8%,  tenho um valor próximo do verdadeiro valor de 17,1%.
+
+O caso geral pode ser visto do seguinte modo. Sejam dois números positivos $a$ e $b$, com $a > b$. A diferença percentual $p$ entre $a$ e $b$ é dada por:
 
 $$
 100*(a - b)/b = p
@@ -277,14 +279,74 @@ $$
 log(a/b) = log(1 + p/100)
 $$
 $$
-log(a) - log(b) = log(1 + 17,1%/100)
+log(a) - log(b) = log(1 + p/100)
 $$
-Iremos usar a aproximação $log( 1 + x) \approx x$ para $x$ pequeno.  Logo:
+Iremos usar a aproximação $log( 1 + x) \approx x$ para $x$ pequeno. Logo:
 
 $$ 
 log(a) - log(b) \approx p/100
 $$
-A segunda razão é que se aplicarmos essa lógica para médias, estamos aproximando a diferença percentua na méda geométrica. Usando essa aproximação, vemos que se a diferença no salário por hora é aproximadamente 16%, a diferença no salário total é 24%, oito pontos percentuais a mais.
+Numericamente, como o erro dessa aproximação varia para diferentes valores de $p$?
+
+Exercício em sala: Vamos fazer uma simulação para verificar como o erro da aproximação funciona. Ou seja, vamos variar a diferença percentual entre dois números $a$ e $b$ e calcular o erro de aproximação pela fórmula com logaritmo.
+
+```{r, warning=FALSE, message=FALSE}
+dif_perc <- function(a,b){
+  stopifnot(a > b)
+  100*(a - b)/b 
+}
+
+aprox_dif_perc <- function(a,b){
+  stopifnot(a > b)
+  100*(log(a) - log(b))
+}
+
+erro_aprox_perc <- function(a,b) {
+  dif_perc(a,b) - aprox_dif_perc(a,b)
+}
+
+b <- 100
+a <- seq(100.1, 120, by=.1)
+vec_erro <- numeric()
+true_p <- numeric()
+for ( i in 1:length(a)) {
+  vec_erro[i] <- erro_aprox_perc(a[i],b)
+  true_p[i] <- dif_perc(a[i],b)
+}
+df <- data.frame(erro = vec_erro, p = true_p )
+
+library(ggplot2)
+library(tidyverse)
+df %>%
+  ggplot(aes(x=p, y=erro)) + geom_point() +
+  geom_hline(yintercept = .1, colour= "red") +
+  labs(x = "Diferença Percentual Real", 
+       y = "Erro de Aproximação (p.p.)",
+       title = "Erro na Aproximação da Dif Per") +
+  theme_minimal()
+
+# Verificação do intervalo onde o erro é menor que 0.1 pp
+df$within_tolerance <- abs(df$erro) < 0.1
+max_p_within_tolerance <- max(df$p[df$within_tolerance])
+print(paste("Máximo p com erro < 0.1 pp:", round(max_p_within_tolerance, 2)))
+
+```
+A segunda razão é que se aplicarmos essa lógica para médias, estamos aproximando a diferença percentual na média geométrica.
+
+### Logaritmos e média geométrica
+
+A média geométrica de um conjunto de observações $(x_1, x_2, \cdots, x_n)$ é dada por: $MG = \sqrt[n]{(x_1 \cdot x_2 \cdot x_n)}$.
+
+Aplicando o logaritmo dos dois lados, temos:
+$log(MG) = log((x_1 \cdot x_2 \cdot x_n)^\frac{1}{n})$
+
+$log(MG) = \frac{1}{n}log(x_1 \cdot x_2 \cdot x_n)$
+
+$log(MG) = \frac{1}{n}log(x_1) + log(x_2) + \cdots + log(x_n)$
+
+Vejam que essa expressão é a média aritmética do logaritmo das observações. 
+
+Usando essa aproximação, vemos que se a diferença no salário por hora é aproximadamente 16%, a diferença no salário total é 24%, oito pontos percentuais a mais.
 
 ## Prevendo a partir da esperança condicional
 
