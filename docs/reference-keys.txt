@@ -158,3 +158,8 @@ viés
 variância-1
 eficiência
 exercícios-para-o-leitor
+tab:tabela-variaveis
+algumas-propriedades-da-cef
+cef-é-a-melhor-aproximação-aos-dados
+regressão-linear
+cef-e-voto

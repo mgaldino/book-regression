@@ -4,16 +4,31 @@
 
 
 ## Modelo de Regressão - Teoria
+
 O modelo de regressão (não confundir com regressão linear) é uma forma bem ampla de modelar os dados para prever uma variável de interesse, usualmente designada pela letra $Y$. Se eu quero prever os votos de candidatas em uma eleição, a votação de cada candidata é minha variável de interesse, $Y$. Digamos que eu tenho uma amostra da intenção de votos das candidatas, obtidas por meio de uma pesquisa eleitoral. Então, a regressão é uma forma de modelar os dados para prever justamente essa variável $Y$.
 
-Há muitas formas de apresentar ou motivar regressão linear. O método mais tradicional é pensar que a regressão linear é uma reta que é ajustada aos pontos observados. Porém, não tomaremos esse caminho aqui.
-
-Nós iremos tomar aqui o caminho de considerar que a regressão linear é uma forma de aproximar a chamada "Conditional Regression Function" (CEF, na sigla em inglês). O objetivo é entender “as far as possible with the available data how the conditional distribution of some response y varies across subpopulations determined by the possible values of the predictor or predictors” (Cook and Weisberg, apud Berk, p. 4).
+Antes de entrarmos em Regressão, vale a pena repassar a nomenclatura básica sobre $Y$ e $X$.
 
 
-Portanto, vamos retomrar o conceito de esperança condicional, para introduzir em seguida a função de regressão condicional (CEF, em inglês) e então como a regressão pode ser pensada como uma forma de aproximar a CEF.
+```{r tabela-variaveis, echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(kableExtra)
 
-## Esperança Condicional
+dados_tabela <- data.frame(
+  "VD" = c("Variável Resposta", "Variável Explicada", "Variável Predita", "Variável de Saída", "Variável Regredida", "Regressando"),
+  "VI" = c("Variável Preditora", "Variável Explicativa", "Variável de Entrada", "Variável Exógena", "Regressor", "Covariável"),
+  check.names = FALSE,
+  stringsAsFactors = FALSE
+)
+
+kable(dados_tabela, caption = "Nomenclaturas para Variáveis em Regressão Linear") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+                full_width = F, position = "center") %>%
+  column_spec(1, bold = T, color = "blue") %>%
+  column_spec(2, bold = T, color = "green") %>%
+  row_spec(0, bold = T, color = "white", background = "#4E5D6C")
+```
+
 
 ```{r package loads cap5, echo=FALSE, message=FALSE}
 library(ggplot2)
@@ -30,7 +45,11 @@ A maior parte dos métodos quantitativos existentes são bons para responder per
 
 Assim, nosso curso será dedicado apenas a modelos de previsão e modelos de causa dos efeitos, que é o que temos de metodologias já desenvolvidas e consolidadas. Começamos por essa explicação porque uma perspectiva mais antiga, e ainda comum nas ciências sociais, é que modelos de regressão múltiplas permitem estimar o efeito de várias causas. Isso raramente é o caso e não adotaremos essa perspecitva aqui ^[A maior parte do curso será dedicadas a modelos preditivos, e apenas pontualmente falaremos de modelos causais]. 
 
-## Exemplo de CEF
+Há muitas formas de apresentar ou motivar regressão linear. O método mais tradicional é pensar que a regressão linear é uma reta que é ajustada aos pontos observados. Porém, não tomaremos esse caminho aqui.
+
+Nós iremos considerar que a regressão linear é uma forma de aproximar a chamada "Conditional Regression Function" (CEF, na sigla em inglês). O objetivo é entender “as far as possible with the available data how the conditional distribution of some response $y$ varies across subpopulations determined by the possible values of the predictor or predictors” (Cook and Weisberg, apud Berk, p. 4).
+
+## CEF
 
 ```{r import-voto, echo=FALSE, message=FALSE, cache=TRUE, warning=FALSE}
 # Carregue o pacote PNADcIBGE
@@ -56,32 +75,14 @@ dados_finais <- readRDS(here("dados\\", "dados_finais.rds"))
 municipios_segundo_turno <- dados_finais %>%
   ungroup() %>%
   filter(NR_TURNO == 2) %>%
-  select(NM_MUNICIPIO) %>%
+  dplyr::select(NM_MUNICIPIO) %>%
   distinct()
 
 # Filtrar os dados para incluir apenas os municípios que têm segundo turno
 dados_filtrados <- dados_finais %>%
   ungroup() %>%
   inner_join(municipios_segundo_turno, by = "NM_MUNICIPIO")
-```
 
-
-
-## CEF
-
-O que consgtitui uma boa previsão? Tradicionalmente, empregamos a noção de Erro Quadrátco Médio (EQM) para quantificar boas previsões. Quanto menor o EQM, melhor uma previsão. Se o objetivo é, portanto, fazer previsões que minimizem o EQM, iremos apresertar e mostrar que a Função de Esperança Condicional (*CEF*, na sigla em inglês) é o melhor preditor global possível. Vamos dizer em outras palavras, porque esse resultado é verdadeiramente icnrível. A CEF é o melhor preditor possível dentre todos que existam ou possam vir a existir, entendendo melhor como ter o menor EQM. Por isso que a CEF é o ponto de partida de qualquer preditor que exista, seja uma regressão simples ou algoritmos de aprendizens de máquinas como "random forest" ou mesmo algorítimos de deep learning de redes neurais por traz dos recentes avanços na inteligência artificial.
-
-> Mesmo os algorítmos mais avançados de inteleigência artificial, como os **Large Language Models**, que estão na base de ferramentas como ChatGPT, *não podem* ter desempenho melhor que a função de experança condicional, CEF, ao fazer uma previsão.
-
-Naturalmente, se esse é o caso, a próxima pergunta que todos nós iremos fazer é: por que não aprender apenas a usar a CEF, que é o melhor preditor possível, e ser feliz para sempre? Porque a natureza não nos diz qual é a CEF. Nós nunca sabemos qual a verdadeira função de esperança condicional. Então tentamos aproximar o melhor possível a CEF, a partir de simplificações da realidade. Em particular, nosso curso pode ser pensado em torno das seguintes perguntas: como aproximar a CEF por meio de regressão linear (combinação lineares de preditores)? Quais as propridades dessa aproximação? Em que condições ela é uma boa aproximação e em que sentido (quantitativo e preciso) podemos falar de boa aproximação? Mais para o final do curso faremos a conexão entre a CEF, modelos preditivos e modelos causais.
-
-## Gráfico de voto 
-
-
-```{r voto_turnos_todos_municipios, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "voto" }
-
-library(ggplot2)
-library(tidyr)
 dados_turno <- dados_filtrados %>%
   filter(!NR_VOTAVEL %in% c(95, 96)) %>% # nulos e brancos fora
    pivot_wider(
@@ -106,6 +107,25 @@ dados_turno1 <- dados_turno %>%
   mutate(perc_validos_1t = votos_1turno/votos_validos_1t,
          perc_validos_2t = votos_2turno/votos_validos_2t) %>%
   ungroup()
+
+saveRDS(dados_turno1, file=here("Dados//", "dados_turno1.rds"))
+
+```
+
+
+O que constitui uma boa previsão? Tradicionalmente, empregamos a noção de Erro Quadrátco Médio (EQM) para quantificar boas previsões. Quanto menor o EQM, melhor uma previsão. Se o objetivo é, portanto, fazer previsões que minimizem o EQM, iremos apresertar e mostrar que a Função de Esperança Condicional (*CEF*, na sigla em inglês) é o melhor preditor global possível. Vamos dizer, em outras palavras, porque esse resultado é verdadeiramente incrível. A CEF é o melhor preditor possível dentre todos que existam ou possam vir a existir, entendendo melhor como ter o menor EQM. Por isso que a CEF é o ponto de partida de qualquer preditor que exista, seja uma regressão simples ou algoritmos de aprendizens de máquinas como "random forest" ou mesmo algorítimos de deep learning de redes neurais por traz dos recentes avanços na inteligência artificial.
+
+> Mesmo os algorítmos mais avançados de inteleigência artificial, como os **Large Language Models**, que estão na base de ferramentas como ChatGPT, *não podem* ter desempenho melhor que a função de experança condicional, CEF, ao fazer uma previsão.
+
+Naturalmente, se esse é o caso, a próxima pergunta que todos nós iremos fazer é: por que não aprender apenas a usar a CEF, que é o melhor preditor possível, e ser feliz para sempre? Porque a natureza não nos diz qual é a CEF. Nós nunca sabemos qual a verdadeira função de esperança condicional. Então tentamos aproximar o mais bem possível a CEF, a partir de simplificações da realidade. Em particular, nosso curso pode ser pensado em torno das seguintes perguntas: como aproximar a CEF por meio de regressão linear (combinação lineares de preditores)? Quais as propridades dessa aproximação? Em que condições ela é uma boa aproximação e em que sentido (quantitativo e preciso) podemos falar de boa aproximação? Mais para o final do curso faremos a conexão entre a CEF, modelos preditivos e modelos causais.
+
+## CEF e voto 
+
+
+```{r voto_turnos_todos_municipios, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "voto" }
+
+library(ggplot2)
+library(tidyr)
 
 p1 <- dados_turno1 %>%
   ggplot(aes(x=perc_validos_1t , y = perc_validos_2t )) + geom_point() + theme_bw(base_size = 22) +
@@ -132,153 +152,107 @@ print(p2)
 
 ```
 
+Os gráficos fazem mais sentido e a variabilidade diminuiu no geral, mas alguns municípios estão com padrões estranhos. Vamos colorir os pontos por candidato?
+
+```{r voto_turnos_por_municipios_candidatos, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "voto_por_municipio" }
+
+
+p3 <- dados_turno1 %>%
+  ggplot(aes(x=perc_validos_1t , y = perc_validos_2t, colour = NR_VOTAVEL)) + geom_point() + theme_bw(base_size = 22) +
+  facet_wrap(~ NM_MUNICIPIO) +
+  scale_x_continuous(labels = scales::percent) + 
+  scale_y_continuous(labels = scales::percent) +
+  theme(legend.position="none")
+
+print(p3)
+
+
+```
+
+Municípios como Diadema, Sorocaba, Franca e Taubaté, que não estavam fazendo muito sentido, agora passaram a fazer.
+
+E o que é a Esperana Condicional?
+Qual o valor esperado do $Y$ para um davo valor de $X$. No gráfico, é dado pela linha vermelha.
 
 ```{r CEF_voto_turnos_Limeira, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "voto_por_municipio" }
 
 # Criar bins para perc_validos_1t
 dados_binned <- dados_turno1 %>%
-  filter(NM_MUNICIPIO == "LIMEIRA") %>%
-  mutate(bin_1t = cut(perc_validos_1t, breaks = seq(0, 1, by = 0.05)))
+  group_by(NM_MUNICIPIO) %>%
+  mutate(bin_1t = cut(perc_validos_1t, breaks = seq(0, 1, by = 0.025)))
 
 # Calcular a média para cada bin
 cef_data <- dados_binned %>%
-  group_by(bin_1t) %>%
-  summarise(perc_validos_2t_mean = mean(perc_validos_2t, na.rm = TRUE))
+  group_by(bin_1t, NM_MUNICIPIO) %>%
+  summarise(perc_validos_2t_mean = mean(perc_validos_2t, na.rm = TRUE),
+             bin_center = mean(as.numeric(perc_validos_1t), na.rm = TRUE))
 
 # Criar o gráfico
 grafico_cef <- ggplot() +
-  geom_point(data = cef_data, aes(x = as.numeric(as.character(bin_1t)), y = perc_validos_2t_mean), 
-             color = "red", size = 3) +
-  geom_line(data = cef_data, aes(x = as.numeric(as.character(bin_1t)), y = perc_validos_2t_mean), 
-            color = "red") +
+  geom_point(data = dados_binned, aes(x = perc_validos_1t, y = perc_validos_2t), 
+             alpha = 0.3, color = "gray") +
+  geom_point(data = cef_data, aes(x = bin_center, y = perc_validos_2t_mean), 
+             color = "red", size = 2) +
+  geom_line(data = cef_data, aes(x = bin_center, y = perc_validos_2t_mean), 
+            color = "blue") +
+  facet_wrap(~NM_MUNICIPIO) +
   labs(title = "Função de Expectativa Condicional (CEF)",
        x = "Percentual de Votos Válidos no 1º Turno",
        y = "Percentual Médio de Votos Válidos no 2º Turno") +
-  theme_minimal()
+  theme_minimal() +
+  scale_x_continuous(limits = c(0, 1), labels = scales::percent) +
+  scale_y_continuous(limits = c(0, 1), labels = scales::percent)
 
 print(grafico_cef)
 ```
-## Distribuição dos salários
 
-Vamos considerar os salários de brasileiros. A amostra da PNAD contínua é uma boa forma de analisarmos como é a distribuição de salários. Vamos supor que conseguimos obter uma amostra aleatória dos salários (o que não é exatamente o caso na PNAD contínua, mas vamso abstrair isso aqui para simplificar).
+## Algumas Propriedades da CEF
+
+A CEF é simplesmente uma função de $X_i$ que resulta na esperança condficional, ou seja $\mathbb{E}[Y_i|X_i]$. É como se eu escrevesse $f(X_i) = \mathbb{E}[Y_i|X_i]$. 
+
+Como $X_i$ pode ser pensado como aleatório, então a CEF também é aleatória.
+
+Nós podemos descrever os dados da seguinte forma: $Y_i = \mathbb{E}[Y_i|X_i] + e_i$. Ou seja, a Esperança condicional mais um termo de erro. Nós veremos que é possível mostrar que $\mathbb{E}[e_i|X_i] = 0$, ou seja, independência na média.
+
+### CEF é a melhor aproximação aos dados
+
+Suponha que estamos interessados em achar a melhor função de $X$, $m(x)$ que aproximada os dados $Y$. Qual seria essa função? Se nós utilizamos o EQM para computar quão bem estamos aproximando os dados, então:
+
+$(Y_i - m(X_i))^2 = ((Y_i - \mathbb{E}[Y_i|X_i]) + (\mathbb{E}[Y_i|X_i] - m(X_i)))^2$
+
+$(Y_i - m(X_i))^2 = (Y_i - \mathbb{E}[Y_i|X_i])^2 + 2(Y_i - \mathbb{E}[Y_i|X_i])(\mathbb{E}[Y_i|X_i] - m(X_i) + (\mathbb{E}[Y_i|X_i] - m(X_i))^2$
+
+Nós queremos minimizar a esperança do erro quadrático, isto é, achar $m(X_i)$ que torna o EQM mínimo. Logo, sabemos que qulquer que seja o $m(X_i)$ que minimiza o EQM, não impacta o primeiro termo da equação acima, de forma que podemos desconsiderá-lo. $Y_i - \mathbb{E}[Y_i|X_i]$ é $e_i$. Como a esperança de $e_i$ é zero, então todo o termo é zero. De forma que só sobra a esperança do último termo. E o melhor que se pode fazer é zerar o termo, ou seja, $m(X_i) = \mathbb{E}[Y_i|X_i]$.
+
+## Regressão Linear
+
+Como podemos ver nos gráficos, a esperança condicional é em geral não-linear. A ideia da regressão linear é aproximar a CEF por meio de uma reta.
+
+Vamos plotar a reta de regressão linear nos gráficos, juntamente com a CEF.
 
 
-```{r import-pnad, echo=FALSE, message=FALSE, cache=TRUE}
-# Carregue o pacote PNADcIBGE
-library(PNADcIBGE)
-# Importe os dados desejados
-data <- get_pnadc(year=2017,
-                  quarter=4,
-                  selected=FALSE,
-                  vars=c("Ano", "Trimestre", "UF", "V2007", "VD4020", "VD4035", "V1028", "V2010"),
-                  design=FALSE, savedir=tempdir())
+```{r CEF_voto_turnos_regressao, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "voto_por_municipio" }
 
-library(tidyverse)
-data <- data %>%
-  select(Ano, Trimestre, UF, V2007, VD4020, VD4035, V1028, V2010)
-# Renomeie as vari´aveis:
-data <- data %>%
-  rename(genero = V2007,
-         renda = VD4020,
-         horas_trabalhadas = VD4035,
-         raca = V2010)
+# Criar o gráfico
+grafico_cef_reg <- ggplot() +
+  geom_point(data = dados_binned, aes(x = perc_validos_1t, y = perc_validos_2t), 
+             alpha = 0.3, color = "gray") +
+  geom_point(data = cef_data, aes(x = bin_center, y = perc_validos_2t_mean), 
+             color = "red", size = 2) +
+  geom_line(data = cef_data, aes(x = bin_center, y = perc_validos_2t_mean), 
+            color = "blue") +
+  geom_smooth(data = dados_binned, aes(x = perc_validos_1t, y = perc_validos_2t), colour = "black",linewidth=1, method="lm", se=FALSE) +
+  facet_wrap(~NM_MUNICIPIO) +
+  labs(title = "CEF e Reta de Regressão Linear",
+       x = "Percentual de Votos Válidos no 1º Turno",
+       y = "Percentual Médio de Votos Válidos no 2º Turno") +
+  theme_minimal() +
+  scale_x_continuous(limits = c(0, 1), labels = scales::percent) +
+  scale_y_continuous(limits = c(0, 1), labels = scales::percent) 
 
+print(grafico_cef_reg)
 ```
 
-Os gráficos \@ref(fig:wage-pnad) e \@ref(fig:wage-pnad-log) apresentam a distribuição dos salários e do logaritmo dos salários no Brasil, a partir de dados da PNAD para 2017. 
-
-```{r wage-pnad, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "Distribuição dos salários" }
-
-library(ggplot2)
-
-df <- data %>%
-  filter(!is.na(renda)) %>%
-  filter(!is.na(horas_trabalhadas)) %>%
-  filter(renda > 0) %>%
-  filter(horas_trabalhadas > 0) %>%
-  mutate(salario = renda/(4.5*horas_trabalhadas)) %>%
-    mutate(log_salario = log(salario)) %>%
-  mutate(genero = as.character(genero))
-
-p1 <- df %>%
-  ggplot(aes(salario)) + geom_density(aes(weight=V1028)) + theme_bw(base_size = 22)
-
-print(p1)
-
-```
-
-
-```{r wage-pnad-log, results='asis', message=FALSE, cache=TRUE, fig.cap = "Distribuição do log dos salários" }
-
-p2 <- df %>%
-  ggplot(aes(log_salario)) + geom_density(aes(weight=V1028)) + theme_bw(base_size = 22)
-
-print(p2)
-
-```
-
-Nós vemos que a distribuição dos salários por hora é tão concentrada em torno do zero, com uma cauda longo, que é difícil visualizar os dados direito. Nesse e em outros casos, usar o logaritmo natural é uma boa alternativa. E nós vemos que o salário por hora está concentrado um pouco antes do $4$, que quer dizer `r round(exp(4),2)` reais por hora. De fato, podemos calcular a esperança $E[log(salário)]$, dada por `r round(weighted.mean(df$log_salario,  w=df$V1028), 2)`. Ou podemos computar diretamente, $E[salário]$ `r round(weighted.mean(df$salario,  w=df$V1028))` reais.
-
-## Distribuição Condicional dos salários
-
-Nós sabemos que os saládios são distribuídos desigulamente entre subpopulações, como por exemplo, entre trabalhadores homens e trabalhadoras mulheres. Os valores `r round(weighted.mean(df$log_salario[df$genero == "Homem"],  w=df$V1028[df$genero == "Homem"]), 2)` e `r round(weighted.mean(df$log_salario[df$genero == "Mulher"],  w=df$V1028[df$genero == "Mulher"]), 2)` são o logaritmo do salário na subpopulação de homens e mulheres. Como nós vimos, podemos dizer que temos a *esperança condicional do salário, dado (ou condicional a) o gênero*.
-
-$$
-\mathbb{E}[salário| gênero = Mulher]
-$$
-
-$$
-\mathbb{E}[salário| gênero = Homem]
-$$
-
-Chamamos essas esperanças de condicionais porque estamos condicionando no valor da variável gênero. Embora o gênero possa não parecer aleatório, do nosso ponto de vista é, pois se selecionarmos uma indivíduo aleatoriamente, seu gênero é desconhecido é será homem ou mulher com uma certa probabilidade. Os nossos dados estão agrupados para apenas dois gêneros e, por isso, por simplicidade, estamos tratando apenas esses dois gêneros aqui.
-
-O gráfico  \@ref(fig:wage-cond-expec) apresenta as densidades sobrepostas por gênero.
-
-```{r wage-cond-expec, results='asis', message=FALSE, warning=F, cache=TRUE, fig.cap = "Distribuição dos salários" }
-
-
-p3 <- df %>%
-  ggplot(aes(x=log_salario)) +
-  geom_density(aes(weight = V1028, group=genero, colour=genero)) + theme_bw(base_size = 22)
-
-print(p3)
-
-```
-
-A diferença fica um pouco mais claro se restringirmos os extremos da distribuição.
-
-```{r wage-cond-expec1, results='asis', message=FALSE, warning=F, cache=TRUE, fig.cap = "Distribuição dos salários" }
-
-
-p4 <- df %>%
-  dplyr::filter(log_salario > -2.5) %>%
-  dplyr::filter(log_salario < 7.5) %>%
-  ggplot(aes(x=log_salario)) +
-  geom_density(aes(weight = V1028, group=genero, colour=genero)) + theme_bw(base_size = 22)
-
-print(p4)
-
-```
-
-Fica claro que a maior parte da diferença entre homens e mulheres está no fato de que há mais mulheres no salário mediano do que homens (uma diferença de quase 20 pontos percentuais), com um pouco mais de homens à direita do valor modal.
-Vale lembrar também que nós já descontamos o efeito das horas trabalhadas. Se uma das formas pela qual homens ganham mais que mulheres é trabalhando mais, então a diferença no salário por hora trabalhada será menor. De fato, se olharmos para o salário total, e não mais salário por hora trabalhada, temos:
-
-
-```{r wage-total-cond-expec, results='asis', message=FALSE, warning=F, fig.cap = "Distribuição dos salários" }
-
-
-p5 <- df %>%
-  mutate(log_renda = log(renda)) %>%
-  ggplot(aes(x=log_renda)) +
-  geom_density(aes(weight = V1028, group=genero, colour=genero)) + theme_bw(base_size = 22)
-
-print(p5)
-
-```
-
-E qual a diferença na média dos logaritmos da renda, condicional ao gênero? A resposta é `r round(weighted.mean(log(df$renda[df$genero == "Homem"]),  w=df$V1028[df$genero == "Homem"]), 2)` - `r round(weighted.mean(log(df$renda[df$genero == "Mulher"]),  w=df$V1028[df$genero == "Mulher"]), 2)`, que é igual a: 
-`r round( weighted.mean(log(df$renda[df$genero == "Homem"]),  w=df$V1028[df$genero == "Homem"]) - weighted.mean(log(df$renda[df$genero == "Mulher"]),  w=df$V1028[df$genero == "Mulher"]), 2)`. Essa diferença é importante porque ela é uma medida da diferença percentual entre as duas rendas, conforme veremos a seguir.
 
 
 ## Logaritmos
@@ -312,110 +286,51 @@ log(a) - log(b) \approx p/100
 $$
 A segunda razão é que se aplicarmos essa lógica para médias, estamos aproximando a diferença percentua na méda geométrica. Usando essa aproximação, vemos que se a diferença no salário por hora é aproximadamente 16%, a diferença no salário total é 24%, oito pontos percentuais a mais.
 
-## Gênero e Raça
-
-Do mesmo jeito que condicionamos o salário e a renda ao gênero, podemos também condicionar ao gênero e à raça simultaneamente. 
-
-```{r table-wage-gender-race, results='asis', message=FALSE, warning=F, fig.cap = "Distribuição dos salários" }
-
-
-table1 <- df %>%
-  mutate(log_renda = log(renda),
-         raca1 = ifelse(raca %in% c("Preta", "Parda"), "Negra",as.character(raca))) %>%
-  group_by(raca1, genero) %>%
-  summarise(salario = round(weighted.mean(salario, w=V1028),2))
-
-kable(table1)
-
-```
-
-E se não agruparmos pretos e pardos como negros, temos:
-```{r table-wage-gender-race1, results='asis', message=FALSE, warning=F, cache=TRUE, fig.cap = "Distribuição dos salários" }
-
-
-table2 <- df %>%
-  mutate(total_n = sum(V1028),
-         log_renda = log(renda)) %>%
-  group_by(raca, genero) %>%
-  summarise(salario = round(weighted.mean(salario, w=V1028),2))
-
-kable(table2)
-
-```
-
-Para essa variável, vemos que faz sentido agrupar pretos e pardos como negros.
-
-As entradas nas tabelas nos dão a esperança condicional do salário dado gênero e raça. Por exemlo:
-
-$$
-\mathbb{E}[salario| gênero = Mulher, raça = branca] = 15,64
-$$
-
-E se computássemos as esperanças condicionais no logaritmo natural, teríamos uma diferença percentual na média geométrica.
-
-Esperanças condicionais são descrições (resumos) dos dados. Para explicar as descrições encontradas, precisamos de um modelo causal, o que vamos adiar por enquanto.
-
 ## Prevendo a partir da esperança condicional
 
 No gráfico abaixo, as esperanças condicionais para os dois valores de $X$ são dadas pelos triângulos vermelhos. Como vemos, há uma grande variabilidade nos dados de salário em torno da esperança condicional. Isso significa que se só tenho a variável gênero, prever $Y$ a partir da esperança condicional $\mathbb{E}[Y|X]$ resulta em um erro grande.
 
-```{r plot_exp_cond, echo=FALSE, message=FALSE, echo=TRUE}
-
-df %>%
-  ggplot(aes(y=log_salario, x=genero)) + geom_point(shape = 1) +
-  scale_y_continuous(labels = scales::dollar) +
-  stat_summary(
-    geom = "point",
-    fun.y = "mean",
-    col = "black",
-    size = 3,
-    shape = 24,
-    fill = "red"
-  ) + theme_bw(base_size = 22)
-
-```
-
 De fato, o erro que cometemos pode ser calculado por meio do *Erro Quadrático Médio*, que é definido como a soma dos erros ao quadrado (para não cancelar). No R, isso pode ser calculado como:
 
 ```{r eqm_ex1, echo=TRUE, message=FALSE}
-
-df_erro <- df %>%
-  group_by(genero) %>%
-  mutate(cond_exp = mean(log_salario)) %>%
-  ungroup() %>%
-  mutate(erro = log_salario - cond_exp)
-
-df_erro %>%
-  select(log_salario, genero, cond_exp, erro) %>%
-  head() %>%
-  kable()
-
-df_erro %>%
-  summarise(eq = round(sum(erro),4),
-         eqm =  sum(erro^2)) %>%
-  kable()
+# 
+# df_erro <- df %>%
+#   group_by(genero) %>%
+#   mutate(cond_exp = mean(log_salario)) %>%
+#   ungroup() %>%
+#   mutate(erro = log_salario - cond_exp)
+# 
+# df_erro %>%
+#   select(log_salario, genero, cond_exp, erro) %>%
+#   head() %>%
+#   kable()
+# 
+# df_erro %>%
+#   summarise(eq = round(sum(erro),4),
+#          eqm =  sum(erro^2)) %>%
+#   kable()
 
 ```
 
 Como iremos mostrar depois, não existe nenhuma outra forma melhor de prever $Y$, se só tivermos informação de $Y$ e $X$. Ou seja, esse é o menor erro quadrático médio possível. Claro que, com mais variávels, podemos condicionais em mais informação e melhorar a previsão. Por exemplo, se temos a variável raça, além de gênero, podemos condicionar nas duas variáveis.
 
 ```{r eqm_ex2, echo=FALSE, message=FALSE, cache=TRUE}
-
-df_erro <- df %>%
-  group_by(genero, raca) %>%
-  mutate(cond_exp = mean(log_salario)) %>%
-  ungroup() %>%
-  mutate(erro = log_salario - cond_exp)
-
-df_erro %>%
-  select(log_salario, genero, raca, cond_exp, erro) %>%
-  head() %>%
-  kable()
-
-df_erro %>%
-  summarise(eq = round(sum(erro),4),
-         eqm =  sum(erro^2)) %>%
-  kable()
+# 
+# df_erro <- df %>%
+#   group_by(genero, raca) %>%
+#   mutate(cond_exp = mean(log_salario)) %>%
+#   ungroup() %>%
+#   mutate(erro = log_salario - cond_exp)
+# 
+# df_erro %>%
+#   select(log_salario, genero, raca, cond_exp, erro) %>%
+#   head() %>%
+#   kable()
+# 
+# df_erro %>%
+#   summarise(eq = round(sum(erro),4),
+#          eqm =  sum(erro^2)) %>%
+#   kable()
 
 ```
 
