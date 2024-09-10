@@ -193,7 +193,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.1" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#cef-é-a-melhor-aproximação-aos-dados"><i class="fa fa-check"></i><b>5.4.1</b> CEF é a melhor aproximação aos dados</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#regressão-linear"><i class="fa fa-check"></i><b>5.5</b> Regressão Linear</a></li>
-<li class="chapter" data-level="5.6" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#logaritmos"><i class="fa fa-check"></i><b>5.6</b> Logaritmos</a></li>
+<li class="chapter" data-level="5.6" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#logaritmos"><i class="fa fa-check"></i><b>5.6</b> Logaritmos</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#logartimos-como-diferença-de-porcentagens"><i class="fa fa-check"></i><b>5.6.1</b> Logartimos como diferença de porcentagens</a></li>
+<li class="chapter" data-level="5.6.2" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#logaritmos-e-média-geométrica"><i class="fa fa-check"></i><b>5.6.2</b> Logaritmos e média geométrica</a></li>
+</ul></li>
 <li class="chapter" data-level="5.7" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#prevendo-a-partir-da-esperança-condicional"><i class="fa fa-check"></i><b>5.7</b> Prevendo a partir da esperança condicional</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="cef-1.html"><a href="cef-1.html"><i class="fa fa-check"></i><b>6</b> - CEF</a>
@@ -583,8 +587,10 @@ Qual o valor esperado do <span class="math inline">\(Y\)</span> para um davo val
 <div id="logaritmos" class="section level2 hasAnchor" number="5.6">
 <h2><span class="header-section-number">5.6</span> Logaritmos<a href="o-modelo-de-regressão.html#logaritmos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>É muito comum a utilização de logaritmos em regressões, de modo que vale uma digresssão sobre a correta interpretação de logaritmos. A primeira razão é que a diferença de logaritmos é aproximadamente igual à diferença entre porcentagens. Vamos ilustrar isso por meio de um exemplo, e então mostaremos matematicamente que isso sempre é o caso.</p>
-<p>De acodo com dados da PNADc de 2017, quarto trimstre, que temos usado neste capítulo, o salário por hora dos homens é em média <span class="math inline">\(14.72\)</span> reais, e o das mulheres <span class="math inline">\(12.57\)</span> reais. A diferença percentual no salário é, portanto, <span class="math inline">\(100*(14.72 - 12.57)/12.57\)</span> ou <span class="math inline">\(17,1%\)</span>. Se em vez de calcular a diferença percentual, usar a aproximação <span class="math inline">\(log(14.72) - log(12.57) = 0.1578941\)</span> ou 15,8%, tenho um valor próximo do verdadeiro valor de 17,1%.</p>
-<p>O caso geral pode ser visto do seguinte modo. Sejam dois números positivos <span class="math inline">\(a\)</span> e <span class="math inline">\(B\)</span>, com <span class="math inline">\(a &gt; b\)</span>. A diferença percentual <span class="math inline">\(p\)</span> entre <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> é dada por:</p>
+<div id="logartimos-como-diferença-de-porcentagens" class="section level3 hasAnchor" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Logartimos como diferença de porcentagens<a href="o-modelo-de-regressão.html#logartimos-como-diferença-de-porcentagens" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>De acodo com dados da PNADc de 2017, quarto trimstre, o salário por hora dos homens é em média <span class="math inline">\(14.72\)</span> reais, e o das mulheres <span class="math inline">\(12.57\)</span> reais. A diferença percentual no salário é, portanto, <span class="math inline">\(100*(14.72 - 12.57)/12.57\)</span> ou <span class="math inline">\(17,1%\)</span>. Se em vez de calcular a diferença percentual, usar a aproximação <span class="math inline">\(log(14.72) - log(12.57) = 0.1578941\)</span> ou 15,8%, tenho um valor próximo do verdadeiro valor de 17,1%.</p>
+<p>O caso geral pode ser visto do seguinte modo. Sejam dois números positivos <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span>, com <span class="math inline">\(a &gt; b\)</span>. A diferença percentual <span class="math inline">\(p\)</span> entre <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> é dada por:</p>
 <p><span class="math display">\[
 100*(a - b)/b = p
 \]</span>
@@ -597,34 +603,86 @@ Se passarmos o logaritmo natural de ambos os lados, temos:</p>
 log(a/b) = log(1 + p/100)
 \]</span>
 <span class="math display">\[
-log(a) - log(b) = log(1 + 17,1%/100)
+log(a) - log(b) = log(1 + p/100)
 \]</span>
 Iremos usar a aproximação <span class="math inline">\(log( 1 + x) \approx x\)</span> para <span class="math inline">\(x\)</span> pequeno. Logo:</p>
 <p><span class="math display">\[
 log(a) - log(b) \approx p/100
 \]</span>
-A segunda razão é que se aplicarmos essa lógica para médias, estamos aproximando a diferença percentua na méda geométrica. Usando essa aproximação, vemos que se a diferença no salário por hora é aproximadamente 16%, a diferença no salário total é 24%, oito pontos percentuais a mais.</p>
+Numericamente, como o erro dessa aproximação varia para diferentes valores de <span class="math inline">\(p\)</span>?</p>
+<p>Exercício em sala: Vamos fazer uma simulação para verificar como o erro da aproximação funciona. Ou seja, vamos variar a diferença percentual entre dois números <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> e calcular o erro de aproximação pela fórmula com logaritmo.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="o-modelo-de-regressão.html#cb6-1" tabindex="-1"></a>dif_perc <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
+<span id="cb6-2"><a href="o-modelo-de-regressão.html#cb6-2" tabindex="-1"></a>  <span class="fu">stopifnot</span>(a <span class="sc">&gt;</span> b)</span>
+<span id="cb6-3"><a href="o-modelo-de-regressão.html#cb6-3" tabindex="-1"></a>  <span class="dv">100</span><span class="sc">*</span>(a <span class="sc">-</span> b)<span class="sc">/</span>b </span>
+<span id="cb6-4"><a href="o-modelo-de-regressão.html#cb6-4" tabindex="-1"></a>}</span>
+<span id="cb6-5"><a href="o-modelo-de-regressão.html#cb6-5" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="o-modelo-de-regressão.html#cb6-6" tabindex="-1"></a>aprox_dif_perc <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
+<span id="cb6-7"><a href="o-modelo-de-regressão.html#cb6-7" tabindex="-1"></a>  <span class="fu">stopifnot</span>(a <span class="sc">&gt;</span> b)</span>
+<span id="cb6-8"><a href="o-modelo-de-regressão.html#cb6-8" tabindex="-1"></a>  <span class="dv">100</span><span class="sc">*</span>(<span class="fu">log</span>(a) <span class="sc">-</span> <span class="fu">log</span>(b))</span>
+<span id="cb6-9"><a href="o-modelo-de-regressão.html#cb6-9" tabindex="-1"></a>}</span>
+<span id="cb6-10"><a href="o-modelo-de-regressão.html#cb6-10" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="o-modelo-de-regressão.html#cb6-11" tabindex="-1"></a>erro_aprox_perc <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b) {</span>
+<span id="cb6-12"><a href="o-modelo-de-regressão.html#cb6-12" tabindex="-1"></a>  <span class="fu">dif_perc</span>(a,b) <span class="sc">-</span> <span class="fu">aprox_dif_perc</span>(a,b)</span>
+<span id="cb6-13"><a href="o-modelo-de-regressão.html#cb6-13" tabindex="-1"></a>}</span>
+<span id="cb6-14"><a href="o-modelo-de-regressão.html#cb6-14" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="o-modelo-de-regressão.html#cb6-15" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb6-16"><a href="o-modelo-de-regressão.html#cb6-16" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">100.1</span>, <span class="dv">120</span>, <span class="at">by=</span>.<span class="dv">1</span>)</span>
+<span id="cb6-17"><a href="o-modelo-de-regressão.html#cb6-17" tabindex="-1"></a>vec_erro <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb6-18"><a href="o-modelo-de-regressão.html#cb6-18" tabindex="-1"></a>true_p <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb6-19"><a href="o-modelo-de-regressão.html#cb6-19" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(a)) {</span>
+<span id="cb6-20"><a href="o-modelo-de-regressão.html#cb6-20" tabindex="-1"></a>  vec_erro[i] <span class="ot">&lt;-</span> <span class="fu">erro_aprox_perc</span>(a[i],b)</span>
+<span id="cb6-21"><a href="o-modelo-de-regressão.html#cb6-21" tabindex="-1"></a>  true_p[i] <span class="ot">&lt;-</span> <span class="fu">dif_perc</span>(a[i],b)</span>
+<span id="cb6-22"><a href="o-modelo-de-regressão.html#cb6-22" tabindex="-1"></a>}</span>
+<span id="cb6-23"><a href="o-modelo-de-regressão.html#cb6-23" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">erro =</span> vec_erro, <span class="at">p =</span> true_p )</span>
+<span id="cb6-24"><a href="o-modelo-de-regressão.html#cb6-24" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="o-modelo-de-regressão.html#cb6-25" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-26"><a href="o-modelo-de-regressão.html#cb6-26" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-27"><a href="o-modelo-de-regressão.html#cb6-27" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb6-28"><a href="o-modelo-de-regressão.html#cb6-28" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>p, <span class="at">y=</span>erro)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb6-29"><a href="o-modelo-de-regressão.html#cb6-29" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> .<span class="dv">1</span>, <span class="at">colour=</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-30"><a href="o-modelo-de-regressão.html#cb6-30" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Diferença Percentual Real&quot;</span>, </span>
+<span id="cb6-31"><a href="o-modelo-de-regressão.html#cb6-31" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Erro de Aproximação (p.p.)&quot;</span>,</span>
+<span id="cb6-32"><a href="o-modelo-de-regressão.html#cb6-32" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Erro na Aproximação da Dif Per&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-33"><a href="o-modelo-de-regressão.html#cb6-33" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="o-modelo-de-regressão.html#cb7-1" tabindex="-1"></a><span class="co"># Verificação do intervalo onde o erro é menor que 0.1 pp</span></span>
+<span id="cb7-2"><a href="o-modelo-de-regressão.html#cb7-2" tabindex="-1"></a>df<span class="sc">$</span>within_tolerance <span class="ot">&lt;-</span> <span class="fu">abs</span>(df<span class="sc">$</span>erro) <span class="sc">&lt;</span> <span class="fl">0.1</span></span>
+<span id="cb7-3"><a href="o-modelo-de-regressão.html#cb7-3" tabindex="-1"></a>max_p_within_tolerance <span class="ot">&lt;-</span> <span class="fu">max</span>(df<span class="sc">$</span>p[df<span class="sc">$</span>within_tolerance])</span>
+<span id="cb7-4"><a href="o-modelo-de-regressão.html#cb7-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Máximo p com erro &lt; 0.1 pp:&quot;</span>, <span class="fu">round</span>(max_p_within_tolerance, <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;Máximo p com erro &lt; 0.1 pp: 4.5&quot;</code></pre>
+<p>A segunda razão é que se aplicarmos essa lógica para médias, estamos aproximando a diferença percentual na média geométrica.</p>
+</div>
+<div id="logaritmos-e-média-geométrica" class="section level3 hasAnchor" number="5.6.2">
+<h3><span class="header-section-number">5.6.2</span> Logaritmos e média geométrica<a href="o-modelo-de-regressão.html#logaritmos-e-média-geométrica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A média geométrica de um conjunto de observações <span class="math inline">\((x_1, x_2, \cdots, x_n)\)</span> é dada por: <span class="math inline">\(MG = \sqrt[n]{(x_1 \cdot x_2 \cdot x_n)}\)</span>.</p>
+<p>Aplicando o logaritmo dos dois lados, temos:
+<span class="math inline">\(log(MG) = log((x_1 \cdot x_2 \cdot x_n)^\frac{1}{n})\)</span></p>
+<p><span class="math inline">\(log(MG) = \frac{1}{n}log(x_1 \cdot x_2 \cdot x_n)\)</span></p>
+<p><span class="math inline">\(log(MG) = \frac{1}{n}log(x_1) + log(x_2) + \cdots + log(x_n)\)</span></p>
+<p>Vejam que essa expressão é a média aritmética do logaritmo das observações.</p>
+<p>Usando essa aproximação, vemos que se a diferença no salário por hora é aproximadamente 16%, a diferença no salário total é 24%, oito pontos percentuais a mais.</p>
+</div>
 </div>
 <div id="prevendo-a-partir-da-esperança-condicional" class="section level2 hasAnchor" number="5.7">
 <h2><span class="header-section-number">5.7</span> Prevendo a partir da esperança condicional<a href="o-modelo-de-regressão.html#prevendo-a-partir-da-esperança-condicional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>No gráfico abaixo, as esperanças condicionais para os dois valores de <span class="math inline">\(X\)</span> são dadas pelos triângulos vermelhos. Como vemos, há uma grande variabilidade nos dados de salário em torno da esperança condicional. Isso significa que se só tenho a variável gênero, prever <span class="math inline">\(Y\)</span> a partir da esperança condicional <span class="math inline">\(\mathbb{E}[Y|X]\)</span> resulta em um erro grande.</p>
 <p>De fato, o erro que cometemos pode ser calculado por meio do <em>Erro Quadrático Médio</em>, que é definido como a soma dos erros ao quadrado (para não cancelar). No R, isso pode ser calculado como:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="o-modelo-de-regressão.html#cb6-1" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb6-2"><a href="o-modelo-de-regressão.html#cb6-2" tabindex="-1"></a><span class="co"># df_erro &lt;- df %&gt;%</span></span>
-<span id="cb6-3"><a href="o-modelo-de-regressão.html#cb6-3" tabindex="-1"></a><span class="co">#   group_by(genero) %&gt;%</span></span>
-<span id="cb6-4"><a href="o-modelo-de-regressão.html#cb6-4" tabindex="-1"></a><span class="co">#   mutate(cond_exp = mean(log_salario)) %&gt;%</span></span>
-<span id="cb6-5"><a href="o-modelo-de-regressão.html#cb6-5" tabindex="-1"></a><span class="co">#   ungroup() %&gt;%</span></span>
-<span id="cb6-6"><a href="o-modelo-de-regressão.html#cb6-6" tabindex="-1"></a><span class="co">#   mutate(erro = log_salario - cond_exp)</span></span>
-<span id="cb6-7"><a href="o-modelo-de-regressão.html#cb6-7" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb6-8"><a href="o-modelo-de-regressão.html#cb6-8" tabindex="-1"></a><span class="co"># df_erro %&gt;%</span></span>
-<span id="cb6-9"><a href="o-modelo-de-regressão.html#cb6-9" tabindex="-1"></a><span class="co">#   select(log_salario, genero, cond_exp, erro) %&gt;%</span></span>
-<span id="cb6-10"><a href="o-modelo-de-regressão.html#cb6-10" tabindex="-1"></a><span class="co">#   head() %&gt;%</span></span>
-<span id="cb6-11"><a href="o-modelo-de-regressão.html#cb6-11" tabindex="-1"></a><span class="co">#   kable()</span></span>
-<span id="cb6-12"><a href="o-modelo-de-regressão.html#cb6-12" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb6-13"><a href="o-modelo-de-regressão.html#cb6-13" tabindex="-1"></a><span class="co"># df_erro %&gt;%</span></span>
-<span id="cb6-14"><a href="o-modelo-de-regressão.html#cb6-14" tabindex="-1"></a><span class="co">#   summarise(eq = round(sum(erro),4),</span></span>
-<span id="cb6-15"><a href="o-modelo-de-regressão.html#cb6-15" tabindex="-1"></a><span class="co">#          eqm =  sum(erro^2)) %&gt;%</span></span>
-<span id="cb6-16"><a href="o-modelo-de-regressão.html#cb6-16" tabindex="-1"></a><span class="co">#   kable()</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="o-modelo-de-regressão.html#cb9-1" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb9-2"><a href="o-modelo-de-regressão.html#cb9-2" tabindex="-1"></a><span class="co"># df_erro &lt;- df %&gt;%</span></span>
+<span id="cb9-3"><a href="o-modelo-de-regressão.html#cb9-3" tabindex="-1"></a><span class="co">#   group_by(genero) %&gt;%</span></span>
+<span id="cb9-4"><a href="o-modelo-de-regressão.html#cb9-4" tabindex="-1"></a><span class="co">#   mutate(cond_exp = mean(log_salario)) %&gt;%</span></span>
+<span id="cb9-5"><a href="o-modelo-de-regressão.html#cb9-5" tabindex="-1"></a><span class="co">#   ungroup() %&gt;%</span></span>
+<span id="cb9-6"><a href="o-modelo-de-regressão.html#cb9-6" tabindex="-1"></a><span class="co">#   mutate(erro = log_salario - cond_exp)</span></span>
+<span id="cb9-7"><a href="o-modelo-de-regressão.html#cb9-7" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb9-8"><a href="o-modelo-de-regressão.html#cb9-8" tabindex="-1"></a><span class="co"># df_erro %&gt;%</span></span>
+<span id="cb9-9"><a href="o-modelo-de-regressão.html#cb9-9" tabindex="-1"></a><span class="co">#   select(log_salario, genero, cond_exp, erro) %&gt;%</span></span>
+<span id="cb9-10"><a href="o-modelo-de-regressão.html#cb9-10" tabindex="-1"></a><span class="co">#   head() %&gt;%</span></span>
+<span id="cb9-11"><a href="o-modelo-de-regressão.html#cb9-11" tabindex="-1"></a><span class="co">#   kable()</span></span>
+<span id="cb9-12"><a href="o-modelo-de-regressão.html#cb9-12" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb9-13"><a href="o-modelo-de-regressão.html#cb9-13" tabindex="-1"></a><span class="co"># df_erro %&gt;%</span></span>
+<span id="cb9-14"><a href="o-modelo-de-regressão.html#cb9-14" tabindex="-1"></a><span class="co">#   summarise(eq = round(sum(erro),4),</span></span>
+<span id="cb9-15"><a href="o-modelo-de-regressão.html#cb9-15" tabindex="-1"></a><span class="co">#          eqm =  sum(erro^2)) %&gt;%</span></span>
+<span id="cb9-16"><a href="o-modelo-de-regressão.html#cb9-16" tabindex="-1"></a><span class="co">#   kable()</span></span></code></pre></div>
 <p>Como iremos mostrar depois, não existe nenhuma outra forma melhor de prever <span class="math inline">\(Y\)</span>, se só tivermos informação de <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span>. Ou seja, esse é o menor erro quadrático médio possível. Claro que, com mais variávels, podemos condicionais em mais informação e melhorar a previsão. Por exemplo, se temos a variável raça, além de gênero, podemos condicionar nas duas variáveis.</p>
 <p>Vemos que o EQM diminuiu ao condicionar em mais variáveis. Para reforçar, até aqui estamos falando da população. Embora no exemplo tenhamos dados da PNAD, que é uma amostra, e em teoria deveríamos trabalhar com o censo, estou simplificando e assumindo que a PNAD representa a população. Fazendo essa suposição, o erro que é cometido pela esperança condicional para prever <span class="math inline">\(Y\)</span> é o menor erro (quantificado pelo EQM) possível (iremos demonstrar isso no próximo capítulo).</p>
 

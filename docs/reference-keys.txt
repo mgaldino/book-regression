@@ -163,3 +163,5 @@ algumas-propriedades-da-cef
 cef-é-a-melhor-aproximação-aos-dados
 regressão-linear
 cef-e-voto
+logartimos-como-diferença-de-porcentagens
+logaritmos-e-média-geométrica
