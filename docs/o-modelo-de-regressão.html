@@ -655,12 +655,15 @@ Numericamente, como o erro dessa aproximação varia para diferentes valores de 
 <div id="logaritmos-e-média-geométrica" class="section level3 hasAnchor" number="5.6.2">
 <h3><span class="header-section-number">5.6.2</span> Logaritmos e média geométrica<a href="o-modelo-de-regressão.html#logaritmos-e-média-geométrica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A média geométrica de um conjunto de observações <span class="math inline">\((x_1, x_2, \cdots, x_n)\)</span> é dada por: <span class="math inline">\(MG = \sqrt[n]{(x_1 \cdot x_2 \cdot x_n)}\)</span>.</p>
-<p>Aplicando o logaritmo dos dois lados, temos:
-<span class="math inline">\(log(MG) = log((x_1 \cdot x_2 \cdot x_n)^\frac{1}{n})\)</span></p>
-<p><span class="math inline">\(log(MG) = \frac{1}{n}log(x_1 \cdot x_2 \cdot x_n)\)</span></p>
-<p><span class="math inline">\(log(MG) = \frac{1}{n}log(x_1) + log(x_2) + \cdots + log(x_n)\)</span></p>
-<p>Vejam que essa expressão é a média aritmética do logaritmo das observações.</p>
-<p>Usando essa aproximação, vemos que se a diferença no salário por hora é aproximadamente 16%, a diferença no salário total é 24%, oito pontos percentuais a mais.</p>
+<p>Se considerarmos variáveis aleatórias, <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, ambas positivas, e suas respectivas transformações com logaritmo, <span class="math inline">\(log(X)\)</span> e <span class="math inline">\(log(Y)\)</span>, definimos a média geométrica <span class="math inline">\(\theta_x = \exp(\mathbb{E}[log(X)])\)</span> e <span class="math inline">\(\theta_y = \exp(\mathbb{E}[log(Y)])\)</span> e a diferença percentual como:</p>
+<p><span class="math inline">\(p = 100\frac{(\theta_y - \theta_x)}{\theta_x}\)</span></p>
+<p>A diferença na esperança da transformações do log é:</p>
+<p><span class="math inline">\(100(\mathbb{E}[log Y] - \mathbb{E}[log X]) = 100 (log \theta_y - log \theta_x) \approx p\)</span></p>
+<p>Em paavras: A diferença na média de variáveis transformadas (pelo log) é aproximadamente a diferença percentual nas médias geométricas. Isso é relevante por causa do seguinte.
+Suponha que temos o logaritmo do salário de homens e mulheres:</p>
+<p><span class="math inline">\(\mathbb{E}[Y|homem] =\mu_1\)</span>
+<span class="math inline">\(\mathbb{E}[Y|mulher] =\mu_2\)</span></p>
+<p>Podemos dizer que a diferença <span class="math inline">\(\mu_2 - \mu_1\)</span> é aproximadamente a diferença percentual na média geométrica.</p>
 </div>
 </div>
 <div id="prevendo-a-partir-da-esperança-condicional" class="section level2 hasAnchor" number="5.7">

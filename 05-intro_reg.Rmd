@@ -337,16 +337,21 @@ A segunda razão é que se aplicarmos essa lógica para médias, estamos aproxim
 
 A média geométrica de um conjunto de observações $(x_1, x_2, \cdots, x_n)$ é dada por: $MG = \sqrt[n]{(x_1 \cdot x_2 \cdot x_n)}$.
 
-Aplicando o logaritmo dos dois lados, temos:
-$log(MG) = log((x_1 \cdot x_2 \cdot x_n)^\frac{1}{n})$
+Se considerarmos variáveis aleatórias, $X$ e $Y$, ambas positivas, e suas respectivas transformações com logaritmo, $log(X)$ e $log(Y)$, definimos a média geométrica $\theta_x = \exp(\mathbb{E}[log(X)])$ e $\theta_y = \exp(\mathbb{E}[log(Y)])$ e a diferença percentual como:
 
-$log(MG) = \frac{1}{n}log(x_1 \cdot x_2 \cdot x_n)$
+$p = 100\frac{(\theta_y - \theta_x)}{\theta_x}$
 
-$log(MG) = \frac{1}{n}log(x_1) + log(x_2) + \cdots + log(x_n)$
+A diferença na esperança da transformações do log é:
 
-Vejam que essa expressão é a média aritmética do logaritmo das observações. 
+$100(\mathbb{E}[log Y] - \mathbb{E}[log X]) = 100 (log \theta_y - log \theta_x) \approx p$
 
-Usando essa aproximação, vemos que se a diferença no salário por hora é aproximadamente 16%, a diferença no salário total é 24%, oito pontos percentuais a mais.
+Em paavras: A diferença na média de variáveis transformadas (pelo log) é aproximadamente a diferença percentual nas médias geométricas. Isso é relevante por causa do seguinte.
+Suponha que temos o logaritmo do salário de homens e mulheres:
+
+$\mathbb{E}[Y|homem] =\mu_1$
+$\mathbb{E}[Y|mulher] =\mu_2$
+
+Podemos dizer que a diferença $\mu_2 - \mu_1$ é aproximadamente a diferença percentual na média geométrica.
 
 ## Prevendo a partir da esperança condicional
 
