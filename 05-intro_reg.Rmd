@@ -51,17 +51,20 @@ Nós iremos considerar que a regressão linear é uma forma de aproximar a chama
 
 ## CEF
 
-```{r import-voto, echo=FALSE, message=FALSE, cache=TRUE, warning=FALSE}
-# Carregue o pacote PNADcIBGE
+Para introduzir a CEF, iremos trabalhar com um banco de dados de eleição. O código abaixo mostrar como importar e processar os dados.
+O dado original foi retirado do portal de dados abertos do TSE, com os dados de votação nominal nas eleições de 2020 para o estado de São Paulo.
+
+```{r import-voto, echo=TRUE, message=FALSE, cache=TRUE, warning=FALSE}
+
 library(here)
 library(data.table)
 library(tidyverse)
-# Importe os dados desejados
+# Importando os dados desejados
 
 # dados <- fread(here("dados\\votacao_secao_2020_SP\\", "votacao_secao_2020_SP.csv"), encoding = "Latin-1")
 ```
 
-```{r processa-voto, echo=FALSE, message=FALSE, cache=TRUE}
+```{r processa-voto, echo=TRUE, message=FALSE, cache=TRUE}
 # dados_finais <- dados %>%
 #   dplyr::filter(DS_CARGO == "Prefeito" & ANO_ELEICAO == 2020 & NM_TIPO_ELEICAO == "Eleição Ordinária") %>%
 #   group_by(DS_ELEICAO, NR_TURNO, NM_MUNICIPIO, 
@@ -69,6 +72,9 @@ library(tidyverse)
 #   summarise(votos_nominais = sum(QT_VOTOS)) 
 # saveRDS(dados_finais, file=here("dados\\", "dados_finais.rds"))
 
+#salvei os dados e posso importar o que fiz.
+# o arquivo dados_finais.rds está no respositório em:
+# https://github.com/mgaldino/book-regression/tree/main/dados
 dados_finais <- readRDS(here("dados\\", "dados_finais.rds"))
 
 # Identificar os municípios que possuem segundo turno
@@ -107,7 +113,7 @@ dados_turno1 <- dados_turno %>%
   mutate(perc_validos_1t = votos_1turno/votos_validos_1t,
          perc_validos_2t = votos_2turno/votos_validos_2t) %>%
   ungroup()
-
+# salvando dados que iremos trabalhar em sala de aula efetivamente.
 saveRDS(dados_turno1, file=here("Dados//", "dados_turno1.rds"))
 
 ```
