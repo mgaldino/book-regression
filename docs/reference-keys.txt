@@ -165,3 +165,4 @@ regressão-linear
 cef-e-voto
 logartimos-como-diferença-de-porcentagens
 logaritmos-e-média-geométrica
+teorema-do-condicionamento

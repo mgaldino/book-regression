@@ -13,8 +13,8 @@ library(tidyverse)
 ```
 
 Em geral, iremos simplificar a notação usando variáveis com uma letra.
-Assim, a variável dependente, salário (ou log do salário), será dado por
-$Y$, como constuma ser feito. Já os preditores, como gênero ou raça, por
+Assim, a variável dependente, Percentual do voto no segundo turno, será dado por
+$Y$, como constuma ser feito. Já os preditores, como percentual de voto no primeiro turno diferença entre priemeiro e segundo colocado, por
 $X_1, X_2$ etc. O subscrito indica que é uma variável diferente. Assim,
 a esperança condicional pode ser reescrita para muitas variáveis
 preditoras como:
@@ -23,15 +23,8 @@ preditoras como:
 \mathbb{E}[Y| X_1 = x_1, X_2 = x_2, ..., X_k=x_k] = m(x_1, x_2, ..., x_k)
 \end{equation}
 
-A essa esperança damos o nome de *Função de Esperança Condicional*
-(Conditional Expectation Function, em inglês). Usaremos a sigla em
-inglês, *CEF*, para nos referirmos à Função de Esperança Condicional. A
-CEF é uma função porque seu valor varia a depender dos valores
-particulares que $X_1, X_2, ..., X_k$ assumem. Nós vimos que a raça pode
-ser, por exemplo, branca, preta etc. E a esperança condicional muda para
-cada valor das variáveis. O que é típico de uma função. Por fim, usamos
-a letra $m$ do lado direito da equação porque estamos falamos da média
-de $Y$ quando a CEF assume valores \$x_1, x_2, ..., x_k). Por fim, às
+Como vimos, a essa esperança damos o nome de *Função de Esperança Condicional*
+(Conditional Expectation Function, em inglês). Às
 vezes é útil pensar na CEF como uma função das variáveis aleatórias
 $X_1, X_2, ..., X_k$, de modo que escrevemos simplesmente:
 

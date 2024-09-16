@@ -75,3 +75,21 @@ Mostre que $X$ e $Z$ são independentes na média, mas não independentes entre 
 Dica: em algum momento, use a definição (15.2) de que se $Cov(X,Z) \neq 0$, então $X$ e $Z$ não são independentes.
 
 3. Mostre que a média amostral é um estimador não-viesado para a média populacional.
+
+## Teorema do Condicionamento
+
+Propisição: Se $\mathbb{E}[Y] < \infty$, então
+$\mathbb{E}[g(x)Y|X] = g(x) \mathbb{E}[Y|X]$.
+
+Se, além disso, $\mathbb{E}[g(x)] < \infty$, então
+$\mathbb{E}[g(x)Y] = \mathbb{E}[g(x) \mathbb{E}[Y|X]]$
+
+Prova 1:
+
+$\mathbb{E}[g(x)Y|X] = \sum_{y} g(x) y P(Y=y|X=x) = g(x) \sum_{y} y P(Y=y|X=x) = g(x)\mathbb{E}[Y|X]$.
+
+Como estamos somando em $Y$, $g(x)$ age como uma constante com respeito à somatória de $Y$. Depois é só aplicar a definição de esperança condicional.
+
+Prova 2.
+Basta aplicar a lei das esperanças iteradas e a prova acima:
+$\mathbb{E}[g(x)Y] = \mathbb{E}[\mathbb{E}[g(x)Y|X]] = \mathbb{E}[g(x)\mathbb{E}[Y|X]]$
