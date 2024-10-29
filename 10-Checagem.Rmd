@@ -19,7 +19,7 @@ $$
 $$
 Eis algumas propriedade dos resíduos. 
 
-1. Os resíduos deveriam ter esperança zero, condicional aos preditores. Formalmente, $\mathbb{E}[\hat{e}|X=x] = 0$
+1. Os resíduos deveriam ter esperança zero, condicional aos preditores. Formalmente, $\mathbb{E}[\hat{e}|X=x] = 0$. Isso sempre será verdade, e é uma consequência de como calculamos o estimador de mínimos quadrados.
 
 2. Se estivermos supondo homecedasticidade, devem ter variância constante (o que raramente será o caso).
 
@@ -98,7 +98,7 @@ presid_al18_valido %>%
 
 ### Resíduos contra o preditor
 
-Se os resíduos devem ter $\mathbb{E}[\hat{e}|X=x] = 0$, isso significa que para cada $x_i$ os resíduos devem ter média zero. Em um gráfico, isso significa que, se eu tiver pontos suficientes na proximidade de cada $x_i$, a dispersão dos resíduos deve ser aleatória, no sentido de não ter padrão claro, o que vai implicar uma reta horizontal cuja média é zero.
+Se os resíduos devem ter $\mathbb{E}[\hat{e}|X=x] = 0$, então para cada $x_i$ os resíduos devem ter média zero. Em um gráfico, isso significa que, se eu tiver pontos suficientes na proximidade de cada $x_i$, a dispersão dos resíduos deve ser aleatória, no sentido de não ter padrão claro, o que vai implicar uma reta horizontal cuja média é zero. Como vimos, essa esperança condicional será sempre zero.
 
 ```{r residuos-preditor, echo=TRUE, message=FALSE}
 df <- data.frame(residuos = residuals(reg1), preditor = presid_al18_valido$perc_bolso_turno1)
@@ -110,6 +110,52 @@ df %>%
 
 Se houver outros preditores, faça a mesma coisa e o gráfico também deve ser uma reta em cima do eixo $x$.
 
+O que seria um exemplo de esperança condicional zero, mas que mostra um problema nos pressupostos dos modelos? Se a dispersão ao redor da reta não for aleatória.
+
+```{r residuos-preditor-nao-linear, echo=TRUE, message=FALSE}
+set.seed(123)
+
+n <- 1000
+df_nl <- data.frame(x = rnorm(n), e = rnorm(n))
+df_nl <- df_nl %>%
+  mutate(y = 2 + 1.5*x - .5*x^2 + e)
+
+reg_nl <- lm(y ~x, df_nl)
+df <- data.frame(residuos = residuals(reg_nl),
+                 preditor = df_nl$x)
+
+df %>%
+  ggplot(aes(x=preditor, y = residuos)) + geom_point() + 
+  geom_smooth(method="lm", se=F)
+```
+
+Outra possibilidade são variáveis omitidas. Se o preditor for relevante, a esperança condicional contra esse preditor omitido não será zero. Por outro lado, se for irrelevante, será zero.
+
+
+```{r residuos-preditor-omitido, echo=TRUE, message=FALSE}
+set.seed(1234)
+
+n <- 1000
+df_nl <- data.frame(x1 = rnorm(n), x2 = rnorm(n), 
+                    x3 = rnorm(n), e = rnorm(n))
+df_nl <- df_nl %>%
+  mutate(y = 2 + 1.5*x1 - .5*x2 + e)
+
+reg_nl <- lm(y ~x1, df_nl)
+df <- data.frame(residuos = residuals(reg_nl),
+                 preditor2 = df_nl$x2,
+                 preditor3 = df_nl$x3)
+
+df %>%
+  ggplot(aes(x=preditor2, y = residuos)) + geom_point() + 
+  geom_smooth(method="lm", se=F)
+
+df %>%
+  ggplot(aes(x=preditor3, y = residuos)) + geom_point() + 
+  geom_smooth(method="lm", se=F)
+```
+
+
 ### Magnitude dos Resíduos Contra o Preditor
 
 Uma vez que $\mathbb{E}[\hat{e}|X] = 0$, segue-se que $\mathbb{Var}[\hat{e}|X] = \mathbb{E}[\hat{e}^2|X]$.
@@ -119,7 +165,7 @@ Seja $A$ uma v.a. Então, $\mathbb{Var}[A|X] = \mathbb{E}[(A - \mathbb{E}[A|X])^
 $$
 \mathbb{Var}[\hat{e}|X] =  \mathbb{E}[(\hat{e} - \mathbb{E}[\hat{e}|X])^2|X] = \mathbb{E}[(\hat{e} - 0)^2|X] = \mathbb{E}[\hat{e}^2|X]
 $$
-Portanto, se estamos assumindo homecadisticidade, isto é, que $\mathbb{Var}[\hat{e}|X] = \sigma^2$, podemos checar esta suposição olhando para a esperança condicional do quadrado dos resíduos. E podemos fazer isso plotando o gráfico do quadrado dos resíduos contra o preditor.
+Portanto, se estamos assumindo homecadisticidade, isto é, que $\mathbb{Var}[\hat{e}|X] = \sigma^2$, podemos checar esta suposição olhando para a esperança condicional do quadrado dos resíduos. E podemos fazer isso plotando o gráfico do quadrado dos resíduos contra o preditor. É útil olhar tanto a reta ajustada quanto um modelo não-linear, disponível no comando geom_smooth do ggplot2.
 
 ```{r residuos-sq-preditor,  message=FALSE}
 df <- data.frame(residuos_sq = residuals(reg1)^2, preditor = presid_al18_valido$perc_bolso_turno1)
@@ -127,9 +173,13 @@ df <- data.frame(residuos_sq = residuals(reg1)^2, preditor = presid_al18_valido$
 df %>%
   ggplot(aes(x=preditor, y = residuos_sq)) + geom_point() + geom_smooth(method="lm", se=F)
 
+df %>%
+  ggplot(aes(x=preditor, y = residuos_sq)) + geom_point() + geom_smooth(se=F)
 ```
 
-A reta deve ser horizontal, e não deveria ter mais pontos acima do que abaixo da reta. A altura da reta deveria ser aproximadamente o EQM. Conjuntos de pontos persistentemente acima ou abaixo da reta são sinais de problema com alguma de nossas hipóteses, ou há heterocedasticidade (a variância muda com o preditor) ou a forma funcional do modelo está errada de algum modo. No meu gráfico, a reta não é exatamente horizontal, mas talvez seja "good enough". Uma forma de olhar isso é computar erros padrões que lidem com a heterocedasticidade. Voltaremos a isso mais à frente.
+A reta deve ser horizontal, e não deveria ter mais pontos acima do que abaixo da reta. A altura da reta deveria ser aproximadamente o EQM. Conjuntos de pontos persistentemente acima ou abaixo da reta são sinais de problema com alguma de nossas hipóteses, ou há heterocedasticidade (a variância muda com o preditor) ou a forma funcional do modelo está errada de algum modo. No meu gráfico, a reta não é exatamente horizontal, mas parece "good enough". Uma forma de olhar isso é computar erros padrões que lidem com a heterocedasticidade. Voltaremos a isso mais à frente.
+
+Vale perceber também que existem alguns outliers no quadrado dos resíduos, que poderiam ser investigados qualitativamente, para entender o que está causando isso e pode sugerir algum preditor ou forma funcional não considerados na modelagem.
 
 Ás vezes quando temos resíduos muito grandes, o quadrado deles fica gigante e o gráfico fica não-informativo (especialmente quando o modelo é problemático). Nesses casos, podemos plotar o valor absoluto dos resíduos, em vez do quadrado.
 
@@ -144,7 +194,7 @@ df %>%
 
 Com frequência nossos dados possuem uma certa ordem, seja temporal e/ou espacial. Em um modelo simples, isso não deveria importar (nossa amostra supostamente é i.i.d, e os erros populacionais são não correlacionados entre si). Se os erros forem correlacionados, podemos usar algo chamado mínimos quadrados generalizados, o que também não iremos cobrir no curso. Então, deveríamos sempre fazer um plot dos resíduos contra o tempo, ou contra o espaço. Aqui, como a ordem é apenas espacial, vamos fazer isso.
 
-Podemos fazer um plot dos resíduos contra seção.Vejamos como fica.
+Podemos fazer um plot dos resíduos contra seção e contra os dados ordenados aleatoriamente. Vejamos como fica.
 
 ```{r residuos-coordenadas, message=FALSE}
 presid_al18_valido <- presid_al18_valido %>%
@@ -155,7 +205,21 @@ df <- data.frame(residuos = residuals(reg1), id = as.numeric(presid_al18_valido$
 df %>%
   ggplot(aes(x=id, y = residuos)) + geom_point() + geom_smooth(method="lm", se=F)
 
+df %>%
+  ggplot(aes(x=id, y = residuos)) + geom_point() + geom_smooth( se=F)
+
+df <- data.frame(residuos = residuals(reg1), id = as.numeric(presid_al18_valido$id_secao))
+
+df_randomized <- df %>%
+  sample_n(nrow(df)) %>%
+  mutate(new_id = 1:n())
+
+df_randomized %>%
+  ggplot(aes(x=new_id, y = residuos)) + geom_point() + geom_smooth(method="lm", se=F)
+
 ```
+
+O que os dois plots mostram é que existe um padrão na forma como o TSE numera as seções, mas não há padrão espacial claro na votação.
 
 Uma técnica simples, que é uma versão simplificada de algo mais formal chamado "permutation test", é plotar os resíduos permutados aleatoriamente contra o plot real que queremos fazer. Vamos usar o pacote [nullabor](https://dicook.github.io/nullabor/) para isso. Vamos replicar o teste de homecedasticidade e olhar os resíduos ao quadrado contra os preditores, e olhar os resíduos contra os valores previstos Primeiro contra o preditor.  
 
@@ -208,7 +272,7 @@ df %>%
   ggplot(aes(residuos)) + geom_histogram(aes(y=..density..)) + geom_density(aes(density_points), colour = "blue")
 ```
 
-Uma alternativa mais tradicional são os chamados Q-Q plots, cujo nome deriva de sere um plot "quantil-quantil". A função quantil me diz qual é o ponto que divide a minha distribuição de probabilidade em exatamente $p\%$. Por exemplo, posso me perguntar qual ponto divide meus dados exatamente no meio (mediana), ou no primeiro quartil, primeiro percentil, em suma, em qualquer percentual da distribuição. O R tem uma função para isso que vale vermos para entender.
+Uma alternativa mais tradicional são os chamados Q-Q plots, cujo nome deriva de sere um plot "quantil-quantil". A Função de Distribuição Acumulada (FDA) é $F(x) = P(X \leq x)$. Se a função é contínua (como a Normal), então ela possui uma inversa: $F^{-1}(p)$, que nos diz o único $x$ tal que $P(X \leq x) = p$. Ou seja, a função quantil me diz qual é o ponto que divide a minha distribuição de probabilidade em exatamente $p\%$. Por exemplo, posso me perguntar qual ponto divide meus dados exatamente no meio (mediana), ou no primeiro quartil, primeiro percentil, em suma, em qualquer percentual da distribuição. O R tem uma função para isso que vale vermos para entender.
 
 ```{r quantile, message=FALSE}
 x <- rnorm( 1000)
@@ -255,12 +319,8 @@ qqline(residuals(reg1))
 
 Obviamente o melhor é usar a função do R, já implementada, que faz tudo "by the book", mas a intuição você já sabem qual é. Se os resíduos tiverem distribuição aproximadamente normal, devem ficar em torno da reta e não haver padrões significativos. Os extremos, por serem valores mais improváveis, terão poucos casos e tendem a ficar um pouco mais distante da reta.
 
-## Erro padrão robusto
+## Generalização
 
-Uma possibilidade é que tenha heterocedasticidade.
+Uma possibilidade de generalização é dividir os dados em treinamento e teste, onde estimamos o modelo com base nos dados de treinamento (uma amostra aleatória) e fazemos os testes olhando para os erros das previsoes do modelo. E aí podemos repetir os plots anteriores, agora para os dados de treinamento.
 
-O que acontece se nosso termo de erro violar a suposição de homecedasticidade? Vamos discutir como isso pode acontecer, exemplos visuais desses problemas e soluções para ele.
-
-### Heterocedasticidade
-
-Heterocedasticidade é quando a variância do erro mudada a depender do valor de um ou mais dos preditores.
+Outra possibilidade é estimar o modelo com os dados onde o ajuste é bom, e colocar para teste onde o ajuste parece ruim. Isso é uma forma de confirmar que de fato o modelo está prevendo mal essa partedos dados.

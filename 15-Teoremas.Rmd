@@ -2,6 +2,8 @@
 editor_options: 
   markdown: 
     wrap: 72
+header-includes:
+  - \usepackage{xcolor}
 ---
 
 # - Teoremas
@@ -75,6 +77,30 @@ Mostre que $X$ e $Z$ são independentes na média, mas não independentes entre 
 Dica: em algum momento, use a definição (15.2) de que se $Cov(X,Z) \neq 0$, então $X$ e $Z$ não são independentes.
 
 3. Mostre que a média amostral é um estimador não-viesado para a média populacional.
+
+## Lei das Esperanças Iteradas
+
+Teorema: Lei simples das Esperanças Iteradas
+Se $\mathbb{E}[Y] < \infty$ então para qualquer vetor de variáveis aleatórias $X$, $\mathbb{E}[\mathbb{E}[Y|X]] = \mathbb{E}[Y]$.
+
+Prova: Para $X$ discreto:
+Como a esperença condicional é uma função de $X$ apenas, a espereança é calculada somando apenas com respeito a $X$.
+
+\begin{align*}
+1.\mathbb{E}[\mathbb{E}[Y|X]] &= \sum_{j=1}^{\infty}\mathbb{E}[Y|X=x_j]P[X=x_j] \\
+2. &= \sum_{j=1}^{\infty}\left(\sum_{i=1}^{\infty} y_i P[Y=y_i|X=x_j]\right)P[X=x_j] \\
+2.5. &= \sum_{j=1}^{\infty}y_1 P[Y=y_1|X=x_j]P[X=x_j] + y_2 P[Y=y_2|X=x_j]) P[X=x_j] + \cdots \\
+3. &= \sum_{j=1}^{\infty}\sum_{i=1}^{\infty} y_i P[Y=y_i|X=x_j]P[X=x_j] \\
+4. &= \sum_{j=1}^{\infty}\sum_{i=1}^{\infty} y_i P[Y=y_i, X=x_j] \\
+5. \ &= \sum_{i=1}^{\infty} y_i \color{red}{\sum_{j=1}^{\infty}} P[Y=y_i, X=x_j] \quad \text{(Troca na ordem dos somatórios)} \\
+6. &= \sum_{i=1}^{\infty} y_i P[Y=y_i] \\
+7. &= \mathbb{E}[Y]
+\end{align*}
+
+Teorema: Lei das Esperanças Iteradas:
+Se $\mathbb{E}[Y] < \infty$ então para quaisquer vetores de variáveis aleatórias $X_1$ e $X_2$, $\mathbb{E}[\mathbb{E}[Y|X_1,X_2]|X_1] = \mathbb{E}[Y|X_1]$.
+
+A esperança interna condiciona em $X_1$ e $X_2$, e a externa apenas em $X_1$. E o resultado é o condiionamento apenas em $X_1$. Uma forma de memorizar o teorema é dizer que "o menor conjunto de informações ganha".
 
 ## Teorema do Condicionamento
 
