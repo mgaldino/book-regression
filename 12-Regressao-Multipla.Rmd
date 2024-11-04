@@ -169,7 +169,7 @@ A única diferença é o tamanho da matriz $X$ e $B$, em que $X$ é uma matriz $
 É possível mostrar que o estimador de mínimos quadrados ordinários é dados por:
 
 $$
-B = (X'X)^{-1} \cdot X'Y
+\hat{B} = (X'X)^{-1} \cdot X'Y
 $$
 Veja que $X'Y$ é um produto (com soma) entre $X$ e $Y$, ou seja, é como se fosse a covariância entre $X$ e $Y$, e $X'X$ se assemelha à variância de $X$. E está elevado a $-1$ porque não existe divisão em matriz, de forma que preciso multiplicar pela inversa.
 
@@ -300,7 +300,7 @@ Softwares modernos, como R, irão "dropar" uma (ouas mais) variável(eis) se iss
 
 ## Erro padrão Robusto
 
-Na presernça de heterocedasticidade ou correlação nos erros (como autocorrelação temporal ou autocorrelação espacial), precisamos corrigir o cálculo do erro padrão. Para explicar como é calculado o erro padrão robusto, vamos derivar o erro padrão novamente, agora com a notação matricial.
+Na presença de heterocedasticidade ou correlação nos erros (como autocorrelação temporal ou autocorrelação espacial), precisamos corrigir o cálculo do erro padrão. Para explicar como é calculado o erro padrão robusto, vamos derivar o erro padrão novamente, agora com a notação matricial.
 
 Lembremos que: $\hat{B} = (X'X)^{-1}(X'Y)$ e $Y = XB + e$. Logo, reescrevendo a equação de regressão, temos:
 \begin{align}
@@ -322,7 +322,7 @@ E a partir dessa equação, podemos calcular a variância dos estimadores.
 = \sigma^2(X'X)^{-1}
 \end{align}
 
-Para ficar mais familiar para a gente, posso multipliar e dividir por $n$, que não altero a equação. Assim, temos:
+Para ficar mais familiar para a gente, posso multiplicar e dividir por $n$, que não altero a equação. Assim, temos:
 $$
 \mathbb{Var}[\hat{B}|X] = \frac{\sigma^2}{n}(n^{-1}(X'X)^{-1})
 $$
@@ -550,6 +550,20 @@ df_resultados_22_final %>%
 
 ```
 
+## Termo de interação
+
+### Explicar o que é um termo de interação
+
+loren ispon
+
+### Como interpretar
+
+Loren ipson
+
+### Calculando o erro padrão do termo de interação
+
+
+
 ## Análise de sensibilidade causal
 
 Diante do problema de viés de variável omitida, podemos realizar análises de sensibilidade. Essa é uma área que em que houve bastante desenvolvimentos recentes. Apresento aqui o trabalho do Cinelli e Hazlet (2019). Antes, porém, vamos revisar o R-quadrado e derivar algumas formas de definir essa quantidade.
@@ -738,6 +752,7 @@ print(partial_f2)
 E agora podemos reescrever o viés de variável omitida em termos do R-quadrado parcial.
 
 ### Viés de variável omitida
+
 Nós vimos que o viés de variável omitida, em uma amostra, pode ser explicitado por:
 $$
 \hat{\beta_1^*} = \hat{\beta_1} + \frac{\hat{\beta_2} \cdot \mathbb{Cov}[X_1, X_2]}{\mathbb{Var}[X_1]}

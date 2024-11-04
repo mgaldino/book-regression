@@ -166,3 +166,7 @@ cef-e-voto
 logartimos-como-diferença-de-porcentagens
 logaritmos-e-média-geométrica
 teorema-do-condicionamento
+generalização
+avançado---derivação-da-t--de-student
+teste-t
+lei-das-esperanças-iteradas
