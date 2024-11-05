@@ -552,14 +552,135 @@ df_resultados_22_final %>%
 
 ## Termo de interação
 
-### Explicar o que é um termo de interação
+No trabalho de Corrêa (2015), o autor estima um modelo para explicar o efeito do desempenho econômico (crescimento do PIB e inflação) sobre o desempenho eleitoral de candidatos governistas na América Latina. E a certa altura argumenta que o efeito do crescimento do PIB e da inflação dependem (ou variam) conforme o candidato é de esquerda, centro ou de direita. Em particular, candidatos de centro seriam mais afetados por essas variáveis. Vamos simplificar aqui e considerar apenas uma variável econômica (crescimento) e tratar a variável ideologia do presidente como binária (centro ou não).
 
-loren ispon
+Nesse caso, dizemos que o modelo contém um termo interativo, do seguinte modo:
 
-### Como interpretar
+$$
+y_i = \alpha + \beta_1 \cdot x_1 + \beta_2 \cdot x_2 + \beta_3 \cdot x_1 \cdot x_2 + e_i
+$$
+Nesse tipo de modelo, o efeito de $x_1$ depende do valor de $x_2$ (e vice-versa). Isso significa que temos que mudar nossa interpretação do significado dos parâmetros.
 
-Loren ipson
+Agora, $\beta_1$ mede o efeito no $y$ médio de aumentar uma unidade $x_1$ quando $x_2 = 0$. Para ver isso, podemos substiruir $x_2 = 0$ na equação acima, e temos:
 
+$$
+y_i = \alpha + \beta_1 \cdot x_1 + \beta_2 \cdot 0 + \beta_3 \cdot x_1 \cdot 0 + e_i = \alpha + \beta_1 \cdot x_1 + e_i
+$$
+E nesse caso, 
+
+\begin{align}
+\mathbb{E}[Y|x_1=1] - \mathbb{E}[Y|X=0] = \\
+\mathbb{E}[\alpha|x_1=1] + \mathbb{E}[\beta_1 \cdot x_1|x_1=1] + \mathbb{E}[e_i|x_1=1] - (\mathbb{E}[\alpha|x_1=0] + \mathbb{E}[\beta_1 \cdot x_1|x_1=0] + \mathbb{E}[e_i|x_1=0]) \\
+= \alpha + \beta_1 - \alpha = \\
+\beta_1
+\end{align}
+
+Que é o que já estamos acostumados. Porém, considere o caso em que $x_2 \neq 0$. $y_i = \alpha + \beta_1 \cdot x_1 + \beta_2 \cdot x_2 + \beta_3 \cdot x_1 \cdot x_2 + e_i$
+
+Estamos interessados em calcular: $\mathbb{E}[Y|x_1=1] - \mathbb{E}[Y|X=0]$. Comecemos pelo primeiro termo.
+
+\begin{align}
+\mathbb{E}[Y|x_1=1] = \\
+\mathbb{E}[\alpha|x_1=1] + \mathbb{E}[\beta_1 \cdot 1|x_1=1] +
+\mathbb{E}[\beta_2 \cdot x_2|x_1=1] + \mathbb{E}[\beta_3 \cdot 1 \cdot x_2|x_1=1] + \mathbb{E}[e_i|x_1=1] \\
+= \alpha + 1\beta_1  + \beta_2\mathbb{E}[x_2|x_1=1] + \beta_3\mathbb{E}[x_2|x_1=1] + 0 \\
+= \alpha + \beta_1 + (\beta_2+\beta_3)\mathbb{E}[x_2|x_1=1]
+\end{align}
+
+Já o segundo termo, fica:
+\begin{align}
+\mathbb{E}[Y|x_1=0] = \\
+\mathbb{E}[\alpha|x_1=0] + \mathbb{E}[\beta_1 \cdot 0|x_1=0] +
+\mathbb{E}[\beta_2 \cdot x_2|x_1=0] + \mathbb{E}[\beta_3 \cdot 0 \cdot x_2|x_1=0] + \mathbb{E}[e_i|x_1=0] \\
+= \alpha + 0\beta_1  + \beta_2\mathbb{E}[x_2|x_1=0] + 0\mathbb{E}[x_2|x_1=1] + 0 \\
+= \alpha + \beta_2 \mathbb{E}[x_2|x_1=0]
+\end{align}
+
+Computando a diferença, temos:
+\begin{align}
+\mathbb{E}[Y|x_1=1] - \mathbb{E}[Y|x_1=0] = \\
+\alpha + \beta_1 + (\beta_2+\beta_3)\mathbb{E}[x_2|x_1=1] -\alpha - \beta_2\mathbb{E}[x_2|x_1=0] \\
+= \beta_1 + (\beta_2+\beta_3)\mathbb{E}[x_2|x_1=1] - \beta_2\mathbb{E}[x_2|x_1=0]
+\end{align}
+
+Se $x_1$ e $x_2$ forem independentes na média, então: $\mathbb{E}[x_2|x_1=1] = \mathbb{E}[x_2|x_1=0]$, de forma que a equação acima simplifica para:
+
+\begin{align}
+\mathbb{E}[Y|x_1=1] - \mathbb{E}[Y|x_1=0] = \beta_1 + \beta_3\mathbb{E}[x_2|x_1=1]
+\end{align}
+
+Portanto, a interpretação do que é o efeito marignal ou preditivo Em um modelo com termo de interação é mais complexa do que em uma regressão sem termo de interação.
+
+### Variância do termo de interação
+
+O erro-padrão do $\beta$ é dado por: $\mathbb{Var}[\beta|X] = \sigma^2 (X'X)^{-1}$, que podemos reescrever para: $\sigma^2(X'X)^{-1} = \frac{\sigma^2}{n}n^{-1}(X'X)^{-1}$.
+Lebrem-se que para um único preditor, $\mathbb{Var}[\beta|X] = \frac{\sigma^2}{nS^2_x}$
+
+Vejam que $\frac{\sigma^2}{n}$ é o que tínhamos antes. E $n^{-1}(X'X)^{-1}$ é uma matriz de variância e covariância. Se as covariâncias forem zero, na diagonal principal temos as variâncias amostrais de cada preditor, de tal modo que:
+
+Supondo que os preditores \(X_1, X_2, \ldots, X_p\) são não correlacionados, a matriz \(X'X\) será aproximadamente diagonal. Assim, podemos representar a matriz de variância e covariância apenas com as diagonais principais, onde cada elemento \(S_{x_j}^2\) na diagonal representa a variância amostral do preditor \(X_j\). Dessa forma, temos:
+
+\[
+\mathbb{Var}[\hat{\beta} \mid X] = \frac{\sigma^2}{n} 
+\begin{bmatrix}
+\frac{1}{S_{x_1}^2} & 0 & \cdots & 0 \\
+0 & \frac{1}{S_{x_2}^2} & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \frac{1}{S_{x_p}^2} \\
+\end{bmatrix}.
+\]
+
+No caso de um único preditor (\(p = 1\)), essa expressão se reduz para a fórmula clássica:
+\[
+\mathbb{Var}[\hat{\beta} \mid X] = \frac{\sigma^2}{n S_x^2},
+\]
+onde \(S_x^2\) é a variância amostral do preditor \(X\). Assim, cada elemento da diagonal principal da matriz \(\mathbb{Var}[\hat{\beta} \mid X]\) representa a variância de \(\hat{\beta}_j\) para o preditor \(X_j\), dada por \(\frac{\sigma^2}{n S_{x_j}^2}\), generalizando a fórmula da variância para \(p\) preditores.
+
+Obviamente, se houver correlação entre preditores, a fórmula se torna mais complicada do que a original. No caso de termo de interação, o pressuposto é de que há correlação, então fiquemos com a fórmula matricial, que é mais simples:
+
+$$
+\mathbb{Var}[\beta|X] = \sigma^2 (X'X)^{-1}
+$$
+E em geral a variância de cada coeficiente depende dos demais. E quanto maior a covariância entre duqas variáveis, maior a variância (e portanto, maior o erro-padrão).
+
+O que importa para nós aqui é na verdade o seguinte.
+Sejam $X$ e $Y$ duas variáveis aleatórias dependentes (cuja covariância não é zero). Então, $Var(X+Y) = Var(X) + Var(Y) + 2*Cov(X,Y)$. Portanto, no caso de nosso modelo com dois regressores e termo de interação, temos:
+
+$$
+Var(\beta_1 + \beta3 x_2|X) = Var(\beta_1|X) + Var(\beta3 x_2|X) + 2Cov(\beta_1, \beta3) = Var(\beta_1|X) + x_2^2Var(\beta3|X) + 2x_2Cov(\beta_1, \beta3|X)
+$$
+Como as variâncias são os erros-padrão ao quadrado, podemos computar manualmente a variância do efeito marginal, e depois calcular o erro-padrão. No R, porém, usualmente usamos alguns dos pacotes que permite a visualização desses efeitos já computados corretamente.
+
+
+```{r interaction-term}
+library(marginaleffects)
+library(sjPlot)
+set.seed(123)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rbinom(n, size=1, p=.5)
+a <- 2
+b1 <- 1.5
+b2 <- -1
+b3 <- 1
+y <- a+ b1*x1 + b2*x2 + b3*x2*x1 + rnorm(n)
+
+reg1 <- lm(y ~ x1*x2)
+summary(reg1)
+
+# Pacote marginaleffects
+plot_slopes(reg1, variables = "x1", condition = "x2")
+
+# pacote sjPlot
+plot_model(reg1, type = "pred", terms = c("x1", "x2"))
+
+# Truque do Mcdermont
+reg2 <- lm(y ~ factor(x2) / x1) # lm(y ~ x2 + x2:x1)
+summary(reg2)
+```
+
+
+ 
 ### Calculando o erro padrão do termo de interação
 
 
@@ -837,3 +958,11 @@ sensitivity
 
 summary(sensitivity)
 ```
+
+## Referências
+
+https://grantmcdermott.com/interaction-effects/
+
+Brambor, T., Clark, W. R., & Golder, M. (2006). Understanding interaction models: Improving empirical analyses. Political analysis, 14(1), 63-82.
+
+Corrêa, D. S. (2015). Economy, Ideology and Elections in Latin America. DADOS: Revista de Ciencias Sociais, 58(2), 401.
