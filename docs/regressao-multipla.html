@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2024-11-05" />
+<meta name="date" content="2024-11-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -331,7 +331,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.5" data-path="glm.html"><a href="glm.html#logística-como-glm"><i class="fa fa-check"></i><b>13.5</b> Logística como GLM</a></li>
 <li class="chapter" data-level="13.6" data-path="glm.html"><a href="glm.html#logística-com-múltiplos-preditores"><i class="fa fa-check"></i><b>13.6</b> Logística com múltiplos preditores</a></li>
 <li class="chapter" data-level="13.7" data-path="glm.html"><a href="glm.html#ajuste-do-modelo"><i class="fa fa-check"></i><b>13.7</b> Ajuste do modelo</a></li>
-<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.8</b> Referências</a></li>
+<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#regressão-com-dados-ordenados"><i class="fa fa-check"></i><b>13.8</b> Regressão com dados Ordenados</a></li>
+<li class="chapter" data-level="13.9" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.9</b> Referências</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="apêndice.html"><a href="apêndice.html"><i class="fa fa-check"></i><b>14</b> - Apêndice</a>
 <ul>
@@ -763,28 +764,28 @@ Ou seja, a carne <span class="math inline">\(X&#39;\Omega X\)</span> vai no meio
 ##   6.6974057   0.9208285</code></pre>
 <p>Se inspecionarmos omega mais detalhadamente, temos:</p>
 <div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="regressao-multipla.html#cb216-1" tabindex="-1"></a><span class="fu">print</span>(omega)</span></code></pre></div>
-<pre><code>##           [,1]     [,2]     [,3]     [,4]     [,5]     [,6]
-##  [1,] 133.0395   0.0000   0.0000   0.0000   0.0000   0.0000
-##  [2,]   0.0000 133.0395   0.0000   0.0000   0.0000   0.0000
-##  [3,]   0.0000   0.0000 133.0395   0.0000   0.0000   0.0000
-##  [4,]   0.0000   0.0000   0.0000 133.0395   0.0000   0.0000
-##  [5,]   0.0000   0.0000   0.0000   0.0000 133.0395   0.0000
-##  [6,]   0.0000   0.0000   0.0000   0.0000   0.0000 133.0395
-##  [7,]   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
-##  [8,]   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
-##  [9,]   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
-## [10,]   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
-##           [,7]     [,8]     [,9]    [,10]
-##  [1,]   0.0000   0.0000   0.0000   0.0000
-##  [2,]   0.0000   0.0000   0.0000   0.0000
-##  [3,]   0.0000   0.0000   0.0000   0.0000
-##  [4,]   0.0000   0.0000   0.0000   0.0000
-##  [5,]   0.0000   0.0000   0.0000   0.0000
-##  [6,]   0.0000   0.0000   0.0000   0.0000
-##  [7,] 133.0395   0.0000   0.0000   0.0000
-##  [8,]   0.0000 133.0395   0.0000   0.0000
-##  [9,]   0.0000   0.0000 133.0395   0.0000
-## [10,]   0.0000   0.0000   0.0000 133.0395</code></pre>
+<pre><code>##           [,1]     [,2]     [,3]     [,4]     [,5]     [,6]     [,7]     [,8]
+##  [1,] 133.0395   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+##  [2,]   0.0000 133.0395   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+##  [3,]   0.0000   0.0000 133.0395   0.0000   0.0000   0.0000   0.0000   0.0000
+##  [4,]   0.0000   0.0000   0.0000 133.0395   0.0000   0.0000   0.0000   0.0000
+##  [5,]   0.0000   0.0000   0.0000   0.0000 133.0395   0.0000   0.0000   0.0000
+##  [6,]   0.0000   0.0000   0.0000   0.0000   0.0000 133.0395   0.0000   0.0000
+##  [7,]   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000 133.0395   0.0000
+##  [8,]   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000 133.0395
+##  [9,]   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+## [10,]   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+##           [,9]    [,10]
+##  [1,]   0.0000   0.0000
+##  [2,]   0.0000   0.0000
+##  [3,]   0.0000   0.0000
+##  [4,]   0.0000   0.0000
+##  [5,]   0.0000   0.0000
+##  [6,]   0.0000   0.0000
+##  [7,]   0.0000   0.0000
+##  [8,]   0.0000   0.0000
+##  [9,] 133.0395   0.0000
+## [10,]   0.0000 133.0395</code></pre>
 <p>Como falamos, é uma matriz de variância constante (homocedástica).
 Em nosso “toy model”, contudo, não faz sentido assumir que a variância é constante. É provável que os dois “outliers” tenham vindo de uma distribuição com variância bem maior. E isso levaria a um erro padrão maior para a o coeficiente da variável <span class="math inline">\(x\)</span>.</p>
 <p>A questão então é como calcular essas variância diferente para esse pontos. Há inúmeras maneiras de fazer isso. A default do Stata, chamada de “HC1”, em que “HC” quer dizer “Heteroscedasticity-Consistent”. A fórmular para o erro padrão robusto “HC1” é a seguinte:
@@ -2606,347 +2607,162 @@ F Statistic
 <span id="cb228-4"><a href="regressao-multipla.html#cb228-4" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-2.5 %
-</th>
-<th style="text-align:right;">
-97.5 %
-</th>
+<tr class="header">
+<th align="left"></th>
+<th align="right">2.5 %</th>
+<th align="right">97.5 %</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-(Intercept)
-</td>
-<td style="text-align:right;">
-0.3350033
-</td>
-<td style="text-align:right;">
-0.3760590
-</td>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.3350033</td>
+<td align="right">0.3760590</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-percentual_1t_17
-</td>
-<td style="text-align:right;">
-0.7583797
-</td>
-<td style="text-align:right;">
-0.7972015
-</td>
+<tr class="even">
+<td align="left">percentual_1t_17</td>
+<td align="right">0.7583797</td>
+<td align="right">0.7972015</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-percentual_1t_13
-</td>
-<td style="text-align:right;">
--0.2936573
-</td>
-<td style="text-align:right;">
--0.2610519
-</td>
+<tr class="odd">
+<td align="left">percentual_1t_13</td>
+<td align="right">-0.2936573</td>
+<td align="right">-0.2610519</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufAL
-</td>
-<td style="text-align:right;">
--0.1151015
-</td>
-<td style="text-align:right;">
--0.0872385
-</td>
+<tr class="even">
+<td align="left">sg_ufAL</td>
+<td align="right">-0.1151015</td>
+<td align="right">-0.0872385</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufAM
-</td>
-<td style="text-align:right;">
--0.0986993
-</td>
-<td style="text-align:right;">
--0.0707314
-</td>
+<tr class="odd">
+<td align="left">sg_ufAM</td>
+<td align="right">-0.0986993</td>
+<td align="right">-0.0707314</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufAP
-</td>
-<td style="text-align:right;">
--0.1026175
-</td>
-<td style="text-align:right;">
--0.0715529
-</td>
+<tr class="even">
+<td align="left">sg_ufAP</td>
+<td align="right">-0.1026175</td>
+<td align="right">-0.0715529</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufBA
-</td>
-<td style="text-align:right;">
--0.1003028
-</td>
-<td style="text-align:right;">
--0.0724807
-</td>
+<tr class="odd">
+<td align="left">sg_ufBA</td>
+<td align="right">-0.1003028</td>
+<td align="right">-0.0724807</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufCE
-</td>
-<td style="text-align:right;">
--0.1662120
-</td>
-<td style="text-align:right;">
--0.1354263
-</td>
+<tr class="even">
+<td align="left">sg_ufCE</td>
+<td align="right">-0.1662120</td>
+<td align="right">-0.1354263</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufDF
-</td>
-<td style="text-align:right;">
--0.0915291
-</td>
-<td style="text-align:right;">
--0.0632155
-</td>
+<tr class="odd">
+<td align="left">sg_ufDF</td>
+<td align="right">-0.0915291</td>
+<td align="right">-0.0632155</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufES
-</td>
-<td style="text-align:right;">
--0.0937037
-</td>
-<td style="text-align:right;">
--0.0658873
-</td>
+<tr class="even">
+<td align="left">sg_ufES</td>
+<td align="right">-0.0937037</td>
+<td align="right">-0.0658873</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufGO
-</td>
-<td style="text-align:right;">
--0.0991474
-</td>
-<td style="text-align:right;">
--0.0716567
-</td>
+<tr class="odd">
+<td align="left">sg_ufGO</td>
+<td align="right">-0.0991474</td>
+<td align="right">-0.0716567</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufMA
-</td>
-<td style="text-align:right;">
--0.1192041
-</td>
-<td style="text-align:right;">
--0.0914571
-</td>
+<tr class="even">
+<td align="left">sg_ufMA</td>
+<td align="right">-0.1192041</td>
+<td align="right">-0.0914571</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufMG
-</td>
-<td style="text-align:right;">
--0.0792045
-</td>
-<td style="text-align:right;">
--0.0516851
-</td>
+<tr class="odd">
+<td align="left">sg_ufMG</td>
+<td align="right">-0.0792045</td>
+<td align="right">-0.0516851</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufMS
-</td>
-<td style="text-align:right;">
--0.0757868
-</td>
-<td style="text-align:right;">
--0.0480581
-</td>
+<tr class="even">
+<td align="left">sg_ufMS</td>
+<td align="right">-0.0757868</td>
+<td align="right">-0.0480581</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufMT
-</td>
-<td style="text-align:right;">
--0.1024452
-</td>
-<td style="text-align:right;">
--0.0747959
-</td>
+<tr class="odd">
+<td align="left">sg_ufMT</td>
+<td align="right">-0.1024452</td>
+<td align="right">-0.0747959</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufPA
-</td>
-<td style="text-align:right;">
--0.0851832
-</td>
-<td style="text-align:right;">
--0.0573345
-</td>
+<tr class="even">
+<td align="left">sg_ufPA</td>
+<td align="right">-0.0851832</td>
+<td align="right">-0.0573345</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufPB
-</td>
-<td style="text-align:right;">
--0.1332370
-</td>
-<td style="text-align:right;">
--0.1051214
-</td>
+<tr class="odd">
+<td align="left">sg_ufPB</td>
+<td align="right">-0.1332370</td>
+<td align="right">-0.1051214</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufPE
-</td>
-<td style="text-align:right;">
--0.1273447
-</td>
-<td style="text-align:right;">
--0.0994480
-</td>
+<tr class="even">
+<td align="left">sg_ufPE</td>
+<td align="right">-0.1273447</td>
+<td align="right">-0.0994480</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufPI
-</td>
-<td style="text-align:right;">
--0.1054809
-</td>
-<td style="text-align:right;">
--0.0773482
-</td>
+<tr class="odd">
+<td align="left">sg_ufPI</td>
+<td align="right">-0.1054809</td>
+<td align="right">-0.0773482</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufPR
-</td>
-<td style="text-align:right;">
--0.0743198
-</td>
-<td style="text-align:right;">
--0.0468815
-</td>
+<tr class="even">
+<td align="left">sg_ufPR</td>
+<td align="right">-0.0743198</td>
+<td align="right">-0.0468815</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufRJ
-</td>
-<td style="text-align:right;">
--0.1104185
-</td>
-<td style="text-align:right;">
--0.0828524
-</td>
+<tr class="odd">
+<td align="left">sg_ufRJ</td>
+<td align="right">-0.1104185</td>
+<td align="right">-0.0828524</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufRN
-</td>
-<td style="text-align:right;">
--0.1266669
-</td>
-<td style="text-align:right;">
--0.0978309
-</td>
+<tr class="even">
+<td align="left">sg_ufRN</td>
+<td align="right">-0.1266669</td>
+<td align="right">-0.0978309</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufRO
-</td>
-<td style="text-align:right;">
--0.0735371
-</td>
-<td style="text-align:right;">
--0.0456145
-</td>
+<tr class="odd">
+<td align="left">sg_ufRO</td>
+<td align="right">-0.0735371</td>
+<td align="right">-0.0456145</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufRR
-</td>
-<td style="text-align:right;">
--0.0999596
-</td>
-<td style="text-align:right;">
--0.0706939
-</td>
+<tr class="even">
+<td align="left">sg_ufRR</td>
+<td align="right">-0.0999596</td>
+<td align="right">-0.0706939</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufRS
-</td>
-<td style="text-align:right;">
--0.0748960
-</td>
-<td style="text-align:right;">
--0.0474614
-</td>
+<tr class="odd">
+<td align="left">sg_ufRS</td>
+<td align="right">-0.0748960</td>
+<td align="right">-0.0474614</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufSC
-</td>
-<td style="text-align:right;">
--0.0752199
-</td>
-<td style="text-align:right;">
--0.0478245
-</td>
+<tr class="even">
+<td align="left">sg_ufSC</td>
+<td align="right">-0.0752199</td>
+<td align="right">-0.0478245</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufSE
-</td>
-<td style="text-align:right;">
--0.1085156
-</td>
-<td style="text-align:right;">
--0.0799776
-</td>
+<tr class="odd">
+<td align="left">sg_ufSE</td>
+<td align="right">-0.1085156</td>
+<td align="right">-0.0799776</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufSP
-</td>
-<td style="text-align:right;">
--0.0531533
-</td>
-<td style="text-align:right;">
--0.0256020
-</td>
+<tr class="even">
+<td align="left">sg_ufSP</td>
+<td align="right">-0.0531533</td>
+<td align="right">-0.0256020</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufTO
-</td>
-<td style="text-align:right;">
--0.1098511
-</td>
-<td style="text-align:right;">
--0.0820642
-</td>
+<tr class="odd">
+<td align="left">sg_ufTO</td>
+<td align="right">-0.1098511</td>
+<td align="right">-0.0820642</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-sg_ufZZ
-</td>
-<td style="text-align:right;">
--0.0987445
-</td>
-<td style="text-align:right;">
--0.0643491
-</td>
+<tr class="even">
+<td align="left">sg_ufZZ</td>
+<td align="right">-0.0987445</td>
+<td align="right">-0.0643491</td>
 </tr>
 </tbody>
 </table>
@@ -2972,7 +2788,7 @@ sg_ufZZ
 <pre><code>## # Attaching packages: easystats 0.7.0 (red = needs update)
 ## ✔ bayestestR  0.15.0   ✖ correlation 0.8.4 
 ## ✔ datawizard  0.13.0   ✔ effectsize  0.8.9 
-## ✔ insight     0.20.5   ✖ modelbased  0.8.6 
+## ✖ insight     0.20.5   ✖ modelbased  0.8.6 
 ## ✔ performance 0.12.4   ✔ parameters  0.23.0
 ## ✖ report      0.5.7    ✖ see         0.8.1 
 ## 
@@ -3393,23 +3209,25 @@ E em geral a variância de cada coeficiente depende dos demais. E quanto maior a
 <p>O que importa para nós aqui é na verdade o seguinte.
 Sejam <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> duas variáveis aleatórias dependentes (cuja covariância não é zero). Então, <span class="math inline">\(Var(X+Y) = Var(X) + Var(Y) + 2*Cov(X,Y)\)</span>. Portanto, no caso de nosso modelo com dois regressores e termo de interação, temos:</p>
 <p><span class="math display">\[
-Var(\beta_1 + \beta3 x_2|X) = Var(\beta_1|X) + Var(\beta3 x_2|X) + 2Cov(\beta_1, \beta3) = Var(\beta_1|X) + x_2^2Var(\beta3|X) + 2Cov(\beta_1, \beta3|X)
+Var(\beta_1 + \beta3 x_2|X) = Var(\beta_1|X) + Var(\beta3 x_2|X) + 2Cov(\beta_1, \beta3) = Var(\beta_1|X) + x_2^2Var(\beta3|X) + 2x_2Cov(\beta_1, \beta3|X)
 \]</span>
-Como as variâncias são os erros-padrão ao quadrado, podemos computar manualmente a variância do efeito marginal, e depois calcular o erro-padrão. No R, porém, é mais fácil usar o pacote marginaleffects.</p>
+Como as variâncias são os erros-padrão ao quadrado, podemos computar manualmente a variância do efeito marginal, e depois calcular o erro-padrão. No R, porém, usualmente usamos alguns dos pacotes que permite a visualização desses efeitos já computados corretamente.</p>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="regressao-multipla.html#cb239-1" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
-<span id="cb239-2"><a href="regressao-multipla.html#cb239-2" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
-<span id="cb239-3"><a href="regressao-multipla.html#cb239-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb239-4"><a href="regressao-multipla.html#cb239-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb239-5"><a href="regressao-multipla.html#cb239-5" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb239-6"><a href="regressao-multipla.html#cb239-6" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size=</span><span class="dv">1</span>, <span class="at">p=</span>.<span class="dv">5</span>)</span>
-<span id="cb239-7"><a href="regressao-multipla.html#cb239-7" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb239-8"><a href="regressao-multipla.html#cb239-8" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
-<span id="cb239-9"><a href="regressao-multipla.html#cb239-9" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb239-10"><a href="regressao-multipla.html#cb239-10" tabindex="-1"></a>b3 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb239-11"><a href="regressao-multipla.html#cb239-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> a<span class="sc">+</span> b1<span class="sc">*</span>x1 <span class="sc">+</span> b2<span class="sc">*</span>x2 <span class="sc">+</span> b3<span class="sc">*</span>x2<span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb239-12"><a href="regressao-multipla.html#cb239-12" tabindex="-1"></a></span>
-<span id="cb239-13"><a href="regressao-multipla.html#cb239-13" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1<span class="sc">*</span>x2)</span>
-<span id="cb239-14"><a href="regressao-multipla.html#cb239-14" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
+<span id="cb239-2"><a href="regressao-multipla.html#cb239-2" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
+<pre><code>## Warning: package &#39;sjPlot&#39; was built under R version 4.3.3</code></pre>
+<pre><code>## #refugeeswelcome</code></pre>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="regressao-multipla.html#cb242-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb242-2"><a href="regressao-multipla.html#cb242-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb242-3"><a href="regressao-multipla.html#cb242-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb242-4"><a href="regressao-multipla.html#cb242-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size=</span><span class="dv">1</span>, <span class="at">p=</span>.<span class="dv">5</span>)</span>
+<span id="cb242-5"><a href="regressao-multipla.html#cb242-5" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb242-6"><a href="regressao-multipla.html#cb242-6" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb242-7"><a href="regressao-multipla.html#cb242-7" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb242-8"><a href="regressao-multipla.html#cb242-8" tabindex="-1"></a>b3 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb242-9"><a href="regressao-multipla.html#cb242-9" tabindex="-1"></a>y <span class="ot">&lt;-</span> a<span class="sc">+</span> b1<span class="sc">*</span>x1 <span class="sc">+</span> b2<span class="sc">*</span>x2 <span class="sc">+</span> b3<span class="sc">*</span>x2<span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb242-10"><a href="regressao-multipla.html#cb242-10" tabindex="-1"></a></span>
+<span id="cb242-11"><a href="regressao-multipla.html#cb242-11" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1<span class="sc">*</span>x2)</span>
+<span id="cb242-12"><a href="regressao-multipla.html#cb242-12" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x1 * x2)
@@ -3430,30 +3248,29 @@ Como as variâncias são os erros-padrão ao quadrado, podemos computar manualme
 ## Residual standard error: 0.9368 on 96 degrees of freedom
 ## Multiple R-squared:  0.7872, Adjusted R-squared:  0.7805 
 ## F-statistic: 118.4 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="regressao-multipla.html#cb241-1" tabindex="-1"></a><span class="co"># Pacote marginaleffects</span></span>
-<span id="cb241-2"><a href="regressao-multipla.html#cb241-2" tabindex="-1"></a><span class="fu">plot_slopes</span>(reg1, <span class="at">variables =</span> <span class="st">&quot;x1&quot;</span>, <span class="at">condition =</span> <span class="st">&quot;x2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="regressao-multipla.html#cb244-1" tabindex="-1"></a><span class="co"># Pacote marginaleffects</span></span>
+<span id="cb244-2"><a href="regressao-multipla.html#cb244-2" tabindex="-1"></a><span class="fu">plot_slopes</span>(reg1, <span class="at">variables =</span> <span class="st">&quot;x1&quot;</span>, <span class="at">condition =</span> <span class="st">&quot;x2&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/interaction-term-1.png" width="672" /></p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="regressao-multipla.html#cb242-1" tabindex="-1"></a><span class="co"># pacote sjPlot</span></span>
-<span id="cb242-2"><a href="regressao-multipla.html#cb242-2" tabindex="-1"></a><span class="fu">plot_model</span>(reg1, <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="regressao-multipla.html#cb245-1" tabindex="-1"></a><span class="co"># pacote sjPlot</span></span>
+<span id="cb245-2"><a href="regressao-multipla.html#cb245-2" tabindex="-1"></a><span class="fu">plot_model</span>(reg1, <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>))</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/interaction-term-2.png" width="672" /></p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="regressao-multipla.html#cb243-1" tabindex="-1"></a><span class="co"># adcionando constante</span></span>
-<span id="cb243-2"><a href="regressao-multipla.html#cb243-2" tabindex="-1"></a>x2_star <span class="ot">&lt;-</span> x2 <span class="sc">+</span> .<span class="dv">4</span></span>
-<span id="cb243-3"><a href="regressao-multipla.html#cb243-3" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1<span class="sc">*</span>x2_star)</span>
-<span id="cb243-4"><a href="regressao-multipla.html#cb243-4" tabindex="-1"></a><span class="fu">summary</span>(reg2)</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="regressao-multipla.html#cb246-1" tabindex="-1"></a><span class="co"># Truque do Mcdermont</span></span>
+<span id="cb246-2"><a href="regressao-multipla.html#cb246-2" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">factor</span>(x2) <span class="sc">/</span> x1) <span class="co"># lm(y ~ x2 + x2:x1)</span></span>
+<span id="cb246-3"><a href="regressao-multipla.html#cb246-3" tabindex="-1"></a><span class="fu">summary</span>(reg2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = y ~ x1 * x2_star)
+## lm(formula = y ~ factor(x2)/x1)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
 ## -1.4291 -0.6824 -0.1309  0.5935  3.1949 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   2.3696     0.1900  12.469  &lt; 2e-16 ***
-## x1            1.1479     0.2154   5.328 6.54e-07 ***
-## x2_star      -0.9273     0.1890  -4.905 3.80e-06 ***
-## x1:x2_star    0.8029     0.2070   3.878 0.000193 ***
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      1.9987     0.1299  15.381  &lt; 2e-16 ***
+## factor(x2)1     -0.9273     0.1890  -4.905 3.80e-06 ***
+## factor(x2)0:x1   1.4690     0.1482   9.910 2.32e-16 ***
+## factor(x2)1:x1   2.2719     0.1445  15.724  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -3558,337 +3375,338 @@ Que é nossa definição de R-quadrado em modelo de regressão simples.</p>
 <p><span class="math display">\[
 R^2_{y \sim x1|x2} = 1 - \frac{Var(y^{\perp x_1, x_2})}{Var(y^{\perp x_1})} = \left(Cor(x_1^{\perp x_2}, y^{\perp x_2})\right)^2
 \]</span></p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="regressao-multipla.html#cb245-1" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb245-2"><a href="regressao-multipla.html#cb245-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb245-3"><a href="regressao-multipla.html#cb245-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb245-4"><a href="regressao-multipla.html#cb245-4" tabindex="-1"></a><span class="fu">library</span>(sjlabelled) <span class="co"># pra remover labelled variables</span></span>
-<span id="cb245-5"><a href="regressao-multipla.html#cb245-5" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb245-6"><a href="regressao-multipla.html#cb245-6" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb245-7"><a href="regressao-multipla.html#cb245-7" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb245-8"><a href="regressao-multipla.html#cb245-8" tabindex="-1"></a></span>
-<span id="cb245-9"><a href="regressao-multipla.html#cb245-9" tabindex="-1"></a><span class="do">## dados</span></span>
-<span id="cb245-10"><a href="regressao-multipla.html#cb245-10" tabindex="-1"></a><span class="co"># https://www.latinobarometro.org/latContents.jsp</span></span>
-<span id="cb245-11"><a href="regressao-multipla.html#cb245-11" tabindex="-1"></a></span>
-<span id="cb245-12"><a href="regressao-multipla.html#cb245-12" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> sjlabelled<span class="sc">::</span><span class="fu">read_spss</span>(<span class="fu">here</span>(<span class="st">&quot;Dados&quot;</span>, <span class="st">&quot;Latinobarometro_2023_Eng_Spss_v1_0.sav&quot;</span>),</span>
-<span id="cb245-13"><a href="regressao-multipla.html#cb245-13" tabindex="-1"></a>                               <span class="at">drop.labels =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="regressao-multipla.html#cb248-1" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb248-2"><a href="regressao-multipla.html#cb248-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb248-3"><a href="regressao-multipla.html#cb248-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb248-4"><a href="regressao-multipla.html#cb248-4" tabindex="-1"></a><span class="fu">library</span>(sjlabelled) <span class="co"># pra remover labelled variables</span></span>
+<span id="cb248-5"><a href="regressao-multipla.html#cb248-5" tabindex="-1"></a><span class="fu">library</span>(haven)</span></code></pre></div>
+<pre><code>## Warning: package &#39;haven&#39; was built under R version 4.3.3</code></pre>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="regressao-multipla.html#cb250-1" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb250-2"><a href="regressao-multipla.html#cb250-2" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb250-3"><a href="regressao-multipla.html#cb250-3" tabindex="-1"></a></span>
+<span id="cb250-4"><a href="regressao-multipla.html#cb250-4" tabindex="-1"></a><span class="do">## dados</span></span>
+<span id="cb250-5"><a href="regressao-multipla.html#cb250-5" tabindex="-1"></a><span class="co"># https://www.latinobarometro.org/latContents.jsp</span></span>
+<span id="cb250-6"><a href="regressao-multipla.html#cb250-6" tabindex="-1"></a></span>
+<span id="cb250-7"><a href="regressao-multipla.html#cb250-7" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> sjlabelled<span class="sc">::</span><span class="fu">read_spss</span>(<span class="fu">here</span>(<span class="st">&quot;Dados&quot;</span>, <span class="st">&quot;Latinobarometro_2023_Eng_Spss_v1_0.sav&quot;</span>),</span>
+<span id="cb250-8"><a href="regressao-multipla.html#cb250-8" tabindex="-1"></a>                               <span class="at">drop.labels =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <pre><code>## Invalid date string (length=9): 09 032 23</code></pre>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="regressao-multipla.html#cb247-1" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
-<span id="cb247-2"><a href="regressao-multipla.html#cb247-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">S17 =</span> <span class="fu">as.Date</span>(<span class="fu">as.character</span>(S17), <span class="at">format=</span><span class="st">&quot;%Y%m%d&quot;</span>)) </span>
-<span id="cb247-3"><a href="regressao-multipla.html#cb247-3" tabindex="-1"></a></span>
-<span id="cb247-4"><a href="regressao-multipla.html#cb247-4" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
-<span id="cb247-5"><a href="regressao-multipla.html#cb247-5" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
-<span id="cb247-6"><a href="regressao-multipla.html#cb247-6" tabindex="-1"></a></span>
-<span id="cb247-7"><a href="regressao-multipla.html#cb247-7" tabindex="-1"></a><span class="co"># get_label(lat_bar23)</span></span>
-<span id="cb247-8"><a href="regressao-multipla.html#cb247-8" tabindex="-1"></a></span>
-<span id="cb247-9"><a href="regressao-multipla.html#cb247-9" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
-<span id="cb247-10"><a href="regressao-multipla.html#cb247-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_base =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(diareal, mesreal, <span class="st">&quot;2023&quot;</span>, <span class="at">sep=</span><span class="st">&quot;-&quot;</span>), <span class="st">&quot;%d-%m-%Y&quot;</span>),</span>
-<span id="cb247-11"><a href="regressao-multipla.html#cb247-11" tabindex="-1"></a>         <span class="at">idade =</span> <span class="fu">year</span>(<span class="fu">as.period</span>(<span class="fu">interval</span>(s17,data_base))),</span>
-<span id="cb247-12"><a href="regressao-multipla.html#cb247-12" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">ifelse</span>(p6stgbs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;better&quot;</span>, </span>
-<span id="cb247-13"><a href="regressao-multipla.html#cb247-13" tabindex="-1"></a>                                <span class="fu">ifelse</span>(p6stgbs <span class="sc">==</span> <span class="dv">8</span>, <span class="cn">NA</span>, <span class="st">&quot;other&quot;</span>)),</span>
-<span id="cb247-14"><a href="regressao-multipla.html#cb247-14" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">relevel</span>(<span class="fu">as.factor</span>(econ_12_meses), <span class="at">ref =</span> <span class="st">&quot;other&quot;</span>),</span>
-<span id="cb247-15"><a href="regressao-multipla.html#cb247-15" tabindex="-1"></a>         <span class="at">aprovacao_presidente =</span> <span class="fu">ifelse</span>(p15stgbs <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, p15stgbs),</span>
-<span id="cb247-16"><a href="regressao-multipla.html#cb247-16" tabindex="-1"></a>         <span class="at">ideologia =</span> <span class="fu">ifelse</span>(p16st <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, p16st),</span>
-<span id="cb247-17"><a href="regressao-multipla.html#cb247-17" tabindex="-1"></a>         <span class="at">votaria_governo =</span> <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">4</span>, <span class="cn">NA</span>,</span>
-<span id="cb247-18"><a href="regressao-multipla.html#cb247-18" tabindex="-1"></a>                                  <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)),</span>
-<span id="cb247-19"><a href="regressao-multipla.html#cb247-19" tabindex="-1"></a>         <span class="at">genero =</span> <span class="fu">factor</span>(sexo, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;homem&quot;</span>, <span class="st">&quot;mulher&quot;</span>)),</span>
-<span id="cb247-20"><a href="regressao-multipla.html#cb247-20" tabindex="-1"></a>         <span class="at">evangelico =</span> <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">98</span>), <span class="cn">NA</span>,</span>
-<span id="cb247-21"><a href="regressao-multipla.html#cb247-21" tabindex="-1"></a>                             <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">1</span>, <span class="dv">0</span>))) <span class="co"># não considera adventista, testemunha Jeová, Mórmon</span></span></code></pre></div>
-<pre><code>## Warning: There was 1 warning in `.fun()`.
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="regressao-multipla.html#cb252-1" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
+<span id="cb252-2"><a href="regressao-multipla.html#cb252-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">S17 =</span> <span class="fu">as.Date</span>(<span class="fu">as.character</span>(S17), <span class="at">format=</span><span class="st">&quot;%Y%m%d&quot;</span>)) </span>
+<span id="cb252-3"><a href="regressao-multipla.html#cb252-3" tabindex="-1"></a></span>
+<span id="cb252-4"><a href="regressao-multipla.html#cb252-4" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
+<span id="cb252-5"><a href="regressao-multipla.html#cb252-5" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb252-6"><a href="regressao-multipla.html#cb252-6" tabindex="-1"></a></span>
+<span id="cb252-7"><a href="regressao-multipla.html#cb252-7" tabindex="-1"></a><span class="co"># get_label(lat_bar23)</span></span>
+<span id="cb252-8"><a href="regressao-multipla.html#cb252-8" tabindex="-1"></a></span>
+<span id="cb252-9"><a href="regressao-multipla.html#cb252-9" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
+<span id="cb252-10"><a href="regressao-multipla.html#cb252-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_base =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(diareal, mesreal, <span class="st">&quot;2023&quot;</span>, <span class="at">sep=</span><span class="st">&quot;-&quot;</span>), <span class="st">&quot;%d-%m-%Y&quot;</span>),</span>
+<span id="cb252-11"><a href="regressao-multipla.html#cb252-11" tabindex="-1"></a>         <span class="at">idade =</span> <span class="fu">year</span>(<span class="fu">as.period</span>(<span class="fu">interval</span>(s17,data_base))),</span>
+<span id="cb252-12"><a href="regressao-multipla.html#cb252-12" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">ifelse</span>(p6stgbs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;better&quot;</span>, </span>
+<span id="cb252-13"><a href="regressao-multipla.html#cb252-13" tabindex="-1"></a>                                <span class="fu">ifelse</span>(p6stgbs <span class="sc">==</span> <span class="dv">8</span>, <span class="cn">NA</span>, <span class="st">&quot;other&quot;</span>)),</span>
+<span id="cb252-14"><a href="regressao-multipla.html#cb252-14" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">relevel</span>(<span class="fu">as.factor</span>(econ_12_meses), <span class="at">ref =</span> <span class="st">&quot;other&quot;</span>),</span>
+<span id="cb252-15"><a href="regressao-multipla.html#cb252-15" tabindex="-1"></a>         <span class="at">aprovacao_presidente =</span> <span class="fu">ifelse</span>(p15stgbs <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, p15stgbs),</span>
+<span id="cb252-16"><a href="regressao-multipla.html#cb252-16" tabindex="-1"></a>         <span class="at">ideologia =</span> <span class="fu">ifelse</span>(p16st <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, p16st),</span>
+<span id="cb252-17"><a href="regressao-multipla.html#cb252-17" tabindex="-1"></a>         <span class="at">votaria_governo =</span> <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">4</span>, <span class="cn">NA</span>,</span>
+<span id="cb252-18"><a href="regressao-multipla.html#cb252-18" tabindex="-1"></a>                                  <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)),</span>
+<span id="cb252-19"><a href="regressao-multipla.html#cb252-19" tabindex="-1"></a>         <span class="at">genero =</span> <span class="fu">factor</span>(sexo, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;homem&quot;</span>, <span class="st">&quot;mulher&quot;</span>)),</span>
+<span id="cb252-20"><a href="regressao-multipla.html#cb252-20" tabindex="-1"></a>         <span class="at">evangelico =</span> <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">98</span>), <span class="cn">NA</span>,</span>
+<span id="cb252-21"><a href="regressao-multipla.html#cb252-21" tabindex="-1"></a>                             <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">1</span>, <span class="dv">0</span>))) <span class="co"># não considera adventista, testemunha Jeová, Mórmon</span></span></code></pre></div>
+<pre><code>## Warning: There was 1 warning in `mutate()`.
 ## ℹ In argument: `idade = year(as.period(interval(s17, data_base)))`.
 ## Caused by warning in `.local()`:
 ## ! NAs introduced by coercion to integer range</code></pre>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="regressao-multipla.html#cb249-1" tabindex="-1"></a>br_latbar_23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
-<span id="cb249-2"><a href="regressao-multipla.html#cb249-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idenpa =</span> <span class="fu">remove_all_labels</span>(idenpa)) <span class="sc">%&gt;%</span> <span class="co"># haven_labelled problems</span></span>
-<span id="cb249-3"><a href="regressao-multipla.html#cb249-3" tabindex="-1"></a>  <span class="fu">filter</span>(idenpa <span class="sc">==</span> <span class="dv">76</span>) <span class="sc">%&gt;%</span> <span class="do">## seelciona brasil</span></span>
-<span id="cb249-4"><a href="regressao-multipla.html#cb249-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(votaria_governo) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(evangelico) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(ideologia) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(econ_12_meses))</span>
-<span id="cb249-5"><a href="regressao-multipla.html#cb249-5" tabindex="-1"></a></span>
-<span id="cb249-6"><a href="regressao-multipla.html#cb249-6" tabindex="-1"></a><span class="fu">glimpse</span>(br_latbar_23)</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="regressao-multipla.html#cb254-1" tabindex="-1"></a>br_latbar_23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
+<span id="cb254-2"><a href="regressao-multipla.html#cb254-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idenpa =</span> <span class="fu">remove_all_labels</span>(idenpa)) <span class="sc">%&gt;%</span> <span class="co"># haven_labelled problems</span></span>
+<span id="cb254-3"><a href="regressao-multipla.html#cb254-3" tabindex="-1"></a>  <span class="fu">filter</span>(idenpa <span class="sc">==</span> <span class="dv">76</span>) <span class="sc">%&gt;%</span> <span class="do">## seelciona brasil</span></span>
+<span id="cb254-4"><a href="regressao-multipla.html#cb254-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(votaria_governo) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(evangelico) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(ideologia) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(econ_12_meses))</span>
+<span id="cb254-5"><a href="regressao-multipla.html#cb254-5" tabindex="-1"></a></span>
+<span id="cb254-6"><a href="regressao-multipla.html#cb254-6" tabindex="-1"></a><span class="fu">glimpse</span>(br_latbar_23)</span></code></pre></div>
 <pre><code>## Rows: 472
 ## Columns: 282
-## $ numinves             &lt;fct&gt; 23, 23, 23, 23, 23, 23, 23, 23, 23, 2…
-## $ idenpa               &lt;fct&gt; 76, 76, 76, 76, 76, 76, 76, 76, 76, 7…
-## $ numentre             &lt;dbl&gt; 372, 373, 1100, 351, 15, 1101, 375, 9…
-## $ reg                  &lt;fct&gt; 76002, 76002, 76004, 76002, 76001, 76…
-## $ ciudad               &lt;fct&gt; 76002020, 76002020, 76004129, 7600219…
-## $ tamciud              &lt;fct&gt; 7, 7, 4, 6, 8, 4, 7, 7, 7, 6, 7, 8, 4…
-## $ comdist              &lt;dbl&gt; 35, 35, 102, 34, 3, 102, 35, 89, 80, …
-## $ edad                 &lt;dbl&gt; 57, 37, 18, 47, 47, 33, 47, 65, 26, 5…
-## $ sexo                 &lt;fct&gt; 2, 2, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 2…
-## $ codigo               &lt;dbl&gt; 80, 80, 9, 78, 20, 9, 80, 53, 44, 78,…
-## $ diareal              &lt;fct&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3…
-## $ mesreal              &lt;fct&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3…
-## $ ini                  &lt;dbl&gt; 757, 905, 913, 909, 946, 1002, 1046, …
-## $ fin                  &lt;dbl&gt; 859, 946, 956, 1002, 1035, 1042, 1123…
-## $ dura                 &lt;dbl&gt; 62, 41, 43, 53, 49, 40, 37, 49, 49, 6…
-## $ totrevi              &lt;dbl&gt; 4, 3, 6, 3, 0, 1, 6, 0, 1, 1, 0, 0, 0…
-## $ totcuot              &lt;dbl&gt; 99, 0, 0, 99, 0, 0, 99, 0, 0, 99, 0, …
-## $ totrech              &lt;dbl&gt; 5, 0, 0, 2, 0, 1, 2, 0, 0, 6, 2, 3, 1…
-## $ totperd              &lt;dbl&gt; 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1…
-## $ numcasa              &lt;dbl&gt; 6, 1, 1, 3, 1, 2, 3, 1, 1, 7, 3, 4, 2…
-## $ codsuper             &lt;dbl&gt; 2, 2, 13, 2, 1, 13, 2, 11, 10, 2, 10,…
-## $ supervvi             &lt;fct&gt; 2, 1, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1, 2…
-## $ superven             &lt;fct&gt; 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 2…
-## $ codif                &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-## $ digit                &lt;dbl&gt; 80, 80, 9, 78, 20, 9, 80, 53, 44, 78,…
-## $ p1st                 &lt;fct&gt; 4, 3, 2, 2, 2, 2, 3, 1, 2, 2, 2, 3, 2…
-## $ p2st                 &lt;fct&gt; 1, 2, 2, 3, 2, 3, 2, 2, 2, 2, 1, 1, 2…
-## $ p3n                  &lt;fct&gt; 4, 4, 2, 2, 3, 3, 2, 3, 2, 4, 3, 2, 3…
-## $ p4stgbs              &lt;fct&gt; 16, 16, 36, 16, 5, 4, 9, NA, 16, 9, 2…
-## $ p5stgbs              &lt;fct&gt; 5, 4, 3, 4, 3, 5, 4, 2, 4, 3, 3, 3, 5…
-## $ p6stgbs              &lt;fct&gt; 3, 3, 2, 2, 3, 3, 3, 3, 3, 2, 2, 3, 2…
-## $ p7st                 &lt;fct&gt; 1, 2, 2, 1, 2, 3, 5, 2, 5, 4, 2, 3, 2…
-## $ p8stgbs              &lt;fct&gt; 1, 2, 3, 1, 2, 3, 2, 1, 3, 1, 2, NA, …
-## $ p9stgbs              &lt;fct&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
-## $ p10stgbs             &lt;fct&gt; 1, 3, 1, 1, 3, 3, 1, 3, NA, 1, 1, NA,…
-## $ p11stgbs_a           &lt;fct&gt; 2, 3, 3, 3, 3, 4, 4, 3, NA, 3, 2, 3, …
-## $ p11stgbs_b           &lt;fct&gt; 3, 4, 3, 3, 3, 4, 3, NA, 4, 4, 2, 3, …
-## $ p12st                &lt;dbl&gt; 2, 2, 1, 2, 1, 1, 1, 2, NA, 1, 2, 2, …
-## $ p13stgbs_a           &lt;fct&gt; 3, 3, 2, 1, 1, 4, 1, 1, 1, 2, 3, 3, 4…
-## $ p13stgbs_b           &lt;fct&gt; 2, 3, 1, 1, 1, 1, 3, 1, 1, 1, 2, 3, 3…
-## $ p13st_c              &lt;fct&gt; 2, 3, 3, 1, 1, 3, 1, 1, 1, 1, 4, 1, 1…
-## $ p13st_d              &lt;fct&gt; 1, 3, 3, 2, 1, 4, 3, 2, 2, 2, 1, 3, 3…
-## $ p13st_e              &lt;fct&gt; 1, 3, 3, 1, 3, 4, 4, 1, 2, 3, 3, 2, 3…
-## $ p13st_f              &lt;fct&gt; 1, 3, 3, 1, 1, 4, 4, 1, 3, 4, 1, 3, 2…
-## $ p13st_g              &lt;fct&gt; 2, 4, 3, 2, 3, 4, 3, 4, 3, 3, 2, 3, 4…
-## $ p13st_h              &lt;fct&gt; 1, 3, 3, 1, 1, 4, 4, 1, 2, 4, 1, 3, 1…
-## $ p13st_i              &lt;fct&gt; 1, 3, 3, 1, 3, 3, 4, 1, 3, 3, 1, 1, 1…
-## $ p14st_a              &lt;fct&gt; 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2…
-## $ p14st_b              &lt;fct&gt; 2, 3, 2, 2, 1, 3, 3, 1, 2, 2, 2, 4, 3…
-## $ p14st_c              &lt;fct&gt; 2, 4, 3, 2, 3, 3, 4, 4, 2, 2, 4, 4, 3…
-## $ p14st_d              &lt;fct&gt; 1, 4, 2, 2, 3, 3, 4, 1, 3, 4, 4, 3, 2…
-## $ p14st_e              &lt;fct&gt; 2, 4, 2, 2, 3, 3, 3, 1, 3, 4, 2, NA, …
-## $ p14st_f              &lt;fct&gt; 2, 3, 1, 2, 1, 2, 3, 1, 2, 3, 2, 4, 4…
-## $ p14st_g              &lt;fct&gt; 1, 4, 2, 2, 1, 3, 2, 1, 2, 3, 2, 3, 3…
-## $ p14st_h              &lt;fct&gt; 2, 3, 2, 2, 3, 2, 3, 1, 2, 3, 2, 4, 3…
-## $ p14n_i               &lt;fct&gt; 3, 4, 2, 2, 3, 4, 3, 1, 3, 4, 4, 4, 4…
-## $ p15stgbs             &lt;fct&gt; 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1…
-## $ p16st                &lt;fct&gt; 5, 6, 6, 5, 6, 5, 10, 10, 5, 8, 5, 7,…
-## $ p17st                &lt;fct&gt; 3, 2, 3, 2, 1, 3, 4, 1, 4, 2, 3, 3, 4…
-## $ p18st_a              &lt;fct&gt; 1, 1, 2, 1, 1, 1, 1, 1, 3, 1, 1, 1, 2…
-## $ p18stm_b             &lt;fct&gt; 1, 4, 3, 3, 2, 2, 1, 1, 4, 4, 4, 1, 4…
-## $ p18stm_c             &lt;fct&gt; 3, 1, 3, 2, 2, 4, 4, 1, 4, 2, 4, 1, 2…
-## $ p18n_d               &lt;fct&gt; 2, 2, 2, 2, 2, 4, 1, 4, 2, 1, 2, 4, 2…
-## $ p18n_e               &lt;fct&gt; 3, 3, 2, 3, 2, 3, 1, 3, 2, 3, 1, 1, 3…
-## $ p18n_f               &lt;fct&gt; 2, 4, 3, 3, 2, 4, 2, 4, 4, 2, 3, 4, 3…
-## $ p18n_g               &lt;fct&gt; 2, 1, 2, 2, 1, 1, 1, 4, 4, 1, 3, 1, 1…
-## $ p18n_h               &lt;fct&gt; 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 3, 1, 1…
-## $ p18st_i              &lt;fct&gt; 2, 1, 2, 1, 1, 4, 2, 1, 4, 1, 1, 4, 3…
-## $ p19n                 &lt;fct&gt; 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 2…
-## $ p20stm               &lt;fct&gt; 1, 2, 1, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2…
-## $ p21st                &lt;fct&gt; 1, 2, 1, 2, 2, 2, 1, 1, 2, 1, 1, 2, 2…
-## $ p22st                &lt;fct&gt; 1, 1, 6, 2, 7, 5, 1, 3, 1, 8, 8, 1, 3…
-## $ p23st_a              &lt;fct&gt; 2, 2, 1, 1, 2, 2, 1, 4, 1, 1, 2, 2, 4…
-## $ p23st_b              &lt;fct&gt; 3, 3, 2, 2, 3, 2, 2, 4, 3, 1, 2, 4, N…
-## $ p23st_c              &lt;fct&gt; 2, 3, 2, 2, 3, 2, 4, 4, 1, 3, 1, 4, 4…
-## $ p23st_d              &lt;fct&gt; 2, 3, 2, 3, 2, 2, 2, 4, 2, 2, 2, 4, N…
-## $ p23st_e              &lt;fct&gt; 3, 3, 4, 2, 2, 2, 2, 4, 2, 4, 2, 4, 4…
-## $ p23st_f              &lt;fct&gt; 3, 3, 4, 3, 3, 3, 4, 4, 3, 3, 3, 4, 4…
-## $ p24st_a              &lt;fct&gt; 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2…
-## $ p24st_b              &lt;fct&gt; 3, 2, 2, 2, 2, 2, 2, 3, NA, 2, 2, 3, …
-## $ p24st_c              &lt;fct&gt; 1, 2, 2, 1, 2, 2, 2, 3, 2, 3, 1, 3, 4…
-## $ p24st_d              &lt;fct&gt; 1, 2, 2, 2, 1, 2, 2, 3, NA, 3, 2, 3, …
-## $ p24st_e              &lt;fct&gt; 2, 2, 3, 1, 3, 3, 4, 3, NA, 3, 3, 3, …
-## $ p25n_a               &lt;fct&gt; 2, 2, 1, 1, 2, 2, 2, 3, 1, 2, 2, 2, 2…
-## $ p25n_b               &lt;fct&gt; 2, 2, 1, 2, 2, 2, 2, 3, 3, 1, 2, 3, 3…
-## $ p25n_c               &lt;fct&gt; 1, 3, 1, 1, 2, 2, 2, 3, 1, 3, 1, 3, 4…
-## $ p26sdn_a             &lt;fct&gt; 1, 3, 2, 1, 2, 1, 4, 4, 3, 4, 2, NA, …
-## $ p26sdn_b             &lt;fct&gt; 3, 4, 1, 4, 3, 1, 1, 4, NA, 1, 4, 4, …
-## $ p26sdn_c             &lt;fct&gt; 2, NA, 2, 3, 3, 1, 3, 4, 2, 3, 2, 4, …
-## $ p26sdn_d             &lt;fct&gt; 1, 1, 3, 1, 1, 1, 3, 4, NA, 3, 1, 4, …
-## $ p26sdn_e             &lt;fct&gt; 3, 3, 2, 1, 1, 1, 3, 4, 1, 3, 4, 3, 4…
-## $ p26sdn_f             &lt;fct&gt; 3, 3, 1, 1, 2, 1, 3, 4, 3, 3, 1, NA, …
-## $ p27sdn               &lt;fct&gt; 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1…
-## $ p28stin              &lt;fct&gt; 4, 1, 1, 2, 1, NA, 3, 3, NA, 1, 4, 3,…
-## $ p29stin_a            &lt;fct&gt; 1, 2, 1, 2, 2, 1, 2, 4, 1, 3, 1, NA, …
-## $ p29stin_b            &lt;fct&gt; 1, 2, 1, 2, 1, NA, 1, 4, 2, 4, 1, 1, …
-## $ p30stin_a            &lt;fct&gt; 4, 4, 2, 2, 4, 4, 1, 1, 2, 1, 3, 4, 1…
-## $ p30inn_b             &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-## $ p30inn_c             &lt;fct&gt; 2, 1, 2, 3, 2, 1, 4, 3, 1, 1, 1, 4, 1…
-## $ p30inn_d             &lt;fct&gt; 4, 1, 1, 4, 2, 1, 2, 1, 1, 4, 1, 1, 1…
-## $ p30inn_e             &lt;fct&gt; 4, 1, 3, 4, 2, 4, 2, 4, 2, 4, 1, 3, 4…
-## $ p30inn_f             &lt;fct&gt; 2, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 2…
-## $ p31inn_a             &lt;fct&gt; 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1…
-## $ p31inn_b             &lt;fct&gt; 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0…
-## $ p31inn_c             &lt;fct&gt; 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0…
-## $ p31inn_d             &lt;fct&gt; 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0…
-## $ p31inn_e             &lt;fct&gt; 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0…
-## $ p31inn_f             &lt;fct&gt; 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0…
-## $ p31inn_1             &lt;fct&gt; 3, 1, 1, 3, 2, 2, 2, 4, 1, 1, 6, NA, …
-## $ p31inn_2             &lt;fct&gt; 6, 3, 3, NA, 3, NA, 3, NA, 2, 3, NA, …
-## $ p31inn_3             &lt;fct&gt; NA, 4, 6, NA, 4, NA, 4, NA, 3, NA, NA…
-## $ p31inn_4             &lt;fct&gt; NA, 5, NA, NA, 5, NA, 5, NA, 4, NA, N…
-## $ p31inn_5             &lt;fct&gt; NA, 6, NA, NA, 6, NA, 6, NA, NA, NA, …
-## $ p31inn_6             &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-## $ p32inn               &lt;fct&gt; 1, 1, 1, 3, 2, 2, 1, 2, 3, 2, 3, 2, 3…
-## $ p33n_a               &lt;fct&gt; 3, 2, 2, 3, 2, 4, 2, 2, 2, 3, 2, 1, 2…
-## $ p33st_b              &lt;fct&gt; 3, 3, 4, 4, 2, 1, 3, 4, 3, 1, 4, 4, 3…
-## $ p33n_c               &lt;fct&gt; 2, 2, 4, 3, 2, 4, 3, 4, 3, 4, 4, 1, 3…
-## $ p33n_d               &lt;fct&gt; 2, 1, 1, 2, 2, 4, 2, 4, 2, 3, 1, 4, 1…
-## $ p34wvsna             &lt;fct&gt; 2, 1, 2, 3, 2, 2, 3, 1, 1, 2, 1, 2, 4…
-## $ p34wvsnb             &lt;fct&gt; 3, 3, 1, 4, 1, 3, 1, 2, 3, 1, 2, 3, 2…
-## $ p35na                &lt;fct&gt; 2, 4, 4, 4, 4, 4, 4, 1, 1, 4, 2, 2, 4…
-## $ p35nb                &lt;fct&gt; 4, 1, 2, 3, 2, 3, 2, 4, 3, 1, 4, 4, 3…
-## $ p36st                &lt;fct&gt; 2, 1, 1, 2, 1, 1, 1, 2, 2, 2, 1, 2, 1…
-## $ p37csn_a             &lt;fct&gt; 1, 4, 1, 2, 1, 1, 4, 4, 3, 4, 1, 1, 1…
-## $ p37csn_b             &lt;fct&gt; 1, 4, 1, 2, 2, 1, 4, 4, 4, 4, 1, 4, 1…
-## $ p37stcs_c            &lt;fct&gt; 4, 4, 4, 1, 2, 4, 1, 1, 4, 4, 4, 4, 4…
-## $ p37wvsstcs_d         &lt;fct&gt; 2, 4, 4, 4, 2, 4, 2, 1, 4, 4, 4, 1, 4…
-## $ p37stcs_e            &lt;fct&gt; 4, 4, 2, 2, 2, 4, 3, 2, 4, 4, 3, 4, 4…
-## $ p37csn_f             &lt;fct&gt; 4, 4, 1, 1, 2, 1, 4, 1, 4, 4, 1, 4, 1…
-## $ p37wvscs_g           &lt;fct&gt; 4, 4, 4, 4, 2, 4, 2, 1, 4, 4, 4, 4, 4…
-## $ p37wvscs_h           &lt;fct&gt; 1, 4, 1, 3, 2, 1, 4, 4, 4, 4, 1, 1, 1…
-## $ p38csn_a             &lt;fct&gt; 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1…
-## $ p38csn_b             &lt;fct&gt; 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0…
-## $ p38csn_c             &lt;fct&gt; 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0…
-## $ p38csn_d             &lt;fct&gt; 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0…
-## $ p38csn_e             &lt;fct&gt; 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0…
-## $ p38csn_f             &lt;fct&gt; 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0…
-## $ p38csn_g             &lt;fct&gt; 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0…
-## $ p39n                 &lt;fct&gt; 2, 2, 3, 2, 1, 2, 2, 1, 2, 1, 3, 2, 3…
-## $ p40stgbs             &lt;fct&gt; 1, 4, 2, 1, 3, 3, 1, 4, 3, 2, 1, 3, 3…
-## $ p41st_a              &lt;fct&gt; 2, 3, 2, 1, 1, 3, 3, 1, 4, 1, 1, 3, 2…
-## $ p41st_b              &lt;fct&gt; 2, 3, 2, 1, 3, 3, 4, 1, 3, 1, 3, 3, 2…
-## $ p41st_c              &lt;fct&gt; 3, 4, 3, 3, 1, 3, 3, 1, 3, 1, 3, 4, 2…
-## $ p41st_d              &lt;fct&gt; 3, 3, 2, 2, 3, 3, 3, 1, 3, 2, 1, NA, …
-## $ p41st_e              &lt;fct&gt; 4, 4, 3, 3, 2, 3, 4, 1, 4, 3, 3, 4, 4…
-## $ p41st_f              &lt;fct&gt; 2, 3, 2, 1, 3, 3, 3, 1, 4, 1, 4, NA, …
-## $ p41st_g              &lt;fct&gt; 2, 3, 3, 3, 1, 3, 3, 1, NA, 1, 3, NA,…
-## $ p41st_h              &lt;fct&gt; 1, 3, 3, 1, 3, 3, 4, 1, 3, 1, 3, NA, …
-## $ p41st_i              &lt;fct&gt; 1, 1, 3, 1, 1, 3, 4, 1, 2, 1, 1, 4, 2…
-## $ p41st_j              &lt;fct&gt; 3, 4, 3, 4, 3, 3, 4, 1, 4, 1, 3, 4, 3…
-## $ p41st_k              &lt;fct&gt; 3, 4, 2, 2, 1, 3, 3, 1, 3, 1, 3, 3, 3…
-## $ p41st_l              &lt;fct&gt; 2, 3, 3, 3, 1, 3, 4, 1, 4, 1, 4, 4, 2…
-## $ p41st_m              &lt;fct&gt; 3, 3, 2, 2, 3, 3, 3, 1, 3, 1, 3, 3, 2…
-## $ p42stgbs             &lt;fct&gt; 1, 2, 2, 1, 2, 2, 1, 2, 2, 1, 2, NA, …
-## $ p43stgbs_a           &lt;fct&gt; 76001, 76001, 76021, 76038, 76014, 76…
-## $ p43stgbs_b           &lt;fct&gt; 1, 1, 2, NA, 1, 1, 2, 1, 2, 1, 1, 1, …
-## $ p44st_a              &lt;fct&gt; 1, 4, 2, 1, 2, 4, 2, 4, 4, 1, 1, 4, 2…
-## $ p44st_b              &lt;fct&gt; 2, 2, 2, 4, 1, 2, 4, 4, 4, 1, 4, NA, …
-## $ p44st_c              &lt;fct&gt; 1, 4, 3, 1, 2, 4, 2, 4, 4, 1, 4, 2, 4…
-## $ p44st_d              &lt;fct&gt; 2, 4, 3, 1, 4, 4, 4, 4, 4, 1, 4, NA, …
-## $ p45st_a              &lt;fct&gt; 2, 3, 2, 2, 1, 2, 2, 3, 2, 1, 1, 1, 2…
-## $ p45s_b               &lt;fct&gt; 2, 3, 2, 2, 1, 2, 2, 3, 3, 1, 3, 3, 2…
-## $ p45st_c              &lt;fct&gt; 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3…
-## $ p45stn_d             &lt;fct&gt; 1, 3, 2, 3, 1, 3, 2, 3, 3, 1, 3, 3, 2…
-## $ p46n                 &lt;fct&gt; 2, 2, 2, 2, 1, 2, 1, 2, 2, 1, 2, NA, …
-## $ p47st                &lt;fct&gt; 2, 1, 2, 5, 1, 5, 2, 1, 1, 1, 2, 5, 2…
-## $ p48st                &lt;fct&gt; 2, 1, 1, 2, 2, 2, 2, 1, 2, 1, 1, 2, N…
-## $ p49st                &lt;fct&gt; 1, 1, 1, 2, 2, 1, 1, 2, 1, 1, 1, 2, 1…
-## $ p50st                &lt;fct&gt; 1, 5, 3, 4, 3, 5, 5, 5, 5, 4, 3, 5, 1…
-## $ p51n                 &lt;fct&gt; 1, 3, 1, 1, 1, 2, 1, 2, 3, 2, 3, 2, 2…
-## $ p52n                 &lt;fct&gt; 2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 1…
-## $ p53n_a               &lt;fct&gt; 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1…
-## $ p53n_b               &lt;fct&gt; 2, 1, 2, 1, 1, 2, 1, 1, 1, 2, 2, 1, 3…
-## $ p53n_c               &lt;fct&gt; 2, 3, 3, 1, 1, 2, 3, 1, 3, 2, 2, 1, 1…
-## $ p53n_d               &lt;fct&gt; 1, 1, 3, 1, 1, 2, 1, 1, 1, 2, 2, 1, 1…
-## $ p54n_a               &lt;fct&gt; 2, 3, 2, 3, 1, 4, 2, 3, 3, 1, 2, 4, 2…
-## $ p54st_b              &lt;fct&gt; 2, 2, 4, 2, 1, 2, 2, 1, 2, 2, 2, 1, 2…
-## $ p55n                 &lt;fct&gt; 3, 1, 4, 3, 2, 5, 2, 5, 3, 2, 4, 1, 4…
-## $ p56n_a               &lt;fct&gt; 3, 4, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2…
-## $ p56n_b               &lt;fct&gt; 4, 4, 2, 3, 1, 2, 1, 1, 2, 2, 2, 1, 2…
-## $ p56n_c               &lt;fct&gt; 3, 4, 1, 1, 1, 1, 3, 1, 1, 1, 2, 1, 2…
-## $ p56n_d               &lt;fct&gt; 2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2…
-## $ p57st_a              &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0…
-## $ p57st_b              &lt;fct&gt; 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0…
-## $ p57st_c              &lt;fct&gt; 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0…
-## $ p57st_d              &lt;fct&gt; 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0…
-## $ p57st_e              &lt;fct&gt; 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0…
-## $ p57st_f              &lt;fct&gt; 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0…
-## $ p57st_g              &lt;fct&gt; 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0…
-## $ p57st_h              &lt;fct&gt; 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1…
-## $ p58st                &lt;fct&gt; 4, 4, 4, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4…
-## $ p59st                &lt;fct&gt; 1, 1, 2, 1, 1, 1, 1, 4, 1, 1, 3, 1, 3…
-## $ p60st                &lt;fct&gt; 4, 3, 3, 3, 3, 4, 1, 3, 3, 1, 2, 4, 4…
-## $ p61st                &lt;fct&gt; 10, 8, 4, 10, 8, 1, 1, 8, 1, 8, 1, 1,…
-## $ p62n_1               &lt;fct&gt; 5, 7, 96, 0, 8, 96, 96, 0, 96, 7, 5, …
-## $ p62st_2              &lt;fct&gt; 4, 96, 96, 0, 8, 96, 96, 10, 96, 3, 9…
-## $ p62st_3              &lt;fct&gt; 96, 96, 96, 0, 8, 96, 96, 0, 96, 4, 5…
-## $ p62st_4              &lt;fct&gt; 2, 0, 5, 6, 7, 0, 8, 8, 1, 8, 0, 0, 0…
-## $ p62st_5              &lt;fct&gt; 0, 0, 96, 0, 6, 96, 0, 0, 1, 8, 0, 96…
-## $ p62n_6               &lt;fct&gt; 96, 96, 96, 0, 7, 96, 96, 0, 96, 8, 9…
-## $ p62st_7              &lt;fct&gt; 9, 10, 96, 10, 10, 8, 0, 0, 8, 4, 9, …
-## $ p62st_8              &lt;fct&gt; 7, 96, 96, 0, 8, NA, 0, 0, 96, 4, 9, …
-## $ p62n_9               &lt;fct&gt; 0, 96, 96, 1, 8, 96, 96, 0, 96, 8, 5,…
-## $ p62st_10             &lt;fct&gt; 5, 5, 8, 0, 8, 96, 1, 0, 5, 7, 0, 0, …
-## $ p62st_11             &lt;fct&gt; 96, 96, 96, 0, 8, 96, 96, 0, 96, 5, N…
-## $ p62n_12              &lt;fct&gt; 3, 96, 96, 0, 8, 96, 0, 0, 4, 8, 0, 9…
-## $ p62n_13              &lt;fct&gt; 96, 96, 96, 0, 8, 96, 96, 0, 96, 4, 5…
-## $ p62n_14              &lt;fct&gt; 5, 4, 3, 2, 8, 96, 1, 0, NA, 8, 7, 96…
-## $ p62n_15              &lt;fct&gt; 3, 2, 96, 0, 8, 96, 5, 0, 96, 8, 2, 9…
-## $ p62n_16              &lt;fct&gt; 9, 10, 6, 10, 7, 5, 0, 10, 0, 8, 7, 1…
-## $ p62n_17              &lt;fct&gt; 8, 9, 3, 5, 8, 96, 1, 0, 96, 8, 1, 8,…
-## $ p63st                &lt;fct&gt; 4, 4, 2, 4, 3, 3, 3, 1, 3, 3, 3, NA, …
-## $ s1                   &lt;fct&gt; 2, 2, 1, 1, 1, 1, 2, 1, 2, 5, 96, 1, …
-## $ s1a                  &lt;fct&gt; 3, 3, 3, 3, 2, 3, 2, 1, 2, 2, 2, 2, 2…
-## $ s2                   &lt;fct&gt; 4, 3, 4, 4, 3, 4, 5, 3, 4, 3, 3, 5, 4…
-## $ s3                   &lt;fct&gt; 1, 1, 1, 1, 4, 1, 2, 1, 1, 3, 1, 3, 1…
-## $ s4                   &lt;fct&gt; 5, 5, 5, 1, 5, 3, 5, 5, 5, 5, 4, 5, 5…
-## $ s5                   &lt;fct&gt; 3, 2, 1, 1, 4, 2, 4, 2, 3, 1, 1, 4, 1…
-## $ s6                   &lt;fct&gt; 1, 1, 4, 2, 2, 2, 3, 1, 4, 1, 4, 1, 1…
-## $ s7                   &lt;fct&gt; 4, 6, 6, 6, 4, 6, 6, 6, 6, 6, 4, 6, 6…
-## $ s8                   &lt;fct&gt; 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2…
-## $ s9                   &lt;fct&gt; 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2…
-## $ s10                  &lt;dbl&gt; 18, 12, 18, 22, 19, 20, 22, 12, 18, 3…
-## $ s11                  &lt;fct&gt; 11, 7, 13, 13, 12, 13, 8, 5, 13, 13, …
-## $ s12                  &lt;fct&gt; 5, 2, 15, 9, 9, 5, 5, 1, 13, 4, 9, 1,…
-## $ s13inn_a_a           &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-## $ s13inn_a_b           &lt;fct&gt; 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0…
-## $ s13inn_a_c           &lt;fct&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0…
-## $ s13inn_a_d           &lt;fct&gt; 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1…
-## $ s13inn_a_1           &lt;fct&gt; 4, 4, 2, 2, 4, 4, 4, 4, 2, 2, 3, 4, 4…
-## $ s13inn_a_2           &lt;dbl&gt; 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-## $ s13inn_a_3           &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-## $ s14m_a               &lt;fct&gt; 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0…
-## $ s14m_b               &lt;fct&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-## $ s14m_c               &lt;fct&gt; 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0…
-## $ s14m_d               &lt;fct&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-## $ s14m_e               &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0…
-## $ s14m_f               &lt;fct&gt; 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1…
-## $ s14m_g               &lt;fct&gt; 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0…
-## $ s14m_h               &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-## $ s14m_i               &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-## $ s14m_j               &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0…
-## $ s15_a                &lt;fct&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
-## $ s15_b                &lt;fct&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
-## $ s16                  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1…
-## $ s17                  &lt;date&gt; 1965-11-30, 1985-10-01, 2004-07-23, …
-## $ s18_a                &lt;fct&gt; 4, 4, 4, 1, 4, 3, 4, 5, 4, 6, 1, 5, 6…
-## $ s18_b                &lt;fct&gt; 8, 3, 8, NA, 4, NA, 8, 8, 8, NA, NA, …
-## $ s19                  &lt;fct&gt; NA, NA, NA, 2, NA, 8, NA, NA, NA, NA,…
-## $ s20_a                &lt;fct&gt; 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1…
-## $ s20_b                &lt;fct&gt; 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2…
-## $ s20_c                &lt;fct&gt; 2, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2…
-## $ s20_d                &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-## $ s20_e                &lt;fct&gt; 2, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 2…
-## $ s20_f                &lt;fct&gt; 2, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 2…
-## $ s20_g                &lt;fct&gt; 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2…
-## $ s20_h                &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-## $ s20_i                &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1…
-## $ s20_j                &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1…
-## $ s20_k                &lt;fct&gt; 2, 2, 1, 1, 2, 1, 2, 1, 2, 2, 1, 2, 2…
-## $ s21a                 &lt;dbl&gt; 21, NA, 26, NA, NA, NA, NA, NA, NA, N…
-## $ s21b                 &lt;fct&gt; 15, 5, 15, NA, NA, NA, NA, NA, NA, NA…
-## $ s22_a                &lt;fct&gt; 1, 1, 3, NA, NA, NA, NA, NA, NA, NA, …
-## $ s22_b                &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-## $ s23                  &lt;fct&gt; 1, 4, 1, NA, NA, NA, NA, NA, NA, NA, …
-## $ s24                  &lt;fct&gt; 3, 2, 3, 2, 3, 3, 3, 2, 2, 3, 2, 2, 4…
-## $ reeeduc_1            &lt;fct&gt; 4, 2, 6, 6, 5, 6, 2, 2, 6, 6, 5, 2, 6…
-## $ reeduc_2             &lt;fct&gt; 2, 2, 7, 3, 3, 2, 2, 1, 6, 2, 3, 1, 2…
-## $ reeduc_3             &lt;fct&gt; 7, 2, 7, NA, NA, NA, NA, NA, NA, NA, …
-## $ reedad               &lt;fct&gt; 3, 2, 1, 3, 3, 2, 3, 4, 2, 3, 2, 4, 1…
-## $ perpart              &lt;fct&gt; 1, 1, 2, 3, 1, 1, 2, 1, 2, 1, 1, 1, 1…
-## $ fampart              &lt;fct&gt; 30, 30, 40, 20, 20, 30, 40, 30, 30, 3…
-## $ wt                   &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-## $ data_base            &lt;date&gt; 2023-03-03, 2023-03-03, 2023-03-03, …
-## $ idade                &lt;int&gt; 4949181, 3235309, 1609495, 4144420, 4…
-## $ econ_12_meses        &lt;fct&gt; other, other, better, better, other, …
-## $ aprovacao_presidente &lt;int&gt; 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1…
-## $ ideologia            &lt;int&gt; 6, 7, 7, 6, 7, 6, 11, 11, 6, 9, 6, 8,…
-## $ votaria_governo      &lt;dbl&gt; 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1…
-## $ genero               &lt;fct&gt; mulher, mulher, mulher, homem, homem,…
-## $ evangelico           &lt;dbl&gt; 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0…</code></pre>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="regressao-multipla.html#cb251-1" tabindex="-1"></a>reg_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses <span class="sc">+</span> evangelico, <span class="at">data=</span>br_latbar_23 )</span>
-<span id="cb251-2"><a href="regressao-multipla.html#cb251-2" tabindex="-1"></a><span class="fu">summary</span>(reg_full)</span></code></pre></div>
+## $ numinves             &lt;fct&gt; 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23,…
+## $ idenpa               &lt;fct&gt; 76, 76, 76, 76, 76, 76, 76, 76, 76, 76, 76, 76,…
+## $ numentre             &lt;dbl&gt; 372, 373, 1100, 351, 15, 1101, 375, 953, 848, 3…
+## $ reg                  &lt;fct&gt; 76002, 76002, 76004, 76002, 76001, 76004, 76002…
+## $ ciudad               &lt;fct&gt; 76002020, 76002020, 76004129, 76002192, 7600101…
+## $ tamciud              &lt;fct&gt; 7, 7, 4, 6, 8, 4, 7, 7, 7, 6, 7, 8, 4, 4, 6, 7,…
+## $ comdist              &lt;dbl&gt; 35, 35, 102, 34, 3, 102, 35, 89, 80, 34, 80, 66…
+## $ edad                 &lt;dbl&gt; 57, 37, 18, 47, 47, 33, 47, 65, 26, 55, 35, 72,…
+## $ sexo                 &lt;fct&gt; 2, 2, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 2, 2, 2, 1,…
+## $ codigo               &lt;dbl&gt; 80, 80, 9, 78, 20, 9, 80, 53, 44, 78, 44, 40, 2…
+## $ diareal              &lt;fct&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,…
+## $ mesreal              &lt;fct&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,…
+## $ ini                  &lt;dbl&gt; 757, 905, 913, 909, 946, 1002, 1046, 1010, 1053…
+## $ fin                  &lt;dbl&gt; 859, 946, 956, 1002, 1035, 1042, 1123, 1059, 11…
+## $ dura                 &lt;dbl&gt; 62, 41, 43, 53, 49, 40, 37, 49, 49, 65, 38, 59,…
+## $ totrevi              &lt;dbl&gt; 4, 3, 6, 3, 0, 1, 6, 0, 1, 1, 0, 0, 0, 2, 0, 7,…
+## $ totcuot              &lt;dbl&gt; 99, 0, 0, 99, 0, 0, 99, 0, 0, 99, 0, 0, 0, 99, …
+## $ totrech              &lt;dbl&gt; 5, 0, 0, 2, 0, 1, 2, 0, 0, 6, 2, 3, 1, 1, 1, 3,…
+## $ totperd              &lt;dbl&gt; 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0,…
+## $ numcasa              &lt;dbl&gt; 6, 1, 1, 3, 1, 2, 3, 1, 1, 7, 3, 4, 2, 2, 2, 4,…
+## $ codsuper             &lt;dbl&gt; 2, 2, 13, 2, 1, 13, 2, 11, 10, 2, 10, 10, 4, 4,…
+## $ supervvi             &lt;fct&gt; 2, 1, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2,…
+## $ superven             &lt;fct&gt; 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 2, 1, 1, 0,…
+## $ codif                &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ digit                &lt;dbl&gt; 80, 80, 9, 78, 20, 9, 80, 53, 44, 78, 44, 40, 2…
+## $ p1st                 &lt;fct&gt; 4, 3, 2, 2, 2, 2, 3, 1, 2, 2, 2, 3, 2, 2, 1, 1,…
+## $ p2st                 &lt;fct&gt; 1, 2, 2, 3, 2, 3, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2,…
+## $ p3n                  &lt;fct&gt; 4, 4, 2, 2, 3, 3, 2, 3, 2, 4, 3, 2, 3, 3, 2, 3,…
+## $ p4stgbs              &lt;fct&gt; 16, 16, 36, 16, 5, 4, 9, NA, 16, 9, 26, 16, 16,…
+## $ p5stgbs              &lt;fct&gt; 5, 4, 3, 4, 3, 5, 4, 2, 4, 3, 3, 3, 5, 3, 4, 4,…
+## $ p6stgbs              &lt;fct&gt; 3, 3, 2, 2, 3, 3, 3, 3, 3, 2, 2, 3, 2, 2, 2, 3,…
+## $ p7st                 &lt;fct&gt; 1, 2, 2, 1, 2, 3, 5, 2, 5, 4, 2, 3, 2, 2, 2, 4,…
+## $ p8stgbs              &lt;fct&gt; 1, 2, 3, 1, 2, 3, 2, 1, 3, 1, 2, NA, 2, 2, 2, 3…
+## $ p9stgbs              &lt;fct&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2,…
+## $ p10stgbs             &lt;fct&gt; 1, 3, 1, 1, 3, 3, 1, 3, NA, 1, 1, NA, 3, NA, 1,…
+## $ p11stgbs_a           &lt;fct&gt; 2, 3, 3, 3, 3, 4, 4, 3, NA, 3, 2, 3, 3, 3, 2, 3…
+## $ p11stgbs_b           &lt;fct&gt; 3, 4, 3, 3, 3, 4, 3, NA, 4, 4, 2, 3, 3, 3, 3, 3…
+## $ p12st                &lt;dbl&gt; 2, 2, 1, 2, 1, 1, 1, 2, NA, 1, 2, 2, 2, 2, 1, 1…
+## $ p13stgbs_a           &lt;fct&gt; 3, 3, 2, 1, 1, 4, 1, 1, 1, 2, 3, 3, 4, 3, 2, 2,…
+## $ p13stgbs_b           &lt;fct&gt; 2, 3, 1, 1, 1, 1, 3, 1, 1, 1, 2, 3, 3, 1, 2, 2,…
+## $ p13st_c              &lt;fct&gt; 2, 3, 3, 1, 1, 3, 1, 1, 1, 1, 4, 1, 1, 3, 4, 2,…
+## $ p13st_d              &lt;fct&gt; 1, 3, 3, 2, 1, 4, 3, 2, 2, 2, 1, 3, 3, NA, 3, 3…
+## $ p13st_e              &lt;fct&gt; 1, 3, 3, 1, 3, 4, 4, 1, 2, 3, 3, 2, 3, 3, 2, 3,…
+## $ p13st_f              &lt;fct&gt; 1, 3, 3, 1, 1, 4, 4, 1, 3, 4, 1, 3, 2, 3, 1, 2,…
+## $ p13st_g              &lt;fct&gt; 2, 4, 3, 2, 3, 4, 3, 4, 3, 3, 2, 3, 4, NA, 3, 3…
+## $ p13st_h              &lt;fct&gt; 1, 3, 3, 1, 1, 4, 4, 1, 2, 4, 1, 3, 1, NA, 2, 2…
+## $ p13st_i              &lt;fct&gt; 1, 3, 3, 1, 3, 3, 4, 1, 3, 3, 1, 1, 1, 3, 2, 3,…
+## $ p14st_a              &lt;fct&gt; 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1,…
+## $ p14st_b              &lt;fct&gt; 2, 3, 2, 2, 1, 3, 3, 1, 2, 2, 2, 4, 3, 3, 4, 2,…
+## $ p14st_c              &lt;fct&gt; 2, 4, 3, 2, 3, 3, 4, 4, 2, 2, 4, 4, 3, 3, 2, 2,…
+## $ p14st_d              &lt;fct&gt; 1, 4, 2, 2, 3, 3, 4, 1, 3, 4, 4, 3, 2, 2, 3, 2,…
+## $ p14st_e              &lt;fct&gt; 2, 4, 2, 2, 3, 3, 3, 1, 3, 4, 2, NA, 4, 3, 2, 2…
+## $ p14st_f              &lt;fct&gt; 2, 3, 1, 2, 1, 2, 3, 1, 2, 3, 2, 4, 4, 3, 2, 2,…
+## $ p14st_g              &lt;fct&gt; 1, 4, 2, 2, 1, 3, 2, 1, 2, 3, 2, 3, 3, 1, 2, 2,…
+## $ p14st_h              &lt;fct&gt; 2, 3, 2, 2, 3, 2, 3, 1, 2, 3, 2, 4, 3, NA, 2, 2…
+## $ p14n_i               &lt;fct&gt; 3, 4, 2, 2, 3, 4, 3, 1, 3, 4, 4, 4, 4, 3, 4, 3,…
+## $ p15stgbs             &lt;fct&gt; 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2,…
+## $ p16st                &lt;fct&gt; 5, 6, 6, 5, 6, 5, 10, 10, 5, 8, 5, 7, 6, 10, 3,…
+## $ p17st                &lt;fct&gt; 3, 2, 3, 2, 1, 3, 4, 1, 4, 2, 3, 3, 4, 2, 4, 3,…
+## $ p18st_a              &lt;fct&gt; 1, 1, 2, 1, 1, 1, 1, 1, 3, 1, 1, 1, 2, 1, 1, 1,…
+## $ p18stm_b             &lt;fct&gt; 1, 4, 3, 3, 2, 2, 1, 1, 4, 4, 4, 1, 4, 1, 4, 4,…
+## $ p18stm_c             &lt;fct&gt; 3, 1, 3, 2, 2, 4, 4, 1, 4, 2, 4, 1, 2, 4, 4, 3,…
+## $ p18n_d               &lt;fct&gt; 2, 2, 2, 2, 2, 4, 1, 4, 2, 1, 2, 4, 2, NA, 1, 1…
+## $ p18n_e               &lt;fct&gt; 3, 3, 2, 3, 2, 3, 1, 3, 2, 3, 1, 1, 3, NA, 1, 1…
+## $ p18n_f               &lt;fct&gt; 2, 4, 3, 3, 2, 4, 2, 4, 4, 2, 3, 4, 3, 1, 3, 3,…
+## $ p18n_g               &lt;fct&gt; 2, 1, 2, 2, 1, 1, 1, 4, 4, 1, 3, 1, 1, 1, 2, 2,…
+## $ p18n_h               &lt;fct&gt; 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 3, 1, 1, 4, 1, 2,…
+## $ p18st_i              &lt;fct&gt; 2, 1, 2, 1, 1, 4, 2, 1, 4, 1, 1, 4, 3, 1, 1, 2,…
+## $ p19n                 &lt;fct&gt; 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 2, 1, 2, 2,…
+## $ p20stm               &lt;fct&gt; 1, 2, 1, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, NA, 2, 2…
+## $ p21st                &lt;fct&gt; 1, 2, 1, 2, 2, 2, 1, 1, 2, 1, 1, 2, 2, NA, 1, 1…
+## $ p22st                &lt;fct&gt; 1, 1, 6, 2, 7, 5, 1, 3, 1, 8, 8, 1, 3, 10, 2, 4…
+## $ p23st_a              &lt;fct&gt; 2, 2, 1, 1, 2, 2, 1, 4, 1, 1, 2, 2, 4, NA, 2, 2…
+## $ p23st_b              &lt;fct&gt; 3, 3, 2, 2, 3, 2, 2, 4, 3, 1, 2, 4, NA, 3, 3, 3…
+## $ p23st_c              &lt;fct&gt; 2, 3, 2, 2, 3, 2, 4, 4, 1, 3, 1, 4, 4, NA, 2, 3…
+## $ p23st_d              &lt;fct&gt; 2, 3, 2, 3, 2, 2, 2, 4, 2, 2, 2, 4, NA, NA, 2, …
+## $ p23st_e              &lt;fct&gt; 3, 3, 4, 2, 2, 2, 2, 4, 2, 4, 2, 4, 4, 3, 2, 2,…
+## $ p23st_f              &lt;fct&gt; 3, 3, 4, 3, 3, 3, 4, 4, 3, 3, 3, 4, 4, NA, 3, 4…
+## $ p24st_a              &lt;fct&gt; 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2,…
+## $ p24st_b              &lt;fct&gt; 3, 2, 2, 2, 2, 2, 2, 3, NA, 2, 2, 3, NA, 3, 3, …
+## $ p24st_c              &lt;fct&gt; 1, 2, 2, 1, 2, 2, 2, 3, 2, 3, 1, 3, 4, 2, 2, 2,…
+## $ p24st_d              &lt;fct&gt; 1, 2, 2, 2, 1, 2, 2, 3, NA, 3, 2, 3, 2, NA, 2, …
+## $ p24st_e              &lt;fct&gt; 2, 2, 3, 1, 3, 3, 4, 3, NA, 3, 3, 3, 3, NA, 2, …
+## $ p25n_a               &lt;fct&gt; 2, 2, 1, 1, 2, 2, 2, 3, 1, 2, 2, 2, 2, 2, 1, 3,…
+## $ p25n_b               &lt;fct&gt; 2, 2, 1, 2, 2, 2, 2, 3, 3, 1, 2, 3, 3, NA, 2, 2…
+## $ p25n_c               &lt;fct&gt; 1, 3, 1, 1, 2, 2, 2, 3, 1, 3, 1, 3, 4, NA, 2, 2…
+## $ p26sdn_a             &lt;fct&gt; 1, 3, 2, 1, 2, 1, 4, 4, 3, 4, 2, NA, 4, 3, 2, 2…
+## $ p26sdn_b             &lt;fct&gt; 3, 4, 1, 4, 3, 1, 1, 4, NA, 1, 4, 4, 1, 3, 1, 1…
+## $ p26sdn_c             &lt;fct&gt; 2, NA, 2, 3, 3, 1, 3, 4, 2, 3, 2, 4, 3, NA, 1, …
+## $ p26sdn_d             &lt;fct&gt; 1, 1, 3, 1, 1, 1, 3, 4, NA, 3, 1, 4, 4, NA, 2, …
+## $ p26sdn_e             &lt;fct&gt; 3, 3, 2, 1, 1, 1, 3, 4, 1, 3, 4, 3, 4, 3, 3, 4,…
+## $ p26sdn_f             &lt;fct&gt; 3, 3, 1, 1, 2, 1, 3, 4, 3, 3, 1, NA, 4, 3, 2, 3…
+## $ p27sdn               &lt;fct&gt; 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, NA, 1…
+## $ p28stin              &lt;fct&gt; 4, 1, 1, 2, 1, NA, 3, 3, NA, 1, 4, 3, 2, 2, 3, …
+## $ p29stin_a            &lt;fct&gt; 1, 2, 1, 2, 2, 1, 2, 4, 1, 3, 1, NA, 2, 2, 1, 1…
+## $ p29stin_b            &lt;fct&gt; 1, 2, 1, 2, 1, NA, 1, 4, 2, 4, 1, 1, 2, NA, 1, …
+## $ p30stin_a            &lt;fct&gt; 4, 4, 2, 2, 4, 4, 1, 1, 2, 1, 3, 4, 1, 4, 4, 2,…
+## $ p30inn_b             &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ p30inn_c             &lt;fct&gt; 2, 1, 2, 3, 2, 1, 4, 3, 1, 1, 1, 4, 1, NA, 2, 2…
+## $ p30inn_d             &lt;fct&gt; 4, 1, 1, 4, 2, 1, 2, 1, 1, 4, 1, 1, 1, 1, 1, 2,…
+## $ p30inn_e             &lt;fct&gt; 4, 1, 3, 4, 2, 4, 2, 4, 2, 4, 1, 3, 4, 1, 1, 2,…
+## $ p30inn_f             &lt;fct&gt; 2, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 2, 1, 2, 1,…
+## $ p31inn_a             &lt;fct&gt; 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1,…
+## $ p31inn_b             &lt;fct&gt; 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1,…
+## $ p31inn_c             &lt;fct&gt; 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1,…
+## $ p31inn_d             &lt;fct&gt; 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,…
+## $ p31inn_e             &lt;fct&gt; 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,…
+## $ p31inn_f             &lt;fct&gt; 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1,…
+## $ p31inn_1             &lt;fct&gt; 3, 1, 1, 3, 2, 2, 2, 4, 1, 1, 6, NA, 1, 3, 1, 1…
+## $ p31inn_2             &lt;fct&gt; 6, 3, 3, NA, 3, NA, 3, NA, 2, 3, NA, NA, NA, NA…
+## $ p31inn_3             &lt;fct&gt; NA, 4, 6, NA, 4, NA, 4, NA, 3, NA, NA, NA, NA, …
+## $ p31inn_4             &lt;fct&gt; NA, 5, NA, NA, 5, NA, 5, NA, 4, NA, NA, NA, NA,…
+## $ p31inn_5             &lt;fct&gt; NA, 6, NA, NA, 6, NA, 6, NA, NA, NA, NA, NA, NA…
+## $ p31inn_6             &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ p32inn               &lt;fct&gt; 1, 1, 1, 3, 2, 2, 1, 2, 3, 2, 3, 2, 3, NA, 1, 1…
+## $ p33n_a               &lt;fct&gt; 3, 2, 2, 3, 2, 4, 2, 2, 2, 3, 2, 1, 2, 1, 2, 2,…
+## $ p33st_b              &lt;fct&gt; 3, 3, 4, 4, 2, 1, 3, 4, 3, 1, 4, 4, 3, NA, 4, 2…
+## $ p33n_c               &lt;fct&gt; 2, 2, 4, 3, 2, 4, 3, 4, 3, 4, 4, 1, 3, 4, 4, 3,…
+## $ p33n_d               &lt;fct&gt; 2, 1, 1, 2, 2, 4, 2, 4, 2, 3, 1, 4, 1, 1, 1, 1,…
+## $ p34wvsna             &lt;fct&gt; 2, 1, 2, 3, 2, 2, 3, 1, 1, 2, 1, 2, 4, 4, 2, 2,…
+## $ p34wvsnb             &lt;fct&gt; 3, 3, 1, 4, 1, 3, 1, 2, 3, 1, 2, 3, 2, 2, 4, 1,…
+## $ p35na                &lt;fct&gt; 2, 4, 4, 4, 4, 4, 4, 1, 1, 4, 2, 2, 4, NA, 4, 2…
+## $ p35nb                &lt;fct&gt; 4, 1, 2, 3, 2, 3, 2, 4, 3, 1, 4, 4, 3, NA, 2, 4…
+## $ p36st                &lt;fct&gt; 2, 1, 1, 2, 1, 1, 1, 2, 2, 2, 1, 2, 1, NA, 1, 1…
+## $ p37csn_a             &lt;fct&gt; 1, 4, 1, 2, 1, 1, 4, 4, 3, 4, 1, 1, 1, 1, 1, 1,…
+## $ p37csn_b             &lt;fct&gt; 1, 4, 1, 2, 2, 1, 4, 4, 4, 4, 1, 4, 1, 1, 1, 1,…
+## $ p37stcs_c            &lt;fct&gt; 4, 4, 4, 1, 2, 4, 1, 1, 4, 4, 4, 4, 4, NA, 4, 3…
+## $ p37wvsstcs_d         &lt;fct&gt; 2, 4, 4, 4, 2, 4, 2, 1, 4, 4, 4, 1, 4, NA, 4, 4…
+## $ p37stcs_e            &lt;fct&gt; 4, 4, 2, 2, 2, 4, 3, 2, 4, 4, 3, 4, 4, 2, 2, 1,…
+## $ p37csn_f             &lt;fct&gt; 4, 4, 1, 1, 2, 1, 4, 1, 4, 4, 1, 4, 1, 1, 1, 1,…
+## $ p37wvscs_g           &lt;fct&gt; 4, 4, 4, 4, 2, 4, 2, 1, 4, 4, 4, 4, 4, 4, 4, 3,…
+## $ p37wvscs_h           &lt;fct&gt; 1, 4, 1, 3, 2, 1, 4, 4, 4, 4, 1, 1, 1, NA, 1, 1…
+## $ p38csn_a             &lt;fct&gt; 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0,…
+## $ p38csn_b             &lt;fct&gt; 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ p38csn_c             &lt;fct&gt; 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,…
+## $ p38csn_d             &lt;fct&gt; 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0,…
+## $ p38csn_e             &lt;fct&gt; 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1,…
+## $ p38csn_f             &lt;fct&gt; 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1,…
+## $ p38csn_g             &lt;fct&gt; 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0,…
+## $ p39n                 &lt;fct&gt; 2, 2, 3, 2, 1, 2, 2, 1, 2, 1, 3, 2, 3, 2, 3, 2,…
+## $ p40stgbs             &lt;fct&gt; 1, 4, 2, 1, 3, 3, 1, 4, 3, 2, 1, 3, 3, 3, 2, 3,…
+## $ p41st_a              &lt;fct&gt; 2, 3, 2, 1, 1, 3, 3, 1, 4, 1, 1, 3, 2, NA, 1, 2…
+## $ p41st_b              &lt;fct&gt; 2, 3, 2, 1, 3, 3, 4, 1, 3, 1, 3, 3, 2, 1, 1, 2,…
+## $ p41st_c              &lt;fct&gt; 3, 4, 3, 3, 1, 3, 3, 1, 3, 1, 3, 4, 2, 3, 3, 2,…
+## $ p41st_d              &lt;fct&gt; 3, 3, 2, 2, 3, 3, 3, 1, 3, 2, 1, NA, 2, 4, 2, 2…
+## $ p41st_e              &lt;fct&gt; 4, 4, 3, 3, 2, 3, 4, 1, 4, 3, 3, 4, 4, NA, 4, 3…
+## $ p41st_f              &lt;fct&gt; 2, 3, 2, 1, 3, 3, 3, 1, 4, 1, 4, NA, 2, 3, 3, 2…
+## $ p41st_g              &lt;fct&gt; 2, 3, 3, 3, 1, 3, 3, 1, NA, 1, 3, NA, 2, 1, 2, …
+## $ p41st_h              &lt;fct&gt; 1, 3, 3, 1, 3, 3, 4, 1, 3, 1, 3, NA, 2, 3, 2, 3…
+## $ p41st_i              &lt;fct&gt; 1, 1, 3, 1, 1, 3, 4, 1, 2, 1, 1, 4, 2, 3, 1, 2,…
+## $ p41st_j              &lt;fct&gt; 3, 4, 3, 4, 3, 3, 4, 1, 4, 1, 3, 4, 3, 3, 3, 3,…
+## $ p41st_k              &lt;fct&gt; 3, 4, 2, 2, 1, 3, 3, 1, 3, 1, 3, 3, 3, 1, 4, 2,…
+## $ p41st_l              &lt;fct&gt; 2, 3, 3, 3, 1, 3, 4, 1, 4, 1, 4, 4, 2, 1, 2, 2,…
+## $ p41st_m              &lt;fct&gt; 3, 3, 2, 2, 3, 3, 3, 1, 3, 1, 3, 3, 2, 3, 2, 3,…
+## $ p42stgbs             &lt;fct&gt; 1, 2, 2, 1, 2, 2, 1, 2, 2, 1, 2, NA, 2, 1, 2, 1…
+## $ p43stgbs_a           &lt;fct&gt; 76001, 76001, 76021, 76038, 76014, 76001, 76021…
+## $ p43stgbs_b           &lt;fct&gt; 1, 1, 2, NA, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2…
+## $ p44st_a              &lt;fct&gt; 1, 4, 2, 1, 2, 4, 2, 4, 4, 1, 1, 4, 2, 2, 2, 3,…
+## $ p44st_b              &lt;fct&gt; 2, 2, 2, 4, 1, 2, 4, 4, 4, 1, 4, NA, 4, 2, 2, 3…
+## $ p44st_c              &lt;fct&gt; 1, 4, 3, 1, 2, 4, 2, 4, 4, 1, 4, 2, 4, 4, 1, 3,…
+## $ p44st_d              &lt;fct&gt; 2, 4, 3, 1, 4, 4, 4, 4, 4, 1, 4, NA, 4, 4, 1, 4…
+## $ p45st_a              &lt;fct&gt; 2, 3, 2, 2, 1, 2, 2, 3, 2, 1, 1, 1, 2, 3, 1, 2,…
+## $ p45s_b               &lt;fct&gt; 2, 3, 2, 2, 1, 2, 2, 3, 3, 1, 3, 3, 2, 3, 2, 2,…
+## $ p45st_c              &lt;fct&gt; 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,…
+## $ p45stn_d             &lt;fct&gt; 1, 3, 2, 3, 1, 3, 2, 3, 3, 1, 3, 3, 2, 3, 2, 2,…
+## $ p46n                 &lt;fct&gt; 2, 2, 2, 2, 1, 2, 1, 2, 2, 1, 2, NA, 2, NA, 1, …
+## $ p47st                &lt;fct&gt; 2, 1, 2, 5, 1, 5, 2, 1, 1, 1, 2, 5, 2, 1, 1, 2,…
+## $ p48st                &lt;fct&gt; 2, 1, 1, 2, 2, 2, 2, 1, 2, 1, 1, 2, NA, 2, 1, 2…
+## $ p49st                &lt;fct&gt; 1, 1, 1, 2, 2, 1, 1, 2, 1, 1, 1, 2, 1, 2, 2, 1,…
+## $ p50st                &lt;fct&gt; 1, 5, 3, 4, 3, 5, 5, 5, 5, 4, 3, 5, 1, 3, 3, 3,…
+## $ p51n                 &lt;fct&gt; 1, 3, 1, 1, 1, 2, 1, 2, 3, 2, 3, 2, 2, 2, 1, 1,…
+## $ p52n                 &lt;fct&gt; 2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 1, 2, 1, 2,…
+## $ p53n_a               &lt;fct&gt; 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 2, 1,…
+## $ p53n_b               &lt;fct&gt; 2, 1, 2, 1, 1, 2, 1, 1, 1, 2, 2, 1, 3, NA, 2, 1…
+## $ p53n_c               &lt;fct&gt; 2, 3, 3, 1, 1, 2, 3, 1, 3, 2, 2, 1, 1, 3, 3, 2,…
+## $ p53n_d               &lt;fct&gt; 1, 1, 3, 1, 1, 2, 1, 1, 1, 2, 2, 1, 1, 3, 3, 2,…
+## $ p54n_a               &lt;fct&gt; 2, 3, 2, 3, 1, 4, 2, 3, 3, 1, 2, 4, 2, 1, 2, 2,…
+## $ p54st_b              &lt;fct&gt; 2, 2, 4, 2, 1, 2, 2, 1, 2, 2, 2, 1, 2, 1, 3, 2,…
+## $ p55n                 &lt;fct&gt; 3, 1, 4, 3, 2, 5, 2, 5, 3, 2, 4, 1, 4, 1, 5, 5,…
+## $ p56n_a               &lt;fct&gt; 3, 4, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 1, 2, 2,…
+## $ p56n_b               &lt;fct&gt; 4, 4, 2, 3, 1, 2, 1, 1, 2, 2, 2, 1, 2, 1, 3, 3,…
+## $ p56n_c               &lt;fct&gt; 3, 4, 1, 1, 1, 1, 3, 1, 1, 1, 2, 1, 2, 1, 1, 1,…
+## $ p56n_d               &lt;fct&gt; 2, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, NA, 1, 2…
+## $ p57st_a              &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1,…
+## $ p57st_b              &lt;fct&gt; 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0,…
+## $ p57st_c              &lt;fct&gt; 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0,…
+## $ p57st_d              &lt;fct&gt; 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1,…
+## $ p57st_e              &lt;fct&gt; 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0,…
+## $ p57st_f              &lt;fct&gt; 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0,…
+## $ p57st_g              &lt;fct&gt; 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ p57st_h              &lt;fct&gt; 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1,…
+## $ p58st                &lt;fct&gt; 4, 4, 4, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4,…
+## $ p59st                &lt;fct&gt; 1, 1, 2, 1, 1, 1, 1, 4, 1, 1, 3, 1, 3, 1, 3, 3,…
+## $ p60st                &lt;fct&gt; 4, 3, 3, 3, 3, 4, 1, 3, 3, 1, 2, 4, 4, 3, 4, 3,…
+## $ p61st                &lt;fct&gt; 10, 8, 4, 10, 8, 1, 1, 8, 1, 8, 1, 1, 3, 8, 1, …
+## $ p62n_1               &lt;fct&gt; 5, 7, 96, 0, 8, 96, 96, 0, 96, 7, 5, 96, 96, 96…
+## $ p62st_2              &lt;fct&gt; 4, 96, 96, 0, 8, 96, 96, 10, 96, 3, 96, 96, 96,…
+## $ p62st_3              &lt;fct&gt; 96, 96, 96, 0, 8, 96, 96, 0, 96, 4, 5, 96, 96, …
+## $ p62st_4              &lt;fct&gt; 2, 0, 5, 6, 7, 0, 8, 8, 1, 8, 0, 0, 0, 0, 2, 4,…
+## $ p62st_5              &lt;fct&gt; 0, 0, 96, 0, 6, 96, 0, 0, 1, 8, 0, 96, 0, NA, 9…
+## $ p62n_6               &lt;fct&gt; 96, 96, 96, 0, 7, 96, 96, 0, 96, 8, 96, 96, 96,…
+## $ p62st_7              &lt;fct&gt; 9, 10, 96, 10, 10, 8, 0, 0, 8, 4, 9, 10, 9, 10,…
+## $ p62st_8              &lt;fct&gt; 7, 96, 96, 0, 8, NA, 0, 0, 96, 4, 9, 96, 96, 10…
+## $ p62n_9               &lt;fct&gt; 0, 96, 96, 1, 8, 96, 96, 0, 96, 8, 5, 96, 96, 9…
+## $ p62st_10             &lt;fct&gt; 5, 5, 8, 0, 8, 96, 1, 0, 5, 7, 0, 0, 0, 96, 1, …
+## $ p62st_11             &lt;fct&gt; 96, 96, 96, 0, 8, 96, 96, 0, 96, 5, NA, 96, 96,…
+## $ p62n_12              &lt;fct&gt; 3, 96, 96, 0, 8, 96, 0, 0, 4, 8, 0, 96, 96, 96,…
+## $ p62n_13              &lt;fct&gt; 96, 96, 96, 0, 8, 96, 96, 0, 96, 4, 5, 96, 96, …
+## $ p62n_14              &lt;fct&gt; 5, 4, 3, 2, 8, 96, 1, 0, NA, 8, 7, 96, 96, 96, …
+## $ p62n_15              &lt;fct&gt; 3, 2, 96, 0, 8, 96, 5, 0, 96, 8, 2, 96, 96, NA,…
+## $ p62n_16              &lt;fct&gt; 9, 10, 6, 10, 7, 5, 0, 10, 0, 8, 7, 10, 10, 10,…
+## $ p62n_17              &lt;fct&gt; 8, 9, 3, 5, 8, 96, 1, 0, 96, 8, 1, 8, 96, 10, 5…
+## $ p63st                &lt;fct&gt; 4, 4, 2, 4, 3, 3, 3, 1, 3, 3, 3, NA, NA, NA, 3,…
+## $ s1                   &lt;fct&gt; 2, 2, 1, 1, 1, 1, 2, 1, 2, 5, 96, 1, 1, 1, 1, 1…
+## $ s1a                  &lt;fct&gt; 3, 3, 3, 3, 2, 3, 2, 1, 2, 2, 2, 2, 2, 1, 3, 3,…
+## $ s2                   &lt;fct&gt; 4, 3, 4, 4, 3, 4, 5, 3, 4, 3, 3, 5, 4, 3, 3, 3,…
+## $ s3                   &lt;fct&gt; 1, 1, 1, 1, 4, 1, 2, 1, 1, 3, 1, 3, 1, 1, 1, 4,…
+## $ s4                   &lt;fct&gt; 5, 5, 5, 1, 5, 3, 5, 5, 5, 5, 4, 5, 5, 4, 4, 5,…
+## $ s5                   &lt;fct&gt; 3, 2, 1, 1, 4, 2, 4, 2, 3, 1, 1, 4, 1, 2, 2, 1,…
+## $ s6                   &lt;fct&gt; 1, 1, 4, 2, 2, 2, 3, 1, 4, 1, 4, 1, 1, 1, 4, 4,…
+## $ s7                   &lt;fct&gt; 4, 6, 6, 6, 4, 6, 6, 6, 6, 6, 4, 6, 6, 5, 6, 4,…
+## $ s8                   &lt;fct&gt; 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2,…
+## $ s9                   &lt;fct&gt; 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2,…
+## $ s10                  &lt;dbl&gt; 18, 12, 18, 22, 19, 20, 22, 12, 18, 32, 17, 16,…
+## $ s11                  &lt;fct&gt; 11, 7, 13, 13, 12, 13, 8, 5, 13, 13, 12, 7, 13,…
+## $ s12                  &lt;fct&gt; 5, 2, 15, 9, 9, 5, 5, 1, 13, 4, 9, 1, 5, 1, 17,…
+## $ s13inn_a_a           &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ s13inn_a_b           &lt;fct&gt; 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1,…
+## $ s13inn_a_c           &lt;fct&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0,…
+## $ s13inn_a_d           &lt;fct&gt; 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0,…
+## $ s13inn_a_1           &lt;fct&gt; 4, 4, 2, 2, 4, 4, 4, 4, 2, 2, 3, 4, 4, 4, 3, 2,…
+## $ s13inn_a_2           &lt;dbl&gt; 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ s13inn_a_3           &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ s14m_a               &lt;fct&gt; 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1,…
+## $ s14m_b               &lt;fct&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ s14m_c               &lt;fct&gt; 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1,…
+## $ s14m_d               &lt;fct&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,…
+## $ s14m_e               &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1,…
+## $ s14m_f               &lt;fct&gt; 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1,…
+## $ s14m_g               &lt;fct&gt; 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ s14m_h               &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,…
+## $ s14m_i               &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ s14m_j               &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0,…
+## $ s15_a                &lt;fct&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,…
+## $ s15_b                &lt;fct&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,…
+## $ s16                  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1,…
+## $ s17                  &lt;date&gt; 1965-11-30, 1985-10-01, 2004-07-23, 1975-03-21…
+## $ s18_a                &lt;fct&gt; 4, 4, 4, 1, 4, 3, 4, 5, 4, 6, 1, 5, 6, 1, 3, 7,…
+## $ s18_b                &lt;fct&gt; 8, 3, 8, NA, 4, NA, 8, 8, 8, NA, NA, 8, NA, NA,…
+## $ s19                  &lt;fct&gt; NA, NA, NA, 2, NA, 8, NA, NA, NA, NA, 2, NA, NA…
+## $ s20_a                &lt;fct&gt; 2, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ s20_b                &lt;fct&gt; 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1,…
+## $ s20_c                &lt;fct&gt; 2, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1,…
+## $ s20_d                &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1,…
+## $ s20_e                &lt;fct&gt; 2, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 2, 2, 1, 1,…
+## $ s20_f                &lt;fct&gt; 2, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1, 1, 2, 2, 1, 1,…
+## $ s20_g                &lt;fct&gt; 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 2, 1, 1,…
+## $ s20_h                &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ s20_i                &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ s20_j                &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ s20_k                &lt;fct&gt; 2, 2, 1, 1, 2, 1, 2, 1, 2, 2, 1, 2, 2, 2, 1, 1,…
+## $ s21a                 &lt;dbl&gt; 21, NA, 26, NA, NA, NA, NA, NA, NA, NA, NA, 16,…
+## $ s21b                 &lt;fct&gt; 15, 5, 15, NA, NA, NA, NA, NA, NA, NA, NA, 4, 5…
+## $ s22_a                &lt;fct&gt; 1, 1, 3, NA, NA, NA, NA, NA, NA, NA, NA, 5, 5, …
+## $ s22_b                &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 8, …
+## $ s23                  &lt;fct&gt; 1, 4, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ s24                  &lt;fct&gt; 3, 2, 3, 2, 3, 3, 3, 2, 2, 3, 2, 2, 4, 3, 1, 1,…
+## $ reeeduc_1            &lt;fct&gt; 4, 2, 6, 6, 5, 6, 2, 2, 6, 6, 5, 2, 6, 1, 7, 6,…
+## $ reeduc_2             &lt;fct&gt; 2, 2, 7, 3, 3, 2, 2, 1, 6, 2, 3, 1, 2, 1, 7, 7,…
+## $ reeduc_3             &lt;fct&gt; 7, 2, 7, NA, NA, NA, NA, NA, NA, NA, NA, 2, 2, …
+## $ reedad               &lt;fct&gt; 3, 2, 1, 3, 3, 2, 3, 4, 2, 3, 2, 4, 1, 3, 2, 1,…
+## $ perpart              &lt;fct&gt; 1, 1, 2, 3, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2,…
+## $ fampart              &lt;fct&gt; 30, 30, 40, 20, 20, 30, 40, 30, 30, 30, 30, 30,…
+## $ wt                   &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ data_base            &lt;date&gt; 2023-03-03, 2023-03-03, 2023-03-03, 2023-03-03…
+## $ idade                &lt;int&gt; 4949181, 3235309, 1609495, 4144420, 4096621, 29…
+## $ econ_12_meses        &lt;fct&gt; other, other, better, better, other, other, oth…
+## $ aprovacao_presidente &lt;int&gt; 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2,…
+## $ ideologia            &lt;int&gt; 6, 7, 7, 6, 7, 6, 11, 11, 6, 9, 6, 8, 7, 11, 4,…
+## $ votaria_governo      &lt;dbl&gt; 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0,…
+## $ genero               &lt;fct&gt; mulher, mulher, mulher, homem, homem, mulher, h…
+## $ evangelico           &lt;dbl&gt; 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0,…</code></pre>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="regressao-multipla.html#cb256-1" tabindex="-1"></a>reg_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses <span class="sc">+</span> evangelico, <span class="at">data=</span>br_latbar_23 )</span>
+<span id="cb256-2"><a href="regressao-multipla.html#cb256-2" tabindex="-1"></a><span class="fu">summary</span>(reg_full)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = votaria_governo ~ ideologia + idade + genero + econ_12_meses + 
@@ -3913,10 +3731,10 @@ R^2_{y \sim x1|x2} = 1 - \frac{Var(y^{\perp x_1, x_2})}{Var(y^{\perp x_1})} = \l
 ##   (49 observations deleted due to missingness)
 ## Multiple R-squared:  0.2274, Adjusted R-squared:  0.2181 
 ## F-statistic: 24.55 on 5 and 417 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="regressao-multipla.html#cb253-1" tabindex="-1"></a>residuos_full <span class="ot">&lt;-</span> <span class="fu">resid</span>(reg_full)</span>
-<span id="cb253-2"><a href="regressao-multipla.html#cb253-2" tabindex="-1"></a></span>
-<span id="cb253-3"><a href="regressao-multipla.html#cb253-3" tabindex="-1"></a>reg_res_evan <span class="ot">&lt;-</span> <span class="fu">lm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses, <span class="at">data=</span>br_latbar_23 )</span>
-<span id="cb253-4"><a href="regressao-multipla.html#cb253-4" tabindex="-1"></a><span class="fu">summary</span>(reg_res_evan)</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="regressao-multipla.html#cb258-1" tabindex="-1"></a>residuos_full <span class="ot">&lt;-</span> <span class="fu">resid</span>(reg_full)</span>
+<span id="cb258-2"><a href="regressao-multipla.html#cb258-2" tabindex="-1"></a></span>
+<span id="cb258-3"><a href="regressao-multipla.html#cb258-3" tabindex="-1"></a>reg_res_evan <span class="ot">&lt;-</span> <span class="fu">lm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses, <span class="at">data=</span>br_latbar_23 )</span>
+<span id="cb258-4"><a href="regressao-multipla.html#cb258-4" tabindex="-1"></a><span class="fu">summary</span>(reg_res_evan)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = votaria_governo ~ ideologia + idade + genero + econ_12_meses, 
@@ -3940,27 +3758,27 @@ R^2_{y \sim x1|x2} = 1 - \frac{Var(y^{\perp x_1, x_2})}{Var(y^{\perp x_1})} = \l
 ##   (49 observations deleted due to missingness)
 ## Multiple R-squared:  0.2084, Adjusted R-squared:  0.2008 
 ## F-statistic: 27.51 on 4 and 418 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="regressao-multipla.html#cb255-1" tabindex="-1"></a>residuos_res_evan <span class="ot">&lt;-</span> <span class="fu">resid</span>(reg_res_evan)</span>
-<span id="cb255-2"><a href="regressao-multipla.html#cb255-2" tabindex="-1"></a></span>
-<span id="cb255-3"><a href="regressao-multipla.html#cb255-3" tabindex="-1"></a>partial_R2_evangelico <span class="ot">&lt;-</span> (<span class="fu">sum</span>(residuos_res_evan<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="fu">sum</span>(residuos_full<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span><span class="fu">sum</span>(residuos_res_evan<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb255-4"><a href="regressao-multipla.html#cb255-4" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico)</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="regressao-multipla.html#cb260-1" tabindex="-1"></a>residuos_res_evan <span class="ot">&lt;-</span> <span class="fu">resid</span>(reg_res_evan)</span>
+<span id="cb260-2"><a href="regressao-multipla.html#cb260-2" tabindex="-1"></a></span>
+<span id="cb260-3"><a href="regressao-multipla.html#cb260-3" tabindex="-1"></a>partial_R2_evangelico <span class="ot">&lt;-</span> (<span class="fu">sum</span>(residuos_res_evan<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="fu">sum</span>(residuos_full<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span><span class="fu">sum</span>(residuos_res_evan<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb260-4"><a href="regressao-multipla.html#cb260-4" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico)</span></code></pre></div>
 <pre><code>## [1] 0.02402629</code></pre>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="regressao-multipla.html#cb257-1" tabindex="-1"></a><span class="co"># alternative</span></span>
-<span id="cb257-2"><a href="regressao-multipla.html#cb257-2" tabindex="-1"></a>partial_R2_evangelico_alt <span class="ot">&lt;-</span>  <span class="dv">1</span> <span class="sc">-</span> <span class="fu">var</span>(<span class="fu">resid</span>(reg_full))<span class="sc">/</span><span class="fu">var</span>(<span class="fu">resid</span>(reg_res_evan))</span>
-<span id="cb257-3"><a href="regressao-multipla.html#cb257-3" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico_alt)</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="regressao-multipla.html#cb262-1" tabindex="-1"></a><span class="co"># alternative</span></span>
+<span id="cb262-2"><a href="regressao-multipla.html#cb262-2" tabindex="-1"></a>partial_R2_evangelico_alt <span class="ot">&lt;-</span>  <span class="dv">1</span> <span class="sc">-</span> <span class="fu">var</span>(<span class="fu">resid</span>(reg_full))<span class="sc">/</span><span class="fu">var</span>(<span class="fu">resid</span>(reg_res_evan))</span>
+<span id="cb262-3"><a href="regressao-multipla.html#cb262-3" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico_alt)</span></code></pre></div>
 <pre><code>## [1] 0.02402629</code></pre>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="regressao-multipla.html#cb259-1" tabindex="-1"></a><span class="co"># another alternative</span></span>
-<span id="cb259-2"><a href="regressao-multipla.html#cb259-2" tabindex="-1"></a>reg_evan <span class="ot">&lt;-</span> <span class="fu">lm</span>(evangelico <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses , <span class="at">data=</span>br_latbar_23)</span>
-<span id="cb259-3"><a href="regressao-multipla.html#cb259-3" tabindex="-1"></a></span>
-<span id="cb259-4"><a href="regressao-multipla.html#cb259-4" tabindex="-1"></a>partial_R2_evangelico_alt1 <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">resid</span>(reg_evan), <span class="fu">resid</span>(reg_res_evan))<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb259-5"><a href="regressao-multipla.html#cb259-5" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico_alt1)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="regressao-multipla.html#cb264-1" tabindex="-1"></a><span class="co"># another alternative</span></span>
+<span id="cb264-2"><a href="regressao-multipla.html#cb264-2" tabindex="-1"></a>reg_evan <span class="ot">&lt;-</span> <span class="fu">lm</span>(evangelico <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses , <span class="at">data=</span>br_latbar_23)</span>
+<span id="cb264-3"><a href="regressao-multipla.html#cb264-3" tabindex="-1"></a></span>
+<span id="cb264-4"><a href="regressao-multipla.html#cb264-4" tabindex="-1"></a>partial_R2_evangelico_alt1 <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">resid</span>(reg_evan), <span class="fu">resid</span>(reg_res_evan))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb264-5"><a href="regressao-multipla.html#cb264-5" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico_alt1)</span></code></pre></div>
 <pre><code>## [1] 0.02402629</code></pre>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="regressao-multipla.html#cb261-1" tabindex="-1"></a> <span class="do">## Cohen partial f2</span></span>
-<span id="cb261-2"><a href="regressao-multipla.html#cb261-2" tabindex="-1"></a>r_squared_full <span class="ot">&lt;-</span> <span class="fu">summary</span>(reg_full)<span class="sc">$</span>r.squared</span>
-<span id="cb261-3"><a href="regressao-multipla.html#cb261-3" tabindex="-1"></a>r_squared_res <span class="ot">&lt;-</span> <span class="fu">summary</span>(reg_res_evan)<span class="sc">$</span>r.squared</span>
-<span id="cb261-4"><a href="regressao-multipla.html#cb261-4" tabindex="-1"></a></span>
-<span id="cb261-5"><a href="regressao-multipla.html#cb261-5" tabindex="-1"></a>partial_f2 <span class="ot">&lt;-</span> (r_squared_full <span class="sc">-</span> r_squared_res)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>r_squared_full)</span>
-<span id="cb261-6"><a href="regressao-multipla.html#cb261-6" tabindex="-1"></a><span class="fu">print</span>(partial_f2)</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="regressao-multipla.html#cb266-1" tabindex="-1"></a> <span class="do">## Cohen partial f2</span></span>
+<span id="cb266-2"><a href="regressao-multipla.html#cb266-2" tabindex="-1"></a>r_squared_full <span class="ot">&lt;-</span> <span class="fu">summary</span>(reg_full)<span class="sc">$</span>r.squared</span>
+<span id="cb266-3"><a href="regressao-multipla.html#cb266-3" tabindex="-1"></a>r_squared_res <span class="ot">&lt;-</span> <span class="fu">summary</span>(reg_res_evan)<span class="sc">$</span>r.squared</span>
+<span id="cb266-4"><a href="regressao-multipla.html#cb266-4" tabindex="-1"></a></span>
+<span id="cb266-5"><a href="regressao-multipla.html#cb266-5" tabindex="-1"></a>partial_f2 <span class="ot">&lt;-</span> (r_squared_full <span class="sc">-</span> r_squared_res)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>r_squared_full)</span>
+<span id="cb266-6"><a href="regressao-multipla.html#cb266-6" tabindex="-1"></a><span class="fu">print</span>(partial_f2)</span></code></pre></div>
 <pre><code>## [1] 0.02461776</code></pre>
 <p>E agora podemos reescrever o viés de variável omitida em termos do R-quadrado parcial.</p>
 </div>
@@ -3995,21 +3813,21 @@ Em que $ hat{} = $</p>
 <li><p><span class="math inline">\(1 - R^2_{T \sim Z|X}\)</span> é o complemento do R-quadrado parcial de Z sobre T, após controlar para <span class="math inline">\(X\)</span>. Representa a variância não-explicada em <span class="math inline">\(T\)</span> por <span class="math inline">\(Z\)</span> após descontar a influência de <span class="math inline">\(X\)</span>.</p></li>
 </ol>
 <p>E os demais termos são os desvios-padrões dos resíduos da regressão restrita, sem a variável não-observada <span class="math inline">\(Z\)</span> e da regressão do tratamento em função dos controles. Em nosso exemplo, nós observamos a variável regilião evangélica, mas vamos supor que não é calcular o viés de variável omitida pela fórmula tradicional.</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="regressao-multipla.html#cb263-1" tabindex="-1"></a><span class="do">###</span></span>
-<span id="cb263-2"><a href="regressao-multipla.html#cb263-2" tabindex="-1"></a><span class="co"># tratamento é ideologia.</span></span>
-<span id="cb263-3"><a href="regressao-multipla.html#cb263-3" tabindex="-1"></a><span class="co"># omitida é religião</span></span>
-<span id="cb263-4"><a href="regressao-multipla.html#cb263-4" tabindex="-1"></a></span>
-<span id="cb263-5"><a href="regressao-multipla.html#cb263-5" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="fu">coef</span>(reg_full)[<span class="dv">6</span>]</span>
-<span id="cb263-6"><a href="regressao-multipla.html#cb263-6" tabindex="-1"></a>cov_x1x2 <span class="ot">&lt;-</span> <span class="fu">cov</span>(br_latbar_23<span class="sc">$</span>ideologia, br_latbar_23<span class="sc">$</span>evangelico)</span>
-<span id="cb263-7"><a href="regressao-multipla.html#cb263-7" tabindex="-1"></a>var_x1 <span class="ot">&lt;-</span> <span class="fu">var</span>(br_latbar_23<span class="sc">$</span>ideologia)</span>
-<span id="cb263-8"><a href="regressao-multipla.html#cb263-8" tabindex="-1"></a>vies <span class="ot">&lt;-</span> beta2<span class="sc">*</span>cov_x1x2<span class="sc">/</span>var_x1</span>
-<span id="cb263-9"><a href="regressao-multipla.html#cb263-9" tabindex="-1"></a><span class="fu">print</span>(vies)</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="regressao-multipla.html#cb268-1" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb268-2"><a href="regressao-multipla.html#cb268-2" tabindex="-1"></a><span class="co"># tratamento é ideologia.</span></span>
+<span id="cb268-3"><a href="regressao-multipla.html#cb268-3" tabindex="-1"></a><span class="co"># omitida é religião</span></span>
+<span id="cb268-4"><a href="regressao-multipla.html#cb268-4" tabindex="-1"></a></span>
+<span id="cb268-5"><a href="regressao-multipla.html#cb268-5" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="fu">coef</span>(reg_full)[<span class="dv">6</span>]</span>
+<span id="cb268-6"><a href="regressao-multipla.html#cb268-6" tabindex="-1"></a>cov_x1x2 <span class="ot">&lt;-</span> <span class="fu">cov</span>(br_latbar_23<span class="sc">$</span>ideologia, br_latbar_23<span class="sc">$</span>evangelico)</span>
+<span id="cb268-7"><a href="regressao-multipla.html#cb268-7" tabindex="-1"></a>var_x1 <span class="ot">&lt;-</span> <span class="fu">var</span>(br_latbar_23<span class="sc">$</span>ideologia)</span>
+<span id="cb268-8"><a href="regressao-multipla.html#cb268-8" tabindex="-1"></a>vies <span class="ot">&lt;-</span> beta2<span class="sc">*</span>cov_x1x2<span class="sc">/</span>var_x1</span>
+<span id="cb268-9"><a href="regressao-multipla.html#cb268-9" tabindex="-1"></a><span class="fu">print</span>(vies)</span></code></pre></div>
 <pre><code>##   evangelico 
 ## -0.002611602</code></pre>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="regressao-multipla.html#cb265-1" tabindex="-1"></a>coef_res_sem_vies <span class="ot">=</span> <span class="fu">coef</span>(reg_res_evan)[<span class="dv">2</span>] <span class="sc">-</span> vies</span>
-<span id="cb265-2"><a href="regressao-multipla.html#cb265-2" tabindex="-1"></a><span class="fu">all.equal</span>(coef_res_sem_vies, <span class="fu">coef</span>(reg_full)[<span class="dv">2</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="regressao-multipla.html#cb270-1" tabindex="-1"></a>coef_res_sem_vies <span class="ot">=</span> <span class="fu">coef</span>(reg_res_evan)[<span class="dv">2</span>] <span class="sc">-</span> vies</span>
+<span id="cb270-2"><a href="regressao-multipla.html#cb270-2" tabindex="-1"></a><span class="fu">all.equal</span>(coef_res_sem_vies, <span class="fu">coef</span>(reg_full)[<span class="dv">2</span>])</span></code></pre></div>
 <pre><code>## [1] &quot;Mean relative difference: 0.005018672&quot;</code></pre>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="regressao-multipla.html#cb267-1" tabindex="-1"></a>coef_res_sem_vies <span class="sc">-</span> <span class="fu">coef</span>(reg_full)[<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="regressao-multipla.html#cb272-1" tabindex="-1"></a>coef_res_sem_vies <span class="sc">-</span> <span class="fu">coef</span>(reg_full)[<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>##     ideologia 
 ## -0.0001947166</code></pre>
 <p>O que essa equação nos mostra é que o viés depende de quanto a variável omitida explica o tratamento e quanto o tratamento é explicado pela variável omitida. O que é bastante intuitivo. E para entender melhor essa equação, vale falar o viés de relativo, definido como a razão entre o viés estimado e o coeifciente do tratamento estimado.</p>
@@ -4017,16 +3835,16 @@ Em que $ hat{} = $</p>
 Viés relatrivo = \frac{\hat{&lt;viés&gt;}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim Z|T,X},  R^2_{D \sim Z|X)})}{t_-do_-tratamento \cdot \sqrt(df)}
 \]</span></p>
 <p>a parcela da variável resposta que o tratamento explica (medida pelo R-quadrado parcial do tratamento) dá uma medida da robustez da regressão à potenciais vieses de variável omitida. Uma intuição simples é que se o tratamento explicar 100% da variação, então não há, por definição, viés de variável omitida. Se explicar 95%, há muito pouco que um viés de variável omitida pode viesar as estimativas.</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="regressao-multipla.html#cb269-1" tabindex="-1"></a><span class="fu">library</span>(sensemakr)</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="regressao-multipla.html#cb274-1" tabindex="-1"></a><span class="fu">library</span>(sensemakr)</span></code></pre></div>
 <pre><code>## Warning: package &#39;sensemakr&#39; was built under R version 4.3.2</code></pre>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="regressao-multipla.html#cb271-1" tabindex="-1"></a><span class="co"># loads dataset</span></span>
-<span id="cb271-2"><a href="regressao-multipla.html#cb271-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;darfur&quot;</span>)</span>
-<span id="cb271-3"><a href="regressao-multipla.html#cb271-3" tabindex="-1"></a></span>
-<span id="cb271-4"><a href="regressao-multipla.html#cb271-4" tabindex="-1"></a><span class="co"># runs regression model</span></span>
-<span id="cb271-5"><a href="regressao-multipla.html#cb271-5" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(peacefactor <span class="sc">~</span> directlyharmed <span class="sc">+</span> age <span class="sc">+</span> farmer_dar <span class="sc">+</span> herder_dar <span class="sc">+</span></span>
-<span id="cb271-6"><a href="regressao-multipla.html#cb271-6" tabindex="-1"></a>                         pastvoted <span class="sc">+</span> hhsize_darfur <span class="sc">+</span> female <span class="sc">+</span> village, <span class="at">data =</span> darfur)</span>
-<span id="cb271-7"><a href="regressao-multipla.html#cb271-7" tabindex="-1"></a></span>
-<span id="cb271-8"><a href="regressao-multipla.html#cb271-8" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="regressao-multipla.html#cb276-1" tabindex="-1"></a><span class="co"># loads dataset</span></span>
+<span id="cb276-2"><a href="regressao-multipla.html#cb276-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;darfur&quot;</span>)</span>
+<span id="cb276-3"><a href="regressao-multipla.html#cb276-3" tabindex="-1"></a></span>
+<span id="cb276-4"><a href="regressao-multipla.html#cb276-4" tabindex="-1"></a><span class="co"># runs regression model</span></span>
+<span id="cb276-5"><a href="regressao-multipla.html#cb276-5" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(peacefactor <span class="sc">~</span> directlyharmed <span class="sc">+</span> age <span class="sc">+</span> farmer_dar <span class="sc">+</span> herder_dar <span class="sc">+</span></span>
+<span id="cb276-6"><a href="regressao-multipla.html#cb276-6" tabindex="-1"></a>                         pastvoted <span class="sc">+</span> hhsize_darfur <span class="sc">+</span> female <span class="sc">+</span> village, <span class="at">data =</span> darfur)</span>
+<span id="cb276-7"><a href="regressao-multipla.html#cb276-7" tabindex="-1"></a></span>
+<span id="cb276-8"><a href="regressao-multipla.html#cb276-8" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = peacefactor ~ directlyharmed + age + farmer_dar + 
@@ -4038,408 +3856,207 @@ Viés relatrivo = \frac{\hat{&lt;viés&gt;}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim
 ## -0.67487 -0.14712  0.00000  0.09857  0.90307 
 ## 
 ## Coefficients:
-##                              Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)                 1.0818918  0.3149160   3.435 0.000623
-## directlyharmed              0.0973158  0.0232565   4.184 3.18e-05
-## age                        -0.0020717  0.0008232  -2.517 0.012044
-## farmer_dar                 -0.0404429  0.0292449  -1.383 0.167087
-## herder_dar                  0.0142791  0.0321319   0.444 0.656884
-## pastvoted                  -0.0480250  0.0240462  -1.997 0.046150
-## hhsize_darfur               0.0012298  0.0019277   0.638 0.523685
-## female                     -0.2320514  0.0237057  -9.789  &lt; 2e-16
-## villageAbdi Dar            -0.0192558  0.4411017  -0.044 0.965191
-## villageAbu Dejaj           -0.7197809  0.3609182  -1.994 0.046465
-## villageAbu Gamra           -0.5271364  0.3151842  -1.672 0.094831
-## villageAbu Gawar           -1.0657332  0.4418454  -2.412 0.016094
-## villageAbu Geran           -0.8733307  0.3819967  -2.286 0.022507
-## villageAbu Jidad           -0.4878930  0.3826800  -1.275 0.202710
-## villageAbu Lihya           -0.5707994  0.3477972  -1.641 0.101161
-## villageAbu Mugu            -0.9671213  0.4407133  -2.194 0.028496
-## villageAbu Shouka          -0.7249739  0.4415203  -1.642 0.100993
-## villageAbu Sorog           -0.5959154  0.3598746  -1.656 0.098143
-## villageAbune               -0.6855577  0.4402757  -1.557 0.119849
-## villageAdar                -0.5229708  0.3172264  -1.649 0.099636
-## villageAgadier             -0.4777710  0.4409077  -1.084 0.278872
-## villageAgudna              -0.8405289  0.4418986  -1.902 0.057527
-## villageAgumi               -0.7306179  0.4408603  -1.657 0.097869
-## villageAid Alkhair         -0.3317194  0.3594243  -0.923 0.356334
-## villageAirgy               -1.0462455  0.4418388  -2.368 0.018130
-## villageAish Barra          -0.4528391  0.3422855  -1.323 0.186226
-## villageAjayana             -0.9536066  0.4411943  -2.161 0.030965
-## villageAjiji               -0.1441859  0.4411427  -0.327 0.743871
-## villageAkomi               -0.6962401  0.4410606  -1.579 0.114841
-## villageAl Gedisa           -0.1618676  0.4402377  -0.368 0.713210
-## villageAl Geneina          -0.5089806  0.3595054  -1.416 0.157238
-## villageAllah Forga         -0.6846515  0.4413098  -1.551 0.121208
-## villageAlmetrabia          -0.8571347  0.4411693  -1.943 0.052390
-## villageAm Baro             -0.4399481  0.3493009  -1.260 0.208221
-## villageAm Dalal            -0.3310802  0.3605518  -0.918 0.358766
-## villageAm Dariro           -0.4589021  0.4416337  -1.039 0.299078
-## villageAm Dukhn            -0.6986997  0.4408066  -1.585 0.113359
-## villageAm Jarad            -0.0324659  0.4402236  -0.074 0.941229
-## villageAm Jemma            -0.4549818  0.4410044  -1.032 0.302534
-## villageAm Kharouba         -0.8496693  0.4415697  -1.924 0.054691
-## villageAmar                -0.8092879  0.4416047  -1.833 0.067241
-## villageAmdukhn             -0.6676235  0.4412174  -1.513 0.130648
-## villageAndabook            -0.1478622  0.4418610  -0.335 0.737990
-## villageAnderola            -0.6171842  0.4412653  -1.399 0.162308
-## villageAndita              -0.3409366  0.3828738  -0.890 0.373489
-## villageAnjilati            -0.1729516  0.4415549  -0.392 0.695396
-## villageAnjokati            -0.4587088  0.4416816  -1.039 0.299334
-## villageAorda               -0.5289973  0.4406382  -1.201 0.230298
-## villageAradeeba            -0.7560845  0.4427057  -1.708 0.088057
-## villageArara               -0.5076057  0.3367427  -1.507 0.132112
-## villageArgote              -0.5396439  0.4423977  -1.220 0.222902
-## villageArgoy                0.0149665  0.4432207   0.034 0.973071
-## villageArimba              -0.6829014  0.4406053  -1.550 0.121566
-## villageArmi                -0.6461755  0.4424048  -1.461 0.144527
-## villageArola               -0.8283216  0.4413782  -1.877 0.060935
-## villageAroom               -0.8244814  0.3268598  -2.522 0.011852
-## villageArsa                 0.0352721  0.4415647   0.080 0.936353
-## villageArsaliya            -0.4433270  0.4407646  -1.006 0.314816
-## villageAsirni              -0.5386620  0.3496601  -1.541 0.123835
-## villageAta                 -0.3173291  0.4414191  -0.719 0.472427
-## villageAurab               -0.5240046  0.4433175  -1.182 0.237562
-## villageAwrish              -0.9556967  0.4400959  -2.172 0.030188
-## villageAwSanga             -0.2316845  0.4406254  -0.526 0.599170
-## villageBadaria             -0.7452505  0.4399552  -1.694 0.090677
-## villageBajourba            -0.8023955  0.4418360  -1.816 0.069745
-## villageBakjo               -0.7543060  0.4417158  -1.708 0.088094
-## villageBaldi               -0.6176931  0.4422282  -1.397 0.162877
-## villageBandis              -0.6918758  0.3273657  -2.113 0.034877
-## villageBango               -0.4402689  0.4413116  -0.998 0.318764
-## villageBaranga             -0.7021792  0.3826181  -1.835 0.066856
-## villageBardia              -0.5500589  0.3612288  -1.523 0.128226
-## villageBare                -0.7405756  0.4423093  -1.674 0.094463
-## villageBarkhalla           -0.6033473  0.4420309  -1.365 0.172663
-## villageBasaw                0.0344349  0.4416336   0.078 0.937870
-## villageBeero               -0.7571496  0.4422768  -1.712 0.087304
-## villageBeida               -0.3995823  0.3228242  -1.238 0.216172
-## villageBeir Saliba         -0.4969939  0.3239577  -1.534 0.125401
-## villageBerdia              -0.4840524  0.4415632  -1.096 0.273318
-## villageBertabid            -0.6213939  0.4418463  -1.406 0.160015
-## villageBida Alginina        0.0506031  0.4404663   0.115 0.908565
-## villageBidigy              -0.7467247  0.4416074  -1.691 0.091249
-## villageBidt Faraga         -0.4182936  0.4412517  -0.948 0.343437
-## villageBier Saliba         -0.1137829  0.4401430  -0.259 0.796079
-## villageBiera               -0.9352163  0.4398015  -2.126 0.033778
-## villageBigaga              -0.8191926  0.4412653  -1.856 0.063763
-## villageBinary Mbila        -0.7419358  0.4410630  -1.682 0.092938
-## villageBindis              -0.5660965  0.3226974  -1.754 0.079776
-## villageBinediyah           -0.4636796  0.4420565  -1.049 0.294541
-## villageBiot Mofarag        -0.2313714  0.4416336  -0.524 0.600497
-## villageBir Tabat           -0.3855859  0.3811145  -1.012 0.311979
-## villageBirdeya             -0.5674605  0.3816577  -1.487 0.137462
-## villageBireiga             -0.8047992  0.4405760  -1.827 0.068126
-## villageBirgy               -0.2774692  0.4422840  -0.627 0.530609
-## villageBirhaliba           -0.5028462  0.4415694  -1.139 0.255147
-## villageBirtabit            -0.4326597  0.4403429  -0.983 0.326132
-## villageBla Al Biyya        -0.5203886  0.4415373  -1.179 0.238922
-## villageBoba                -0.3232529  0.3613616  -0.895 0.371307
-## villageBoranga             -0.8938475  0.4405666  -2.029 0.042811
-## villageBorat               -0.8254741  0.4418505  -1.868 0.062105
-## villageBorgio              -0.2946768  0.4428656  -0.665 0.505999
-## villageBoymawang           -0.4645084  0.4443430  -1.045 0.296169
-## villageBrega               -0.6417835  0.3602645  -1.781 0.075231
-## villageBukar               -0.2129811  0.4405112  -0.483 0.628886
-## villageCoda Mee            -0.7370959  0.4411427  -1.671 0.095145
-## villageCongi               -0.7041392  0.4412732  -1.596 0.110960
-## villageDabaky              -0.8039146  0.4417510  -1.820 0.069166
-## villageDabis               -0.7910301  0.4415104  -1.792 0.073576
-## villageDagjor              -0.8288332  0.3827254  -2.166 0.030642
-## villageDalta               -0.6429420  0.4415115  -1.456 0.145730
-## villageDamra               -0.6914967  0.3418709  -2.023 0.043445
-## villageDangojaro            0.2739928  0.4417491   0.620 0.535277
-## villageDanko               -1.0656670  0.4413197  -2.415 0.015975
-## villageDardure             -0.8440405  0.4424176  -1.908 0.056784
-## villageDargily             -0.2051507  0.4417229  -0.464 0.642467
-## villageDasa                -0.7082827  0.4412540  -1.605 0.108862
-## villageDeegada             -0.9721730  0.4414091  -2.202 0.027926
-## villageDeero               -0.9531525  0.4407434  -2.163 0.030874
-## villageDengar              -1.0573931  0.4404987  -2.400 0.016608
-## villageDerenda             -0.9407220  0.4406995  -2.135 0.033103
-## villageDerisa              -0.7284137  0.4400596  -1.655 0.098272
-## villageDinbo Kabdi         -0.0762685  0.4416960  -0.173 0.862954
-## villageDingajour           -0.8460460  0.4419309  -1.914 0.055929
-## villageDinjir              -0.4258255  0.4402739  -0.967 0.333751
-## villageDirdkna             -0.9290673  0.4402316  -2.110 0.035140
-## villageDirgily             -0.1909702  0.4414838  -0.433 0.665450
-## villageDiria               -0.0321443  0.4405844  -0.073 0.941858
-## villageDirisa              -0.8467204  0.3827434  -2.212 0.027238
-## villageDiro                -0.6413792  0.3827291  -1.676 0.094176
-## villageDofata              -0.4621368  0.4414224  -1.047 0.295457
-## villageDongita             -0.2273873  0.4415117  -0.515 0.606684
-## villageDoty                -0.7117490  0.4414669  -1.612 0.107313
-## villageDoudata             -0.4053538  0.4413884  -0.918 0.358713
-## villageDriol               -0.1273862  0.4405906  -0.289 0.772561
-## villageDunjurou            -0.7430352  0.4420034  -1.681 0.093150
-## villageEid Elkhair          0.1471996  0.4413397   0.334 0.738824
-## villageEish Bida           -0.7091246  0.4413971  -1.607 0.108557
-## villageEl Fasher           -0.1290909  0.3826521  -0.337 0.735937
-## villageFanginta            -0.4996049  0.4408992  -1.133 0.257498
-## villageFarne               -0.7184251  0.4406761  -1.630 0.103445
-## villageFew                  0.0489193  0.4407322   0.111 0.911648
-## villageFokdo               -0.6846515  0.4413098  -1.551 0.121208
-## villageFondlayat           -0.6371146  0.4413502  -1.444 0.149263
-## villageFonu                -0.3863996  0.3823911  -1.010 0.312576
-## villageFur Baranga         -0.4722050  0.4427732  -1.066 0.286539
-## villageFur Barenga         -0.5386874  0.3816931  -1.411 0.158550
-## villageFurawiya            -0.4018213  0.3160416  -1.271 0.203957
-## villageFuraWiya            -0.6767524  0.4411722  -1.534 0.125437
-## villageFuro                -0.7078286  0.4408655  -1.606 0.108778
-## villageGadir               -0.7980483  0.3827604  -2.085 0.037394
-## villageGalala              -0.8499320  0.4411201  -1.927 0.054371
-## villageGarady               0.0872493  0.4409768   0.198 0.843210
-## villageGarsila             -0.4646958  0.3602177  -1.290 0.197417
-## villageGasheeb             -1.1054843  0.4417947  -2.502 0.012543
-## villageGasimba             -0.3270378  0.3824628  -0.855 0.392766
-## villageGasmina             -0.8672176  0.4422053  -1.961 0.050219
-## villageGebeesh             -0.6337299  0.3604515  -1.758 0.079112
-## villageGedernii            -0.0239234  0.4411098  -0.054 0.956762
-## villageGemana              -0.7725639  0.4418454  -1.748 0.080770
-## villageGemena              -0.7589281  0.3830921  -1.981 0.047934
-## villageGhibish             -0.1200345  0.4401247  -0.273 0.785134
-## villageGhoz Doggy          -0.3848804  0.4415179  -0.872 0.383628
-## villageGinfara             -0.7091246  0.4413971  -1.607 0.108557
-## villageGirgida             -0.4931539  0.3249533  -1.518 0.129515
-## villageGobi                -0.7791942  0.3265448  -2.386 0.017261
-## villageGodambi             -0.7320502  0.4416464  -1.658 0.097809
-## villageGogar                0.0249566  0.4418816   0.056 0.954975
-## villageGoji                -0.7924017  0.4418578  -1.793 0.073304
-## villageGondilat            -0.7105749  0.3420180  -2.078 0.038072
-## villageGono                -0.5032090  0.3826007  -1.315 0.188817
-## villageGoraba              -0.7503344  0.3830636  -1.959 0.050494
-## villageGorboki             -0.5462044  0.3410967  -1.601 0.109710
-## villageGoroku              -0.7194172  0.4407247  -1.632 0.103008
-## villageGosimba             -0.1532168  0.4414278  -0.347 0.728614
-## villageGoslayat            -0.2325307  0.3820374  -0.609 0.542927
-## villageGouba                0.0523001  0.4412564   0.119 0.905682
-## villageGoz Bagar           -0.5075722  0.3596931  -1.411 0.158605
-## villageGoz Beida           -0.4741205  0.3830058  -1.238 0.216126
-## villageGoz Deega           -0.5603087  0.3386511  -1.655 0.098420
-## villageGoz Gabor           -0.0629400  0.4410408  -0.143 0.886558
-## villageGoz Mono            -0.4840189  0.3814558  -1.269 0.204863
-## villageGttara              -0.8632253  0.4415476  -1.955 0.050939
-## villageGubbey              -0.5120457  0.3814134  -1.342 0.179825
-## villageHabila              -0.6333912  0.3312515  -1.912 0.056226
-## villageHabshaba            -0.0210759  0.4416653  -0.048 0.961952
-## villageHadjer Suleiman     -0.6158241  0.3827020  -1.609 0.107987
-## villageHai Jadid           -0.7498481  0.4402517  -1.703 0.088923
-## villageHajar farkhabta      0.0133910  0.4408325   0.030 0.975774
-## villageHajar Kharkhita     -0.9514686  0.4404759  -2.160 0.031068
-## villageHajar Seleman       -0.7623162  0.4413206  -1.727 0.084499
-## villageHajilija            -1.0471667  0.4414993  -2.372 0.017941
-## villageHaleila             -0.3347389  0.3830161  -0.874 0.382411
-## villageHara                -0.2983782  0.4418256  -0.675 0.499665
-## villageHarkow              -0.7728384  0.4420899  -1.748 0.080830
-## villageHashaba             -0.2023767  0.3827321  -0.529 0.597116
-## villageHaskanita           -0.7814071  0.3819002  -2.046 0.041080
-## villageHee Al Gameena      -0.7957580  0.4409485  -1.805 0.071513
-## villageHeemada             -1.0593079  0.4413909  -2.400 0.016631
-## villageHijileja            -0.5584427  0.4421291  -1.263 0.206938
-## villageHila Haraz          -0.7607728  0.4412846  -1.724 0.085103
-## villageHila Jadad           0.0489986  0.4411090   0.111 0.911581
-##                               
-## (Intercept)                ***
-## directlyharmed             ***
-## age                        *  
-## farmer_dar                    
-## herder_dar                    
-## pastvoted                  *  
-## hhsize_darfur                 
-## female                     ***
-## villageAbdi Dar               
-## villageAbu Dejaj           *  
-## villageAbu Gamra           .  
-## villageAbu Gawar           *  
-## villageAbu Geran           *  
-## villageAbu Jidad              
-## villageAbu Lihya              
-## villageAbu Mugu            *  
-## villageAbu Shouka             
-## villageAbu Sorog           .  
-## villageAbune                  
-## villageAdar                .  
-## villageAgadier                
-## villageAgudna              .  
-## villageAgumi               .  
-## villageAid Alkhair            
-## villageAirgy               *  
-## villageAish Barra             
-## villageAjayana             *  
-## villageAjiji                  
-## villageAkomi                  
-## villageAl Gedisa              
-## villageAl Geneina             
-## villageAllah Forga            
-## villageAlmetrabia          .  
-## villageAm Baro                
-## villageAm Dalal               
-## villageAm Dariro              
-## villageAm Dukhn               
-## villageAm Jarad               
-## villageAm Jemma               
-## villageAm Kharouba         .  
-## villageAmar                .  
-## villageAmdukhn                
-## villageAndabook               
-## villageAnderola               
-## villageAndita                 
-## villageAnjilati               
-## villageAnjokati               
-## villageAorda                  
-## villageAradeeba            .  
-## villageArara                  
-## villageArgote                 
-## villageArgoy                  
-## villageArimba                 
-## villageArmi                   
-## villageArola               .  
-## villageAroom               *  
-## villageArsa                   
-## villageArsaliya               
-## villageAsirni                 
-## villageAta                    
-## villageAurab                  
-## villageAwrish              *  
-## villageAwSanga                
-## villageBadaria             .  
-## villageBajourba            .  
-## villageBakjo               .  
-## villageBaldi                  
-## villageBandis              *  
-## villageBango                  
-## villageBaranga             .  
-## villageBardia                 
-## villageBare                .  
-## villageBarkhalla              
-## villageBasaw                  
-## villageBeero               .  
-## villageBeida                  
-## villageBeir Saliba            
-## villageBerdia                 
-## villageBertabid               
-## villageBida Alginina          
-## villageBidigy              .  
-## villageBidt Faraga            
-## villageBier Saliba            
-## villageBiera               *  
-## villageBigaga              .  
-## villageBinary Mbila        .  
-## villageBindis              .  
-## villageBinediyah              
-## villageBiot Mofarag           
-## villageBir Tabat              
-## villageBirdeya                
-## villageBireiga             .  
-## villageBirgy                  
-## villageBirhaliba              
-## villageBirtabit               
-## villageBla Al Biyya           
-## villageBoba                   
-## villageBoranga             *  
-## villageBorat               .  
-## villageBorgio                 
-## villageBoymawang              
-## villageBrega               .  
-## villageBukar                  
-## villageCoda Mee            .  
-## villageCongi                  
-## villageDabaky              .  
-## villageDabis               .  
-## villageDagjor              *  
-## villageDalta                  
-## villageDamra               *  
-## villageDangojaro              
-## villageDanko               *  
-## villageDardure             .  
-## villageDargily                
-## villageDasa                   
-## villageDeegada             *  
-## villageDeero               *  
-## villageDengar              *  
-## villageDerenda             *  
-## villageDerisa              .  
-## villageDinbo Kabdi            
-## villageDingajour           .  
-## villageDinjir                 
-## villageDirdkna             *  
-## villageDirgily                
-## villageDiria                  
-## villageDirisa              *  
-## villageDiro                .  
-## villageDofata                 
-## villageDongita                
-## villageDoty                   
-## villageDoudata                
-## villageDriol                  
-## villageDunjurou            .  
-## villageEid Elkhair            
-## villageEish Bida              
-## villageEl Fasher              
-## villageFanginta               
-## villageFarne                  
-## villageFew                    
-## villageFokdo                  
-## villageFondlayat              
-## villageFonu                   
-## villageFur Baranga            
-## villageFur Barenga            
-## villageFurawiya               
-## villageFuraWiya               
-## villageFuro                   
-## villageGadir               *  
-## villageGalala              .  
-## villageGarady                 
-## villageGarsila                
-## villageGasheeb             *  
-## villageGasimba                
-## villageGasmina             .  
-## villageGebeesh             .  
-## villageGedernii               
-## villageGemana              .  
-## villageGemena              *  
-## villageGhibish                
-## villageGhoz Doggy             
-## villageGinfara                
-## villageGirgida                
-## villageGobi                *  
-## villageGodambi             .  
-## villageGogar                  
-## villageGoji                .  
-## villageGondilat            *  
-## villageGono                   
-## villageGoraba              .  
-## villageGorboki                
-## villageGoroku                 
-## villageGosimba                
-## villageGoslayat               
-## villageGouba                  
-## villageGoz Bagar              
-## villageGoz Beida              
-## villageGoz Deega           .  
-## villageGoz Gabor              
-## villageGoz Mono               
-## villageGttara              .  
-## villageGubbey                 
-## villageHabila              .  
-## villageHabshaba               
-## villageHadjer Suleiman        
-## villageHai Jadid           .  
-## villageHajar farkhabta        
-## villageHajar Kharkhita     *  
-## villageHajar Seleman       .  
-## villageHajilija            *  
-## villageHaleila                
-## villageHara                   
-## villageHarkow              .  
-## villageHashaba                
-## villageHaskanita           *  
-## villageHee Al Gameena      .  
-## villageHeemada             *  
-## villageHijileja               
-## villageHila Haraz          .  
-## villageHila Jadad             
+##                              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                 1.0818918  0.3149160   3.435 0.000623 ***
+## directlyharmed              0.0973158  0.0232565   4.184 3.18e-05 ***
+## age                        -0.0020717  0.0008232  -2.517 0.012044 *  
+## farmer_dar                 -0.0404429  0.0292449  -1.383 0.167087    
+## herder_dar                  0.0142791  0.0321319   0.444 0.656884    
+## pastvoted                  -0.0480250  0.0240462  -1.997 0.046150 *  
+## hhsize_darfur               0.0012298  0.0019277   0.638 0.523685    
+## female                     -0.2320514  0.0237057  -9.789  &lt; 2e-16 ***
+## villageAbdi Dar            -0.0192558  0.4411017  -0.044 0.965191    
+## villageAbu Dejaj           -0.7197809  0.3609182  -1.994 0.046465 *  
+## villageAbu Gamra           -0.5271364  0.3151842  -1.672 0.094831 .  
+## villageAbu Gawar           -1.0657332  0.4418454  -2.412 0.016094 *  
+## villageAbu Geran           -0.8733307  0.3819967  -2.286 0.022507 *  
+## villageAbu Jidad           -0.4878930  0.3826800  -1.275 0.202710    
+## villageAbu Lihya           -0.5707994  0.3477972  -1.641 0.101161    
+## villageAbu Mugu            -0.9671213  0.4407133  -2.194 0.028496 *  
+## villageAbu Shouka          -0.7249739  0.4415203  -1.642 0.100993    
+## villageAbu Sorog           -0.5959154  0.3598746  -1.656 0.098143 .  
+## villageAbune               -0.6855577  0.4402757  -1.557 0.119849    
+## villageAdar                -0.5229708  0.3172264  -1.649 0.099636 .  
+## villageAgadier             -0.4777710  0.4409077  -1.084 0.278872    
+## villageAgudna              -0.8405289  0.4418986  -1.902 0.057527 .  
+## villageAgumi               -0.7306179  0.4408603  -1.657 0.097869 .  
+## villageAid Alkhair         -0.3317194  0.3594243  -0.923 0.356334    
+## villageAirgy               -1.0462455  0.4418388  -2.368 0.018130 *  
+## villageAish Barra          -0.4528391  0.3422855  -1.323 0.186226    
+## villageAjayana             -0.9536066  0.4411943  -2.161 0.030965 *  
+## villageAjiji               -0.1441859  0.4411427  -0.327 0.743871    
+## villageAkomi               -0.6962401  0.4410606  -1.579 0.114841    
+## villageAl Gedisa           -0.1618676  0.4402377  -0.368 0.713210    
+## villageAl Geneina          -0.5089806  0.3595054  -1.416 0.157238    
+## villageAllah Forga         -0.6846515  0.4413098  -1.551 0.121208    
+## villageAlmetrabia          -0.8571347  0.4411693  -1.943 0.052390 .  
+## villageAm Baro             -0.4399481  0.3493009  -1.260 0.208221    
+## villageAm Dalal            -0.3310802  0.3605518  -0.918 0.358766    
+## villageAm Dariro           -0.4589021  0.4416337  -1.039 0.299078    
+## villageAm Dukhn            -0.6986997  0.4408066  -1.585 0.113359    
+## villageAm Jarad            -0.0324659  0.4402236  -0.074 0.941229    
+## villageAm Jemma            -0.4549818  0.4410044  -1.032 0.302534    
+## villageAm Kharouba         -0.8496693  0.4415697  -1.924 0.054691 .  
+## villageAmar                -0.8092879  0.4416047  -1.833 0.067241 .  
+## villageAmdukhn             -0.6676235  0.4412174  -1.513 0.130648    
+## villageAndabook            -0.1478622  0.4418610  -0.335 0.737990    
+## villageAnderola            -0.6171842  0.4412653  -1.399 0.162308    
+## villageAndita              -0.3409366  0.3828738  -0.890 0.373489    
+## villageAnjilati            -0.1729516  0.4415549  -0.392 0.695396    
+## villageAnjokati            -0.4587088  0.4416816  -1.039 0.299334    
+## villageAorda               -0.5289973  0.4406382  -1.201 0.230298    
+## villageAradeeba            -0.7560845  0.4427057  -1.708 0.088057 .  
+## villageArara               -0.5076057  0.3367427  -1.507 0.132112    
+## villageArgote              -0.5396439  0.4423977  -1.220 0.222902    
+## villageArgoy                0.0149665  0.4432207   0.034 0.973071    
+## villageArimba              -0.6829014  0.4406053  -1.550 0.121566    
+## villageArmi                -0.6461755  0.4424048  -1.461 0.144527    
+## villageArola               -0.8283216  0.4413782  -1.877 0.060935 .  
+## villageAroom               -0.8244814  0.3268598  -2.522 0.011852 *  
+## villageArsa                 0.0352721  0.4415647   0.080 0.936353    
+## villageArsaliya            -0.4433270  0.4407646  -1.006 0.314816    
+## villageAsirni              -0.5386620  0.3496601  -1.541 0.123835    
+## villageAta                 -0.3173291  0.4414191  -0.719 0.472427    
+## villageAurab               -0.5240046  0.4433175  -1.182 0.237562    
+## villageAwrish              -0.9556967  0.4400959  -2.172 0.030188 *  
+## villageAwSanga             -0.2316845  0.4406254  -0.526 0.599170    
+## villageBadaria             -0.7452505  0.4399552  -1.694 0.090677 .  
+## villageBajourba            -0.8023955  0.4418360  -1.816 0.069745 .  
+## villageBakjo               -0.7543060  0.4417158  -1.708 0.088094 .  
+## villageBaldi               -0.6176931  0.4422282  -1.397 0.162877    
+## villageBandis              -0.6918758  0.3273657  -2.113 0.034877 *  
+## villageBango               -0.4402689  0.4413116  -0.998 0.318764    
+## villageBaranga             -0.7021792  0.3826181  -1.835 0.066856 .  
+## villageBardia              -0.5500589  0.3612288  -1.523 0.128226    
+## villageBare                -0.7405756  0.4423093  -1.674 0.094463 .  
+## villageBarkhalla           -0.6033473  0.4420309  -1.365 0.172663    
+## villageBasaw                0.0344349  0.4416336   0.078 0.937870    
+## villageBeero               -0.7571496  0.4422768  -1.712 0.087304 .  
+## villageBeida               -0.3995823  0.3228242  -1.238 0.216172    
+## villageBeir Saliba         -0.4969939  0.3239577  -1.534 0.125401    
+## villageBerdia              -0.4840524  0.4415632  -1.096 0.273318    
+## villageBertabid            -0.6213939  0.4418463  -1.406 0.160015    
+## villageBida Alginina        0.0506031  0.4404663   0.115 0.908565    
+## villageBidigy              -0.7467247  0.4416074  -1.691 0.091249 .  
+## villageBidt Faraga         -0.4182936  0.4412517  -0.948 0.343437    
+## villageBier Saliba         -0.1137829  0.4401430  -0.259 0.796079    
+## villageBiera               -0.9352163  0.4398015  -2.126 0.033778 *  
+## villageBigaga              -0.8191926  0.4412653  -1.856 0.063763 .  
+## villageBinary Mbila        -0.7419358  0.4410630  -1.682 0.092938 .  
+## villageBindis              -0.5660965  0.3226974  -1.754 0.079776 .  
+## villageBinediyah           -0.4636796  0.4420565  -1.049 0.294541    
+## villageBiot Mofarag        -0.2313714  0.4416336  -0.524 0.600497    
+## villageBir Tabat           -0.3855859  0.3811145  -1.012 0.311979    
+## villageBirdeya             -0.5674605  0.3816577  -1.487 0.137462    
+## villageBireiga             -0.8047992  0.4405760  -1.827 0.068126 .  
+## villageBirgy               -0.2774692  0.4422840  -0.627 0.530609    
+## villageBirhaliba           -0.5028462  0.4415694  -1.139 0.255147    
+## villageBirtabit            -0.4326597  0.4403429  -0.983 0.326132    
+## villageBla Al Biyya        -0.5203886  0.4415373  -1.179 0.238922    
+## villageBoba                -0.3232529  0.3613616  -0.895 0.371307    
+## villageBoranga             -0.8938475  0.4405666  -2.029 0.042811 *  
+## villageBorat               -0.8254741  0.4418505  -1.868 0.062105 .  
+## villageBorgio              -0.2946768  0.4428656  -0.665 0.505999    
+## villageBoymawang           -0.4645084  0.4443430  -1.045 0.296169    
+## villageBrega               -0.6417835  0.3602645  -1.781 0.075231 .  
+## villageBukar               -0.2129811  0.4405112  -0.483 0.628886    
+## villageCoda Mee            -0.7370959  0.4411427  -1.671 0.095145 .  
+## villageCongi               -0.7041392  0.4412732  -1.596 0.110960    
+## villageDabaky              -0.8039146  0.4417510  -1.820 0.069166 .  
+## villageDabis               -0.7910301  0.4415104  -1.792 0.073576 .  
+## villageDagjor              -0.8288332  0.3827254  -2.166 0.030642 *  
+## villageDalta               -0.6429420  0.4415115  -1.456 0.145730    
+## villageDamra               -0.6914967  0.3418709  -2.023 0.043445 *  
+## villageDangojaro            0.2739928  0.4417491   0.620 0.535277    
+## villageDanko               -1.0656670  0.4413197  -2.415 0.015975 *  
+## villageDardure             -0.8440405  0.4424176  -1.908 0.056784 .  
+## villageDargily             -0.2051507  0.4417229  -0.464 0.642467    
+## villageDasa                -0.7082827  0.4412540  -1.605 0.108862    
+## villageDeegada             -0.9721730  0.4414091  -2.202 0.027926 *  
+## villageDeero               -0.9531525  0.4407434  -2.163 0.030874 *  
+## villageDengar              -1.0573931  0.4404987  -2.400 0.016608 *  
+## villageDerenda             -0.9407220  0.4406995  -2.135 0.033103 *  
+## villageDerisa              -0.7284137  0.4400596  -1.655 0.098272 .  
+## villageDinbo Kabdi         -0.0762685  0.4416960  -0.173 0.862954    
+## villageDingajour           -0.8460460  0.4419309  -1.914 0.055929 .  
+## villageDinjir              -0.4258255  0.4402739  -0.967 0.333751    
+## villageDirdkna             -0.9290673  0.4402316  -2.110 0.035140 *  
+## villageDirgily             -0.1909702  0.4414838  -0.433 0.665450    
+## villageDiria               -0.0321443  0.4405844  -0.073 0.941858    
+## villageDirisa              -0.8467204  0.3827434  -2.212 0.027238 *  
+## villageDiro                -0.6413792  0.3827291  -1.676 0.094176 .  
+## villageDofata              -0.4621368  0.4414224  -1.047 0.295457    
+## villageDongita             -0.2273873  0.4415117  -0.515 0.606684    
+## villageDoty                -0.7117490  0.4414669  -1.612 0.107313    
+## villageDoudata             -0.4053538  0.4413884  -0.918 0.358713    
+## villageDriol               -0.1273862  0.4405906  -0.289 0.772561    
+## villageDunjurou            -0.7430352  0.4420034  -1.681 0.093150 .  
+## villageEid Elkhair          0.1471996  0.4413397   0.334 0.738824    
+## villageEish Bida           -0.7091246  0.4413971  -1.607 0.108557    
+## villageEl Fasher           -0.1290909  0.3826521  -0.337 0.735937    
+## villageFanginta            -0.4996049  0.4408992  -1.133 0.257498    
+## villageFarne               -0.7184251  0.4406761  -1.630 0.103445    
+## villageFew                  0.0489193  0.4407322   0.111 0.911648    
+## villageFokdo               -0.6846515  0.4413098  -1.551 0.121208    
+## villageFondlayat           -0.6371146  0.4413502  -1.444 0.149263    
+## villageFonu                -0.3863996  0.3823911  -1.010 0.312576    
+## villageFur Baranga         -0.4722050  0.4427732  -1.066 0.286539    
+## villageFur Barenga         -0.5386874  0.3816931  -1.411 0.158550    
+## villageFurawiya            -0.4018213  0.3160416  -1.271 0.203957    
+## villageFuraWiya            -0.6767524  0.4411722  -1.534 0.125437    
+## villageFuro                -0.7078286  0.4408655  -1.606 0.108778    
+## villageGadir               -0.7980483  0.3827604  -2.085 0.037394 *  
+## villageGalala              -0.8499320  0.4411201  -1.927 0.054371 .  
+## villageGarady               0.0872493  0.4409768   0.198 0.843210    
+## villageGarsila             -0.4646958  0.3602177  -1.290 0.197417    
+## villageGasheeb             -1.1054843  0.4417947  -2.502 0.012543 *  
+## villageGasimba             -0.3270378  0.3824628  -0.855 0.392766    
+## villageGasmina             -0.8672176  0.4422053  -1.961 0.050219 .  
+## villageGebeesh             -0.6337299  0.3604515  -1.758 0.079112 .  
+## villageGedernii            -0.0239234  0.4411098  -0.054 0.956762    
+## villageGemana              -0.7725639  0.4418454  -1.748 0.080770 .  
+## villageGemena              -0.7589281  0.3830921  -1.981 0.047934 *  
+## villageGhibish             -0.1200345  0.4401247  -0.273 0.785134    
+## villageGhoz Doggy          -0.3848804  0.4415179  -0.872 0.383628    
+## villageGinfara             -0.7091246  0.4413971  -1.607 0.108557    
+## villageGirgida             -0.4931539  0.3249533  -1.518 0.129515    
+## villageGobi                -0.7791942  0.3265448  -2.386 0.017261 *  
+## villageGodambi             -0.7320502  0.4416464  -1.658 0.097809 .  
+## villageGogar                0.0249566  0.4418816   0.056 0.954975    
+## villageGoji                -0.7924017  0.4418578  -1.793 0.073304 .  
+## villageGondilat            -0.7105749  0.3420180  -2.078 0.038072 *  
+## villageGono                -0.5032090  0.3826007  -1.315 0.188817    
+## villageGoraba              -0.7503344  0.3830636  -1.959 0.050494 .  
+## villageGorboki             -0.5462044  0.3410967  -1.601 0.109710    
+## villageGoroku              -0.7194172  0.4407247  -1.632 0.103008    
+## villageGosimba             -0.1532168  0.4414278  -0.347 0.728614    
+## villageGoslayat            -0.2325307  0.3820374  -0.609 0.542927    
+## villageGouba                0.0523001  0.4412564   0.119 0.905682    
+## villageGoz Bagar           -0.5075722  0.3596931  -1.411 0.158605    
+## villageGoz Beida           -0.4741205  0.3830058  -1.238 0.216126    
+## villageGoz Deega           -0.5603087  0.3386511  -1.655 0.098420 .  
+## villageGoz Gabor           -0.0629400  0.4410408  -0.143 0.886558    
+## villageGoz Mono            -0.4840189  0.3814558  -1.269 0.204863    
+## villageGttara              -0.8632253  0.4415476  -1.955 0.050939 .  
+## villageGubbey              -0.5120457  0.3814134  -1.342 0.179825    
+## villageHabila              -0.6333912  0.3312515  -1.912 0.056226 .  
+## villageHabshaba            -0.0210759  0.4416653  -0.048 0.961952    
+## villageHadjer Suleiman     -0.6158241  0.3827020  -1.609 0.107987    
+## villageHai Jadid           -0.7498481  0.4402517  -1.703 0.088923 .  
+## villageHajar farkhabta      0.0133910  0.4408325   0.030 0.975774    
+## villageHajar Kharkhita     -0.9514686  0.4404759  -2.160 0.031068 *  
+## villageHajar Seleman       -0.7623162  0.4413206  -1.727 0.084499 .  
+## villageHajilija            -1.0471667  0.4414993  -2.372 0.017941 *  
+## villageHaleila             -0.3347389  0.3830161  -0.874 0.382411    
+## villageHara                -0.2983782  0.4418256  -0.675 0.499665    
+## villageHarkow              -0.7728384  0.4420899  -1.748 0.080830 .  
+## villageHashaba             -0.2023767  0.3827321  -0.529 0.597116    
+## villageHaskanita           -0.7814071  0.3819002  -2.046 0.041080 *  
+## villageHee Al Gameena      -0.7957580  0.4409485  -1.805 0.071513 .  
+## villageHeemada             -1.0593079  0.4413909  -2.400 0.016631 *  
+## villageHijileja            -0.5584427  0.4421291  -1.263 0.206938    
+## villageHila Haraz          -0.7607728  0.4412846  -1.724 0.085103 .  
+## villageHila Jadad           0.0489986  0.4411090   0.111 0.911581    
 ##  [ reached getOption(&quot;max.print&quot;) -- omitted 293 rows ]
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
@@ -4447,14 +4064,14 @@ Viés relatrivo = \frac{\hat{&lt;viés&gt;}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim
 ## Residual standard error: 0.3102 on 783 degrees of freedom
 ## Multiple R-squared:  0.5115, Adjusted R-squared:  0.2046 
 ## F-statistic: 1.667 on 492 and 783 DF,  p-value: 9.367e-11</code></pre>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="regressao-multipla.html#cb273-1" tabindex="-1"></a><span class="co"># runs sensemakr for sensitivity analysis</span></span>
-<span id="cb273-2"><a href="regressao-multipla.html#cb273-2" tabindex="-1"></a>sensitivity <span class="ot">&lt;-</span> <span class="fu">sensemakr</span>(<span class="at">model =</span> model, </span>
-<span id="cb273-3"><a href="regressao-multipla.html#cb273-3" tabindex="-1"></a>                         <span class="at">treatment =</span> <span class="st">&quot;directlyharmed&quot;</span>,</span>
-<span id="cb273-4"><a href="regressao-multipla.html#cb273-4" tabindex="-1"></a>                         <span class="at">benchmark_covariates =</span> <span class="st">&quot;female&quot;</span>,</span>
-<span id="cb273-5"><a href="regressao-multipla.html#cb273-5" tabindex="-1"></a>                         <span class="at">kd =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb273-6"><a href="regressao-multipla.html#cb273-6" tabindex="-1"></a></span>
-<span id="cb273-7"><a href="regressao-multipla.html#cb273-7" tabindex="-1"></a><span class="co"># short description of results</span></span>
-<span id="cb273-8"><a href="regressao-multipla.html#cb273-8" tabindex="-1"></a>sensitivity</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="regressao-multipla.html#cb278-1" tabindex="-1"></a><span class="co"># runs sensemakr for sensitivity analysis</span></span>
+<span id="cb278-2"><a href="regressao-multipla.html#cb278-2" tabindex="-1"></a>sensitivity <span class="ot">&lt;-</span> <span class="fu">sensemakr</span>(<span class="at">model =</span> model, </span>
+<span id="cb278-3"><a href="regressao-multipla.html#cb278-3" tabindex="-1"></a>                         <span class="at">treatment =</span> <span class="st">&quot;directlyharmed&quot;</span>,</span>
+<span id="cb278-4"><a href="regressao-multipla.html#cb278-4" tabindex="-1"></a>                         <span class="at">benchmark_covariates =</span> <span class="st">&quot;female&quot;</span>,</span>
+<span id="cb278-5"><a href="regressao-multipla.html#cb278-5" tabindex="-1"></a>                         <span class="at">kd =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb278-6"><a href="regressao-multipla.html#cb278-6" tabindex="-1"></a></span>
+<span id="cb278-7"><a href="regressao-multipla.html#cb278-7" tabindex="-1"></a><span class="co"># short description of results</span></span>
+<span id="cb278-8"><a href="regressao-multipla.html#cb278-8" tabindex="-1"></a>sensitivity</span></code></pre></div>
 <pre><code>## Sensitivity Analysis to Unobserved Confounding
 ## 
 ## Model Formula: peacefactor ~ directlyharmed + age + farmer_dar + herder_dar + 
@@ -4473,7 +4090,7 @@ Viés relatrivo = \frac{\hat{&lt;viés&gt;}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim
 ##   Robustness Value, q = 1 alpha = 0.05 : 0.07626 
 ## 
 ## For more information, check summary.</code></pre>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="regressao-multipla.html#cb275-1" tabindex="-1"></a><span class="fu">summary</span>(sensitivity)</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="regressao-multipla.html#cb280-1" tabindex="-1"></a><span class="fu">summary</span>(sensitivity)</span></code></pre></div>
 <pre><code>## Sensitivity Analysis to Unobserved Confounding
 ## 
 ## Model Formula: peacefactor ~ directlyharmed + age + farmer_dar + herder_dar + 
@@ -4505,14 +4122,14 @@ Viés relatrivo = \frac{\hat{&lt;viés&gt;}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim
 ## 
 ## --The table below shows the maximum strength of unobserved confounders with association with the treatment and the outcome bounded by a multiple of the observed explanatory power of the chosen benchmark covariate(s).
 ## 
-##  Bound Label R2dz.x R2yz.dx      Treatment Adjusted Estimate
-##    1x female 0.0092  0.1246 directlyharmed            0.0752
-##    2x female 0.0183  0.2493 directlyharmed            0.0529
-##    3x female 0.0275  0.3741 directlyharmed            0.0304
-##  Adjusted Se Adjusted T Adjusted Lower CI Adjusted Upper CI
-##       0.0219     3.4389            0.0323            0.1182
-##       0.0204     2.6002            0.0130            0.0929
-##       0.0187     1.6281           -0.0063            0.0670</code></pre>
+##  Bound Label R2dz.x R2yz.dx      Treatment Adjusted Estimate Adjusted Se
+##    1x female 0.0092  0.1246 directlyharmed            0.0752      0.0219
+##    2x female 0.0183  0.2493 directlyharmed            0.0529      0.0204
+##    3x female 0.0275  0.3741 directlyharmed            0.0304      0.0187
+##  Adjusted T Adjusted Lower CI Adjusted Upper CI
+##      3.4389            0.0323            0.1182
+##      2.6002            0.0130            0.0929
+##      1.6281           -0.0063            0.0670</code></pre>
 </div>
 </div>
 <div id="referências-1" class="section level2 hasAnchor" number="12.11">

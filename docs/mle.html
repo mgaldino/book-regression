@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2024-11-05" />
+<meta name="date" content="2024-11-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -331,7 +331,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.5" data-path="glm.html"><a href="glm.html#logística-como-glm"><i class="fa fa-check"></i><b>13.5</b> Logística como GLM</a></li>
 <li class="chapter" data-level="13.6" data-path="glm.html"><a href="glm.html#logística-com-múltiplos-preditores"><i class="fa fa-check"></i><b>13.6</b> Logística com múltiplos preditores</a></li>
 <li class="chapter" data-level="13.7" data-path="glm.html"><a href="glm.html#ajuste-do-modelo"><i class="fa fa-check"></i><b>13.7</b> Ajuste do modelo</a></li>
-<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.8</b> Referências</a></li>
+<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#regressão-com-dados-ordenados"><i class="fa fa-check"></i><b>13.8</b> Regressão com dados Ordenados</a></li>
+<li class="chapter" data-level="13.9" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.9</b> Referências</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="apêndice.html"><a href="apêndice.html"><i class="fa fa-check"></i><b>14</b> - Apêndice</a>
 <ul>
@@ -415,48 +416,32 @@ Notem que a variância é supostamente conhecida, o que na prática raramente se
 <p>Vamos ver um exemplo a partir de dados de um survey no Reino Unido sobre o Brexit.</p>
 <pre><code>## Warning: package &#39;data.table&#39; was built under R version 4.3.3</code></pre>
 <table>
+<colgroup>
+<col width="8%" />
+<col width="91%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-variable_id
-</th>
-<th style="text-align:left;">
-item_text
-</th>
+<tr class="header">
+<th align="left">variable_id</th>
+<th align="left">item_text</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-vote
-</td>
-<td style="text-align:left;">
-vote: intenção de voto no referendo do Brexit: ‘sair’, ‘ficar’, ‘não sabe’, ‘não votará’
-</td>
+<tr class="odd">
+<td align="left">vote</td>
+<td align="left">vote: intenção de voto no referendo do Brexit: ‘sair’, ‘ficar’, ‘não sabe’, ‘não votará’</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-leave
-</td>
-<td style="text-align:left;">
-leave: identifica quem vai votar ‘sair’ (1) ou ‘ficar’ (0). Não sabe ou não irá votar é NA
-</td>
+<tr class="even">
+<td align="left">leave</td>
+<td align="left">leave: identifica quem vai votar ‘sair’ (1) ou ‘ficar’ (0). Não sabe ou não irá votar é NA</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-education
-</td>
-<td style="text-align:left;">
-education: 1 = sem qualificação, 2 = ensino médio, 3 = mais que ensino médio, 4 = ensino superior, 5 = pós-graduação, NA = sem resposta
-</td>
+<tr class="odd">
+<td align="left">education</td>
+<td align="left">education: 1 = sem qualificação, 2 = ensino médio, 3 = mais que ensino médio, 4 = ensino superior, 5 = pós-graduação, NA = sem resposta</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-age
-</td>
-<td style="text-align:left;">
-idade
-</td>
+<tr class="even">
+<td align="left">age</td>
+<td align="left">idade</td>
 </tr>
 </tbody>
 </table>

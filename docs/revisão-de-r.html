@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2024-11-05" />
+<meta name="date" content="2024-11-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -331,7 +331,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.5" data-path="glm.html"><a href="glm.html#logística-como-glm"><i class="fa fa-check"></i><b>13.5</b> Logística como GLM</a></li>
 <li class="chapter" data-level="13.6" data-path="glm.html"><a href="glm.html#logística-com-múltiplos-preditores"><i class="fa fa-check"></i><b>13.6</b> Logística com múltiplos preditores</a></li>
 <li class="chapter" data-level="13.7" data-path="glm.html"><a href="glm.html#ajuste-do-modelo"><i class="fa fa-check"></i><b>13.7</b> Ajuste do modelo</a></li>
-<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.8</b> Referências</a></li>
+<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#regressão-com-dados-ordenados"><i class="fa fa-check"></i><b>13.8</b> Regressão com dados Ordenados</a></li>
+<li class="chapter" data-level="13.9" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.9</b> Referências</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="apêndice.html"><a href="apêndice.html"><i class="fa fa-check"></i><b>14</b> - Apêndice</a>
 <ul>
@@ -476,29 +477,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-7"><a href="revisão-de-r.html#cb20-7" tabindex="-1"></a><span class="fu">kable</span>(mat)</span></code></pre></div>
 <table>
 <tbody>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4
-</td>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">4</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-5
-</td>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">5</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-6
-</td>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">6</td>
 </tr>
 </tbody>
 </table>
@@ -511,39 +500,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb21-3"><a href="revisão-de-r.html#cb21-3" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
-<tr>
-<th style="text-align:right;">
-x
-</th>
-<th style="text-align:left;">
-y
-</th>
+<tr class="header">
+<th align="right">x</th>
+<th align="left">y</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-a
-</td>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">a</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-b
-</td>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">b</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-c
-</td>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">c</td>
 </tr>
 </tbody>
 </table>
@@ -554,9 +527,8 @@ c
 <span id="cb22-3"><a href="revisão-de-r.html#cb22-3" tabindex="-1"></a>data_ex1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data_ex)</span>
 <span id="cb22-4"><a href="revisão-de-r.html#cb22-4" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="revisão-de-r.html#cb22-5" tabindex="-1"></a>data_ex1 <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span></code></pre></div>
-<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26”
-[5] “2020-10-27” “2020-10-28” “2020-10-29” “2020-10-30”
-[9] “2020-10-31” “2020-11-01”</p>
+<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26” “2020-10-27”
+[6] “2020-10-28” “2020-10-29” “2020-10-30” “2020-10-31” “2020-11-01”</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="revisão-de-r.html#cb23-1" tabindex="-1"></a><span class="do">## fim da explicação rápida de data</span></span></code></pre></div>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="revisão-de-r.html#cb24-1" tabindex="-1"></a><span class="do">## criando data de forma repetitiva e tediosa. O que queremos evitar!</span></span>
 <span id="cb24-2"><a href="revisão-de-r.html#cb24-2" tabindex="-1"></a>minha_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-02&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-03&#39;</span>),</span>
@@ -572,161 +544,73 @@ c
 <span id="cb24-12"><a href="revisão-de-r.html#cb24-12" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-tempo
-</th>
-<th style="text-align:right;">
-X
-</th>
-<th style="text-align:right;">
-Y
-</th>
-<th style="text-align:right;">
-Z
-</th>
+<tr class="header">
+<th align="left">tempo</th>
+<th align="right">X</th>
+<th align="right">Y</th>
+<th align="right">Z</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-2009-01-01
-</td>
-<td style="text-align:right;">
--0.3756029
-</td>
-<td style="text-align:right;">
--1.0422346
-</td>
-<td style="text-align:right;">
-3.3800520
-</td>
+<tr class="odd">
+<td align="left">2009-01-01</td>
+<td align="right">-0.3466522</td>
+<td align="right">-2.1802239</td>
+<td align="right">0.5543706</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-02
-</td>
-<td style="text-align:right;">
--0.5618764
-</td>
-<td style="text-align:right;">
--0.9797409
-</td>
-<td style="text-align:right;">
-3.8501119
-</td>
+<tr class="even">
+<td align="left">2009-01-02</td>
+<td align="right">-1.3841044</td>
+<td align="right">-1.3345367</td>
+<td align="right">4.8021755</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-03
-</td>
-<td style="text-align:right;">
--0.3439172
-</td>
-<td style="text-align:right;">
-0.0943089
-</td>
-<td style="text-align:right;">
-2.7372377
-</td>
+<tr class="odd">
+<td align="left">2009-01-03</td>
+<td align="right">-0.3782965</td>
+<td align="right">-0.1220625</td>
+<td align="right">4.0068885</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-04
-</td>
-<td style="text-align:right;">
-0.0904966
-</td>
-<td style="text-align:right;">
-2.6003974
-</td>
-<td style="text-align:right;">
--5.5810974
-</td>
+<tr class="even">
+<td align="left">2009-01-04</td>
+<td align="right">-1.0334985</td>
+<td align="right">1.5552157</td>
+<td align="right">1.0567054</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-05
-</td>
-<td style="text-align:right;">
-1.5985088
-</td>
-<td style="text-align:right;">
-4.5861579
-</td>
-<td style="text-align:right;">
-3.3985722
-</td>
+<tr class="odd">
+<td align="left">2009-01-05</td>
+<td align="right">-0.6499543</td>
+<td align="right">-1.0612473</td>
+<td align="right">-4.1176815</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-06
-</td>
-<td style="text-align:right;">
--0.0885651
-</td>
-<td style="text-align:right;">
-3.0951621
-</td>
-<td style="text-align:right;">
--1.7862289
-</td>
+<tr class="even">
+<td align="left">2009-01-06</td>
+<td align="right">-0.2990718</td>
+<td align="right">0.1565772</td>
+<td align="right">0.6915872</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-07
-</td>
-<td style="text-align:right;">
-1.0807995
-</td>
-<td style="text-align:right;">
--0.2663019
-</td>
-<td style="text-align:right;">
-0.6992108
-</td>
+<tr class="odd">
+<td align="left">2009-01-07</td>
+<td align="right">-0.4260899</td>
+<td align="right">3.8456509</td>
+<td align="right">5.7097961</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-08
-</td>
-<td style="text-align:right;">
-0.6307541
-</td>
-<td style="text-align:right;">
--3.5130548
-</td>
-<td style="text-align:right;">
-0.2982047
-</td>
+<tr class="even">
+<td align="left">2009-01-08</td>
+<td align="right">1.8335475</td>
+<td align="right">-2.4100131</td>
+<td align="right">1.4903635</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-09
-</td>
-<td style="text-align:right;">
--0.1136399
-</td>
-<td style="text-align:right;">
--0.7775597
-</td>
-<td style="text-align:right;">
-1.7126671
-</td>
+<tr class="odd">
+<td align="left">2009-01-09</td>
+<td align="right">0.0335264</td>
+<td align="right">-1.9189473</td>
+<td align="right">-0.3898525</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-10
-</td>
-<td style="text-align:right;">
--1.5329020
-</td>
-<td style="text-align:right;">
-0.1784144
-</td>
-<td style="text-align:right;">
-0.0986999
-</td>
+<tr class="even">
+<td align="left">2009-01-10</td>
+<td align="right">-1.2132955</td>
+<td align="right">0.6597383</td>
+<td align="right">3.3417902</td>
 </tr>
 </tbody>
 </table>
@@ -739,161 +623,73 @@ Z
 <span id="cb25-7"><a href="revisão-de-r.html#cb25-7" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-tempo
-</th>
-<th style="text-align:right;">
-X
-</th>
-<th style="text-align:right;">
-Y
-</th>
-<th style="text-align:right;">
-Z
-</th>
+<tr class="header">
+<th align="left">tempo</th>
+<th align="right">X</th>
+<th align="right">Y</th>
+<th align="right">Z</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-2009-01-01
-</td>
-<td style="text-align:right;">
--1.6674751
-</td>
-<td style="text-align:right;">
-2.3367677
-</td>
-<td style="text-align:right;">
--2.8609687
-</td>
+<tr class="odd">
+<td align="left">2009-01-01</td>
+<td align="right">0.0171712</td>
+<td align="right">3.6441275</td>
+<td align="right">2.2746300</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-02
-</td>
-<td style="text-align:right;">
-0.7364960
-</td>
-<td style="text-align:right;">
-2.1083620
-</td>
-<td style="text-align:right;">
--3.0107559
-</td>
+<tr class="even">
+<td align="left">2009-01-02</td>
+<td align="right">-1.7457288</td>
+<td align="right">-0.2265041</td>
+<td align="right">-5.6001477</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-03
-</td>
-<td style="text-align:right;">
-0.3860266
-</td>
-<td style="text-align:right;">
-2.2905262
-</td>
-<td style="text-align:right;">
--3.7541548
-</td>
+<tr class="odd">
+<td align="left">2009-01-03</td>
+<td align="right">1.1306795</td>
+<td align="right">-0.9087642</td>
+<td align="right">-1.9274323</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-04
-</td>
-<td style="text-align:right;">
--0.2656516
-</td>
-<td style="text-align:right;">
--1.1549360
-</td>
-<td style="text-align:right;">
--4.2100531
-</td>
+<tr class="even">
+<td align="left">2009-01-04</td>
+<td align="right">-0.3149382</td>
+<td align="right">-5.1517822</td>
+<td align="right">-7.2528128</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-05
-</td>
-<td style="text-align:right;">
-0.1181445
-</td>
-<td style="text-align:right;">
-4.0049655
-</td>
-<td style="text-align:right;">
--1.7486381
-</td>
+<tr class="odd">
+<td align="left">2009-01-05</td>
+<td align="right">1.3453045</td>
+<td align="right">0.7419849</td>
+<td align="right">-8.0284783</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-06
-</td>
-<td style="text-align:right;">
-0.1340386
-</td>
-<td style="text-align:right;">
-0.1334017
-</td>
-<td style="text-align:right;">
-1.3247167
-</td>
+<tr class="even">
+<td align="left">2009-01-06</td>
+<td align="right">0.0411553</td>
+<td align="right">-0.5822854</td>
+<td align="right">-2.9331975</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-07
-</td>
-<td style="text-align:right;">
-0.2210195
-</td>
-<td style="text-align:right;">
-3.7337037
-</td>
-<td style="text-align:right;">
--8.0568420
-</td>
+<tr class="odd">
+<td align="left">2009-01-07</td>
+<td align="right">-1.3349601</td>
+<td align="right">-3.4887644</td>
+<td align="right">-2.2834405</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-08
-</td>
-<td style="text-align:right;">
-1.6408462
-</td>
-<td style="text-align:right;">
--2.7018054
-</td>
-<td style="text-align:right;">
-0.8479217
-</td>
+<tr class="even">
+<td align="left">2009-01-08</td>
+<td align="right">0.4472349</td>
+<td align="right">3.6708816</td>
+<td align="right">-0.3031672</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-09
-</td>
-<td style="text-align:right;">
--0.2190504
-</td>
-<td style="text-align:right;">
-0.0419672
-</td>
-<td style="text-align:right;">
-4.9467002
-</td>
+<tr class="odd">
+<td align="left">2009-01-09</td>
+<td align="right">0.1129539</td>
+<td align="right">0.9478112</td>
+<td align="right">-1.4098878</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-2009-01-10
-</td>
-<td style="text-align:right;">
-0.1680654
-</td>
-<td style="text-align:right;">
-2.4998291
-</td>
-<td style="text-align:right;">
-8.1502961
-</td>
+<tr class="even">
+<td align="left">2009-01-10</td>
+<td align="right">1.9482859</td>
+<td align="right">1.9373730</td>
+<td align="right">2.4962863</td>
 </tr>
 </tbody>
 </table>
@@ -933,1242 +729,573 @@ E depois carreguem a biblioteca: library(data.table)</p>
 <div id="data-wrangling" class="section level2 hasAnchor" number="2.8">
 <h2><span class="header-section-number">2.8</span> Data wrangling<a href="revisão-de-r.html#data-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para manipulação, limpeza e processamento de dados, iremos utilizar o chamado “tidyverse”.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="revisão-de-r.html#cb30-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.3.2</code></pre>
-<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 4.3.3</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="revisão-de-r.html#cb33-1" tabindex="-1"></a><span class="co"># digamos que quero o pib total médio e o pib per capita médio</span></span>
-<span id="cb33-2"><a href="revisão-de-r.html#cb33-2" tabindex="-1"></a><span class="co"># basta usar o comando summarise, que resume os dados e escolher a função mean.</span></span>
-<span id="cb33-3"><a href="revisão-de-r.html#cb33-3" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="revisão-de-r.html#cb33-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb33-5"><a href="revisão-de-r.html#cb33-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
-<span id="cb33-6"><a href="revisão-de-r.html#cb33-6" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita))</span>
-<span id="cb33-7"><a href="revisão-de-r.html#cb33-7" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="revisão-de-r.html#cb30-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb30-2"><a href="revisão-de-r.html#cb30-2" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="revisão-de-r.html#cb30-3" tabindex="-1"></a><span class="co"># digamos que quero o pib total médio e o pib per capita médio</span></span>
+<span id="cb30-4"><a href="revisão-de-r.html#cb30-4" tabindex="-1"></a><span class="co"># basta usar o comando summarise, que resume os dados e escolher a função mean.</span></span>
+<span id="cb30-5"><a href="revisão-de-r.html#cb30-5" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="revisão-de-r.html#cb30-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb30-7"><a href="revisão-de-r.html#cb30-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb30-8"><a href="revisão-de-r.html#cb30-8" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita))</span>
+<span id="cb30-9"><a href="revisão-de-r.html#cb30-9" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="revisão-de-r.html#cb30-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pib_medio</th>
+<th align="right">pib_per_capita_medio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">957202.7</td>
+<td align="right">17388.86</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="revisão-de-r.html#cb31-1" tabindex="-1"></a><span class="co"># se eu quiser a soma dos pibs municipais</span></span>
+<span id="cb31-2"><a href="revisão-de-r.html#cb31-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="revisão-de-r.html#cb31-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="revisão-de-r.html#cb31-4" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb31-5"><a href="revisão-de-r.html#cb31-5" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="revisão-de-r.html#cb31-6" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">soma_pib</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5331618957</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="revisão-de-r.html#cb32-1" tabindex="-1"></a><span class="co"># maior e menos pibs e pibs per capita entre municípios</span></span>
+<span id="cb32-2"><a href="revisão-de-r.html#cb32-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="revisão-de-r.html#cb32-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_max =</span> <span class="fu">max</span>(pib_total),</span>
+<span id="cb32-4"><a href="revisão-de-r.html#cb32-4" tabindex="-1"></a>            <span class="at">pib_min =</span> <span class="fu">min</span>(pib_total),</span>
+<span id="cb32-5"><a href="revisão-de-r.html#cb32-5" tabindex="-1"></a>            <span class="at">pib_per_capita_max =</span> <span class="fu">max</span>(pib_per_capita),</span>
+<span id="cb32-6"><a href="revisão-de-r.html#cb32-6" tabindex="-1"></a>            <span class="at">pib_per_capita_min =</span> <span class="fu">min</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-7"><a href="revisão-de-r.html#cb32-7" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb32-8"><a href="revisão-de-r.html#cb32-8" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="revisão-de-r.html#cb32-9" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pib_max</th>
+<th align="right">pib_min</th>
+<th align="right">pib_per_capita_max</th>
+<th align="right">pib_per_capita_min</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">582079726</td>
+<td align="right">4198.94</td>
+<td align="right">717343.7</td>
+<td align="right">301.6</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="revisão-de-r.html#cb33-1" tabindex="-1"></a><span class="co"># se eu quiser apenas dos municípios od estado de SP?</span></span>
+<span id="cb33-2"><a href="revisão-de-r.html#cb33-2" tabindex="-1"></a><span class="co"># basta filtrar pelo estado de SP, com o comando filter</span></span>
+<span id="cb33-3"><a href="revisão-de-r.html#cb33-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="revisão-de-r.html#cb33-4" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-5"><a href="revisão-de-r.html#cb33-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-6"><a href="revisão-de-r.html#cb33-6" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb33-7"><a href="revisão-de-r.html#cb33-7" tabindex="-1"></a>  </span>
 <span id="cb33-8"><a href="revisão-de-r.html#cb33-8" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
-<tr>
-<th style="text-align:right;">
-pib_medio
-</th>
-<th style="text-align:right;">
-pib_per_capita_medio
-</th>
+<tr class="header">
+<th align="right">soma_pib</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-957202.7
-</td>
-<td style="text-align:right;">
-17388.86
-</td>
+<tr class="odd">
+<td align="right">1715238417</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="revisão-de-r.html#cb34-1" tabindex="-1"></a><span class="co"># se eu quiser a soma dos pibs municipais</span></span>
-<span id="cb34-2"><a href="revisão-de-r.html#cb34-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="revisão-de-r.html#cb34-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
-<span id="cb34-4"><a href="revisão-de-r.html#cb34-4" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb34-5"><a href="revisão-de-r.html#cb34-5" tabindex="-1"></a></span>
-<span id="cb34-6"><a href="revisão-de-r.html#cb34-6" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="revisão-de-r.html#cb34-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="revisão-de-r.html#cb34-2" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="revisão-de-r.html#cb34-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb34-4"><a href="revisão-de-r.html#cb34-4" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-5"><a href="revisão-de-r.html#cb34-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb34-6"><a href="revisão-de-r.html#cb34-6" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="revisão-de-r.html#cb34-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
-<tr>
-<th style="text-align:right;">
-soma_pib
-</th>
+<tr class="header">
+<th align="right">pib_medio</th>
+<th align="right">pib_per_capita_medio</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-5331618957
-</td>
+<tr class="odd">
+<td align="right">2659284</td>
+<td align="right">24827.14</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="revisão-de-r.html#cb35-1" tabindex="-1"></a><span class="co"># maior e menos pibs e pibs per capita entre municípios</span></span>
-<span id="cb35-2"><a href="revisão-de-r.html#cb35-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb35-3"><a href="revisão-de-r.html#cb35-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_max =</span> <span class="fu">max</span>(pib_total),</span>
-<span id="cb35-4"><a href="revisão-de-r.html#cb35-4" tabindex="-1"></a>            <span class="at">pib_min =</span> <span class="fu">min</span>(pib_total),</span>
-<span id="cb35-5"><a href="revisão-de-r.html#cb35-5" tabindex="-1"></a>            <span class="at">pib_per_capita_max =</span> <span class="fu">max</span>(pib_per_capita),</span>
-<span id="cb35-6"><a href="revisão-de-r.html#cb35-6" tabindex="-1"></a>            <span class="at">pib_per_capita_min =</span> <span class="fu">min</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
-<span id="cb35-7"><a href="revisão-de-r.html#cb35-7" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb35-8"><a href="revisão-de-r.html#cb35-8" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="revisão-de-r.html#cb35-9" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="revisão-de-r.html#cb35-1" tabindex="-1"></a><span class="co"># se eu quiser esse cálculo por uf (or cada umas das ufs?)</span></span>
+<span id="cb35-2"><a href="revisão-de-r.html#cb35-2" tabindex="-1"></a><span class="co"># Aí é melhor aguprar por uf</span></span>
+<span id="cb35-3"><a href="revisão-de-r.html#cb35-3" tabindex="-1"></a><span class="co"># ideia é: split by, apply (function), combine (summarise?)</span></span>
+<span id="cb35-4"><a href="revisão-de-r.html#cb35-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb35-5"><a href="revisão-de-r.html#cb35-5" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb35-6"><a href="revisão-de-r.html#cb35-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb35-7"><a href="revisão-de-r.html#cb35-7" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb35-8"><a href="revisão-de-r.html#cb35-8" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb35-9"><a href="revisão-de-r.html#cb35-9" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="revisão-de-r.html#cb35-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
-<tr>
-<th style="text-align:right;">
-pib_max
-</th>
-<th style="text-align:right;">
-pib_min
-</th>
-<th style="text-align:right;">
-pib_per_capita_max
-</th>
-<th style="text-align:right;">
-pib_per_capita_min
-</th>
+<tr class="header">
+<th align="left">sigla_uf</th>
+<th align="right">pib_medio</th>
+<th align="right">pib_per_capita_medio</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-582079726
-</td>
-<td style="text-align:right;">
-4198.94
-</td>
-<td style="text-align:right;">
-717343.7
-</td>
-<td style="text-align:right;">
-301.6
-</td>
+<tr class="odd">
+<td align="left">AC</td>
+<td align="right">521542.3</td>
+<td align="right">11450.979</td>
+</tr>
+<tr class="even">
+<td align="left">AL</td>
+<td align="right">365515.0</td>
+<td align="right">7931.148</td>
+</tr>
+<tr class="odd">
+<td align="left">AM</td>
+<td align="right">1339536.0</td>
+<td align="right">8975.314</td>
+</tr>
+<tr class="even">
+<td align="left">AP</td>
+<td align="right">797717.9</td>
+<td align="right">14947.829</td>
+</tr>
+<tr class="odd">
+<td align="left">BA</td>
+<td align="right">491233.3</td>
+<td align="right">8814.841</td>
+</tr>
+<tr class="even">
+<td align="left">CE</td>
+<td align="right">592590.0</td>
+<td align="right">7157.360</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="revisão-de-r.html#cb36-1" tabindex="-1"></a><span class="co"># se eu quiser apenas dos municípios od estado de SP?</span></span>
-<span id="cb36-2"><a href="revisão-de-r.html#cb36-2" tabindex="-1"></a><span class="co"># basta filtrar pelo estado de SP, com o comando filter</span></span>
-<span id="cb36-3"><a href="revisão-de-r.html#cb36-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb36-4"><a href="revisão-de-r.html#cb36-4" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb36-5"><a href="revisão-de-r.html#cb36-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
-<span id="cb36-6"><a href="revisão-de-r.html#cb36-6" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb36-7"><a href="revisão-de-r.html#cb36-7" tabindex="-1"></a>  </span>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="revisão-de-r.html#cb36-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
+<span id="cb36-2"><a href="revisão-de-r.html#cb36-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="revisão-de-r.html#cb36-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="revisão-de-r.html#cb36-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pib_uf =</span> <span class="fu">sum</span>(pib_total))</span>
+<span id="cb36-5"><a href="revisão-de-r.html#cb36-5" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="revisão-de-r.html#cb36-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">head</span>(df)</span>
+<span id="cb36-7"><a href="revisão-de-r.html#cb36-7" tabindex="-1"></a></span>
 <span id="cb36-8"><a href="revisão-de-r.html#cb36-8" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
+<colgroup>
+<col width="0%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="0%" />
+<col width="0%" />
+<col width="1%" />
+<col width="2%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="6%" />
+<col width="3%" />
+<col width="1%" />
+<col width="1%" />
+<col width="2%" />
+<col width="1%" />
+<col width="1%" />
+<col width="2%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="7%" />
+<col width="6%" />
+<col width="6%" />
+<col width="0%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:right;">
-soma_pib
-</th>
+<tr class="header">
+<th align="right">ano</th>
+<th align="right">codigo_regiao</th>
+<th align="left">nome_regiao</th>
+<th align="right">codigo_uf</th>
+<th align="left">sigla_uf</th>
+<th align="left">nome_uf</th>
+<th align="right">cod_municipio</th>
+<th align="left">nome_munic</th>
+<th align="left">nome_metro</th>
+<th align="right">codigo_meso</th>
+<th align="left">nome_meso</th>
+<th align="right">codigo_micro</th>
+<th align="left">nome_micro</th>
+<th align="right">codigo_reg_geo_imediata</th>
+<th align="left">nome_reg_geo_imediata</th>
+<th align="left">mun_reg_geo_imediata</th>
+<th align="right">codigo_reg_geo_intermediaria</th>
+<th align="left">nome_reg_geo_intermediaria</th>
+<th align="left">mun_reg_geo_intermediaria</th>
+<th align="right">codigo_concentracao_urbana</th>
+<th align="left">nome_concentracao_urbana</th>
+<th align="left">tipo_concentracao_urbana</th>
+<th align="right">codigo_arranjo_populacional</th>
+<th align="left">nome_arranjo_populacional</th>
+<th align="left">hierarquia_urbana</th>
+<th align="left">hierarquia_urbana_principais</th>
+<th align="right">codigo_regiao_rural</th>
+<th align="left">nome_regiao_rural</th>
+<th align="left">regiao_rural_classificacao</th>
+<th align="left">amazonia_legal</th>
+<th align="left">semiarido</th>
+<th align="left">cidade_de_sao_paulo</th>
+<th align="right">vab_agropecuaria</th>
+<th align="right">vab_industria</th>
+<th align="right">vab_servicos_exclusivo</th>
+<th align="right">vab_adm_publica</th>
+<th align="right">vab_total</th>
+<th align="right">impostos</th>
+<th align="right">pib_total</th>
+<th align="right">pib_per_capita</th>
+<th align="left">atividade_vab1</th>
+<th align="left">atividade_vab2</th>
+<th align="left">atividade_vab3</th>
+<th align="right">pib_uf</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-1715238417
-</td>
+<tr class="odd">
+<td align="right">2013</td>
+<td align="right">1</td>
+<td align="left">Norte</td>
+<td align="right">11</td>
+<td align="left">RO</td>
+<td align="left">Rondônia</td>
+<td align="right">1100015</td>
+<td align="left">Alta Floresta D’Oeste</td>
+<td align="left">NA</td>
+<td align="right">1102</td>
+<td align="left">Leste Rondoniense</td>
+<td align="right">11006</td>
+<td align="left">Cacoal</td>
+<td align="right">110005</td>
+<td align="left">Cacoal</td>
+<td align="left">do Entorno</td>
+<td align="right">1102</td>
+<td align="left">Ji-Paraná</td>
+<td align="left">do Entorno</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Centro Local</td>
+<td align="left">Centro Local</td>
+<td align="right">1101</td>
+<td align="left">Região Rural da Capital Regional de Porto Velho</td>
+<td align="left">Região Rural de Capital Regional</td>
+<td align="left">Sim</td>
+<td align="left">Não</td>
+<td align="left">Não</td>
+<td align="right">110850.84</td>
+<td align="right">20336.994</td>
+<td align="right">73025.07</td>
+<td align="right">120335.59</td>
+<td align="right">324548.50</td>
+<td align="right">16776.193</td>
+<td align="right">341324.69</td>
+<td align="right">13266.66</td>
+<td align="left">Administração, defesa, educação e saúde públicas e seguridade social</td>
+<td align="left">Pecuária, inclusive apoio à pecuária</td>
+<td align="left">Demais serviços</td>
+<td align="right">31121413</td>
 </tr>
-</tbody>
-</table>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="revisão-de-r.html#cb37-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a href="revisão-de-r.html#cb37-2" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb37-3"><a href="revisão-de-r.html#cb37-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
-<span id="cb37-4"><a href="revisão-de-r.html#cb37-4" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
-<span id="cb37-5"><a href="revisão-de-r.html#cb37-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb37-6"><a href="revisão-de-r.html#cb37-6" tabindex="-1"></a></span>
-<span id="cb37-7"><a href="revisão-de-r.html#cb37-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
-<table>
-<thead>
-<tr>
-<th style="text-align:right;">
-pib_medio
-</th>
-<th style="text-align:right;">
-pib_per_capita_medio
-</th>
+<tr class="even">
+<td align="right">2013</td>
+<td align="right">1</td>
+<td align="left">Norte</td>
+<td align="right">11</td>
+<td align="left">RO</td>
+<td align="left">Rondônia</td>
+<td align="right">1100023</td>
+<td align="left">Ariquemes</td>
+<td align="left">NA</td>
+<td align="right">1102</td>
+<td align="left">Leste Rondoniense</td>
+<td align="right">11003</td>
+<td align="left">Ariquemes</td>
+<td align="right">110002</td>
+<td align="left">Ariquemes</td>
+<td align="left">Polo</td>
+<td align="right">1101</td>
+<td align="left">Porto Velho</td>
+<td align="left">do Entorno</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Centro Sub-regional B</td>
+<td align="left">Centro Sub-regional</td>
+<td align="right">1101</td>
+<td align="left">Região Rural da Capital Regional de Porto Velho</td>
+<td align="left">Região Rural de Capital Regional</td>
+<td align="left">Sim</td>
+<td align="left">Não</td>
+<td align="left">Não</td>
+<td align="right">93249.75</td>
+<td align="right">354733.212</td>
+<td align="right">694832.17</td>
+<td align="right">466732.80</td>
+<td align="right">1609547.93</td>
+<td align="right">190304.571</td>
+<td align="right">1799852.51</td>
+<td align="right">17772.99</td>
+<td align="left">Administração, defesa, educação e saúde públicas e seguridade social</td>
+<td align="left">Demais serviços</td>
+<td align="left">Comércio e reparação de veículos automotores e motocicletas</td>
+<td align="right">31121413</td>
 </tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-2659284
-</td>
-<td style="text-align:right;">
-24827.14
-</td>
+<tr class="odd">
+<td align="right">2013</td>
+<td align="right">1</td>
+<td align="left">Norte</td>
+<td align="right">11</td>
+<td align="left">RO</td>
+<td align="left">Rondônia</td>
+<td align="right">1100031</td>
+<td align="left">Cabixi</td>
+<td align="left">NA</td>
+<td align="right">1102</td>
+<td align="left">Leste Rondoniense</td>
+<td align="right">11008</td>
+<td align="left">Colorado do Oeste</td>
+<td align="right">110006</td>
+<td align="left">Vilhena</td>
+<td align="left">do Entorno</td>
+<td align="right">1102</td>
+<td align="left">Ji-Paraná</td>
+<td align="left">do Entorno</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Centro Local</td>
+<td align="left">Centro Local</td>
+<td align="right">1101</td>
+<td align="left">Região Rural da Capital Regional de Porto Velho</td>
+<td align="left">Região Rural de Capital Regional</td>
+<td align="left">Sim</td>
+<td align="left">Não</td>
+<td align="left">Não</td>
+<td align="right">38259.43</td>
+<td align="right">3412.205</td>
+<td align="right">17787.45</td>
+<td align="right">32838.64</td>
+<td align="right">92297.72</td>
+<td align="right">4066.819</td>
+<td align="right">96364.54</td>
+<td align="right">14836.73</td>
+<td align="left">Administração, defesa, educação e saúde públicas e seguridade social</td>
+<td align="left">Pecuária, inclusive apoio à pecuária</td>
+<td align="left">Agricultura, inclusive apoio à agricultura e a pós colheita</td>
+<td align="right">31121413</td>
 </tr>
-</tbody>
-</table>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="revisão-de-r.html#cb38-1" tabindex="-1"></a><span class="co"># se eu quiser esse cálculo por uf (or cada umas das ufs?)</span></span>
-<span id="cb38-2"><a href="revisão-de-r.html#cb38-2" tabindex="-1"></a><span class="co"># Aí é melhor aguprar por uf</span></span>
-<span id="cb38-3"><a href="revisão-de-r.html#cb38-3" tabindex="-1"></a><span class="co"># ideia é: split by, apply (function), combine (summarise?)</span></span>
-<span id="cb38-4"><a href="revisão-de-r.html#cb38-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb38-5"><a href="revisão-de-r.html#cb38-5" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb38-6"><a href="revisão-de-r.html#cb38-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
-<span id="cb38-7"><a href="revisão-de-r.html#cb38-7" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
-<span id="cb38-8"><a href="revisão-de-r.html#cb38-8" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb38-9"><a href="revisão-de-r.html#cb38-9" tabindex="-1"></a></span>
-<span id="cb38-10"><a href="revisão-de-r.html#cb38-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-sigla_uf
-</th>
-<th style="text-align:right;">
-pib_medio
-</th>
-<th style="text-align:right;">
-pib_per_capita_medio
-</th>
+<tr class="even">
+<td align="right">2013</td>
+<td align="right">1</td>
+<td align="left">Norte</td>
+<td align="right">11</td>
+<td align="left">RO</td>
+<td align="left">Rondônia</td>
+<td align="right">1100049</td>
+<td align="left">Cacoal</td>
+<td align="left">NA</td>
+<td align="right">1102</td>
+<td align="left">Leste Rondoniense</td>
+<td align="right">11006</td>
+<td align="left">Cacoal</td>
+<td align="right">110005</td>
+<td align="left">Cacoal</td>
+<td align="left">Polo</td>
+<td align="right">1102</td>
+<td align="left">Ji-Paraná</td>
+<td align="left">do Entorno</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Centro Sub-regional B</td>
+<td align="left">Centro Sub-regional</td>
+<td align="right">5105</td>
+<td align="left">Região Rural do Centro Sub-regional de Vilhena (RO) e Cacoal (RO)</td>
+<td align="left">Região Rural de Centro Sub-regional</td>
+<td align="left">Sim</td>
+<td align="left">Não</td>
+<td align="left">Não</td>
+<td align="right">140658.88</td>
+<td align="right">140288.317</td>
+<td align="right">599519.83</td>
+<td align="right">395842.23</td>
+<td align="right">1276309.26</td>
+<td align="right">156944.241</td>
+<td align="right">1433253.51</td>
+<td align="right">16692.33</td>
+<td align="left">Administração, defesa, educação e saúde públicas e seguridade social</td>
+<td align="left">Demais serviços</td>
+<td align="left">Comércio e reparação de veículos automotores e motocicletas</td>
+<td align="right">31121413</td>
 </tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-AC
-</td>
-<td style="text-align:right;">
-521542.3
-</td>
-<td style="text-align:right;">
-11450.979
-</td>
+<tr class="odd">
+<td align="right">2013</td>
+<td align="right">1</td>
+<td align="left">Norte</td>
+<td align="right">11</td>
+<td align="left">RO</td>
+<td align="left">Rondônia</td>
+<td align="right">1100056</td>
+<td align="left">Cerejeiras</td>
+<td align="left">NA</td>
+<td align="right">1102</td>
+<td align="left">Leste Rondoniense</td>
+<td align="right">11008</td>
+<td align="left">Colorado do Oeste</td>
+<td align="right">110006</td>
+<td align="left">Vilhena</td>
+<td align="left">do Entorno</td>
+<td align="right">1102</td>
+<td align="left">Ji-Paraná</td>
+<td align="left">do Entorno</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Centro de Zona B</td>
+<td align="left">Centro de Zona</td>
+<td align="right">1101</td>
+<td align="left">Região Rural da Capital Regional de Porto Velho</td>
+<td align="left">Região Rural de Capital Regional</td>
+<td align="left">Sim</td>
+<td align="left">Não</td>
+<td align="left">Não</td>
+<td align="right">45153.64</td>
+<td align="right">19889.818</td>
+<td align="right">149569.44</td>
+<td align="right">83089.55</td>
+<td align="right">297702.45</td>
+<td align="right">55567.232</td>
+<td align="right">353269.68</td>
+<td align="right">19581.49</td>
+<td align="left">Administração, defesa, educação e saúde públicas e seguridade social</td>
+<td align="left">Comércio e reparação de veículos automotores e motocicletas</td>
+<td align="left">Demais serviços</td>
+<td align="right">31121413</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-AL
-</td>
-<td style="text-align:right;">
-365515.0
-</td>
-<td style="text-align:right;">
-7931.148
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AM
-</td>
-<td style="text-align:right;">
-1339536.0
-</td>
-<td style="text-align:right;">
-8975.314
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AP
-</td>
-<td style="text-align:right;">
-797717.9
-</td>
-<td style="text-align:right;">
-14947.829
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-BA
-</td>
-<td style="text-align:right;">
-491233.3
-</td>
-<td style="text-align:right;">
-8814.841
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CE
-</td>
-<td style="text-align:right;">
-592590.0
-</td>
-<td style="text-align:right;">
-7157.360
-</td>
-</tr>
-</tbody>
-</table>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="revisão-de-r.html#cb39-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
-<span id="cb39-2"><a href="revisão-de-r.html#cb39-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb39-3"><a href="revisão-de-r.html#cb39-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb39-4"><a href="revisão-de-r.html#cb39-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pib_uf =</span> <span class="fu">sum</span>(pib_total))</span>
-<span id="cb39-5"><a href="revisão-de-r.html#cb39-5" tabindex="-1"></a></span>
-<span id="cb39-6"><a href="revisão-de-r.html#cb39-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">head</span>(df)</span>
-<span id="cb39-7"><a href="revisão-de-r.html#cb39-7" tabindex="-1"></a></span>
-<span id="cb39-8"><a href="revisão-de-r.html#cb39-8" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
-<table>
-<thead>
-<tr>
-<th style="text-align:right;">
-ano
-</th>
-<th style="text-align:right;">
-codigo_regiao
-</th>
-<th style="text-align:left;">
-nome_regiao
-</th>
-<th style="text-align:right;">
-codigo_uf
-</th>
-<th style="text-align:left;">
-sigla_uf
-</th>
-<th style="text-align:left;">
-nome_uf
-</th>
-<th style="text-align:right;">
-cod_municipio
-</th>
-<th style="text-align:left;">
-nome_munic
-</th>
-<th style="text-align:left;">
-nome_metro
-</th>
-<th style="text-align:right;">
-codigo_meso
-</th>
-<th style="text-align:left;">
-nome_meso
-</th>
-<th style="text-align:right;">
-codigo_micro
-</th>
-<th style="text-align:left;">
-nome_micro
-</th>
-<th style="text-align:right;">
-codigo_reg_geo_imediata
-</th>
-<th style="text-align:left;">
-nome_reg_geo_imediata
-</th>
-<th style="text-align:left;">
-mun_reg_geo_imediata
-</th>
-<th style="text-align:right;">
-codigo_reg_geo_intermediaria
-</th>
-<th style="text-align:left;">
-nome_reg_geo_intermediaria
-</th>
-<th style="text-align:left;">
-mun_reg_geo_intermediaria
-</th>
-<th style="text-align:right;">
-codigo_concentracao_urbana
-</th>
-<th style="text-align:left;">
-nome_concentracao_urbana
-</th>
-<th style="text-align:left;">
-tipo_concentracao_urbana
-</th>
-<th style="text-align:right;">
-codigo_arranjo_populacional
-</th>
-<th style="text-align:left;">
-nome_arranjo_populacional
-</th>
-<th style="text-align:left;">
-hierarquia_urbana
-</th>
-<th style="text-align:left;">
-hierarquia_urbana_principais
-</th>
-<th style="text-align:right;">
-codigo_regiao_rural
-</th>
-<th style="text-align:left;">
-nome_regiao_rural
-</th>
-<th style="text-align:left;">
-regiao_rural_classificacao
-</th>
-<th style="text-align:left;">
-amazonia_legal
-</th>
-<th style="text-align:left;">
-semiarido
-</th>
-<th style="text-align:left;">
-cidade_de_sao_paulo
-</th>
-<th style="text-align:right;">
-vab_agropecuaria
-</th>
-<th style="text-align:right;">
-vab_industria
-</th>
-<th style="text-align:right;">
-vab_servicos_exclusivo
-</th>
-<th style="text-align:right;">
-vab_adm_publica
-</th>
-<th style="text-align:right;">
-vab_total
-</th>
-<th style="text-align:right;">
-impostos
-</th>
-<th style="text-align:right;">
-pib_total
-</th>
-<th style="text-align:right;">
-pib_per_capita
-</th>
-<th style="text-align:left;">
-atividade_vab1
-</th>
-<th style="text-align:left;">
-atividade_vab2
-</th>
-<th style="text-align:left;">
-atividade_vab3
-</th>
-<th style="text-align:right;">
-pib_uf
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-2013
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-Norte
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:left;">
-RO
-</td>
-<td style="text-align:left;">
-Rondônia
-</td>
-<td style="text-align:right;">
-1100015
-</td>
-<td style="text-align:left;">
-Alta Floresta D’Oeste
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1102
-</td>
-<td style="text-align:left;">
-Leste Rondoniense
-</td>
-<td style="text-align:right;">
-11006
-</td>
-<td style="text-align:left;">
-Cacoal
-</td>
-<td style="text-align:right;">
-110005
-</td>
-<td style="text-align:left;">
-Cacoal
-</td>
-<td style="text-align:left;">
-do Entorno
-</td>
-<td style="text-align:right;">
-1102
-</td>
-<td style="text-align:left;">
-Ji-Paraná
-</td>
-<td style="text-align:left;">
-do Entorno
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Centro Local
-</td>
-<td style="text-align:left;">
-Centro Local
-</td>
-<td style="text-align:right;">
-1101
-</td>
-<td style="text-align:left;">
-Região Rural da Capital Regional de Porto Velho
-</td>
-<td style="text-align:left;">
-Região Rural de Capital Regional
-</td>
-<td style="text-align:left;">
-Sim
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:right;">
-110850.84
-</td>
-<td style="text-align:right;">
-20336.994
-</td>
-<td style="text-align:right;">
-73025.07
-</td>
-<td style="text-align:right;">
-120335.59
-</td>
-<td style="text-align:right;">
-324548.50
-</td>
-<td style="text-align:right;">
-16776.193
-</td>
-<td style="text-align:right;">
-341324.69
-</td>
-<td style="text-align:right;">
-13266.66
-</td>
-<td style="text-align:left;">
-Administração, defesa, educação e saúde públicas e seguridade social
-</td>
-<td style="text-align:left;">
-Pecuária, inclusive apoio à pecuária
-</td>
-<td style="text-align:left;">
-Demais serviços
-</td>
-<td style="text-align:right;">
-31121413
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2013
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-Norte
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:left;">
-RO
-</td>
-<td style="text-align:left;">
-Rondônia
-</td>
-<td style="text-align:right;">
-1100023
-</td>
-<td style="text-align:left;">
-Ariquemes
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1102
-</td>
-<td style="text-align:left;">
-Leste Rondoniense
-</td>
-<td style="text-align:right;">
-11003
-</td>
-<td style="text-align:left;">
-Ariquemes
-</td>
-<td style="text-align:right;">
-110002
-</td>
-<td style="text-align:left;">
-Ariquemes
-</td>
-<td style="text-align:left;">
-Polo
-</td>
-<td style="text-align:right;">
-1101
-</td>
-<td style="text-align:left;">
-Porto Velho
-</td>
-<td style="text-align:left;">
-do Entorno
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Centro Sub-regional B
-</td>
-<td style="text-align:left;">
-Centro Sub-regional
-</td>
-<td style="text-align:right;">
-1101
-</td>
-<td style="text-align:left;">
-Região Rural da Capital Regional de Porto Velho
-</td>
-<td style="text-align:left;">
-Região Rural de Capital Regional
-</td>
-<td style="text-align:left;">
-Sim
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:right;">
-93249.75
-</td>
-<td style="text-align:right;">
-354733.212
-</td>
-<td style="text-align:right;">
-694832.17
-</td>
-<td style="text-align:right;">
-466732.80
-</td>
-<td style="text-align:right;">
-1609547.93
-</td>
-<td style="text-align:right;">
-190304.571
-</td>
-<td style="text-align:right;">
-1799852.51
-</td>
-<td style="text-align:right;">
-17772.99
-</td>
-<td style="text-align:left;">
-Administração, defesa, educação e saúde públicas e seguridade social
-</td>
-<td style="text-align:left;">
-Demais serviços
-</td>
-<td style="text-align:left;">
-Comércio e reparação de veículos automotores e motocicletas
-</td>
-<td style="text-align:right;">
-31121413
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2013
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-Norte
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:left;">
-RO
-</td>
-<td style="text-align:left;">
-Rondônia
-</td>
-<td style="text-align:right;">
-1100031
-</td>
-<td style="text-align:left;">
-Cabixi
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1102
-</td>
-<td style="text-align:left;">
-Leste Rondoniense
-</td>
-<td style="text-align:right;">
-11008
-</td>
-<td style="text-align:left;">
-Colorado do Oeste
-</td>
-<td style="text-align:right;">
-110006
-</td>
-<td style="text-align:left;">
-Vilhena
-</td>
-<td style="text-align:left;">
-do Entorno
-</td>
-<td style="text-align:right;">
-1102
-</td>
-<td style="text-align:left;">
-Ji-Paraná
-</td>
-<td style="text-align:left;">
-do Entorno
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Centro Local
-</td>
-<td style="text-align:left;">
-Centro Local
-</td>
-<td style="text-align:right;">
-1101
-</td>
-<td style="text-align:left;">
-Região Rural da Capital Regional de Porto Velho
-</td>
-<td style="text-align:left;">
-Região Rural de Capital Regional
-</td>
-<td style="text-align:left;">
-Sim
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:right;">
-38259.43
-</td>
-<td style="text-align:right;">
-3412.205
-</td>
-<td style="text-align:right;">
-17787.45
-</td>
-<td style="text-align:right;">
-32838.64
-</td>
-<td style="text-align:right;">
-92297.72
-</td>
-<td style="text-align:right;">
-4066.819
-</td>
-<td style="text-align:right;">
-96364.54
-</td>
-<td style="text-align:right;">
-14836.73
-</td>
-<td style="text-align:left;">
-Administração, defesa, educação e saúde públicas e seguridade social
-</td>
-<td style="text-align:left;">
-Pecuária, inclusive apoio à pecuária
-</td>
-<td style="text-align:left;">
-Agricultura, inclusive apoio à agricultura e a pós colheita
-</td>
-<td style="text-align:right;">
-31121413
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2013
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-Norte
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:left;">
-RO
-</td>
-<td style="text-align:left;">
-Rondônia
-</td>
-<td style="text-align:right;">
-1100049
-</td>
-<td style="text-align:left;">
-Cacoal
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1102
-</td>
-<td style="text-align:left;">
-Leste Rondoniense
-</td>
-<td style="text-align:right;">
-11006
-</td>
-<td style="text-align:left;">
-Cacoal
-</td>
-<td style="text-align:right;">
-110005
-</td>
-<td style="text-align:left;">
-Cacoal
-</td>
-<td style="text-align:left;">
-Polo
-</td>
-<td style="text-align:right;">
-1102
-</td>
-<td style="text-align:left;">
-Ji-Paraná
-</td>
-<td style="text-align:left;">
-do Entorno
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Centro Sub-regional B
-</td>
-<td style="text-align:left;">
-Centro Sub-regional
-</td>
-<td style="text-align:right;">
-5105
-</td>
-<td style="text-align:left;">
-Região Rural do Centro Sub-regional de Vilhena (RO) e Cacoal (RO)
-</td>
-<td style="text-align:left;">
-Região Rural de Centro Sub-regional
-</td>
-<td style="text-align:left;">
-Sim
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:right;">
-140658.88
-</td>
-<td style="text-align:right;">
-140288.317
-</td>
-<td style="text-align:right;">
-599519.83
-</td>
-<td style="text-align:right;">
-395842.23
-</td>
-<td style="text-align:right;">
-1276309.26
-</td>
-<td style="text-align:right;">
-156944.241
-</td>
-<td style="text-align:right;">
-1433253.51
-</td>
-<td style="text-align:right;">
-16692.33
-</td>
-<td style="text-align:left;">
-Administração, defesa, educação e saúde públicas e seguridade social
-</td>
-<td style="text-align:left;">
-Demais serviços
-</td>
-<td style="text-align:left;">
-Comércio e reparação de veículos automotores e motocicletas
-</td>
-<td style="text-align:right;">
-31121413
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2013
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-Norte
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:left;">
-RO
-</td>
-<td style="text-align:left;">
-Rondônia
-</td>
-<td style="text-align:right;">
-1100056
-</td>
-<td style="text-align:left;">
-Cerejeiras
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1102
-</td>
-<td style="text-align:left;">
-Leste Rondoniense
-</td>
-<td style="text-align:right;">
-11008
-</td>
-<td style="text-align:left;">
-Colorado do Oeste
-</td>
-<td style="text-align:right;">
-110006
-</td>
-<td style="text-align:left;">
-Vilhena
-</td>
-<td style="text-align:left;">
-do Entorno
-</td>
-<td style="text-align:right;">
-1102
-</td>
-<td style="text-align:left;">
-Ji-Paraná
-</td>
-<td style="text-align:left;">
-do Entorno
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Centro de Zona B
-</td>
-<td style="text-align:left;">
-Centro de Zona
-</td>
-<td style="text-align:right;">
-1101
-</td>
-<td style="text-align:left;">
-Região Rural da Capital Regional de Porto Velho
-</td>
-<td style="text-align:left;">
-Região Rural de Capital Regional
-</td>
-<td style="text-align:left;">
-Sim
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:right;">
-45153.64
-</td>
-<td style="text-align:right;">
-19889.818
-</td>
-<td style="text-align:right;">
-149569.44
-</td>
-<td style="text-align:right;">
-83089.55
-</td>
-<td style="text-align:right;">
-297702.45
-</td>
-<td style="text-align:right;">
-55567.232
-</td>
-<td style="text-align:right;">
-353269.68
-</td>
-<td style="text-align:right;">
-19581.49
-</td>
-<td style="text-align:left;">
-Administração, defesa, educação e saúde públicas e seguridade social
-</td>
-<td style="text-align:left;">
-Comércio e reparação de veículos automotores e motocicletas
-</td>
-<td style="text-align:left;">
-Demais serviços
-</td>
-<td style="text-align:right;">
-31121413
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2013
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-Norte
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:left;">
-RO
-</td>
-<td style="text-align:left;">
-Rondônia
-</td>
-<td style="text-align:right;">
-1100064
-</td>
-<td style="text-align:left;">
-Colorado do Oeste
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1102
-</td>
-<td style="text-align:left;">
-Leste Rondoniense
-</td>
-<td style="text-align:right;">
-11008
-</td>
-<td style="text-align:left;">
-Colorado do Oeste
-</td>
-<td style="text-align:right;">
-110006
-</td>
-<td style="text-align:left;">
-Vilhena
-</td>
-<td style="text-align:left;">
-do Entorno
-</td>
-<td style="text-align:right;">
-1102
-</td>
-<td style="text-align:left;">
-Ji-Paraná
-</td>
-<td style="text-align:left;">
-do Entorno
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Centro Local
-</td>
-<td style="text-align:left;">
-Centro Local
-</td>
-<td style="text-align:right;">
-1101
-</td>
-<td style="text-align:left;">
-Região Rural da Capital Regional de Porto Velho
-</td>
-<td style="text-align:left;">
-Região Rural de Capital Regional
-</td>
-<td style="text-align:left;">
-Sim
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:left;">
-Não
-</td>
-<td style="text-align:right;">
-51029.59
-</td>
-<td style="text-align:right;">
-23179.131
-</td>
-<td style="text-align:right;">
-66099.41
-</td>
-<td style="text-align:right;">
-86090.50
-</td>
-<td style="text-align:right;">
-226398.63
-</td>
-<td style="text-align:right;">
-16368.611
-</td>
-<td style="text-align:right;">
-242767.24
-</td>
-<td style="text-align:right;">
-12650.72
-</td>
-<td style="text-align:left;">
-Administração, defesa, educação e saúde públicas e seguridade social
-</td>
-<td style="text-align:left;">
-Demais serviços
-</td>
-<td style="text-align:left;">
-Pecuária, inclusive apoio à pecuária
-</td>
-<td style="text-align:right;">
-31121413
-</td>
+<tr class="even">
+<td align="right">2013</td>
+<td align="right">1</td>
+<td align="left">Norte</td>
+<td align="right">11</td>
+<td align="left">RO</td>
+<td align="left">Rondônia</td>
+<td align="right">1100064</td>
+<td align="left">Colorado do Oeste</td>
+<td align="left">NA</td>
+<td align="right">1102</td>
+<td align="left">Leste Rondoniense</td>
+<td align="right">11008</td>
+<td align="left">Colorado do Oeste</td>
+<td align="right">110006</td>
+<td align="left">Vilhena</td>
+<td align="left">do Entorno</td>
+<td align="right">1102</td>
+<td align="left">Ji-Paraná</td>
+<td align="left">do Entorno</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">Centro Local</td>
+<td align="left">Centro Local</td>
+<td align="right">1101</td>
+<td align="left">Região Rural da Capital Regional de Porto Velho</td>
+<td align="left">Região Rural de Capital Regional</td>
+<td align="left">Sim</td>
+<td align="left">Não</td>
+<td align="left">Não</td>
+<td align="right">51029.59</td>
+<td align="right">23179.131</td>
+<td align="right">66099.41</td>
+<td align="right">86090.50</td>
+<td align="right">226398.63</td>
+<td align="right">16368.611</td>
+<td align="right">242767.24</td>
+<td align="right">12650.72</td>
+<td align="left">Administração, defesa, educação e saúde públicas e seguridade social</td>
+<td align="left">Demais serviços</td>
+<td align="left">Pecuária, inclusive apoio à pecuária</td>
+<td align="right">31121413</td>
 </tr>
 </tbody>
 </table>
 <p>Coisas estranhas. O maior pib per capita municipal deu muito alto. vamos ver qual município é?
 Vamos filtrar e depois selecionar apenas algumas colunas</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="revisão-de-r.html#cb40-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
-<span id="cb40-2"><a href="revisão-de-r.html#cb40-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb40-3"><a href="revisão-de-r.html#cb40-3" tabindex="-1"></a>  <span class="fu">filter</span>(pib_per_capita <span class="sc">&gt;</span> <span class="dv">700000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-4"><a href="revisão-de-r.html#cb40-4" tabindex="-1"></a>  <span class="fu">select</span>(sigla_uf, nome_munic, pib_per_capita, pib_total) <span class="sc">%&gt;%</span></span>
-<span id="cb40-5"><a href="revisão-de-r.html#cb40-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb40-6"><a href="revisão-de-r.html#cb40-6" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="revisão-de-r.html#cb40-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="revisão-de-r.html#cb37-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
+<span id="cb37-2"><a href="revisão-de-r.html#cb37-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="revisão-de-r.html#cb37-3" tabindex="-1"></a>  <span class="fu">filter</span>(pib_per_capita <span class="sc">&gt;</span> <span class="dv">700000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="revisão-de-r.html#cb37-4" tabindex="-1"></a>  <span class="fu">select</span>(sigla_uf, nome_munic, pib_per_capita, pib_total) <span class="sc">%&gt;%</span></span>
+<span id="cb37-5"><a href="revisão-de-r.html#cb37-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb37-6"><a href="revisão-de-r.html#cb37-6" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="revisão-de-r.html#cb37-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
 <table>
 <thead>
-<tr>
-<th style="text-align:left;">
-sigla_uf
-</th>
-<th style="text-align:left;">
-nome_munic
-</th>
-<th style="text-align:right;">
-pib_per_capita
-</th>
-<th style="text-align:right;">
-pib_total
-</th>
+<tr class="header">
+<th align="left">sigla_uf</th>
+<th align="left">nome_munic</th>
+<th align="right">pib_per_capita</th>
+<th align="right">pib_total</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-ES
-</td>
-<td style="text-align:left;">
-Presidente Kennedy
-</td>
-<td style="text-align:right;">
-717343.7
-</td>
-<td style="text-align:right;">
-7984035
-</td>
+<tr class="odd">
+<td align="left">ES</td>
+<td align="left">Presidente Kennedy</td>
+<td align="right">717343.7</td>
+<td align="right">7984035</td>
 </tr>
 </tbody>
 </table>
@@ -2179,42 +1306,42 @@ Veremos que “faz sentido”, embora na verdade não faça.</p>
 <div id="visualização" class="section level2 hasAnchor" number="2.9">
 <h2><span class="header-section-number">2.9</span> Visualização<a href="revisão-de-r.html#visualização" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para visualizarmos os dados com gráficos, utilizaremos a biblioteca ggplot2</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="revisão-de-r.html#cb41-1" tabindex="-1"></a><span class="co"># gráficos</span></span>
-<span id="cb41-2"><a href="revisão-de-r.html#cb41-2" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="revisão-de-r.html#cb41-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb41-4"><a href="revisão-de-r.html#cb41-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb41-5"><a href="revisão-de-r.html#cb41-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="revisão-de-r.html#cb38-1" tabindex="-1"></a><span class="co"># gráficos</span></span>
+<span id="cb38-2"><a href="revisão-de-r.html#cb38-2" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="revisão-de-r.html#cb38-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb38-4"><a href="revisão-de-r.html#cb38-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="revisão-de-r.html#cb38-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/start_visualizacao-1.png" width="672" /></p>
 <p>A lgócia geral de um grtáfico com ggplot2 é como no exemplo acima. Primeiro passamos as variáveis por meio do comando ggplot, dentro de aes (de aesthetics), depois combinamos com o tipo de plot que queremos faze,r nesse caso, pontos, com geom_point. É possívle customizar o gráfico para ele ficar mais bonito. Vamos fazer isso agora.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="revisão-de-r.html#cb42-1" tabindex="-1"></a><span class="co"># gráficos  mais bonitos</span></span>
-<span id="cb42-2"><a href="revisão-de-r.html#cb42-2" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="revisão-de-r.html#cb42-3" tabindex="-1"></a></span>
-<span id="cb42-4"><a href="revisão-de-r.html#cb42-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb42-5"><a href="revisão-de-r.html#cb42-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb42-6"><a href="revisão-de-r.html#cb42-6" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span></span>
-<span id="cb42-7"><a href="revisão-de-r.html#cb42-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="revisão-de-r.html#cb39-1" tabindex="-1"></a><span class="co"># gráficos  mais bonitos</span></span>
+<span id="cb39-2"><a href="revisão-de-r.html#cb39-2" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="revisão-de-r.html#cb39-3" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="revisão-de-r.html#cb39-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb39-5"><a href="revisão-de-r.html#cb39-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb39-6"><a href="revisão-de-r.html#cb39-6" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb39-7"><a href="revisão-de-r.html#cb39-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Podemos usar vários temas feitos pela comunidade. Por exemplo, Barbie:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="revisão-de-r.html#cb43-1" tabindex="-1"></a><span class="co"># gráficos  mais bonitos</span></span>
-<span id="cb43-2"><a href="revisão-de-r.html#cb43-2" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="revisão-de-r.html#cb43-3" tabindex="-1"></a><span class="co"># install.packages(&quot;remotes&quot;)</span></span>
-<span id="cb43-4"><a href="revisão-de-r.html#cb43-4" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;MatthewBJane/theme_park&quot;)</span></span>
-<span id="cb43-5"><a href="revisão-de-r.html#cb43-5" tabindex="-1"></a><span class="fu">library</span>(ThemePark)</span>
-<span id="cb43-6"><a href="revisão-de-r.html#cb43-6" tabindex="-1"></a></span>
-<span id="cb43-7"><a href="revisão-de-r.html#cb43-7" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb43-8"><a href="revisão-de-r.html#cb43-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb43-9"><a href="revisão-de-r.html#cb43-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span> <span class="fu">theme_barbie</span>() <span class="sc">+</span></span>
-<span id="cb43-10"><a href="revisão-de-r.html#cb43-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="revisão-de-r.html#cb40-1" tabindex="-1"></a><span class="co"># gráficos  mais bonitos</span></span>
+<span id="cb40-2"><a href="revisão-de-r.html#cb40-2" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="revisão-de-r.html#cb40-3" tabindex="-1"></a><span class="co"># install.packages(&quot;remotes&quot;)</span></span>
+<span id="cb40-4"><a href="revisão-de-r.html#cb40-4" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;MatthewBJane/theme_park&quot;)</span></span>
+<span id="cb40-5"><a href="revisão-de-r.html#cb40-5" tabindex="-1"></a><span class="fu">library</span>(ThemePark)</span>
+<span id="cb40-6"><a href="revisão-de-r.html#cb40-6" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="revisão-de-r.html#cb40-7" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb40-8"><a href="revisão-de-r.html#cb40-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb40-9"><a href="revisão-de-r.html#cb40-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span> <span class="fu">theme_barbie</span>() <span class="sc">+</span></span>
+<span id="cb40-10"><a href="revisão-de-r.html#cb40-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Vocês podem ver outros temas de filmes no github do autor do pacote: <a href="https://github.com/MatthewBJane/theme_park" class="uri">https://github.com/MatthewBJane/theme_park</a>
 E, claro, há muito mais na internet.</p>
 <p>Para fazer outro tipo de gráfico, é só variar o geom. Por exemplo, um histograma do PIB per capita.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="revisão-de-r.html#cb44-1" tabindex="-1"></a><span class="co"># Histograma</span></span>
-<span id="cb44-2"><a href="revisão-de-r.html#cb44-2" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="revisão-de-r.html#cb44-3" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="revisão-de-r.html#cb44-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb44-5"><a href="revisão-de-r.html#cb44-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>pib_per_capita)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb44-6"><a href="revisão-de-r.html#cb44-6" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB per capita municipal&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="revisão-de-r.html#cb41-1" tabindex="-1"></a><span class="co"># Histograma</span></span>
+<span id="cb41-2"><a href="revisão-de-r.html#cb41-2" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="revisão-de-r.html#cb41-3" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="revisão-de-r.html#cb41-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb41-5"><a href="revisão-de-r.html#cb41-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>pib_per_capita)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb41-6"><a href="revisão-de-r.html#cb41-6" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB per capita municipal&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 
 </div>

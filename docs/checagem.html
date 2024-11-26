@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2024-11-05" />
+<meta name="date" content="2024-11-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -331,7 +331,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.5" data-path="glm.html"><a href="glm.html#logística-como-glm"><i class="fa fa-check"></i><b>13.5</b> Logística como GLM</a></li>
 <li class="chapter" data-level="13.6" data-path="glm.html"><a href="glm.html#logística-com-múltiplos-preditores"><i class="fa fa-check"></i><b>13.6</b> Logística com múltiplos preditores</a></li>
 <li class="chapter" data-level="13.7" data-path="glm.html"><a href="glm.html#ajuste-do-modelo"><i class="fa fa-check"></i><b>13.7</b> Ajuste do modelo</a></li>
-<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.8</b> Referências</a></li>
+<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#regressão-com-dados-ordenados"><i class="fa fa-check"></i><b>13.8</b> Regressão com dados Ordenados</a></li>
+<li class="chapter" data-level="13.9" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.9</b> Referências</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="apêndice.html"><a href="apêndice.html"><i class="fa fa-check"></i><b>14</b> - Apêndice</a>
 <ul>
@@ -625,12 +626,11 @@ Portanto, se estamos assumindo homecadisticidade, isto é, que <span class="math
 <pre><code>## [1] 0.02884366</code></pre>
 <div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="checagem.html#cb177-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb177-2"><a href="checagem.html#cb177-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(residuos)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="fu">aes</span>(density_points), <span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2
-## 3.4.0.
+<pre><code>## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `after_stat(density)` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this
-## warning was generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
 <p><img src="bookdownproj_files/figure-html/residuos-normalidade-1.png" width="672" /></p>
 <p>Uma alternativa mais tradicional são os chamados Q-Q plots, cujo nome deriva de sere um plot “quantil-quantil”. A Função de Distribuição Acumulada (FDA) é <span class="math inline">\(F(x) = P(X \leq x)\)</span>. Se a função é contínua (como a Normal), então ela possui uma inversa: <span class="math inline">\(F^{-1}(p)\)</span>, que nos diz o único <span class="math inline">\(x\)</span> tal que <span class="math inline">\(P(X \leq x) = p\)</span>. Ou seja, a função quantil me diz qual é o ponto que divide a minha distribuição de probabilidade em exatamente <span class="math inline">\(p\%\)</span>. Por exemplo, posso me perguntar qual ponto divide meus dados exatamente no meio (mediana), ou no primeiro quartil, primeiro percentil, em suma, em qualquer percentual da distribuição. O R tem uma função para isso que vale vermos para entender.</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="checagem.html#cb179-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>( <span class="dv">1000</span>)</span>

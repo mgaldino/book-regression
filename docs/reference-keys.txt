@@ -4,6 +4,7 @@ tab:unnamed-chunk-8
 tab:tabela-variaveis
 eq:logistic
 eq:logistic-latent
+fig:ordered-reg-line
 prefácio
 revisão-de-r
 r-e-rstudio
@@ -139,6 +140,7 @@ probit
 logística-como-glm
 logística-com-múltiplos-preditores
 ajuste-do-modelo
+regressão-com-dados-ordenados
 referências-2
 apêndice
 importação

@@ -380,7 +380,7 @@ meat <- (t(X) %*% omega %*% X)
 vce <- bread %*% meat %*% bread
 sqrt(diag(vce))
 ```
-
+ 
 Se inspecionarmos omega mais detalhadamente, temos:
 ```{r print omega}
 print(omega)
