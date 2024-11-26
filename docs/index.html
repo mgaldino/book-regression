@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2024-11-05" />
+<meta name="date" content="2024-11-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -331,7 +331,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.5" data-path="glm.html"><a href="glm.html#logística-como-glm"><i class="fa fa-check"></i><b>13.5</b> Logística como GLM</a></li>
 <li class="chapter" data-level="13.6" data-path="glm.html"><a href="glm.html#logística-com-múltiplos-preditores"><i class="fa fa-check"></i><b>13.6</b> Logística com múltiplos preditores</a></li>
 <li class="chapter" data-level="13.7" data-path="glm.html"><a href="glm.html#ajuste-do-modelo"><i class="fa fa-check"></i><b>13.7</b> Ajuste do modelo</a></li>
-<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.8</b> Referências</a></li>
+<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#regressão-com-dados-ordenados"><i class="fa fa-check"></i><b>13.8</b> Regressão com dados Ordenados</a></li>
+<li class="chapter" data-level="13.9" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.9</b> Referências</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="apêndice.html"><a href="apêndice.html"><i class="fa fa-check"></i><b>14</b> - Apêndice</a>
 <ul>
@@ -382,21 +383,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Introdução à Regresssão para Ciências Sociais</h1>
 <p class="author"><em>Manoel Galdino</em></p>
-<p class="date"><em>2024-11-05</em></p>
+<p class="date"><em>2024-11-26</em></p>
 </div>
 <div id="prefácio" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Capítulo 1</span> - Prefácio<a href="index.html#prefácio" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação da Ciências Sociais da USP, FLP0468 Métodos Quantitativos de Pesquisa na Ciência Política IV, de introdução à regressão, bem como o curso de pós-graduação, Métodos II.</p>
-<p>Agradeço aos alunos do curso pelos feedbacks (futuros e presentes) sobre esse material, bem como ao monitor do curso, Davi Veronese.</p>
+<p>Esse livro é, por enquanto, apenas uma repositório de notas de aula do curso de graduação de Ciências Sociais da USP, FLP0468 Métodos Quantitativos de Pesquisa na Ciência Política IV, de introdução à regressão, bem como o curso de pós-graduação, Métodos II.</p>
+<p>Agradeço aos alunos do curso pelos feedbacks (futuros e presentes) sobre esse material, bem como aos monitores do curso ao longo dos anos, Davi Veronese, Gabriel e Pedro.</p>
 <p>Futuramente, pretendo transformar as notas de aulas em um livro, que poderá ser utilizado pela comunidade brasileira de ciências sociais interessada em aprender mais sobre métodos quantitativos, em particular regressão com R.</p>
-<p>A motivação para disponibilizar as notas de aula em formato de livro é a quase inexistência de um material bom de econometria básica, em português, voltado para a área de ciências sociais, em particular a ciência política. Existem bons manuais em inglês para ciência política e bons manuais em português para economia, mas não em portugês para ciência política.</p>
+<p>A motivação para disponibilizar as notas de aula em formato de livro é a quase inexistência de um material bom de econometria básica, em português, voltado para a área de ciências sociais, em particular a ciência política. Existem bons manuais em inglês para ciência política e bons manuais em português para economia, mas não em português para ciência política.</p>
 <p>Além disso, os livros existentes nem sempre fazem um bom trabalho de diferenciar regressão estatística e modelo estrutural (causal) de regressão. Uma abordagem moderna de inferência causal requer que essa distinção seja ensinada ao aluno e esse livro também pretende preencher essa lacuna.</p>
 <p>Por fim, a utilização do R é uma forma de dar ênfase à parte prática. Embora a teoria seja importante e a boa compreensão dos fundamentos é o que permite o aprofundamento dos temas cobertos no livro, estatística é uma disciplina aplicada, cujo maior valor está na sua aplicação prática. Assim, boa parte do curso e do conteúdo do livro é dedicado a implementar a teoria no R, bem como na interpretação dos dados.</p>
-<p>O livro começa com capítulos iniciais de introdução/revisão do R e de estatística básica (incluindo probabilidade). Assim, pressupomos que um estudante que utilize esse curso tenha conhecimentos de estatística e probabilidade básica. Não é necessário conhecimento previo de R, nem de cálculo ou álgebra linerar.</p>
-<p>O restante do livro está organizado da seguinte maneira. Após as revisões, o texto introduz o conceito de esperança condicional, para motivar a regressão como aproximação da esperança condicional. Apresentamos então alguns estimadores (plug-in estimators e MQO), para então discutir causalidade, a partir da abordagem de resultados potenciais. Mostramso então estimação por Máxima Verossimilhança e checagem do modelo. Seguinos a ordem do livro do Cosma Shalizi (The Truth About Linear Regression), de discutir checagem antes de inferência, pois esta depende dos presssupostos serem válidos. Passamos então à inferência, regressão múltipla e por fim uma rápida introdução à regressão logística.</p>
-<p>As referências principais para o presente livro são o já referido livro do Shalizi, além do manual consagrado do Hansen, Econometrics. O capítulo de resultados potenciais e intepretação da regrexão como aproximação da CEF beberam extensamente do livro de Angrrst e Pschike, Mostly Harmless Econometris, e o capítulo sobre logística do Livro de Gelman, Hill e vehtari, Regression and other Stories. O leitor atento verá que várias derivações seguem fielmente o que se encontra nesse livros.</p>
+<p>O livro começa com capítulos iniciais de introdução/revisão do R e de estatística básica (incluindo probabilidade). Assim, pressupomos que um estudante que utilize esse curso tenha conhecimentos de estatística e probabilidade básica. Não é necessário conhecimento prévio de R, nem de cálculo ou álgebra linerar.</p>
+<p>O restante do livro está organizado da seguinte maneira. Após as revisões, o texto introduz o conceito de esperança condicional, para motivar a regressão como aproximação da esperança condicional. Apresentamos então alguns estimadores (plug-in estimators e MQO), para então discutir causalidade, a partir da abordagem de resultados potenciais. Mostramos então estimação por Máxima Verossimilhança e checagem do modelo. Seguinos a ordem do livro do Cosma Shalizi (The Truth About Linear Regression), de discutir checagem antes de inferência, pois esta depende dos presssupostos serem válidos. Passamos então à inferência, regressão múltipla e por fim uma rápida introdução à regressão logística e outros modelos de variáveis resposta categórica.</p>
+<p>As referências principais para o presente livro são o já referido livro do Shalizi, além do manual consagrado do Hansen, Econometrics. O capítulo de resultados potenciais e intepretação da regressão como aproximação da CEF beberam extensamente do livro de Angrrst e Pschike, Mostly Harmless Econometris, e o capítulo sobre logística do Livro de Gelman, Hill e Vehtari, Regression and other Stories. Demais modelos categóricos seguem de perto o livro de Clark e Golder, Interaction Models. Specificatio and Interpretation. O leitor atento verá que várias derivações seguem fielmente o que se encontra nesses livros.</p>
 <p>Por fim, destaco a discussão sobre análise de sensibilidade, ausente de todos os manuais de econometria que olhei. Ainda um tanto confusa, creio que é tópico fundamental e da fronteira das análises causais e que acho uma boa contribuição (quando revisar o texto) para quem se interesse por análise causal e não encontra tutoriais sobre o tema disponível, nem mesmo na internet.</p>
-<p>E um alerta. Durante as aulas, notei vários erros de derivação, ausência de parêntesis (que mudavam completamente os resultados) entre muitos erros que não consigo reportar aqui. Alguns foram corrigidos, a maioria não. Os alunos puderam anotar as passagens erradas, mas quem ler o texto pela internet sem acesso às aulas, não. Então, chequem em outras fontes todas as derivações. Espero poder corrigir os erros logo. Mas até lá, fica o alerta.</p>
+<p>E um alerta. Durante as aulas, notei vários erros de derivação, ausência de parêntesis (que mudavam completamente os resultados) entre muitos erros que não consigo reportar aqui. A maior parte já foi corrigida, mas ainda restam vários erros. Os alunos puderam anotar as passagens erradas, mas quem ler o texto pela internet sem acesso às aulas, não. Então, chequem em outras fontes todas as derivações. Espero poder corrigir os erros logo. Mas até lá, fica o alerta.</p>
 
 </div>
             </section>
