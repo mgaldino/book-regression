@@ -27,34 +27,56 @@ $\mathbb{E}[X|Z] = \sum xP_{x|z}(x) = \sum x \frac{P_x(x)P_Z(z)}{P_Z(z)} = \sum 
 Da segunda igualdade para a terceira usamos a definição de probabilidade condicional.
 
 
+Definição 15.1.2 (independência linear): Dizemos que $X$ e $Z$ são não-correlacionados ou linearmente independentes se $\mathbb{E}[XZ] = \mu_x\mu_z \iff cov(X,Z) = 0$
 
-Definição 15.2 (independência linear): Dizemos que $X$ e $X$ são não-correlacionados ou linearmente independentes se $\mathbb{E}[XZ] = \mu_x\mu_z \iff cov(X,Z) = 0$
+Proposição 15.1.2 (independência na média para independência linear): Se $X$ e $Y$ São independentes na média, então são linearmente independentes. O reverso não é verdade.
 
-Proposição 15.2 (independência na média para independência linear): Se $X$ e $Y$ São independentes na média, então são linearmente independentes. O reverso não é verdade.
+\begin{aligned}
+\mathbb{E}[XZ]
+&= \mathbb{E}\!\big[\mathbb{E}[XZ \mid Z]\big]
+\quad \text{(lei das esperanças iteradas)}\\
+&= \mathbb{E}\!\big[ Z\,\mathbb{E}[X \mid Z] \big]
+\quad \text{(condicionado em $Z$, ele é constante)}\\
+&= \mathbb{E}\!\big[ Z\,\mathbb{E}[X] \big]
+\quad \text{(independência na média)}\\
+&= \mathbb{E}[X]\,\mathbb{E}[Z]
+\quad \text{(constante sai da esperança)}\\
+&= \mu_X \mu_Z,
+\end{aligned}
+logo $\mathrm{cov}(X,Z)=\mathbb{E}[XZ]-\mu_X\mu_Z=0$.
 
-Prova:
+**Observação**:
 
-$\mathbb{E}[XZ] = \mathbb{E}[\mathbb{E}[XZ|Z]] = \mathbb{E}[Z\mathbb{E}[X|Z]] = \mathbb{E}[Z\mathbb{E}[X]] = \mathbb{E}[Z]\mathbb{E}[X] = \mu_x\mu_z$
+O reverso não vale: por exemplo, se $Z$ é uniforme em $(-1,1)$ e $X = Z^2$, então $\mathrm{cov}(X,Z) = 0$, mas $\mathbb{E}[X \mid Z] \neq \mathbb{E}[X]$.
 
-No primeiro passo, utilizamos a lei das esperanças iteradas. No segundo passo, o fato de que ao condicionar em $Z$, podemos considerar $Z$ constante. No terceiro passo, a suposição de que $X$ e $Z$ são independentes na média, e portanto $\mathbb{E}[X|Z] = \mathbb{E}[X]$. No quarto passo o fato de que $\mathbb{E}[X]$ é uma constante e, portanto, podemos tirar fora da primeira esperança.
+Para ver que $\mathrm{cov}(X,Z) = 0$, considere:
+
+\begin{aligned}
+\mathbb{E}[XZ]-\mu_X\mu_Z
+&= \mathbb{E}[XZ]-\mu_X 0
+&= \mathbb{E}[XZ]
+&= \mathbb{E}[Z^3] = 0
+\end{aligned}
 
 ## Propriedade de estimadores
 
 ### Viés
 
-Definição xx (viés). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um um estimador de $\theta_0$. O viés de um estimador é o desvio absoluto entre o verdadeiro valor do parâmetro e a esperança do estimador. 
+Definição 15.2 (viés). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um um estimador de $\theta_0$. O viés de um estimador é o desvio absoluto entre o verdadeiro valor do parâmetro e a esperança do estimador. 
 
 $|\theta_0 - \mathbb{E}[\hat{\theta}]|$. 
 
 Dizemos que um estimador é não-viesado se e somente se o viés é zero. Lembrem-se que **se e somente se** é uma relação de biimplicação, ou seja, se é não viesado, o viés é zero. Se o viés é zero, é não viesado.
 
+Observaçao: o estimador é que pode ser viesado ou não. Isso não se aplica a uma estimativa. Incorremos em erro quando dizemos que a estimativa é viesada (ou não viesada). O que é viesado ou não é o estimador. Similarmente, não cabe falar em amostra viesada ou não-viesada.
+
 ### Variância
 
-Definição x.x. (variância do estimador). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um um estimador de $\theta_0$. A variância de um estimador é valor esperado do quadrado dos desvios amostrais.
+Definição 15.3. (variância do estimador). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um um estimador de $\theta_0$. A variância de um estimador é valor esperado do quadrado dos desvios amostrais.
 
 $Var[\hat{\theta}] = \mathbb{E}[\left(\hat{\theta} - \mathbb{E}[\hat{\theta}]  \right)^2]$
 
-Proposição x.x. Seja $Z_1, Z_2, ...$ uma sequência de variáveis aleatórias i.i.d tal que, para todo $i$, $\mathbb{E}[Z_i] = \mu$ e $Var[Z_i] = \sigma^2$. Seja $X_n$ a média amostral das primeiras $n$ variáveis. A variância amostral é igual à variância de $Z$ dividida por $n$.
+Proposição 15.3. Seja $Z_1, Z_2, ...$ uma sequência de variáveis aleatórias i.i.d tal que, para todo $i$, $\mathbb{E}[Z_i] = \mu$ e $Var[Z_i] = \sigma^2$. Seja $X_n$ a média amostral das primeiras $n$ variáveis. A variância amostral é igual à variância de $Z$ dividida por $n$.
 
 $Var[X_n] = \frac{Var[Z]}{n} = \frac{\sigma^2}{n}$
 
@@ -62,7 +84,19 @@ Prova:
 
 ### Eficiência
 
-Entre um número de estimadores da mesma classe, o estimador com a menor variância é chamado de estimador eficiente. Ademais, o limite inferior da variância de um estimador qualquer é chamado de limite de Cramer-Rao.
+Entre um número de estimadores da mesma classe (por exemplo, todos são não-viesados e têm variância finita), o estimador com a menor variância é chamado de estimador eficiente.
+
+### Consistência
+
+Definição:
+Um estimador $\hat\theta_n$ é **consistente** para $\theta$ se $\hat\theta_n \xrightarrow{p} \theta$, i.e.,
+$\forall \varepsilon>0,\ \lim_{n\to\infty}\Pr(|\hat\theta_n-\theta|>\varepsilon)=0$.
+
+Proposição: Condição suficiente via Chebyshev
+Se $\hat\theta_n$ é não-viesado e $\mathrm{Var}(\hat\theta_n)\to 0$ quando $n\to\infty$, então $\hat\theta_n$ é consistente.
+
+Pela desigualdade de Chebyshev,
+$\Pr(|\hat\theta_n-\theta|>\varepsilon)\le \mathrm{Var}(\hat\theta_n)/\varepsilon^2 \to 0$.
 
 ## Exercícios para o leitor 
 

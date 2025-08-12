@@ -54,7 +54,7 @@ Nós iremos considerar que a regressão linear é uma forma de aproximar a chama
 Para introduzir a CEF, iremos trabalhar com um banco de dados de eleição. O código abaixo mostrar como importar e processar os dados.
 O dado original foi retirado do portal de dados abertos do TSE, com os dados de votação nominal nas eleições de 2020 para o estado de São Paulo.
 
-```{r import-voto, echo=TRUE, message=FALSE, cache=TRUE, warning=FALSE}
+```{r import-voto cap5, echo=TRUE, message=FALSE, cache=TRUE, warning=FALSE}
 
 library(here)
 library(data.table)
@@ -64,7 +64,7 @@ library(tidyverse)
 # dados <- fread(here("dados\\votacao_secao_2020_SP\\", "votacao_secao_2020_SP.csv"), encoding = "Latin-1")
 ```
 
-```{r processa-voto, echo=TRUE, message=FALSE, cache=TRUE}
+```{r processa-voto cap5, echo=TRUE, message=FALSE, cache=TRUE}
 # dados_finais <- dados %>%
 #   dplyr::filter(DS_CARGO == "Prefeito" & ANO_ELEICAO == 2020 & NM_TIPO_ELEICAO == "Eleição Ordinária") %>%
 #   group_by(DS_ELEICAO, NR_TURNO, NM_MUNICIPIO, 
@@ -75,7 +75,7 @@ library(tidyverse)
 #salvei os dados e posso importar o que fiz.
 # o arquivo dados_finais.rds está no respositório em:
 # https://github.com/mgaldino/book-regression/tree/main/dados
-dados_finais <- readRDS(here("dados\\", "dados_finais.rds"))
+dados_finais <- readRDS(here("dados", "dados_finais.rds"))
 
 # Identificar os municípios que possuem segundo turno
 municipios_segundo_turno <- dados_finais %>%
@@ -128,7 +128,7 @@ Naturalmente, se esse é o caso, a próxima pergunta que todos nós iremos fazer
 ## CEF e voto 
 
 
-```{r voto_turnos_todos_municipios, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "voto" }
+```{r voto_turnos_todos_municipios cap5, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "voto" }
 
 library(ggplot2)
 library(tidyr)

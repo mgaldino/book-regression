@@ -166,15 +166,15 @@ gênero, juntamente com a frequência relativa de categoria:
 ```{r cap6-table-wage-gender, results='asis', message=FALSE, warning=F, cache=TRUE }
       
       
-table2 <- df %>%
-  mutate(total_n = sum(V1028),
-         log_renda = log(renda)) %>%
-  group_by(genero) %>%
-  summarise(salario = round(weighted.mean(salario, w=V1028),2), freq=sum(V1028)/total_n)
-     
-table2 %>%
-  head(10) %>%
-  kable()
+# table2 <- df %>%
+#   mutate(total_n = sum(V1028),
+#          log_renda = log(renda)) %>%
+#   group_by(genero) %>%
+#   summarise(salario = round(weighted.mean(salario, w=V1028),2), freq=sum(V1028)/total_n)
+#      
+# table2 %>%
+#   head(10) %>%
+#   kable()
       
 ```
 

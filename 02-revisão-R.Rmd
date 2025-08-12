@@ -307,7 +307,7 @@ Vamos filtrar e depois selecionar apenas algumas colunas
 # agora, quero criar uma nova variável, que é o pib estadual
 df <- pib_cid %>%
   filter(pib_per_capita > 700000) %>%
-  select(sigla_uf, nome_munic, pib_per_capita, pib_total) %>%
+  dplyr::select(sigla_uf, nome_munic, pib_per_capita, pib_total) %>%
   head()
 
 kable(df)

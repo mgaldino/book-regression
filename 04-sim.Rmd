@@ -1,5 +1,17 @@
 # Introdução à Simulação
 
+## Objetivos
+
+Entender o que é um Processo Gerador de Dados (DGP) e como especificá-lo em R.
+
+Gerar amstras aleatórias de distribuições (rnorm, runif, rbinom, rpois, ...) e fixar semente com set.seed().
+
+Compreender simulação de Monte Carlo: por que, quando e como.
+
+Realizar aplicações de simulação, como diferenciar LLN (Lei dos Grandes Números) e CLT (Teorema Central do Limite) via simulação; e entender cobertura de intervalos de confiança (IC) e avaliar coberturas para níveis 80/90/95/99% com gráficos.
+
+## Introdução
+
 Simulação é uma ferramenta extremamente importante em probabilidade e estatística. Dois são seus principais usos. De um lado, é possível usar um modelo de probabilidade para recriar, artificialmente, no computador, amostras desse modelo, quantas vezes quisermos. Tudo se passa como se tivéssemos o poder de criar um mundo, totalmente controlado por nós, e podemos simular esse mundo e verificar o que acontece. Isso é útil quando não podemos ou não queremos verificar matematicamente o que deveria acontecer com base no modelo matemático de probabilidade. De outro lado, é possível usar simulações para aproximar quantidades matemáticas que não podemos ou não queremos calcular analiticamente. Por calcular analiticamente, é fazendo a conta nós mesmos. Um exemplo simples disso é, em vez de calcular os resultados de alguma análise combinatória usando as fórmulas de combinação e simularmos os valores e contar quantas combinações resultam.
 
 No geral usamos simulação para o primeiro tipo de uso. Mas, aqui no curso, será útil que vocês verifiquem resultados matemáticos por meio de simulações. Assim, se escrevemos que $\sum_{i=1}^{10} i = 55$, vocês podem verificar com código no R essa soma, por exemplo, rodando: `sum(1:10)`. Sempre que vocês tiverem dúvida de algum passo matemático, podem fazer uma simulação para entender melhor o que está acontecendo. Isso é encorajado, para melhorar a intuição do que está acontecendo e lhe assegurar que de fato você está entendendo o que está acontecendo. Podemos usar simulações para aproximar quantidades. Um exemplo clássico em probabilidade é a fórmula de Stirling, dada por $n!  \sim \sqrt{2\pi}n^{n + 1/2}*e^{-n}$. Então, por exemplo, $10! = 10*9*8*7*6*5*4*3*2*1$ com os computadores modernos pode ser calculada diretamente para números não tão grandes. No caso, $10! = 3628800$. Ou pode ser aproximada pela fórmula de Stirling:
@@ -24,14 +36,44 @@ stirling_aprox(10)/3628800
 
 Como se vê, a fórmula de Stirling é bem precisa para aproximar fatorial e muito mais fácil de computar.
 
- Dito isso, voltemos ao primeiro caso, de simulação de modelos de probabilidade.
+## DGP — Processo Gerador de Dados
+
+Definição (intuitiva): um DGP descreve como os dados são produzidos na população. Tipicamente contém um componente determinístico e outro estocástico.
+
+<div style="border: 2px solid #007ACC; border-radius: 5px; padding: 12px; background-color: #F0F8FF; margin: 1em 0;">
+<strong>Origem do termo “estocástico”</strong><br>
+Estocástico possui origem grega, <em>stókhos</em>. Referia-se à capacidade de adivinhar ou conjecturar. Em latim, o termo aproximadamente equivalente é <em>alea</em>, como na famosa frase de Júlio Cesar, <em>“Alea iacta est”</em>, quando decidiu atravessar o Rubicão. Comumente traduzido por “a sorte está lançada”, mas aparentemente seria melhor algo como “os dados estão lançados”, sendo os dados aleatórios.<br><br>
+Em resumo, temos duas palavras com significados similares (<em>estocástico</em> e <em>aleatório</em>). O inglês <em>random</em> aparentemente vem do francês <em>randon</em>, querendo dizer impetuoso, desorganizado, e utilizado pelo seu derivado <em>randonné</em>, que tem a ver com trilha ou caminhada desorganizada, caótica, bagunçada. Portanto, nada de usar "randomizar" quando podemos utilizar aleatorizar com o mesmo significado. <br><br>
+Fonte: <a href="https://math.stackexchange.com/questions/114373/whats-the-difference-between-stochastic-and-random">math.stackexchange.com</a>
+</div>
+
+Por hora, vamos trabalhar com DGPs apenas estocásticos.
+
+Um DGP estocástico é tipicamente definido por uma distribuição de probabilidade (Normal, Bernoulli, Poisson, Exponencial etc.) e os parâmetros que govenram a distribuição: média/variância (Normal), probabilidade (Bernoulli), taxa (Poisson/Exponencial). Às vezes a distribuição de probabilidade pode ser reparametrizada (por exemplo, especificar a Normal em termos do desvio-padrao em vez da variância, ou o inverso da variância, chamado de precisão).
+
+É preciso definir também a relação entre os dados, se de Independência/Identicamente distribuídos (i.i.d.) ou se há presença de dependência (séries temporais, agrupamentos espaciais etc.).
+
+## Simulação de Monte Carlo
+
+A simulação de Monte Carlo é um método computacional que se utiliza de amostras repetidas de um dado DGP para nos permitir calcular determinadas quantidades númericas. O nome vem do principado de Mônaco, com seus cassinos e jogos de azar, e foi criado nos anos 40 em Los Alamos, para auxiliar nos cálculos necessários para construção da bomba atômica. Em estatística, as quantidade calculadas são chamadas de "estatísticas".
+
+<div style="border: 2px solid #007ACC; border-radius: 5px; padding: 12px; background-color: #F0F8FF; margin: 1em 0;">
+<strong>Estatística</strong><br>
+Uma <em>estatística</em> é qualquer quantidade calculada a partir de uma amostra e utilizada para um propósito estatístico. Exemplos são a média (amostral), variância, desvio-padrão, mediana. Mas também estatística T, Z, F etc. Quando calculamos uma estatística para estimar um parâmetro de um modelo, chamamos essa estatística de estimativa. E o método de estimador. <br><br>
+</div>
+
+Para realizar uma simulação ou experimento de Monte Carlo, especificamos o DGP, tamanho amostral, definimos a semente para garantir a reprodutibilidade e então o resumo e visualização da distribuição empírica da estatística.
+
+Pergunta: Por que usamos set.seed() antes de simular?
+
+### Simulando um dado
 
 Comecemos lembrando que probabilidades podem ser interpretadas como frequências relativas de longo prazo. Portanto, a probabilidade de um evento pode ser aproximada por simulações, na medida em que aproximamos a frequência relativa com que o fenômeno acontece em nossas simulações. Vamos dar um exemplo simples desse tipo de aplicação.
 
 Suponha que quero simular a probabilidade do número 6 sair em um dado de seis lados.
 
 Exemplo 4.1.1
-```{r cap4, results='asis'}
+```{r cap4, results='asis', warning=FALSE, message=FALSE}
 # especificando semente, para simulação ser reproduzível
 set.seed(234)
 # número de amostras
@@ -49,7 +91,7 @@ prob_6 <- sum(resultado == 6)/n
 ```
 
 Podemos também ver como a aproximação converge para o verdadeiro valor à medida que $n$ cresce.
-```{r, results='asis'}
+```{r, results='asis', warning=FALSE, message=FALSE}
 # especificando semente, para simulação ser reproduzível
 set.seed(234)
 # número de amostras
@@ -79,7 +121,7 @@ print(vec_prob6)
 
 Se supusermos que todos os números possuem a mesma chance de sair quando jogamos os dados, então, a distribuição conjunta de $X$ e $Y$ pode ser dada por:
 
-```{r cap4 tab1, results='asis'}
+```{r cap4 tab1, results='asis', warning=FALSE, message=FALSE}
 library(knitr)
 library(kableExtra)
 
@@ -110,6 +152,7 @@ Definir o modelo de probabilidade, variáveis aleatórias e eventos a serem mode
 Vamos considerar o exemplo dos dados novamente. Vamos usar a função sample para simular lançamento de um dado de quatro faces.
 
 Para "jogar o dado" uma vez, sorteio um número entre 1 e 4.
+
 ```{r cap4 dado1, results='asis'}
 X <- sample(1:4, size=1)
 
@@ -117,7 +160,7 @@ X <- sample(1:4, size=1)
 
 Como quero a frequência de longo prazo, preciso repetir esse processo (de maneira independente a cada jogada) $n$ vezes.
 
-```{r cap4 dado n vezes, results='asis'}
+```{r cap4 dado n vezes, results='asis', warning=FALSE, message=FALSE}
 # número de jogadas/simulações
 n <- 1000
 
@@ -137,7 +180,7 @@ head(X, 20)
 
 Após realizada a simulação, queremos não olhar todos os números simulados, mas resumir a simulação. Por exemplo, obtendo a minha distribuição de probabilidade, ou a esperança.
 
-```{r cap4 resumo, results='asis'}
+```{r cap4 resumo, results='asis', , warning=FALSE, message=FALSE}
 # prob X = 1
 sum(X==1)/n
 
@@ -157,110 +200,73 @@ summary(X)
 
 ```
 
-## Análise de sensibilidade
+Questão:
 
-Como estamos simulando e aproximando com um $n$ finito o que deveria ser infinito, temos de saber se nossa aproximação é boa. Se sabemos a verdade, podemos calcular como o erro se comporta com o $n$ que escolhemos, ou ver como muda à medida que o $n$ cresce. Vamos fazer isso.
+O que faz o código replicate(10000, { ... })?
 
+## LGN e TCL
 
-```{r cap4 sensibilidade, results='asis'}
+Qual a diferença entre a Lei dos Grandes Números e o Teorema Central do Limite?
+Uma forma de entender esses dois resultados fundamentais é por meio de simulações. Vamos simular o LGN e depois o TCL
 
-# número de jogadas/simulações
-n <- 1000
-
-# vetor X, para armazenar o resultado de cada uma das n jogadas
-X <- numeric()
-
-# número de replicações da simulação
-k <- 100
-
-# vetor para armazenar o erro medio
-erro_medio <- numeric()
-
-# simulando n vezes
-for (j in 1:k) {
-  for( i in 1:n){
-  X[i] <- sample(1:4, size=1)
-  }
-  p1 <- sum(X==1)/n
-  p2 <- sum(X==2)/n
-  p3 <- sum(X==3)/n
-  p4 <- sum(X==4)/n
-  erro_medio[j] = (abs(p1 - .25) + abs(p2 - .25) + abs(p3 - .25) + abs(p3 - .25)) /4
+```{r cap4 LGN, results='asis', warning=FALSE, message=FALSE}
+library(knitr)
+library(ggplot2)
+library(tidyverse)
+set.seed(123)
+n_values <- c(5, 10, 30, 50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000)
+s_means <- numeric()
+for(i in 1:length(n_values)) {
+  s_means[i] <- mean(rnorm(n_values[i], mean = 100, sd = 15))
 }
 
-summary(erro_medio)
+df <- data.frame(n = n_values, sample_mean = s_means)
+kable(df)
+
+df %>% 
+  ggplot(aes(x=n, y=sample_mean)) + geom_point() + geom_line() + theme_minimal()
 ```
 
-Podemos ver que o erro médio é da ordem de menosde 3pp no pior dos casos.
 
-Exercício. Verifiquem como o erro médio muda com $n = 100$, $n = 1000$ e $n = 10000$.
+Pergunta:
 
-## Aplicação de simulação
+A LGN diz que a média amostral iguala a média populacional quando $n$ é grande, ou apenas que se aproxima da média populacional? 
 
-Um dos resultados mais contraintuitivos de modelos de probabilidade está relacionado à chamada "falácia do jogador". A falácia é a crença de que, porque saiu um número par (ou preto) na última jogada em uma roleta no cassino, então aumenta a chance de sair ímpar (vermelho) na próxima rodada, para que os números se equilibrem. Porém, cada jogada é independente da anterior. Um problema relacionado é o chamado problema da ruína do jogador.
+Definição do TCL:
 
-Exemplo 1.2. Ballot theorem (toerema da urna de votação? teorema da votação?)
+Se você coletar muitas amostras independentes de tamanho $n$ de uma população com qualquer distribuição de probabilidade, mas com variância finita, então a distribuição da médioa amostral será aproximadamente normal quando $n$ é grande.
 
-Esse teorema, provado em 1878 por W. A. Whitworth e independentemente em 1887 por J. Bertrand estabelece a probabilidade de que, durante a apuração dos votos em uma urna, sempre haja mais votos contabilizados para o candidato $P$ do que para o candidato $Q$, quando $P$ possui $p$ votos e $Q$ possui $q$ votos, com $p > q$. A fórmula para essa probabilidade é $(p-q)/(p+q)$.
+Exemplo de uma simulação com distribuição oginal da variável aleatória uniforme:
 
-Vamos verificar esse teorema por meio de simulação?
-Configuração: suponha que $p = .51$ e $q = .49$. O que sigifnica que é $(p-q)/(p+q) = .02/1 = 2\%$
-Primeiro, faremos uma simulação, e depois repetiremos k vezes a simulação para obter a frequência relativa.
+```{r cap4 TCL, results='asis'}
+set.seed(123)
+means <- replicate(10000, mean(runif(36, min = 0, max = 1)))
+hist(means, main = "Distribution of sample means", xlab = "Mean", breaks = 30)
 
-```{r cap4 aplic, results='asis'}
-
-set.seed(234)
-# número de votos na urna
-n = 1000
-
-# 1 é o voto para P, -1 o voto para Q.
-# então geramos n votos e armazenamos em votos
-
-# vamos usar rbinom, que gera 0 ou 1.
-votos <- rbinom(n, 1, p=.51)
-
-# transformado 0 em -1
-votos <- ifelse(votos == 0, -1, votos)
-
-# Agora, iremos contar o primeiro voto e registrar para quem vai. Depois o segundo e o terceiro etc. até não sobrarem votos a serem apurados. Vamso guardar essa sequência em um objeto apuração.
-apuracao <- numeric()
-
-# em seguida, contamos se em algum momento Q está na frente. Se estiver, então não aconteceu de P liderar toda a apuração.
-contagem_lideranca <- numeric()
-for ( i in  1:n) {
-  apuracao[i] <- votos[i]
-  contagem_lideranca[i] <- sum(apuracao)
-}
-# se a soma dos votos for positiva, tivemos mais votos 1 que -1. Se for negativa ou igual a zero, P não esteve liderando (esteve atrás ou empatando)
-# então, basta contar quantos casos aconteceram da soma dos votos apurados é menor ou igual a zero.
-
-if (sum(contagem_lideranca <= 0)) print("p não liderou sempre")
-
-#agora, vamos fazer a simulação mil vezes. Esperamos que aprox. 2% das vezes P lidere sempre.
-
-# simulando k = 1000 vezes
-
-apuracao <- numeric()
-contagem_lideranca <- numeric()
-freq_lideranca <- numeric() # armazanear se liderou ou não em cada sim k
-
-for (k in 1:1000)  {
-  for ( i in  1:n) {
-  apuracao[i] <- votos[i]
-  contagem_lideranca[i] <- sum(apuracao)
-  }
-  freq_lideranca[k] <- as.numeric(sum(contagem_lideranca <= 0))
-  if( k%% 50 == 0) print(k) # para vermos a evolução da simulação a cada 50 passos
-}
-
-# se a soma dos votos for positiva, tivemos mais votos 1 que -1. Se for negativa ou igual a zero, P não esteve liderando (esteve atrás ou empatando)
-# então, basta contar quantos casos aconteceram da soma dos votos apurados é menor ou igual a zero.
-
-print(sum(freq_lideranca)/k)
-# 0,281 ou 2,8%. Próximo dovalor verdadeiro de 2%. Se aumentarmos k, irá convergir para o valor verdadeiro. 
 ```
 
-Suponha agora um problema diferente. Um dos dois candidatos vai ter a primeira liderança. Após $n$ votos apurados, qual a probabilidade de a contagem ter empatado pela primeira vez? Dito de outro modo, após uma das candidatas assumir a liderança, quanto "tempo" (isto é, após quantos votos apurados) em média devemos esperar até que uma reversão de liderança ocorra (ou pelo menos um empate)?
+Qual a média e o desvio-padrão da distribuição da média amostral?
 
-A intuição que as pessoas têm, talvez a partir da lei dos grandes números, é que deveríamos esperar que, se $p = q = 1/2$, ambas candidatas deveriam liderar por 50% do tempo em uma apuração suficientemente longa (com $n$ votos grande) e deveria haver troca constante de liderança, em vez de uma candidata liderar po um longo tempo. Essa intuição é errada, como iremos mostrar agora por simulação. A leitora interessada na demonstração matemática utilizando apenas análise combinatória (portanto, apenas estatística básica) deve consultar o clássico livro de Feller (1968). Aqui, faremos uma simulação para mostrar isso.
+Podemos calcular aproximadamente a partir de nossa simulação. A média da simulação é `r mean(means)` e o desvio-padrão é `r sd(means)`. Vejam que a média amostral é próxima da média populacional e o desvio-padrão amostral é próximo do desvio-padrão populacional dividido pela raiz-quadrada de $n$. Lembrando que a variância de uma uniforme é dada por $\frac{1}{12}(a - b)^2$, em que $a$ é o maior valor e $b$ o menor. Logo, em nosso caso, a variância é $\frac{1}{12}(1 - 0)^2 = 1/12$. E o desvio-padrão é a raiz quadrada disso, ou $0.2886751$. Como $n = 36$, a raiz-quadrada é $6$, ou seja, igual a  $0.2886751/6 = 0.04811252$.
 
+
+
+## Cobertura de um IC
+
+Um Intervalo de Confiança de 95% possui uma cobertura nominal de 95%. O que isso quer dizer? Queremos dizer que se repetirmos o procedimento infinitas vezes, em 95% delas o IC conterá o verdadeiro valor do parâmetro.
+
+```{r cap4 IC, results='asis'}
+set.seed(123)
+n_sims <- 10000
+n <- 30
+true_mean <- 50
+true_sd <- 10
+cover <- replicate(n_sims, {
+  x <- rnorm(n, mean = true_mean, sd = true_sd)
+  se <- sd(x)/sqrt(n)
+  ci_lower <- mean(x) - 1.96*se
+  ci_upper <- mean(x) + 1.96*se
+  (true_mean >= ci_lower) & (true_mean <= ci_upper)
+})
+mean(cover)  # proportion of CIs containing true mean
+```
