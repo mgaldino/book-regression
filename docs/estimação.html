@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 7 - Estimação | Introdução à Regresssão para Ciências Sociais</title>
   <meta name="description" content="Capítulo 7 - Estimação | Introdução à Regresssão para Ciências Sociais" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 7 - Estimação | Introdução à Regresssão para Ciências Sociais" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2024-11-26" />
+<meta name="date" content="2025-08-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,6 +57,7 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -142,10 +143,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Introdução à Regressão</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> - Prefácio</a></li>
-<li class="chapter" data-level="2" data-path="revisão-de-r.html"><a href="revisão-de-r.html"><i class="fa fa-check"></i><b>2</b> - Revisão de R</a>
+<li class="chapter" data-level="1" data-path="07-estimacao.html"><a href="#pref%C3%A1cio"><i class="fa fa-check"></i><b>1</b> - Prefácio</a></li>
+<li class="chapter" data-level="2" data-path="07-estimacao.html"><a href="#revis%C3%A3o-de-r"><i class="fa fa-check"></i><b>2</b> - Revisão de R</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html#r-e-rstudio"><i class="fa fa-check"></i><b>2.1</b> R e Rstudio</a></li>
+<li class="chapter" data-level="2.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html"><i class="fa fa-check"></i><b>2.1</b> R e Rstudio</a></li>
 <li class="chapter" data-level="2.2" data-path="revisão-de-r.html"><a href="revisão-de-r.html#r-como-calculadora"><i class="fa fa-check"></i><b>2.2</b> R como calculadora</a></li>
 <li class="chapter" data-level="2.3" data-path="revisão-de-r.html"><a href="revisão-de-r.html#objetos-no-r"><i class="fa fa-check"></i><b>2.3</b> Objetos no R</a></li>
 <li class="chapter" data-level="2.4" data-path="revisão-de-r.html"><a href="revisão-de-r.html#tipos-de-objetos"><i class="fa fa-check"></i><b>2.4</b> Tipos de objetos</a>
@@ -162,43 +163,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.6" data-path="revisão-de-r.html"><a href="revisão-de-r.html#bibliotecaspacotes"><i class="fa fa-check"></i><b>2.6</b> Bibliotecas/pacotes</a></li>
 <li class="chapter" data-level="2.7" data-path="revisão-de-r.html"><a href="revisão-de-r.html#importando-dados"><i class="fa fa-check"></i><b>2.7</b> importando dados</a></li>
 <li class="chapter" data-level="2.8" data-path="revisão-de-r.html"><a href="revisão-de-r.html#data-wrangling"><i class="fa fa-check"></i><b>2.8</b> Data wrangling</a></li>
-<li class="chapter" data-level="2.9" data-path="revisão-de-r.html"><a href="revisão-de-r.html#visualização"><i class="fa fa-check"></i><b>2.9</b> Visualização</a></li>
+<li class="chapter" data-level="2.9" data-path="07-estimacao.html"><a href="#visualiza%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>2.9</b> Visualização</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>3</b> - Revisão de estatística e probabilidade</a>
+<li class="chapter" data-level="3" data-path="07-estimacao.html"><a href="#revis%C3%A3o-de-estat%C3%ADstica-e-probabilidade"><i class="fa fa-check"></i><b>3</b> - Revisão de estatística e probabilidade</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#variável-aleatória"><i class="fa fa-check"></i><b>3.1</b> Variável Aleatória</a></li>
-<li class="chapter" data-level="3.2" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#esperança-matemática"><i class="fa fa-check"></i><b>3.2</b> Esperança matemática</a></li>
-<li class="chapter" data-level="3.3" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#variância"><i class="fa fa-check"></i><b>3.3</b> Variância</a></li>
-<li class="chapter" data-level="3.4" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#álgebra-com-esperança-variância-e-covariância"><i class="fa fa-check"></i><b>3.4</b> Álgebra com Esperança, Variância e Covariância</a></li>
-<li class="chapter" data-level="3.5" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#prova-da-identidade-da-variância"><i class="fa fa-check"></i><b>3.5</b> Prova da identidade da variância</a></li>
-<li class="chapter" data-level="3.6" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#distribuição-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.6</b> Distribuição de Probabilidade Conjunta</a></li>
-<li class="chapter" data-level="3.7" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#probabilidade-condicional"><i class="fa fa-check"></i><b>3.7</b> Probabilidade Condicional</a></li>
-<li class="chapter" data-level="3.8" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#esperança-condicional"><i class="fa fa-check"></i><b>3.8</b> Esperança Condicional</a></li>
+<li class="chapter" data-level="3.1" data-path="07-estimacao.html"><a href="#vari%C3%A1vel-aleat%C3%B3ria"><i class="fa fa-check"></i><b>3.1</b> Variável Aleatória</a></li>
+<li class="chapter" data-level="3.2" data-path="07-estimacao.html"><a href="#esperan%C3%A7a-matem%C3%A1tica"><i class="fa fa-check"></i><b>3.2</b> Esperança matemática</a></li>
+<li class="chapter" data-level="3.3" data-path="07-estimacao.html"><a href="#vari%C3%A2ncia"><i class="fa fa-check"></i><b>3.3</b> Variância</a></li>
+<li class="chapter" data-level="3.4" data-path="07-estimacao.html"><a href="#%C3%A1lgebra-com-esperan%C3%A7a-vari%C3%A2ncia-e-covari%C3%A2ncia"><i class="fa fa-check"></i><b>3.4</b> Álgebra com Esperança, Variância e Covariância</a></li>
+<li class="chapter" data-level="3.5" data-path="07-estimacao.html"><a href="#prova-da-identidade-da-vari%C3%A2ncia"><i class="fa fa-check"></i><b>3.5</b> Prova da identidade da variância</a></li>
+<li class="chapter" data-level="3.6" data-path="07-estimacao.html"><a href="#distribui%C3%A7%C3%A3o-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.6</b> Distribuição de Probabilidade Conjunta</a></li>
+<li class="chapter" data-level="3.7" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>3.7</b> Probabilidade Condicional</a></li>
+<li class="chapter" data-level="3.8" data-path="07-estimacao.html"><a href="#esperan%C3%A7a-condicional"><i class="fa fa-check"></i><b>3.8</b> Esperança Condicional</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html"><i class="fa fa-check"></i><b>4</b> Introdução à Simulação</a>
+<li class="chapter" data-level="4" data-path="07-estimacao.html"><a href="#introdu%C3%A7%C3%A3o-%C3%A0-simula%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>4</b> Introdução à Simulação</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#configuração"><i class="fa fa-check"></i><b>4.1</b> Configuração</a></li>
-<li class="chapter" data-level="4.2" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#simular"><i class="fa fa-check"></i><b>4.2</b> Simular</a></li>
-<li class="chapter" data-level="4.3" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#resumir"><i class="fa fa-check"></i><b>4.3</b> Resumir</a></li>
-<li class="chapter" data-level="4.4" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#análise-de-sensibilidade"><i class="fa fa-check"></i><b>4.4</b> Análise de sensibilidade</a></li>
-<li class="chapter" data-level="4.5" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#aplicação-de-simulação"><i class="fa fa-check"></i><b>4.5</b> Aplicação de simulação</a></li>
+<li class="chapter" data-level="4.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html"><i class="fa fa-check"></i><b>4.1</b> Objetivos</a></li>
+<li class="chapter" data-level="4.2" data-path="07-estimacao.html"><a href="#introdu%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>4.2</b> Introdução</a></li>
+<li class="chapter" data-level="4.3" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#dgp-processo-gerador-de-dados"><i class="fa fa-check"></i><b>4.3</b> DGP — Processo Gerador de Dados</a></li>
+<li class="chapter" data-level="4.4" data-path="07-estimacao.html"><a href="#simula%C3%A7%C3%A3o-de-monte-carlo"><i class="fa fa-check"></i><b>4.4</b> Simulação de Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#simulando-um-dado"><i class="fa fa-check"></i><b>4.4.1</b> Simulando um dado</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html"><i class="fa fa-check"></i><b>5</b> O Modelo de Regressão</a>
+<li class="chapter" data-level="4.5" data-path="07-estimacao.html"><a href="#configura%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>4.5</b> Configuração</a></li>
+<li class="chapter" data-level="4.6" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#simular"><i class="fa fa-check"></i><b>4.6</b> Simular</a></li>
+<li class="chapter" data-level="4.7" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#resumir"><i class="fa fa-check"></i><b>4.7</b> Resumir</a></li>
+<li class="chapter" data-level="4.8" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#lgn-e-tcl"><i class="fa fa-check"></i><b>4.8</b> LGN e TCL</a></li>
+<li class="chapter" data-level="4.9" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#cobertura-de-um-ic"><i class="fa fa-check"></i><b>4.9</b> Cobertura de um IC</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="07-estimacao.html"><a href="#o-modelo-de-regress%C3%A3o"><i class="fa fa-check"></i><b>5</b> O Modelo de Regressão</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#modelo-de-regressão---teoria"><i class="fa fa-check"></i><b>5.1</b> Modelo de Regressão - Teoria</a></li>
-<li class="chapter" data-level="5.2" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#cef"><i class="fa fa-check"></i><b>5.2</b> CEF</a></li>
+<li class="chapter" data-level="5.1" data-path="07-estimacao.html"><a href="#modelo-de-regress%C3%A3o---teoria"><i class="fa fa-check"></i><b>5.1</b> Modelo de Regressão - Teoria</a></li>
+<li class="chapter" data-level="5.2" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html"><i class="fa fa-check"></i><b>5.2</b> CEF</a></li>
 <li class="chapter" data-level="5.3" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#cef-e-voto"><i class="fa fa-check"></i><b>5.3</b> CEF e voto</a></li>
 <li class="chapter" data-level="5.4" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#algumas-propriedades-da-cef"><i class="fa fa-check"></i><b>5.4</b> Algumas Propriedades da CEF</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#cef-é-a-melhor-aproximação-aos-dados"><i class="fa fa-check"></i><b>5.4.1</b> CEF é a melhor aproximação aos dados</a></li>
+<li class="chapter" data-level="5.4.1" data-path="07-estimacao.html"><a href="#cef-%C3%A9-a-melhor-aproxima%C3%A7%C3%A3o-aos-dados"><i class="fa fa-check"></i><b>5.4.1</b> CEF é a melhor aproximação aos dados</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#regressão-linear"><i class="fa fa-check"></i><b>5.5</b> Regressão Linear</a></li>
+<li class="chapter" data-level="5.5" data-path="07-estimacao.html"><a href="#regress%C3%A3o-linear"><i class="fa fa-check"></i><b>5.5</b> Regressão Linear</a></li>
 <li class="chapter" data-level="5.6" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#logaritmos"><i class="fa fa-check"></i><b>5.6</b> Logaritmos</a>
 <ul>
-<li class="chapter" data-level="5.6.1" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#logartimos-como-diferença-de-porcentagens"><i class="fa fa-check"></i><b>5.6.1</b> Logartimos como diferença de porcentagens</a></li>
-<li class="chapter" data-level="5.6.2" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#logaritmos-e-média-geométrica"><i class="fa fa-check"></i><b>5.6.2</b> Logaritmos e média geométrica</a></li>
+<li class="chapter" data-level="5.6.1" data-path="07-estimacao.html"><a href="#logartimos-como-diferen%C3%A7a-de-porcentagens"><i class="fa fa-check"></i><b>5.6.1</b> Logartimos como diferença de porcentagens</a></li>
+<li class="chapter" data-level="5.6.2" data-path="07-estimacao.html"><a href="#logaritmos-e-m%C3%A9dia-geom%C3%A9trica"><i class="fa fa-check"></i><b>5.6.2</b> Logaritmos e média geométrica</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#prevendo-a-partir-da-esperança-condicional"><i class="fa fa-check"></i><b>5.7</b> Prevendo a partir da esperança condicional</a></li>
+<li class="chapter" data-level="5.7" data-path="07-estimacao.html"><a href="#prevendo-a-partir-da-esperan%C3%A7a-condicional"><i class="fa fa-check"></i><b>5.7</b> Prevendo a partir da esperança condicional</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="cef-1.html"><a href="cef-1.html"><i class="fa fa-check"></i><b>6</b> - CEF</a>
 <ul>
@@ -206,37 +214,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="cef-1.html"><a href="cef-1.html#simulando-para-entender-a-cef"><i class="fa fa-check"></i><b>6.2</b> Simulando para entender a CEF</a></li>
 <li class="chapter" data-level="6.3" data-path="cef-1.html"><a href="cef-1.html#propriedades-da-cef"><i class="fa fa-check"></i><b>6.3</b> Propriedades da CEF</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="cef-1.html"><a href="cef-1.html#a-esperança-do-erro-condicional-a-x-é-zero"><i class="fa fa-check"></i><b>6.3.1</b> A Esperança do Erro Condicional a X é zero</a></li>
-<li class="chapter" data-level="6.3.2" data-path="cef-1.html"><a href="cef-1.html#a-esperança-não-condicional-do-erro-é-zero."><i class="fa fa-check"></i><b>6.3.2</b> A esperança (não-condicional) do erro é zero.</a></li>
-<li class="chapter" data-level="6.3.3" data-path="cef-1.html"><a href="cef-1.html#o-erro-da-cef-é-não-correlacionado-com-x"><i class="fa fa-check"></i><b>6.3.3</b> O erro da CEF é não-correlacionado com X</a></li>
+<li class="chapter" data-level="6.3.1" data-path="07-estimacao.html"><a href="#a-esperan%C3%A7a-do-erro-condicional-a-x-%C3%A9-zero"><i class="fa fa-check"></i><b>6.3.1</b> A Esperança do Erro Condicional a X é zero</a></li>
+<li class="chapter" data-level="6.3.2" data-path="07-estimacao.html"><a href="#a-esperan%C3%A7a-n%C3%A3o-condicional-do-erro-%C3%A9-zero."><i class="fa fa-check"></i><b>6.3.2</b> A esperança (não-condicional) do erro é zero.</a></li>
+<li class="chapter" data-level="6.3.3" data-path="07-estimacao.html"><a href="#o-erro-da-cef-%C3%A9-n%C3%A3o-correlacionado-com-x"><i class="fa fa-check"></i><b>6.3.3</b> O erro da CEF é não-correlacionado com X</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="cef-1.html"><a href="cef-1.html#regressão-linear-e-a-cef"><i class="fa fa-check"></i><b>6.4</b> Regressão Linear e a CEF</a>
+<li class="chapter" data-level="6.4" data-path="07-estimacao.html"><a href="#regress%C3%A3o-linear-e-a-cef"><i class="fa fa-check"></i><b>6.4</b> Regressão Linear e a CEF</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="cef-1.html"><a href="cef-1.html#mínimos-quadrados-ordinários"><i class="fa fa-check"></i><b>6.4.1</b> Mínimos Quadrados Ordinários</a></li>
-<li class="chapter" data-level="6.4.2" data-path="cef-1.html"><a href="cef-1.html#suponha-que-a-cef-é-linear-justificativa-i"><i class="fa fa-check"></i><b>6.4.2</b> Suponha que a CEF é Linear (Justificativa I)</a></li>
-<li class="chapter" data-level="6.4.3" data-path="cef-1.html"><a href="cef-1.html#é-o-melhor-preditor-linear-do-y-justificativa-ii"><i class="fa fa-check"></i><b>6.4.3</b> É o melhor preditor linear do <span class="math inline">\(Y\)</span> (justificativa II)</a></li>
-<li class="chapter" data-level="6.4.4" data-path="cef-1.html"><a href="cef-1.html#a-reta-de-regressão-é-a-aproximação-com-o-menor-erro-quadrático-médio-justificativa-iii"><i class="fa fa-check"></i><b>6.4.4</b> A reta de regressão é a aproximação com o menor erro quadrático médio (justificativa III)</a></li>
+<li class="chapter" data-level="6.4.1" data-path="07-estimacao.html"><a href="#m%C3%ADnimos-quadrados-ordin%C3%A1rios"><i class="fa fa-check"></i><b>6.4.1</b> Mínimos Quadrados Ordinários</a></li>
+<li class="chapter" data-level="6.4.2" data-path="07-estimacao.html"><a href="#suponha-que-a-cef-%C3%A9-linear-justificativa-i"><i class="fa fa-check"></i><b>6.4.2</b> Suponha que a CEF é Linear (Justificativa I)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="07-estimacao.html"><a href="#%C3%A9-o-melhor-preditor-linear-do-y-justificativa-ii"><i class="fa fa-check"></i><b>6.4.3</b> É o melhor preditor linear do <span class="math inline">\(Y\)</span> (justificativa II)</a></li>
+<li class="chapter" data-level="6.4.4" data-path="07-estimacao.html"><a href="#a-reta-de-regress%C3%A3o-%C3%A9-a-aproxima%C3%A7%C3%A3o-com-o-menor-erro-quadr%C3%A1tico-m%C3%A9dio-justificativa-iii"><i class="fa fa-check"></i><b>6.4.4</b> A reta de regressão é a aproximação com o menor erro quadrático médio (justificativa III)</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#linearidade-e-causalidade"><i class="fa fa-check"></i><b>6.5</b> Linearidade e Causalidade</a></li>
-<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.6</b> Modelo só com intercepto</a></li>
-<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.7</b> Variância da Regressão</a>
+<li class="chapter" data-level="6.6" data-path="07-estimacao.html"><a href="#modelo-s%C3%B3-com-intercepto"><i class="fa fa-check"></i><b>6.6</b> Modelo só com intercepto</a></li>
+<li class="chapter" data-level="6.7" data-path="07-estimacao.html"><a href="#vari%C3%A2ncia-da-regress%C3%A3o"><i class="fa fa-check"></i><b>6.7</b> Variância da Regressão</a>
 <ul>
 <li class="chapter" data-level="6.7.1" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.7.1</b> Chuva na Jamaica</a></li>
 </ul></li>
-<li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#variância-condicional"><i class="fa fa-check"></i><b>6.8</b> Variância condicional</a></li>
+<li class="chapter" data-level="6.8" data-path="07-estimacao.html"><a href="#vari%C3%A2ncia-condicional"><i class="fa fa-check"></i><b>6.8</b> Variância condicional</a></li>
 <li class="chapter" data-level="6.9" data-path="cef-1.html"><a href="cef-1.html#efeito-marginal"><i class="fa fa-check"></i><b>6.9</b> Efeito Marginal</a></li>
-<li class="chapter" data-level="6.10" data-path="cef-1.html"><a href="cef-1.html#cef-linear-com-preditores-não-lineares"><i class="fa fa-check"></i><b>6.10</b> CEF linear com preditores não-lineares</a></li>
+<li class="chapter" data-level="6.10" data-path="07-estimacao.html"><a href="#cef-linear-com-preditores-n%C3%A3o-lineares"><i class="fa fa-check"></i><b>6.10</b> CEF linear com preditores não-lineares</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>7</b> - Estimação</a>
+<li class="chapter" data-level="7" data-path="07-estimacao.html"><a href="#estima%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>7</b> - Estimação</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="estimação.html"><a href="estimação.html#plug-in-estimators"><i class="fa fa-check"></i><b>7.1</b> Plug-in estimators</a></li>
+<li class="chapter" data-level="7.1" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>7.1</b> Plug-in estimators</a></li>
 <li class="chapter" data-level="7.2" data-path="estimação.html"><a href="estimação.html#simulando-de-uma-normal-bivariada"><i class="fa fa-check"></i><b>7.2</b> Simulando de uma Normal Bivariada</a></li>
-<li class="chapter" data-level="7.3" data-path="estimação.html"><a href="estimação.html#suposições-amostrais-de-mqo"><i class="fa fa-check"></i><b>7.3</b> Suposições amostrais de MQO</a></li>
-<li class="chapter" data-level="7.4" data-path="estimação.html"><a href="estimação.html#modelo-de-média-amostral"><i class="fa fa-check"></i><b>7.4</b> Modelo de Média amostral</a></li>
-<li class="chapter" data-level="7.5" data-path="estimação.html"><a href="estimação.html#modelo-de-regressão-linear-com-preditores"><i class="fa fa-check"></i><b>7.5</b> Modelo de Regressão Linear com preditores</a></li>
-<li class="chapter" data-level="7.6" data-path="estimação.html"><a href="estimação.html#estimando-um-modelo-de-regressão-real"><i class="fa fa-check"></i><b>7.6</b> Estimando um modelo de regressão real</a></li>
-<li class="chapter" data-level="7.7" data-path="estimação.html"><a href="estimação.html#limitações-de-mqo"><i class="fa fa-check"></i><b>7.7</b> Limitações de MQO</a></li>
-<li class="chapter" data-level="7.8" data-path="estimação.html"><a href="estimação.html#distrações"><i class="fa fa-check"></i><b>7.8</b> Distrações</a>
+<li class="chapter" data-level="7.3" data-path="07-estimacao.html"><a href="#suposi%C3%A7%C3%B5es-amostrais-de-mqo"><i class="fa fa-check"></i><b>7.3</b> Suposições amostrais de MQO</a></li>
+<li class="chapter" data-level="7.4" data-path="07-estimacao.html"><a href="#modelo-de-m%C3%A9dia-amostral"><i class="fa fa-check"></i><b>7.4</b> Modelo de Média amostral</a></li>
+<li class="chapter" data-level="7.5" data-path="07-estimacao.html"><a href="#modelo-de-regress%C3%A3o-linear-com-preditores"><i class="fa fa-check"></i><b>7.5</b> Modelo de Regressão Linear com preditores</a></li>
+<li class="chapter" data-level="7.6" data-path="07-estimacao.html"><a href="#estimando-um-modelo-de-regress%C3%A3o-real"><i class="fa fa-check"></i><b>7.6</b> Estimando um modelo de regressão real</a></li>
+<li class="chapter" data-level="7.7" data-path="07-estimacao.html"><a href="#limita%C3%A7%C3%B5es-de-mqo"><i class="fa fa-check"></i><b>7.7</b> Limitações de MQO</a></li>
+<li class="chapter" data-level="7.8" data-path="07-estimacao.html"><a href="#distra%C3%A7%C3%B5es"><i class="fa fa-check"></i><b>7.8</b> Distrações</a>
 <ul>
 <li class="chapter" data-level="7.8.1" data-path="estimação.html"><a href="estimação.html#r-quadrado"><i class="fa fa-check"></i><b>7.8.1</b> R-quadrado</a></li>
 <li class="chapter" data-level="7.8.2" data-path="estimação.html"><a href="estimação.html#r-quadrado-ajustado"><i class="fa fa-check"></i><b>7.8.2</b> R-quadrado ajustado</a></li>
@@ -248,117 +256,118 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="causalidade.html"><a href="causalidade.html#resultados-potenciais"><i class="fa fa-check"></i><b>8.1</b> Resultados Potenciais</a>
 <ul>
-<li class="chapter" data-level="8.1.1" data-path="causalidade.html"><a href="causalidade.html#decomposição-do-efeito-causal"><i class="fa fa-check"></i><b>8.1.1</b> Decomposição do Efeito Causal</a></li>
+<li class="chapter" data-level="8.1.1" data-path="07-estimacao.html"><a href="#decomposi%C3%A7%C3%A3o-do-efeito-causal"><i class="fa fa-check"></i><b>8.1.1</b> Decomposição do Efeito Causal</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="causalidade.html"><a href="causalidade.html#modelo-estrutural-e-modelo-de-regressão"><i class="fa fa-check"></i><b>8.2</b> Modelo estrutural e modelo de regressão</a>
+<li class="chapter" data-level="8.2" data-path="07-estimacao.html"><a href="#modelo-estrutural-e-modelo-de-regress%C3%A3o"><i class="fa fa-check"></i><b>8.2</b> Modelo estrutural e modelo de regressão</a>
 <ul>
 <li class="chapter" data-level="8.2.1" data-path="causalidade.html"><a href="causalidade.html#exemplo-de-cef-e-cef-estrutural"><i class="fa fa-check"></i><b>8.2.1</b> Exemplo de CEF e CEF estrutural</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="causalidade.html"><a href="causalidade.html#simulação-de-resultados-potenciais-e-causalidade"><i class="fa fa-check"></i><b>8.3</b> Simulação de Resultados Potenciais e Causalidade</a></li>
-<li class="chapter" data-level="8.4" data-path="causalidade.html"><a href="causalidade.html#referências"><i class="fa fa-check"></i><b>8.4</b> Referências</a></li>
+<li class="chapter" data-level="8.3" data-path="07-estimacao.html"><a href="#simula%C3%A7%C3%A3o-de-resultados-potenciais-e-causalidade"><i class="fa fa-check"></i><b>8.3</b> Simulação de Resultados Potenciais e Causalidade</a></li>
+<li class="chapter" data-level="8.4" data-path="07-estimacao.html"><a href="#refer%C3%AAncias"><i class="fa fa-check"></i><b>8.4</b> Referências</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>9</b> - MLE</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="mle.html"><a href="mle.html#estimação-por-máxima-verossimilhança"><i class="fa fa-check"></i><b>9.1</b> Estimação por Máxima Verossimilhança</a></li>
-<li class="chapter" data-level="9.2" data-path="mle.html"><a href="mle.html#teste-de-hipótese"><i class="fa fa-check"></i><b>9.2</b> Teste de hipótese</a></li>
-<li class="chapter" data-level="9.3" data-path="mle.html"><a href="mle.html#regressão"><i class="fa fa-check"></i><b>9.3</b> regressão</a></li>
+<li class="chapter" data-level="9.1" data-path="07-estimacao.html"><a href="#estima%C3%A7%C3%A3o-por-m%C3%A1xima-verossimilhan%C3%A7a"><i class="fa fa-check"></i><b>9.1</b> Estimação por Máxima Verossimilhança</a></li>
+<li class="chapter" data-level="9.2" data-path="07-estimacao.html"><a href="#teste-de-hip%C3%B3tese"><i class="fa fa-check"></i><b>9.2</b> Teste de hipótese</a></li>
+<li class="chapter" data-level="9.3" data-path="07-estimacao.html"><a href="#regress%C3%A3o"><i class="fa fa-check"></i><b>9.3</b> regressão</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="checagem.html"><a href="checagem.html"><i class="fa fa-check"></i><b>10</b> - Checagem</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="checagem.html"><a href="checagem.html#resíduos"><i class="fa fa-check"></i><b>10.1</b> Resíduos</a></li>
+<li class="chapter" data-level="10.1" data-path="07-estimacao.html"><a href="#res%C3%ADduos"><i class="fa fa-check"></i><b>10.1</b> Resíduos</a></li>
 <li class="chapter" data-level="10.2" data-path="checagem.html"><a href="checagem.html#modelo-no-r"><i class="fa fa-check"></i><b>10.2</b> Modelo no R</a>
 <ul>
-<li class="chapter" data-level="10.2.1" data-path="checagem.html"><a href="checagem.html#resíduos-contra-o-preditor"><i class="fa fa-check"></i><b>10.2.1</b> Resíduos contra o preditor</a></li>
-<li class="chapter" data-level="10.2.2" data-path="checagem.html"><a href="checagem.html#magnitude-dos-resíduos-contra-o-preditor"><i class="fa fa-check"></i><b>10.2.2</b> Magnitude dos Resíduos Contra o Preditor</a></li>
-<li class="chapter" data-level="10.2.3" data-path="checagem.html"><a href="checagem.html#resíduos-com-dados-temporais-eou-espaciais"><i class="fa fa-check"></i><b>10.2.3</b> Resíduos com dados Temporais e/ou Espaciais</a></li>
+<li class="chapter" data-level="10.2.1" data-path="07-estimacao.html"><a href="#res%C3%ADduos-contra-o-preditor"><i class="fa fa-check"></i><b>10.2.1</b> Resíduos contra o preditor</a></li>
+<li class="chapter" data-level="10.2.2" data-path="07-estimacao.html"><a href="#magnitude-dos-res%C3%ADduos-contra-o-preditor"><i class="fa fa-check"></i><b>10.2.2</b> Magnitude dos Resíduos Contra o Preditor</a></li>
+<li class="chapter" data-level="10.2.3" data-path="07-estimacao.html"><a href="#res%C3%ADduos-com-dados-temporais-eou-espaciais"><i class="fa fa-check"></i><b>10.2.3</b> Resíduos com dados Temporais e/ou Espaciais</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="checagem.html"><a href="checagem.html#normalidade-dos-resíduos"><i class="fa fa-check"></i><b>10.3</b> Normalidade dos resíduos</a></li>
-<li class="chapter" data-level="10.4" data-path="checagem.html"><a href="checagem.html#generalização"><i class="fa fa-check"></i><b>10.4</b> Generalização</a></li>
+<li class="chapter" data-level="10.3" data-path="07-estimacao.html"><a href="#normalidade-dos-res%C3%ADduos"><i class="fa fa-check"></i><b>10.3</b> Normalidade dos resíduos</a></li>
+<li class="chapter" data-level="10.4" data-path="07-estimacao.html"><a href="#generaliza%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>10.4</b> Generalização</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="inferencia.html"><a href="inferencia.html"><i class="fa fa-check"></i><b>11</b> - Inferencia</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="inferencia.html"><a href="inferencia.html#normal"><i class="fa fa-check"></i><b>11.1</b> Normal</a></li>
 <li class="chapter" data-level="11.2" data-path="inferencia.html"><a href="inferencia.html#t-student"><i class="fa fa-check"></i><b>11.2</b> T-student</a>
 <ul>
-<li class="chapter" data-level="11.2.1" data-path="inferencia.html"><a href="inferencia.html#avançado---derivação-da-t--de-student"><i class="fa fa-check"></i><b>11.2.1</b> Avançado - Derivação da t- de student</a></li>
+<li class="chapter" data-level="11.2.1" data-path="07-estimacao.html"><a href="#avan%C3%A7ado---deriva%C3%A7%C3%A3o-da-t--de-student"><i class="fa fa-check"></i><b>11.2.1</b> Avançado - Derivação da t- de student</a></li>
 <li class="chapter" data-level="11.2.2" data-path="inferencia.html"><a href="inferencia.html#teste-t"><i class="fa fa-check"></i><b>11.2.2</b> Teste t</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="inferencia.html"><a href="inferencia.html#teste-de-hipótese-e-ic"><i class="fa fa-check"></i><b>11.3</b> Teste de Hipótese e IC</a></li>
-<li class="chapter" data-level="11.4" data-path="inferencia.html"><a href="inferencia.html#propriedades-assintóticas"><i class="fa fa-check"></i><b>11.4</b> Propriedades Assintóticas</a></li>
-<li class="chapter" data-level="11.5" data-path="inferencia.html"><a href="inferencia.html#inferência-preditiva"><i class="fa fa-check"></i><b>11.5</b> Inferência Preditiva</a></li>
+<li class="chapter" data-level="11.3" data-path="07-estimacao.html"><a href="#teste-de-hip%C3%B3tese-e-ic"><i class="fa fa-check"></i><b>11.3</b> Teste de Hipótese e IC</a></li>
+<li class="chapter" data-level="11.4" data-path="07-estimacao.html"><a href="#propriedades-assint%C3%B3ticas"><i class="fa fa-check"></i><b>11.4</b> Propriedades Assintóticas</a></li>
+<li class="chapter" data-level="11.5" data-path="07-estimacao.html"><a href="#infer%C3%AAncia-preditiva"><i class="fa fa-check"></i><b>11.5</b> Inferência Preditiva</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="regressao-multipla.html"><a href="regressao-multipla.html"><i class="fa fa-check"></i><b>12</b> - Regressao Multipla</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#revisão-de-matriz-e-vetores"><i class="fa fa-check"></i><b>12.1</b> Revisão de Matriz e Vetores</a></li>
-<li class="chapter" data-level="12.2" data-path="regressao-multipla.html"><a href="regressao-multipla.html#modelo-básico"><i class="fa fa-check"></i><b>12.2</b> Modelo básico</a></li>
+<li class="chapter" data-level="12.1" data-path="07-estimacao.html"><a href="#revis%C3%A3o-de-matriz-e-vetores"><i class="fa fa-check"></i><b>12.1</b> Revisão de Matriz e Vetores</a></li>
+<li class="chapter" data-level="12.2" data-path="07-estimacao.html"><a href="#modelo-b%C3%A1sico"><i class="fa fa-check"></i><b>12.2</b> Modelo básico</a></li>
 <li class="chapter" data-level="12.3" data-path="regressao-multipla.html"><a href="regressao-multipla.html#modelo-com-matrizes"><i class="fa fa-check"></i><b>12.3</b> Modelo com matrizes</a>
 <ul>
 <li class="chapter" data-level="12.3.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#estimador-de-mqo"><i class="fa fa-check"></i><b>12.3.1</b> Estimador de MQO</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="regressao-multipla.html"><a href="regressao-multipla.html#interpretação-dos-coeficientes"><i class="fa fa-check"></i><b>12.4</b> Interpretação dos coeficientes</a></li>
-<li class="chapter" data-level="12.5" data-path="regressao-multipla.html"><a href="regressao-multipla.html#regressão-múltipla-versus-múltiplas-regressões-separadas-ou-viés-de-variável-omitida"><i class="fa fa-check"></i><b>12.5</b> Regressão múltipla versus Múltiplas Regressões Separadas ou Viés de variável omitida</a></li>
-<li class="chapter" data-level="12.6" data-path="regressao-multipla.html"><a href="regressao-multipla.html#matriz-chapéu"><i class="fa fa-check"></i><b>12.6</b> Matriz chapéu</a></li>
+<li class="chapter" data-level="12.4" data-path="07-estimacao.html"><a href="#interpreta%C3%A7%C3%A3o-dos-coeficientes"><i class="fa fa-check"></i><b>12.4</b> Interpretação dos coeficientes</a></li>
+<li class="chapter" data-level="12.5" data-path="07-estimacao.html"><a href="#regress%C3%A3o-m%C3%BAltipla-versus-m%C3%BAltiplas-regress%C3%B5es-separadas-ou-vi%C3%A9s-de-vari%C3%A1vel-omitida"><i class="fa fa-check"></i><b>12.5</b> Regressão múltipla versus Múltiplas Regressões Separadas ou Viés de variável omitida</a></li>
+<li class="chapter" data-level="12.6" data-path="07-estimacao.html"><a href="#matriz-chap%C3%A9u"><i class="fa fa-check"></i><b>12.6</b> Matriz chapéu</a></li>
 <li class="chapter" data-level="12.7" data-path="regressao-multipla.html"><a href="regressao-multipla.html#multicolinearidade"><i class="fa fa-check"></i><b>12.7</b> Multicolinearidade</a></li>
-<li class="chapter" data-level="12.8" data-path="regressao-multipla.html"><a href="regressao-multipla.html#erro-padrão-robusto"><i class="fa fa-check"></i><b>12.8</b> Erro padrão Robusto</a>
+<li class="chapter" data-level="12.8" data-path="07-estimacao.html"><a href="#erro-padr%C3%A3o-robusto"><i class="fa fa-check"></i><b>12.8</b> Erro padrão Robusto</a>
 <ul>
-<li class="chapter" data-level="12.8.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#entendendo-o-erro-padrão-robusto"><i class="fa fa-check"></i><b>12.8.1</b> Entendendo o erro padrão robusto</a></li>
+<li class="chapter" data-level="12.8.1" data-path="07-estimacao.html"><a href="#entendendo-o-erro-padr%C3%A3o-robusto"><i class="fa fa-check"></i><b>12.8.1</b> Entendendo o erro padrão robusto</a></li>
 </ul></li>
-<li class="chapter" data-level="12.9" data-path="regressao-multipla.html"><a href="regressao-multipla.html#termo-de-interação"><i class="fa fa-check"></i><b>12.9</b> Termo de interação</a>
+<li class="chapter" data-level="12.9" data-path="07-estimacao.html"><a href="#termo-de-intera%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>12.9</b> Termo de interação</a>
 <ul>
-<li class="chapter" data-level="12.9.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#variância-do-termo-de-interação"><i class="fa fa-check"></i><b>12.9.1</b> Variância do termo de interação</a></li>
-<li class="chapter" data-level="12.9.2" data-path="regressao-multipla.html"><a href="regressao-multipla.html#calculando-o-erro-padrão-do-termo-de-interação"><i class="fa fa-check"></i><b>12.9.2</b> Calculando o erro padrão do termo de interação</a></li>
+<li class="chapter" data-level="12.9.1" data-path="07-estimacao.html"><a href="#vari%C3%A2ncia-do-termo-de-intera%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>12.9.1</b> Variância do termo de interação</a></li>
+<li class="chapter" data-level="12.9.2" data-path="07-estimacao.html"><a href="#calculando-o-erro-padr%C3%A3o-do-termo-de-intera%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>12.9.2</b> Calculando o erro padrão do termo de interação</a></li>
 </ul></li>
-<li class="chapter" data-level="12.10" data-path="regressao-multipla.html"><a href="regressao-multipla.html#análise-de-sensibilidade-causal"><i class="fa fa-check"></i><b>12.10</b> Análise de sensibilidade causal</a>
+<li class="chapter" data-level="12.10" data-path="07-estimacao.html"><a href="#an%C3%A1lise-de-sensibilidade-causal"><i class="fa fa-check"></i><b>12.10</b> Análise de sensibilidade causal</a>
 <ul>
-<li class="chapter" data-level="12.10.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#derivação-do-r-quadrado"><i class="fa fa-check"></i><b>12.10.1</b> Derivação do R-quadrado</a></li>
-<li class="chapter" data-level="12.10.2" data-path="regressao-multipla.html"><a href="regressao-multipla.html#viés-de-variável-omitida"><i class="fa fa-check"></i><b>12.10.2</b> Viés de variável omitida</a></li>
-<li class="chapter" data-level="12.10.3" data-path="regressao-multipla.html"><a href="regressao-multipla.html#viés-de-variável-omitida-em-função-do-r-quadrado"><i class="fa fa-check"></i><b>12.10.3</b> Viés de variável omitida em função do R-quadrado</a></li>
+<li class="chapter" data-level="12.10.1" data-path="07-estimacao.html"><a href="#deriva%C3%A7%C3%A3o-do-r-quadrado"><i class="fa fa-check"></i><b>12.10.1</b> Derivação do R-quadrado</a></li>
+<li class="chapter" data-level="12.10.2" data-path="07-estimacao.html"><a href="#vi%C3%A9s-de-vari%C3%A1vel-omitida"><i class="fa fa-check"></i><b>12.10.2</b> Viés de variável omitida</a></li>
+<li class="chapter" data-level="12.10.3" data-path="07-estimacao.html"><a href="#vi%C3%A9s-de-vari%C3%A1vel-omitida-em-fun%C3%A7%C3%A3o-do-r-quadrado"><i class="fa fa-check"></i><b>12.10.3</b> Viés de variável omitida em função do R-quadrado</a></li>
 </ul></li>
-<li class="chapter" data-level="12.11" data-path="regressao-multipla.html"><a href="regressao-multipla.html#referências-1"><i class="fa fa-check"></i><b>12.11</b> Referências</a></li>
+<li class="chapter" data-level="12.11" data-path="07-estimacao.html"><a href="#refer%C3%AAncias-1"><i class="fa fa-check"></i><b>12.11</b> Referências</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>13</b> - GLM</a>
 <ul>
 <li class="chapter" data-level="13.1" data-path="glm.html"><a href="glm.html#plm"><i class="fa fa-check"></i><b>13.1</b> PLM</a></li>
-<li class="chapter" data-level="13.2" data-path="glm.html"><a href="glm.html#logística"><i class="fa fa-check"></i><b>13.2</b> Logística</a>
+<li class="chapter" data-level="13.2" data-path="07-estimacao.html"><a href="#log%C3%ADstica"><i class="fa fa-check"></i><b>13.2</b> Logística</a>
 <ul>
-<li class="chapter" data-level="13.2.1" data-path="glm.html"><a href="glm.html#logística-como-melhoria-em-relação-ao-mpl"><i class="fa fa-check"></i><b>13.2.1</b> Logística como melhoria em relação ao MPL</a></li>
+<li class="chapter" data-level="13.2.1" data-path="07-estimacao.html"><a href="#log%C3%ADstica-como-melhoria-em-rela%C3%A7%C3%A3o-ao-mpl"><i class="fa fa-check"></i><b>13.2.1</b> Logística como melhoria em relação ao MPL</a></li>
 <li class="chapter" data-level="13.2.2" data-path="glm.html"><a href="glm.html#logito"><i class="fa fa-check"></i><b>13.2.2</b> Logito</a></li>
-<li class="chapter" data-level="13.2.3" data-path="glm.html"><a href="glm.html#odds-ratio---razão-de-chances"><i class="fa fa-check"></i><b>13.2.3</b> Odds Ratio - Razão de chances</a></li>
-<li class="chapter" data-level="13.2.4" data-path="glm.html"><a href="glm.html#coeficientes-e-erros-padrões"><i class="fa fa-check"></i><b>13.2.4</b> Coeficientes e erros padrões</a></li>
+<li class="chapter" data-level="13.2.3" data-path="07-estimacao.html"><a href="#odds-ratio---raz%C3%A3o-de-chances"><i class="fa fa-check"></i><b>13.2.3</b> Odds Ratio - Razão de chances</a></li>
+<li class="chapter" data-level="13.2.4" data-path="07-estimacao.html"><a href="#coeficientes-e-erros-padr%C3%B5es"><i class="fa fa-check"></i><b>13.2.4</b> Coeficientes e erros padrões</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="glm.html"><a href="glm.html#logística-como-variável-latente"><i class="fa fa-check"></i><b>13.3</b> Logística como variável latente</a></li>
+<li class="chapter" data-level="13.3" data-path="07-estimacao.html"><a href="#log%C3%ADstica-como-vari%C3%A1vel-latente"><i class="fa fa-check"></i><b>13.3</b> Logística como variável latente</a></li>
 <li class="chapter" data-level="13.4" data-path="glm.html"><a href="glm.html#probit"><i class="fa fa-check"></i><b>13.4</b> Probit</a></li>
-<li class="chapter" data-level="13.5" data-path="glm.html"><a href="glm.html#logística-como-glm"><i class="fa fa-check"></i><b>13.5</b> Logística como GLM</a></li>
-<li class="chapter" data-level="13.6" data-path="glm.html"><a href="glm.html#logística-com-múltiplos-preditores"><i class="fa fa-check"></i><b>13.6</b> Logística com múltiplos preditores</a></li>
+<li class="chapter" data-level="13.5" data-path="07-estimacao.html"><a href="#log%C3%ADstica-como-glm"><i class="fa fa-check"></i><b>13.5</b> Logística como GLM</a></li>
+<li class="chapter" data-level="13.6" data-path="07-estimacao.html"><a href="#log%C3%ADstica-com-m%C3%BAltiplos-preditores"><i class="fa fa-check"></i><b>13.6</b> Logística com múltiplos preditores</a></li>
 <li class="chapter" data-level="13.7" data-path="glm.html"><a href="glm.html#ajuste-do-modelo"><i class="fa fa-check"></i><b>13.7</b> Ajuste do modelo</a></li>
-<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#regressão-com-dados-ordenados"><i class="fa fa-check"></i><b>13.8</b> Regressão com dados Ordenados</a></li>
-<li class="chapter" data-level="13.9" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.9</b> Referências</a></li>
+<li class="chapter" data-level="13.8" data-path="07-estimacao.html"><a href="#regress%C3%A3o-com-dados-ordenados"><i class="fa fa-check"></i><b>13.8</b> Regressão com dados Ordenados</a></li>
+<li class="chapter" data-level="13.9" data-path="07-estimacao.html"><a href="#refer%C3%AAncias-2"><i class="fa fa-check"></i><b>13.9</b> Referências</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="apêndice.html"><a href="apêndice.html"><i class="fa fa-check"></i><b>14</b> - Apêndice</a>
+<li class="chapter" data-level="14" data-path="07-estimacao.html"><a href="#ap%C3%AAndice"><i class="fa fa-check"></i><b>14</b> - Apêndice</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="apêndice.html"><a href="apêndice.html#importação"><i class="fa fa-check"></i><b>14.1</b> Importação</a></li>
-<li class="chapter" data-level="14.2" data-path="apêndice.html"><a href="apêndice.html#gráficos-e-tabelas"><i class="fa fa-check"></i><b>14.2</b> Gráficos e Tabelas</a></li>
-<li class="chapter" data-level="14.3" data-path="apêndice.html"><a href="apêndice.html#limpeza-de-dados"><i class="fa fa-check"></i><b>14.3</b> Limpeza de dados</a></li>
+<li class="chapter" data-level="14.1" data-path="07-estimacao.html"><a href="#importa%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>14.1</b> Importação</a></li>
+<li class="chapter" data-level="14.2" data-path="07-estimacao.html"><a href="#gr%C3%A1ficos-e-tabelas"><i class="fa fa-check"></i><b>14.2</b> Gráficos e Tabelas</a></li>
+<li class="chapter" data-level="14.3" data-path="apêndice.html"><a href="apêndice.html"><i class="fa fa-check"></i><b>14.3</b> Limpeza de dados</a></li>
 <li class="chapter" data-level="14.4" data-path="apêndice.html"><a href="apêndice.html#modelagem-de-dados"><i class="fa fa-check"></i><b>14.4</b> Modelagem de dados</a></li>
 <li class="chapter" data-level="14.5" data-path="apêndice.html"><a href="apêndice.html#outros"><i class="fa fa-check"></i><b>14.5</b> Outros</a></li>
-<li class="chapter" data-level="14.6" data-path="apêndice.html"><a href="apêndice.html#álgebra-linear"><i class="fa fa-check"></i><b>14.6</b> Álgebra Linear</a>
+<li class="chapter" data-level="14.6" data-path="07-estimacao.html"><a href="#%C3%A1lgebra-linear"><i class="fa fa-check"></i><b>14.6</b> Álgebra Linear</a>
 <ul>
-<li class="chapter" data-level="14.6.1" data-path="apêndice.html"><a href="apêndice.html#espaço-de-vetores-e-subspaço"><i class="fa fa-check"></i><b>14.6.1</b> Espaço de vetores e subspaço</a></li>
-<li class="chapter" data-level="14.6.2" data-path="apêndice.html"><a href="apêndice.html#projeção-linear"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
+<li class="chapter" data-level="14.6.1" data-path="07-estimacao.html"><a href="#espa%C3%A7o-de-vetores-e-subspa%C3%A7o"><i class="fa fa-check"></i><b>14.6.1</b> Espaço de vetores e subspaço</a></li>
+<li class="chapter" data-level="14.6.2" data-path="07-estimacao.html"><a href="#proje%C3%A7%C3%A3o-linear"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
 <li class="chapter" data-level="14.6.3" data-path="apêndice.html"><a href="apêndice.html#load-required-libraries"><i class="fa fa-check"></i><b>14.6.3</b> 2. <strong>Load Required Libraries</strong></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="teoremas.html"><a href="teoremas.html"><i class="fa fa-check"></i><b>15</b> - Teoremas</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="teoremas.html"><a href="teoremas.html#independência-e-correlação"><i class="fa fa-check"></i><b>15.1</b> Independência e Correlação</a></li>
+<li class="chapter" data-level="15.1" data-path="07-estimacao.html"><a href="#independ%C3%AAncia-e-correla%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>15.1</b> Independência e Correlação</a></li>
 <li class="chapter" data-level="15.2" data-path="teoremas.html"><a href="teoremas.html#propriedade-de-estimadores"><i class="fa fa-check"></i><b>15.2</b> Propriedade de estimadores</a>
 <ul>
-<li class="chapter" data-level="15.2.1" data-path="teoremas.html"><a href="teoremas.html#viés"><i class="fa fa-check"></i><b>15.2.1</b> Viés</a></li>
-<li class="chapter" data-level="15.2.2" data-path="teoremas.html"><a href="teoremas.html#variância-1"><i class="fa fa-check"></i><b>15.2.2</b> Variância</a></li>
-<li class="chapter" data-level="15.2.3" data-path="teoremas.html"><a href="teoremas.html#eficiência"><i class="fa fa-check"></i><b>15.2.3</b> Eficiência</a></li>
+<li class="chapter" data-level="15.2.1" data-path="07-estimacao.html"><a href="#vi%C3%A9s"><i class="fa fa-check"></i><b>15.2.1</b> Viés</a></li>
+<li class="chapter" data-level="15.2.2" data-path="07-estimacao.html"><a href="#vari%C3%A2ncia-1"><i class="fa fa-check"></i><b>15.2.2</b> Variância</a></li>
+<li class="chapter" data-level="15.2.3" data-path="07-estimacao.html"><a href="#efici%C3%AAncia"><i class="fa fa-check"></i><b>15.2.3</b> Eficiência</a></li>
+<li class="chapter" data-level="15.2.4" data-path="07-estimacao.html"><a href="#consist%C3%AAncia"><i class="fa fa-check"></i><b>15.2.4</b> Consistência</a></li>
 </ul></li>
-<li class="chapter" data-level="15.3" data-path="teoremas.html"><a href="teoremas.html#exercícios-para-o-leitor"><i class="fa fa-check"></i><b>15.3</b> Exercícios para o leitor</a></li>
-<li class="chapter" data-level="15.4" data-path="teoremas.html"><a href="teoremas.html#lei-das-esperanças-iteradas"><i class="fa fa-check"></i><b>15.4</b> Lei das Esperanças Iteradas</a></li>
+<li class="chapter" data-level="15.3" data-path="07-estimacao.html"><a href="#exerc%C3%ADcios-para-o-leitor"><i class="fa fa-check"></i><b>15.3</b> Exercícios para o leitor</a></li>
+<li class="chapter" data-level="15.4" data-path="07-estimacao.html"><a href="#lei-das-esperan%C3%A7as-iteradas"><i class="fa fa-check"></i><b>15.4</b> Lei das Esperanças Iteradas</a></li>
 <li class="chapter" data-level="15.5" data-path="teoremas.html"><a href="teoremas.html#teorema-do-condicionamento"><i class="fa fa-check"></i><b>15.5</b> Teorema do Condicionamento</a></li>
 </ul></li>
 <li class="divider"></li>
@@ -381,7 +390,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="estimação" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Capítulo 7</span> - Estimação<a href="estimação.html#estimação" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Capítulo 7</span> - Estimação<a href="#estima%C3%A7%C3%A3o" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Nós já vimos que é possível mostrar que o preditor linear ótimo com um único regressor possui intercepto
 <span class="math inline">\(\alpha = \mathbb{E}[Y] - \beta*\mathbb{E}[X]\)</span> e inclinação <span class="math inline">\(\beta = Cov(X,Y)/Var(X)\)</span>. Isso significa que, se nós considerarmos o modelo de regressão <span class="math inline">\(y_i = \alpha + \beta*x_i + e_i\)</span>, e usarmos essas fórmulas para calcular os valores de <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> em uma população, obteríamos uma reta ajustada que é o melhor preditor linear.</p>
 <p>Até o momento, estávamos trabalhando com a população. Porém, na prática estaremos sempre lidando com uma amostra, de forma que precisamos entender como funciona a estimação de uma regressão a partir de uma amostra.</p>
@@ -412,20 +421,26 @@ Essa matriz precisa ser positiva-definida, que é uma característica de matrize
 \end{bmatrix}
 \]</span>
 Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em função dos desvios-padrões e da correlação entre as duas variáveis.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="estimação.html#cb94-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb94-2"><a href="estimação.html#cb94-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb94-3"><a href="estimação.html#cb94-3" tabindex="-1"></a></span>
-<span id="cb94-4"><a href="estimação.html#cb94-4" tabindex="-1"></a><span class="co"># vetor de médias</span></span>
-<span id="cb94-5"><a href="estimação.html#cb94-5" tabindex="-1"></a>vetor_media <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
-<span id="cb94-6"><a href="estimação.html#cb94-6" tabindex="-1"></a></span>
-<span id="cb94-7"><a href="estimação.html#cb94-7" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb94-8"><a href="estimação.html#cb94-8" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb94-9"><a href="estimação.html#cb94-9" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
-<span id="cb94-10"><a href="estimação.html#cb94-10" tabindex="-1"></a></span>
-<span id="cb94-11"><a href="estimação.html#cb94-11" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb94-12"><a href="estimação.html#cb94-12" tabindex="-1"></a></span>
-<span id="cb94-13"><a href="estimação.html#cb94-13" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
-<span id="cb94-14"><a href="estimação.html#cb94-14" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="estimação.html#cb119-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb119-2"><a href="estimação.html#cb119-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb119-3"><a href="estimação.html#cb119-3" tabindex="-1"></a></span>
+<span id="cb119-4"><a href="estimação.html#cb119-4" tabindex="-1"></a><span class="co"># vetor de médias</span></span>
+<span id="cb119-5"><a href="estimação.html#cb119-5" tabindex="-1"></a>vetor_media <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb119-6"><a href="estimação.html#cb119-6" tabindex="-1"></a></span>
+<span id="cb119-7"><a href="estimação.html#cb119-7" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb119-8"><a href="estimação.html#cb119-8" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb119-9"><a href="estimação.html#cb119-9" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
+<span id="cb119-10"><a href="estimação.html#cb119-10" tabindex="-1"></a></span>
+<span id="cb119-11"><a href="estimação.html#cb119-11" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb119-12"><a href="estimação.html#cb119-12" tabindex="-1"></a></span>
+<span id="cb119-13"><a href="estimação.html#cb119-13" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
+<span id="cb119-14"><a href="estimação.html#cb119-14" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <tbody>
 <tr class="odd">
@@ -438,29 +453,29 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="estimação.html#cb95-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
-<span id="cb95-2"><a href="estimação.html#cb95-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
-<span id="cb95-3"><a href="estimação.html#cb95-3" tabindex="-1"></a></span>
-<span id="cb95-4"><a href="estimação.html#cb95-4" tabindex="-1"></a>bivariada_tibble1 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb95-5"><a href="estimação.html#cb95-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
-<span id="cb95-6"><a href="estimação.html#cb95-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
-<span id="cb95-7"><a href="estimação.html#cb95-7" tabindex="-1"></a></span>
-<span id="cb95-8"><a href="estimação.html#cb95-8" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
-<span id="cb95-9"><a href="estimação.html#cb95-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="estimação.html#cb122-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb122-2"><a href="estimação.html#cb122-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
+<span id="cb122-3"><a href="estimação.html#cb122-3" tabindex="-1"></a></span>
+<span id="cb122-4"><a href="estimação.html#cb122-4" tabindex="-1"></a>bivariada_tibble1 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb122-5"><a href="estimação.html#cb122-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
+<span id="cb122-6"><a href="estimação.html#cb122-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
+<span id="cb122-7"><a href="estimação.html#cb122-7" tabindex="-1"></a></span>
+<span id="cb122-8"><a href="estimação.html#cb122-8" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
+<span id="cb122-9"><a href="estimação.html#cb122-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-normal-bivariada-1.png" width="672" /></p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="estimação.html#cb96-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
-<span id="cb96-2"><a href="estimação.html#cb96-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(y)) <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="estimação.html#cb123-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
+<span id="cb123-2"><a href="estimação.html#cb123-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(y)) <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-normal-bivariada-2.png" width="672" /></p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="estimação.html#cb97-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
-<span id="cb97-2"><a href="estimação.html#cb97-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_density_2d</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="estimação.html#cb124-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
+<span id="cb124-2"><a href="estimação.html#cb124-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_density_2d</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-normal-bivariada-3.png" width="672" /></p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="estimação.html#cb98-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
-<span id="cb98-2"><a href="estimação.html#cb98-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="estimação.html#cb125-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
+<span id="cb125-2"><a href="estimação.html#cb125-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-normal-bivariada-4.png" width="672" /></p>
 <p>Vamos usar esses dados para fazer uma regressão.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="estimação.html#cb99-1" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble1)</span>
-<span id="cb99-2"><a href="estimação.html#cb99-2" tabindex="-1"></a></span>
-<span id="cb99-3"><a href="estimação.html#cb99-3" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="estimação.html#cb126-1" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble1)</span>
+<span id="cb126-2"><a href="estimação.html#cb126-2" tabindex="-1"></a></span>
+<span id="cb126-3"><a href="estimação.html#cb126-3" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x, data = bivariada_tibble1)
@@ -480,21 +495,27 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 ## Multiple R-squared:  0.3469, Adjusted R-squared:  0.3468 
 ## F-statistic:  5310 on 1 and 9998 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>A fórmula do <span class="math inline">\(\beta\)</span> nós sabemos que depende da covariância entre as variáveis e o desvio-padrão de <span class="math inline">\(X\)</span>. Vamos então simular os dados novamente, mudando as correlações e variâncias, para entender como isso impacta a regressão a partir da fórmula da inclinação da reta.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="estimação.html#cb101-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb101-2"><a href="estimação.html#cb101-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb101-3"><a href="estimação.html#cb101-3" tabindex="-1"></a></span>
-<span id="cb101-4"><a href="estimação.html#cb101-4" tabindex="-1"></a><span class="co"># vetor de médias</span></span>
-<span id="cb101-5"><a href="estimação.html#cb101-5" tabindex="-1"></a>vetor_media <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
-<span id="cb101-6"><a href="estimação.html#cb101-6" tabindex="-1"></a></span>
-<span id="cb101-7"><a href="estimação.html#cb101-7" tabindex="-1"></a><span class="co"># cov menor, dp o mesmo</span></span>
-<span id="cb101-8"><a href="estimação.html#cb101-8" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb101-9"><a href="estimação.html#cb101-9" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb101-10"><a href="estimação.html#cb101-10" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
-<span id="cb101-11"><a href="estimação.html#cb101-11" tabindex="-1"></a></span>
-<span id="cb101-12"><a href="estimação.html#cb101-12" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb101-13"><a href="estimação.html#cb101-13" tabindex="-1"></a></span>
-<span id="cb101-14"><a href="estimação.html#cb101-14" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
-<span id="cb101-15"><a href="estimação.html#cb101-15" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="estimação.html#cb128-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb128-2"><a href="estimação.html#cb128-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb128-3"><a href="estimação.html#cb128-3" tabindex="-1"></a></span>
+<span id="cb128-4"><a href="estimação.html#cb128-4" tabindex="-1"></a><span class="co"># vetor de médias</span></span>
+<span id="cb128-5"><a href="estimação.html#cb128-5" tabindex="-1"></a>vetor_media <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb128-6"><a href="estimação.html#cb128-6" tabindex="-1"></a></span>
+<span id="cb128-7"><a href="estimação.html#cb128-7" tabindex="-1"></a><span class="co"># cov menor, dp o mesmo</span></span>
+<span id="cb128-8"><a href="estimação.html#cb128-8" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb128-9"><a href="estimação.html#cb128-9" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb128-10"><a href="estimação.html#cb128-10" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
+<span id="cb128-11"><a href="estimação.html#cb128-11" tabindex="-1"></a></span>
+<span id="cb128-12"><a href="estimação.html#cb128-12" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb128-13"><a href="estimação.html#cb128-13" tabindex="-1"></a></span>
+<span id="cb128-14"><a href="estimação.html#cb128-14" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
+<span id="cb128-15"><a href="estimação.html#cb128-15" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <tbody>
 <tr class="odd">
@@ -507,24 +528,30 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="estimação.html#cb102-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
-<span id="cb102-2"><a href="estimação.html#cb102-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
-<span id="cb102-3"><a href="estimação.html#cb102-3" tabindex="-1"></a></span>
-<span id="cb102-4"><a href="estimação.html#cb102-4" tabindex="-1"></a>bivariada_tibble2 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb102-5"><a href="estimação.html#cb102-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
-<span id="cb102-6"><a href="estimação.html#cb102-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
-<span id="cb102-7"><a href="estimação.html#cb102-7" tabindex="-1"></a></span>
-<span id="cb102-8"><a href="estimação.html#cb102-8" tabindex="-1"></a>bivariada_tibble2 <span class="sc">%&gt;%</span></span>
-<span id="cb102-9"><a href="estimação.html#cb102-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="estimação.html#cb131-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb131-2"><a href="estimação.html#cb131-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
+<span id="cb131-3"><a href="estimação.html#cb131-3" tabindex="-1"></a></span>
+<span id="cb131-4"><a href="estimação.html#cb131-4" tabindex="-1"></a>bivariada_tibble2 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb131-5"><a href="estimação.html#cb131-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
+<span id="cb131-6"><a href="estimação.html#cb131-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
+<span id="cb131-7"><a href="estimação.html#cb131-7" tabindex="-1"></a></span>
+<span id="cb131-8"><a href="estimação.html#cb131-8" tabindex="-1"></a>bivariada_tibble2 <span class="sc">%&gt;%</span></span>
+<span id="cb131-9"><a href="estimação.html#cb131-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-new_bivariada-1.png" width="672" /></p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="estimação.html#cb103-1" tabindex="-1"></a><span class="co"># cov igual, dp de x maior</span></span>
-<span id="cb103-2"><a href="estimação.html#cb103-2" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
-<span id="cb103-3"><a href="estimação.html#cb103-3" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb103-4"><a href="estimação.html#cb103-4" tabindex="-1"></a></span>
-<span id="cb103-5"><a href="estimação.html#cb103-5" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb103-6"><a href="estimação.html#cb103-6" tabindex="-1"></a></span>
-<span id="cb103-7"><a href="estimação.html#cb103-7" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
-<span id="cb103-8"><a href="estimação.html#cb103-8" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="estimação.html#cb132-1" tabindex="-1"></a><span class="co"># cov igual, dp de x maior</span></span>
+<span id="cb132-2"><a href="estimação.html#cb132-2" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
+<span id="cb132-3"><a href="estimação.html#cb132-3" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb132-4"><a href="estimação.html#cb132-4" tabindex="-1"></a></span>
+<span id="cb132-5"><a href="estimação.html#cb132-5" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb132-6"><a href="estimação.html#cb132-6" tabindex="-1"></a></span>
+<span id="cb132-7"><a href="estimação.html#cb132-7" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
+<span id="cb132-8"><a href="estimação.html#cb132-8" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)
+## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <tbody>
 <tr class="odd">
@@ -537,25 +564,31 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="estimação.html#cb104-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
-<span id="cb104-2"><a href="estimação.html#cb104-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
-<span id="cb104-3"><a href="estimação.html#cb104-3" tabindex="-1"></a></span>
-<span id="cb104-4"><a href="estimação.html#cb104-4" tabindex="-1"></a>bivariada_tibble3 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb104-5"><a href="estimação.html#cb104-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
-<span id="cb104-6"><a href="estimação.html#cb104-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
-<span id="cb104-7"><a href="estimação.html#cb104-7" tabindex="-1"></a></span>
-<span id="cb104-8"><a href="estimação.html#cb104-8" tabindex="-1"></a>bivariada_tibble3 <span class="sc">%&gt;%</span></span>
-<span id="cb104-9"><a href="estimação.html#cb104-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="estimação.html#cb134-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb134-2"><a href="estimação.html#cb134-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
+<span id="cb134-3"><a href="estimação.html#cb134-3" tabindex="-1"></a></span>
+<span id="cb134-4"><a href="estimação.html#cb134-4" tabindex="-1"></a>bivariada_tibble3 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb134-5"><a href="estimação.html#cb134-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
+<span id="cb134-6"><a href="estimação.html#cb134-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
+<span id="cb134-7"><a href="estimação.html#cb134-7" tabindex="-1"></a></span>
+<span id="cb134-8"><a href="estimação.html#cb134-8" tabindex="-1"></a>bivariada_tibble3 <span class="sc">%&gt;%</span></span>
+<span id="cb134-9"><a href="estimação.html#cb134-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-new_bivariada-2.png" width="672" /></p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="estimação.html#cb105-1" tabindex="-1"></a><span class="co"># cov maor, dp de x maior</span></span>
-<span id="cb105-2"><a href="estimação.html#cb105-2" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">15</span></span>
-<span id="cb105-3"><a href="estimação.html#cb105-3" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb105-4"><a href="estimação.html#cb105-4" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb105-5"><a href="estimação.html#cb105-5" tabindex="-1"></a></span>
-<span id="cb105-6"><a href="estimação.html#cb105-6" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb105-7"><a href="estimação.html#cb105-7" tabindex="-1"></a></span>
-<span id="cb105-8"><a href="estimação.html#cb105-8" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
-<span id="cb105-9"><a href="estimação.html#cb105-9" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="estimação.html#cb135-1" tabindex="-1"></a><span class="co"># cov maor, dp de x maior</span></span>
+<span id="cb135-2"><a href="estimação.html#cb135-2" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">15</span></span>
+<span id="cb135-3"><a href="estimação.html#cb135-3" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb135-4"><a href="estimação.html#cb135-4" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb135-5"><a href="estimação.html#cb135-5" tabindex="-1"></a></span>
+<span id="cb135-6"><a href="estimação.html#cb135-6" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb135-7"><a href="estimação.html#cb135-7" tabindex="-1"></a></span>
+<span id="cb135-8"><a href="estimação.html#cb135-8" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
+<span id="cb135-9"><a href="estimação.html#cb135-9" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)
+## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <tbody>
 <tr class="odd">
@@ -568,27 +601,27 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="estimação.html#cb106-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
-<span id="cb106-2"><a href="estimação.html#cb106-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
-<span id="cb106-3"><a href="estimação.html#cb106-3" tabindex="-1"></a></span>
-<span id="cb106-4"><a href="estimação.html#cb106-4" tabindex="-1"></a>bivariada_tibble4 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb106-5"><a href="estimação.html#cb106-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
-<span id="cb106-6"><a href="estimação.html#cb106-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
-<span id="cb106-7"><a href="estimação.html#cb106-7" tabindex="-1"></a></span>
-<span id="cb106-8"><a href="estimação.html#cb106-8" tabindex="-1"></a>bivariada_tibble4 <span class="sc">%&gt;%</span></span>
-<span id="cb106-9"><a href="estimação.html#cb106-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="estimação.html#cb137-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb137-2"><a href="estimação.html#cb137-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
+<span id="cb137-3"><a href="estimação.html#cb137-3" tabindex="-1"></a></span>
+<span id="cb137-4"><a href="estimação.html#cb137-4" tabindex="-1"></a>bivariada_tibble4 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb137-5"><a href="estimação.html#cb137-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
+<span id="cb137-6"><a href="estimação.html#cb137-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
+<span id="cb137-7"><a href="estimação.html#cb137-7" tabindex="-1"></a></span>
+<span id="cb137-8"><a href="estimação.html#cb137-8" tabindex="-1"></a>bivariada_tibble4 <span class="sc">%&gt;%</span></span>
+<span id="cb137-9"><a href="estimação.html#cb137-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-new_bivariada-3.png" width="672" /></p>
 <p>O R mostra os resultados da regressão desse jeito, e vamos aprender a interpretá-lo, mas vamos também apresentar em um formato mais amigável e, caso vocês utilizem o rmarkdown, poderão utilizar em trabalhos acadêmicos. Para isso, utilizaremos o pacote stargazer</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="estimação.html#cb107-1" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble2)</span>
-<span id="cb107-2"><a href="estimação.html#cb107-2" tabindex="-1"></a></span>
-<span id="cb107-3"><a href="estimação.html#cb107-3" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble3)</span>
-<span id="cb107-4"><a href="estimação.html#cb107-4" tabindex="-1"></a></span>
-<span id="cb107-5"><a href="estimação.html#cb107-5" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble4)</span></code></pre></div>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="estimação.html#cb108-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;stargazer&quot;</span>)</span>
-<span id="cb108-2"><a href="estimação.html#cb108-2" tabindex="-1"></a></span>
-<span id="cb108-3"><a href="estimação.html#cb108-3" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(<span class="fu">list</span>(reg1, reg2, reg3, reg4), <span class="at">type =</span>  <span class="st">&quot;html&quot;</span>, <span class="at">style =</span> <span class="st">&quot;ajps&quot;</span>,</span>
-<span id="cb108-4"><a href="estimação.html#cb108-4" tabindex="-1"></a>                     <span class="at">title =</span> <span class="st">&quot;Regressão linear&quot;</span>, <span class="at">omit.stat =</span> <span class="st">&quot;f&quot;</span>,</span>
-<span id="cb108-5"><a href="estimação.html#cb108-5" tabindex="-1"></a>                     <span class="at">column.labels=</span><span class="fu">c</span>(<span class="st">&quot;cov = 2.4, s_x = 2&quot;</span>, <span class="st">&quot;cov = 1.2, s_x = 2&quot;</span>, <span class="st">&quot;cov = 2.4, s_x = 4&quot;</span>, <span class="st">&quot;cov = 1.2, s_x = 4&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="estimação.html#cb138-1" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble2)</span>
+<span id="cb138-2"><a href="estimação.html#cb138-2" tabindex="-1"></a></span>
+<span id="cb138-3"><a href="estimação.html#cb138-3" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble3)</span>
+<span id="cb138-4"><a href="estimação.html#cb138-4" tabindex="-1"></a></span>
+<span id="cb138-5"><a href="estimação.html#cb138-5" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble4)</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="estimação.html#cb139-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;stargazer&quot;</span>)</span>
+<span id="cb139-2"><a href="estimação.html#cb139-2" tabindex="-1"></a></span>
+<span id="cb139-3"><a href="estimação.html#cb139-3" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(<span class="fu">list</span>(reg1, reg2, reg3, reg4), <span class="at">type =</span>  <span class="st">&quot;html&quot;</span>, <span class="at">style =</span> <span class="st">&quot;ajps&quot;</span>,</span>
+<span id="cb139-4"><a href="estimação.html#cb139-4" tabindex="-1"></a>                     <span class="at">title =</span> <span class="st">&quot;Regressão linear&quot;</span>, <span class="at">omit.stat =</span> <span class="st">&quot;f&quot;</span>,</span>
+<span id="cb139-5"><a href="estimação.html#cb139-5" tabindex="-1"></a>                     <span class="at">column.labels=</span><span class="fu">c</span>(<span class="st">&quot;cov = 2.4, s_x = 2&quot;</span>, <span class="st">&quot;cov = 1.2, s_x = 2&quot;</span>, <span class="st">&quot;cov = 2.4, s_x = 4&quot;</span>, <span class="st">&quot;cov = 1.2, s_x = 4&quot;</span> ))</span></code></pre></div>
 <table style="text-align:center">
 <caption>
 <strong>Regressão linear</strong>
@@ -786,12 +819,12 @@ Residual Std. Error (df = 9998)
 </table>
 </div>
 <div id="suposições-amostrais-de-mqo" class="section level2 hasAnchor" number="7.3">
-<h2><span class="header-section-number">7.3</span> Suposições amostrais de MQO<a href="estimação.html#suposições-amostrais-de-mqo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">7.3</span> Suposições amostrais de MQO<a href="#suposi%C3%A7%C3%B5es-amostrais-de-mqo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Quando temos uma amostra, é comum supormos que os dados são <strong>i</strong>ndependentes e <strong>i</strong>denticamente <strong>d</strong>istribuídos, <strong>i.i.d</strong>. Esse tipo de amostra às vezes é chamada de amostra aleatória simples. Isso é tipicamente válido em dados de corte transversal (cross-section) como uma pesquisa de opinião (survey) de intenção de voto, amostra pequena (mil, dois mil) de alunos do Brasil a partir de dados doe Censo Escolar e assim por diante. O ponto é que os dados precisam ser dispersos. Se você coletar alunos de uma mesma escola, eles não tenderão a ser independentes. Se amostrar eleitores de um mesmo bairro, tampouco haverá independência. Há formas de lidar com isso, e aprenderemos mais tarde. Por enquanto, tratemos do caso mais simples.</p>
 <p>A suposição de que dados são i.i.d significa que, em uma amostra com duas variáveis, <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, o par <span class="math inline">\(x_i, y_i\)</span> é independente de <span class="math inline">\(x_j, y_j\)</span>, com <span class="math inline">\(i \neq j\)</span> e identicamente distribuídos, isto é, com a mesma distribuição. Essa suposição é importante para calcular a variância dos nossos estimadores, não para a estimativa pontual deles.</p>
 </div>
 <div id="modelo-de-média-amostral" class="section level2 hasAnchor" number="7.4">
-<h2><span class="header-section-number">7.4</span> Modelo de Média amostral<a href="estimação.html#modelo-de-média-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">7.4</span> Modelo de Média amostral<a href="#modelo-de-m%C3%A9dia-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Como vimos, o modelo de regressão mais simples é aquele sem preditores, em que <span class="math inline">\(Y = \mu + e\)</span>. O estimador de mínimos quadrados para <span class="math inline">\(\hat{\mu}\)</span> é a média amostral, <span class="math inline">\(\bar{y}\)</span>. Notem que <span class="math inline">\(\mathbb{E}[Y]\)</span> é a esperança populacional e <span class="math inline">\(\mu\)</span> é o valor da esperança, já que a esperança do erro <span class="math inline">\(e\)</span> é zero. Vamos então calcular a média de nosso estimador <span class="math inline">\(\bar{y}\)</span> e sua variância.</p>
 <p><span class="math display">\[
 \mathbb{E}[\bar{y}] = \mathbb{E}[\sum{y_i}/n] = (1/n) \cdot \sum{\mathbb{E}[y_i]} = (1/n)\cdot \mu \cdot n = \mu
@@ -817,7 +850,7 @@ Se nós somarmos o somatório indexado no <span class="math inline">\(j\)</span>
 Ou seja, a variância de nosso estimador é igual à variância populacional dividida pelo tamanho da amostra. O desvio-padrão (raiz quadrada da variância) amostral do estimador também é chamada de erro padrão.</p>
 </div>
 <div id="modelo-de-regressão-linear-com-preditores" class="section level2 hasAnchor" number="7.5">
-<h2><span class="header-section-number">7.5</span> Modelo de Regressão Linear com preditores<a href="estimação.html#modelo-de-regressão-linear-com-preditores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">7.5</span> Modelo de Regressão Linear com preditores<a href="#modelo-de-regress%C3%A3o-linear-com-preditores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Tendo mostrado que o estimador é não-viesado e calculado a variância amostral para o caso mais simples, sem preditor, vamos agora fazer o mesmo cálculo com um preditor.</p>
 <p>Vamos assumir que o modelo de regressão linear é uma boa aproximação para CEF. Portanto, vamos supor que:</p>
 <ol style="list-style-type: decimal">
@@ -919,88 +952,91 @@ se(\hat{\beta}) = \frac{\sigma}{\sqrt{nS^2_x}}
 \]</span></p>
 </div>
 <div id="estimando-um-modelo-de-regressão-real" class="section level2 hasAnchor" number="7.6">
-<h2><span class="header-section-number">7.6</span> Estimando um modelo de regressão real<a href="estimação.html#estimando-um-modelo-de-regressão-real" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">7.6</span> Estimando um modelo de regressão real<a href="#estimando-um-modelo-de-regress%C3%A3o-real" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vamos começar com um exemplo, importando dados do site Base de Dados, que possui muitas bases de dados públicas, já tratadas. Para tanto, precisaremos criar um projeto no Google cloud, conforme os passos aqui: <a href="https://basedosdados.github.io/mais/access_data_packages/" class="uri">https://basedosdados.github.io/mais/access_data_packages/</a></p>
 <p>Depois, só escolher quais dos dados iremos olhar
 <a href="https://basedosdados.org/" class="uri">https://basedosdados.org/</a></p>
 <p>Escolhi mexer com dados do censo escolar</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="estimação.html#cb109-1" tabindex="-1"></a><span class="co"># instalando a biblioteca</span></span>
-<span id="cb109-2"><a href="estimação.html#cb109-2" tabindex="-1"></a><span class="co"># install.packages(&#39;basedosdados&#39;)</span></span>
-<span id="cb109-3"><a href="estimação.html#cb109-3" tabindex="-1"></a></span>
-<span id="cb109-4"><a href="estimação.html#cb109-4" tabindex="-1"></a><span class="co"># carregando a biblioteca na sessão</span></span>
-<span id="cb109-5"><a href="estimação.html#cb109-5" tabindex="-1"></a><span class="fu">library</span>(basedosdados)</span>
-<span id="cb109-6"><a href="estimação.html#cb109-6" tabindex="-1"></a><span class="fu">library</span>(bigrquery)</span>
-<span id="cb109-7"><a href="estimação.html#cb109-7" tabindex="-1"></a><span class="co"># para importar os dadosdiretamente no R, precisamos criar um id para acessar a base de dados</span></span>
-<span id="cb109-8"><a href="estimação.html#cb109-8" tabindex="-1"></a><span class="fu">set_billing_id</span>(<span class="st">&quot;aula-reg-manoel&quot;</span>)</span>
-<span id="cb109-9"><a href="estimação.html#cb109-9" tabindex="-1"></a></span>
-<span id="cb109-10"><a href="estimação.html#cb109-10" tabindex="-1"></a><span class="co">#bq_auth()</span></span>
-<span id="cb109-11"><a href="estimação.html#cb109-11" tabindex="-1"></a><span class="co"># se autenticação falhar</span></span>
-<span id="cb109-12"><a href="estimação.html#cb109-12" tabindex="-1"></a></span>
-<span id="cb109-13"><a href="estimação.html#cb109-13" tabindex="-1"></a><span class="co"># importando dados</span></span>
-<span id="cb109-14"><a href="estimação.html#cb109-14" tabindex="-1"></a></span>
-<span id="cb109-15"><a href="estimação.html#cb109-15" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">&quot;imagens&quot;</span>, <span class="st">&quot;autenticacao base dados.jpg&quot;</span>))</span></code></pre></div>
-<p><img src="imagens/autenticacao%20base%20dados.jpg" width="480" /></p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="estimação.html#cb110-1" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span> </span>
-<span id="cb110-2"><a href="estimação.html#cb110-2" tabindex="-1"></a>escola <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span>
-<span id="cb110-3"><a href="estimação.html#cb110-3" tabindex="-1"></a></span>
-<span id="cb110-4"><a href="estimação.html#cb110-4" tabindex="-1"></a></span>
-<span id="cb110-5"><a href="estimação.html#cb110-5" tabindex="-1"></a><span class="co"># query &lt;- &quot;SELECT count(*) as contagem, id_municipio FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and ano = 2019 group by id_municipio&quot; </span></span>
-<span id="cb110-6"><a href="estimação.html#cb110-6" tabindex="-1"></a><span class="co"># escola &lt;- read_sql(query)</span></span>
-<span id="cb110-7"><a href="estimação.html#cb110-7" tabindex="-1"></a></span>
-<span id="cb110-8"><a href="estimação.html#cb110-8" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.dicionario`&quot;</span></span>
-<span id="cb110-9"><a href="estimação.html#cb110-9" tabindex="-1"></a>dicionario <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span>
-<span id="cb110-10"><a href="estimação.html#cb110-10" tabindex="-1"></a></span>
-<span id="cb110-11"><a href="estimação.html#cb110-11" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.matricula` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span></span>
-<span id="cb110-12"><a href="estimação.html#cb110-12" tabindex="-1"></a></span>
-<span id="cb110-13"><a href="estimação.html#cb110-13" tabindex="-1"></a>aluno <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span></code></pre></div>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="estimação.html#cb111-1" tabindex="-1"></a><span class="co"># dicionário de gênero e raça</span></span>
-<span id="cb111-2"><a href="estimação.html#cb111-2" tabindex="-1"></a><span class="co"># dicionario %&gt;%</span></span>
-<span id="cb111-3"><a href="estimação.html#cb111-3" tabindex="-1"></a><span class="co">#   dplyr::filter(id_tabela == &quot;matricula&quot;, nome_coluna %in% c(&quot;sexo&quot;, &quot;raca_cor&quot;))</span></span>
-<span id="cb111-4"><a href="estimação.html#cb111-4" tabindex="-1"></a></span>
-<span id="cb111-5"><a href="estimação.html#cb111-5" tabindex="-1"></a></span>
-<span id="cb111-6"><a href="estimação.html#cb111-6" tabindex="-1"></a>aluno_gen <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
-<span id="cb111-7"><a href="estimação.html#cb111-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb111-8"><a href="estimação.html#cb111-8" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, sexo) <span class="sc">%&gt;%</span></span>
-<span id="cb111-9"><a href="estimação.html#cb111-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_gen =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb111-10"><a href="estimação.html#cb111-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Male&quot;</span>, sexo),</span>
-<span id="cb111-11"><a href="estimação.html#cb111-11" tabindex="-1"></a>         <span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Female&quot;</span>, sexo)) <span class="sc">%&gt;%</span></span>
-<span id="cb111-12"><a href="estimação.html#cb111-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_gen),</span>
-<span id="cb111-13"><a href="estimação.html#cb111-13" tabindex="-1"></a>            <span class="at">percent =</span> num_aluno_gen<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
-<span id="cb111-14"><a href="estimação.html#cb111-14" tabindex="-1"></a>  <span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb111-15"><a href="estimação.html#cb111-15" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">percent_female =</span> percent) <span class="sc">%&gt;%</span></span>
-<span id="cb111-16"><a href="estimação.html#cb111-16" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id_escola, percent_female)</span>
-<span id="cb111-17"><a href="estimação.html#cb111-17" tabindex="-1"></a>         </span>
-<span id="cb111-18"><a href="estimação.html#cb111-18" tabindex="-1"></a>aluno_raca <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
-<span id="cb111-19"><a href="estimação.html#cb111-19" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb111-20"><a href="estimação.html#cb111-20" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, raca_cor) <span class="sc">%&gt;%</span></span>
-<span id="cb111-21"><a href="estimação.html#cb111-21" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_raca =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb111-22"><a href="estimação.html#cb111-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Branca&quot;</span>, raca_cor),</span>
-<span id="cb111-23"><a href="estimação.html#cb111-23" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Preta&quot;</span>, raca_cor),</span>
-<span id="cb111-24"><a href="estimação.html#cb111-24" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;3&quot;</span>, <span class="st">&quot;Parda&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
-<span id="cb111-25"><a href="estimação.html#cb111-25" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_raca),</span>
-<span id="cb111-26"><a href="estimação.html#cb111-26" tabindex="-1"></a>         <span class="at">percent =</span> num_aluno_raca<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
-<span id="cb111-27"><a href="estimação.html#cb111-27" tabindex="-1"></a>  <span class="fu">filter</span>(raca_cor <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Branca&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;Preta&quot;</span>, <span class="st">&quot;Parda&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb111-28"><a href="estimação.html#cb111-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;não_declarado&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
-<span id="cb111-29"><a href="estimação.html#cb111-29" tabindex="-1"></a>  <span class="fu">select</span>(id_escola, raca_cor, percent) <span class="sc">%&gt;%</span></span>
-<span id="cb111-30"><a href="estimação.html#cb111-30" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> raca_cor , <span class="at">values_from =</span> percent )</span>
-<span id="cb111-31"><a href="estimação.html#cb111-31" tabindex="-1"></a></span>
-<span id="cb111-32"><a href="estimação.html#cb111-32" tabindex="-1"></a></span>
-<span id="cb111-33"><a href="estimação.html#cb111-33" tabindex="-1"></a></span>
-<span id="cb111-34"><a href="estimação.html#cb111-34" tabindex="-1"></a>aluno_escola <span class="ot">&lt;-</span> aluno_gen <span class="sc">%&gt;%</span></span>
-<span id="cb111-35"><a href="estimação.html#cb111-35" tabindex="-1"></a>  <span class="fu">inner_join</span>(aluno_raca,  <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb111-36"><a href="estimação.html#cb111-36" tabindex="-1"></a>  <span class="fu">inner_join</span>(escola, <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>)</span>
-<span id="cb111-37"><a href="estimação.html#cb111-37" tabindex="-1"></a></span>
-<span id="cb111-38"><a href="estimação.html#cb111-38" tabindex="-1"></a>aluno_escola_reg <span class="ot">&lt;-</span> aluno_escola <span class="sc">%&gt;%</span></span>
-<span id="cb111-39"><a href="estimação.html#cb111-39" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb111-40"><a href="estimação.html#cb111-40" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">negra =</span> Preta <span class="sc">+</span> Parda) <span class="sc">%&gt;%</span></span>
-<span id="cb111-41"><a href="estimação.html#cb111-41" tabindex="-1"></a>  <span class="fu">select</span>(negra, percent_female, tipo_localizacao, agua_potavel, esgoto_rede_publica, </span>
-<span id="cb111-42"><a href="estimação.html#cb111-42" tabindex="-1"></a>         lixo_servico_coleta, area_verde, biblioteca, quantidade_profissional_psicologo) <span class="sc">%&gt;%</span></span>
-<span id="cb111-43"><a href="estimação.html#cb111-43" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
-<span id="cb111-44"><a href="estimação.html#cb111-44" tabindex="-1"></a>  <span class="fu">mutate_if</span>(bit64<span class="sc">::</span>is.integer64, as.factor)</span>
-<span id="cb111-45"><a href="estimação.html#cb111-45" tabindex="-1"></a></span>
-<span id="cb111-46"><a href="estimação.html#cb111-46" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(negra <span class="sc">~</span>  percent_female <span class="sc">+</span> tipo_localizacao <span class="sc">+</span> agua_potavel  <span class="sc">+</span> esgoto_rede_publica <span class="sc">+</span> lixo_servico_coleta <span class="sc">+</span> area_verde <span class="sc">+</span> biblioteca <span class="sc">+</span> quantidade_profissional_psicologo, <span class="at">data=</span> aluno_escola_reg)</span>
-<span id="cb111-47"><a href="estimação.html#cb111-47" tabindex="-1"></a></span>
-<span id="cb111-48"><a href="estimação.html#cb111-48" tabindex="-1"></a><span class="fu">summary</span>(reg)</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="estimação.html#cb140-1" tabindex="-1"></a><span class="co"># instalando a biblioteca</span></span>
+<span id="cb140-2"><a href="estimação.html#cb140-2" tabindex="-1"></a><span class="co"># install.packages(&#39;basedosdados&#39;)</span></span>
+<span id="cb140-3"><a href="estimação.html#cb140-3" tabindex="-1"></a></span>
+<span id="cb140-4"><a href="estimação.html#cb140-4" tabindex="-1"></a><span class="co"># carregando a biblioteca na sessão</span></span>
+<span id="cb140-5"><a href="estimação.html#cb140-5" tabindex="-1"></a><span class="fu">library</span>(basedosdados)</span>
+<span id="cb140-6"><a href="estimação.html#cb140-6" tabindex="-1"></a><span class="fu">library</span>(bigrquery)</span>
+<span id="cb140-7"><a href="estimação.html#cb140-7" tabindex="-1"></a><span class="co"># para importar os dadosdiretamente no R, precisamos criar um id para acessar a base de dados</span></span>
+<span id="cb140-8"><a href="estimação.html#cb140-8" tabindex="-1"></a><span class="fu">set_billing_id</span>(<span class="st">&quot;aula-reg-manoel&quot;</span>)</span>
+<span id="cb140-9"><a href="estimação.html#cb140-9" tabindex="-1"></a></span>
+<span id="cb140-10"><a href="estimação.html#cb140-10" tabindex="-1"></a><span class="co">#bq_auth()</span></span>
+<span id="cb140-11"><a href="estimação.html#cb140-11" tabindex="-1"></a><span class="co"># se autenticação falhar</span></span>
+<span id="cb140-12"><a href="estimação.html#cb140-12" tabindex="-1"></a></span>
+<span id="cb140-13"><a href="estimação.html#cb140-13" tabindex="-1"></a><span class="co"># importando dados</span></span>
+<span id="cb140-14"><a href="estimação.html#cb140-14" tabindex="-1"></a></span>
+<span id="cb140-15"><a href="estimação.html#cb140-15" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">&quot;imagens&quot;</span>, <span class="st">&quot;autenticacao base dados.jpg&quot;</span>))</span></code></pre></div>
+<p><img src="imagens/autenticacao%20base%20dados.jpg" /><!-- --></p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="estimação.html#cb141-1" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span> </span>
+<span id="cb141-2"><a href="estimação.html#cb141-2" tabindex="-1"></a>escola <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span>
+<span id="cb141-3"><a href="estimação.html#cb141-3" tabindex="-1"></a></span>
+<span id="cb141-4"><a href="estimação.html#cb141-4" tabindex="-1"></a></span>
+<span id="cb141-5"><a href="estimação.html#cb141-5" tabindex="-1"></a><span class="co"># query &lt;- &quot;SELECT count(*) as contagem, id_municipio FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and ano = 2019 group by id_municipio&quot; </span></span>
+<span id="cb141-6"><a href="estimação.html#cb141-6" tabindex="-1"></a><span class="co"># escola &lt;- read_sql(query)</span></span>
+<span id="cb141-7"><a href="estimação.html#cb141-7" tabindex="-1"></a></span>
+<span id="cb141-8"><a href="estimação.html#cb141-8" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.dicionario`&quot;</span></span>
+<span id="cb141-9"><a href="estimação.html#cb141-9" tabindex="-1"></a>dicionario <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span>
+<span id="cb141-10"><a href="estimação.html#cb141-10" tabindex="-1"></a></span>
+<span id="cb141-11"><a href="estimação.html#cb141-11" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.matricula` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span></span>
+<span id="cb141-12"><a href="estimação.html#cb141-12" tabindex="-1"></a></span>
+<span id="cb141-13"><a href="estimação.html#cb141-13" tabindex="-1"></a>aluno <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="estimação.html#cb142-1" tabindex="-1"></a><span class="co"># dicionário de gênero e raça</span></span>
+<span id="cb142-2"><a href="estimação.html#cb142-2" tabindex="-1"></a><span class="co"># dicionario %&gt;%</span></span>
+<span id="cb142-3"><a href="estimação.html#cb142-3" tabindex="-1"></a><span class="co">#   dplyr::filter(id_tabela == &quot;matricula&quot;, nome_coluna %in% c(&quot;sexo&quot;, &quot;raca_cor&quot;))</span></span>
+<span id="cb142-4"><a href="estimação.html#cb142-4" tabindex="-1"></a></span>
+<span id="cb142-5"><a href="estimação.html#cb142-5" tabindex="-1"></a></span>
+<span id="cb142-6"><a href="estimação.html#cb142-6" tabindex="-1"></a>aluno_gen <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
+<span id="cb142-7"><a href="estimação.html#cb142-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb142-8"><a href="estimação.html#cb142-8" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, sexo) <span class="sc">%&gt;%</span></span>
+<span id="cb142-9"><a href="estimação.html#cb142-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_gen =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb142-10"><a href="estimação.html#cb142-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Male&quot;</span>, sexo),</span>
+<span id="cb142-11"><a href="estimação.html#cb142-11" tabindex="-1"></a>         <span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Female&quot;</span>, sexo)) <span class="sc">%&gt;%</span></span>
+<span id="cb142-12"><a href="estimação.html#cb142-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_gen),</span>
+<span id="cb142-13"><a href="estimação.html#cb142-13" tabindex="-1"></a>            <span class="at">percent =</span> num_aluno_gen<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb142-14"><a href="estimação.html#cb142-14" tabindex="-1"></a>  <span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb142-15"><a href="estimação.html#cb142-15" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">percent_female =</span> percent) <span class="sc">%&gt;%</span></span>
+<span id="cb142-16"><a href="estimação.html#cb142-16" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id_escola, percent_female)</span>
+<span id="cb142-17"><a href="estimação.html#cb142-17" tabindex="-1"></a>         </span>
+<span id="cb142-18"><a href="estimação.html#cb142-18" tabindex="-1"></a>aluno_raca <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
+<span id="cb142-19"><a href="estimação.html#cb142-19" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb142-20"><a href="estimação.html#cb142-20" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, raca_cor) <span class="sc">%&gt;%</span></span>
+<span id="cb142-21"><a href="estimação.html#cb142-21" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_raca =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb142-22"><a href="estimação.html#cb142-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Branca&quot;</span>, raca_cor),</span>
+<span id="cb142-23"><a href="estimação.html#cb142-23" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Preta&quot;</span>, raca_cor),</span>
+<span id="cb142-24"><a href="estimação.html#cb142-24" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;3&quot;</span>, <span class="st">&quot;Parda&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
+<span id="cb142-25"><a href="estimação.html#cb142-25" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_raca),</span>
+<span id="cb142-26"><a href="estimação.html#cb142-26" tabindex="-1"></a>         <span class="at">percent =</span> num_aluno_raca<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb142-27"><a href="estimação.html#cb142-27" tabindex="-1"></a>  <span class="fu">filter</span>(raca_cor <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Branca&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;Preta&quot;</span>, <span class="st">&quot;Parda&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb142-28"><a href="estimação.html#cb142-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;não_declarado&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
+<span id="cb142-29"><a href="estimação.html#cb142-29" tabindex="-1"></a>  <span class="fu">select</span>(id_escola, raca_cor, percent) <span class="sc">%&gt;%</span></span>
+<span id="cb142-30"><a href="estimação.html#cb142-30" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> raca_cor , <span class="at">values_from =</span> percent )</span>
+<span id="cb142-31"><a href="estimação.html#cb142-31" tabindex="-1"></a></span>
+<span id="cb142-32"><a href="estimação.html#cb142-32" tabindex="-1"></a></span>
+<span id="cb142-33"><a href="estimação.html#cb142-33" tabindex="-1"></a></span>
+<span id="cb142-34"><a href="estimação.html#cb142-34" tabindex="-1"></a>aluno_escola <span class="ot">&lt;-</span> aluno_gen <span class="sc">%&gt;%</span></span>
+<span id="cb142-35"><a href="estimação.html#cb142-35" tabindex="-1"></a>  <span class="fu">inner_join</span>(aluno_raca,  <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb142-36"><a href="estimação.html#cb142-36" tabindex="-1"></a>  <span class="fu">inner_join</span>(escola, <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>)</span>
+<span id="cb142-37"><a href="estimação.html#cb142-37" tabindex="-1"></a></span>
+<span id="cb142-38"><a href="estimação.html#cb142-38" tabindex="-1"></a>aluno_escola_reg <span class="ot">&lt;-</span> aluno_escola <span class="sc">%&gt;%</span></span>
+<span id="cb142-39"><a href="estimação.html#cb142-39" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb142-40"><a href="estimação.html#cb142-40" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">negra =</span> Preta <span class="sc">+</span> Parda) <span class="sc">%&gt;%</span></span>
+<span id="cb142-41"><a href="estimação.html#cb142-41" tabindex="-1"></a>  <span class="fu">select</span>(negra, percent_female, tipo_localizacao, agua_potavel, esgoto_rede_publica, </span>
+<span id="cb142-42"><a href="estimação.html#cb142-42" tabindex="-1"></a>         lixo_servico_coleta, area_verde, biblioteca, quantidade_profissional_psicologo) <span class="sc">%&gt;%</span></span>
+<span id="cb142-43"><a href="estimação.html#cb142-43" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb142-44"><a href="estimação.html#cb142-44" tabindex="-1"></a>  <span class="fu">mutate_if</span>(bit64<span class="sc">::</span>is.integer64, as.factor)</span></code></pre></div>
+<pre><code>## Warning: Using `across()` in `filter()` was deprecated in dplyr 1.0.8.
+## ℹ Please use `if_any()` or `if_all()` instead.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="estimação.html#cb144-1" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(negra <span class="sc">~</span>  percent_female <span class="sc">+</span> tipo_localizacao <span class="sc">+</span> agua_potavel  <span class="sc">+</span> esgoto_rede_publica <span class="sc">+</span> lixo_servico_coleta <span class="sc">+</span> area_verde <span class="sc">+</span> biblioteca <span class="sc">+</span> quantidade_profissional_psicologo, <span class="at">data=</span> aluno_escola_reg)</span>
+<span id="cb144-2"><a href="estimação.html#cb144-2" tabindex="-1"></a></span>
+<span id="cb144-3"><a href="estimação.html#cb144-3" tabindex="-1"></a><span class="fu">summary</span>(reg)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = negra ~ percent_female + tipo_localizacao + agua_potavel + 
@@ -1032,12 +1068,12 @@ se(\hat{\beta}) = \frac{\sigma}{\sqrt{nS^2_x}}
 ## F-statistic: 3.261 on 10 and 418 DF,  p-value: 0.0004498</code></pre>
 </div>
 <div id="limitações-de-mqo" class="section level2 hasAnchor" number="7.7">
-<h2><span class="header-section-number">7.7</span> Limitações de MQO<a href="estimação.html#limitações-de-mqo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">7.7</span> Limitações de MQO<a href="#limita%C3%A7%C3%B5es-de-mqo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Os estimadores de MQO, nossos <span class="math inline">\(\hat{\beta}\)</span> e <span class="math inline">\(\hat{\alpha}\)</span>, são não-viesados e conseguimos derivar a variância amostral deles. Porém, não há muito mais que possamos dizer sobre eles a partir apenas das suposições que fizemos, ou seja, de que o modelo linear (nos parâmetros) é adequado, e que a espereança do erro, condicional ao preditor, é zero (e assumimos, em certo momento, homecedasticidade). O que não podemos dizer a mais que gostaríamos de poder fazer?</p>
 <p>Uma aspecto importante da inferência é, por exemplo, calcular o intervalo de confiança. Para isso, contudo, precisaremos de mais suposições do que o que fizemos até aqui. Portanto, tanto cálculos de intervalo de confiança como o p-valor e condução de testes de hipótese estão vedados com as suposições de MQO.</p>
 </div>
 <div id="distrações" class="section level2 hasAnchor" number="7.8">
-<h2><span class="header-section-number">7.8</span> Distrações<a href="estimação.html#distrações" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">7.8</span> Distrações<a href="#distra%C3%A7%C3%B5es" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Quando nós imprimimos o resultado de uma regressão no R, além dos coeficientes e o erro padrão, há uma série de outras informações apresentadas. Muitas delas são apenas distrações, mas como existem e muita gente ainda as utiliza (às vezes com bom uso), vou falar rapidamente de uma delas, o que já é possível com nosso conhecimento atual.</p>
 <div id="r-quadrado" class="section level3 hasAnchor" number="7.8.1">
 <h3><span class="header-section-number">7.8.1</span> R-quadrado<a href="estimação.html#r-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1071,50 +1107,50 @@ R^2 \equiv \left(\frac{\mathbb{Cov}[X,Y]}{\sigma_x \cdot \sigma_y}\right)^2
 <li><p>O modelo pode estar totalmente errado e o R-quadrado ser próximo de 1. Quando o verdadeiro modelo é não-linear e a variância de <span class="math inline">\(X\)</span> é muito grande, isso pode acontecer se a reta de regressão ajustada não tiver <span class="math inline">\(\beta = 0\)</span>.</p></li>
 <li><p>Há também quem use o <span class="math inline">\(R^2\)</span> como medida de capacidade preditiva do modelo. Quanto mais espalhado o <span class="math inline">\(X\)</span>, melhor o <span class="math inline">\(R^2\)</span>. A simulação abaixo mostra isso:</p></li>
 </ol>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="estimação.html#cb113-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb113-2"><a href="estimação.html#cb113-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb113-3"><a href="estimação.html#cb113-3" tabindex="-1"></a></span>
-<span id="cb113-4"><a href="estimação.html#cb113-4" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb113-5"><a href="estimação.html#cb113-5" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb113-6"><a href="estimação.html#cb113-6" tabindex="-1"></a></span>
-<span id="cb113-7"><a href="estimação.html#cb113-7" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y1 <span class="sc">~</span>x1))</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="estimação.html#cb146-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb146-2"><a href="estimação.html#cb146-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb146-3"><a href="estimação.html#cb146-3" tabindex="-1"></a></span>
+<span id="cb146-4"><a href="estimação.html#cb146-4" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb146-5"><a href="estimação.html#cb146-5" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb146-6"><a href="estimação.html#cb146-6" tabindex="-1"></a></span>
+<span id="cb146-7"><a href="estimação.html#cb146-7" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y1 <span class="sc">~</span>x1))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y1 ~ x1)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -5.6583 -1.3405 -0.0505  1.4009  5.4428 
+## -7.6679 -1.3320  0.0043  1.3645  6.9227 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 1.920693   0.061515   31.22   &lt;2e-16 ***
-## x1          3.004342   0.006077  494.38   &lt;2e-16 ***
+## (Intercept) 2.020922   0.064504   31.33   &lt;2e-16 ***
+## x1          2.993065   0.006303  474.89   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1.944 on 998 degrees of freedom
-## Multiple R-squared:  0.9959, Adjusted R-squared:  0.9959 
-## F-statistic: 2.444e+05 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="estimação.html#cb115-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y2<span class="sc">~</span>x2))</span></code></pre></div>
+## Residual standard error: 2.04 on 998 degrees of freedom
+## Multiple R-squared:  0.9956, Adjusted R-squared:  0.9956 
+## F-statistic: 2.255e+05 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="estimação.html#cb148-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y2<span class="sc">~</span>x2))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y2 ~ x2)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -5.7352 -1.3327 -0.0361  1.3363  7.0571 
+## -6.9993 -1.4044  0.1023  1.2666  6.2683 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  2.09127    0.06152   33.99   &lt;2e-16 ***
-## x2           3.01394    0.03097   97.32   &lt;2e-16 ***
+## (Intercept)  1.89141    0.06275   30.14   &lt;2e-16 ***
+## x2           2.98833    0.03186   93.81   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1.945 on 998 degrees of freedom
-## Multiple R-squared:  0.9047, Adjusted R-squared:  0.9046 
-## F-statistic:  9471 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 1.984 on 998 degrees of freedom
+## Multiple R-squared:  0.8981, Adjusted R-squared:  0.898 
+## F-statistic:  8799 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Não é possível comparar o <span class="math inline">\(R^2\)</span> entre amostras distintas, como a simulação acima também mostra. O modelo é o mesmo, mas os dados são distintos e produzem <span class="math inline">\(R^2\)</span> distintos.</p></li>
 <li><p>Não faz sentido comparar o <span class="math inline">\(R^2\)</span> entre transformações da nossa variável dependente (com e sem log, por exemplo).</p></li>
@@ -1145,42 +1181,42 @@ R^2 \equiv \left(\frac{\mathbb{Cov}[X,Y]}{\sigma_x \cdot \sigma_y}\right)^2
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/mgaldino/book-regression/edit/main/07-estimacao.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": "https://github.com/mgaldino/book-regression/blob/main/07-estimacao.Rmd",
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/mgaldino/book-regression/edit/main/07-estimacao.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/mgaldino/book-regression/blob/main/07-estimacao.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

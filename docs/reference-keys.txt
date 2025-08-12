@@ -1,6 +1,3 @@
-tab:unnamed-chunk-6
-tab:unnamed-chunk-7
-tab:unnamed-chunk-8
 tab:tabela-variaveis
 eq:logistic
 eq:logistic-latent
@@ -32,11 +29,16 @@ distribuição-de-probabilidade-conjunta
 probabilidade-condicional
 esperança-condicional
 introdução-à-simulação
+objetivos
+introdução
+dgp-processo-gerador-de-dados
+simulação-de-monte-carlo
+simulando-um-dado
 configuração
 simular
 resumir
-análise-de-sensibilidade
-aplicação-de-simulação
+lgn-e-tcl
+cobertura-de-um-ic
 o-modelo-de-regressão
 modelo-de-regressão---teoria
 cef
@@ -158,6 +160,7 @@ propriedade-de-estimadores
 viés
 variância-1
 eficiência
+consistência
 exercícios-para-o-leitor
 lei-das-esperanças-iteradas
 teorema-do-condicionamento

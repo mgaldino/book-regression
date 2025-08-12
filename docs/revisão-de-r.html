@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 2 - Revisão de R | Introdução à Regresssão para Ciências Sociais</title>
   <meta name="description" content="Capítulo 2 - Revisão de R | Introdução à Regresssão para Ciências Sociais" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 2 - Revisão de R | Introdução à Regresssão para Ciências Sociais" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2024-11-26" />
+<meta name="date" content="2025-08-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,6 +57,7 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -142,10 +143,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Introdução à Regressão</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> - Prefácio</a></li>
-<li class="chapter" data-level="2" data-path="revisão-de-r.html"><a href="revisão-de-r.html"><i class="fa fa-check"></i><b>2</b> - Revisão de R</a>
+<li class="chapter" data-level="1" data-path="02-revisão-R.html"><a href="#pref%C3%A1cio"><i class="fa fa-check"></i><b>1</b> - Prefácio</a></li>
+<li class="chapter" data-level="2" data-path="02-revisão-R.html"><a href="#revis%C3%A3o-de-r"><i class="fa fa-check"></i><b>2</b> - Revisão de R</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html#r-e-rstudio"><i class="fa fa-check"></i><b>2.1</b> R e Rstudio</a></li>
+<li class="chapter" data-level="2.1" data-path="revisão-de-r.html"><a href="revisão-de-r.html"><i class="fa fa-check"></i><b>2.1</b> R e Rstudio</a></li>
 <li class="chapter" data-level="2.2" data-path="revisão-de-r.html"><a href="revisão-de-r.html#r-como-calculadora"><i class="fa fa-check"></i><b>2.2</b> R como calculadora</a></li>
 <li class="chapter" data-level="2.3" data-path="revisão-de-r.html"><a href="revisão-de-r.html#objetos-no-r"><i class="fa fa-check"></i><b>2.3</b> Objetos no R</a></li>
 <li class="chapter" data-level="2.4" data-path="revisão-de-r.html"><a href="revisão-de-r.html#tipos-de-objetos"><i class="fa fa-check"></i><b>2.4</b> Tipos de objetos</a>
@@ -162,43 +163,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.6" data-path="revisão-de-r.html"><a href="revisão-de-r.html#bibliotecaspacotes"><i class="fa fa-check"></i><b>2.6</b> Bibliotecas/pacotes</a></li>
 <li class="chapter" data-level="2.7" data-path="revisão-de-r.html"><a href="revisão-de-r.html#importando-dados"><i class="fa fa-check"></i><b>2.7</b> importando dados</a></li>
 <li class="chapter" data-level="2.8" data-path="revisão-de-r.html"><a href="revisão-de-r.html#data-wrangling"><i class="fa fa-check"></i><b>2.8</b> Data wrangling</a></li>
-<li class="chapter" data-level="2.9" data-path="revisão-de-r.html"><a href="revisão-de-r.html#visualização"><i class="fa fa-check"></i><b>2.9</b> Visualização</a></li>
+<li class="chapter" data-level="2.9" data-path="02-revisão-R.html"><a href="#visualiza%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>2.9</b> Visualização</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>3</b> - Revisão de estatística e probabilidade</a>
+<li class="chapter" data-level="3" data-path="02-revisão-R.html"><a href="#revis%C3%A3o-de-estat%C3%ADstica-e-probabilidade"><i class="fa fa-check"></i><b>3</b> - Revisão de estatística e probabilidade</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#variável-aleatória"><i class="fa fa-check"></i><b>3.1</b> Variável Aleatória</a></li>
-<li class="chapter" data-level="3.2" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#esperança-matemática"><i class="fa fa-check"></i><b>3.2</b> Esperança matemática</a></li>
-<li class="chapter" data-level="3.3" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#variância"><i class="fa fa-check"></i><b>3.3</b> Variância</a></li>
-<li class="chapter" data-level="3.4" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#álgebra-com-esperança-variância-e-covariância"><i class="fa fa-check"></i><b>3.4</b> Álgebra com Esperança, Variância e Covariância</a></li>
-<li class="chapter" data-level="3.5" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#prova-da-identidade-da-variância"><i class="fa fa-check"></i><b>3.5</b> Prova da identidade da variância</a></li>
-<li class="chapter" data-level="3.6" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#distribuição-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.6</b> Distribuição de Probabilidade Conjunta</a></li>
-<li class="chapter" data-level="3.7" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#probabilidade-condicional"><i class="fa fa-check"></i><b>3.7</b> Probabilidade Condicional</a></li>
-<li class="chapter" data-level="3.8" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html#esperança-condicional"><i class="fa fa-check"></i><b>3.8</b> Esperança Condicional</a></li>
+<li class="chapter" data-level="3.1" data-path="02-revisão-R.html"><a href="#vari%C3%A1vel-aleat%C3%B3ria"><i class="fa fa-check"></i><b>3.1</b> Variável Aleatória</a></li>
+<li class="chapter" data-level="3.2" data-path="02-revisão-R.html"><a href="#esperan%C3%A7a-matem%C3%A1tica"><i class="fa fa-check"></i><b>3.2</b> Esperança matemática</a></li>
+<li class="chapter" data-level="3.3" data-path="02-revisão-R.html"><a href="#vari%C3%A2ncia"><i class="fa fa-check"></i><b>3.3</b> Variância</a></li>
+<li class="chapter" data-level="3.4" data-path="02-revisão-R.html"><a href="#%C3%A1lgebra-com-esperan%C3%A7a-vari%C3%A2ncia-e-covari%C3%A2ncia"><i class="fa fa-check"></i><b>3.4</b> Álgebra com Esperança, Variância e Covariância</a></li>
+<li class="chapter" data-level="3.5" data-path="02-revisão-R.html"><a href="#prova-da-identidade-da-vari%C3%A2ncia"><i class="fa fa-check"></i><b>3.5</b> Prova da identidade da variância</a></li>
+<li class="chapter" data-level="3.6" data-path="02-revisão-R.html"><a href="#distribui%C3%A7%C3%A3o-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.6</b> Distribuição de Probabilidade Conjunta</a></li>
+<li class="chapter" data-level="3.7" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>3.7</b> Probabilidade Condicional</a></li>
+<li class="chapter" data-level="3.8" data-path="02-revisão-R.html"><a href="#esperan%C3%A7a-condicional"><i class="fa fa-check"></i><b>3.8</b> Esperança Condicional</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html"><i class="fa fa-check"></i><b>4</b> Introdução à Simulação</a>
+<li class="chapter" data-level="4" data-path="02-revisão-R.html"><a href="#introdu%C3%A7%C3%A3o-%C3%A0-simula%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>4</b> Introdução à Simulação</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#configuração"><i class="fa fa-check"></i><b>4.1</b> Configuração</a></li>
-<li class="chapter" data-level="4.2" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#simular"><i class="fa fa-check"></i><b>4.2</b> Simular</a></li>
-<li class="chapter" data-level="4.3" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#resumir"><i class="fa fa-check"></i><b>4.3</b> Resumir</a></li>
-<li class="chapter" data-level="4.4" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#análise-de-sensibilidade"><i class="fa fa-check"></i><b>4.4</b> Análise de sensibilidade</a></li>
-<li class="chapter" data-level="4.5" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#aplicação-de-simulação"><i class="fa fa-check"></i><b>4.5</b> Aplicação de simulação</a></li>
+<li class="chapter" data-level="4.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html"><i class="fa fa-check"></i><b>4.1</b> Objetivos</a></li>
+<li class="chapter" data-level="4.2" data-path="02-revisão-R.html"><a href="#introdu%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>4.2</b> Introdução</a></li>
+<li class="chapter" data-level="4.3" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#dgp-processo-gerador-de-dados"><i class="fa fa-check"></i><b>4.3</b> DGP — Processo Gerador de Dados</a></li>
+<li class="chapter" data-level="4.4" data-path="02-revisão-R.html"><a href="#simula%C3%A7%C3%A3o-de-monte-carlo"><i class="fa fa-check"></i><b>4.4</b> Simulação de Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#simulando-um-dado"><i class="fa fa-check"></i><b>4.4.1</b> Simulando um dado</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html"><i class="fa fa-check"></i><b>5</b> O Modelo de Regressão</a>
+<li class="chapter" data-level="4.5" data-path="02-revisão-R.html"><a href="#configura%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>4.5</b> Configuração</a></li>
+<li class="chapter" data-level="4.6" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#simular"><i class="fa fa-check"></i><b>4.6</b> Simular</a></li>
+<li class="chapter" data-level="4.7" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#resumir"><i class="fa fa-check"></i><b>4.7</b> Resumir</a></li>
+<li class="chapter" data-level="4.8" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#lgn-e-tcl"><i class="fa fa-check"></i><b>4.8</b> LGN e TCL</a></li>
+<li class="chapter" data-level="4.9" data-path="introdução-à-simulação.html"><a href="introdução-à-simulação.html#cobertura-de-um-ic"><i class="fa fa-check"></i><b>4.9</b> Cobertura de um IC</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="02-revisão-R.html"><a href="#o-modelo-de-regress%C3%A3o"><i class="fa fa-check"></i><b>5</b> O Modelo de Regressão</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#modelo-de-regressão---teoria"><i class="fa fa-check"></i><b>5.1</b> Modelo de Regressão - Teoria</a></li>
-<li class="chapter" data-level="5.2" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#cef"><i class="fa fa-check"></i><b>5.2</b> CEF</a></li>
+<li class="chapter" data-level="5.1" data-path="02-revisão-R.html"><a href="#modelo-de-regress%C3%A3o---teoria"><i class="fa fa-check"></i><b>5.1</b> Modelo de Regressão - Teoria</a></li>
+<li class="chapter" data-level="5.2" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html"><i class="fa fa-check"></i><b>5.2</b> CEF</a></li>
 <li class="chapter" data-level="5.3" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#cef-e-voto"><i class="fa fa-check"></i><b>5.3</b> CEF e voto</a></li>
 <li class="chapter" data-level="5.4" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#algumas-propriedades-da-cef"><i class="fa fa-check"></i><b>5.4</b> Algumas Propriedades da CEF</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#cef-é-a-melhor-aproximação-aos-dados"><i class="fa fa-check"></i><b>5.4.1</b> CEF é a melhor aproximação aos dados</a></li>
+<li class="chapter" data-level="5.4.1" data-path="02-revisão-R.html"><a href="#cef-%C3%A9-a-melhor-aproxima%C3%A7%C3%A3o-aos-dados"><i class="fa fa-check"></i><b>5.4.1</b> CEF é a melhor aproximação aos dados</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#regressão-linear"><i class="fa fa-check"></i><b>5.5</b> Regressão Linear</a></li>
+<li class="chapter" data-level="5.5" data-path="02-revisão-R.html"><a href="#regress%C3%A3o-linear"><i class="fa fa-check"></i><b>5.5</b> Regressão Linear</a></li>
 <li class="chapter" data-level="5.6" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#logaritmos"><i class="fa fa-check"></i><b>5.6</b> Logaritmos</a>
 <ul>
-<li class="chapter" data-level="5.6.1" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#logartimos-como-diferença-de-porcentagens"><i class="fa fa-check"></i><b>5.6.1</b> Logartimos como diferença de porcentagens</a></li>
-<li class="chapter" data-level="5.6.2" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#logaritmos-e-média-geométrica"><i class="fa fa-check"></i><b>5.6.2</b> Logaritmos e média geométrica</a></li>
+<li class="chapter" data-level="5.6.1" data-path="02-revisão-R.html"><a href="#logartimos-como-diferen%C3%A7a-de-porcentagens"><i class="fa fa-check"></i><b>5.6.1</b> Logartimos como diferença de porcentagens</a></li>
+<li class="chapter" data-level="5.6.2" data-path="02-revisão-R.html"><a href="#logaritmos-e-m%C3%A9dia-geom%C3%A9trica"><i class="fa fa-check"></i><b>5.6.2</b> Logaritmos e média geométrica</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#prevendo-a-partir-da-esperança-condicional"><i class="fa fa-check"></i><b>5.7</b> Prevendo a partir da esperança condicional</a></li>
+<li class="chapter" data-level="5.7" data-path="02-revisão-R.html"><a href="#prevendo-a-partir-da-esperan%C3%A7a-condicional"><i class="fa fa-check"></i><b>5.7</b> Prevendo a partir da esperança condicional</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="cef-1.html"><a href="cef-1.html"><i class="fa fa-check"></i><b>6</b> - CEF</a>
 <ul>
@@ -206,37 +214,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="cef-1.html"><a href="cef-1.html#simulando-para-entender-a-cef"><i class="fa fa-check"></i><b>6.2</b> Simulando para entender a CEF</a></li>
 <li class="chapter" data-level="6.3" data-path="cef-1.html"><a href="cef-1.html#propriedades-da-cef"><i class="fa fa-check"></i><b>6.3</b> Propriedades da CEF</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="cef-1.html"><a href="cef-1.html#a-esperança-do-erro-condicional-a-x-é-zero"><i class="fa fa-check"></i><b>6.3.1</b> A Esperança do Erro Condicional a X é zero</a></li>
-<li class="chapter" data-level="6.3.2" data-path="cef-1.html"><a href="cef-1.html#a-esperança-não-condicional-do-erro-é-zero."><i class="fa fa-check"></i><b>6.3.2</b> A esperança (não-condicional) do erro é zero.</a></li>
-<li class="chapter" data-level="6.3.3" data-path="cef-1.html"><a href="cef-1.html#o-erro-da-cef-é-não-correlacionado-com-x"><i class="fa fa-check"></i><b>6.3.3</b> O erro da CEF é não-correlacionado com X</a></li>
+<li class="chapter" data-level="6.3.1" data-path="02-revisão-R.html"><a href="#a-esperan%C3%A7a-do-erro-condicional-a-x-%C3%A9-zero"><i class="fa fa-check"></i><b>6.3.1</b> A Esperança do Erro Condicional a X é zero</a></li>
+<li class="chapter" data-level="6.3.2" data-path="02-revisão-R.html"><a href="#a-esperan%C3%A7a-n%C3%A3o-condicional-do-erro-%C3%A9-zero."><i class="fa fa-check"></i><b>6.3.2</b> A esperança (não-condicional) do erro é zero.</a></li>
+<li class="chapter" data-level="6.3.3" data-path="02-revisão-R.html"><a href="#o-erro-da-cef-%C3%A9-n%C3%A3o-correlacionado-com-x"><i class="fa fa-check"></i><b>6.3.3</b> O erro da CEF é não-correlacionado com X</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="cef-1.html"><a href="cef-1.html#regressão-linear-e-a-cef"><i class="fa fa-check"></i><b>6.4</b> Regressão Linear e a CEF</a>
+<li class="chapter" data-level="6.4" data-path="02-revisão-R.html"><a href="#regress%C3%A3o-linear-e-a-cef"><i class="fa fa-check"></i><b>6.4</b> Regressão Linear e a CEF</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="cef-1.html"><a href="cef-1.html#mínimos-quadrados-ordinários"><i class="fa fa-check"></i><b>6.4.1</b> Mínimos Quadrados Ordinários</a></li>
-<li class="chapter" data-level="6.4.2" data-path="cef-1.html"><a href="cef-1.html#suponha-que-a-cef-é-linear-justificativa-i"><i class="fa fa-check"></i><b>6.4.2</b> Suponha que a CEF é Linear (Justificativa I)</a></li>
-<li class="chapter" data-level="6.4.3" data-path="cef-1.html"><a href="cef-1.html#é-o-melhor-preditor-linear-do-y-justificativa-ii"><i class="fa fa-check"></i><b>6.4.3</b> É o melhor preditor linear do <span class="math inline">\(Y\)</span> (justificativa II)</a></li>
-<li class="chapter" data-level="6.4.4" data-path="cef-1.html"><a href="cef-1.html#a-reta-de-regressão-é-a-aproximação-com-o-menor-erro-quadrático-médio-justificativa-iii"><i class="fa fa-check"></i><b>6.4.4</b> A reta de regressão é a aproximação com o menor erro quadrático médio (justificativa III)</a></li>
+<li class="chapter" data-level="6.4.1" data-path="02-revisão-R.html"><a href="#m%C3%ADnimos-quadrados-ordin%C3%A1rios"><i class="fa fa-check"></i><b>6.4.1</b> Mínimos Quadrados Ordinários</a></li>
+<li class="chapter" data-level="6.4.2" data-path="02-revisão-R.html"><a href="#suponha-que-a-cef-%C3%A9-linear-justificativa-i"><i class="fa fa-check"></i><b>6.4.2</b> Suponha que a CEF é Linear (Justificativa I)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="02-revisão-R.html"><a href="#%C3%A9-o-melhor-preditor-linear-do-y-justificativa-ii"><i class="fa fa-check"></i><b>6.4.3</b> É o melhor preditor linear do <span class="math inline">\(Y\)</span> (justificativa II)</a></li>
+<li class="chapter" data-level="6.4.4" data-path="02-revisão-R.html"><a href="#a-reta-de-regress%C3%A3o-%C3%A9-a-aproxima%C3%A7%C3%A3o-com-o-menor-erro-quadr%C3%A1tico-m%C3%A9dio-justificativa-iii"><i class="fa fa-check"></i><b>6.4.4</b> A reta de regressão é a aproximação com o menor erro quadrático médio (justificativa III)</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="cef-1.html"><a href="cef-1.html#linearidade-e-causalidade"><i class="fa fa-check"></i><b>6.5</b> Linearidade e Causalidade</a></li>
-<li class="chapter" data-level="6.6" data-path="cef-1.html"><a href="cef-1.html#modelo-só-com-intercepto"><i class="fa fa-check"></i><b>6.6</b> Modelo só com intercepto</a></li>
-<li class="chapter" data-level="6.7" data-path="cef-1.html"><a href="cef-1.html#variância-da-regressão"><i class="fa fa-check"></i><b>6.7</b> Variância da Regressão</a>
+<li class="chapter" data-level="6.6" data-path="02-revisão-R.html"><a href="#modelo-s%C3%B3-com-intercepto"><i class="fa fa-check"></i><b>6.6</b> Modelo só com intercepto</a></li>
+<li class="chapter" data-level="6.7" data-path="02-revisão-R.html"><a href="#vari%C3%A2ncia-da-regress%C3%A3o"><i class="fa fa-check"></i><b>6.7</b> Variância da Regressão</a>
 <ul>
 <li class="chapter" data-level="6.7.1" data-path="cef-1.html"><a href="cef-1.html#chuva-na-jamaica"><i class="fa fa-check"></i><b>6.7.1</b> Chuva na Jamaica</a></li>
 </ul></li>
-<li class="chapter" data-level="6.8" data-path="cef-1.html"><a href="cef-1.html#variância-condicional"><i class="fa fa-check"></i><b>6.8</b> Variância condicional</a></li>
+<li class="chapter" data-level="6.8" data-path="02-revisão-R.html"><a href="#vari%C3%A2ncia-condicional"><i class="fa fa-check"></i><b>6.8</b> Variância condicional</a></li>
 <li class="chapter" data-level="6.9" data-path="cef-1.html"><a href="cef-1.html#efeito-marginal"><i class="fa fa-check"></i><b>6.9</b> Efeito Marginal</a></li>
-<li class="chapter" data-level="6.10" data-path="cef-1.html"><a href="cef-1.html#cef-linear-com-preditores-não-lineares"><i class="fa fa-check"></i><b>6.10</b> CEF linear com preditores não-lineares</a></li>
+<li class="chapter" data-level="6.10" data-path="02-revisão-R.html"><a href="#cef-linear-com-preditores-n%C3%A3o-lineares"><i class="fa fa-check"></i><b>6.10</b> CEF linear com preditores não-lineares</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>7</b> - Estimação</a>
+<li class="chapter" data-level="7" data-path="02-revisão-R.html"><a href="#estima%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>7</b> - Estimação</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="estimação.html"><a href="estimação.html#plug-in-estimators"><i class="fa fa-check"></i><b>7.1</b> Plug-in estimators</a></li>
+<li class="chapter" data-level="7.1" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>7.1</b> Plug-in estimators</a></li>
 <li class="chapter" data-level="7.2" data-path="estimação.html"><a href="estimação.html#simulando-de-uma-normal-bivariada"><i class="fa fa-check"></i><b>7.2</b> Simulando de uma Normal Bivariada</a></li>
-<li class="chapter" data-level="7.3" data-path="estimação.html"><a href="estimação.html#suposições-amostrais-de-mqo"><i class="fa fa-check"></i><b>7.3</b> Suposições amostrais de MQO</a></li>
-<li class="chapter" data-level="7.4" data-path="estimação.html"><a href="estimação.html#modelo-de-média-amostral"><i class="fa fa-check"></i><b>7.4</b> Modelo de Média amostral</a></li>
-<li class="chapter" data-level="7.5" data-path="estimação.html"><a href="estimação.html#modelo-de-regressão-linear-com-preditores"><i class="fa fa-check"></i><b>7.5</b> Modelo de Regressão Linear com preditores</a></li>
-<li class="chapter" data-level="7.6" data-path="estimação.html"><a href="estimação.html#estimando-um-modelo-de-regressão-real"><i class="fa fa-check"></i><b>7.6</b> Estimando um modelo de regressão real</a></li>
-<li class="chapter" data-level="7.7" data-path="estimação.html"><a href="estimação.html#limitações-de-mqo"><i class="fa fa-check"></i><b>7.7</b> Limitações de MQO</a></li>
-<li class="chapter" data-level="7.8" data-path="estimação.html"><a href="estimação.html#distrações"><i class="fa fa-check"></i><b>7.8</b> Distrações</a>
+<li class="chapter" data-level="7.3" data-path="02-revisão-R.html"><a href="#suposi%C3%A7%C3%B5es-amostrais-de-mqo"><i class="fa fa-check"></i><b>7.3</b> Suposições amostrais de MQO</a></li>
+<li class="chapter" data-level="7.4" data-path="02-revisão-R.html"><a href="#modelo-de-m%C3%A9dia-amostral"><i class="fa fa-check"></i><b>7.4</b> Modelo de Média amostral</a></li>
+<li class="chapter" data-level="7.5" data-path="02-revisão-R.html"><a href="#modelo-de-regress%C3%A3o-linear-com-preditores"><i class="fa fa-check"></i><b>7.5</b> Modelo de Regressão Linear com preditores</a></li>
+<li class="chapter" data-level="7.6" data-path="02-revisão-R.html"><a href="#estimando-um-modelo-de-regress%C3%A3o-real"><i class="fa fa-check"></i><b>7.6</b> Estimando um modelo de regressão real</a></li>
+<li class="chapter" data-level="7.7" data-path="02-revisão-R.html"><a href="#limita%C3%A7%C3%B5es-de-mqo"><i class="fa fa-check"></i><b>7.7</b> Limitações de MQO</a></li>
+<li class="chapter" data-level="7.8" data-path="02-revisão-R.html"><a href="#distra%C3%A7%C3%B5es"><i class="fa fa-check"></i><b>7.8</b> Distrações</a>
 <ul>
 <li class="chapter" data-level="7.8.1" data-path="estimação.html"><a href="estimação.html#r-quadrado"><i class="fa fa-check"></i><b>7.8.1</b> R-quadrado</a></li>
 <li class="chapter" data-level="7.8.2" data-path="estimação.html"><a href="estimação.html#r-quadrado-ajustado"><i class="fa fa-check"></i><b>7.8.2</b> R-quadrado ajustado</a></li>
@@ -248,117 +256,118 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="causalidade.html"><a href="causalidade.html#resultados-potenciais"><i class="fa fa-check"></i><b>8.1</b> Resultados Potenciais</a>
 <ul>
-<li class="chapter" data-level="8.1.1" data-path="causalidade.html"><a href="causalidade.html#decomposição-do-efeito-causal"><i class="fa fa-check"></i><b>8.1.1</b> Decomposição do Efeito Causal</a></li>
+<li class="chapter" data-level="8.1.1" data-path="02-revisão-R.html"><a href="#decomposi%C3%A7%C3%A3o-do-efeito-causal"><i class="fa fa-check"></i><b>8.1.1</b> Decomposição do Efeito Causal</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="causalidade.html"><a href="causalidade.html#modelo-estrutural-e-modelo-de-regressão"><i class="fa fa-check"></i><b>8.2</b> Modelo estrutural e modelo de regressão</a>
+<li class="chapter" data-level="8.2" data-path="02-revisão-R.html"><a href="#modelo-estrutural-e-modelo-de-regress%C3%A3o"><i class="fa fa-check"></i><b>8.2</b> Modelo estrutural e modelo de regressão</a>
 <ul>
 <li class="chapter" data-level="8.2.1" data-path="causalidade.html"><a href="causalidade.html#exemplo-de-cef-e-cef-estrutural"><i class="fa fa-check"></i><b>8.2.1</b> Exemplo de CEF e CEF estrutural</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="causalidade.html"><a href="causalidade.html#simulação-de-resultados-potenciais-e-causalidade"><i class="fa fa-check"></i><b>8.3</b> Simulação de Resultados Potenciais e Causalidade</a></li>
-<li class="chapter" data-level="8.4" data-path="causalidade.html"><a href="causalidade.html#referências"><i class="fa fa-check"></i><b>8.4</b> Referências</a></li>
+<li class="chapter" data-level="8.3" data-path="02-revisão-R.html"><a href="#simula%C3%A7%C3%A3o-de-resultados-potenciais-e-causalidade"><i class="fa fa-check"></i><b>8.3</b> Simulação de Resultados Potenciais e Causalidade</a></li>
+<li class="chapter" data-level="8.4" data-path="02-revisão-R.html"><a href="#refer%C3%AAncias"><i class="fa fa-check"></i><b>8.4</b> Referências</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>9</b> - MLE</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="mle.html"><a href="mle.html#estimação-por-máxima-verossimilhança"><i class="fa fa-check"></i><b>9.1</b> Estimação por Máxima Verossimilhança</a></li>
-<li class="chapter" data-level="9.2" data-path="mle.html"><a href="mle.html#teste-de-hipótese"><i class="fa fa-check"></i><b>9.2</b> Teste de hipótese</a></li>
-<li class="chapter" data-level="9.3" data-path="mle.html"><a href="mle.html#regressão"><i class="fa fa-check"></i><b>9.3</b> regressão</a></li>
+<li class="chapter" data-level="9.1" data-path="02-revisão-R.html"><a href="#estima%C3%A7%C3%A3o-por-m%C3%A1xima-verossimilhan%C3%A7a"><i class="fa fa-check"></i><b>9.1</b> Estimação por Máxima Verossimilhança</a></li>
+<li class="chapter" data-level="9.2" data-path="02-revisão-R.html"><a href="#teste-de-hip%C3%B3tese"><i class="fa fa-check"></i><b>9.2</b> Teste de hipótese</a></li>
+<li class="chapter" data-level="9.3" data-path="02-revisão-R.html"><a href="#regress%C3%A3o"><i class="fa fa-check"></i><b>9.3</b> regressão</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="checagem.html"><a href="checagem.html"><i class="fa fa-check"></i><b>10</b> - Checagem</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="checagem.html"><a href="checagem.html#resíduos"><i class="fa fa-check"></i><b>10.1</b> Resíduos</a></li>
+<li class="chapter" data-level="10.1" data-path="02-revisão-R.html"><a href="#res%C3%ADduos"><i class="fa fa-check"></i><b>10.1</b> Resíduos</a></li>
 <li class="chapter" data-level="10.2" data-path="checagem.html"><a href="checagem.html#modelo-no-r"><i class="fa fa-check"></i><b>10.2</b> Modelo no R</a>
 <ul>
-<li class="chapter" data-level="10.2.1" data-path="checagem.html"><a href="checagem.html#resíduos-contra-o-preditor"><i class="fa fa-check"></i><b>10.2.1</b> Resíduos contra o preditor</a></li>
-<li class="chapter" data-level="10.2.2" data-path="checagem.html"><a href="checagem.html#magnitude-dos-resíduos-contra-o-preditor"><i class="fa fa-check"></i><b>10.2.2</b> Magnitude dos Resíduos Contra o Preditor</a></li>
-<li class="chapter" data-level="10.2.3" data-path="checagem.html"><a href="checagem.html#resíduos-com-dados-temporais-eou-espaciais"><i class="fa fa-check"></i><b>10.2.3</b> Resíduos com dados Temporais e/ou Espaciais</a></li>
+<li class="chapter" data-level="10.2.1" data-path="02-revisão-R.html"><a href="#res%C3%ADduos-contra-o-preditor"><i class="fa fa-check"></i><b>10.2.1</b> Resíduos contra o preditor</a></li>
+<li class="chapter" data-level="10.2.2" data-path="02-revisão-R.html"><a href="#magnitude-dos-res%C3%ADduos-contra-o-preditor"><i class="fa fa-check"></i><b>10.2.2</b> Magnitude dos Resíduos Contra o Preditor</a></li>
+<li class="chapter" data-level="10.2.3" data-path="02-revisão-R.html"><a href="#res%C3%ADduos-com-dados-temporais-eou-espaciais"><i class="fa fa-check"></i><b>10.2.3</b> Resíduos com dados Temporais e/ou Espaciais</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="checagem.html"><a href="checagem.html#normalidade-dos-resíduos"><i class="fa fa-check"></i><b>10.3</b> Normalidade dos resíduos</a></li>
-<li class="chapter" data-level="10.4" data-path="checagem.html"><a href="checagem.html#generalização"><i class="fa fa-check"></i><b>10.4</b> Generalização</a></li>
+<li class="chapter" data-level="10.3" data-path="02-revisão-R.html"><a href="#normalidade-dos-res%C3%ADduos"><i class="fa fa-check"></i><b>10.3</b> Normalidade dos resíduos</a></li>
+<li class="chapter" data-level="10.4" data-path="02-revisão-R.html"><a href="#generaliza%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>10.4</b> Generalização</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="inferencia.html"><a href="inferencia.html"><i class="fa fa-check"></i><b>11</b> - Inferencia</a>
 <ul>
 <li class="chapter" data-level="11.1" data-path="inferencia.html"><a href="inferencia.html#normal"><i class="fa fa-check"></i><b>11.1</b> Normal</a></li>
 <li class="chapter" data-level="11.2" data-path="inferencia.html"><a href="inferencia.html#t-student"><i class="fa fa-check"></i><b>11.2</b> T-student</a>
 <ul>
-<li class="chapter" data-level="11.2.1" data-path="inferencia.html"><a href="inferencia.html#avançado---derivação-da-t--de-student"><i class="fa fa-check"></i><b>11.2.1</b> Avançado - Derivação da t- de student</a></li>
+<li class="chapter" data-level="11.2.1" data-path="02-revisão-R.html"><a href="#avan%C3%A7ado---deriva%C3%A7%C3%A3o-da-t--de-student"><i class="fa fa-check"></i><b>11.2.1</b> Avançado - Derivação da t- de student</a></li>
 <li class="chapter" data-level="11.2.2" data-path="inferencia.html"><a href="inferencia.html#teste-t"><i class="fa fa-check"></i><b>11.2.2</b> Teste t</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="inferencia.html"><a href="inferencia.html#teste-de-hipótese-e-ic"><i class="fa fa-check"></i><b>11.3</b> Teste de Hipótese e IC</a></li>
-<li class="chapter" data-level="11.4" data-path="inferencia.html"><a href="inferencia.html#propriedades-assintóticas"><i class="fa fa-check"></i><b>11.4</b> Propriedades Assintóticas</a></li>
-<li class="chapter" data-level="11.5" data-path="inferencia.html"><a href="inferencia.html#inferência-preditiva"><i class="fa fa-check"></i><b>11.5</b> Inferência Preditiva</a></li>
+<li class="chapter" data-level="11.3" data-path="02-revisão-R.html"><a href="#teste-de-hip%C3%B3tese-e-ic"><i class="fa fa-check"></i><b>11.3</b> Teste de Hipótese e IC</a></li>
+<li class="chapter" data-level="11.4" data-path="02-revisão-R.html"><a href="#propriedades-assint%C3%B3ticas"><i class="fa fa-check"></i><b>11.4</b> Propriedades Assintóticas</a></li>
+<li class="chapter" data-level="11.5" data-path="02-revisão-R.html"><a href="#infer%C3%AAncia-preditiva"><i class="fa fa-check"></i><b>11.5</b> Inferência Preditiva</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="regressao-multipla.html"><a href="regressao-multipla.html"><i class="fa fa-check"></i><b>12</b> - Regressao Multipla</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#revisão-de-matriz-e-vetores"><i class="fa fa-check"></i><b>12.1</b> Revisão de Matriz e Vetores</a></li>
-<li class="chapter" data-level="12.2" data-path="regressao-multipla.html"><a href="regressao-multipla.html#modelo-básico"><i class="fa fa-check"></i><b>12.2</b> Modelo básico</a></li>
+<li class="chapter" data-level="12.1" data-path="02-revisão-R.html"><a href="#revis%C3%A3o-de-matriz-e-vetores"><i class="fa fa-check"></i><b>12.1</b> Revisão de Matriz e Vetores</a></li>
+<li class="chapter" data-level="12.2" data-path="02-revisão-R.html"><a href="#modelo-b%C3%A1sico"><i class="fa fa-check"></i><b>12.2</b> Modelo básico</a></li>
 <li class="chapter" data-level="12.3" data-path="regressao-multipla.html"><a href="regressao-multipla.html#modelo-com-matrizes"><i class="fa fa-check"></i><b>12.3</b> Modelo com matrizes</a>
 <ul>
 <li class="chapter" data-level="12.3.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#estimador-de-mqo"><i class="fa fa-check"></i><b>12.3.1</b> Estimador de MQO</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="regressao-multipla.html"><a href="regressao-multipla.html#interpretação-dos-coeficientes"><i class="fa fa-check"></i><b>12.4</b> Interpretação dos coeficientes</a></li>
-<li class="chapter" data-level="12.5" data-path="regressao-multipla.html"><a href="regressao-multipla.html#regressão-múltipla-versus-múltiplas-regressões-separadas-ou-viés-de-variável-omitida"><i class="fa fa-check"></i><b>12.5</b> Regressão múltipla versus Múltiplas Regressões Separadas ou Viés de variável omitida</a></li>
-<li class="chapter" data-level="12.6" data-path="regressao-multipla.html"><a href="regressao-multipla.html#matriz-chapéu"><i class="fa fa-check"></i><b>12.6</b> Matriz chapéu</a></li>
+<li class="chapter" data-level="12.4" data-path="02-revisão-R.html"><a href="#interpreta%C3%A7%C3%A3o-dos-coeficientes"><i class="fa fa-check"></i><b>12.4</b> Interpretação dos coeficientes</a></li>
+<li class="chapter" data-level="12.5" data-path="02-revisão-R.html"><a href="#regress%C3%A3o-m%C3%BAltipla-versus-m%C3%BAltiplas-regress%C3%B5es-separadas-ou-vi%C3%A9s-de-vari%C3%A1vel-omitida"><i class="fa fa-check"></i><b>12.5</b> Regressão múltipla versus Múltiplas Regressões Separadas ou Viés de variável omitida</a></li>
+<li class="chapter" data-level="12.6" data-path="02-revisão-R.html"><a href="#matriz-chap%C3%A9u"><i class="fa fa-check"></i><b>12.6</b> Matriz chapéu</a></li>
 <li class="chapter" data-level="12.7" data-path="regressao-multipla.html"><a href="regressao-multipla.html#multicolinearidade"><i class="fa fa-check"></i><b>12.7</b> Multicolinearidade</a></li>
-<li class="chapter" data-level="12.8" data-path="regressao-multipla.html"><a href="regressao-multipla.html#erro-padrão-robusto"><i class="fa fa-check"></i><b>12.8</b> Erro padrão Robusto</a>
+<li class="chapter" data-level="12.8" data-path="02-revisão-R.html"><a href="#erro-padr%C3%A3o-robusto"><i class="fa fa-check"></i><b>12.8</b> Erro padrão Robusto</a>
 <ul>
-<li class="chapter" data-level="12.8.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#entendendo-o-erro-padrão-robusto"><i class="fa fa-check"></i><b>12.8.1</b> Entendendo o erro padrão robusto</a></li>
+<li class="chapter" data-level="12.8.1" data-path="02-revisão-R.html"><a href="#entendendo-o-erro-padr%C3%A3o-robusto"><i class="fa fa-check"></i><b>12.8.1</b> Entendendo o erro padrão robusto</a></li>
 </ul></li>
-<li class="chapter" data-level="12.9" data-path="regressao-multipla.html"><a href="regressao-multipla.html#termo-de-interação"><i class="fa fa-check"></i><b>12.9</b> Termo de interação</a>
+<li class="chapter" data-level="12.9" data-path="02-revisão-R.html"><a href="#termo-de-intera%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>12.9</b> Termo de interação</a>
 <ul>
-<li class="chapter" data-level="12.9.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#variância-do-termo-de-interação"><i class="fa fa-check"></i><b>12.9.1</b> Variância do termo de interação</a></li>
-<li class="chapter" data-level="12.9.2" data-path="regressao-multipla.html"><a href="regressao-multipla.html#calculando-o-erro-padrão-do-termo-de-interação"><i class="fa fa-check"></i><b>12.9.2</b> Calculando o erro padrão do termo de interação</a></li>
+<li class="chapter" data-level="12.9.1" data-path="02-revisão-R.html"><a href="#vari%C3%A2ncia-do-termo-de-intera%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>12.9.1</b> Variância do termo de interação</a></li>
+<li class="chapter" data-level="12.9.2" data-path="02-revisão-R.html"><a href="#calculando-o-erro-padr%C3%A3o-do-termo-de-intera%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>12.9.2</b> Calculando o erro padrão do termo de interação</a></li>
 </ul></li>
-<li class="chapter" data-level="12.10" data-path="regressao-multipla.html"><a href="regressao-multipla.html#análise-de-sensibilidade-causal"><i class="fa fa-check"></i><b>12.10</b> Análise de sensibilidade causal</a>
+<li class="chapter" data-level="12.10" data-path="02-revisão-R.html"><a href="#an%C3%A1lise-de-sensibilidade-causal"><i class="fa fa-check"></i><b>12.10</b> Análise de sensibilidade causal</a>
 <ul>
-<li class="chapter" data-level="12.10.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#derivação-do-r-quadrado"><i class="fa fa-check"></i><b>12.10.1</b> Derivação do R-quadrado</a></li>
-<li class="chapter" data-level="12.10.2" data-path="regressao-multipla.html"><a href="regressao-multipla.html#viés-de-variável-omitida"><i class="fa fa-check"></i><b>12.10.2</b> Viés de variável omitida</a></li>
-<li class="chapter" data-level="12.10.3" data-path="regressao-multipla.html"><a href="regressao-multipla.html#viés-de-variável-omitida-em-função-do-r-quadrado"><i class="fa fa-check"></i><b>12.10.3</b> Viés de variável omitida em função do R-quadrado</a></li>
+<li class="chapter" data-level="12.10.1" data-path="02-revisão-R.html"><a href="#deriva%C3%A7%C3%A3o-do-r-quadrado"><i class="fa fa-check"></i><b>12.10.1</b> Derivação do R-quadrado</a></li>
+<li class="chapter" data-level="12.10.2" data-path="02-revisão-R.html"><a href="#vi%C3%A9s-de-vari%C3%A1vel-omitida"><i class="fa fa-check"></i><b>12.10.2</b> Viés de variável omitida</a></li>
+<li class="chapter" data-level="12.10.3" data-path="02-revisão-R.html"><a href="#vi%C3%A9s-de-vari%C3%A1vel-omitida-em-fun%C3%A7%C3%A3o-do-r-quadrado"><i class="fa fa-check"></i><b>12.10.3</b> Viés de variável omitida em função do R-quadrado</a></li>
 </ul></li>
-<li class="chapter" data-level="12.11" data-path="regressao-multipla.html"><a href="regressao-multipla.html#referências-1"><i class="fa fa-check"></i><b>12.11</b> Referências</a></li>
+<li class="chapter" data-level="12.11" data-path="02-revisão-R.html"><a href="#refer%C3%AAncias-1"><i class="fa fa-check"></i><b>12.11</b> Referências</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>13</b> - GLM</a>
 <ul>
 <li class="chapter" data-level="13.1" data-path="glm.html"><a href="glm.html#plm"><i class="fa fa-check"></i><b>13.1</b> PLM</a></li>
-<li class="chapter" data-level="13.2" data-path="glm.html"><a href="glm.html#logística"><i class="fa fa-check"></i><b>13.2</b> Logística</a>
+<li class="chapter" data-level="13.2" data-path="02-revisão-R.html"><a href="#log%C3%ADstica"><i class="fa fa-check"></i><b>13.2</b> Logística</a>
 <ul>
-<li class="chapter" data-level="13.2.1" data-path="glm.html"><a href="glm.html#logística-como-melhoria-em-relação-ao-mpl"><i class="fa fa-check"></i><b>13.2.1</b> Logística como melhoria em relação ao MPL</a></li>
+<li class="chapter" data-level="13.2.1" data-path="02-revisão-R.html"><a href="#log%C3%ADstica-como-melhoria-em-rela%C3%A7%C3%A3o-ao-mpl"><i class="fa fa-check"></i><b>13.2.1</b> Logística como melhoria em relação ao MPL</a></li>
 <li class="chapter" data-level="13.2.2" data-path="glm.html"><a href="glm.html#logito"><i class="fa fa-check"></i><b>13.2.2</b> Logito</a></li>
-<li class="chapter" data-level="13.2.3" data-path="glm.html"><a href="glm.html#odds-ratio---razão-de-chances"><i class="fa fa-check"></i><b>13.2.3</b> Odds Ratio - Razão de chances</a></li>
-<li class="chapter" data-level="13.2.4" data-path="glm.html"><a href="glm.html#coeficientes-e-erros-padrões"><i class="fa fa-check"></i><b>13.2.4</b> Coeficientes e erros padrões</a></li>
+<li class="chapter" data-level="13.2.3" data-path="02-revisão-R.html"><a href="#odds-ratio---raz%C3%A3o-de-chances"><i class="fa fa-check"></i><b>13.2.3</b> Odds Ratio - Razão de chances</a></li>
+<li class="chapter" data-level="13.2.4" data-path="02-revisão-R.html"><a href="#coeficientes-e-erros-padr%C3%B5es"><i class="fa fa-check"></i><b>13.2.4</b> Coeficientes e erros padrões</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="glm.html"><a href="glm.html#logística-como-variável-latente"><i class="fa fa-check"></i><b>13.3</b> Logística como variável latente</a></li>
+<li class="chapter" data-level="13.3" data-path="02-revisão-R.html"><a href="#log%C3%ADstica-como-vari%C3%A1vel-latente"><i class="fa fa-check"></i><b>13.3</b> Logística como variável latente</a></li>
 <li class="chapter" data-level="13.4" data-path="glm.html"><a href="glm.html#probit"><i class="fa fa-check"></i><b>13.4</b> Probit</a></li>
-<li class="chapter" data-level="13.5" data-path="glm.html"><a href="glm.html#logística-como-glm"><i class="fa fa-check"></i><b>13.5</b> Logística como GLM</a></li>
-<li class="chapter" data-level="13.6" data-path="glm.html"><a href="glm.html#logística-com-múltiplos-preditores"><i class="fa fa-check"></i><b>13.6</b> Logística com múltiplos preditores</a></li>
+<li class="chapter" data-level="13.5" data-path="02-revisão-R.html"><a href="#log%C3%ADstica-como-glm"><i class="fa fa-check"></i><b>13.5</b> Logística como GLM</a></li>
+<li class="chapter" data-level="13.6" data-path="02-revisão-R.html"><a href="#log%C3%ADstica-com-m%C3%BAltiplos-preditores"><i class="fa fa-check"></i><b>13.6</b> Logística com múltiplos preditores</a></li>
 <li class="chapter" data-level="13.7" data-path="glm.html"><a href="glm.html#ajuste-do-modelo"><i class="fa fa-check"></i><b>13.7</b> Ajuste do modelo</a></li>
-<li class="chapter" data-level="13.8" data-path="glm.html"><a href="glm.html#regressão-com-dados-ordenados"><i class="fa fa-check"></i><b>13.8</b> Regressão com dados Ordenados</a></li>
-<li class="chapter" data-level="13.9" data-path="glm.html"><a href="glm.html#referências-2"><i class="fa fa-check"></i><b>13.9</b> Referências</a></li>
+<li class="chapter" data-level="13.8" data-path="02-revisão-R.html"><a href="#regress%C3%A3o-com-dados-ordenados"><i class="fa fa-check"></i><b>13.8</b> Regressão com dados Ordenados</a></li>
+<li class="chapter" data-level="13.9" data-path="02-revisão-R.html"><a href="#refer%C3%AAncias-2"><i class="fa fa-check"></i><b>13.9</b> Referências</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="apêndice.html"><a href="apêndice.html"><i class="fa fa-check"></i><b>14</b> - Apêndice</a>
+<li class="chapter" data-level="14" data-path="02-revisão-R.html"><a href="#ap%C3%AAndice"><i class="fa fa-check"></i><b>14</b> - Apêndice</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="apêndice.html"><a href="apêndice.html#importação"><i class="fa fa-check"></i><b>14.1</b> Importação</a></li>
-<li class="chapter" data-level="14.2" data-path="apêndice.html"><a href="apêndice.html#gráficos-e-tabelas"><i class="fa fa-check"></i><b>14.2</b> Gráficos e Tabelas</a></li>
-<li class="chapter" data-level="14.3" data-path="apêndice.html"><a href="apêndice.html#limpeza-de-dados"><i class="fa fa-check"></i><b>14.3</b> Limpeza de dados</a></li>
+<li class="chapter" data-level="14.1" data-path="02-revisão-R.html"><a href="#importa%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>14.1</b> Importação</a></li>
+<li class="chapter" data-level="14.2" data-path="02-revisão-R.html"><a href="#gr%C3%A1ficos-e-tabelas"><i class="fa fa-check"></i><b>14.2</b> Gráficos e Tabelas</a></li>
+<li class="chapter" data-level="14.3" data-path="apêndice.html"><a href="apêndice.html"><i class="fa fa-check"></i><b>14.3</b> Limpeza de dados</a></li>
 <li class="chapter" data-level="14.4" data-path="apêndice.html"><a href="apêndice.html#modelagem-de-dados"><i class="fa fa-check"></i><b>14.4</b> Modelagem de dados</a></li>
 <li class="chapter" data-level="14.5" data-path="apêndice.html"><a href="apêndice.html#outros"><i class="fa fa-check"></i><b>14.5</b> Outros</a></li>
-<li class="chapter" data-level="14.6" data-path="apêndice.html"><a href="apêndice.html#álgebra-linear"><i class="fa fa-check"></i><b>14.6</b> Álgebra Linear</a>
+<li class="chapter" data-level="14.6" data-path="02-revisão-R.html"><a href="#%C3%A1lgebra-linear"><i class="fa fa-check"></i><b>14.6</b> Álgebra Linear</a>
 <ul>
-<li class="chapter" data-level="14.6.1" data-path="apêndice.html"><a href="apêndice.html#espaço-de-vetores-e-subspaço"><i class="fa fa-check"></i><b>14.6.1</b> Espaço de vetores e subspaço</a></li>
-<li class="chapter" data-level="14.6.2" data-path="apêndice.html"><a href="apêndice.html#projeção-linear"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
+<li class="chapter" data-level="14.6.1" data-path="02-revisão-R.html"><a href="#espa%C3%A7o-de-vetores-e-subspa%C3%A7o"><i class="fa fa-check"></i><b>14.6.1</b> Espaço de vetores e subspaço</a></li>
+<li class="chapter" data-level="14.6.2" data-path="02-revisão-R.html"><a href="#proje%C3%A7%C3%A3o-linear"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
 <li class="chapter" data-level="14.6.3" data-path="apêndice.html"><a href="apêndice.html#load-required-libraries"><i class="fa fa-check"></i><b>14.6.3</b> 2. <strong>Load Required Libraries</strong></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="teoremas.html"><a href="teoremas.html"><i class="fa fa-check"></i><b>15</b> - Teoremas</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="teoremas.html"><a href="teoremas.html#independência-e-correlação"><i class="fa fa-check"></i><b>15.1</b> Independência e Correlação</a></li>
+<li class="chapter" data-level="15.1" data-path="02-revisão-R.html"><a href="#independ%C3%AAncia-e-correla%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>15.1</b> Independência e Correlação</a></li>
 <li class="chapter" data-level="15.2" data-path="teoremas.html"><a href="teoremas.html#propriedade-de-estimadores"><i class="fa fa-check"></i><b>15.2</b> Propriedade de estimadores</a>
 <ul>
-<li class="chapter" data-level="15.2.1" data-path="teoremas.html"><a href="teoremas.html#viés"><i class="fa fa-check"></i><b>15.2.1</b> Viés</a></li>
-<li class="chapter" data-level="15.2.2" data-path="teoremas.html"><a href="teoremas.html#variância-1"><i class="fa fa-check"></i><b>15.2.2</b> Variância</a></li>
-<li class="chapter" data-level="15.2.3" data-path="teoremas.html"><a href="teoremas.html#eficiência"><i class="fa fa-check"></i><b>15.2.3</b> Eficiência</a></li>
+<li class="chapter" data-level="15.2.1" data-path="02-revisão-R.html"><a href="#vi%C3%A9s"><i class="fa fa-check"></i><b>15.2.1</b> Viés</a></li>
+<li class="chapter" data-level="15.2.2" data-path="02-revisão-R.html"><a href="#vari%C3%A2ncia-1"><i class="fa fa-check"></i><b>15.2.2</b> Variância</a></li>
+<li class="chapter" data-level="15.2.3" data-path="02-revisão-R.html"><a href="#efici%C3%AAncia"><i class="fa fa-check"></i><b>15.2.3</b> Eficiência</a></li>
+<li class="chapter" data-level="15.2.4" data-path="02-revisão-R.html"><a href="#consist%C3%AAncia"><i class="fa fa-check"></i><b>15.2.4</b> Consistência</a></li>
 </ul></li>
-<li class="chapter" data-level="15.3" data-path="teoremas.html"><a href="teoremas.html#exercícios-para-o-leitor"><i class="fa fa-check"></i><b>15.3</b> Exercícios para o leitor</a></li>
-<li class="chapter" data-level="15.4" data-path="teoremas.html"><a href="teoremas.html#lei-das-esperanças-iteradas"><i class="fa fa-check"></i><b>15.4</b> Lei das Esperanças Iteradas</a></li>
+<li class="chapter" data-level="15.3" data-path="02-revisão-R.html"><a href="#exerc%C3%ADcios-para-o-leitor"><i class="fa fa-check"></i><b>15.3</b> Exercícios para o leitor</a></li>
+<li class="chapter" data-level="15.4" data-path="02-revisão-R.html"><a href="#lei-das-esperan%C3%A7as-iteradas"><i class="fa fa-check"></i><b>15.4</b> Lei das Esperanças Iteradas</a></li>
 <li class="chapter" data-level="15.5" data-path="teoremas.html"><a href="teoremas.html#teorema-do-condicionamento"><i class="fa fa-check"></i><b>15.5</b> Teorema do Condicionamento</a></li>
 </ul></li>
 <li class="divider"></li>
@@ -381,7 +390,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="revisão-de-r" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Capítulo 2</span> - Revisão de R<a href="revisão-de-r.html#revisão-de-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Capítulo 2</span> - Revisão de R<a href="#revis%C3%A3o-de-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <hr />
 <div id="r-e-rstudio" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> R e Rstudio<a href="revisão-de-r.html#r-e-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -475,6 +484,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-5"><a href="revisão-de-r.html#cb20-5" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow=</span><span class="dv">3</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span>
 <span id="cb20-6"><a href="revisão-de-r.html#cb20-6" tabindex="-1"></a></span>
 <span id="cb20-7"><a href="revisão-de-r.html#cb20-7" tabindex="-1"></a><span class="fu">kable</span>(mat)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <tbody>
 <tr class="odd">
@@ -495,9 +510,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-frame" class="section level3 hasAnchor" number="2.5.3">
 <h3><span class="header-section-number">2.5.3</span> Data Frame<a href="revisão-de-r.html#data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O data.frame é uma tabela/planilha, e é onde normalmente armazenamos nossos bancos de dados no R.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="revisão-de-r.html#cb21-1" tabindex="-1"></a><span class="co"># Exemplos</span></span>
-<span id="cb21-2"><a href="revisão-de-r.html#cb21-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y=</span><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</span>
-<span id="cb21-3"><a href="revisão-de-r.html#cb21-3" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="revisão-de-r.html#cb23-1" tabindex="-1"></a><span class="co"># Exemplos</span></span>
+<span id="cb23-2"><a href="revisão-de-r.html#cb23-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y=</span><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</span>
+<span id="cb23-3"><a href="revisão-de-r.html#cb23-3" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -522,26 +543,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <div id="datas" class="section level4 hasAnchor" number="2.5.3.1">
 <h4><span class="header-section-number">2.5.3.1</span> datas<a href="revisão-de-r.html#datas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="revisão-de-r.html#cb22-1" tabindex="-1"></a><span class="do">## explicando data rapidamente</span></span>
-<span id="cb22-2"><a href="revisão-de-r.html#cb22-2" tabindex="-1"></a>data_ex <span class="ot">&lt;-</span> <span class="st">&quot;2020-10-23&quot;</span></span>
-<span id="cb22-3"><a href="revisão-de-r.html#cb22-3" tabindex="-1"></a>data_ex1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data_ex)</span>
-<span id="cb22-4"><a href="revisão-de-r.html#cb22-4" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="revisão-de-r.html#cb22-5" tabindex="-1"></a>data_ex1 <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span></code></pre></div>
-<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26” “2020-10-27”
-[6] “2020-10-28” “2020-10-29” “2020-10-30” “2020-10-31” “2020-11-01”</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="revisão-de-r.html#cb23-1" tabindex="-1"></a><span class="do">## fim da explicação rápida de data</span></span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="revisão-de-r.html#cb24-1" tabindex="-1"></a><span class="do">## criando data de forma repetitiva e tediosa. O que queremos evitar!</span></span>
-<span id="cb24-2"><a href="revisão-de-r.html#cb24-2" tabindex="-1"></a>minha_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-02&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-03&#39;</span>),</span>
-<span id="cb24-3"><a href="revisão-de-r.html#cb24-3" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-04&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-05&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-06&#39;</span>),</span>
-<span id="cb24-4"><a href="revisão-de-r.html#cb24-4" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-07&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-08&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-09&#39;</span>),</span>
-<span id="cb24-5"><a href="revisão-de-r.html#cb24-5" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-10&#39;</span>))</span>
-<span id="cb24-6"><a href="revisão-de-r.html#cb24-6" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="revisão-de-r.html#cb24-7" tabindex="-1"></a>acoes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb24-8"><a href="revisão-de-r.html#cb24-8" tabindex="-1"></a>  <span class="at">tempo =</span> minha_data,</span>
-<span id="cb24-9"><a href="revisão-de-r.html#cb24-9" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb24-10"><a href="revisão-de-r.html#cb24-10" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">2</span>),</span>
-<span id="cb24-11"><a href="revisão-de-r.html#cb24-11" tabindex="-1"></a>  <span class="at">Z =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
-<span id="cb24-12"><a href="revisão-de-r.html#cb24-12" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="revisão-de-r.html#cb26-1" tabindex="-1"></a><span class="do">## explicando data rapidamente</span></span>
+<span id="cb26-2"><a href="revisão-de-r.html#cb26-2" tabindex="-1"></a>data_ex <span class="ot">&lt;-</span> <span class="st">&quot;2020-10-23&quot;</span></span>
+<span id="cb26-3"><a href="revisão-de-r.html#cb26-3" tabindex="-1"></a>data_ex1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data_ex)</span>
+<span id="cb26-4"><a href="revisão-de-r.html#cb26-4" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="revisão-de-r.html#cb26-5" tabindex="-1"></a>data_ex1 <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span></code></pre></div>
+<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26” “2020-10-27” “2020-10-28” “2020-10-29” “2020-10-30” “2020-10-31” “2020-11-01”</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="revisão-de-r.html#cb27-1" tabindex="-1"></a><span class="do">## fim da explicação rápida de data</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="revisão-de-r.html#cb28-1" tabindex="-1"></a><span class="do">## criando data de forma repetitiva e tediosa. O que queremos evitar!</span></span>
+<span id="cb28-2"><a href="revisão-de-r.html#cb28-2" tabindex="-1"></a>minha_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-02&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-03&#39;</span>),</span>
+<span id="cb28-3"><a href="revisão-de-r.html#cb28-3" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-04&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-05&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-06&#39;</span>),</span>
+<span id="cb28-4"><a href="revisão-de-r.html#cb28-4" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-07&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-08&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-09&#39;</span>),</span>
+<span id="cb28-5"><a href="revisão-de-r.html#cb28-5" tabindex="-1"></a>  <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-10&#39;</span>))</span>
+<span id="cb28-6"><a href="revisão-de-r.html#cb28-6" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="revisão-de-r.html#cb28-7" tabindex="-1"></a>acoes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb28-8"><a href="revisão-de-r.html#cb28-8" tabindex="-1"></a>  <span class="at">tempo =</span> minha_data,</span>
+<span id="cb28-9"><a href="revisão-de-r.html#cb28-9" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb28-10"><a href="revisão-de-r.html#cb28-10" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb28-11"><a href="revisão-de-r.html#cb28-11" tabindex="-1"></a>  <span class="at">Z =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb28-12"><a href="revisão-de-r.html#cb28-12" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -554,73 +580,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">2009-01-01</td>
-<td align="right">-0.3466522</td>
-<td align="right">-2.1802239</td>
-<td align="right">0.5543706</td>
+<td align="right">1.7940745</td>
+<td align="right">-0.7488775</td>
+<td align="right">-0.8906052</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-02</td>
-<td align="right">-1.3841044</td>
-<td align="right">-1.3345367</td>
-<td align="right">4.8021755</td>
+<td align="right">-1.3645489</td>
+<td align="right">-1.2088000</td>
+<td align="right">3.0725101</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-03</td>
-<td align="right">-0.3782965</td>
-<td align="right">-0.1220625</td>
-<td align="right">4.0068885</td>
+<td align="right">-0.7074400</td>
+<td align="right">2.4062541</td>
+<td align="right">1.5518146</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-04</td>
-<td align="right">-1.0334985</td>
-<td align="right">1.5552157</td>
-<td align="right">1.0567054</td>
+<td align="right">-0.5562843</td>
+<td align="right">1.5377465</td>
+<td align="right">2.4365321</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-05</td>
-<td align="right">-0.6499543</td>
-<td align="right">-1.0612473</td>
-<td align="right">-4.1176815</td>
+<td align="right">-0.3100811</td>
+<td align="right">0.4767020</td>
+<td align="right">2.3620744</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-06</td>
-<td align="right">-0.2990718</td>
-<td align="right">0.1565772</td>
-<td align="right">0.6915872</td>
+<td align="right">-0.3761793</td>
+<td align="right">-2.8300563</td>
+<td align="right">-1.7405630</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-07</td>
-<td align="right">-0.4260899</td>
-<td align="right">3.8456509</td>
-<td align="right">5.7097961</td>
+<td align="right">0.4585260</td>
+<td align="right">5.8675488</td>
+<td align="right">-1.0030796</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-08</td>
-<td align="right">1.8335475</td>
-<td align="right">-2.4100131</td>
-<td align="right">1.4903635</td>
+<td align="right">-1.2611491</td>
+<td align="right">1.8700515</td>
+<td align="right">-3.7050775</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-09</td>
-<td align="right">0.0335264</td>
-<td align="right">-1.9189473</td>
-<td align="right">-0.3898525</td>
+<td align="right">-0.5274652</td>
+<td align="right">2.4677690</td>
+<td align="right">4.3497432</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-10</td>
-<td align="right">-1.2132955</td>
-<td align="right">0.6597383</td>
-<td align="right">3.3417902</td>
+<td align="right">-0.5568142</td>
+<td align="right">-3.7827694</td>
+<td align="right">-7.7758369</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="revisão-de-r.html#cb25-1" tabindex="-1"></a><span class="co"># criando data.frame de maneira mais inteligente</span></span>
-<span id="cb25-2"><a href="revisão-de-r.html#cb25-2" tabindex="-1"></a>acoes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb25-3"><a href="revisão-de-r.html#cb25-3" tabindex="-1"></a>  <span class="at">tempo =</span> <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>,</span>
-<span id="cb25-4"><a href="revisão-de-r.html#cb25-4" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb25-5"><a href="revisão-de-r.html#cb25-5" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">2</span>),</span>
-<span id="cb25-6"><a href="revisão-de-r.html#cb25-6" tabindex="-1"></a>  <span class="at">Z =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
-<span id="cb25-7"><a href="revisão-de-r.html#cb25-7" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="revisão-de-r.html#cb31-1" tabindex="-1"></a><span class="co"># criando data.frame de maneira mais inteligente</span></span>
+<span id="cb31-2"><a href="revisão-de-r.html#cb31-2" tabindex="-1"></a>acoes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb31-3"><a href="revisão-de-r.html#cb31-3" tabindex="-1"></a>  <span class="at">tempo =</span> <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>,</span>
+<span id="cb31-4"><a href="revisão-de-r.html#cb31-4" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb31-5"><a href="revisão-de-r.html#cb31-5" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb31-6"><a href="revisão-de-r.html#cb31-6" tabindex="-1"></a>  <span class="at">Z =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb31-7"><a href="revisão-de-r.html#cb31-7" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -633,63 +665,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">2009-01-01</td>
-<td align="right">0.0171712</td>
-<td align="right">3.6441275</td>
-<td align="right">2.2746300</td>
+<td align="right">-0.2806204</td>
+<td align="right">-1.2341477</td>
+<td align="right">-8.0296601</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-02</td>
-<td align="right">-1.7457288</td>
-<td align="right">-0.2265041</td>
-<td align="right">-5.6001477</td>
+<td align="right">0.8120776</td>
+<td align="right">-0.5247450</td>
+<td align="right">3.0720085</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-03</td>
-<td align="right">1.1306795</td>
-<td align="right">-0.9087642</td>
-<td align="right">-1.9274323</td>
+<td align="right">-0.2077037</td>
+<td align="right">1.8246943</td>
+<td align="right">1.6230453</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-04</td>
-<td align="right">-0.3149382</td>
-<td align="right">-5.1517822</td>
-<td align="right">-7.2528128</td>
+<td align="right">1.4507573</td>
+<td align="right">2.2472212</td>
+<td align="right">-3.3268635</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-05</td>
-<td align="right">1.3453045</td>
-<td align="right">0.7419849</td>
-<td align="right">-8.0284783</td>
+<td align="right">0.8414932</td>
+<td align="right">-1.2070394</td>
+<td align="right">3.8323031</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-06</td>
-<td align="right">0.0411553</td>
-<td align="right">-0.5822854</td>
-<td align="right">-2.9331975</td>
+<td align="right">-0.8657378</td>
+<td align="right">0.1106468</td>
+<td align="right">7.2428770</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-07</td>
-<td align="right">-1.3349601</td>
-<td align="right">-3.4887644</td>
-<td align="right">-2.2834405</td>
+<td align="right">-0.0598778</td>
+<td align="right">-2.0013169</td>
+<td align="right">-10.2000579</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-08</td>
-<td align="right">0.4472349</td>
-<td align="right">3.6708816</td>
-<td align="right">-0.3031672</td>
+<td align="right">0.0115312</td>
+<td align="right">-1.5163577</td>
+<td align="right">4.6010203</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-09</td>
-<td align="right">0.1129539</td>
-<td align="right">0.9478112</td>
-<td align="right">-1.4098878</td>
+<td align="right">0.2691115</td>
+<td align="right">-1.2228716</td>
+<td align="right">4.9115746</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-10</td>
-<td align="right">1.9482859</td>
-<td align="right">1.9373730</td>
-<td align="right">2.4962863</td>
+<td align="right">-0.5281605</td>
+<td align="right">-2.6334445</td>
+<td align="right">0.6084127</td>
 </tr>
 </tbody>
 </table>
@@ -699,9 +731,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="bibliotecaspacotes" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Bibliotecas/pacotes<a href="revisão-de-r.html#bibliotecaspacotes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>O R permite que a gente importe comandos que não vêm por padrão no R. Em gerla esses comandos es~toa agrupados sob um pacote. PAra usar esses comandos, primeiro a gente instala o pacote, e depois carrega a biblioteca.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="revisão-de-r.html#cb26-1" tabindex="-1"></a><span class="co"># Exemplos</span></span>
-<span id="cb26-2"><a href="revisão-de-r.html#cb26-2" tabindex="-1"></a><span class="co">#install.packages(&quot;data.table&quot;)</span></span>
-<span id="cb26-3"><a href="revisão-de-r.html#cb26-3" tabindex="-1"></a><span class="co">#library(data.table)</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="revisão-de-r.html#cb34-1" tabindex="-1"></a><span class="co"># Exemplos</span></span>
+<span id="cb34-2"><a href="revisão-de-r.html#cb34-2" tabindex="-1"></a><span class="co">#install.packages(&quot;data.table&quot;)</span></span>
+<span id="cb34-3"><a href="revisão-de-r.html#cb34-3" tabindex="-1"></a><span class="co">#library(data.table)</span></span></code></pre></div>
 </div>
 <div id="importando-dados" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> importando dados<a href="revisão-de-r.html#importando-dados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -709,36 +741,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Então, instalem ela se ainda não instalaram (usando o comando install.packages(“data.table”))
 E depois carreguem a biblioteca: library(data.table)</p>
 <p>Para importar, usaremos o comando fread do pacote data.table.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="revisão-de-r.html#cb27-1" tabindex="-1"></a><span class="co"># vamos importar uma base de dados de pib municipais de 2013, do IBGE</span></span>
-<span id="cb27-2"><a href="revisão-de-r.html#cb27-2" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="revisão-de-r.html#cb27-3" tabindex="-1"></a><span class="co"># o arquivo está em formato RDS, que é um formato do R, e disponível no meu github. Para importá-lo direto no R, vamos ler o arquivo com a função url e depois import´-lo com a função readRDS. </span></span>
-<span id="cb27-4"><a href="revisão-de-r.html#cb27-4" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="revisão-de-r.html#cb27-5" tabindex="-1"></a>pib_cid <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">url</span>(<span class="st">&quot;https://github.com/mgaldino/book-regression/raw/main/dados/pib_cid.RDS&quot;</span>))</span>
-<span id="cb27-6"><a href="revisão-de-r.html#cb27-6" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="revisão-de-r.html#cb27-7" tabindex="-1"></a><span class="co"># para visualizar os dados que forma importados, temos várias funções</span></span>
-<span id="cb27-8"><a href="revisão-de-r.html#cb27-8" tabindex="-1"></a><span class="co"># glimpse, head e View</span></span>
-<span id="cb27-9"><a href="revisão-de-r.html#cb27-9" tabindex="-1"></a></span>
-<span id="cb27-10"><a href="revisão-de-r.html#cb27-10" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># para glimpse</span></span></code></pre></div>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.2.3</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="revisão-de-r.html#cb29-1" tabindex="-1"></a><span class="co"># glimpse(pib_cid)</span></span>
-<span id="cb29-2"><a href="revisão-de-r.html#cb29-2" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="revisão-de-r.html#cb29-3" tabindex="-1"></a><span class="co"># head(pib_cid)</span></span>
-<span id="cb29-4"><a href="revisão-de-r.html#cb29-4" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="revisão-de-r.html#cb29-5" tabindex="-1"></a><span class="co"># View(pib_cid)</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="revisão-de-r.html#cb35-1" tabindex="-1"></a><span class="co"># vamos importar uma base de dados de pib municipais de 2013, do IBGE</span></span>
+<span id="cb35-2"><a href="revisão-de-r.html#cb35-2" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="revisão-de-r.html#cb35-3" tabindex="-1"></a><span class="co"># o arquivo está em formato RDS, que é um formato do R, e disponível no meu github. Para importá-lo direto no R, vamos ler o arquivo com a função url e depois import´-lo com a função readRDS. </span></span>
+<span id="cb35-4"><a href="revisão-de-r.html#cb35-4" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="revisão-de-r.html#cb35-5" tabindex="-1"></a>pib_cid <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">url</span>(<span class="st">&quot;https://github.com/mgaldino/book-regression/raw/main/dados/pib_cid.RDS&quot;</span>))</span>
+<span id="cb35-6"><a href="revisão-de-r.html#cb35-6" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="revisão-de-r.html#cb35-7" tabindex="-1"></a><span class="co"># para visualizar os dados que forma importados, temos várias funções</span></span>
+<span id="cb35-8"><a href="revisão-de-r.html#cb35-8" tabindex="-1"></a><span class="co"># glimpse, head e View</span></span>
+<span id="cb35-9"><a href="revisão-de-r.html#cb35-9" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="revisão-de-r.html#cb35-10" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># para glimpse</span></span>
+<span id="cb35-11"><a href="revisão-de-r.html#cb35-11" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="revisão-de-r.html#cb35-12" tabindex="-1"></a><span class="co"># glimpse(pib_cid)</span></span>
+<span id="cb35-13"><a href="revisão-de-r.html#cb35-13" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="revisão-de-r.html#cb35-14" tabindex="-1"></a><span class="co"># head(pib_cid)</span></span>
+<span id="cb35-15"><a href="revisão-de-r.html#cb35-15" tabindex="-1"></a></span>
+<span id="cb35-16"><a href="revisão-de-r.html#cb35-16" tabindex="-1"></a><span class="co"># View(pib_cid)</span></span></code></pre></div>
 </div>
 <div id="data-wrangling" class="section level2 hasAnchor" number="2.8">
 <h2><span class="header-section-number">2.8</span> Data wrangling<a href="revisão-de-r.html#data-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para manipulação, limpeza e processamento de dados, iremos utilizar o chamado “tidyverse”.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="revisão-de-r.html#cb30-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb30-2"><a href="revisão-de-r.html#cb30-2" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="revisão-de-r.html#cb30-3" tabindex="-1"></a><span class="co"># digamos que quero o pib total médio e o pib per capita médio</span></span>
-<span id="cb30-4"><a href="revisão-de-r.html#cb30-4" tabindex="-1"></a><span class="co"># basta usar o comando summarise, que resume os dados e escolher a função mean.</span></span>
-<span id="cb30-5"><a href="revisão-de-r.html#cb30-5" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="revisão-de-r.html#cb30-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb30-7"><a href="revisão-de-r.html#cb30-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
-<span id="cb30-8"><a href="revisão-de-r.html#cb30-8" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita))</span>
-<span id="cb30-9"><a href="revisão-de-r.html#cb30-9" tabindex="-1"></a></span>
-<span id="cb30-10"><a href="revisão-de-r.html#cb30-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="revisão-de-r.html#cb36-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb36-2"><a href="revisão-de-r.html#cb36-2" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="revisão-de-r.html#cb36-3" tabindex="-1"></a><span class="co"># digamos que quero o pib total médio e o pib per capita médio</span></span>
+<span id="cb36-4"><a href="revisão-de-r.html#cb36-4" tabindex="-1"></a><span class="co"># basta usar o comando summarise, que resume os dados e escolher a função mean.</span></span>
+<span id="cb36-5"><a href="revisão-de-r.html#cb36-5" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="revisão-de-r.html#cb36-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb36-7"><a href="revisão-de-r.html#cb36-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb36-8"><a href="revisão-de-r.html#cb36-8" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita))</span>
+<span id="cb36-9"><a href="revisão-de-r.html#cb36-9" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="revisão-de-r.html#cb36-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -753,12 +791,18 @@ E depois carreguem a biblioteca: library(data.table)</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="revisão-de-r.html#cb31-1" tabindex="-1"></a><span class="co"># se eu quiser a soma dos pibs municipais</span></span>
-<span id="cb31-2"><a href="revisão-de-r.html#cb31-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="revisão-de-r.html#cb31-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
-<span id="cb31-4"><a href="revisão-de-r.html#cb31-4" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb31-5"><a href="revisão-de-r.html#cb31-5" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="revisão-de-r.html#cb31-6" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="revisão-de-r.html#cb39-1" tabindex="-1"></a><span class="co"># se eu quiser a soma dos pibs municipais</span></span>
+<span id="cb39-2"><a href="revisão-de-r.html#cb39-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="revisão-de-r.html#cb39-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
+<span id="cb39-4"><a href="revisão-de-r.html#cb39-4" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb39-5"><a href="revisão-de-r.html#cb39-5" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="revisão-de-r.html#cb39-6" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -771,15 +815,21 @@ E depois carreguem a biblioteca: library(data.table)</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="revisão-de-r.html#cb32-1" tabindex="-1"></a><span class="co"># maior e menos pibs e pibs per capita entre municípios</span></span>
-<span id="cb32-2"><a href="revisão-de-r.html#cb32-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb32-3"><a href="revisão-de-r.html#cb32-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_max =</span> <span class="fu">max</span>(pib_total),</span>
-<span id="cb32-4"><a href="revisão-de-r.html#cb32-4" tabindex="-1"></a>            <span class="at">pib_min =</span> <span class="fu">min</span>(pib_total),</span>
-<span id="cb32-5"><a href="revisão-de-r.html#cb32-5" tabindex="-1"></a>            <span class="at">pib_per_capita_max =</span> <span class="fu">max</span>(pib_per_capita),</span>
-<span id="cb32-6"><a href="revisão-de-r.html#cb32-6" tabindex="-1"></a>            <span class="at">pib_per_capita_min =</span> <span class="fu">min</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
-<span id="cb32-7"><a href="revisão-de-r.html#cb32-7" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb32-8"><a href="revisão-de-r.html#cb32-8" tabindex="-1"></a></span>
-<span id="cb32-9"><a href="revisão-de-r.html#cb32-9" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="revisão-de-r.html#cb42-1" tabindex="-1"></a><span class="co"># maior e menos pibs e pibs per capita entre municípios</span></span>
+<span id="cb42-2"><a href="revisão-de-r.html#cb42-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="revisão-de-r.html#cb42-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_max =</span> <span class="fu">max</span>(pib_total),</span>
+<span id="cb42-4"><a href="revisão-de-r.html#cb42-4" tabindex="-1"></a>            <span class="at">pib_min =</span> <span class="fu">min</span>(pib_total),</span>
+<span id="cb42-5"><a href="revisão-de-r.html#cb42-5" tabindex="-1"></a>            <span class="at">pib_per_capita_max =</span> <span class="fu">max</span>(pib_per_capita),</span>
+<span id="cb42-6"><a href="revisão-de-r.html#cb42-6" tabindex="-1"></a>            <span class="at">pib_per_capita_min =</span> <span class="fu">min</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-7"><a href="revisão-de-r.html#cb42-7" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb42-8"><a href="revisão-de-r.html#cb42-8" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="revisão-de-r.html#cb42-9" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -798,14 +848,20 @@ E depois carreguem a biblioteca: library(data.table)</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="revisão-de-r.html#cb33-1" tabindex="-1"></a><span class="co"># se eu quiser apenas dos municípios od estado de SP?</span></span>
-<span id="cb33-2"><a href="revisão-de-r.html#cb33-2" tabindex="-1"></a><span class="co"># basta filtrar pelo estado de SP, com o comando filter</span></span>
-<span id="cb33-3"><a href="revisão-de-r.html#cb33-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb33-4"><a href="revisão-de-r.html#cb33-4" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb33-5"><a href="revisão-de-r.html#cb33-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-6"><a href="revisão-de-r.html#cb33-6" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb33-7"><a href="revisão-de-r.html#cb33-7" tabindex="-1"></a>  </span>
-<span id="cb33-8"><a href="revisão-de-r.html#cb33-8" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="revisão-de-r.html#cb45-1" tabindex="-1"></a><span class="co"># se eu quiser apenas dos municípios od estado de SP?</span></span>
+<span id="cb45-2"><a href="revisão-de-r.html#cb45-2" tabindex="-1"></a><span class="co"># basta filtrar pelo estado de SP, com o comando filter</span></span>
+<span id="cb45-3"><a href="revisão-de-r.html#cb45-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb45-4"><a href="revisão-de-r.html#cb45-4" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb45-5"><a href="revisão-de-r.html#cb45-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_pib =</span> <span class="fu">sum</span>(pib_total)) <span class="sc">%&gt;%</span></span>
+<span id="cb45-6"><a href="revisão-de-r.html#cb45-6" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb45-7"><a href="revisão-de-r.html#cb45-7" tabindex="-1"></a>  </span>
+<span id="cb45-8"><a href="revisão-de-r.html#cb45-8" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -818,13 +874,19 @@ E depois carreguem a biblioteca: library(data.table)</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="revisão-de-r.html#cb34-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb34-2"><a href="revisão-de-r.html#cb34-2" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="revisão-de-r.html#cb34-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
-<span id="cb34-4"><a href="revisão-de-r.html#cb34-4" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
-<span id="cb34-5"><a href="revisão-de-r.html#cb34-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb34-6"><a href="revisão-de-r.html#cb34-6" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="revisão-de-r.html#cb34-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="revisão-de-r.html#cb48-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="revisão-de-r.html#cb48-2" tabindex="-1"></a>  <span class="fu">filter</span>(sigla_uf <span class="sc">==</span> <span class="st">&quot;SP&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-3"><a href="revisão-de-r.html#cb48-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb48-4"><a href="revisão-de-r.html#cb48-4" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb48-5"><a href="revisão-de-r.html#cb48-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb48-6"><a href="revisão-de-r.html#cb48-6" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="revisão-de-r.html#cb48-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -839,16 +901,22 @@ E depois carreguem a biblioteca: library(data.table)</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="revisão-de-r.html#cb35-1" tabindex="-1"></a><span class="co"># se eu quiser esse cálculo por uf (or cada umas das ufs?)</span></span>
-<span id="cb35-2"><a href="revisão-de-r.html#cb35-2" tabindex="-1"></a><span class="co"># Aí é melhor aguprar por uf</span></span>
-<span id="cb35-3"><a href="revisão-de-r.html#cb35-3" tabindex="-1"></a><span class="co"># ideia é: split by, apply (function), combine (summarise?)</span></span>
-<span id="cb35-4"><a href="revisão-de-r.html#cb35-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb35-5"><a href="revisão-de-r.html#cb35-5" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb35-6"><a href="revisão-de-r.html#cb35-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
-<span id="cb35-7"><a href="revisão-de-r.html#cb35-7" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
-<span id="cb35-8"><a href="revisão-de-r.html#cb35-8" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb35-9"><a href="revisão-de-r.html#cb35-9" tabindex="-1"></a></span>
-<span id="cb35-10"><a href="revisão-de-r.html#cb35-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="revisão-de-r.html#cb51-1" tabindex="-1"></a><span class="co"># se eu quiser esse cálculo por uf (or cada umas das ufs?)</span></span>
+<span id="cb51-2"><a href="revisão-de-r.html#cb51-2" tabindex="-1"></a><span class="co"># Aí é melhor aguprar por uf</span></span>
+<span id="cb51-3"><a href="revisão-de-r.html#cb51-3" tabindex="-1"></a><span class="co"># ideia é: split by, apply (function), combine (summarise?)</span></span>
+<span id="cb51-4"><a href="revisão-de-r.html#cb51-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb51-5"><a href="revisão-de-r.html#cb51-5" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb51-6"><a href="revisão-de-r.html#cb51-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pib_medio =</span> <span class="fu">mean</span>(pib_total),</span>
+<span id="cb51-7"><a href="revisão-de-r.html#cb51-7" tabindex="-1"></a>            <span class="at">pib_per_capita_medio =</span> <span class="fu">mean</span>(pib_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb51-8"><a href="revisão-de-r.html#cb51-8" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb51-9"><a href="revisão-de-r.html#cb51-9" tabindex="-1"></a></span>
+<span id="cb51-10"><a href="revisão-de-r.html#cb51-10" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -890,14 +958,20 @@ E depois carreguem a biblioteca: library(data.table)</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="revisão-de-r.html#cb36-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
-<span id="cb36-2"><a href="revisão-de-r.html#cb36-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb36-3"><a href="revisão-de-r.html#cb36-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb36-4"><a href="revisão-de-r.html#cb36-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pib_uf =</span> <span class="fu">sum</span>(pib_total))</span>
-<span id="cb36-5"><a href="revisão-de-r.html#cb36-5" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="revisão-de-r.html#cb36-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">head</span>(df)</span>
-<span id="cb36-7"><a href="revisão-de-r.html#cb36-7" tabindex="-1"></a></span>
-<span id="cb36-8"><a href="revisão-de-r.html#cb36-8" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="revisão-de-r.html#cb54-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
+<span id="cb54-2"><a href="revisão-de-r.html#cb54-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="revisão-de-r.html#cb54-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sigla_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb54-4"><a href="revisão-de-r.html#cb54-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pib_uf =</span> <span class="fu">sum</span>(pib_total))</span>
+<span id="cb54-5"><a href="revisão-de-r.html#cb54-5" tabindex="-1"></a></span>
+<span id="cb54-6"><a href="revisão-de-r.html#cb54-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">head</span>(df)</span>
+<span id="cb54-7"><a href="revisão-de-r.html#cb54-7" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="revisão-de-r.html#cb54-8" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <colgroup>
 <col width="0%" />
@@ -1274,13 +1348,19 @@ E depois carreguem a biblioteca: library(data.table)</p>
 </table>
 <p>Coisas estranhas. O maior pib per capita municipal deu muito alto. vamos ver qual município é?
 Vamos filtrar e depois selecionar apenas algumas colunas</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="revisão-de-r.html#cb37-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
-<span id="cb37-2"><a href="revisão-de-r.html#cb37-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb37-3"><a href="revisão-de-r.html#cb37-3" tabindex="-1"></a>  <span class="fu">filter</span>(pib_per_capita <span class="sc">&gt;</span> <span class="dv">700000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb37-4"><a href="revisão-de-r.html#cb37-4" tabindex="-1"></a>  <span class="fu">select</span>(sigla_uf, nome_munic, pib_per_capita, pib_total) <span class="sc">%&gt;%</span></span>
-<span id="cb37-5"><a href="revisão-de-r.html#cb37-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb37-6"><a href="revisão-de-r.html#cb37-6" tabindex="-1"></a></span>
-<span id="cb37-7"><a href="revisão-de-r.html#cb37-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="revisão-de-r.html#cb57-1" tabindex="-1"></a><span class="co"># agora, quero criar uma nova variável, que é o pib estadual</span></span>
+<span id="cb57-2"><a href="revisão-de-r.html#cb57-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb57-3"><a href="revisão-de-r.html#cb57-3" tabindex="-1"></a>  <span class="fu">filter</span>(pib_per_capita <span class="sc">&gt;</span> <span class="dv">700000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb57-4"><a href="revisão-de-r.html#cb57-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sigla_uf, nome_munic, pib_per_capita, pib_total) <span class="sc">%&gt;%</span></span>
+<span id="cb57-5"><a href="revisão-de-r.html#cb57-5" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb57-6"><a href="revisão-de-r.html#cb57-6" tabindex="-1"></a></span>
+<span id="cb57-7"><a href="revisão-de-r.html#cb57-7" tabindex="-1"></a><span class="fu">kable</span>(df)</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1304,44 +1384,44 @@ Veremos que “faz sentido”, embora na verdade não faça.</p>
 <p>Exercício em sala de aula: veja os impostos desse município.</p>
 </div>
 <div id="visualização" class="section level2 hasAnchor" number="2.9">
-<h2><span class="header-section-number">2.9</span> Visualização<a href="revisão-de-r.html#visualização" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">2.9</span> Visualização<a href="#visualiza%C3%A7%C3%A3o" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para visualizarmos os dados com gráficos, utilizaremos a biblioteca ggplot2</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="revisão-de-r.html#cb38-1" tabindex="-1"></a><span class="co"># gráficos</span></span>
-<span id="cb38-2"><a href="revisão-de-r.html#cb38-2" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="revisão-de-r.html#cb38-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb38-4"><a href="revisão-de-r.html#cb38-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb38-5"><a href="revisão-de-r.html#cb38-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="revisão-de-r.html#cb60-1" tabindex="-1"></a><span class="co"># gráficos</span></span>
+<span id="cb60-2"><a href="revisão-de-r.html#cb60-2" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="revisão-de-r.html#cb60-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb60-4"><a href="revisão-de-r.html#cb60-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb60-5"><a href="revisão-de-r.html#cb60-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/start_visualizacao-1.png" width="672" /></p>
 <p>A lgócia geral de um grtáfico com ggplot2 é como no exemplo acima. Primeiro passamos as variáveis por meio do comando ggplot, dentro de aes (de aesthetics), depois combinamos com o tipo de plot que queremos faze,r nesse caso, pontos, com geom_point. É possívle customizar o gráfico para ele ficar mais bonito. Vamos fazer isso agora.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="revisão-de-r.html#cb39-1" tabindex="-1"></a><span class="co"># gráficos  mais bonitos</span></span>
-<span id="cb39-2"><a href="revisão-de-r.html#cb39-2" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="revisão-de-r.html#cb39-3" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="revisão-de-r.html#cb39-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb39-5"><a href="revisão-de-r.html#cb39-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb39-6"><a href="revisão-de-r.html#cb39-6" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span></span>
-<span id="cb39-7"><a href="revisão-de-r.html#cb39-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="revisão-de-r.html#cb61-1" tabindex="-1"></a><span class="co"># gráficos  mais bonitos</span></span>
+<span id="cb61-2"><a href="revisão-de-r.html#cb61-2" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="revisão-de-r.html#cb61-3" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="revisão-de-r.html#cb61-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb61-5"><a href="revisão-de-r.html#cb61-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb61-6"><a href="revisão-de-r.html#cb61-6" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb61-7"><a href="revisão-de-r.html#cb61-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Podemos usar vários temas feitos pela comunidade. Por exemplo, Barbie:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="revisão-de-r.html#cb40-1" tabindex="-1"></a><span class="co"># gráficos  mais bonitos</span></span>
-<span id="cb40-2"><a href="revisão-de-r.html#cb40-2" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="revisão-de-r.html#cb40-3" tabindex="-1"></a><span class="co"># install.packages(&quot;remotes&quot;)</span></span>
-<span id="cb40-4"><a href="revisão-de-r.html#cb40-4" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;MatthewBJane/theme_park&quot;)</span></span>
-<span id="cb40-5"><a href="revisão-de-r.html#cb40-5" tabindex="-1"></a><span class="fu">library</span>(ThemePark)</span>
-<span id="cb40-6"><a href="revisão-de-r.html#cb40-6" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="revisão-de-r.html#cb40-7" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb40-8"><a href="revisão-de-r.html#cb40-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb40-9"><a href="revisão-de-r.html#cb40-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span> <span class="fu">theme_barbie</span>() <span class="sc">+</span></span>
-<span id="cb40-10"><a href="revisão-de-r.html#cb40-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="revisão-de-r.html#cb62-1" tabindex="-1"></a><span class="co"># gráficos  mais bonitos</span></span>
+<span id="cb62-2"><a href="revisão-de-r.html#cb62-2" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="revisão-de-r.html#cb62-3" tabindex="-1"></a><span class="co"># install.packages(&quot;remotes&quot;)</span></span>
+<span id="cb62-4"><a href="revisão-de-r.html#cb62-4" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;MatthewBJane/theme_park&quot;)</span></span>
+<span id="cb62-5"><a href="revisão-de-r.html#cb62-5" tabindex="-1"></a><span class="fu">library</span>(ThemePark)</span>
+<span id="cb62-6"><a href="revisão-de-r.html#cb62-6" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="revisão-de-r.html#cb62-7" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb62-8"><a href="revisão-de-r.html#cb62-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>pib_total, <span class="at">x=</span>impostos)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb62-9"><a href="revisão-de-r.html#cb62-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span> <span class="fu">theme_barbie</span>() <span class="sc">+</span></span>
+<span id="cb62-10"><a href="revisão-de-r.html#cb62-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;impostos municipais&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB municipal de 2013 x impostos municipais&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Vocês podem ver outros temas de filmes no github do autor do pacote: <a href="https://github.com/MatthewBJane/theme_park" class="uri">https://github.com/MatthewBJane/theme_park</a>
 E, claro, há muito mais na internet.</p>
 <p>Para fazer outro tipo de gráfico, é só variar o geom. Por exemplo, um histograma do PIB per capita.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="revisão-de-r.html#cb41-1" tabindex="-1"></a><span class="co"># Histograma</span></span>
-<span id="cb41-2"><a href="revisão-de-r.html#cb41-2" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="revisão-de-r.html#cb41-3" tabindex="-1"></a></span>
-<span id="cb41-4"><a href="revisão-de-r.html#cb41-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
-<span id="cb41-5"><a href="revisão-de-r.html#cb41-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>pib_per_capita)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb41-6"><a href="revisão-de-r.html#cb41-6" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB per capita municipal&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="revisão-de-r.html#cb63-1" tabindex="-1"></a><span class="co"># Histograma</span></span>
+<span id="cb63-2"><a href="revisão-de-r.html#cb63-2" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="revisão-de-r.html#cb63-3" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="revisão-de-r.html#cb63-4" tabindex="-1"></a>pib_cid <span class="sc">%&gt;%</span></span>
+<span id="cb63-5"><a href="revisão-de-r.html#cb63-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>pib_per_capita)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb63-6"><a href="revisão-de-r.html#cb63-6" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>)) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;PIB per capita municipal&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 
 </div>
@@ -1366,42 +1446,42 @@ E, claro, há muito mais na internet.</p>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/mgaldino/book-regression/edit/main/02-revisão-R.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": "https://github.com/mgaldino/book-regression/blob/main/02-revisão-R.Rmd",
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/mgaldino/book-regression/edit/main/02-revisão-R.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/mgaldino/book-regression/blob/main/02-revisão-R.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
