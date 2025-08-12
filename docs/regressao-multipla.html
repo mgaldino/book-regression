@@ -564,7 +564,7 @@ Em um modelo sem interações, o efeito de cada variávei <span class="math inli
 <span id="cb235-13"><a href="regressao-multipla.html#cb235-13" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) <span class="sc">%&gt;%</span></span>
 <span id="cb235-14"><a href="regressao-multipla.html#cb235-14" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_votos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
 <span id="cb235-15"><a href="regressao-multipla.html#cb235-15" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> total_votos, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb235-16"><a href="regressao-multipla.html#cb235-16" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb235-16"><a href="regressao-multipla.html#cb235-16" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb235-17"><a href="regressao-multipla.html#cb235-17" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
 <span id="cb235-18"><a href="regressao-multipla.html#cb235-18" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(x1),</span>
 <span id="cb235-19"><a href="regressao-multipla.html#cb235-19" tabindex="-1"></a>         <span class="at">total_validos_2t =</span> <span class="fu">sum</span>(x2)) <span class="sc">%&gt;%</span></span>

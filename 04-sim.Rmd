@@ -250,10 +250,9 @@ Qual a média e o desvio-padrão da distribuição da média amostral?
 Podemos calcular aproximadamente a partir de nossa simulação. A média da simulação é `r mean(means)` e o desvio-padrão é `r sd(means)`. Vejam que a média amostral é próxima da média populacional e o desvio-padrão amostral é próximo do desvio-padrão populacional dividido pela raiz-quadrada de $n$. Lembrando que a variância de uma uniforme é dada por $\frac{1}{12}(a - b)^2$, em que $a$ é o maior valor e $b$ o menor. Logo, em nosso caso, a variância é $\frac{1}{12}(1 - 0)^2 = 1/12$. E o desvio-padrão é a raiz quadrada disso, ou $0.2886751$. Como $n = 36$, a raiz-quadrada é $6$, ou seja, igual a  $0.2886751/6 = 0.04811252$.
 
 
-
 ## Cobertura de um IC
 
-Um Intervalo de Confiança de 95% possui uma cobertura nominal de 95%. O que isso quer dizer? Queremos dizer que se repetirmos o procedimento infinitas vezes, em 95% delas o IC conterá o verdadeiro valor do parâmetro.
+Um Intervalo de Confiança (IC) de 95% possui uma cobertura nominal de 95%. O que isso quer dizer? Quer dizer que se repetirmos o procedimento infinitas vezes, em 95% delas o IC conterá o verdadeiro valor do parâmetro. Vamos verificar isso com uma simulação.
 
 ```{r cap4 IC, results='asis'}
 set.seed(123)
@@ -270,3 +269,5 @@ cover <- replicate(n_sims, {
 })
 mean(cover)  # proportion of CIs containing true mean
 ```
+
+Nessa simulação, nós rodamos 10.000 vezes a simulação e calculamos o intervalo de confiança para a média em cada iteração. Ao final, comoutamos o percentual de vezes em que o CI continha o verdadeiro valor do parâmetro. Veja que nesse exemplo não foi exatamente 95%, mas `r 100*mean(cover) `%. Cmo sempre, a simulação nos dá uma resposta aproximada, não exata.

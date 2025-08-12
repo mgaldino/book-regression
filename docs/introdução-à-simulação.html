@@ -769,7 +769,7 @@ Uma forma de entender esses dois resultados fundamentais é por meio de simulaç
 </div>
 <div id="cobertura-de-um-ic" class="section level2 hasAnchor" number="4.9">
 <h2><span class="header-section-number">4.9</span> Cobertura de um IC<a href="introdução-à-simulação.html#cobertura-de-um-ic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Um Intervalo de Confiança de 95% possui uma cobertura nominal de 95%. O que isso quer dizer? Queremos dizer que se repetirmos o procedimento infinitas vezes, em 95% delas o IC conterá o verdadeiro valor do parâmetro.</p>
+<p>Um Intervalo de Confiança (IC) de 95% possui uma cobertura nominal de 95%. O que isso quer dizer? Quer dizer que se repetirmos o procedimento infinitas vezes, em 95% delas o IC conterá o verdadeiro valor do parâmetro. Vamos verificar isso com uma simulação.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="introdução-à-simulação.html#cb96-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb96-2"><a href="introdução-à-simulação.html#cb96-2" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
 <span id="cb96-3"><a href="introdução-à-simulação.html#cb96-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
@@ -784,6 +784,7 @@ Uma forma de entender esses dois resultados fundamentais é por meio de simulaç
 <span id="cb96-12"><a href="introdução-à-simulação.html#cb96-12" tabindex="-1"></a>})</span>
 <span id="cb96-13"><a href="introdução-à-simulação.html#cb96-13" tabindex="-1"></a><span class="fu">mean</span>(cover)  <span class="co"># proportion of CIs containing true mean</span></span></code></pre></div>
 <p>[1] 0.9461</p>
+<p>Nessa simulação, nós rodamos 10.000 vezes a simulação e calculamos o intervalo de confiança para a média em cada iteração. Ao final, comoutamos o percentual de vezes em que o CI continha o verdadeiro valor do parâmetro. Veja que nesse exemplo não foi exatamente 95%, mas 94.61%. Cmo sempre, a simulação nos dá uma resposta aproximada, não exata.</p>
 
 </div>
 </div>
