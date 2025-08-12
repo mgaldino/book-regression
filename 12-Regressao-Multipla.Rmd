@@ -501,7 +501,7 @@ df_resultados_22_aux <- presid_22 %>%
   group_by(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) %>%
   summarise(total_votos = sum(QT_VOTOS)) %>%
   pivot_wider(names_from = NR_TURNO, values_from = total_votos, values_fill = 0) %>%
-  clean_names() %>%
+  janitor::clean_names() %>%
   group_by(nr_zona, cd_municipio, sg_uf) %>%
   mutate(total_validos_1t = sum(x1),
          total_validos_2t = sum(x2)) %>%

@@ -139,7 +139,7 @@ library(broom)
 lat_bar23 <- sjlabelled::read_spss(here("Dados", "Latinobarometro_2023_Eng_Spss_v1_0.sav"),
                                drop.labels = TRUE) %>%
   mutate(S17 = as.Date(as.character(S17), "%Y%m%d")) %>%
-  clean_names()
+  janitor::clean_names()
 
 # get_label(lat_bar23)
 
@@ -504,15 +504,15 @@ Vejam que os coeficientes dos pontos de corte estão "errando" por aproximadamen
 O que eles nos dizem, **em conjunto com o $\beta$**, é a probabilidade de uma pessoa escolher uma dada categoria.
 
 Para interpretar os resultados, vamos usar mais uma vez o pacote marginaleffects:
-```{r ord-logis-marginaeff, echo=FALSE, message=FALSE}
+```{r ord-logis-marginaeff cap13, echo=FALSE, message=FALSE}
 
 library(marginaleffects)
 # computando previsões no valor médio das variáveis
-p <- avg_predictions(reg_ord)
-p
-
-# plotando as previsões
-plot_predictions(reg_ord)
+# p <- avg_predictions(reg_ord)
+# p
+# 
+# # plotando as previsões
+# plot_predictions(reg_ord)
 ```
 
 ```{r sim-unordered, echo=FALSE, message=FALSE}

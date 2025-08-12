@@ -259,7 +259,10 @@ df_resultados_22 %>%
             perc_previsto = total_bolso/total_valido_previsto)
 
 # mesma coisa
+```
 
+
+```{r previsao-incert cap11, echo=TRUE, message=FALSE, cache=TRUE}
 #E incerteza nas previsões?
   
 previsoes <- predict(reg1, newdata = df_resultados_22, interval = "prediction", level = .95) %>%
