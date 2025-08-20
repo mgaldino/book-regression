@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-08-12" />
+<meta name="date" content="2025-08-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -580,6 +580,10 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 <span id="cb113-10"><a href="cef-1.html#cb113-10" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> .<span class="dv">5</span>, <span class="at">intercept =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
 <span id="cb113-11"><a href="cef-1.html#cb113-11" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="dv">3</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb113-12"><a href="cef-1.html#cb113-12" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
 <p><img src="bookdownproj_files/figure-html/plotAjusteReta-1.png" width="672" /></p>
 <p>No gráfico <a href="#fig:plotAjusteReta"><strong>??</strong></a>, vemos que a reta em azul é melhor do que a verde e vermelha.</p>
 <p>Para achar os valores da reta azul (que aqui sabemos ser <span class="math inline">\(\alpha =2\)</span> e <span class="math inline">\(\beta = 1.3\)</span>), podemos novamente minimizar o EQM. A derivação requer calcular a derivada ou utilização de álgebra linerar, requisitos matemáticos para além do curso. Para um preditor, a fórmula do <span class="math inline">\(\beta\)</span> é dada por <span class="math inline">\(COV(Y,X)/Var(X)\)</span> e a constante, <span class="math inline">\(\alpha\)</span> é dada por <span class="math inline">\(\mathbb{E}[(Y)] - \beta*\mathbb{E}[X]\)</span>. Expressando a mesma fórmula com somatório (em vez de esperança), temos:</p>
@@ -590,12 +594,12 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 \beta = \sum\limits_{i=1}^n{}(y_i - \bar{y})(x_i - \bar{x})/\sum\limits_{i=1}^n{}(x_i - \bar{x})^2
 \]</span></p>
 <p>Se nós aplicarmos essa fórmula para os dados do gráfico acima, iremos recuperar um valor aproximado da verdadeira reta de regressão (aproximado porque no fundo estamos simulando uma amostra. Mas se tivéssemos infinitos valores, teríamos exatamente os parâmetros populacionais).</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="cef-1.html#cb114-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb114-2"><a href="cef-1.html#cb114-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cov_yx =</span> <span class="fu">cov</span>(y,x),</span>
-<span id="cb114-3"><a href="cef-1.html#cb114-3" tabindex="-1"></a>            <span class="at">var_x =</span> <span class="fu">var</span>(x),</span>
-<span id="cb114-4"><a href="cef-1.html#cb114-4" tabindex="-1"></a>            <span class="at">beta =</span> cov_yx<span class="sc">/</span>var_x,</span>
-<span id="cb114-5"><a href="cef-1.html#cb114-5" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta<span class="sc">*</span><span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span></span>
-<span id="cb114-6"><a href="cef-1.html#cb114-6" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="cef-1.html#cb115-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb115-2"><a href="cef-1.html#cb115-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cov_yx =</span> <span class="fu">cov</span>(y,x),</span>
+<span id="cb115-3"><a href="cef-1.html#cb115-3" tabindex="-1"></a>            <span class="at">var_x =</span> <span class="fu">var</span>(x),</span>
+<span id="cb115-4"><a href="cef-1.html#cb115-4" tabindex="-1"></a>            <span class="at">beta =</span> cov_yx<span class="sc">/</span>var_x,</span>
+<span id="cb115-5"><a href="cef-1.html#cb115-5" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta<span class="sc">*</span><span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span></span>
+<span id="cb115-6"><a href="cef-1.html#cb115-6" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
 ## Use &#39;xfun::attr2()&#39; instead.
 ## See help(&quot;Deprecated&quot;)</code></pre>
@@ -621,7 +625,7 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 </tbody>
 </table>
 <p>Vejam que é a mesma estimativa se eu usar a função “lm” do R, que estima uma modelo de regressão linear.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="cef-1.html#cb117-1" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span>x, df)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="cef-1.html#cb118-1" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span>x, df)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x, data = df)

@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-08-12" />
+<meta name="date" content="2025-08-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -402,7 +402,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math inline">\(\mathbb{E}[X|Z] = \sum xP_{x|z}(x) = \sum x \frac{P_x(x)P_Z(z)}{P_Z(z)} = \sum x P_x(x) = \mu_x\)</span></p>
 <p>Da segunda igualdade para a terceira usamos a definição de probabilidade condicional.</p>
 <p>Definição 15.1.2 (independência linear): Dizemos que <span class="math inline">\(X\)</span> e <span class="math inline">\(Z\)</span> são não-correlacionados ou linearmente independentes se <span class="math inline">\(\mathbb{E}[XZ] = \mu_x\mu_z \iff cov(X,Z) = 0\)</span></p>
-<p>Proposição 15.1.2 (independência na média para independência linear): Se <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> São independentes na média, então são linearmente independentes. O reverso não é verdade.</p>
+<p>Proposição 15.1.2 (independência na média para independência linear): Se <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são independentes na média, então são linearmente independentes. O reverso não é verdade.</p>
 <span class="math display">\[\begin{aligned}
 \mathbb{E}[XZ]
 &amp;= \mathbb{E}\!\big[\mathbb{E}[XZ \mid Z]\big]
@@ -432,28 +432,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">15.2.1</span> Viés<a href="#vi%C3%A9s" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Definição 15.2 (viés). Seja <span class="math inline">\(\theta_0\)</span> o verdadeiro valor de um parâmetro de uma variável aleatória e seja <span class="math inline">\(\hat{\theta}\)</span> um um estimador de <span class="math inline">\(\theta_0\)</span>. O viés de um estimador é o desvio absoluto entre o verdadeiro valor do parâmetro e a esperança do estimador.</p>
 <p><span class="math inline">\(|\theta_0 - \mathbb{E}[\hat{\theta}]|\)</span>.</p>
-<p>Dizemos que um estimador é não-viesado se e somente se o viés é zero. Lembrem-se que <strong>se e somente se</strong> é uma relação de biimplicação, ou seja, se é não viesado, o viés é zero. Se o viés é zero, é não viesado.</p>
-<p>Observaçao: o estimador é que pode ser viesado ou não. Isso não se aplica a uma estimativa. Incorremos em erro quando dizemos que a estimativa é viesada (ou não viesada). O que é viesado ou não é o estimador. Similarmente, não cabe falar em amostra viesada ou não-viesada.</p>
+<p>Dizemos que um estimador é não-viesado se e somente se o viés é zero. Lembrem-se que <strong>se e somente se</strong> é uma relação de bi-implicação, ou seja, se é não viesado, o viés é zero. Se o viés é zero, é não viesado.</p>
+<p>Observação: o estimador é que pode ser viesado ou não. Isso não se aplica a uma estimativa. Incorremos em erro quando dizemos que a estimativa é viesada (ou não viesada). O que é viesado ou não é o estimador. Similarmente, não cabe falar em amostra viesada ou não-viesada.</p>
 </div>
 <div id="variância-1" class="section level3 hasAnchor" number="15.2.2">
 <h3><span class="header-section-number">15.2.2</span> Variância<a href="#vari%C3%A2ncia-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Definição 15.3. (variância do estimador). Seja <span class="math inline">\(\theta_0\)</span> o verdadeiro valor de um parâmetro de uma variável aleatória e seja <span class="math inline">\(\hat{\theta}\)</span> um um estimador de <span class="math inline">\(\theta_0\)</span>. A variância de um estimador é valor esperado do quadrado dos desvios amostrais.</p>
+<p>Definição 15.3. (variância do estimador). Seja <span class="math inline">\(\theta_0\)</span> o verdadeiro valor de um parâmetro de uma variável aleatória e seja <span class="math inline">\(\hat{\theta}\)</span> um um estimador de <span class="math inline">\(\theta_0\)</span>. A variância de um estimador é o valor esperado do quadrado dos desvios amostrais.</p>
 <p><span class="math inline">\(Var[\hat{\theta}] = \mathbb{E}[\left(\hat{\theta} - \mathbb{E}[\hat{\theta}]  \right)^2]\)</span></p>
 <p>Proposição 15.3. Seja <span class="math inline">\(Z_1, Z_2, ...\)</span> uma sequência de variáveis aleatórias i.i.d tal que, para todo <span class="math inline">\(i\)</span>, <span class="math inline">\(\mathbb{E}[Z_i] = \mu\)</span> e <span class="math inline">\(Var[Z_i] = \sigma^2\)</span>. Seja <span class="math inline">\(X_n\)</span> a média amostral das primeiras <span class="math inline">\(n\)</span> variáveis. A variância amostral é igual à variância de <span class="math inline">\(Z\)</span> dividida por <span class="math inline">\(n\)</span>.</p>
 <p><span class="math inline">\(Var[X_n] = \frac{Var[Z]}{n} = \frac{\sigma^2}{n}\)</span></p>
-<p>Prova:</p>
 </div>
 <div id="eficiência" class="section level3 hasAnchor" number="15.2.3">
 <h3><span class="header-section-number">15.2.3</span> Eficiência<a href="#efici%C3%AAncia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Entre um número de estimadores da mesma classe (por exemplo, todos são não-viesados e têm variância finita), o estimador com a menor variância é chamado de estimador eficiente.</p>
+<p>Entre um número de estimadores da mesma classe (por exemplo, todos são não-viesados e têm variância finita), o estimador com a menor variância é chamado de estimador (relativamente mais) eficiente.</p>
 </div>
 <div id="consistência" class="section level3 hasAnchor" number="15.2.4">
 <h3><span class="header-section-number">15.2.4</span> Consistência<a href="#consist%C3%AAncia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Definição:
 Um estimador <span class="math inline">\(\hat\theta_n\)</span> é <strong>consistente</strong> para <span class="math inline">\(\theta\)</span> se <span class="math inline">\(\hat\theta_n \xrightarrow{p} \theta\)</span>, i.e.,
 <span class="math inline">\(\forall \varepsilon&gt;0,\ \lim_{n\to\infty}\Pr(|\hat\theta_n-\theta|&gt;\varepsilon)=0\)</span>.</p>
-<p>Proposição: Condição suficiente via Chebyshev
-Se <span class="math inline">\(\hat\theta_n\)</span> é não-viesado e <span class="math inline">\(\mathrm{Var}(\hat\theta_n)\to 0\)</span> quando <span class="math inline">\(n\to\infty\)</span>, então <span class="math inline">\(\hat\theta_n\)</span> é consistente.</p>
+<p>Proposição: Condição suficiente via Chebyshev</p>
+<p>Se <span class="math inline">\(\hat\theta_n\)</span> é não-viesado e <span class="math inline">\(\mathrm{Var}(\hat\theta_n)\to 0\)</span> quando <span class="math inline">\(n\to\infty\)</span>, então <span class="math inline">\(\hat\theta_n\)</span> é consistente.</p>
 <p>Pela desigualdade de Chebyshev,
 <span class="math inline">\(\Pr(|\hat\theta_n-\theta|&gt;\varepsilon)\le \mathrm{Var}(\hat\theta_n)/\varepsilon^2 \to 0\)</span>.</p>
 </div>
@@ -462,7 +461,7 @@ Se <span class="math inline">\(\hat\theta_n\)</span> é não-viesado e <span cla
 <h2><span class="header-section-number">15.3</span> Exercícios para o leitor<a href="#exerc%C3%ADcios-para-o-leitor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
 <li>Suponha que <span class="math inline">\(Z\)</span> é uma distribuição uniforme <span class="math inline">\(Z \sim U(-1,1)\)</span>.
-Mosrte que se <span class="math inline">\(X = Z^2\)</span>, então são independentes na média, mas não independentes entre si.</li>
+Mostre que se <span class="math inline">\(X = Z^2\)</span>, então são independentes na média, mas não independentes entre si.</li>
 </ol>
 <p>Mostre que <span class="math inline">\(X\)</span> e <span class="math inline">\(Z\)</span> são independentes na média, mas não independentes entre si no seguinte caso:</p>
 <ol start="2" style="list-style-type: decimal">
@@ -477,8 +476,8 @@ Mosrte que se <span class="math inline">\(X = Z^2\)</span>, então são independ
 <h2><span class="header-section-number">15.4</span> Lei das Esperanças Iteradas<a href="#lei-das-esperan%C3%A7as-iteradas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Teorema: Lei simples das Esperanças Iteradas
 Se <span class="math inline">\(\mathbb{E}[Y] &lt; \infty\)</span> então para qualquer vetor de variáveis aleatórias <span class="math inline">\(X\)</span>, <span class="math inline">\(\mathbb{E}[\mathbb{E}[Y|X]] = \mathbb{E}[Y]\)</span>.</p>
-<p>Prova: Para <span class="math inline">\(X\)</span> discreto:
-Como a esperença condicional é uma função de <span class="math inline">\(X\)</span> apenas, a espereança é calculada somando apenas com respeito a <span class="math inline">\(X\)</span>.</p>
+<p>Prova: Para <span class="math inline">\(X\)</span> discreto:</p>
+<p>Como a esperença condicional é uma função de <span class="math inline">\(X\)</span> apenas, a esperança é calculada somando apenas com respeito a <span class="math inline">\(X\)</span>.</p>
 <p><span class="math display">\[\begin{align*}
 1.\mathbb{E}[\mathbb{E}[Y|X]] &amp;= \sum_{j=1}^{\infty}\mathbb{E}[Y|X=x_j]P[X=x_j] \\
 2. &amp;= \sum_{j=1}^{\infty}\left(\sum_{i=1}^{\infty} y_i P[Y=y_i|X=x_j]\right)P[X=x_j] \\

@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-08-12" />
+<meta name="date" content="2025-08-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -391,11 +391,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="regressao-multipla" class="section level1 hasAnchor" number="12">
 <h1><span class="header-section-number">Capítulo 12</span> - Regressao Multipla<a href="regressao-multipla.html#regressao-multipla" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="regressao-multipla.html#cb234-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb234-2"><a href="regressao-multipla.html#cb234-2" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb234-3"><a href="regressao-multipla.html#cb234-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb234-4"><a href="regressao-multipla.html#cb234-4" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb234-5"><a href="regressao-multipla.html#cb234-5" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="regressao-multipla.html#cb236-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb236-2"><a href="regressao-multipla.html#cb236-2" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb236-3"><a href="regressao-multipla.html#cb236-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb236-4"><a href="regressao-multipla.html#cb236-4" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb236-5"><a href="regressao-multipla.html#cb236-5" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div>
 <p>É muito raro que tenhamos apenas um preditor em um contexto de regressão. Talvez em um experimento de laboratório, e mesmo assim é difícil não ter outros preditores. De modo que tudo que vimos até agora é um caso particular raríssimo e pouco útil per se. Para generalizar as derivações e resultados para múltiplos preditores é conveniente utilizar álgebra linear. Basicamente, isso significa usar vetores e matrizes para representar a regressão. As derivações das fórmulas ficam bem fáceis, bem como as propriedades do modelo de regressão. Como não estamos pressupondo que vocês conheçam o básico de Álgebra Linear, iremos pular as derivações e apresentar apenas as intuições, esperando que o que vocês aprenderam com um preditor seja suficiente para entender com múltiplos preditores.</p>
 <div id="revisão-de-matriz-e-vetores" class="section level2 hasAnchor" number="12.1">
 <h2><span class="header-section-number">12.1</span> Revisão de Matriz e Vetores<a href="#revis%C3%A3o-de-matriz-e-vetores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -549,44 +549,44 @@ Veja que <span class="math inline">\(X&#39;Y\)</span> é um produto (com soma) e
 \]</span>
 Em um modelo sem interações, o efeito de cada variávei <span class="math inline">\(X_i\)</span> é a contribuição separada para a resposta esperada (média). Portanto, <span class="math inline">\(B_i\)</span> mede a contribuição de como <span class="math inline">\(\mathbb{E}[Y]\)</span> muda à medida que <span class="math inline">\(X_i\)</span> (e apenas <span class="math inline">\(X_i\)</span>) muda, para qualquer valor de <span class="math inline">\(X_i\)</span> (se a equação for linear nas variáveis) e para qualquer valor das demais variáveis (pressuposto de aditividade, sem interação, dos preditores).</p>
 <p>Vamos retomar nosso modelo de previsão eleitoral e rodar no R, agora adicionando múltipals variáveis.</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="regressao-multipla.html#cb235-1" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb235-2"><a href="regressao-multipla.html#cb235-2" tabindex="-1"></a></span>
-<span id="cb235-3"><a href="regressao-multipla.html#cb235-3" tabindex="-1"></a><span class="co"># lista o nome do arquivo em csv</span></span>
-<span id="cb235-4"><a href="regressao-multipla.html#cb235-4" tabindex="-1"></a><span class="co"># unzip(here(&quot;dados&quot;, &quot;votacao_secao_2018_BR.zip&quot;), list = TRUE)</span></span>
-<span id="cb235-5"><a href="regressao-multipla.html#cb235-5" tabindex="-1"></a></span>
-<span id="cb235-6"><a href="regressao-multipla.html#cb235-6" tabindex="-1"></a></span>
-<span id="cb235-7"><a href="regressao-multipla.html#cb235-7" tabindex="-1"></a><span class="co">#read data1.csv into data frame</span></span>
-<span id="cb235-8"><a href="regressao-multipla.html#cb235-8" tabindex="-1"></a>presid_18 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2018_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
-<span id="cb235-9"><a href="regressao-multipla.html#cb235-9" tabindex="-1"></a></span>
-<span id="cb235-10"><a href="regressao-multipla.html#cb235-10" tabindex="-1"></a><span class="co"># Supondo que seu dataframe seja chamado df</span></span>
-<span id="cb235-11"><a href="regressao-multipla.html#cb235-11" tabindex="-1"></a>df_resultados <span class="ot">&lt;-</span> presid_18 <span class="sc">%&gt;%</span></span>
-<span id="cb235-12"><a href="regressao-multipla.html#cb235-12" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb235-13"><a href="regressao-multipla.html#cb235-13" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) <span class="sc">%&gt;%</span></span>
-<span id="cb235-14"><a href="regressao-multipla.html#cb235-14" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_votos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
-<span id="cb235-15"><a href="regressao-multipla.html#cb235-15" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> total_votos, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb235-16"><a href="regressao-multipla.html#cb235-16" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb235-17"><a href="regressao-multipla.html#cb235-17" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb235-18"><a href="regressao-multipla.html#cb235-18" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(x1),</span>
-<span id="cb235-19"><a href="regressao-multipla.html#cb235-19" tabindex="-1"></a>         <span class="at">total_validos_2t =</span> <span class="fu">sum</span>(x2)) <span class="sc">%&gt;%</span></span>
-<span id="cb235-20"><a href="regressao-multipla.html#cb235-20" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(nr_votavel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>,<span class="dv">17</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb235-21"><a href="regressao-multipla.html#cb235-21" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_votavel) <span class="sc">%&gt;%</span></span>
-<span id="cb235-22"><a href="regressao-multipla.html#cb235-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentual_1t =</span> x1 <span class="sc">/</span>total_validos_1t,</span>
-<span id="cb235-23"><a href="regressao-multipla.html#cb235-23" tabindex="-1"></a>         <span class="at">percentual_2t =</span> x2 <span class="sc">/</span> total_validos_2t) <span class="sc">%&gt;%</span></span>
-<span id="cb235-24"><a href="regressao-multipla.html#cb235-24" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb235-25"><a href="regressao-multipla.html#cb235-25" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(x1, x2, total_validos_1t, total_validos_2t)) <span class="sc">%&gt;%</span></span>
-<span id="cb235-26"><a href="regressao-multipla.html#cb235-26" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> nr_votavel, </span>
-<span id="cb235-27"><a href="regressao-multipla.html#cb235-27" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(percentual_1t, percentual_2t))</span>
-<span id="cb235-28"><a href="regressao-multipla.html#cb235-28" tabindex="-1"></a></span>
-<span id="cb235-29"><a href="regressao-multipla.html#cb235-29" tabindex="-1"></a><span class="co"># remove</span></span>
-<span id="cb235-30"><a href="regressao-multipla.html#cb235-30" tabindex="-1"></a><span class="co"># rm(presid_18)</span></span>
-<span id="cb235-31"><a href="regressao-multipla.html#cb235-31" tabindex="-1"></a></span>
-<span id="cb235-32"><a href="regressao-multipla.html#cb235-32" tabindex="-1"></a>df_resultados <span class="sc">%&gt;%</span></span>
-<span id="cb235-33"><a href="regressao-multipla.html#cb235-33" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>percentual_1t_17, <span class="at">y=</span>percentual_2t_17)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>sg_uf) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F, <span class="at">linewidth =</span> .<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="regressao-multipla.html#cb237-1" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb237-2"><a href="regressao-multipla.html#cb237-2" tabindex="-1"></a></span>
+<span id="cb237-3"><a href="regressao-multipla.html#cb237-3" tabindex="-1"></a><span class="co"># lista o nome do arquivo em csv</span></span>
+<span id="cb237-4"><a href="regressao-multipla.html#cb237-4" tabindex="-1"></a><span class="co"># unzip(here(&quot;dados&quot;, &quot;votacao_secao_2018_BR.zip&quot;), list = TRUE)</span></span>
+<span id="cb237-5"><a href="regressao-multipla.html#cb237-5" tabindex="-1"></a></span>
+<span id="cb237-6"><a href="regressao-multipla.html#cb237-6" tabindex="-1"></a></span>
+<span id="cb237-7"><a href="regressao-multipla.html#cb237-7" tabindex="-1"></a><span class="co">#read data1.csv into data frame</span></span>
+<span id="cb237-8"><a href="regressao-multipla.html#cb237-8" tabindex="-1"></a>presid_18 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2018_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
+<span id="cb237-9"><a href="regressao-multipla.html#cb237-9" tabindex="-1"></a></span>
+<span id="cb237-10"><a href="regressao-multipla.html#cb237-10" tabindex="-1"></a><span class="co"># Supondo que seu dataframe seja chamado df</span></span>
+<span id="cb237-11"><a href="regressao-multipla.html#cb237-11" tabindex="-1"></a>df_resultados <span class="ot">&lt;-</span> presid_18 <span class="sc">%&gt;%</span></span>
+<span id="cb237-12"><a href="regressao-multipla.html#cb237-12" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb237-13"><a href="regressao-multipla.html#cb237-13" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) <span class="sc">%&gt;%</span></span>
+<span id="cb237-14"><a href="regressao-multipla.html#cb237-14" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_votos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
+<span id="cb237-15"><a href="regressao-multipla.html#cb237-15" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> total_votos, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb237-16"><a href="regressao-multipla.html#cb237-16" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb237-17"><a href="regressao-multipla.html#cb237-17" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb237-18"><a href="regressao-multipla.html#cb237-18" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(x1),</span>
+<span id="cb237-19"><a href="regressao-multipla.html#cb237-19" tabindex="-1"></a>         <span class="at">total_validos_2t =</span> <span class="fu">sum</span>(x2)) <span class="sc">%&gt;%</span></span>
+<span id="cb237-20"><a href="regressao-multipla.html#cb237-20" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(nr_votavel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>,<span class="dv">17</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb237-21"><a href="regressao-multipla.html#cb237-21" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_votavel) <span class="sc">%&gt;%</span></span>
+<span id="cb237-22"><a href="regressao-multipla.html#cb237-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentual_1t =</span> x1 <span class="sc">/</span>total_validos_1t,</span>
+<span id="cb237-23"><a href="regressao-multipla.html#cb237-23" tabindex="-1"></a>         <span class="at">percentual_2t =</span> x2 <span class="sc">/</span> total_validos_2t) <span class="sc">%&gt;%</span></span>
+<span id="cb237-24"><a href="regressao-multipla.html#cb237-24" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb237-25"><a href="regressao-multipla.html#cb237-25" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(x1, x2, total_validos_1t, total_validos_2t)) <span class="sc">%&gt;%</span></span>
+<span id="cb237-26"><a href="regressao-multipla.html#cb237-26" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> nr_votavel, </span>
+<span id="cb237-27"><a href="regressao-multipla.html#cb237-27" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(percentual_1t, percentual_2t))</span>
+<span id="cb237-28"><a href="regressao-multipla.html#cb237-28" tabindex="-1"></a></span>
+<span id="cb237-29"><a href="regressao-multipla.html#cb237-29" tabindex="-1"></a><span class="co"># remove</span></span>
+<span id="cb237-30"><a href="regressao-multipla.html#cb237-30" tabindex="-1"></a><span class="co"># rm(presid_18)</span></span>
+<span id="cb237-31"><a href="regressao-multipla.html#cb237-31" tabindex="-1"></a></span>
+<span id="cb237-32"><a href="regressao-multipla.html#cb237-32" tabindex="-1"></a>df_resultados <span class="sc">%&gt;%</span></span>
+<span id="cb237-33"><a href="regressao-multipla.html#cb237-33" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>percentual_1t_17, <span class="at">y=</span>percentual_2t_17)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>sg_uf) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F, <span class="at">linewidth =</span> .<span class="dv">5</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/dados-18%2012-1.png" width="672" /></p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="regressao-multipla.html#cb236-1" tabindex="-1"></a><span class="co"># modelo de regressão</span></span>
-<span id="cb236-2"><a href="regressao-multipla.html#cb236-2" tabindex="-1"></a></span>
-<span id="cb236-3"><a href="regressao-multipla.html#cb236-3" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(percentual_2t_17 <span class="sc">~</span> percentual_1t_17 <span class="sc">+</span> percentual_1t_13 <span class="sc">+</span> sg_uf, <span class="at">data =</span> df_resultados)</span>
-<span id="cb236-4"><a href="regressao-multipla.html#cb236-4" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="regressao-multipla.html#cb238-1" tabindex="-1"></a><span class="co"># modelo de regressão</span></span>
+<span id="cb238-2"><a href="regressao-multipla.html#cb238-2" tabindex="-1"></a></span>
+<span id="cb238-3"><a href="regressao-multipla.html#cb238-3" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(percentual_2t_17 <span class="sc">~</span> percentual_1t_17 <span class="sc">+</span> percentual_1t_13 <span class="sc">+</span> sg_uf, <span class="at">data =</span> df_resultados)</span>
+<span id="cb238-4"><a href="regressao-multipla.html#cb238-4" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = percentual_2t_17 ~ percentual_1t_17 + percentual_1t_13 + 
@@ -635,7 +635,7 @@ Em um modelo sem interações, o efeito de cada variávei <span class="math inli
 ##   (1 observation deleted due to missingness)
 ## Multiple R-squared:  0.9918, Adjusted R-squared:  0.9918 
 ## F-statistic: 2.588e+04 on 29 and 6209 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="regressao-multipla.html#cb238-1" tabindex="-1"></a><span class="co"># AC é a categoria de referência</span></span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="regressao-multipla.html#cb240-1" tabindex="-1"></a><span class="co"># AC é a categoria de referência</span></span></code></pre></div>
 <p>A interpretação das variáveis, portanto, é a seguinte:</p>
 <ol style="list-style-type: decimal">
 <li><p>O intercepto mede o percentual médio no segundo turno quando todas as variáveis são zero. Ou seja, Haddad e Bolsonaro tiveram 0 pontos percentuais (não existe caso assim!) e a UF é o Acre, que é a categoria de referência.</p></li>
@@ -728,19 +728,19 @@ E essa equação, escrita desse formato, é chamada de equação sanduíche, poi
 Ou seja, a carne <span class="math inline">\(X&#39;\Omega X\)</span> vai no meio de duas fatias de pão <span class="math inline">\((X&#39;X)^{-1}X&#39;\)</span>.</p>
 <p>Eu suponho que isso seja engraçado de alguma forma (ou talvez fosse uma forma menmômica de memorizar a equação). Mas o fato é que o termo sanduíche pegou de tal forma que nosso erro padrão robusto envolve trocar a “carne”.</p>
 <p>Veja que definimos <span class="math inline">\(\Omega = \sigma^2I\)</span>. E <span class="math inline">\(\sigma^2I\)</span> pressupõe que temos homecedasticidade, já que a variância do erro é constante. Temos portanto de modificar a “carne” para calcular o erro padrão-robusto. Vamos fazer isso manualmente, primeiro calculando o erro padrão tradicional, e depois o que seria um erro padrão robusto.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="regressao-multipla.html#cb239-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb239-2"><a href="regressao-multipla.html#cb239-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb239-3"><a href="regressao-multipla.html#cb239-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb239-4"><a href="regressao-multipla.html#cb239-4" tabindex="-1"></a></span>
-<span id="cb239-5"><a href="regressao-multipla.html#cb239-5" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">15</span>)</span>
-<span id="cb239-6"><a href="regressao-multipla.html#cb239-6" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">8</span>,<span class="at">sd =</span> <span class="fl">1.5</span>), <span class="dv">40</span>, <span class="dv">65</span>)</span>
-<span id="cb239-7"><a href="regressao-multipla.html#cb239-7" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
-<span id="cb239-8"><a href="regressao-multipla.html#cb239-8" tabindex="-1"></a></span>
-<span id="cb239-9"><a href="regressao-multipla.html#cb239-9" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb239-10"><a href="regressao-multipla.html#cb239-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="regressao-multipla.html#cb241-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb241-2"><a href="regressao-multipla.html#cb241-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb241-3"><a href="regressao-multipla.html#cb241-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb241-4"><a href="regressao-multipla.html#cb241-4" tabindex="-1"></a></span>
+<span id="cb241-5"><a href="regressao-multipla.html#cb241-5" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">15</span>)</span>
+<span id="cb241-6"><a href="regressao-multipla.html#cb241-6" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">8</span>,<span class="at">sd =</span> <span class="fl">1.5</span>), <span class="dv">40</span>, <span class="dv">65</span>)</span>
+<span id="cb241-7"><a href="regressao-multipla.html#cb241-7" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
+<span id="cb241-8"><a href="regressao-multipla.html#cb241-8" tabindex="-1"></a></span>
+<span id="cb241-9"><a href="regressao-multipla.html#cb241-9" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb241-10"><a href="regressao-multipla.html#cb241-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap12-se-robusto%20toy-1.png" width="672" /></p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="regressao-multipla.html#cb240-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span>x)</span>
-<span id="cb240-2"><a href="regressao-multipla.html#cb240-2" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="regressao-multipla.html#cb242-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span>x)</span>
+<span id="cb242-2"><a href="regressao-multipla.html#cb242-2" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x)
@@ -760,19 +760,19 @@ Ou seja, a carne <span class="math inline">\(X&#39;\Omega X\)</span> vai no meio
 ## Multiple R-squared:  0.7261, Adjusted R-squared:  0.6918 
 ## F-statistic:  21.2 on 1 and 8 DF,  p-value: 0.001745</code></pre>
 <p>Nós construímos um “toy model” em que não existe relação entre <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span>. Porém, por causa de dois “outliers” o R achou que existia associação entre as variáveis. Como o R calcula o erro padrão? Nossa fórmula requer <span class="math inline">\(\sigma^2\)</span>, <span class="math inline">\(I\)</span> e a matriz de preditores <span class="math inline">\(X\)</span>, que depois vou transpor, calcular inversa etc. No R, podemos computar cada um desses itens manualmente da seguinte forma.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="regressao-multipla.html#cb242-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
-<span id="cb242-2"><a href="regressao-multipla.html#cb242-2" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> <span class="fu">sigma</span>(fit)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb242-3"><a href="regressao-multipla.html#cb242-3" tabindex="-1"></a>mat_I <span class="ot">&lt;-</span> <span class="fu">diag</span>(n)</span>
-<span id="cb242-4"><a href="regressao-multipla.html#cb242-4" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit)</span></code></pre></div>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="regressao-multipla.html#cb243-1" tabindex="-1"></a>omega <span class="ot">&lt;-</span> sigma2<span class="sc">*</span>mat_I</span>
-<span id="cb243-2"><a href="regressao-multipla.html#cb243-2" tabindex="-1"></a>bread <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)</span>
-<span id="cb243-3"><a href="regressao-multipla.html#cb243-3" tabindex="-1"></a>meat <span class="ot">&lt;-</span> (<span class="fu">t</span>(X) <span class="sc">%*%</span> omega <span class="sc">%*%</span> X)</span>
-<span id="cb243-4"><a href="regressao-multipla.html#cb243-4" tabindex="-1"></a>vce <span class="ot">&lt;-</span> bread <span class="sc">%*%</span> meat <span class="sc">%*%</span> bread</span>
-<span id="cb243-5"><a href="regressao-multipla.html#cb243-5" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(vce))</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="regressao-multipla.html#cb244-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
+<span id="cb244-2"><a href="regressao-multipla.html#cb244-2" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> <span class="fu">sigma</span>(fit)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb244-3"><a href="regressao-multipla.html#cb244-3" tabindex="-1"></a>mat_I <span class="ot">&lt;-</span> <span class="fu">diag</span>(n)</span>
+<span id="cb244-4"><a href="regressao-multipla.html#cb244-4" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="regressao-multipla.html#cb245-1" tabindex="-1"></a>omega <span class="ot">&lt;-</span> sigma2<span class="sc">*</span>mat_I</span>
+<span id="cb245-2"><a href="regressao-multipla.html#cb245-2" tabindex="-1"></a>bread <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)</span>
+<span id="cb245-3"><a href="regressao-multipla.html#cb245-3" tabindex="-1"></a>meat <span class="ot">&lt;-</span> (<span class="fu">t</span>(X) <span class="sc">%*%</span> omega <span class="sc">%*%</span> X)</span>
+<span id="cb245-4"><a href="regressao-multipla.html#cb245-4" tabindex="-1"></a>vce <span class="ot">&lt;-</span> bread <span class="sc">%*%</span> meat <span class="sc">%*%</span> bread</span>
+<span id="cb245-5"><a href="regressao-multipla.html#cb245-5" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(vce))</span></code></pre></div>
 <pre><code>## (Intercept)           x 
 ##   6.6974057   0.9208285</code></pre>
 <p>Se inspecionarmos omega mais detalhadamente, temos:</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="regressao-multipla.html#cb245-1" tabindex="-1"></a><span class="fu">print</span>(omega)</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="regressao-multipla.html#cb247-1" tabindex="-1"></a><span class="fu">print</span>(omega)</span></code></pre></div>
 <pre><code>##           [,1]     [,2]     [,3]     [,4]     [,5]     [,6]     [,7]     [,8]     [,9]    [,10]
 ##  [1,] 133.0395   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
 ##  [2,]   0.0000 133.0395   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
@@ -791,12 +791,12 @@ Em nosso “toy model”, contudo, não faz sentido assumir que a variância é 
 \frac{n}{n-k}\hat{e}^2
 \]</span>
 em que <span class="math inline">\(\hat{e}^2\)</span> é o quadrado dos resíduos e <span class="math inline">\(k\)</span> o número de parâmetros. Em nosso modelo simples, <span class="math inline">\(k=2\)</span>. E substituirmos a variância constante por essa fórmula em nossa “carne”, temos:</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="regressao-multipla.html#cb247-1" tabindex="-1"></a>sigma2_hc1 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>(n<span class="sc">/</span>(n<span class="dv">-2</span>))</span>
-<span id="cb247-2"><a href="regressao-multipla.html#cb247-2" tabindex="-1"></a>omega <span class="ot">&lt;-</span> sigma2_hc1<span class="sc">*</span>mat_I</span>
-<span id="cb247-3"><a href="regressao-multipla.html#cb247-3" tabindex="-1"></a>bread <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)</span>
-<span id="cb247-4"><a href="regressao-multipla.html#cb247-4" tabindex="-1"></a>meat <span class="ot">&lt;-</span> (<span class="fu">t</span>(X) <span class="sc">%*%</span> omega <span class="sc">%*%</span> X)</span>
-<span id="cb247-5"><a href="regressao-multipla.html#cb247-5" tabindex="-1"></a>vce <span class="ot">&lt;-</span> bread <span class="sc">%*%</span> meat <span class="sc">%*%</span> bread</span>
-<span id="cb247-6"><a href="regressao-multipla.html#cb247-6" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(vce))</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="regressao-multipla.html#cb249-1" tabindex="-1"></a>sigma2_hc1 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit)<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>(n<span class="sc">/</span>(n<span class="dv">-2</span>))</span>
+<span id="cb249-2"><a href="regressao-multipla.html#cb249-2" tabindex="-1"></a>omega <span class="ot">&lt;-</span> sigma2_hc1<span class="sc">*</span>mat_I</span>
+<span id="cb249-3"><a href="regressao-multipla.html#cb249-3" tabindex="-1"></a>bread <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)</span>
+<span id="cb249-4"><a href="regressao-multipla.html#cb249-4" tabindex="-1"></a>meat <span class="ot">&lt;-</span> (<span class="fu">t</span>(X) <span class="sc">%*%</span> omega <span class="sc">%*%</span> X)</span>
+<span id="cb249-5"><a href="regressao-multipla.html#cb249-5" tabindex="-1"></a>vce <span class="ot">&lt;-</span> bread <span class="sc">%*%</span> meat <span class="sc">%*%</span> bread</span>
+<span id="cb249-6"><a href="regressao-multipla.html#cb249-6" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(vce))</span></code></pre></div>
 <pre><code>## (Intercept)           x 
 ##    5.863432    0.992626</code></pre>
 <p>Vemos que o erro-padrão robusto é maior que o anterior, mas a associação ainda é significativa. O erro padrão robusto do pacote do R “sandwich” usa o “HC3”, que possui outra fórmula, e tem desempenho melhor em amostras pequenas. Sua fórmula é:</p>
@@ -804,18 +804,18 @@ em que <span class="math inline">\(\hat{e}^2\)</span> é o quadrado dos resíduo
 \frac{\hat{e}^2}{(1-h_i)^2}
 \]</span>
 Aqui, <span class="math inline">\(h_i\)</span> são os valores chapéus da matriz chapéu, <span class="math inline">\(H\)</span>, que vimos antes. Os valores chpéus variam entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span> e quanto maior o número, mais influente a observação. Então, sabemos que nossos dois últimos números terão valores chapéu maiores, ou seja, vão inflar a variância para esses dois valores. No R, podemos calcular os valores chapéus com a função “hatvalues”.</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="regressao-multipla.html#cb249-1" tabindex="-1"></a>sigma2_hc3 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">hatvalues</span>(fit))<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb249-2"><a href="regressao-multipla.html#cb249-2" tabindex="-1"></a>omega <span class="ot">&lt;-</span> sigma2_hc3<span class="sc">*</span>mat_I</span>
-<span id="cb249-3"><a href="regressao-multipla.html#cb249-3" tabindex="-1"></a>bread <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)</span>
-<span id="cb249-4"><a href="regressao-multipla.html#cb249-4" tabindex="-1"></a>meat <span class="ot">&lt;-</span> (<span class="fu">t</span>(X) <span class="sc">%*%</span> omega <span class="sc">%*%</span> X)</span>
-<span id="cb249-5"><a href="regressao-multipla.html#cb249-5" tabindex="-1"></a>vce <span class="ot">&lt;-</span> bread <span class="sc">%*%</span> meat <span class="sc">%*%</span> bread</span>
-<span id="cb249-6"><a href="regressao-multipla.html#cb249-6" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(vce))</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="regressao-multipla.html#cb251-1" tabindex="-1"></a>sigma2_hc3 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">hatvalues</span>(fit))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb251-2"><a href="regressao-multipla.html#cb251-2" tabindex="-1"></a>omega <span class="ot">&lt;-</span> sigma2_hc3<span class="sc">*</span>mat_I</span>
+<span id="cb251-3"><a href="regressao-multipla.html#cb251-3" tabindex="-1"></a>bread <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)</span>
+<span id="cb251-4"><a href="regressao-multipla.html#cb251-4" tabindex="-1"></a>meat <span class="ot">&lt;-</span> (<span class="fu">t</span>(X) <span class="sc">%*%</span> omega <span class="sc">%*%</span> X)</span>
+<span id="cb251-5"><a href="regressao-multipla.html#cb251-5" tabindex="-1"></a>vce <span class="ot">&lt;-</span> bread <span class="sc">%*%</span> meat <span class="sc">%*%</span> bread</span>
+<span id="cb251-6"><a href="regressao-multipla.html#cb251-6" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(vce))</span></code></pre></div>
 <pre><code>## (Intercept)           x 
 ##    9.541330    1.917635</code></pre>
 <p>E posso calcular o intervalo de confiança com o novo erro padrão. Obviamente, não iremos fazer na “mão” esse cálculo todo. Vamos usar os pacotes “sandwich” e “lmtest” para fazer o teste de hipótese com erro padrão robusto.</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="regressao-multipla.html#cb251-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb251-2"><a href="regressao-multipla.html#cb251-2" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
-<span id="cb251-3"><a href="regressao-multipla.html#cb251-3" tabindex="-1"></a><span class="fu">coeftest</span>(fit, <span class="fu">vcovHC</span>(fit, <span class="st">&quot;HC3&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="regressao-multipla.html#cb253-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb253-2"><a href="regressao-multipla.html#cb253-2" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb253-3"><a href="regressao-multipla.html#cb253-3" tabindex="-1"></a><span class="fu">coeftest</span>(fit, <span class="fu">vcovHC</span>(fit, <span class="st">&quot;HC3&quot;</span>))</span></code></pre></div>
 <pre><code>## 
 ## t test of coefficients:
 ## 
@@ -826,21 +826,21 @@ Aqui, <span class="math inline">\(h_i\)</span> são os valores chapéus da matri
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Vemos, portanto, que nosso erro padrão é robusto a observações muito influentes que são “outliers”. Uma forma de verificar se temos esse problema é ver se temos resíduos grandes e observações muito influentes (valores chapéu altos). Um comando básico do R permite inspecionar visualmente se é o caso. Pontos nos cantos direitos superiores ou inferiores indica observações exibindo influência em nosso modelo.</p>
 <p>Resíduos grandes (ou variância não constante) pode decorrer de um modelo mal-especificado (preditor ausente, ausência de interação, efeitos não lineares etc.).</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="regressao-multipla.html#cb253-1" tabindex="-1"></a><span class="fu">plot</span>(fit, <span class="at">which =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="regressao-multipla.html#cb255-1" tabindex="-1"></a><span class="fu">plot</span>(fit, <span class="at">which =</span> <span class="dv">5</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/high-leverage-1.png" width="672" /></p>
 <p>Como mencionado, há vários tipos de erros padrão robustos, “HC0”, “HC1”, “HC2”, “HC3”, entre outros. Vamos falar rapidamente sobre cada uma deles. Antes disso, vamos comparar para nossa regressão como o erro padrão muda para cada um desses tipos.</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="regressao-multipla.html#cb254-1" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
-<span id="cb254-2"><a href="regressao-multipla.html#cb254-2" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
-<span id="cb254-3"><a href="regressao-multipla.html#cb254-3" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb254-4"><a href="regressao-multipla.html#cb254-4" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC0&quot;</span>))</span>
-<span id="cb254-5"><a href="regressao-multipla.html#cb254-5" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span>
-<span id="cb254-6"><a href="regressao-multipla.html#cb254-6" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC2&quot;</span>))</span>
-<span id="cb254-7"><a href="regressao-multipla.html#cb254-7" tabindex="-1"></a>m5 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC3&quot;</span>))</span>
-<span id="cb254-8"><a href="regressao-multipla.html#cb254-8" tabindex="-1"></a><span class="fu">stargazer</span>(reg1, </span>
-<span id="cb254-9"><a href="regressao-multipla.html#cb254-9" tabindex="-1"></a>          m2,</span>
-<span id="cb254-10"><a href="regressao-multipla.html#cb254-10" tabindex="-1"></a>          m3,</span>
-<span id="cb254-11"><a href="regressao-multipla.html#cb254-11" tabindex="-1"></a>          m4,</span>
-<span id="cb254-12"><a href="regressao-multipla.html#cb254-12" tabindex="-1"></a>          m5, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="regressao-multipla.html#cb256-1" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb256-2"><a href="regressao-multipla.html#cb256-2" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb256-3"><a href="regressao-multipla.html#cb256-3" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb256-4"><a href="regressao-multipla.html#cb256-4" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC0&quot;</span>))</span>
+<span id="cb256-5"><a href="regressao-multipla.html#cb256-5" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span>
+<span id="cb256-6"><a href="regressao-multipla.html#cb256-6" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC2&quot;</span>))</span>
+<span id="cb256-7"><a href="regressao-multipla.html#cb256-7" tabindex="-1"></a>m5 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(reg1, <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&quot;HC3&quot;</span>))</span>
+<span id="cb256-8"><a href="regressao-multipla.html#cb256-8" tabindex="-1"></a><span class="fu">stargazer</span>(reg1, </span>
+<span id="cb256-9"><a href="regressao-multipla.html#cb256-9" tabindex="-1"></a>          m2,</span>
+<span id="cb256-10"><a href="regressao-multipla.html#cb256-10" tabindex="-1"></a>          m3,</span>
+<span id="cb256-11"><a href="regressao-multipla.html#cb256-11" tabindex="-1"></a>          m4,</span>
+<span id="cb256-12"><a href="regressao-multipla.html#cb256-12" tabindex="-1"></a>          m5, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="6" style="border-bottom: 1px solid black">
@@ -2598,10 +2598,10 @@ F Statistic
 </td>
 </tr>
 </table>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="regressao-multipla.html#cb255-1" tabindex="-1"></a><span class="co"># conf int</span></span>
-<span id="cb255-2"><a href="regressao-multipla.html#cb255-2" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb255-3"><a href="regressao-multipla.html#cb255-3" tabindex="-1"></a><span class="fu">coefci</span>(reg1, <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&#39;HC1&#39;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb255-4"><a href="regressao-multipla.html#cb255-4" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="regressao-multipla.html#cb257-1" tabindex="-1"></a><span class="co"># conf int</span></span>
+<span id="cb257-2"><a href="regressao-multipla.html#cb257-2" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb257-3"><a href="regressao-multipla.html#cb257-3" tabindex="-1"></a><span class="fu">coefci</span>(reg1, <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(reg1, <span class="at">type =</span> <span class="st">&#39;HC1&#39;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb257-4"><a href="regressao-multipla.html#cb257-4" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
 ## Use &#39;xfun::attr2()&#39; instead.
 ## See help(&quot;Deprecated&quot;)</code></pre>
@@ -2772,32 +2772,40 @@ F Statistic
 <div id="entendendo-o-erro-padrão-robusto" class="section level3 hasAnchor" number="12.8.1">
 <h3><span class="header-section-number">12.8.1</span> Entendendo o erro padrão robusto<a href="#entendendo-o-erro-padr%C3%A3o-robusto" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Vamos fazer uma simulação no R para entender os vários tipos de erro padrão robusto. Vamos criar um modelo com heterocedasticidade.</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="regressao-multipla.html#cb258-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
-<span id="cb258-2"><a href="regressao-multipla.html#cb258-2" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, x<span class="sc">^</span><span class="dv">2</span>) <span class="co"># o DP do erro é igual a .5*x^2</span></span>
-<span id="cb258-3"><a href="regressao-multipla.html#cb258-3" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb258-4"><a href="regressao-multipla.html#cb258-4" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span></span>
-<span id="cb258-5"><a href="regressao-multipla.html#cb258-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> a <span class="sc">+</span> b<span class="sc">*</span>x <span class="sc">+</span> e</span>
-<span id="cb258-6"><a href="regressao-multipla.html#cb258-6" tabindex="-1"></a></span>
-<span id="cb258-7"><a href="regressao-multipla.html#cb258-7" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
-<span id="cb258-8"><a href="regressao-multipla.html#cb258-8" tabindex="-1"></a></span>
-<span id="cb258-9"><a href="regressao-multipla.html#cb258-9" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb258-10"><a href="regressao-multipla.html#cb258-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="regressao-multipla.html#cb260-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb260-2"><a href="regressao-multipla.html#cb260-2" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, x<span class="sc">^</span><span class="dv">2</span>) <span class="co"># o DP do erro é igual a .5*x^2</span></span>
+<span id="cb260-3"><a href="regressao-multipla.html#cb260-3" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb260-4"><a href="regressao-multipla.html#cb260-4" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span></span>
+<span id="cb260-5"><a href="regressao-multipla.html#cb260-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> a <span class="sc">+</span> b<span class="sc">*</span>x <span class="sc">+</span> e</span>
+<span id="cb260-6"><a href="regressao-multipla.html#cb260-6" tabindex="-1"></a></span>
+<span id="cb260-7"><a href="regressao-multipla.html#cb260-7" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
+<span id="cb260-8"><a href="regressao-multipla.html#cb260-8" tabindex="-1"></a></span>
+<span id="cb260-9"><a href="regressao-multipla.html#cb260-9" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb260-10"><a href="regressao-multipla.html#cb260-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="bookdownproj_files/figure-html/robust-se-sim-1.png" width="672" /></p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="regressao-multipla.html#cb260-1" tabindex="-1"></a>m_sim <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>df)</span>
-<span id="cb260-2"><a href="regressao-multipla.html#cb260-2" tabindex="-1"></a><span class="co"># plots de checagem do modelo</span></span>
-<span id="cb260-3"><a href="regressao-multipla.html#cb260-3" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
-<span id="cb260-4"><a href="regressao-multipla.html#cb260-4" tabindex="-1"></a><span class="fu">check_model</span>(m_sim)</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="regressao-multipla.html#cb262-1" tabindex="-1"></a>m_sim <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>df)</span>
+<span id="cb262-2"><a href="regressao-multipla.html#cb262-2" tabindex="-1"></a><span class="co"># plots de checagem do modelo</span></span>
+<span id="cb262-3"><a href="regressao-multipla.html#cb262-3" tabindex="-1"></a><span class="fu">library</span>(easystats)</span></code></pre></div>
+<pre><code>## # Attaching packages: easystats 0.7.4 (red = needs update)
+## ✖ bayestestR  0.16.0   ✖ correlation 0.8.7 
+## ✖ datawizard  1.1.0    ✖ effectsize  1.0.0 
+## ✖ insight     1.3.0    ✖ modelbased  0.11.2
+## ✖ performance 0.13.0   ✖ parameters  0.26.0
+## ✔ report      0.6.1    ✔ see         0.11.0
+## 
+## Restart the R-Session and update packages with `easystats::easystats_update()`.</code></pre>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="regressao-multipla.html#cb264-1" tabindex="-1"></a><span class="fu">check_model</span>(m_sim)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/robust-se-sim-2.png" width="672" /></p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="regressao-multipla.html#cb261-1" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC0&quot;</span>))</span>
-<span id="cb261-2"><a href="regressao-multipla.html#cb261-2" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span>
-<span id="cb261-3"><a href="regressao-multipla.html#cb261-3" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC2&quot;</span>))</span>
-<span id="cb261-4"><a href="regressao-multipla.html#cb261-4" tabindex="-1"></a>f5 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC3&quot;</span>))</span>
-<span id="cb261-5"><a href="regressao-multipla.html#cb261-5" tabindex="-1"></a><span class="fu">stargazer</span>(m_sim, </span>
-<span id="cb261-6"><a href="regressao-multipla.html#cb261-6" tabindex="-1"></a>          f2,</span>
-<span id="cb261-7"><a href="regressao-multipla.html#cb261-7" tabindex="-1"></a>          f3,</span>
-<span id="cb261-8"><a href="regressao-multipla.html#cb261-8" tabindex="-1"></a>          f4,</span>
-<span id="cb261-9"><a href="regressao-multipla.html#cb261-9" tabindex="-1"></a>          f5, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="regressao-multipla.html#cb265-1" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC0&quot;</span>))</span>
+<span id="cb265-2"><a href="regressao-multipla.html#cb265-2" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span>
+<span id="cb265-3"><a href="regressao-multipla.html#cb265-3" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC2&quot;</span>))</span>
+<span id="cb265-4"><a href="regressao-multipla.html#cb265-4" tabindex="-1"></a>f5 <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(m_sim, <span class="fu">vcovHC</span>(m_sim, <span class="at">type =</span> <span class="st">&quot;HC3&quot;</span>))</span>
+<span id="cb265-5"><a href="regressao-multipla.html#cb265-5" tabindex="-1"></a><span class="fu">stargazer</span>(m_sim, </span>
+<span id="cb265-6"><a href="regressao-multipla.html#cb265-6" tabindex="-1"></a>          f2,</span>
+<span id="cb265-7"><a href="regressao-multipla.html#cb265-7" tabindex="-1"></a>          f3,</span>
+<span id="cb265-8"><a href="regressao-multipla.html#cb265-8" tabindex="-1"></a>          f4,</span>
+<span id="cb265-9"><a href="regressao-multipla.html#cb265-9" tabindex="-1"></a>          f5, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="6" style="border-bottom: 1px solid black">
@@ -3071,57 +3079,57 @@ F Statistic
 </td>
 </tr>
 </table>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="regressao-multipla.html#cb262-1" tabindex="-1"></a><span class="co"># dados de 2022</span></span>
-<span id="cb262-2"><a href="regressao-multipla.html#cb262-2" tabindex="-1"></a></span>
-<span id="cb262-3"><a href="regressao-multipla.html#cb262-3" tabindex="-1"></a><span class="co">#read  into data frame</span></span>
-<span id="cb262-4"><a href="regressao-multipla.html#cb262-4" tabindex="-1"></a>presid_22 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2022_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
-<span id="cb262-5"><a href="regressao-multipla.html#cb262-5" tabindex="-1"></a></span>
-<span id="cb262-6"><a href="regressao-multipla.html#cb262-6" tabindex="-1"></a>df_resultados_22_aux <span class="ot">&lt;-</span> presid_22 <span class="sc">%&gt;%</span></span>
-<span id="cb262-7"><a href="regressao-multipla.html#cb262-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb262-8"><a href="regressao-multipla.html#cb262-8" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) <span class="sc">%&gt;%</span></span>
-<span id="cb262-9"><a href="regressao-multipla.html#cb262-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_votos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
-<span id="cb262-10"><a href="regressao-multipla.html#cb262-10" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> total_votos, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb262-11"><a href="regressao-multipla.html#cb262-11" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb262-12"><a href="regressao-multipla.html#cb262-12" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb262-13"><a href="regressao-multipla.html#cb262-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(x1),</span>
-<span id="cb262-14"><a href="regressao-multipla.html#cb262-14" tabindex="-1"></a>         <span class="at">total_validos_2t =</span> <span class="fu">sum</span>(x2)) <span class="sc">%&gt;%</span></span>
-<span id="cb262-15"><a href="regressao-multipla.html#cb262-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(nr_votavel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>,<span class="dv">22</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb262-16"><a href="regressao-multipla.html#cb262-16" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_votavel) <span class="sc">%&gt;%</span></span>
-<span id="cb262-17"><a href="regressao-multipla.html#cb262-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentual_1t =</span> x1<span class="sc">/</span>total_validos_1t,</span>
-<span id="cb262-18"><a href="regressao-multipla.html#cb262-18" tabindex="-1"></a>         <span class="at">percentual_2t =</span> x2<span class="sc">/</span>total_validos_2t) <span class="sc">%&gt;%</span></span>
-<span id="cb262-19"><a href="regressao-multipla.html#cb262-19" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb262-20"><a href="regressao-multipla.html#cb262-20" tabindex="-1"></a></span>
-<span id="cb262-21"><a href="regressao-multipla.html#cb262-21" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> df_resultados_22_aux<span class="sc">%&gt;%</span></span>
-<span id="cb262-22"><a href="regressao-multipla.html#cb262-22" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(x1, x2, total_validos_1t, total_validos_2t)) <span class="sc">%&gt;%</span></span>
-<span id="cb262-23"><a href="regressao-multipla.html#cb262-23" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> nr_votavel, </span>
-<span id="cb262-24"><a href="regressao-multipla.html#cb262-24" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(percentual_1t, percentual_2t)) <span class="sc">%&gt;%</span></span>
-<span id="cb262-25"><a href="regressao-multipla.html#cb262-25" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">percentual_1t_17 =</span> percentual_1t_22,</span>
-<span id="cb262-26"><a href="regressao-multipla.html#cb262-26" tabindex="-1"></a>         <span class="at">percentual_2t_17 =</span> percentual_2t_22)</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="regressao-multipla.html#cb266-1" tabindex="-1"></a><span class="co"># dados de 2022</span></span>
+<span id="cb266-2"><a href="regressao-multipla.html#cb266-2" tabindex="-1"></a></span>
+<span id="cb266-3"><a href="regressao-multipla.html#cb266-3" tabindex="-1"></a><span class="co">#read  into data frame</span></span>
+<span id="cb266-4"><a href="regressao-multipla.html#cb266-4" tabindex="-1"></a>presid_22 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2022_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
+<span id="cb266-5"><a href="regressao-multipla.html#cb266-5" tabindex="-1"></a></span>
+<span id="cb266-6"><a href="regressao-multipla.html#cb266-6" tabindex="-1"></a>df_resultados_22_aux <span class="ot">&lt;-</span> presid_22 <span class="sc">%&gt;%</span></span>
+<span id="cb266-7"><a href="regressao-multipla.html#cb266-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb266-8"><a href="regressao-multipla.html#cb266-8" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) <span class="sc">%&gt;%</span></span>
+<span id="cb266-9"><a href="regressao-multipla.html#cb266-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_votos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
+<span id="cb266-10"><a href="regressao-multipla.html#cb266-10" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> total_votos, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb266-11"><a href="regressao-multipla.html#cb266-11" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb266-12"><a href="regressao-multipla.html#cb266-12" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb266-13"><a href="regressao-multipla.html#cb266-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(x1),</span>
+<span id="cb266-14"><a href="regressao-multipla.html#cb266-14" tabindex="-1"></a>         <span class="at">total_validos_2t =</span> <span class="fu">sum</span>(x2)) <span class="sc">%&gt;%</span></span>
+<span id="cb266-15"><a href="regressao-multipla.html#cb266-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(nr_votavel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">13</span>,<span class="dv">22</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb266-16"><a href="regressao-multipla.html#cb266-16" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_votavel) <span class="sc">%&gt;%</span></span>
+<span id="cb266-17"><a href="regressao-multipla.html#cb266-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentual_1t =</span> x1<span class="sc">/</span>total_validos_1t,</span>
+<span id="cb266-18"><a href="regressao-multipla.html#cb266-18" tabindex="-1"></a>         <span class="at">percentual_2t =</span> x2<span class="sc">/</span>total_validos_2t) <span class="sc">%&gt;%</span></span>
+<span id="cb266-19"><a href="regressao-multipla.html#cb266-19" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb266-20"><a href="regressao-multipla.html#cb266-20" tabindex="-1"></a></span>
+<span id="cb266-21"><a href="regressao-multipla.html#cb266-21" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> df_resultados_22_aux<span class="sc">%&gt;%</span></span>
+<span id="cb266-22"><a href="regressao-multipla.html#cb266-22" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(x1, x2, total_validos_1t, total_validos_2t)) <span class="sc">%&gt;%</span></span>
+<span id="cb266-23"><a href="regressao-multipla.html#cb266-23" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> nr_votavel, </span>
+<span id="cb266-24"><a href="regressao-multipla.html#cb266-24" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(percentual_1t, percentual_2t)) <span class="sc">%&gt;%</span></span>
+<span id="cb266-25"><a href="regressao-multipla.html#cb266-25" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">percentual_1t_17 =</span> percentual_1t_22,</span>
+<span id="cb266-26"><a href="regressao-multipla.html#cb266-26" tabindex="-1"></a>         <span class="at">percentual_2t_17 =</span> percentual_2t_22)</span></code></pre></div>
 <p>Agora que importamos os dados de 22, podemos fazer nossa previsão, usando os resultados do primeiro turno.</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="regressao-multipla.html#cb263-1" tabindex="-1"></a>df_resultados_22_aux1 <span class="ot">&lt;-</span> df_resultados_22_aux <span class="sc">%&gt;%</span></span>
-<span id="cb263-2"><a href="regressao-multipla.html#cb263-2" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb263-3"><a href="regressao-multipla.html#cb263-3" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb263-4"><a href="regressao-multipla.html#cb263-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(total_validos_1t))</span>
-<span id="cb263-5"><a href="regressao-multipla.html#cb263-5" tabindex="-1"></a>  </span>
-<span id="cb263-6"><a href="regressao-multipla.html#cb263-6" tabindex="-1"></a><span class="co">#Previsão</span></span>
-<span id="cb263-7"><a href="regressao-multipla.html#cb263-7" tabindex="-1"></a>  </span>
-<span id="cb263-8"><a href="regressao-multipla.html#cb263-8" tabindex="-1"></a>previsoes <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg1, <span class="at">newdata =</span> df_resultados_22, <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>, <span class="at">level =</span> .<span class="dv">95</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb263-9"><a href="regressao-multipla.html#cb263-9" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
-<span id="cb263-10"><a href="regressao-multipla.html#cb263-10" tabindex="-1"></a></span>
-<span id="cb263-11"><a href="regressao-multipla.html#cb263-11" tabindex="-1"></a>df_resultados_22_final <span class="ot">&lt;-</span> df_resultados_22 <span class="sc">%&gt;%</span></span>
-<span id="cb263-12"><a href="regressao-multipla.html#cb263-12" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb263-13"><a href="regressao-multipla.html#cb263-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prev_perc =</span> previsoes<span class="sc">$</span>fit,</span>
-<span id="cb263-14"><a href="regressao-multipla.html#cb263-14" tabindex="-1"></a>         <span class="at">prev_perc_lower =</span> previsoes<span class="sc">$</span>lwr,</span>
-<span id="cb263-15"><a href="regressao-multipla.html#cb263-15" tabindex="-1"></a>         <span class="at">prev_perc_upper =</span> previsoes<span class="sc">$</span>upr,</span>
-<span id="cb263-16"><a href="regressao-multipla.html#cb263-16" tabindex="-1"></a>         <span class="at">validos_prev =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc,</span>
-<span id="cb263-17"><a href="regressao-multipla.html#cb263-17" tabindex="-1"></a>         <span class="at">validos_prev_lower =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc_lower,</span>
-<span id="cb263-18"><a href="regressao-multipla.html#cb263-18" tabindex="-1"></a>         <span class="at">validos_prev_upper =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc_upper)</span>
-<span id="cb263-19"><a href="regressao-multipla.html#cb263-19" tabindex="-1"></a></span>
-<span id="cb263-20"><a href="regressao-multipla.html#cb263-20" tabindex="-1"></a>tot_valido <span class="ot">&lt;-</span> <span class="fu">sum</span>(df_resultados_22_aux1<span class="sc">$</span>total_validos_1t)</span>
-<span id="cb263-21"><a href="regressao-multipla.html#cb263-21" tabindex="-1"></a>df_resultados_22_final <span class="sc">%&gt;%</span></span>
-<span id="cb263-22"><a href="regressao-multipla.html#cb263-22" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">perc_previsto =</span> <span class="fu">sum</span>(validos_prev,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido,</span>
-<span id="cb263-23"><a href="regressao-multipla.html#cb263-23" tabindex="-1"></a>            <span class="at">perc_previsto_lower =</span> <span class="fu">sum</span>(validos_prev_lower,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido,</span>
-<span id="cb263-24"><a href="regressao-multipla.html#cb263-24" tabindex="-1"></a>            <span class="at">perc_previsto_upper =</span> <span class="fu">sum</span>(validos_prev_upper,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido)</span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="regressao-multipla.html#cb267-1" tabindex="-1"></a>df_resultados_22_aux1 <span class="ot">&lt;-</span> df_resultados_22_aux <span class="sc">%&gt;%</span></span>
+<span id="cb267-2"><a href="regressao-multipla.html#cb267-2" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb267-3"><a href="regressao-multipla.html#cb267-3" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb267-4"><a href="regressao-multipla.html#cb267-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(total_validos_1t))</span>
+<span id="cb267-5"><a href="regressao-multipla.html#cb267-5" tabindex="-1"></a>  </span>
+<span id="cb267-6"><a href="regressao-multipla.html#cb267-6" tabindex="-1"></a><span class="co">#Previsão</span></span>
+<span id="cb267-7"><a href="regressao-multipla.html#cb267-7" tabindex="-1"></a>  </span>
+<span id="cb267-8"><a href="regressao-multipla.html#cb267-8" tabindex="-1"></a>previsoes <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg1, <span class="at">newdata =</span> df_resultados_22, <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>, <span class="at">level =</span> .<span class="dv">95</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb267-9"><a href="regressao-multipla.html#cb267-9" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb267-10"><a href="regressao-multipla.html#cb267-10" tabindex="-1"></a></span>
+<span id="cb267-11"><a href="regressao-multipla.html#cb267-11" tabindex="-1"></a>df_resultados_22_final <span class="ot">&lt;-</span> df_resultados_22 <span class="sc">%&gt;%</span></span>
+<span id="cb267-12"><a href="regressao-multipla.html#cb267-12" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb267-13"><a href="regressao-multipla.html#cb267-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prev_perc =</span> previsoes<span class="sc">$</span>fit,</span>
+<span id="cb267-14"><a href="regressao-multipla.html#cb267-14" tabindex="-1"></a>         <span class="at">prev_perc_lower =</span> previsoes<span class="sc">$</span>lwr,</span>
+<span id="cb267-15"><a href="regressao-multipla.html#cb267-15" tabindex="-1"></a>         <span class="at">prev_perc_upper =</span> previsoes<span class="sc">$</span>upr,</span>
+<span id="cb267-16"><a href="regressao-multipla.html#cb267-16" tabindex="-1"></a>         <span class="at">validos_prev =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc,</span>
+<span id="cb267-17"><a href="regressao-multipla.html#cb267-17" tabindex="-1"></a>         <span class="at">validos_prev_lower =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc_lower,</span>
+<span id="cb267-18"><a href="regressao-multipla.html#cb267-18" tabindex="-1"></a>         <span class="at">validos_prev_upper =</span> df_resultados_22_aux1<span class="sc">$</span>total_validos_1t<span class="sc">*</span>prev_perc_upper)</span>
+<span id="cb267-19"><a href="regressao-multipla.html#cb267-19" tabindex="-1"></a></span>
+<span id="cb267-20"><a href="regressao-multipla.html#cb267-20" tabindex="-1"></a>tot_valido <span class="ot">&lt;-</span> <span class="fu">sum</span>(df_resultados_22_aux1<span class="sc">$</span>total_validos_1t)</span>
+<span id="cb267-21"><a href="regressao-multipla.html#cb267-21" tabindex="-1"></a>df_resultados_22_final <span class="sc">%&gt;%</span></span>
+<span id="cb267-22"><a href="regressao-multipla.html#cb267-22" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">perc_previsto =</span> <span class="fu">sum</span>(validos_prev,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido,</span>
+<span id="cb267-23"><a href="regressao-multipla.html#cb267-23" tabindex="-1"></a>            <span class="at">perc_previsto_lower =</span> <span class="fu">sum</span>(validos_prev_lower,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido,</span>
+<span id="cb267-24"><a href="regressao-multipla.html#cb267-24" tabindex="-1"></a>            <span class="at">perc_previsto_upper =</span> <span class="fu">sum</span>(validos_prev_upper,<span class="at">na.rm =</span> T)<span class="sc">/</span>tot_valido)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   perc_previsto perc_previsto_lower perc_previsto_upper
 ##           &lt;dbl&gt;               &lt;dbl&gt;               &lt;dbl&gt;
@@ -3206,20 +3214,23 @@ Sejam <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</
 Var(\beta_1 + \beta3 x_2|X) = Var(\beta_1|X) + Var(\beta3 x_2|X) + 2Cov(\beta_1, \beta3) = Var(\beta_1|X) + x_2^2Var(\beta3|X) + 2x_2Cov(\beta_1, \beta3|X)
 \]</span>
 Como as variâncias são os erros-padrão ao quadrado, podemos computar manualmente a variância do efeito marginal, e depois calcular o erro-padrão. No R, porém, usualmente usamos alguns dos pacotes que permite a visualização desses efeitos já computados corretamente.</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="regressao-multipla.html#cb265-1" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
-<span id="cb265-2"><a href="regressao-multipla.html#cb265-2" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
-<span id="cb265-3"><a href="regressao-multipla.html#cb265-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb265-4"><a href="regressao-multipla.html#cb265-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb265-5"><a href="regressao-multipla.html#cb265-5" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb265-6"><a href="regressao-multipla.html#cb265-6" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size=</span><span class="dv">1</span>, <span class="at">p=</span>.<span class="dv">5</span>)</span>
-<span id="cb265-7"><a href="regressao-multipla.html#cb265-7" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb265-8"><a href="regressao-multipla.html#cb265-8" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
-<span id="cb265-9"><a href="regressao-multipla.html#cb265-9" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb265-10"><a href="regressao-multipla.html#cb265-10" tabindex="-1"></a>b3 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb265-11"><a href="regressao-multipla.html#cb265-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> a<span class="sc">+</span> b1<span class="sc">*</span>x1 <span class="sc">+</span> b2<span class="sc">*</span>x2 <span class="sc">+</span> b3<span class="sc">*</span>x2<span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb265-12"><a href="regressao-multipla.html#cb265-12" tabindex="-1"></a></span>
-<span id="cb265-13"><a href="regressao-multipla.html#cb265-13" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1<span class="sc">*</span>x2)</span>
-<span id="cb265-14"><a href="regressao-multipla.html#cb265-14" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="regressao-multipla.html#cb269-1" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span></code></pre></div>
+<pre><code>## Please cite the software developers who make your work possible.
+## One package:             citation(&quot;package_name&quot;)
+## All project packages:    softbib::softbib()</code></pre>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="regressao-multipla.html#cb271-1" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb271-2"><a href="regressao-multipla.html#cb271-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb271-3"><a href="regressao-multipla.html#cb271-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb271-4"><a href="regressao-multipla.html#cb271-4" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb271-5"><a href="regressao-multipla.html#cb271-5" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="at">size=</span><span class="dv">1</span>, <span class="at">p=</span>.<span class="dv">5</span>)</span>
+<span id="cb271-6"><a href="regressao-multipla.html#cb271-6" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb271-7"><a href="regressao-multipla.html#cb271-7" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb271-8"><a href="regressao-multipla.html#cb271-8" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb271-9"><a href="regressao-multipla.html#cb271-9" tabindex="-1"></a>b3 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb271-10"><a href="regressao-multipla.html#cb271-10" tabindex="-1"></a>y <span class="ot">&lt;-</span> a<span class="sc">+</span> b1<span class="sc">*</span>x1 <span class="sc">+</span> b2<span class="sc">*</span>x2 <span class="sc">+</span> b3<span class="sc">*</span>x2<span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb271-11"><a href="regressao-multipla.html#cb271-11" tabindex="-1"></a></span>
+<span id="cb271-12"><a href="regressao-multipla.html#cb271-12" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1<span class="sc">*</span>x2)</span>
+<span id="cb271-13"><a href="regressao-multipla.html#cb271-13" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x1 * x2)
@@ -3240,15 +3251,15 @@ Como as variâncias são os erros-padrão ao quadrado, podemos computar manualme
 ## Residual standard error: 0.9368 on 96 degrees of freedom
 ## Multiple R-squared:  0.7872, Adjusted R-squared:  0.7805 
 ## F-statistic: 118.4 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="regressao-multipla.html#cb267-1" tabindex="-1"></a><span class="co"># Pacote marginaleffects</span></span>
-<span id="cb267-2"><a href="regressao-multipla.html#cb267-2" tabindex="-1"></a><span class="fu">plot_slopes</span>(reg1, <span class="at">variables =</span> <span class="st">&quot;x1&quot;</span>, <span class="at">condition =</span> <span class="st">&quot;x2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="regressao-multipla.html#cb273-1" tabindex="-1"></a><span class="co"># Pacote marginaleffects</span></span>
+<span id="cb273-2"><a href="regressao-multipla.html#cb273-2" tabindex="-1"></a><span class="fu">plot_slopes</span>(reg1, <span class="at">variables =</span> <span class="st">&quot;x1&quot;</span>, <span class="at">condition =</span> <span class="st">&quot;x2&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/interaction-term-1.png" width="672" /></p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="regressao-multipla.html#cb268-1" tabindex="-1"></a><span class="co"># pacote sjPlot</span></span>
-<span id="cb268-2"><a href="regressao-multipla.html#cb268-2" tabindex="-1"></a><span class="fu">plot_model</span>(reg1, <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="regressao-multipla.html#cb274-1" tabindex="-1"></a><span class="co"># pacote sjPlot</span></span>
+<span id="cb274-2"><a href="regressao-multipla.html#cb274-2" tabindex="-1"></a><span class="fu">plot_model</span>(reg1, <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>))</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/interaction-term-2.png" width="672" /></p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="regressao-multipla.html#cb269-1" tabindex="-1"></a><span class="co"># Truque do Mcdermont</span></span>
-<span id="cb269-2"><a href="regressao-multipla.html#cb269-2" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">factor</span>(x2) <span class="sc">/</span> x1) <span class="co"># lm(y ~ x2 + x2:x1)</span></span>
-<span id="cb269-3"><a href="regressao-multipla.html#cb269-3" tabindex="-1"></a><span class="fu">summary</span>(reg2)</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="regressao-multipla.html#cb275-1" tabindex="-1"></a><span class="co"># Truque do Mcdermont</span></span>
+<span id="cb275-2"><a href="regressao-multipla.html#cb275-2" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">factor</span>(x2) <span class="sc">/</span> x1) <span class="co"># lm(y ~ x2 + x2:x1)</span></span>
+<span id="cb275-3"><a href="regressao-multipla.html#cb275-3" tabindex="-1"></a><span class="fu">summary</span>(reg2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ factor(x2)/x1)
@@ -3367,51 +3378,51 @@ Que é nossa definição de R-quadrado em modelo de regressão simples.</p>
 <p><span class="math display">\[
 R^2_{y \sim x1|x2} = 1 - \frac{Var(y^{\perp x_1, x_2})}{Var(y^{\perp x_1})} = \left(Cor(x_1^{\perp x_2}, y^{\perp x_2})\right)^2
 \]</span></p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="regressao-multipla.html#cb271-1" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb271-2"><a href="regressao-multipla.html#cb271-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb271-3"><a href="regressao-multipla.html#cb271-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb271-4"><a href="regressao-multipla.html#cb271-4" tabindex="-1"></a><span class="fu">library</span>(sjlabelled) <span class="co"># pra remover labelled variables</span></span>
-<span id="cb271-5"><a href="regressao-multipla.html#cb271-5" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb271-6"><a href="regressao-multipla.html#cb271-6" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb271-7"><a href="regressao-multipla.html#cb271-7" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb271-8"><a href="regressao-multipla.html#cb271-8" tabindex="-1"></a></span>
-<span id="cb271-9"><a href="regressao-multipla.html#cb271-9" tabindex="-1"></a><span class="do">## dados</span></span>
-<span id="cb271-10"><a href="regressao-multipla.html#cb271-10" tabindex="-1"></a><span class="co"># https://www.latinobarometro.org/latContents.jsp</span></span>
-<span id="cb271-11"><a href="regressao-multipla.html#cb271-11" tabindex="-1"></a></span>
-<span id="cb271-12"><a href="regressao-multipla.html#cb271-12" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> sjlabelled<span class="sc">::</span><span class="fu">read_spss</span>(<span class="fu">here</span>(<span class="st">&quot;Dados&quot;</span>, <span class="st">&quot;Latinobarometro_2023_Eng_Spss_v1_0.sav&quot;</span>),</span>
-<span id="cb271-13"><a href="regressao-multipla.html#cb271-13" tabindex="-1"></a>                               <span class="at">drop.labels =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="regressao-multipla.html#cb277-1" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb277-2"><a href="regressao-multipla.html#cb277-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb277-3"><a href="regressao-multipla.html#cb277-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb277-4"><a href="regressao-multipla.html#cb277-4" tabindex="-1"></a><span class="fu">library</span>(sjlabelled) <span class="co"># pra remover labelled variables</span></span>
+<span id="cb277-5"><a href="regressao-multipla.html#cb277-5" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb277-6"><a href="regressao-multipla.html#cb277-6" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb277-7"><a href="regressao-multipla.html#cb277-7" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb277-8"><a href="regressao-multipla.html#cb277-8" tabindex="-1"></a></span>
+<span id="cb277-9"><a href="regressao-multipla.html#cb277-9" tabindex="-1"></a><span class="do">## dados</span></span>
+<span id="cb277-10"><a href="regressao-multipla.html#cb277-10" tabindex="-1"></a><span class="co"># https://www.latinobarometro.org/latContents.jsp</span></span>
+<span id="cb277-11"><a href="regressao-multipla.html#cb277-11" tabindex="-1"></a></span>
+<span id="cb277-12"><a href="regressao-multipla.html#cb277-12" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> sjlabelled<span class="sc">::</span><span class="fu">read_spss</span>(<span class="fu">here</span>(<span class="st">&quot;Dados&quot;</span>, <span class="st">&quot;Latinobarometro_2023_Eng_Spss_v1_0.sav&quot;</span>),</span>
+<span id="cb277-13"><a href="regressao-multipla.html#cb277-13" tabindex="-1"></a>                               <span class="at">drop.labels =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <pre><code>## Invalid date string (length=9): 09 032 23</code></pre>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="regressao-multipla.html#cb273-1" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
-<span id="cb273-2"><a href="regressao-multipla.html#cb273-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">S17 =</span> <span class="fu">as.Date</span>(<span class="fu">as.character</span>(S17), <span class="at">format=</span><span class="st">&quot;%Y%m%d&quot;</span>)) </span>
-<span id="cb273-3"><a href="regressao-multipla.html#cb273-3" tabindex="-1"></a></span>
-<span id="cb273-4"><a href="regressao-multipla.html#cb273-4" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
-<span id="cb273-5"><a href="regressao-multipla.html#cb273-5" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
-<span id="cb273-6"><a href="regressao-multipla.html#cb273-6" tabindex="-1"></a></span>
-<span id="cb273-7"><a href="regressao-multipla.html#cb273-7" tabindex="-1"></a><span class="co"># get_label(lat_bar23)</span></span>
-<span id="cb273-8"><a href="regressao-multipla.html#cb273-8" tabindex="-1"></a></span>
-<span id="cb273-9"><a href="regressao-multipla.html#cb273-9" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
-<span id="cb273-10"><a href="regressao-multipla.html#cb273-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_base =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(diareal, mesreal, <span class="st">&quot;2023&quot;</span>, <span class="at">sep=</span><span class="st">&quot;-&quot;</span>), <span class="st">&quot;%d-%m-%Y&quot;</span>),</span>
-<span id="cb273-11"><a href="regressao-multipla.html#cb273-11" tabindex="-1"></a>         <span class="at">idade =</span> <span class="fu">year</span>(<span class="fu">as.period</span>(<span class="fu">interval</span>(s17,data_base))),</span>
-<span id="cb273-12"><a href="regressao-multipla.html#cb273-12" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">ifelse</span>(p6stgbs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;better&quot;</span>, </span>
-<span id="cb273-13"><a href="regressao-multipla.html#cb273-13" tabindex="-1"></a>                                <span class="fu">ifelse</span>(p6stgbs <span class="sc">==</span> <span class="dv">8</span>, <span class="cn">NA</span>, <span class="st">&quot;other&quot;</span>)),</span>
-<span id="cb273-14"><a href="regressao-multipla.html#cb273-14" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">relevel</span>(<span class="fu">as.factor</span>(econ_12_meses), <span class="at">ref =</span> <span class="st">&quot;other&quot;</span>),</span>
-<span id="cb273-15"><a href="regressao-multipla.html#cb273-15" tabindex="-1"></a>         <span class="at">aprovacao_presidente =</span> <span class="fu">ifelse</span>(p15stgbs <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, p15stgbs),</span>
-<span id="cb273-16"><a href="regressao-multipla.html#cb273-16" tabindex="-1"></a>         <span class="at">ideologia =</span> <span class="fu">ifelse</span>(p16st <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, p16st),</span>
-<span id="cb273-17"><a href="regressao-multipla.html#cb273-17" tabindex="-1"></a>         <span class="at">votaria_governo =</span> <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">4</span>, <span class="cn">NA</span>,</span>
-<span id="cb273-18"><a href="regressao-multipla.html#cb273-18" tabindex="-1"></a>                                  <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)),</span>
-<span id="cb273-19"><a href="regressao-multipla.html#cb273-19" tabindex="-1"></a>         <span class="at">genero =</span> <span class="fu">factor</span>(sexo, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;homem&quot;</span>, <span class="st">&quot;mulher&quot;</span>)),</span>
-<span id="cb273-20"><a href="regressao-multipla.html#cb273-20" tabindex="-1"></a>         <span class="at">evangelico =</span> <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">98</span>), <span class="cn">NA</span>,</span>
-<span id="cb273-21"><a href="regressao-multipla.html#cb273-21" tabindex="-1"></a>                             <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">1</span>, <span class="dv">0</span>))) <span class="co"># não considera adventista, testemunha Jeová, Mórmon</span></span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="regressao-multipla.html#cb279-1" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
+<span id="cb279-2"><a href="regressao-multipla.html#cb279-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">S17 =</span> <span class="fu">as.Date</span>(<span class="fu">as.character</span>(S17), <span class="at">format=</span><span class="st">&quot;%Y%m%d&quot;</span>)) </span>
+<span id="cb279-3"><a href="regressao-multipla.html#cb279-3" tabindex="-1"></a></span>
+<span id="cb279-4"><a href="regressao-multipla.html#cb279-4" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
+<span id="cb279-5"><a href="regressao-multipla.html#cb279-5" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb279-6"><a href="regressao-multipla.html#cb279-6" tabindex="-1"></a></span>
+<span id="cb279-7"><a href="regressao-multipla.html#cb279-7" tabindex="-1"></a><span class="co"># get_label(lat_bar23)</span></span>
+<span id="cb279-8"><a href="regressao-multipla.html#cb279-8" tabindex="-1"></a></span>
+<span id="cb279-9"><a href="regressao-multipla.html#cb279-9" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
+<span id="cb279-10"><a href="regressao-multipla.html#cb279-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_base =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(diareal, mesreal, <span class="st">&quot;2023&quot;</span>, <span class="at">sep=</span><span class="st">&quot;-&quot;</span>), <span class="st">&quot;%d-%m-%Y&quot;</span>),</span>
+<span id="cb279-11"><a href="regressao-multipla.html#cb279-11" tabindex="-1"></a>         <span class="at">idade =</span> <span class="fu">year</span>(<span class="fu">as.period</span>(<span class="fu">interval</span>(s17,data_base))),</span>
+<span id="cb279-12"><a href="regressao-multipla.html#cb279-12" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">ifelse</span>(p6stgbs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;better&quot;</span>, </span>
+<span id="cb279-13"><a href="regressao-multipla.html#cb279-13" tabindex="-1"></a>                                <span class="fu">ifelse</span>(p6stgbs <span class="sc">==</span> <span class="dv">8</span>, <span class="cn">NA</span>, <span class="st">&quot;other&quot;</span>)),</span>
+<span id="cb279-14"><a href="regressao-multipla.html#cb279-14" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">relevel</span>(<span class="fu">as.factor</span>(econ_12_meses), <span class="at">ref =</span> <span class="st">&quot;other&quot;</span>),</span>
+<span id="cb279-15"><a href="regressao-multipla.html#cb279-15" tabindex="-1"></a>         <span class="at">aprovacao_presidente =</span> <span class="fu">ifelse</span>(p15stgbs <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, p15stgbs),</span>
+<span id="cb279-16"><a href="regressao-multipla.html#cb279-16" tabindex="-1"></a>         <span class="at">ideologia =</span> <span class="fu">ifelse</span>(p16st <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, p16st),</span>
+<span id="cb279-17"><a href="regressao-multipla.html#cb279-17" tabindex="-1"></a>         <span class="at">votaria_governo =</span> <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">4</span>, <span class="cn">NA</span>,</span>
+<span id="cb279-18"><a href="regressao-multipla.html#cb279-18" tabindex="-1"></a>                                  <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)),</span>
+<span id="cb279-19"><a href="regressao-multipla.html#cb279-19" tabindex="-1"></a>         <span class="at">genero =</span> <span class="fu">factor</span>(sexo, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;homem&quot;</span>, <span class="st">&quot;mulher&quot;</span>)),</span>
+<span id="cb279-20"><a href="regressao-multipla.html#cb279-20" tabindex="-1"></a>         <span class="at">evangelico =</span> <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">98</span>), <span class="cn">NA</span>,</span>
+<span id="cb279-21"><a href="regressao-multipla.html#cb279-21" tabindex="-1"></a>                             <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">1</span>, <span class="dv">0</span>))) <span class="co"># não considera adventista, testemunha Jeová, Mórmon</span></span></code></pre></div>
 <pre><code>## Warning: There was 1 warning in `mutate()`.
 ## ℹ In argument: `idade = year(as.period(interval(s17, data_base)))`.
 ## Caused by warning in `.local()`:
 ## ! NAs introduced by coercion to integer range</code></pre>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="regressao-multipla.html#cb275-1" tabindex="-1"></a>br_latbar_23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
-<span id="cb275-2"><a href="regressao-multipla.html#cb275-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idenpa =</span> <span class="fu">remove_all_labels</span>(idenpa)) <span class="sc">%&gt;%</span> <span class="co"># haven_labelled problems</span></span>
-<span id="cb275-3"><a href="regressao-multipla.html#cb275-3" tabindex="-1"></a>  <span class="fu">filter</span>(idenpa <span class="sc">==</span> <span class="dv">76</span>) <span class="sc">%&gt;%</span> <span class="do">## seelciona brasil</span></span>
-<span id="cb275-4"><a href="regressao-multipla.html#cb275-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(votaria_governo) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(evangelico) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(ideologia) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(econ_12_meses))</span>
-<span id="cb275-5"><a href="regressao-multipla.html#cb275-5" tabindex="-1"></a></span>
-<span id="cb275-6"><a href="regressao-multipla.html#cb275-6" tabindex="-1"></a><span class="fu">glimpse</span>(br_latbar_23)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="regressao-multipla.html#cb281-1" tabindex="-1"></a>br_latbar_23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
+<span id="cb281-2"><a href="regressao-multipla.html#cb281-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idenpa =</span> <span class="fu">remove_all_labels</span>(idenpa)) <span class="sc">%&gt;%</span> <span class="co"># haven_labelled problems</span></span>
+<span id="cb281-3"><a href="regressao-multipla.html#cb281-3" tabindex="-1"></a>  <span class="fu">filter</span>(idenpa <span class="sc">==</span> <span class="dv">76</span>) <span class="sc">%&gt;%</span> <span class="do">## seelciona brasil</span></span>
+<span id="cb281-4"><a href="regressao-multipla.html#cb281-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(votaria_governo) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(evangelico) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(ideologia) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(econ_12_meses))</span>
+<span id="cb281-5"><a href="regressao-multipla.html#cb281-5" tabindex="-1"></a></span>
+<span id="cb281-6"><a href="regressao-multipla.html#cb281-6" tabindex="-1"></a><span class="fu">glimpse</span>(br_latbar_23)</span></code></pre></div>
 <pre><code>## Rows: 472
 ## Columns: 282
 ## $ numinves             &lt;fct&gt; 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23…
@@ -3696,8 +3707,8 @@ R^2_{y \sim x1|x2} = 1 - \frac{Var(y^{\perp x_1, x_2})}{Var(y^{\perp x_1})} = \l
 ## $ votaria_governo      &lt;dbl&gt; 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, …
 ## $ genero               &lt;fct&gt; mulher, mulher, mulher, homem, homem, mulher, homem, homem, mulher, mulher, homem, mulher, mulher, mulher, mulher,…
 ## $ evangelico           &lt;dbl&gt; 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, …</code></pre>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="regressao-multipla.html#cb277-1" tabindex="-1"></a>reg_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses <span class="sc">+</span> evangelico, <span class="at">data=</span>br_latbar_23 )</span>
-<span id="cb277-2"><a href="regressao-multipla.html#cb277-2" tabindex="-1"></a><span class="fu">summary</span>(reg_full)</span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="regressao-multipla.html#cb283-1" tabindex="-1"></a>reg_full <span class="ot">&lt;-</span> <span class="fu">lm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses <span class="sc">+</span> evangelico, <span class="at">data=</span>br_latbar_23 )</span>
+<span id="cb283-2"><a href="regressao-multipla.html#cb283-2" tabindex="-1"></a><span class="fu">summary</span>(reg_full)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = votaria_governo ~ ideologia + idade + genero + econ_12_meses + 
@@ -3722,10 +3733,10 @@ R^2_{y \sim x1|x2} = 1 - \frac{Var(y^{\perp x_1, x_2})}{Var(y^{\perp x_1})} = \l
 ##   (49 observations deleted due to missingness)
 ## Multiple R-squared:  0.2274, Adjusted R-squared:  0.2181 
 ## F-statistic: 24.55 on 5 and 417 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="regressao-multipla.html#cb279-1" tabindex="-1"></a>residuos_full <span class="ot">&lt;-</span> <span class="fu">resid</span>(reg_full)</span>
-<span id="cb279-2"><a href="regressao-multipla.html#cb279-2" tabindex="-1"></a></span>
-<span id="cb279-3"><a href="regressao-multipla.html#cb279-3" tabindex="-1"></a>reg_res_evan <span class="ot">&lt;-</span> <span class="fu">lm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses, <span class="at">data=</span>br_latbar_23 )</span>
-<span id="cb279-4"><a href="regressao-multipla.html#cb279-4" tabindex="-1"></a><span class="fu">summary</span>(reg_res_evan)</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="regressao-multipla.html#cb285-1" tabindex="-1"></a>residuos_full <span class="ot">&lt;-</span> <span class="fu">resid</span>(reg_full)</span>
+<span id="cb285-2"><a href="regressao-multipla.html#cb285-2" tabindex="-1"></a></span>
+<span id="cb285-3"><a href="regressao-multipla.html#cb285-3" tabindex="-1"></a>reg_res_evan <span class="ot">&lt;-</span> <span class="fu">lm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses, <span class="at">data=</span>br_latbar_23 )</span>
+<span id="cb285-4"><a href="regressao-multipla.html#cb285-4" tabindex="-1"></a><span class="fu">summary</span>(reg_res_evan)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = votaria_governo ~ ideologia + idade + genero + econ_12_meses, 
@@ -3749,27 +3760,27 @@ R^2_{y \sim x1|x2} = 1 - \frac{Var(y^{\perp x_1, x_2})}{Var(y^{\perp x_1})} = \l
 ##   (49 observations deleted due to missingness)
 ## Multiple R-squared:  0.2084, Adjusted R-squared:  0.2008 
 ## F-statistic: 27.51 on 4 and 418 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="regressao-multipla.html#cb281-1" tabindex="-1"></a>residuos_res_evan <span class="ot">&lt;-</span> <span class="fu">resid</span>(reg_res_evan)</span>
-<span id="cb281-2"><a href="regressao-multipla.html#cb281-2" tabindex="-1"></a></span>
-<span id="cb281-3"><a href="regressao-multipla.html#cb281-3" tabindex="-1"></a>partial_R2_evangelico <span class="ot">&lt;-</span> (<span class="fu">sum</span>(residuos_res_evan<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="fu">sum</span>(residuos_full<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span><span class="fu">sum</span>(residuos_res_evan<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb281-4"><a href="regressao-multipla.html#cb281-4" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico)</span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="regressao-multipla.html#cb287-1" tabindex="-1"></a>residuos_res_evan <span class="ot">&lt;-</span> <span class="fu">resid</span>(reg_res_evan)</span>
+<span id="cb287-2"><a href="regressao-multipla.html#cb287-2" tabindex="-1"></a></span>
+<span id="cb287-3"><a href="regressao-multipla.html#cb287-3" tabindex="-1"></a>partial_R2_evangelico <span class="ot">&lt;-</span> (<span class="fu">sum</span>(residuos_res_evan<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="fu">sum</span>(residuos_full<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span><span class="fu">sum</span>(residuos_res_evan<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb287-4"><a href="regressao-multipla.html#cb287-4" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico)</span></code></pre></div>
 <pre><code>## [1] 0.02402629</code></pre>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="regressao-multipla.html#cb283-1" tabindex="-1"></a><span class="co"># alternative</span></span>
-<span id="cb283-2"><a href="regressao-multipla.html#cb283-2" tabindex="-1"></a>partial_R2_evangelico_alt <span class="ot">&lt;-</span>  <span class="dv">1</span> <span class="sc">-</span> <span class="fu">var</span>(<span class="fu">resid</span>(reg_full))<span class="sc">/</span><span class="fu">var</span>(<span class="fu">resid</span>(reg_res_evan))</span>
-<span id="cb283-3"><a href="regressao-multipla.html#cb283-3" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico_alt)</span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="regressao-multipla.html#cb289-1" tabindex="-1"></a><span class="co"># alternative</span></span>
+<span id="cb289-2"><a href="regressao-multipla.html#cb289-2" tabindex="-1"></a>partial_R2_evangelico_alt <span class="ot">&lt;-</span>  <span class="dv">1</span> <span class="sc">-</span> <span class="fu">var</span>(<span class="fu">resid</span>(reg_full))<span class="sc">/</span><span class="fu">var</span>(<span class="fu">resid</span>(reg_res_evan))</span>
+<span id="cb289-3"><a href="regressao-multipla.html#cb289-3" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico_alt)</span></code></pre></div>
 <pre><code>## [1] 0.02402629</code></pre>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="regressao-multipla.html#cb285-1" tabindex="-1"></a><span class="co"># another alternative</span></span>
-<span id="cb285-2"><a href="regressao-multipla.html#cb285-2" tabindex="-1"></a>reg_evan <span class="ot">&lt;-</span> <span class="fu">lm</span>(evangelico <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses , <span class="at">data=</span>br_latbar_23)</span>
-<span id="cb285-3"><a href="regressao-multipla.html#cb285-3" tabindex="-1"></a></span>
-<span id="cb285-4"><a href="regressao-multipla.html#cb285-4" tabindex="-1"></a>partial_R2_evangelico_alt1 <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">resid</span>(reg_evan), <span class="fu">resid</span>(reg_res_evan))<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb285-5"><a href="regressao-multipla.html#cb285-5" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico_alt1)</span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="regressao-multipla.html#cb291-1" tabindex="-1"></a><span class="co"># another alternative</span></span>
+<span id="cb291-2"><a href="regressao-multipla.html#cb291-2" tabindex="-1"></a>reg_evan <span class="ot">&lt;-</span> <span class="fu">lm</span>(evangelico <span class="sc">~</span> ideologia <span class="sc">+</span> idade <span class="sc">+</span> genero <span class="sc">+</span> econ_12_meses , <span class="at">data=</span>br_latbar_23)</span>
+<span id="cb291-3"><a href="regressao-multipla.html#cb291-3" tabindex="-1"></a></span>
+<span id="cb291-4"><a href="regressao-multipla.html#cb291-4" tabindex="-1"></a>partial_R2_evangelico_alt1 <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">resid</span>(reg_evan), <span class="fu">resid</span>(reg_res_evan))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb291-5"><a href="regressao-multipla.html#cb291-5" tabindex="-1"></a><span class="fu">print</span>(partial_R2_evangelico_alt1)</span></code></pre></div>
 <pre><code>## [1] 0.02402629</code></pre>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="regressao-multipla.html#cb287-1" tabindex="-1"></a> <span class="do">## Cohen partial f2</span></span>
-<span id="cb287-2"><a href="regressao-multipla.html#cb287-2" tabindex="-1"></a>r_squared_full <span class="ot">&lt;-</span> <span class="fu">summary</span>(reg_full)<span class="sc">$</span>r.squared</span>
-<span id="cb287-3"><a href="regressao-multipla.html#cb287-3" tabindex="-1"></a>r_squared_res <span class="ot">&lt;-</span> <span class="fu">summary</span>(reg_res_evan)<span class="sc">$</span>r.squared</span>
-<span id="cb287-4"><a href="regressao-multipla.html#cb287-4" tabindex="-1"></a></span>
-<span id="cb287-5"><a href="regressao-multipla.html#cb287-5" tabindex="-1"></a>partial_f2 <span class="ot">&lt;-</span> (r_squared_full <span class="sc">-</span> r_squared_res)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>r_squared_full)</span>
-<span id="cb287-6"><a href="regressao-multipla.html#cb287-6" tabindex="-1"></a><span class="fu">print</span>(partial_f2)</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="regressao-multipla.html#cb293-1" tabindex="-1"></a> <span class="do">## Cohen partial f2</span></span>
+<span id="cb293-2"><a href="regressao-multipla.html#cb293-2" tabindex="-1"></a>r_squared_full <span class="ot">&lt;-</span> <span class="fu">summary</span>(reg_full)<span class="sc">$</span>r.squared</span>
+<span id="cb293-3"><a href="regressao-multipla.html#cb293-3" tabindex="-1"></a>r_squared_res <span class="ot">&lt;-</span> <span class="fu">summary</span>(reg_res_evan)<span class="sc">$</span>r.squared</span>
+<span id="cb293-4"><a href="regressao-multipla.html#cb293-4" tabindex="-1"></a></span>
+<span id="cb293-5"><a href="regressao-multipla.html#cb293-5" tabindex="-1"></a>partial_f2 <span class="ot">&lt;-</span> (r_squared_full <span class="sc">-</span> r_squared_res)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>r_squared_full)</span>
+<span id="cb293-6"><a href="regressao-multipla.html#cb293-6" tabindex="-1"></a><span class="fu">print</span>(partial_f2)</span></code></pre></div>
 <pre><code>## [1] 0.02461776</code></pre>
 <p>E agora podemos reescrever o viés de variável omitida em termos do R-quadrado parcial.</p>
 </div>
@@ -3804,21 +3815,21 @@ Em que $ hat{} = $</p>
 <li><p><span class="math inline">\(1 - R^2_{T \sim Z|X}\)</span> é o complemento do R-quadrado parcial de Z sobre T, após controlar para <span class="math inline">\(X\)</span>. Representa a variância não-explicada em <span class="math inline">\(T\)</span> por <span class="math inline">\(Z\)</span> após descontar a influência de <span class="math inline">\(X\)</span>.</p></li>
 </ol>
 <p>E os demais termos são os desvios-padrões dos resíduos da regressão restrita, sem a variável não-observada <span class="math inline">\(Z\)</span> e da regressão do tratamento em função dos controles. Em nosso exemplo, nós observamos a variável regilião evangélica, mas vamos supor que não é calcular o viés de variável omitida pela fórmula tradicional.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="regressao-multipla.html#cb289-1" tabindex="-1"></a><span class="do">###</span></span>
-<span id="cb289-2"><a href="regressao-multipla.html#cb289-2" tabindex="-1"></a><span class="co"># tratamento é ideologia.</span></span>
-<span id="cb289-3"><a href="regressao-multipla.html#cb289-3" tabindex="-1"></a><span class="co"># omitida é religião</span></span>
-<span id="cb289-4"><a href="regressao-multipla.html#cb289-4" tabindex="-1"></a></span>
-<span id="cb289-5"><a href="regressao-multipla.html#cb289-5" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="fu">coef</span>(reg_full)[<span class="dv">6</span>]</span>
-<span id="cb289-6"><a href="regressao-multipla.html#cb289-6" tabindex="-1"></a>cov_x1x2 <span class="ot">&lt;-</span> <span class="fu">cov</span>(br_latbar_23<span class="sc">$</span>ideologia, br_latbar_23<span class="sc">$</span>evangelico)</span>
-<span id="cb289-7"><a href="regressao-multipla.html#cb289-7" tabindex="-1"></a>var_x1 <span class="ot">&lt;-</span> <span class="fu">var</span>(br_latbar_23<span class="sc">$</span>ideologia)</span>
-<span id="cb289-8"><a href="regressao-multipla.html#cb289-8" tabindex="-1"></a>vies <span class="ot">&lt;-</span> beta2<span class="sc">*</span>cov_x1x2<span class="sc">/</span>var_x1</span>
-<span id="cb289-9"><a href="regressao-multipla.html#cb289-9" tabindex="-1"></a><span class="fu">print</span>(vies)</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="regressao-multipla.html#cb295-1" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb295-2"><a href="regressao-multipla.html#cb295-2" tabindex="-1"></a><span class="co"># tratamento é ideologia.</span></span>
+<span id="cb295-3"><a href="regressao-multipla.html#cb295-3" tabindex="-1"></a><span class="co"># omitida é religião</span></span>
+<span id="cb295-4"><a href="regressao-multipla.html#cb295-4" tabindex="-1"></a></span>
+<span id="cb295-5"><a href="regressao-multipla.html#cb295-5" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="fu">coef</span>(reg_full)[<span class="dv">6</span>]</span>
+<span id="cb295-6"><a href="regressao-multipla.html#cb295-6" tabindex="-1"></a>cov_x1x2 <span class="ot">&lt;-</span> <span class="fu">cov</span>(br_latbar_23<span class="sc">$</span>ideologia, br_latbar_23<span class="sc">$</span>evangelico)</span>
+<span id="cb295-7"><a href="regressao-multipla.html#cb295-7" tabindex="-1"></a>var_x1 <span class="ot">&lt;-</span> <span class="fu">var</span>(br_latbar_23<span class="sc">$</span>ideologia)</span>
+<span id="cb295-8"><a href="regressao-multipla.html#cb295-8" tabindex="-1"></a>vies <span class="ot">&lt;-</span> beta2<span class="sc">*</span>cov_x1x2<span class="sc">/</span>var_x1</span>
+<span id="cb295-9"><a href="regressao-multipla.html#cb295-9" tabindex="-1"></a><span class="fu">print</span>(vies)</span></code></pre></div>
 <pre><code>##   evangelico 
 ## -0.002611602</code></pre>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="regressao-multipla.html#cb291-1" tabindex="-1"></a>coef_res_sem_vies <span class="ot">=</span> <span class="fu">coef</span>(reg_res_evan)[<span class="dv">2</span>] <span class="sc">-</span> vies</span>
-<span id="cb291-2"><a href="regressao-multipla.html#cb291-2" tabindex="-1"></a><span class="fu">all.equal</span>(coef_res_sem_vies, <span class="fu">coef</span>(reg_full)[<span class="dv">2</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="regressao-multipla.html#cb297-1" tabindex="-1"></a>coef_res_sem_vies <span class="ot">=</span> <span class="fu">coef</span>(reg_res_evan)[<span class="dv">2</span>] <span class="sc">-</span> vies</span>
+<span id="cb297-2"><a href="regressao-multipla.html#cb297-2" tabindex="-1"></a><span class="fu">all.equal</span>(coef_res_sem_vies, <span class="fu">coef</span>(reg_full)[<span class="dv">2</span>])</span></code></pre></div>
 <pre><code>## [1] &quot;Mean relative difference: 0.005018672&quot;</code></pre>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="regressao-multipla.html#cb293-1" tabindex="-1"></a>coef_res_sem_vies <span class="sc">-</span> <span class="fu">coef</span>(reg_full)[<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="regressao-multipla.html#cb299-1" tabindex="-1"></a>coef_res_sem_vies <span class="sc">-</span> <span class="fu">coef</span>(reg_full)[<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>##     ideologia 
 ## -0.0001947166</code></pre>
 <p>O que essa equação nos mostra é que o viés depende de quanto a variável omitida explica o tratamento e quanto o tratamento é explicado pela variável omitida. O que é bastante intuitivo. E para entender melhor essa equação, vale falar o viés de relativo, definido como a razão entre o viés estimado e o coeifciente do tratamento estimado.</p>
@@ -3826,16 +3837,16 @@ Em que $ hat{} = $</p>
 Viés relatrivo = \frac{\hat{&lt;viés&gt;}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim Z|T,X},  R^2_{D \sim Z|X)})}{t_-do_-tratamento \cdot \sqrt(df)}
 \]</span></p>
 <p>a parcela da variável resposta que o tratamento explica (medida pelo R-quadrado parcial do tratamento) dá uma medida da robustez da regressão à potenciais vieses de variável omitida. Uma intuição simples é que se o tratamento explicar 100% da variação, então não há, por definição, viés de variável omitida. Se explicar 95%, há muito pouco que um viés de variável omitida pode viesar as estimativas.</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="regressao-multipla.html#cb295-1" tabindex="-1"></a><span class="fu">library</span>(sensemakr)</span>
-<span id="cb295-2"><a href="regressao-multipla.html#cb295-2" tabindex="-1"></a></span>
-<span id="cb295-3"><a href="regressao-multipla.html#cb295-3" tabindex="-1"></a><span class="co"># loads dataset</span></span>
-<span id="cb295-4"><a href="regressao-multipla.html#cb295-4" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;darfur&quot;</span>)</span>
-<span id="cb295-5"><a href="regressao-multipla.html#cb295-5" tabindex="-1"></a></span>
-<span id="cb295-6"><a href="regressao-multipla.html#cb295-6" tabindex="-1"></a><span class="co"># runs regression model</span></span>
-<span id="cb295-7"><a href="regressao-multipla.html#cb295-7" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(peacefactor <span class="sc">~</span> directlyharmed <span class="sc">+</span> age <span class="sc">+</span> farmer_dar <span class="sc">+</span> herder_dar <span class="sc">+</span></span>
-<span id="cb295-8"><a href="regressao-multipla.html#cb295-8" tabindex="-1"></a>                         pastvoted <span class="sc">+</span> hhsize_darfur <span class="sc">+</span> female <span class="sc">+</span> village, <span class="at">data =</span> darfur)</span>
-<span id="cb295-9"><a href="regressao-multipla.html#cb295-9" tabindex="-1"></a></span>
-<span id="cb295-10"><a href="regressao-multipla.html#cb295-10" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="regressao-multipla.html#cb301-1" tabindex="-1"></a><span class="fu">library</span>(sensemakr)</span>
+<span id="cb301-2"><a href="regressao-multipla.html#cb301-2" tabindex="-1"></a></span>
+<span id="cb301-3"><a href="regressao-multipla.html#cb301-3" tabindex="-1"></a><span class="co"># loads dataset</span></span>
+<span id="cb301-4"><a href="regressao-multipla.html#cb301-4" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;darfur&quot;</span>)</span>
+<span id="cb301-5"><a href="regressao-multipla.html#cb301-5" tabindex="-1"></a></span>
+<span id="cb301-6"><a href="regressao-multipla.html#cb301-6" tabindex="-1"></a><span class="co"># runs regression model</span></span>
+<span id="cb301-7"><a href="regressao-multipla.html#cb301-7" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(peacefactor <span class="sc">~</span> directlyharmed <span class="sc">+</span> age <span class="sc">+</span> farmer_dar <span class="sc">+</span> herder_dar <span class="sc">+</span></span>
+<span id="cb301-8"><a href="regressao-multipla.html#cb301-8" tabindex="-1"></a>                         pastvoted <span class="sc">+</span> hhsize_darfur <span class="sc">+</span> female <span class="sc">+</span> village, <span class="at">data =</span> darfur)</span>
+<span id="cb301-9"><a href="regressao-multipla.html#cb301-9" tabindex="-1"></a></span>
+<span id="cb301-10"><a href="regressao-multipla.html#cb301-10" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = peacefactor ~ directlyharmed + age + farmer_dar + 
@@ -4055,14 +4066,14 @@ Viés relatrivo = \frac{\hat{&lt;viés&gt;}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim
 ## Residual standard error: 0.3102 on 783 degrees of freedom
 ## Multiple R-squared:  0.5115, Adjusted R-squared:  0.2046 
 ## F-statistic: 1.667 on 492 and 783 DF,  p-value: 9.367e-11</code></pre>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="regressao-multipla.html#cb297-1" tabindex="-1"></a><span class="co"># runs sensemakr for sensitivity analysis</span></span>
-<span id="cb297-2"><a href="regressao-multipla.html#cb297-2" tabindex="-1"></a>sensitivity <span class="ot">&lt;-</span> <span class="fu">sensemakr</span>(<span class="at">model =</span> model, </span>
-<span id="cb297-3"><a href="regressao-multipla.html#cb297-3" tabindex="-1"></a>                         <span class="at">treatment =</span> <span class="st">&quot;directlyharmed&quot;</span>,</span>
-<span id="cb297-4"><a href="regressao-multipla.html#cb297-4" tabindex="-1"></a>                         <span class="at">benchmark_covariates =</span> <span class="st">&quot;female&quot;</span>,</span>
-<span id="cb297-5"><a href="regressao-multipla.html#cb297-5" tabindex="-1"></a>                         <span class="at">kd =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb297-6"><a href="regressao-multipla.html#cb297-6" tabindex="-1"></a></span>
-<span id="cb297-7"><a href="regressao-multipla.html#cb297-7" tabindex="-1"></a><span class="co"># short description of results</span></span>
-<span id="cb297-8"><a href="regressao-multipla.html#cb297-8" tabindex="-1"></a>sensitivity</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="regressao-multipla.html#cb303-1" tabindex="-1"></a><span class="co"># runs sensemakr for sensitivity analysis</span></span>
+<span id="cb303-2"><a href="regressao-multipla.html#cb303-2" tabindex="-1"></a>sensitivity <span class="ot">&lt;-</span> <span class="fu">sensemakr</span>(<span class="at">model =</span> model, </span>
+<span id="cb303-3"><a href="regressao-multipla.html#cb303-3" tabindex="-1"></a>                         <span class="at">treatment =</span> <span class="st">&quot;directlyharmed&quot;</span>,</span>
+<span id="cb303-4"><a href="regressao-multipla.html#cb303-4" tabindex="-1"></a>                         <span class="at">benchmark_covariates =</span> <span class="st">&quot;female&quot;</span>,</span>
+<span id="cb303-5"><a href="regressao-multipla.html#cb303-5" tabindex="-1"></a>                         <span class="at">kd =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb303-6"><a href="regressao-multipla.html#cb303-6" tabindex="-1"></a></span>
+<span id="cb303-7"><a href="regressao-multipla.html#cb303-7" tabindex="-1"></a><span class="co"># short description of results</span></span>
+<span id="cb303-8"><a href="regressao-multipla.html#cb303-8" tabindex="-1"></a>sensitivity</span></code></pre></div>
 <pre><code>## Sensitivity Analysis to Unobserved Confounding
 ## 
 ## Model Formula: peacefactor ~ directlyharmed + age + farmer_dar + herder_dar + 
@@ -4081,7 +4092,7 @@ Viés relatrivo = \frac{\hat{&lt;viés&gt;}}{\hat{\beta_1}} = \frac{f(R^2_{y\sim
 ##   Robustness Value, q = 1 alpha = 0.05 : 0.07626 
 ## 
 ## For more information, check summary.</code></pre>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="regressao-multipla.html#cb299-1" tabindex="-1"></a><span class="fu">summary</span>(sensitivity)</span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="regressao-multipla.html#cb305-1" tabindex="-1"></a><span class="fu">summary</span>(sensitivity)</span></code></pre></div>
 <pre><code>## Sensitivity Analysis to Unobserved Confounding
 ## 
 ## Model Formula: peacefactor ~ directlyharmed + age + farmer_dar + herder_dar + 
