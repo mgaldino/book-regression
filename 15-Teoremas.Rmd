@@ -29,7 +29,7 @@ Da segunda igualdade para a terceira usamos a definição de probabilidade condi
 
 Definição 15.1.2 (independência linear): Dizemos que $X$ e $Z$ são não-correlacionados ou linearmente independentes se $\mathbb{E}[XZ] = \mu_x\mu_z \iff cov(X,Z) = 0$
 
-Proposição 15.1.2 (independência na média para independência linear): Se $X$ e $Y$ São independentes na média, então são linearmente independentes. O reverso não é verdade.
+Proposição 15.1.2 (independência na média para independência linear): Se $X$ e $Y$ são independentes na média, então são linearmente independentes. O reverso não é verdade.
 
 \begin{aligned}
 \mathbb{E}[XZ]
@@ -66,13 +66,13 @@ Definição 15.2 (viés). Seja $\theta_0$ o verdadeiro valor de um parâmetro de
 
 $|\theta_0 - \mathbb{E}[\hat{\theta}]|$. 
 
-Dizemos que um estimador é não-viesado se e somente se o viés é zero. Lembrem-se que **se e somente se** é uma relação de biimplicação, ou seja, se é não viesado, o viés é zero. Se o viés é zero, é não viesado.
+Dizemos que um estimador é não-viesado se e somente se o viés é zero. Lembrem-se que **se e somente se** é uma relação de bi-implicação, ou seja, se é não viesado, o viés é zero. Se o viés é zero, é não viesado.
 
-Observaçao: o estimador é que pode ser viesado ou não. Isso não se aplica a uma estimativa. Incorremos em erro quando dizemos que a estimativa é viesada (ou não viesada). O que é viesado ou não é o estimador. Similarmente, não cabe falar em amostra viesada ou não-viesada.
+Observação: o estimador é que pode ser viesado ou não. Isso não se aplica a uma estimativa. Incorremos em erro quando dizemos que a estimativa é viesada (ou não viesada). O que é viesado ou não é o estimador. Similarmente, não cabe falar em amostra viesada ou não-viesada.
 
 ### Variância
 
-Definição 15.3. (variância do estimador). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um um estimador de $\theta_0$. A variância de um estimador é valor esperado do quadrado dos desvios amostrais.
+Definição 15.3. (variância do estimador). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um um estimador de $\theta_0$. A variância de um estimador é o valor esperado do quadrado dos desvios amostrais.
 
 $Var[\hat{\theta}] = \mathbb{E}[\left(\hat{\theta} - \mathbb{E}[\hat{\theta}]  \right)^2]$
 
@@ -80,11 +80,10 @@ Proposição 15.3. Seja $Z_1, Z_2, ...$ uma sequência de variáveis aleatórias
 
 $Var[X_n] = \frac{Var[Z]}{n} = \frac{\sigma^2}{n}$
 
-Prova:
 
 ### Eficiência
 
-Entre um número de estimadores da mesma classe (por exemplo, todos são não-viesados e têm variância finita), o estimador com a menor variância é chamado de estimador eficiente.
+Entre um número de estimadores da mesma classe (por exemplo, todos são não-viesados e têm variância finita), o estimador com a menor variância é chamado de estimador (relativamente mais) eficiente.
 
 ### Consistência
 
@@ -93,6 +92,7 @@ Um estimador $\hat\theta_n$ é **consistente** para $\theta$ se $\hat\theta_n \x
 $\forall \varepsilon>0,\ \lim_{n\to\infty}\Pr(|\hat\theta_n-\theta|>\varepsilon)=0$.
 
 Proposição: Condição suficiente via Chebyshev
+
 Se $\hat\theta_n$ é não-viesado e $\mathrm{Var}(\hat\theta_n)\to 0$ quando $n\to\infty$, então $\hat\theta_n$ é consistente.
 
 Pela desigualdade de Chebyshev,
@@ -101,7 +101,7 @@ $\Pr(|\hat\theta_n-\theta|>\varepsilon)\le \mathrm{Var}(\hat\theta_n)/\varepsilo
 ## Exercícios para o leitor 
 
 1. Suponha que $Z$ é uma distribuição uniforme $Z \sim U(-1,1)$. 
-Mosrte que se $X = Z^2$, então são independentes na média, mas não independentes entre si.
+Mostre que se $X = Z^2$, então são independentes na média, mas não independentes entre si.
 
 
 Mostre que $X$ e $Z$ são independentes na média, mas não independentes entre si no seguinte caso:
@@ -118,7 +118,8 @@ Teorema: Lei simples das Esperanças Iteradas
 Se $\mathbb{E}[Y] < \infty$ então para qualquer vetor de variáveis aleatórias $X$, $\mathbb{E}[\mathbb{E}[Y|X]] = \mathbb{E}[Y]$.
 
 Prova: Para $X$ discreto:
-Como a esperença condicional é uma função de $X$ apenas, a espereança é calculada somando apenas com respeito a $X$.
+
+Como a esperença condicional é uma função de $X$ apenas, a esperança é calculada somando apenas com respeito a $X$.
 
 \begin{align*}
 1.\mathbb{E}[\mathbb{E}[Y|X]] &= \sum_{j=1}^{\infty}\mathbb{E}[Y|X=x_j]P[X=x_j] \\
