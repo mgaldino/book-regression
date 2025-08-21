@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-08-18" />
+<meta name="date" content="2025-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,6 +175,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6" data-path="14-Apêndice.html"><a href="#distribui%C3%A7%C3%A3o-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.6</b> Distribuição de Probabilidade Conjunta</a></li>
 <li class="chapter" data-level="3.7" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>3.7</b> Probabilidade Condicional</a></li>
 <li class="chapter" data-level="3.8" data-path="14-Apêndice.html"><a href="#esperan%C3%A7a-condicional"><i class="fa fa-check"></i><b>3.8</b> Esperança Condicional</a></li>
+<li class="chapter" data-level="3.9" data-path="14-Apêndice.html"><a href="#proje%C3%A7%C3%A3o-linear"><i class="fa fa-check"></i><b>3.9</b> Projeção Linear</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="14-Apêndice.html"><a href="#adi%C3%A7%C3%A3o-de-vetores"><i class="fa fa-check"></i><b>3.9.1</b> Adição de vetores</a></li>
+<li class="chapter" data-level="3.9.2" data-path="14-Apêndice.html"><a href="#proje%C3%A7%C3%A3o-linear-1"><i class="fa fa-check"></i><b>3.9.2</b> Projeção linear</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="14-Apêndice.html"><a href="#introdu%C3%A7%C3%A3o-%C3%A0-simula%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>4</b> Introdução à Simulação</a>
 <ul>
@@ -352,7 +357,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.6" data-path="14-Apêndice.html"><a href="#%C3%A1lgebra-linear"><i class="fa fa-check"></i><b>14.6</b> Álgebra Linear</a>
 <ul>
 <li class="chapter" data-level="14.6.1" data-path="14-Apêndice.html"><a href="#espa%C3%A7o-de-vetores-e-subspa%C3%A7o"><i class="fa fa-check"></i><b>14.6.1</b> Espaço de vetores e subspaço</a></li>
-<li class="chapter" data-level="14.6.2" data-path="14-Apêndice.html"><a href="#proje%C3%A7%C3%A3o-linear"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
+<li class="chapter" data-level="14.6.2" data-path="14-Apêndice.html"><a href="#proje%C3%A7%C3%A3o-linear-2"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
 <li class="chapter" data-level="14.6.3" data-path="apêndice.html"><a href="apêndice.html#load-required-libraries"><i class="fa fa-check"></i><b>14.6.3</b> 2. <strong>Load Required Libraries</strong></a></li>
 </ul></li>
 </ul></li>
@@ -428,50 +433,50 @@ Para ajudar na reproducibilidade, uso o pacote <strong>here</strong> para não v
 <p><span class="math inline">\(y = a_1x_1 + a_2x_2 + \cdots + a_kx_k\)</span></p>
 <p>Dizemos que o conjunto de vetores <span class="math inline">\(x = [x_1, x_2, \cdots, x_k]\)</span> gera o subespaço que ele define.</p>
 </div>
-<div id="projeção-linear" class="section level3 hasAnchor" number="14.6.2">
-<h3><span class="header-section-number">14.6.2</span> Projeção linear<a href="#proje%C3%A7%C3%A3o-linear" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="projeção-linear-2" class="section level3 hasAnchor" number="14.6.2">
+<h3><span class="header-section-number">14.6.2</span> Projeção linear<a href="#proje%C3%A7%C3%A3o-linear-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 <div id="load-required-libraries" class="section level3 hasAnchor" number="14.6.3">
 <h3><span class="header-section-number">14.6.3</span> 2. <strong>Load Required Libraries</strong><a href="apêndice.html#load-required-libraries" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You’ll need the <code>ggplot2</code> library for the visualization. Add this to your setup chunk:</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="apêndice.html#cb338-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
-<span id="cb338-2"><a href="apêndice.html#cb338-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb338-3"><a href="apêndice.html#cb338-3" tabindex="-1"></a></span>
-<span id="cb338-4"><a href="apêndice.html#cb338-4" tabindex="-1"></a><span class="co"># Define vectors u and v</span></span>
-<span id="cb338-5"><a href="apêndice.html#cb338-5" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb338-6"><a href="apêndice.html#cb338-6" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>)</span>
-<span id="cb338-7"><a href="apêndice.html#cb338-7" tabindex="-1"></a></span>
-<span id="cb338-8"><a href="apêndice.html#cb338-8" tabindex="-1"></a><span class="co"># Calculate the projection of u onto v</span></span>
-<span id="cb338-9"><a href="apêndice.html#cb338-9" tabindex="-1"></a>proj_v_u <span class="ot">&lt;-</span> (<span class="fu">sum</span>(u <span class="sc">*</span> v) <span class="sc">/</span> <span class="fu">sum</span>(v <span class="sc">*</span> v)) <span class="sc">*</span> v</span>
-<span id="cb338-10"><a href="apêndice.html#cb338-10" tabindex="-1"></a></span>
-<span id="cb338-11"><a href="apêndice.html#cb338-11" tabindex="-1"></a><span class="co"># Create a data frame for plotting</span></span>
-<span id="cb338-12"><a href="apêndice.html#cb338-12" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb338-13"><a href="apêndice.html#cb338-13" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, u[<span class="dv">1</span>], <span class="dv">0</span>, v[<span class="dv">1</span>], <span class="dv">0</span>, proj_v_u[<span class="dv">1</span>]),</span>
-<span id="cb338-14"><a href="apêndice.html#cb338-14" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, u[<span class="dv">2</span>], <span class="dv">0</span>, v[<span class="dv">2</span>], <span class="dv">0</span>, proj_v_u[<span class="dv">2</span>]),</span>
-<span id="cb338-15"><a href="apêndice.html#cb338-15" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;u&quot;</span>, <span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;v&quot;</span>, <span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;Projection&quot;</span>)</span>
-<span id="cb338-16"><a href="apêndice.html#cb338-16" tabindex="-1"></a>)</span>
-<span id="cb338-17"><a href="apêndice.html#cb338-17" tabindex="-1"></a></span>
-<span id="cb338-18"><a href="apêndice.html#cb338-18" tabindex="-1"></a><span class="co"># Create the plot</span></span>
-<span id="cb338-19"><a href="apêndice.html#cb338-19" tabindex="-1"></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
-<span id="cb338-20"><a href="apêndice.html#cb338-20" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">1</span>], <span class="at">y =</span> y[<span class="dv">1</span>], <span class="at">xend =</span> x[<span class="dv">2</span>], <span class="at">yend =</span> y[<span class="dv">2</span>]), <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&quot;cm&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb338-21"><a href="apêndice.html#cb338-21" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">3</span>], <span class="at">y =</span> y[<span class="dv">3</span>], <span class="at">xend =</span> x[<span class="dv">4</span>], <span class="at">yend =</span> y[<span class="dv">4</span>]), <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&quot;cm&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb338-22"><a href="apêndice.html#cb338-22" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">5</span>], <span class="at">y =</span> y[<span class="dv">5</span>], <span class="at">xend =</span> x[<span class="dv">6</span>], <span class="at">yend =</span> y[<span class="dv">6</span>]), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb338-23"><a href="apêndice.html#cb338-23" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> u[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> u[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;u&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb338-24"><a href="apêndice.html#cb338-24" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> v[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> v[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;v&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb338-25"><a href="apêndice.html#cb338-25" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> proj_v_u[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> proj_v_u[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;proj_v_u&quot;</span>, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>) <span class="sc">+</span></span>
-<span id="cb338-26"><a href="apêndice.html#cb338-26" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fu">max</span>(u[<span class="dv">1</span>], v[<span class="dv">1</span>], proj_v_u[<span class="dv">1</span>]) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb338-27"><a href="apêndice.html#cb338-27" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="fu">max</span>(u[<span class="dv">2</span>], v[<span class="dv">2</span>], proj_v_u[<span class="dv">2</span>]) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb338-28"><a href="apêndice.html#cb338-28" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb338-29"><a href="apêndice.html#cb338-29" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Projection of Vector u onto Vector v&quot;</span>,</span>
-<span id="cb338-30"><a href="apêndice.html#cb338-30" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;X-axis&quot;</span>,</span>
-<span id="cb338-31"><a href="apêndice.html#cb338-31" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Y-axis&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="apêndice.html#cb334-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb334-2"><a href="apêndice.html#cb334-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb334-3"><a href="apêndice.html#cb334-3" tabindex="-1"></a></span>
+<span id="cb334-4"><a href="apêndice.html#cb334-4" tabindex="-1"></a><span class="co"># Define vectors u and v</span></span>
+<span id="cb334-5"><a href="apêndice.html#cb334-5" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb334-6"><a href="apêndice.html#cb334-6" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>)</span>
+<span id="cb334-7"><a href="apêndice.html#cb334-7" tabindex="-1"></a></span>
+<span id="cb334-8"><a href="apêndice.html#cb334-8" tabindex="-1"></a><span class="co"># Calculate the projection of u onto v</span></span>
+<span id="cb334-9"><a href="apêndice.html#cb334-9" tabindex="-1"></a>proj_v_u <span class="ot">&lt;-</span> (<span class="fu">sum</span>(u <span class="sc">*</span> v) <span class="sc">/</span> <span class="fu">sum</span>(v <span class="sc">*</span> v)) <span class="sc">*</span> v</span>
+<span id="cb334-10"><a href="apêndice.html#cb334-10" tabindex="-1"></a></span>
+<span id="cb334-11"><a href="apêndice.html#cb334-11" tabindex="-1"></a><span class="co"># Create a data frame for plotting</span></span>
+<span id="cb334-12"><a href="apêndice.html#cb334-12" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb334-13"><a href="apêndice.html#cb334-13" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, u[<span class="dv">1</span>], <span class="dv">0</span>, v[<span class="dv">1</span>], <span class="dv">0</span>, proj_v_u[<span class="dv">1</span>]),</span>
+<span id="cb334-14"><a href="apêndice.html#cb334-14" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, u[<span class="dv">2</span>], <span class="dv">0</span>, v[<span class="dv">2</span>], <span class="dv">0</span>, proj_v_u[<span class="dv">2</span>]),</span>
+<span id="cb334-15"><a href="apêndice.html#cb334-15" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;u&quot;</span>, <span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;v&quot;</span>, <span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;Projection&quot;</span>)</span>
+<span id="cb334-16"><a href="apêndice.html#cb334-16" tabindex="-1"></a>)</span>
+<span id="cb334-17"><a href="apêndice.html#cb334-17" tabindex="-1"></a></span>
+<span id="cb334-18"><a href="apêndice.html#cb334-18" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb334-19"><a href="apêndice.html#cb334-19" tabindex="-1"></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
+<span id="cb334-20"><a href="apêndice.html#cb334-20" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">1</span>], <span class="at">y =</span> y[<span class="dv">1</span>], <span class="at">xend =</span> x[<span class="dv">2</span>], <span class="at">yend =</span> y[<span class="dv">2</span>]), <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&quot;cm&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb334-21"><a href="apêndice.html#cb334-21" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">3</span>], <span class="at">y =</span> y[<span class="dv">3</span>], <span class="at">xend =</span> x[<span class="dv">4</span>], <span class="at">yend =</span> y[<span class="dv">4</span>]), <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&quot;cm&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb334-22"><a href="apêndice.html#cb334-22" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">5</span>], <span class="at">y =</span> y[<span class="dv">5</span>], <span class="at">xend =</span> x[<span class="dv">6</span>], <span class="at">yend =</span> y[<span class="dv">6</span>]), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb334-23"><a href="apêndice.html#cb334-23" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> u[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> u[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;u&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb334-24"><a href="apêndice.html#cb334-24" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> v[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> v[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;v&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb334-25"><a href="apêndice.html#cb334-25" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> proj_v_u[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> proj_v_u[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;proj_v_u&quot;</span>, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>) <span class="sc">+</span></span>
+<span id="cb334-26"><a href="apêndice.html#cb334-26" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fu">max</span>(u[<span class="dv">1</span>], v[<span class="dv">1</span>], proj_v_u[<span class="dv">1</span>]) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb334-27"><a href="apêndice.html#cb334-27" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="fu">max</span>(u[<span class="dv">2</span>], v[<span class="dv">2</span>], proj_v_u[<span class="dv">2</span>]) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb334-28"><a href="apêndice.html#cb334-28" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb334-29"><a href="apêndice.html#cb334-29" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Projection of Vector u onto Vector v&quot;</span>,</span>
+<span id="cb334-30"><a href="apêndice.html#cb334-30" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;X-axis&quot;</span>,</span>
+<span id="cb334-31"><a href="apêndice.html#cb334-31" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Y-axis&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in geom_segment(aes(x = x[1], y = y[1], xend = x[2], yend = y[2]), : All aesthetics have length 1, but the data has 6 rows.
 ## ℹ Please consider using `annotate()` or provide this layer with data containing a single row.</code></pre>
 <pre><code>## Warning in geom_segment(aes(x = x[3], y = y[3], xend = x[4], yend = y[4]), : All aesthetics have length 1, but the data has 6 rows.
 ## ℹ Please consider using `annotate()` or provide this layer with data containing a single row.</code></pre>
 <pre><code>## Warning in geom_segment(aes(x = x[5], y = y[5], xend = x[6], yend = y[6]), : All aesthetics have length 1, but the data has 6 rows.
 ## ℹ Please consider using `annotate()` or provide this layer with data containing a single row.</code></pre>
-<p><img src="bookdownproj_files/figure-html/linear-proj%20ex1-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/linear-proj%20ex1-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>The plot above shows the vectors <span class="math inline">\(\mathbf{u}\)</span> (in blue) and <span class="math inline">\(\mathbf{v}\)</span> (in red), along with the projection of <span class="math inline">\(\mathbf{u}\)</span> onto <span class="math inline">\(\mathbf{v}\)</span> (in green, dashed line). The projection is the closest point on the line defined by <span class="math inline">\(\mathbf{v}\)</span> to the point represented by <span class="math inline">\(\mathbf{u}\)</span>. This visualization helps in understanding how projections work in a geometric sense.</p>
 
 </div>

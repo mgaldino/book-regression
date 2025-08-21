@@ -28,6 +28,9 @@ prova-da-identidade-da-variância
 distribuição-de-probabilidade-conjunta
 probabilidade-condicional
 esperança-condicional
+projeção-linear
+adição-de-vetores
+projeção-linear-1
 introdução-à-simulação
 objetivos
 introdução
@@ -152,7 +155,7 @@ modelagem-de-dados
 outros
 álgebra-linear
 espaço-de-vetores-e-subspaço
-projeção-linear
+projeção-linear-2
 load-required-libraries
 teoremas
 independência-e-correlação

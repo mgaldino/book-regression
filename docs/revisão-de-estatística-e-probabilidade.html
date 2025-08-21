@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-08-18" />
+<meta name="date" content="2025-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,6 +175,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6" data-path="03-revisão-stat.html"><a href="#distribui%C3%A7%C3%A3o-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.6</b> Distribuição de Probabilidade Conjunta</a></li>
 <li class="chapter" data-level="3.7" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>3.7</b> Probabilidade Condicional</a></li>
 <li class="chapter" data-level="3.8" data-path="03-revisão-stat.html"><a href="#esperan%C3%A7a-condicional"><i class="fa fa-check"></i><b>3.8</b> Esperança Condicional</a></li>
+<li class="chapter" data-level="3.9" data-path="03-revisão-stat.html"><a href="#proje%C3%A7%C3%A3o-linear"><i class="fa fa-check"></i><b>3.9</b> Projeção Linear</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="03-revisão-stat.html"><a href="#adi%C3%A7%C3%A3o-de-vetores"><i class="fa fa-check"></i><b>3.9.1</b> Adição de vetores</a></li>
+<li class="chapter" data-level="3.9.2" data-path="03-revisão-stat.html"><a href="#proje%C3%A7%C3%A3o-linear-1"><i class="fa fa-check"></i><b>3.9.2</b> Projeção linear</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="03-revisão-stat.html"><a href="#introdu%C3%A7%C3%A3o-%C3%A0-simula%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>4</b> Introdução à Simulação</a>
 <ul>
@@ -352,7 +357,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.6" data-path="03-revisão-stat.html"><a href="#%C3%A1lgebra-linear"><i class="fa fa-check"></i><b>14.6</b> Álgebra Linear</a>
 <ul>
 <li class="chapter" data-level="14.6.1" data-path="03-revisão-stat.html"><a href="#espa%C3%A7o-de-vetores-e-subspa%C3%A7o"><i class="fa fa-check"></i><b>14.6.1</b> Espaço de vetores e subspaço</a></li>
-<li class="chapter" data-level="14.6.2" data-path="03-revisão-stat.html"><a href="#proje%C3%A7%C3%A3o-linear"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
+<li class="chapter" data-level="14.6.2" data-path="03-revisão-stat.html"><a href="#proje%C3%A7%C3%A3o-linear-2"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
 <li class="chapter" data-level="14.6.3" data-path="apêndice.html"><a href="apêndice.html#load-required-libraries"><i class="fa fa-check"></i><b>14.6.3</b> 2. <strong>Load Required Libraries</strong></a></li>
 </ul></li>
 </ul></li>
@@ -1005,7 +1010,60 @@ Y
 <p><span class="math inline">\(3*(2/3) + 4*(1/3)\)</span>
 <span class="math inline">\(2 + 4/3 = 6/3 + 4/3 = 10/3 = 3.333\)</span></p>
 <p>A notação matemática para a esperança condicional, nesse caso, é: <span class="math inline">\(E[X|Y=2]\)</span>.</p>
+</div>
+<div id="projeção-linear" class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> Projeção Linear<a href="#proje%C3%A7%C3%A3o-linear" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A projeção linear é uma das formas de interpretar o que a regressão linear está fazendo. Então, vamos entender o que é a projeção linear e como ela se conectar com regressão. Antes disso, vamos garantir que temos uma intepretação geométrica da soma e subtração de vetores, para dpois entender a projeção linear.</p>
+<div id="adição-de-vetores" class="section level3 hasAnchor" number="3.9.1">
+<h3><span class="header-section-number">3.9.1</span> Adição de vetores<a href="#adi%C3%A7%C3%A3o-de-vetores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Considere os vetores <span class="math inline">\(\vec{u} = (2,1)\)</span> e <span class="math inline">\(\vec{v} = (1,2)\)</span>. Sabemos algebricamente que a soma de <span class="math inline">\(\vec{u} + \vec{v} = (2+1, 1+2) = (3,3)\)</span>. Vejamos isso graficamente.</p>
+<p><img src="bookdownproj_files/figure-html/soma%20vetores%20cap3-1.png" width="900" style="display: block; margin: auto;" /></p>
+<p>Agora, passemos à subtração. Primeiro, veja que <span class="math inline">\(-\vec{v}\)</span> é o vetor <span class="math inline">\(\vec{v}\)</span> em que mudamos o sentido. Algebricamente, sabemos que <span class="math inline">\(\vec{u} + \vec{v} = (2-1, 1-2) = (1,-1)\)</span>. Graficamente, fica como abaixo.</p>
+<p><img src="bookdownproj_files/figure-html/subtracao%20vetores%20cap3-1.png" width="900" style="display: block; margin: auto;" /></p>
+</div>
+<div id="projeção-linear-1" class="section level3 hasAnchor" number="3.9.2">
+<h3><span class="header-section-number">3.9.2</span> Projeção linear<a href="#proje%C3%A7%C3%A3o-linear-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="revisão-de-estatística-e-probabilidade.html#cb80-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="fl">2.5</span>)</span>
+<span id="cb80-2"><a href="revisão-de-estatística-e-probabilidade.html#cb80-2" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="revisão-de-estatística-e-probabilidade.html#cb80-3" tabindex="-1"></a><span class="co"># projeção de y em u</span></span>
+<span id="cb80-4"><a href="revisão-de-estatística-e-probabilidade.html#cb80-4" tabindex="-1"></a>proj_coeff    <span class="ot">&lt;-</span> <span class="fu">sum</span>(y <span class="sc">*</span> u) <span class="sc">/</span> <span class="fu">sum</span>(u <span class="sc">*</span> u)</span>
+<span id="cb80-5"><a href="revisão-de-estatística-e-probabilidade.html#cb80-5" tabindex="-1"></a>proj_y_on_u   <span class="ot">&lt;-</span> proj_coeff <span class="sc">*</span> u</span>
+<span id="cb80-6"><a href="revisão-de-estatística-e-probabilidade.html#cb80-6" tabindex="-1"></a>r             <span class="ot">&lt;-</span> y <span class="sc">-</span> proj_y_on_u</span>
+<span id="cb80-7"><a href="revisão-de-estatística-e-probabilidade.html#cb80-7" tabindex="-1"></a></span>
+<span id="cb80-8"><a href="revisão-de-estatística-e-probabilidade.html#cb80-8" tabindex="-1"></a><span class="co"># vetores unitários para marcar ângulo reto</span></span>
+<span id="cb80-9"><a href="revisão-de-estatística-e-probabilidade.html#cb80-9" tabindex="-1"></a>u_hat <span class="ot">&lt;-</span> u <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(u<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb80-10"><a href="revisão-de-estatística-e-probabilidade.html#cb80-10" tabindex="-1"></a>n_hat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span>u_hat[<span class="dv">2</span>], u_hat[<span class="dv">1</span>])   <span class="co"># perpendicular a u_hat (rotação 90°)</span></span>
+<span id="cb80-11"><a href="revisão-de-estatística-e-probabilidade.html#cb80-11" tabindex="-1"></a></span>
+<span id="cb80-12"><a href="revisão-de-estatística-e-probabilidade.html#cb80-12" tabindex="-1"></a><span class="co"># cantoneira (marcador de ângulo reto) no ponto da projeção</span></span>
+<span id="cb80-13"><a href="revisão-de-estatística-e-probabilidade.html#cb80-13" tabindex="-1"></a>A   <span class="ot">&lt;-</span> proj_y_on_u</span>
+<span id="cb80-14"><a href="revisão-de-estatística-e-probabilidade.html#cb80-14" tabindex="-1"></a>eps <span class="ot">&lt;-</span> <span class="fl">0.25</span></span>
+<span id="cb80-15"><a href="revisão-de-estatística-e-probabilidade.html#cb80-15" tabindex="-1"></a>B   <span class="ot">&lt;-</span> A <span class="sc">+</span> eps <span class="sc">*</span> u_hat</span>
+<span id="cb80-16"><a href="revisão-de-estatística-e-probabilidade.html#cb80-16" tabindex="-1"></a>C   <span class="ot">&lt;-</span> A <span class="sc">+</span> eps <span class="sc">*</span> n_hat</span>
+<span id="cb80-17"><a href="revisão-de-estatística-e-probabilidade.html#cb80-17" tabindex="-1"></a></span>
+<span id="cb80-18"><a href="revisão-de-estatística-e-probabilidade.html#cb80-18" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">base_plot</span>(<span class="fu">list</span>(u, y, proj_y_on_u)) <span class="sc">+</span></span>
+<span id="cb80-19"><a href="revisão-de-estatística-e-probabilidade.html#cb80-19" tabindex="-1"></a>  <span class="fu">seg</span>(u,             <span class="at">col =</span> <span class="st">&quot;gray40&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-20"><a href="revisão-de-estatística-e-probabilidade.html#cb80-20" tabindex="-1"></a>  <span class="fu">seg</span>(y,             <span class="at">col =</span> <span class="st">&quot;#1f77b4&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-21"><a href="revisão-de-estatística-e-probabilidade.html#cb80-21" tabindex="-1"></a>  <span class="fu">seg</span>(proj_y_on_u,   <span class="at">col =</span> <span class="st">&quot;#2ca02c&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-22"><a href="revisão-de-estatística-e-probabilidade.html#cb80-22" tabindex="-1"></a>  <span class="co"># resíduo r: da projeção até y</span></span>
+<span id="cb80-23"><a href="revisão-de-estatística-e-probabilidade.html#cb80-23" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> proj_y_on_u[<span class="dv">1</span>], <span class="at">y =</span> proj_y_on_u[<span class="dv">2</span>],</span>
+<span id="cb80-24"><a href="revisão-de-estatística-e-probabilidade.html#cb80-24" tabindex="-1"></a>                   <span class="at">xend =</span> y[<span class="dv">1</span>],        <span class="at">yend =</span> y[<span class="dv">2</span>]),</span>
+<span id="cb80-25"><a href="revisão-de-estatística-e-probabilidade.html#cb80-25" tabindex="-1"></a>               <span class="at">arrow =</span> arrow_style, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;#d62728&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-26"><a href="revisão-de-estatística-e-probabilidade.html#cb80-26" tabindex="-1"></a>  <span class="co"># marcador de ângulo reto em proj_u(y)</span></span>
+<span id="cb80-27"><a href="revisão-de-estatística-e-probabilidade.html#cb80-27" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> A[<span class="dv">1</span>], <span class="at">y =</span> A[<span class="dv">2</span>], <span class="at">xend =</span> B[<span class="dv">1</span>], <span class="at">yend =</span> B[<span class="dv">2</span>])) <span class="sc">+</span></span>
+<span id="cb80-28"><a href="revisão-de-estatística-e-probabilidade.html#cb80-28" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> A[<span class="dv">1</span>], <span class="at">y =</span> A[<span class="dv">2</span>], <span class="at">xend =</span> C[<span class="dv">1</span>], <span class="at">yend =</span> C[<span class="dv">2</span>])) <span class="sc">+</span></span>
+<span id="cb80-29"><a href="revisão-de-estatística-e-probabilidade.html#cb80-29" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> y[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.2</span>,           <span class="at">y =</span> y[<span class="dv">2</span>],           <span class="at">label =</span> <span class="st">&quot;y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-30"><a href="revisão-de-estatística-e-probabilidade.html#cb80-30" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> u[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.2</span>,           <span class="at">y =</span> u[<span class="dv">2</span>],           <span class="at">label =</span> <span class="st">&quot;u&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-31"><a href="revisão-de-estatística-e-probabilidade.html#cb80-31" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> proj_y_on_u[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.2</span>, <span class="at">y =</span> proj_y_on_u[<span class="dv">2</span>], <span class="at">label =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">proj_u (y)$&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb80-32"><a href="revisão-de-estatística-e-probabilidade.html#cb80-32" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>,</span>
+<span id="cb80-33"><a href="revisão-de-estatística-e-probabilidade.html#cb80-33" tabindex="-1"></a>           <span class="at">x =</span> (y[<span class="dv">1</span>] <span class="sc">+</span> proj_y_on_u[<span class="dv">1</span>]) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb80-34"><a href="revisão-de-estatística-e-probabilidade.html#cb80-34" tabindex="-1"></a>           <span class="at">y =</span> (y[<span class="dv">2</span>] <span class="sc">+</span> proj_y_on_u[<span class="dv">2</span>]) <span class="sc">/</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.25</span>,</span>
+<span id="cb80-35"><a href="revisão-de-estatística-e-probabilidade.html#cb80-35" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">TeX</span>(<span class="st">&quot;$r</span><span class="sc">\\</span><span class="st">,=</span><span class="sc">\\</span><span class="st">,y- </span><span class="sc">\\</span><span class="st">proj_u (y)</span><span class="sc">\\</span><span class="st">;</span><span class="sc">\\</span><span class="st">perp</span><span class="sc">\\</span><span class="st">;u$&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb80-36"><a href="revisão-de-estatística-e-probabilidade.html#cb80-36" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Projeção de y em u e resíduo perpendicular&quot;</span>)</span>
+<span id="cb80-37"><a href="revisão-de-estatística-e-probabilidade.html#cb80-37" tabindex="-1"></a>p3</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/projecao1%20cap3-1.png" width="900" style="display: block; margin: auto;" /></p>
+<p>A fórmula da projeção é: <span class="math inline">\(proj_u (y) = \frac{y \cdot u}{u \cdot u} u\)</span>.</p>
 
+</div>
 </div>
 </div>
             </section>

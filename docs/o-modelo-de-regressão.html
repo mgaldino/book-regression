@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-08-18" />
+<meta name="date" content="2025-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,6 +175,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6" data-path="05-intro_reg.html"><a href="#distribui%C3%A7%C3%A3o-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.6</b> Distribuição de Probabilidade Conjunta</a></li>
 <li class="chapter" data-level="3.7" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>3.7</b> Probabilidade Condicional</a></li>
 <li class="chapter" data-level="3.8" data-path="05-intro_reg.html"><a href="#esperan%C3%A7a-condicional"><i class="fa fa-check"></i><b>3.8</b> Esperança Condicional</a></li>
+<li class="chapter" data-level="3.9" data-path="05-intro_reg.html"><a href="#proje%C3%A7%C3%A3o-linear"><i class="fa fa-check"></i><b>3.9</b> Projeção Linear</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="05-intro_reg.html"><a href="#adi%C3%A7%C3%A3o-de-vetores"><i class="fa fa-check"></i><b>3.9.1</b> Adição de vetores</a></li>
+<li class="chapter" data-level="3.9.2" data-path="05-intro_reg.html"><a href="#proje%C3%A7%C3%A3o-linear-1"><i class="fa fa-check"></i><b>3.9.2</b> Projeção linear</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="05-intro_reg.html"><a href="#introdu%C3%A7%C3%A3o-%C3%A0-simula%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>4</b> Introdução à Simulação</a>
 <ul>
@@ -352,7 +357,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.6" data-path="05-intro_reg.html"><a href="#%C3%A1lgebra-linear"><i class="fa fa-check"></i><b>14.6</b> Álgebra Linear</a>
 <ul>
 <li class="chapter" data-level="14.6.1" data-path="05-intro_reg.html"><a href="#espa%C3%A7o-de-vetores-e-subspa%C3%A7o"><i class="fa fa-check"></i><b>14.6.1</b> Espaço de vetores e subspaço</a></li>
-<li class="chapter" data-level="14.6.2" data-path="05-intro_reg.html"><a href="#proje%C3%A7%C3%A3o-linear"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
+<li class="chapter" data-level="14.6.2" data-path="05-intro_reg.html"><a href="#proje%C3%A7%C3%A3o-linear-2"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
 <li class="chapter" data-level="14.6.3" data-path="apêndice.html"><a href="apêndice.html#load-required-libraries"><i class="fa fa-check"></i><b>14.6.3</b> 2. <strong>Load Required Libraries</strong></a></li>
 </ul></li>
 </ul></li>
@@ -472,62 +477,62 @@ Covariável
 <h2><span class="header-section-number">5.2</span> CEF<a href="o-modelo-de-regressão.html#cef" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para introduzir a CEF, iremos trabalhar com um banco de dados de eleição. O código abaixo mostrar como importar e processar os dados.
 O dado original foi retirado do portal de dados abertos do TSE, com os dados de votação nominal nas eleições de 2020 para o estado de São Paulo.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="o-modelo-de-regressão.html#cb97-1" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb97-2"><a href="o-modelo-de-regressão.html#cb97-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb97-3"><a href="o-modelo-de-regressão.html#cb97-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb97-4"><a href="o-modelo-de-regressão.html#cb97-4" tabindex="-1"></a><span class="co"># Importando os dados desejados</span></span>
-<span id="cb97-5"><a href="o-modelo-de-regressão.html#cb97-5" tabindex="-1"></a></span>
-<span id="cb97-6"><a href="o-modelo-de-regressão.html#cb97-6" tabindex="-1"></a><span class="co"># dados &lt;- fread(here(&quot;dados\\votacao_secao_2020_SP\\&quot;, &quot;votacao_secao_2020_SP.csv&quot;), encoding = &quot;Latin-1&quot;)</span></span></code></pre></div>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="o-modelo-de-regressão.html#cb98-1" tabindex="-1"></a><span class="co"># dados_finais &lt;- dados %&gt;%</span></span>
-<span id="cb98-2"><a href="o-modelo-de-regressão.html#cb98-2" tabindex="-1"></a><span class="co">#   dplyr::filter(DS_CARGO == &quot;Prefeito&quot; &amp; ANO_ELEICAO == 2020 &amp; NM_TIPO_ELEICAO == &quot;Eleição Ordinária&quot;) %&gt;%</span></span>
-<span id="cb98-3"><a href="o-modelo-de-regressão.html#cb98-3" tabindex="-1"></a><span class="co">#   group_by(DS_ELEICAO, NR_TURNO, NM_MUNICIPIO, </span></span>
-<span id="cb98-4"><a href="o-modelo-de-regressão.html#cb98-4" tabindex="-1"></a><span class="co">#            NR_ZONA, NR_SECAO, NR_VOTAVEL) %&gt;%</span></span>
-<span id="cb98-5"><a href="o-modelo-de-regressão.html#cb98-5" tabindex="-1"></a><span class="co">#   summarise(votos_nominais = sum(QT_VOTOS)) </span></span>
-<span id="cb98-6"><a href="o-modelo-de-regressão.html#cb98-6" tabindex="-1"></a><span class="co"># saveRDS(dados_finais, file=here(&quot;dados\\&quot;, &quot;dados_finais.rds&quot;))</span></span>
-<span id="cb98-7"><a href="o-modelo-de-regressão.html#cb98-7" tabindex="-1"></a></span>
-<span id="cb98-8"><a href="o-modelo-de-regressão.html#cb98-8" tabindex="-1"></a><span class="co">#salvei os dados e posso importar o que fiz.</span></span>
-<span id="cb98-9"><a href="o-modelo-de-regressão.html#cb98-9" tabindex="-1"></a><span class="co"># o arquivo dados_finais.rds está no respositório em:</span></span>
-<span id="cb98-10"><a href="o-modelo-de-regressão.html#cb98-10" tabindex="-1"></a><span class="co"># https://github.com/mgaldino/book-regression/tree/main/dados</span></span>
-<span id="cb98-11"><a href="o-modelo-de-regressão.html#cb98-11" tabindex="-1"></a>dados_finais <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>, <span class="st">&quot;dados_finais.rds&quot;</span>))</span>
-<span id="cb98-12"><a href="o-modelo-de-regressão.html#cb98-12" tabindex="-1"></a></span>
-<span id="cb98-13"><a href="o-modelo-de-regressão.html#cb98-13" tabindex="-1"></a><span class="co"># Identificar os municípios que possuem segundo turno</span></span>
-<span id="cb98-14"><a href="o-modelo-de-regressão.html#cb98-14" tabindex="-1"></a>municipios_segundo_turno <span class="ot">&lt;-</span> dados_finais <span class="sc">%&gt;%</span></span>
-<span id="cb98-15"><a href="o-modelo-de-regressão.html#cb98-15" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb98-16"><a href="o-modelo-de-regressão.html#cb98-16" tabindex="-1"></a>  <span class="fu">filter</span>(NR_TURNO <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb98-17"><a href="o-modelo-de-regressão.html#cb98-17" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(NM_MUNICIPIO) <span class="sc">%&gt;%</span></span>
-<span id="cb98-18"><a href="o-modelo-de-regressão.html#cb98-18" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
-<span id="cb98-19"><a href="o-modelo-de-regressão.html#cb98-19" tabindex="-1"></a></span>
-<span id="cb98-20"><a href="o-modelo-de-regressão.html#cb98-20" tabindex="-1"></a><span class="co"># Filtrar os dados para incluir apenas os municípios que têm segundo turno</span></span>
-<span id="cb98-21"><a href="o-modelo-de-regressão.html#cb98-21" tabindex="-1"></a>dados_filtrados <span class="ot">&lt;-</span> dados_finais <span class="sc">%&gt;%</span></span>
-<span id="cb98-22"><a href="o-modelo-de-regressão.html#cb98-22" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb98-23"><a href="o-modelo-de-regressão.html#cb98-23" tabindex="-1"></a>  <span class="fu">inner_join</span>(municipios_segundo_turno, <span class="at">by =</span> <span class="st">&quot;NM_MUNICIPIO&quot;</span>)</span>
-<span id="cb98-24"><a href="o-modelo-de-regressão.html#cb98-24" tabindex="-1"></a></span>
-<span id="cb98-25"><a href="o-modelo-de-regressão.html#cb98-25" tabindex="-1"></a>dados_turno <span class="ot">&lt;-</span> dados_filtrados <span class="sc">%&gt;%</span></span>
-<span id="cb98-26"><a href="o-modelo-de-regressão.html#cb98-26" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>, <span class="dv">96</span>)) <span class="sc">%&gt;%</span> <span class="co"># nulos e brancos fora</span></span>
-<span id="cb98-27"><a href="o-modelo-de-regressão.html#cb98-27" tabindex="-1"></a>   <span class="fu">pivot_wider</span>(</span>
-<span id="cb98-28"><a href="o-modelo-de-regressão.html#cb98-28" tabindex="-1"></a>    <span class="at">id_cols =</span> <span class="fu">c</span>(DS_ELEICAO, NM_MUNICIPIO, NR_ZONA, NR_SECAO, NR_VOTAVEL),</span>
-<span id="cb98-29"><a href="o-modelo-de-regressão.html#cb98-29" tabindex="-1"></a>    <span class="at">names_from =</span> NR_TURNO,</span>
-<span id="cb98-30"><a href="o-modelo-de-regressão.html#cb98-30" tabindex="-1"></a>    <span class="at">values_from =</span> votos_nominais,</span>
-<span id="cb98-31"><a href="o-modelo-de-regressão.html#cb98-31" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">&quot;votos_turno_&quot;</span></span>
-<span id="cb98-32"><a href="o-modelo-de-regressão.html#cb98-32" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb98-33"><a href="o-modelo-de-regressão.html#cb98-33" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">votos_1turno =</span> votos_turno_1,</span>
-<span id="cb98-34"><a href="o-modelo-de-regressão.html#cb98-34" tabindex="-1"></a>         <span class="at">votos_2turno =</span> votos_turno_2)</span>
-<span id="cb98-35"><a href="o-modelo-de-regressão.html#cb98-35" tabindex="-1"></a></span>
-<span id="cb98-36"><a href="o-modelo-de-regressão.html#cb98-36" tabindex="-1"></a>dados_turno1 <span class="ot">&lt;-</span> dados_turno <span class="sc">%&gt;%</span></span>
-<span id="cb98-37"><a href="o-modelo-de-regressão.html#cb98-37" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_VOTAVEL, NM_MUNICIPIO) <span class="sc">%&gt;%</span></span>
-<span id="cb98-38"><a href="o-modelo-de-regressão.html#cb98-38" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">voto_total_candidato_2t =</span> <span class="fu">sum</span>(votos_2turno, <span class="at">na.rm=</span>T),</span>
-<span id="cb98-39"><a href="o-modelo-de-regressão.html#cb98-39" tabindex="-1"></a>         <span class="at">voto_total_candidato_1t =</span> <span class="fu">sum</span>(votos_1turno, <span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span></span>
-<span id="cb98-40"><a href="o-modelo-de-regressão.html#cb98-40" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb98-41"><a href="o-modelo-de-regressão.html#cb98-41" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_MUNICIPIO, NR_ZONA, NR_SECAO) <span class="sc">%&gt;%</span></span>
-<span id="cb98-42"><a href="o-modelo-de-regressão.html#cb98-42" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">votos_validos_1t =</span> <span class="fu">sum</span>(votos_1turno),</span>
-<span id="cb98-43"><a href="o-modelo-de-regressão.html#cb98-43" tabindex="-1"></a>         <span class="at">votos_validos_2t =</span> <span class="fu">sum</span>(votos_2turno, <span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span></span>
-<span id="cb98-44"><a href="o-modelo-de-regressão.html#cb98-44" tabindex="-1"></a>  <span class="fu">filter</span>(voto_total_candidato_2t <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb98-45"><a href="o-modelo-de-regressão.html#cb98-45" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_MUNICIPIO, NR_ZONA, NR_SECAO, NR_VOTAVEL) <span class="sc">%&gt;%</span></span>
-<span id="cb98-46"><a href="o-modelo-de-regressão.html#cb98-46" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">perc_validos_1t =</span> votos_1turno<span class="sc">/</span>votos_validos_1t,</span>
-<span id="cb98-47"><a href="o-modelo-de-regressão.html#cb98-47" tabindex="-1"></a>         <span class="at">perc_validos_2t =</span> votos_2turno<span class="sc">/</span>votos_validos_2t) <span class="sc">%&gt;%</span></span>
-<span id="cb98-48"><a href="o-modelo-de-regressão.html#cb98-48" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb98-49"><a href="o-modelo-de-regressão.html#cb98-49" tabindex="-1"></a><span class="co"># salvando dados que iremos trabalhar em sala de aula efetivamente.</span></span>
-<span id="cb98-50"><a href="o-modelo-de-regressão.html#cb98-50" tabindex="-1"></a><span class="fu">saveRDS</span>(dados_turno1, <span class="at">file=</span><span class="fu">here</span>(<span class="st">&quot;Dados//&quot;</span>, <span class="st">&quot;dados_turno1.rds&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="o-modelo-de-regressão.html#cb98-1" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb98-2"><a href="o-modelo-de-regressão.html#cb98-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb98-3"><a href="o-modelo-de-regressão.html#cb98-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb98-4"><a href="o-modelo-de-regressão.html#cb98-4" tabindex="-1"></a><span class="co"># Importando os dados desejados</span></span>
+<span id="cb98-5"><a href="o-modelo-de-regressão.html#cb98-5" tabindex="-1"></a></span>
+<span id="cb98-6"><a href="o-modelo-de-regressão.html#cb98-6" tabindex="-1"></a><span class="co"># dados &lt;- fread(here(&quot;dados\\votacao_secao_2020_SP\\&quot;, &quot;votacao_secao_2020_SP.csv&quot;), encoding = &quot;Latin-1&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="o-modelo-de-regressão.html#cb99-1" tabindex="-1"></a><span class="co"># dados_finais &lt;- dados %&gt;%</span></span>
+<span id="cb99-2"><a href="o-modelo-de-regressão.html#cb99-2" tabindex="-1"></a><span class="co">#   dplyr::filter(DS_CARGO == &quot;Prefeito&quot; &amp; ANO_ELEICAO == 2020 &amp; NM_TIPO_ELEICAO == &quot;Eleição Ordinária&quot;) %&gt;%</span></span>
+<span id="cb99-3"><a href="o-modelo-de-regressão.html#cb99-3" tabindex="-1"></a><span class="co">#   group_by(DS_ELEICAO, NR_TURNO, NM_MUNICIPIO, </span></span>
+<span id="cb99-4"><a href="o-modelo-de-regressão.html#cb99-4" tabindex="-1"></a><span class="co">#            NR_ZONA, NR_SECAO, NR_VOTAVEL) %&gt;%</span></span>
+<span id="cb99-5"><a href="o-modelo-de-regressão.html#cb99-5" tabindex="-1"></a><span class="co">#   summarise(votos_nominais = sum(QT_VOTOS)) </span></span>
+<span id="cb99-6"><a href="o-modelo-de-regressão.html#cb99-6" tabindex="-1"></a><span class="co"># saveRDS(dados_finais, file=here(&quot;dados\\&quot;, &quot;dados_finais.rds&quot;))</span></span>
+<span id="cb99-7"><a href="o-modelo-de-regressão.html#cb99-7" tabindex="-1"></a></span>
+<span id="cb99-8"><a href="o-modelo-de-regressão.html#cb99-8" tabindex="-1"></a><span class="co">#salvei os dados e posso importar o que fiz.</span></span>
+<span id="cb99-9"><a href="o-modelo-de-regressão.html#cb99-9" tabindex="-1"></a><span class="co"># o arquivo dados_finais.rds está no respositório em:</span></span>
+<span id="cb99-10"><a href="o-modelo-de-regressão.html#cb99-10" tabindex="-1"></a><span class="co"># https://github.com/mgaldino/book-regression/tree/main/dados</span></span>
+<span id="cb99-11"><a href="o-modelo-de-regressão.html#cb99-11" tabindex="-1"></a>dados_finais <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>, <span class="st">&quot;dados_finais.rds&quot;</span>))</span>
+<span id="cb99-12"><a href="o-modelo-de-regressão.html#cb99-12" tabindex="-1"></a></span>
+<span id="cb99-13"><a href="o-modelo-de-regressão.html#cb99-13" tabindex="-1"></a><span class="co"># Identificar os municípios que possuem segundo turno</span></span>
+<span id="cb99-14"><a href="o-modelo-de-regressão.html#cb99-14" tabindex="-1"></a>municipios_segundo_turno <span class="ot">&lt;-</span> dados_finais <span class="sc">%&gt;%</span></span>
+<span id="cb99-15"><a href="o-modelo-de-regressão.html#cb99-15" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb99-16"><a href="o-modelo-de-regressão.html#cb99-16" tabindex="-1"></a>  <span class="fu">filter</span>(NR_TURNO <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb99-17"><a href="o-modelo-de-regressão.html#cb99-17" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(NM_MUNICIPIO) <span class="sc">%&gt;%</span></span>
+<span id="cb99-18"><a href="o-modelo-de-regressão.html#cb99-18" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb99-19"><a href="o-modelo-de-regressão.html#cb99-19" tabindex="-1"></a></span>
+<span id="cb99-20"><a href="o-modelo-de-regressão.html#cb99-20" tabindex="-1"></a><span class="co"># Filtrar os dados para incluir apenas os municípios que têm segundo turno</span></span>
+<span id="cb99-21"><a href="o-modelo-de-regressão.html#cb99-21" tabindex="-1"></a>dados_filtrados <span class="ot">&lt;-</span> dados_finais <span class="sc">%&gt;%</span></span>
+<span id="cb99-22"><a href="o-modelo-de-regressão.html#cb99-22" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb99-23"><a href="o-modelo-de-regressão.html#cb99-23" tabindex="-1"></a>  <span class="fu">inner_join</span>(municipios_segundo_turno, <span class="at">by =</span> <span class="st">&quot;NM_MUNICIPIO&quot;</span>)</span>
+<span id="cb99-24"><a href="o-modelo-de-regressão.html#cb99-24" tabindex="-1"></a></span>
+<span id="cb99-25"><a href="o-modelo-de-regressão.html#cb99-25" tabindex="-1"></a>dados_turno <span class="ot">&lt;-</span> dados_filtrados <span class="sc">%&gt;%</span></span>
+<span id="cb99-26"><a href="o-modelo-de-regressão.html#cb99-26" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>, <span class="dv">96</span>)) <span class="sc">%&gt;%</span> <span class="co"># nulos e brancos fora</span></span>
+<span id="cb99-27"><a href="o-modelo-de-regressão.html#cb99-27" tabindex="-1"></a>   <span class="fu">pivot_wider</span>(</span>
+<span id="cb99-28"><a href="o-modelo-de-regressão.html#cb99-28" tabindex="-1"></a>    <span class="at">id_cols =</span> <span class="fu">c</span>(DS_ELEICAO, NM_MUNICIPIO, NR_ZONA, NR_SECAO, NR_VOTAVEL),</span>
+<span id="cb99-29"><a href="o-modelo-de-regressão.html#cb99-29" tabindex="-1"></a>    <span class="at">names_from =</span> NR_TURNO,</span>
+<span id="cb99-30"><a href="o-modelo-de-regressão.html#cb99-30" tabindex="-1"></a>    <span class="at">values_from =</span> votos_nominais,</span>
+<span id="cb99-31"><a href="o-modelo-de-regressão.html#cb99-31" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">&quot;votos_turno_&quot;</span></span>
+<span id="cb99-32"><a href="o-modelo-de-regressão.html#cb99-32" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb99-33"><a href="o-modelo-de-regressão.html#cb99-33" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">votos_1turno =</span> votos_turno_1,</span>
+<span id="cb99-34"><a href="o-modelo-de-regressão.html#cb99-34" tabindex="-1"></a>         <span class="at">votos_2turno =</span> votos_turno_2)</span>
+<span id="cb99-35"><a href="o-modelo-de-regressão.html#cb99-35" tabindex="-1"></a></span>
+<span id="cb99-36"><a href="o-modelo-de-regressão.html#cb99-36" tabindex="-1"></a>dados_turno1 <span class="ot">&lt;-</span> dados_turno <span class="sc">%&gt;%</span></span>
+<span id="cb99-37"><a href="o-modelo-de-regressão.html#cb99-37" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_VOTAVEL, NM_MUNICIPIO) <span class="sc">%&gt;%</span></span>
+<span id="cb99-38"><a href="o-modelo-de-regressão.html#cb99-38" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">voto_total_candidato_2t =</span> <span class="fu">sum</span>(votos_2turno, <span class="at">na.rm=</span>T),</span>
+<span id="cb99-39"><a href="o-modelo-de-regressão.html#cb99-39" tabindex="-1"></a>         <span class="at">voto_total_candidato_1t =</span> <span class="fu">sum</span>(votos_1turno, <span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span></span>
+<span id="cb99-40"><a href="o-modelo-de-regressão.html#cb99-40" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb99-41"><a href="o-modelo-de-regressão.html#cb99-41" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_MUNICIPIO, NR_ZONA, NR_SECAO) <span class="sc">%&gt;%</span></span>
+<span id="cb99-42"><a href="o-modelo-de-regressão.html#cb99-42" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">votos_validos_1t =</span> <span class="fu">sum</span>(votos_1turno),</span>
+<span id="cb99-43"><a href="o-modelo-de-regressão.html#cb99-43" tabindex="-1"></a>         <span class="at">votos_validos_2t =</span> <span class="fu">sum</span>(votos_2turno, <span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span></span>
+<span id="cb99-44"><a href="o-modelo-de-regressão.html#cb99-44" tabindex="-1"></a>  <span class="fu">filter</span>(voto_total_candidato_2t <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb99-45"><a href="o-modelo-de-regressão.html#cb99-45" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_MUNICIPIO, NR_ZONA, NR_SECAO, NR_VOTAVEL) <span class="sc">%&gt;%</span></span>
+<span id="cb99-46"><a href="o-modelo-de-regressão.html#cb99-46" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">perc_validos_1t =</span> votos_1turno<span class="sc">/</span>votos_validos_1t,</span>
+<span id="cb99-47"><a href="o-modelo-de-regressão.html#cb99-47" tabindex="-1"></a>         <span class="at">perc_validos_2t =</span> votos_2turno<span class="sc">/</span>votos_validos_2t) <span class="sc">%&gt;%</span></span>
+<span id="cb99-48"><a href="o-modelo-de-regressão.html#cb99-48" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb99-49"><a href="o-modelo-de-regressão.html#cb99-49" tabindex="-1"></a><span class="co"># salvando dados que iremos trabalhar em sala de aula efetivamente.</span></span>
+<span id="cb99-50"><a href="o-modelo-de-regressão.html#cb99-50" tabindex="-1"></a><span class="fu">saveRDS</span>(dados_turno1, <span class="at">file=</span><span class="fu">here</span>(<span class="st">&quot;Dados//&quot;</span>, <span class="st">&quot;dados_turno1.rds&quot;</span>))</span></code></pre></div>
 <p>O que constitui uma boa previsão? Tradicionalmente, empregamos a noção de Erro Quadrátco Médio (EQM) para quantificar boas previsões. Quanto menor o EQM, melhor uma previsão. Se o objetivo é, portanto, fazer previsões que minimizem o EQM, iremos apresertar e mostrar que a Função de Esperança Condicional (<em>CEF</em>, na sigla em inglês) é o melhor preditor global possível. Vamos dizer, em outras palavras, porque esse resultado é verdadeiramente incrível. A CEF é o melhor preditor possível dentre todos que existam ou possam vir a existir, entendendo melhor como ter o menor EQM. Por isso que a CEF é o ponto de partida de qualquer preditor que exista, seja uma regressão simples ou algoritmos de aprendizens de máquinas como “random forest” ou mesmo algorítimos de deep learning de redes neurais por traz dos recentes avanços na inteligência artificial.</p>
 <blockquote>
 <p>Mesmo os algorítmos mais avançados de inteleigência artificial, como os <strong>Large Language Models</strong>, que estão na base de ferramentas como ChatGPT, <em>não podem</em> ter desempenho melhor que a função de experança condicional, CEF, ao fazer uma previsão.</p>
@@ -536,46 +541,46 @@ O dado original foi retirado do portal de dados abertos do TSE, com os dados de 
 </div>
 <div id="cef-e-voto" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> CEF e voto<a href="o-modelo-de-regressão.html#cef-e-voto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="o-modelo-de-regressão.html#cb99-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb99-2"><a href="o-modelo-de-regressão.html#cb99-2" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb99-3"><a href="o-modelo-de-regressão.html#cb99-3" tabindex="-1"></a></span>
-<span id="cb99-4"><a href="o-modelo-de-regressão.html#cb99-4" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
-<span id="cb99-5"><a href="o-modelo-de-regressão.html#cb99-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_validos_1t , <span class="at">y =</span> perc_validos_2t )) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
-<span id="cb99-6"><a href="o-modelo-de-regressão.html#cb99-6" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb99-7"><a href="o-modelo-de-regressão.html#cb99-7" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
-<span id="cb99-8"><a href="o-modelo-de-regressão.html#cb99-8" tabindex="-1"></a></span>
-<span id="cb99-9"><a href="o-modelo-de-regressão.html#cb99-9" tabindex="-1"></a><span class="fu">print</span>(p1)</span></code></pre></div>
-<div class="figure">
-<img src="bookdownproj_files/figure-html/voto_turnos_todos_municipios%20cap5-1.png" alt="voto" width="672" />
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="o-modelo-de-regressão.html#cb100-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb100-2"><a href="o-modelo-de-regressão.html#cb100-2" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb100-3"><a href="o-modelo-de-regressão.html#cb100-3" tabindex="-1"></a></span>
+<span id="cb100-4"><a href="o-modelo-de-regressão.html#cb100-4" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
+<span id="cb100-5"><a href="o-modelo-de-regressão.html#cb100-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_validos_1t , <span class="at">y =</span> perc_validos_2t )) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
+<span id="cb100-6"><a href="o-modelo-de-regressão.html#cb100-6" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb100-7"><a href="o-modelo-de-regressão.html#cb100-7" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
+<span id="cb100-8"><a href="o-modelo-de-regressão.html#cb100-8" tabindex="-1"></a></span>
+<span id="cb100-9"><a href="o-modelo-de-regressão.html#cb100-9" tabindex="-1"></a><span class="fu">print</span>(p1)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="bookdownproj_files/figure-html/voto_turnos_todos_municipios%20cap5-1.png" alt="voto" width="900" />
 <p class="caption">
 (#fig:voto_turnos_todos_municipios cap5)voto
 </p>
 </div>
 <p>O gráfico agrupando todos os muniícipios de São Paulo sem distinção mostra uma correlação positiva, mas muita variabilidade. Vamos ver por município.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="o-modelo-de-regressão.html#cb100-1" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
-<span id="cb100-2"><a href="o-modelo-de-regressão.html#cb100-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_validos_1t , <span class="at">y =</span> perc_validos_2t )) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
-<span id="cb100-3"><a href="o-modelo-de-regressão.html#cb100-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> NM_MUNICIPIO) <span class="sc">+</span></span>
-<span id="cb100-4"><a href="o-modelo-de-regressão.html#cb100-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span> </span>
-<span id="cb100-5"><a href="o-modelo-de-regressão.html#cb100-5" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
-<span id="cb100-6"><a href="o-modelo-de-regressão.html#cb100-6" tabindex="-1"></a></span>
-<span id="cb100-7"><a href="o-modelo-de-regressão.html#cb100-7" tabindex="-1"></a><span class="fu">print</span>(p2)</span></code></pre></div>
-<div class="figure">
-<img src="bookdownproj_files/figure-html/voto_turnos_por_municipios-1.png" alt="voto_por_municipio" width="672" />
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="o-modelo-de-regressão.html#cb101-1" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
+<span id="cb101-2"><a href="o-modelo-de-regressão.html#cb101-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_validos_1t , <span class="at">y =</span> perc_validos_2t )) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
+<span id="cb101-3"><a href="o-modelo-de-regressão.html#cb101-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> NM_MUNICIPIO) <span class="sc">+</span></span>
+<span id="cb101-4"><a href="o-modelo-de-regressão.html#cb101-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span> </span>
+<span id="cb101-5"><a href="o-modelo-de-regressão.html#cb101-5" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
+<span id="cb101-6"><a href="o-modelo-de-regressão.html#cb101-6" tabindex="-1"></a></span>
+<span id="cb101-7"><a href="o-modelo-de-regressão.html#cb101-7" tabindex="-1"></a><span class="fu">print</span>(p2)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="bookdownproj_files/figure-html/voto_turnos_por_municipios-1.png" alt="voto_por_municipio" width="900" />
 <p class="caption">
 (#fig:voto_turnos_por_municipios)voto_por_municipio
 </p>
 </div>
 <p>Os gráficos fazem mais sentido e a variabilidade diminuiu no geral, mas alguns municípios estão com padrões estranhos. Vamos colorir os pontos por candidato?</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="o-modelo-de-regressão.html#cb101-1" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
-<span id="cb101-2"><a href="o-modelo-de-regressão.html#cb101-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_validos_1t , <span class="at">y =</span> perc_validos_2t, <span class="at">colour =</span> NR_VOTAVEL)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
-<span id="cb101-3"><a href="o-modelo-de-regressão.html#cb101-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> NM_MUNICIPIO) <span class="sc">+</span></span>
-<span id="cb101-4"><a href="o-modelo-de-regressão.html#cb101-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span> </span>
-<span id="cb101-5"><a href="o-modelo-de-regressão.html#cb101-5" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb101-6"><a href="o-modelo-de-regressão.html#cb101-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span>
-<span id="cb101-7"><a href="o-modelo-de-regressão.html#cb101-7" tabindex="-1"></a></span>
-<span id="cb101-8"><a href="o-modelo-de-regressão.html#cb101-8" tabindex="-1"></a><span class="fu">print</span>(p3)</span></code></pre></div>
-<div class="figure">
-<img src="bookdownproj_files/figure-html/voto_turnos_por_municipios_candidatos-1.png" alt="voto_por_municipio" width="672" />
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="o-modelo-de-regressão.html#cb102-1" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
+<span id="cb102-2"><a href="o-modelo-de-regressão.html#cb102-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>perc_validos_1t , <span class="at">y =</span> perc_validos_2t, <span class="at">colour =</span> NR_VOTAVEL)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">22</span>) <span class="sc">+</span></span>
+<span id="cb102-3"><a href="o-modelo-de-regressão.html#cb102-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> NM_MUNICIPIO) <span class="sc">+</span></span>
+<span id="cb102-4"><a href="o-modelo-de-regressão.html#cb102-4" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span> </span>
+<span id="cb102-5"><a href="o-modelo-de-regressão.html#cb102-5" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb102-6"><a href="o-modelo-de-regressão.html#cb102-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span>
+<span id="cb102-7"><a href="o-modelo-de-regressão.html#cb102-7" tabindex="-1"></a></span>
+<span id="cb102-8"><a href="o-modelo-de-regressão.html#cb102-8" tabindex="-1"></a><span class="fu">print</span>(p3)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="bookdownproj_files/figure-html/voto_turnos_por_municipios_candidatos-1.png" alt="voto_por_municipio" width="900" />
 <p class="caption">
 (#fig:voto_turnos_por_municipios_candidatos)voto_por_municipio
 </p>
@@ -583,36 +588,36 @@ O dado original foi retirado do portal de dados abertos do TSE, com os dados de 
 <p>Municípios como Diadema, Sorocaba, Franca e Taubaté, que não estavam fazendo muito sentido, agora passaram a fazer.</p>
 <p>E o que é a Esperana Condicional?
 Qual o valor esperado do <span class="math inline">\(Y\)</span> para um davo valor de <span class="math inline">\(X\)</span>. No gráfico, é dado pela linha vermelha.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="o-modelo-de-regressão.html#cb102-1" tabindex="-1"></a><span class="co"># Criar bins para perc_validos_1t</span></span>
-<span id="cb102-2"><a href="o-modelo-de-regressão.html#cb102-2" tabindex="-1"></a>dados_binned <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
-<span id="cb102-3"><a href="o-modelo-de-regressão.html#cb102-3" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_MUNICIPIO) <span class="sc">%&gt;%</span></span>
-<span id="cb102-4"><a href="o-modelo-de-regressão.html#cb102-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bin_1t =</span> <span class="fu">cut</span>(perc_validos_1t, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.025</span>)))</span>
-<span id="cb102-5"><a href="o-modelo-de-regressão.html#cb102-5" tabindex="-1"></a></span>
-<span id="cb102-6"><a href="o-modelo-de-regressão.html#cb102-6" tabindex="-1"></a><span class="co"># Calcular a média para cada bin</span></span>
-<span id="cb102-7"><a href="o-modelo-de-regressão.html#cb102-7" tabindex="-1"></a>cef_data <span class="ot">&lt;-</span> dados_binned <span class="sc">%&gt;%</span></span>
-<span id="cb102-8"><a href="o-modelo-de-regressão.html#cb102-8" tabindex="-1"></a>  <span class="fu">group_by</span>(bin_1t, NM_MUNICIPIO) <span class="sc">%&gt;%</span></span>
-<span id="cb102-9"><a href="o-modelo-de-regressão.html#cb102-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">perc_validos_2t_mean =</span> <span class="fu">mean</span>(perc_validos_2t, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb102-10"><a href="o-modelo-de-regressão.html#cb102-10" tabindex="-1"></a>             <span class="at">bin_center =</span> <span class="fu">mean</span>(<span class="fu">as.numeric</span>(perc_validos_1t), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb102-11"><a href="o-modelo-de-regressão.html#cb102-11" tabindex="-1"></a></span>
-<span id="cb102-12"><a href="o-modelo-de-regressão.html#cb102-12" tabindex="-1"></a><span class="co"># Criar o gráfico</span></span>
-<span id="cb102-13"><a href="o-modelo-de-regressão.html#cb102-13" tabindex="-1"></a>grafico_cef <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb102-14"><a href="o-modelo-de-regressão.html#cb102-14" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> dados_binned, <span class="fu">aes</span>(<span class="at">x =</span> perc_validos_1t, <span class="at">y =</span> perc_validos_2t), </span>
-<span id="cb102-15"><a href="o-modelo-de-regressão.html#cb102-15" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
-<span id="cb102-16"><a href="o-modelo-de-regressão.html#cb102-16" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> cef_data, <span class="fu">aes</span>(<span class="at">x =</span> bin_center, <span class="at">y =</span> perc_validos_2t_mean), </span>
-<span id="cb102-17"><a href="o-modelo-de-regressão.html#cb102-17" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb102-18"><a href="o-modelo-de-regressão.html#cb102-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> cef_data, <span class="fu">aes</span>(<span class="at">x =</span> bin_center, <span class="at">y =</span> perc_validos_2t_mean), </span>
-<span id="cb102-19"><a href="o-modelo-de-regressão.html#cb102-19" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb102-20"><a href="o-modelo-de-regressão.html#cb102-20" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>NM_MUNICIPIO) <span class="sc">+</span></span>
-<span id="cb102-21"><a href="o-modelo-de-regressão.html#cb102-21" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Função de Expectativa Condicional (CEF)&quot;</span>,</span>
-<span id="cb102-22"><a href="o-modelo-de-regressão.html#cb102-22" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Percentual de Votos Válidos no 1º Turno&quot;</span>,</span>
-<span id="cb102-23"><a href="o-modelo-de-regressão.html#cb102-23" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Percentual Médio de Votos Válidos no 2º Turno&quot;</span>) <span class="sc">+</span></span>
-<span id="cb102-24"><a href="o-modelo-de-regressão.html#cb102-24" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb102-25"><a href="o-modelo-de-regressão.html#cb102-25" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb102-26"><a href="o-modelo-de-regressão.html#cb102-26" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
-<span id="cb102-27"><a href="o-modelo-de-regressão.html#cb102-27" tabindex="-1"></a></span>
-<span id="cb102-28"><a href="o-modelo-de-regressão.html#cb102-28" tabindex="-1"></a><span class="fu">print</span>(grafico_cef)</span></code></pre></div>
-<div class="figure">
-<img src="bookdownproj_files/figure-html/CEF_voto_turnos_Limeira-1.png" alt="voto_por_municipio" width="672" />
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="o-modelo-de-regressão.html#cb103-1" tabindex="-1"></a><span class="co"># Criar bins para perc_validos_1t</span></span>
+<span id="cb103-2"><a href="o-modelo-de-regressão.html#cb103-2" tabindex="-1"></a>dados_binned <span class="ot">&lt;-</span> dados_turno1 <span class="sc">%&gt;%</span></span>
+<span id="cb103-3"><a href="o-modelo-de-regressão.html#cb103-3" tabindex="-1"></a>  <span class="fu">group_by</span>(NM_MUNICIPIO) <span class="sc">%&gt;%</span></span>
+<span id="cb103-4"><a href="o-modelo-de-regressão.html#cb103-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bin_1t =</span> <span class="fu">cut</span>(perc_validos_1t, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.025</span>)))</span>
+<span id="cb103-5"><a href="o-modelo-de-regressão.html#cb103-5" tabindex="-1"></a></span>
+<span id="cb103-6"><a href="o-modelo-de-regressão.html#cb103-6" tabindex="-1"></a><span class="co"># Calcular a média para cada bin</span></span>
+<span id="cb103-7"><a href="o-modelo-de-regressão.html#cb103-7" tabindex="-1"></a>cef_data <span class="ot">&lt;-</span> dados_binned <span class="sc">%&gt;%</span></span>
+<span id="cb103-8"><a href="o-modelo-de-regressão.html#cb103-8" tabindex="-1"></a>  <span class="fu">group_by</span>(bin_1t, NM_MUNICIPIO) <span class="sc">%&gt;%</span></span>
+<span id="cb103-9"><a href="o-modelo-de-regressão.html#cb103-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">perc_validos_2t_mean =</span> <span class="fu">mean</span>(perc_validos_2t, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb103-10"><a href="o-modelo-de-regressão.html#cb103-10" tabindex="-1"></a>             <span class="at">bin_center =</span> <span class="fu">mean</span>(<span class="fu">as.numeric</span>(perc_validos_1t), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb103-11"><a href="o-modelo-de-regressão.html#cb103-11" tabindex="-1"></a></span>
+<span id="cb103-12"><a href="o-modelo-de-regressão.html#cb103-12" tabindex="-1"></a><span class="co"># Criar o gráfico</span></span>
+<span id="cb103-13"><a href="o-modelo-de-regressão.html#cb103-13" tabindex="-1"></a>grafico_cef <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb103-14"><a href="o-modelo-de-regressão.html#cb103-14" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> dados_binned, <span class="fu">aes</span>(<span class="at">x =</span> perc_validos_1t, <span class="at">y =</span> perc_validos_2t), </span>
+<span id="cb103-15"><a href="o-modelo-de-regressão.html#cb103-15" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb103-16"><a href="o-modelo-de-regressão.html#cb103-16" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> cef_data, <span class="fu">aes</span>(<span class="at">x =</span> bin_center, <span class="at">y =</span> perc_validos_2t_mean), </span>
+<span id="cb103-17"><a href="o-modelo-de-regressão.html#cb103-17" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb103-18"><a href="o-modelo-de-regressão.html#cb103-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> cef_data, <span class="fu">aes</span>(<span class="at">x =</span> bin_center, <span class="at">y =</span> perc_validos_2t_mean), </span>
+<span id="cb103-19"><a href="o-modelo-de-regressão.html#cb103-19" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb103-20"><a href="o-modelo-de-regressão.html#cb103-20" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>NM_MUNICIPIO) <span class="sc">+</span></span>
+<span id="cb103-21"><a href="o-modelo-de-regressão.html#cb103-21" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Função de Expectativa Condicional (CEF)&quot;</span>,</span>
+<span id="cb103-22"><a href="o-modelo-de-regressão.html#cb103-22" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Percentual de Votos Válidos no 1º Turno&quot;</span>,</span>
+<span id="cb103-23"><a href="o-modelo-de-regressão.html#cb103-23" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Percentual Médio de Votos Válidos no 2º Turno&quot;</span>) <span class="sc">+</span></span>
+<span id="cb103-24"><a href="o-modelo-de-regressão.html#cb103-24" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb103-25"><a href="o-modelo-de-regressão.html#cb103-25" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb103-26"><a href="o-modelo-de-regressão.html#cb103-26" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent)</span>
+<span id="cb103-27"><a href="o-modelo-de-regressão.html#cb103-27" tabindex="-1"></a></span>
+<span id="cb103-28"><a href="o-modelo-de-regressão.html#cb103-28" tabindex="-1"></a><span class="fu">print</span>(grafico_cef)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="bookdownproj_files/figure-html/CEF_voto_turnos_Limeira-1.png" alt="voto_por_municipio" width="900" />
 <p class="caption">
 (#fig:CEF_voto_turnos_Limeira)voto_por_municipio
 </p>
@@ -635,26 +640,26 @@ Qual o valor esperado do <span class="math inline">\(Y\)</span> para um davo val
 <h2><span class="header-section-number">5.5</span> Regressão Linear<a href="#regress%C3%A3o-linear" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Como podemos ver nos gráficos, a esperança condicional é em geral não-linear. A ideia da regressão linear é aproximar a CEF por meio de uma reta.</p>
 <p>Vamos plotar a reta de regressão linear nos gráficos, juntamente com a CEF.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="o-modelo-de-regressão.html#cb103-1" tabindex="-1"></a><span class="co"># Criar o gráfico</span></span>
-<span id="cb103-2"><a href="o-modelo-de-regressão.html#cb103-2" tabindex="-1"></a>grafico_cef_reg <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb103-3"><a href="o-modelo-de-regressão.html#cb103-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> dados_binned, <span class="fu">aes</span>(<span class="at">x =</span> perc_validos_1t, <span class="at">y =</span> perc_validos_2t), </span>
-<span id="cb103-4"><a href="o-modelo-de-regressão.html#cb103-4" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
-<span id="cb103-5"><a href="o-modelo-de-regressão.html#cb103-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> cef_data, <span class="fu">aes</span>(<span class="at">x =</span> bin_center, <span class="at">y =</span> perc_validos_2t_mean), </span>
-<span id="cb103-6"><a href="o-modelo-de-regressão.html#cb103-6" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb103-7"><a href="o-modelo-de-regressão.html#cb103-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> cef_data, <span class="fu">aes</span>(<span class="at">x =</span> bin_center, <span class="at">y =</span> perc_validos_2t_mean), </span>
-<span id="cb103-8"><a href="o-modelo-de-regressão.html#cb103-8" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb103-9"><a href="o-modelo-de-regressão.html#cb103-9" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> dados_binned, <span class="fu">aes</span>(<span class="at">x =</span> perc_validos_1t, <span class="at">y =</span> perc_validos_2t), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">linewidth=</span><span class="dv">1</span>, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb103-10"><a href="o-modelo-de-regressão.html#cb103-10" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>NM_MUNICIPIO) <span class="sc">+</span></span>
-<span id="cb103-11"><a href="o-modelo-de-regressão.html#cb103-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;CEF e Reta de Regressão Linear&quot;</span>,</span>
-<span id="cb103-12"><a href="o-modelo-de-regressão.html#cb103-12" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Percentual de Votos Válidos no 1º Turno&quot;</span>,</span>
-<span id="cb103-13"><a href="o-modelo-de-regressão.html#cb103-13" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Percentual Médio de Votos Válidos no 2º Turno&quot;</span>) <span class="sc">+</span></span>
-<span id="cb103-14"><a href="o-modelo-de-regressão.html#cb103-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb103-15"><a href="o-modelo-de-regressão.html#cb103-15" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb103-16"><a href="o-modelo-de-regressão.html#cb103-16" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) </span>
-<span id="cb103-17"><a href="o-modelo-de-regressão.html#cb103-17" tabindex="-1"></a></span>
-<span id="cb103-18"><a href="o-modelo-de-regressão.html#cb103-18" tabindex="-1"></a><span class="fu">print</span>(grafico_cef_reg)</span></code></pre></div>
-<div class="figure">
-<img src="bookdownproj_files/figure-html/CEF_voto_turnos_regressao-1.png" alt="voto_por_municipio" width="672" />
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="o-modelo-de-regressão.html#cb104-1" tabindex="-1"></a><span class="co"># Criar o gráfico</span></span>
+<span id="cb104-2"><a href="o-modelo-de-regressão.html#cb104-2" tabindex="-1"></a>grafico_cef_reg <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb104-3"><a href="o-modelo-de-regressão.html#cb104-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> dados_binned, <span class="fu">aes</span>(<span class="at">x =</span> perc_validos_1t, <span class="at">y =</span> perc_validos_2t), </span>
+<span id="cb104-4"><a href="o-modelo-de-regressão.html#cb104-4" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb104-5"><a href="o-modelo-de-regressão.html#cb104-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> cef_data, <span class="fu">aes</span>(<span class="at">x =</span> bin_center, <span class="at">y =</span> perc_validos_2t_mean), </span>
+<span id="cb104-6"><a href="o-modelo-de-regressão.html#cb104-6" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb104-7"><a href="o-modelo-de-regressão.html#cb104-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> cef_data, <span class="fu">aes</span>(<span class="at">x =</span> bin_center, <span class="at">y =</span> perc_validos_2t_mean), </span>
+<span id="cb104-8"><a href="o-modelo-de-regressão.html#cb104-8" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb104-9"><a href="o-modelo-de-regressão.html#cb104-9" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> dados_binned, <span class="fu">aes</span>(<span class="at">x =</span> perc_validos_1t, <span class="at">y =</span> perc_validos_2t), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,<span class="at">linewidth=</span><span class="dv">1</span>, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb104-10"><a href="o-modelo-de-regressão.html#cb104-10" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>NM_MUNICIPIO) <span class="sc">+</span></span>
+<span id="cb104-11"><a href="o-modelo-de-regressão.html#cb104-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;CEF e Reta de Regressão Linear&quot;</span>,</span>
+<span id="cb104-12"><a href="o-modelo-de-regressão.html#cb104-12" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Percentual de Votos Válidos no 1º Turno&quot;</span>,</span>
+<span id="cb104-13"><a href="o-modelo-de-regressão.html#cb104-13" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Percentual Médio de Votos Válidos no 2º Turno&quot;</span>) <span class="sc">+</span></span>
+<span id="cb104-14"><a href="o-modelo-de-regressão.html#cb104-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb104-15"><a href="o-modelo-de-regressão.html#cb104-15" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb104-16"><a href="o-modelo-de-regressão.html#cb104-16" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) </span>
+<span id="cb104-17"><a href="o-modelo-de-regressão.html#cb104-17" tabindex="-1"></a></span>
+<span id="cb104-18"><a href="o-modelo-de-regressão.html#cb104-18" tabindex="-1"></a><span class="fu">print</span>(grafico_cef_reg)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="bookdownproj_files/figure-html/CEF_voto_turnos_regressao-1.png" alt="voto_por_municipio" width="900" />
 <p class="caption">
 (#fig:CEF_voto_turnos_regressao)voto_por_municipio
 </p>
@@ -687,44 +692,44 @@ log(a) - log(b) \approx p/100
 \]</span>
 Numericamente, como o erro dessa aproximação varia para diferentes valores de <span class="math inline">\(p\)</span>?</p>
 <p>Exercício em sala: Vamos fazer uma simulação para verificar como o erro da aproximação funciona. Ou seja, vamos variar a diferença percentual entre dois números <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> e calcular o erro de aproximação pela fórmula com logaritmo.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="o-modelo-de-regressão.html#cb104-1" tabindex="-1"></a>dif_perc <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
-<span id="cb104-2"><a href="o-modelo-de-regressão.html#cb104-2" tabindex="-1"></a>  <span class="fu">stopifnot</span>(a <span class="sc">&gt;</span> b)</span>
-<span id="cb104-3"><a href="o-modelo-de-regressão.html#cb104-3" tabindex="-1"></a>  <span class="dv">100</span><span class="sc">*</span>(a <span class="sc">-</span> b)<span class="sc">/</span>b </span>
-<span id="cb104-4"><a href="o-modelo-de-regressão.html#cb104-4" tabindex="-1"></a>}</span>
-<span id="cb104-5"><a href="o-modelo-de-regressão.html#cb104-5" tabindex="-1"></a></span>
-<span id="cb104-6"><a href="o-modelo-de-regressão.html#cb104-6" tabindex="-1"></a>aprox_dif_perc <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
-<span id="cb104-7"><a href="o-modelo-de-regressão.html#cb104-7" tabindex="-1"></a>  <span class="fu">stopifnot</span>(a <span class="sc">&gt;</span> b)</span>
-<span id="cb104-8"><a href="o-modelo-de-regressão.html#cb104-8" tabindex="-1"></a>  <span class="dv">100</span><span class="sc">*</span>(<span class="fu">log</span>(a) <span class="sc">-</span> <span class="fu">log</span>(b))</span>
-<span id="cb104-9"><a href="o-modelo-de-regressão.html#cb104-9" tabindex="-1"></a>}</span>
-<span id="cb104-10"><a href="o-modelo-de-regressão.html#cb104-10" tabindex="-1"></a></span>
-<span id="cb104-11"><a href="o-modelo-de-regressão.html#cb104-11" tabindex="-1"></a>erro_aprox_perc <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b) {</span>
-<span id="cb104-12"><a href="o-modelo-de-regressão.html#cb104-12" tabindex="-1"></a>  <span class="fu">dif_perc</span>(a,b) <span class="sc">-</span> <span class="fu">aprox_dif_perc</span>(a,b)</span>
-<span id="cb104-13"><a href="o-modelo-de-regressão.html#cb104-13" tabindex="-1"></a>}</span>
-<span id="cb104-14"><a href="o-modelo-de-regressão.html#cb104-14" tabindex="-1"></a></span>
-<span id="cb104-15"><a href="o-modelo-de-regressão.html#cb104-15" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb104-16"><a href="o-modelo-de-regressão.html#cb104-16" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">100.1</span>, <span class="dv">120</span>, <span class="at">by=</span>.<span class="dv">1</span>)</span>
-<span id="cb104-17"><a href="o-modelo-de-regressão.html#cb104-17" tabindex="-1"></a>vec_erro <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
-<span id="cb104-18"><a href="o-modelo-de-regressão.html#cb104-18" tabindex="-1"></a>true_p <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
-<span id="cb104-19"><a href="o-modelo-de-regressão.html#cb104-19" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(a)) {</span>
-<span id="cb104-20"><a href="o-modelo-de-regressão.html#cb104-20" tabindex="-1"></a>  vec_erro[i] <span class="ot">&lt;-</span> <span class="fu">erro_aprox_perc</span>(a[i],b)</span>
-<span id="cb104-21"><a href="o-modelo-de-regressão.html#cb104-21" tabindex="-1"></a>  true_p[i] <span class="ot">&lt;-</span> <span class="fu">dif_perc</span>(a[i],b)</span>
-<span id="cb104-22"><a href="o-modelo-de-regressão.html#cb104-22" tabindex="-1"></a>}</span>
-<span id="cb104-23"><a href="o-modelo-de-regressão.html#cb104-23" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">erro =</span> vec_erro, <span class="at">p =</span> true_p )</span>
-<span id="cb104-24"><a href="o-modelo-de-regressão.html#cb104-24" tabindex="-1"></a></span>
-<span id="cb104-25"><a href="o-modelo-de-regressão.html#cb104-25" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb104-26"><a href="o-modelo-de-regressão.html#cb104-26" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb104-27"><a href="o-modelo-de-regressão.html#cb104-27" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb104-28"><a href="o-modelo-de-regressão.html#cb104-28" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>p, <span class="at">y=</span>erro)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb104-29"><a href="o-modelo-de-regressão.html#cb104-29" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> .<span class="dv">1</span>, <span class="at">colour=</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb104-30"><a href="o-modelo-de-regressão.html#cb104-30" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Diferença Percentual Real&quot;</span>, </span>
-<span id="cb104-31"><a href="o-modelo-de-regressão.html#cb104-31" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Erro de Aproximação (p.p.)&quot;</span>,</span>
-<span id="cb104-32"><a href="o-modelo-de-regressão.html#cb104-32" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Erro na Aproximação da Dif Per&quot;</span>) <span class="sc">+</span></span>
-<span id="cb104-33"><a href="o-modelo-de-regressão.html#cb104-33" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="o-modelo-de-regressão.html#cb105-1" tabindex="-1"></a><span class="co"># Verificação do intervalo onde o erro é menor que 0.1 pp</span></span>
-<span id="cb105-2"><a href="o-modelo-de-regressão.html#cb105-2" tabindex="-1"></a>df<span class="sc">$</span>within_tolerance <span class="ot">&lt;-</span> <span class="fu">abs</span>(df<span class="sc">$</span>erro) <span class="sc">&lt;</span> <span class="fl">0.1</span></span>
-<span id="cb105-3"><a href="o-modelo-de-regressão.html#cb105-3" tabindex="-1"></a>max_p_within_tolerance <span class="ot">&lt;-</span> <span class="fu">max</span>(df<span class="sc">$</span>p[df<span class="sc">$</span>within_tolerance])</span>
-<span id="cb105-4"><a href="o-modelo-de-regressão.html#cb105-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Máximo p com erro &lt; 0.1 pp:&quot;</span>, <span class="fu">round</span>(max_p_within_tolerance, <span class="dv">2</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="o-modelo-de-regressão.html#cb105-1" tabindex="-1"></a>dif_perc <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
+<span id="cb105-2"><a href="o-modelo-de-regressão.html#cb105-2" tabindex="-1"></a>  <span class="fu">stopifnot</span>(a <span class="sc">&gt;</span> b)</span>
+<span id="cb105-3"><a href="o-modelo-de-regressão.html#cb105-3" tabindex="-1"></a>  <span class="dv">100</span><span class="sc">*</span>(a <span class="sc">-</span> b)<span class="sc">/</span>b </span>
+<span id="cb105-4"><a href="o-modelo-de-regressão.html#cb105-4" tabindex="-1"></a>}</span>
+<span id="cb105-5"><a href="o-modelo-de-regressão.html#cb105-5" tabindex="-1"></a></span>
+<span id="cb105-6"><a href="o-modelo-de-regressão.html#cb105-6" tabindex="-1"></a>aprox_dif_perc <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
+<span id="cb105-7"><a href="o-modelo-de-regressão.html#cb105-7" tabindex="-1"></a>  <span class="fu">stopifnot</span>(a <span class="sc">&gt;</span> b)</span>
+<span id="cb105-8"><a href="o-modelo-de-regressão.html#cb105-8" tabindex="-1"></a>  <span class="dv">100</span><span class="sc">*</span>(<span class="fu">log</span>(a) <span class="sc">-</span> <span class="fu">log</span>(b))</span>
+<span id="cb105-9"><a href="o-modelo-de-regressão.html#cb105-9" tabindex="-1"></a>}</span>
+<span id="cb105-10"><a href="o-modelo-de-regressão.html#cb105-10" tabindex="-1"></a></span>
+<span id="cb105-11"><a href="o-modelo-de-regressão.html#cb105-11" tabindex="-1"></a>erro_aprox_perc <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b) {</span>
+<span id="cb105-12"><a href="o-modelo-de-regressão.html#cb105-12" tabindex="-1"></a>  <span class="fu">dif_perc</span>(a,b) <span class="sc">-</span> <span class="fu">aprox_dif_perc</span>(a,b)</span>
+<span id="cb105-13"><a href="o-modelo-de-regressão.html#cb105-13" tabindex="-1"></a>}</span>
+<span id="cb105-14"><a href="o-modelo-de-regressão.html#cb105-14" tabindex="-1"></a></span>
+<span id="cb105-15"><a href="o-modelo-de-regressão.html#cb105-15" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb105-16"><a href="o-modelo-de-regressão.html#cb105-16" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">100.1</span>, <span class="dv">120</span>, <span class="at">by=</span>.<span class="dv">1</span>)</span>
+<span id="cb105-17"><a href="o-modelo-de-regressão.html#cb105-17" tabindex="-1"></a>vec_erro <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb105-18"><a href="o-modelo-de-regressão.html#cb105-18" tabindex="-1"></a>true_p <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb105-19"><a href="o-modelo-de-regressão.html#cb105-19" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(a)) {</span>
+<span id="cb105-20"><a href="o-modelo-de-regressão.html#cb105-20" tabindex="-1"></a>  vec_erro[i] <span class="ot">&lt;-</span> <span class="fu">erro_aprox_perc</span>(a[i],b)</span>
+<span id="cb105-21"><a href="o-modelo-de-regressão.html#cb105-21" tabindex="-1"></a>  true_p[i] <span class="ot">&lt;-</span> <span class="fu">dif_perc</span>(a[i],b)</span>
+<span id="cb105-22"><a href="o-modelo-de-regressão.html#cb105-22" tabindex="-1"></a>}</span>
+<span id="cb105-23"><a href="o-modelo-de-regressão.html#cb105-23" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">erro =</span> vec_erro, <span class="at">p =</span> true_p )</span>
+<span id="cb105-24"><a href="o-modelo-de-regressão.html#cb105-24" tabindex="-1"></a></span>
+<span id="cb105-25"><a href="o-modelo-de-regressão.html#cb105-25" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb105-26"><a href="o-modelo-de-regressão.html#cb105-26" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb105-27"><a href="o-modelo-de-regressão.html#cb105-27" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb105-28"><a href="o-modelo-de-regressão.html#cb105-28" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>p, <span class="at">y=</span>erro)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb105-29"><a href="o-modelo-de-regressão.html#cb105-29" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> .<span class="dv">1</span>, <span class="at">colour=</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb105-30"><a href="o-modelo-de-regressão.html#cb105-30" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Diferença Percentual Real&quot;</span>, </span>
+<span id="cb105-31"><a href="o-modelo-de-regressão.html#cb105-31" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Erro de Aproximação (p.p.)&quot;</span>,</span>
+<span id="cb105-32"><a href="o-modelo-de-regressão.html#cb105-32" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Erro na Aproximação da Dif Per&quot;</span>) <span class="sc">+</span></span>
+<span id="cb105-33"><a href="o-modelo-de-regressão.html#cb105-33" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-6-1.png" width="900" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="o-modelo-de-regressão.html#cb106-1" tabindex="-1"></a><span class="co"># Verificação do intervalo onde o erro é menor que 0.1 pp</span></span>
+<span id="cb106-2"><a href="o-modelo-de-regressão.html#cb106-2" tabindex="-1"></a>df<span class="sc">$</span>within_tolerance <span class="ot">&lt;-</span> <span class="fu">abs</span>(df<span class="sc">$</span>erro) <span class="sc">&lt;</span> <span class="fl">0.1</span></span>
+<span id="cb106-3"><a href="o-modelo-de-regressão.html#cb106-3" tabindex="-1"></a>max_p_within_tolerance <span class="ot">&lt;-</span> <span class="fu">max</span>(df<span class="sc">$</span>p[df<span class="sc">$</span>within_tolerance])</span>
+<span id="cb106-4"><a href="o-modelo-de-regressão.html#cb106-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Máximo p com erro &lt; 0.1 pp:&quot;</span>, <span class="fu">round</span>(max_p_within_tolerance, <span class="dv">2</span>)))</span></code></pre></div>
 <pre><code>## [1] &quot;Máximo p com erro &lt; 0.1 pp: 4.5&quot;</code></pre>
 <p>A segunda razão é que se aplicarmos essa lógica para médias, estamos aproximando a diferença percentual na média geométrica.</p>
 </div>
@@ -746,22 +751,22 @@ Suponha que temos o logaritmo do salário de homens e mulheres:</p>
 <h2><span class="header-section-number">5.7</span> Prevendo a partir da esperança condicional<a href="#prevendo-a-partir-da-esperan%C3%A7a-condicional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>No gráfico abaixo, as esperanças condicionais para os dois valores de <span class="math inline">\(X\)</span> são dadas pelos triângulos vermelhos. Como vemos, há uma grande variabilidade nos dados de salário em torno da esperança condicional. Isso significa que se só tenho a variável gênero, prever <span class="math inline">\(Y\)</span> a partir da esperança condicional <span class="math inline">\(\mathbb{E}[Y|X]\)</span> resulta em um erro grande.</p>
 <p>De fato, o erro que cometemos pode ser calculado por meio do <em>Erro Quadrático Médio</em>, que é definido como a soma dos erros ao quadrado (para não cancelar). No R, isso pode ser calculado como:</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="o-modelo-de-regressão.html#cb107-1" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb107-2"><a href="o-modelo-de-regressão.html#cb107-2" tabindex="-1"></a><span class="co"># df_erro &lt;- df %&gt;%</span></span>
-<span id="cb107-3"><a href="o-modelo-de-regressão.html#cb107-3" tabindex="-1"></a><span class="co">#   group_by(genero) %&gt;%</span></span>
-<span id="cb107-4"><a href="o-modelo-de-regressão.html#cb107-4" tabindex="-1"></a><span class="co">#   mutate(cond_exp = mean(log_salario)) %&gt;%</span></span>
-<span id="cb107-5"><a href="o-modelo-de-regressão.html#cb107-5" tabindex="-1"></a><span class="co">#   ungroup() %&gt;%</span></span>
-<span id="cb107-6"><a href="o-modelo-de-regressão.html#cb107-6" tabindex="-1"></a><span class="co">#   mutate(erro = log_salario - cond_exp)</span></span>
-<span id="cb107-7"><a href="o-modelo-de-regressão.html#cb107-7" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb107-8"><a href="o-modelo-de-regressão.html#cb107-8" tabindex="-1"></a><span class="co"># df_erro %&gt;%</span></span>
-<span id="cb107-9"><a href="o-modelo-de-regressão.html#cb107-9" tabindex="-1"></a><span class="co">#   select(log_salario, genero, cond_exp, erro) %&gt;%</span></span>
-<span id="cb107-10"><a href="o-modelo-de-regressão.html#cb107-10" tabindex="-1"></a><span class="co">#   head() %&gt;%</span></span>
-<span id="cb107-11"><a href="o-modelo-de-regressão.html#cb107-11" tabindex="-1"></a><span class="co">#   kable()</span></span>
-<span id="cb107-12"><a href="o-modelo-de-regressão.html#cb107-12" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb107-13"><a href="o-modelo-de-regressão.html#cb107-13" tabindex="-1"></a><span class="co"># df_erro %&gt;%</span></span>
-<span id="cb107-14"><a href="o-modelo-de-regressão.html#cb107-14" tabindex="-1"></a><span class="co">#   summarise(eq = round(sum(erro),4),</span></span>
-<span id="cb107-15"><a href="o-modelo-de-regressão.html#cb107-15" tabindex="-1"></a><span class="co">#          eqm =  sum(erro^2)) %&gt;%</span></span>
-<span id="cb107-16"><a href="o-modelo-de-regressão.html#cb107-16" tabindex="-1"></a><span class="co">#   kable()</span></span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="o-modelo-de-regressão.html#cb108-1" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-2"><a href="o-modelo-de-regressão.html#cb108-2" tabindex="-1"></a><span class="co"># df_erro &lt;- df %&gt;%</span></span>
+<span id="cb108-3"><a href="o-modelo-de-regressão.html#cb108-3" tabindex="-1"></a><span class="co">#   group_by(genero) %&gt;%</span></span>
+<span id="cb108-4"><a href="o-modelo-de-regressão.html#cb108-4" tabindex="-1"></a><span class="co">#   mutate(cond_exp = mean(log_salario)) %&gt;%</span></span>
+<span id="cb108-5"><a href="o-modelo-de-regressão.html#cb108-5" tabindex="-1"></a><span class="co">#   ungroup() %&gt;%</span></span>
+<span id="cb108-6"><a href="o-modelo-de-regressão.html#cb108-6" tabindex="-1"></a><span class="co">#   mutate(erro = log_salario - cond_exp)</span></span>
+<span id="cb108-7"><a href="o-modelo-de-regressão.html#cb108-7" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-8"><a href="o-modelo-de-regressão.html#cb108-8" tabindex="-1"></a><span class="co"># df_erro %&gt;%</span></span>
+<span id="cb108-9"><a href="o-modelo-de-regressão.html#cb108-9" tabindex="-1"></a><span class="co">#   select(log_salario, genero, cond_exp, erro) %&gt;%</span></span>
+<span id="cb108-10"><a href="o-modelo-de-regressão.html#cb108-10" tabindex="-1"></a><span class="co">#   head() %&gt;%</span></span>
+<span id="cb108-11"><a href="o-modelo-de-regressão.html#cb108-11" tabindex="-1"></a><span class="co">#   kable()</span></span>
+<span id="cb108-12"><a href="o-modelo-de-regressão.html#cb108-12" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb108-13"><a href="o-modelo-de-regressão.html#cb108-13" tabindex="-1"></a><span class="co"># df_erro %&gt;%</span></span>
+<span id="cb108-14"><a href="o-modelo-de-regressão.html#cb108-14" tabindex="-1"></a><span class="co">#   summarise(eq = round(sum(erro),4),</span></span>
+<span id="cb108-15"><a href="o-modelo-de-regressão.html#cb108-15" tabindex="-1"></a><span class="co">#          eqm =  sum(erro^2)) %&gt;%</span></span>
+<span id="cb108-16"><a href="o-modelo-de-regressão.html#cb108-16" tabindex="-1"></a><span class="co">#   kable()</span></span></code></pre></div>
 <p>Como iremos mostrar depois, não existe nenhuma outra forma melhor de prever <span class="math inline">\(Y\)</span>, se só tivermos informação de <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span>. Ou seja, esse é o menor erro quadrático médio possível. Claro que, com mais variávels, podemos condicionais em mais informação e melhorar a previsão. Por exemplo, se temos a variável raça, além de gênero, podemos condicionar nas duas variáveis.</p>
 <p>Vemos que o EQM diminuiu ao condicionar em mais variáveis. Para reforçar, até aqui estamos falando da população. Embora no exemplo tenhamos dados da PNAD, que é uma amostra, e em teoria deveríamos trabalhar com o censo, estou simplificando e assumindo que a PNAD representa a população. Fazendo essa suposição, o erro que é cometido pela esperança condicional para prever <span class="math inline">\(Y\)</span> é o menor erro (quantificado pelo EQM) possível (iremos demonstrar isso no próximo capítulo).</p>
 

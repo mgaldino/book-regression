@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-08-18" />
+<meta name="date" content="2025-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,6 +175,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6" data-path="08-Causalidade.html"><a href="#distribui%C3%A7%C3%A3o-de-probabilidade-conjunta"><i class="fa fa-check"></i><b>3.6</b> Distribuição de Probabilidade Conjunta</a></li>
 <li class="chapter" data-level="3.7" data-path="revisão-de-estatística-e-probabilidade.html"><a href="revisão-de-estatística-e-probabilidade.html"><i class="fa fa-check"></i><b>3.7</b> Probabilidade Condicional</a></li>
 <li class="chapter" data-level="3.8" data-path="08-Causalidade.html"><a href="#esperan%C3%A7a-condicional"><i class="fa fa-check"></i><b>3.8</b> Esperança Condicional</a></li>
+<li class="chapter" data-level="3.9" data-path="08-Causalidade.html"><a href="#proje%C3%A7%C3%A3o-linear"><i class="fa fa-check"></i><b>3.9</b> Projeção Linear</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="08-Causalidade.html"><a href="#adi%C3%A7%C3%A3o-de-vetores"><i class="fa fa-check"></i><b>3.9.1</b> Adição de vetores</a></li>
+<li class="chapter" data-level="3.9.2" data-path="08-Causalidade.html"><a href="#proje%C3%A7%C3%A3o-linear-1"><i class="fa fa-check"></i><b>3.9.2</b> Projeção linear</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="08-Causalidade.html"><a href="#introdu%C3%A7%C3%A3o-%C3%A0-simula%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>4</b> Introdução à Simulação</a>
 <ul>
@@ -352,7 +357,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.6" data-path="08-Causalidade.html"><a href="#%C3%A1lgebra-linear"><i class="fa fa-check"></i><b>14.6</b> Álgebra Linear</a>
 <ul>
 <li class="chapter" data-level="14.6.1" data-path="08-Causalidade.html"><a href="#espa%C3%A7o-de-vetores-e-subspa%C3%A7o"><i class="fa fa-check"></i><b>14.6.1</b> Espaço de vetores e subspaço</a></li>
-<li class="chapter" data-level="14.6.2" data-path="08-Causalidade.html"><a href="#proje%C3%A7%C3%A3o-linear"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
+<li class="chapter" data-level="14.6.2" data-path="08-Causalidade.html"><a href="#proje%C3%A7%C3%A3o-linear-2"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
 <li class="chapter" data-level="14.6.3" data-path="apêndice.html"><a href="apêndice.html#load-required-libraries"><i class="fa fa-check"></i><b>14.6.3</b> 2. <strong>Load Required Libraries</strong></a></li>
 </ul></li>
 </ul></li>
@@ -606,7 +611,7 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 <span id="cb161-7"><a href="causalidade.html#cb161-7" tabindex="-1"></a>         <span class="at">erro =</span> (y <span class="sc">-</span> uncond_y),</span>
 <span id="cb161-8"><a href="causalidade.html#cb161-8" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb161-9"><a href="causalidade.html#cb161-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, erro )) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/sim%20PO-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/sim%20PO-1.png" width="900" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="causalidade.html#cb162-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb162-2"><a href="causalidade.html#cb162-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_x =</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span> ,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb162-3"><a href="causalidade.html#cb162-3" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment, bol_x) <span class="sc">%&gt;%</span></span>
@@ -615,7 +620,7 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 <span id="cb162-6"><a href="causalidade.html#cb162-6" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">erro =</span> (y <span class="sc">-</span> cond_y),</span>
 <span id="cb162-7"><a href="causalidade.html#cb162-7" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb162-8"><a href="causalidade.html#cb162-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, erro )) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/sim%20PO-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/sim%20PO-2.png" width="900" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="causalidade.html#cb163-1" tabindex="-1"></a><span class="co"># -5 ocorre 10%,02 10% etc. até 5, 10% das vezes</span></span>
 <span id="cb163-2"><a href="causalidade.html#cb163-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>, <span class="at">size=</span>n, <span class="at">replace=</span>T) <span class="sc">-</span> <span class="dv">6</span></span>
 <span id="cb163-3"><a href="causalidade.html#cb163-3" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span>
@@ -637,14 +642,14 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 <span id="cb163-19"><a href="causalidade.html#cb163-19" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">erro =</span> (y <span class="sc">-</span> cond_y),</span>
 <span id="cb163-20"><a href="causalidade.html#cb163-20" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb163-21"><a href="causalidade.html#cb163-21" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, erro )) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/sim%20PO-3.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/sim%20PO-3.png" width="900" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="causalidade.html#cb164-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb164-2"><a href="causalidade.html#cb164-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_x =</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span> ,<span class="dv">1</span>,<span class="dv">0</span>),</span>
 <span id="cb164-3"><a href="causalidade.html#cb164-3" tabindex="-1"></a>         <span class="at">cond_y =</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment <span class="sc">+</span> gamma<span class="sc">*</span>x,</span>
 <span id="cb164-4"><a href="causalidade.html#cb164-4" tabindex="-1"></a>         <span class="at">erro =</span> (y <span class="sc">-</span> cond_y),</span>
 <span id="cb164-5"><a href="causalidade.html#cb164-5" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb164-6"><a href="causalidade.html#cb164-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>erro, <span class="at">x=</span>x )) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/sim%20PO-4.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/sim%20PO-4.png" width="900" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="causalidade.html#cb165-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb165-2"><a href="causalidade.html#cb165-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_x =</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span> ,<span class="dv">1</span>,<span class="dv">0</span>),</span>
 <span id="cb165-3"><a href="causalidade.html#cb165-3" tabindex="-1"></a>        <span class="at">cond_y =</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment <span class="sc">+</span> gamma<span class="sc">*</span>x,</span>

@@ -443,7 +443,7 @@ aluno_raca <- aluno %>%
          percent = num_aluno_raca/total) %>%
   filter(raca_cor %in% c("Branca", "0", "Preta", "Parda")) %>%
   mutate(raca_cor = gsub("0","não_declarado", raca_cor)) %>%
-  select(id_escola, raca_cor, percent) %>%
+  dplyr::select(id_escola, raca_cor, percent) %>%
   pivot_wider(names_from = raca_cor , values_from = percent )
 
 
@@ -455,7 +455,7 @@ aluno_escola <- aluno_gen %>%
 aluno_escola_reg <- aluno_escola %>%
   ungroup() %>%
   mutate(negra = Preta + Parda) %>%
-  select(negra, percent_female, tipo_localizacao, agua_potavel, esgoto_rede_publica, 
+  dplyr::select(negra, percent_female, tipo_localizacao, agua_potavel, esgoto_rede_publica, 
          lixo_servico_coleta, area_verde, biblioteca, quantidade_profissional_psicologo) %>%
   filter(across(everything(), ~!is.na(.))) %>%
   mutate_if(bit64::is.integer64, as.factor)
