@@ -215,3 +215,129 @@ $3*(2/3) + 4*(1/3)$
 $2 + 4/3 = 6/3 + 4/3 = 10/3 = 3.333$
 
 A notação matemática para a esperança condicional, nesse caso, é: $E[X|Y=2]$.
+
+## Projeção Linear
+
+A projeção linear é uma das formas de interpretar o que a regressão linear está fazendo. Então, vamos entender o que é a projeção linear e como ela se conectar com regressão. Antes disso, vamos garantir que temos uma intepretação geométrica da soma e subtração de vetores, para dpois entender a projeção linear.
+
+### Adição de vetores
+
+```{r basico cap3, include=FALSE}
+knitr::opts_chunk$set(fig.align="center", fig.width=6, fig.height=6, dpi=150, echo=TRUE)
+library(ggplot2)
+library(latex2exp)  # para rótulos em LaTeX
+library(grid)       # para arrow() e unit()
+
+# Estilo de seta
+arrow_style <- arrow(length = unit(0.18, "inches"), type = "closed")
+
+# Limites do gráfico a partir de uma lista de vetores
+axis_limits <- function(vecs, pad = 0.5) {
+  xs <- c(0, sapply(vecs, `[`, 1))
+  ys <- c(0, sapply(vecs, `[`, 2))
+  c(min(xs)-pad, max(xs)+pad, min(ys)-pad, max(ys)+pad)
+}
+
+# Plano cartesiano com eixo fixo 1:1
+base_plot <- function(vecs) {
+  lims <- axis_limits(vecs)
+  ggplot() +
+    coord_fixed(xlim = lims[1:2], ylim = lims[3:4]) +
+    geom_hline(yintercept = 0, linetype = "dashed", linewidth = 0.3) +
+    geom_vline(xintercept = 0, linetype = "dashed", linewidth = 0.3) +
+    theme_minimal(base_size = 14) +
+    theme(panel.grid.minor = element_blank(),
+          panel.background = element_rect(fill = "white", color = NA),
+          plot.background  = element_rect(fill = "white", color = NA))
+}
+
+# Seta de 'from' até 'to'
+seg <- function(to, from = c(0,0), col = "black", size = 1) {
+  geom_segment(aes(x = from[1], y = from[2], xend = to[1], yend = to[2]),
+               arrow = arrow_style, linewidth = size, color = col)
+}
+```
+
+Considere os vetores $\vec{u} = (2,1)$ e $\vec{v} = (1,2)$. Sabemos algebricamente que a soma de $\vec{u} + \vec{v} = (2+1, 1+2) = (3,3)$. Vejamos isso graficamente.
+
+```{r soma vetores cap3, echo=FALSE, eval=TRUE, warning=FALSE}
+u <- c(2, 1)
+v <- c(1, 2)
+sum_uv <- u + v
+
+base_plot(list(u, v, sum_uv)) +
+  seg(u,       col = "#1f77b4") +
+  seg(v,       col = "#d62728") +
+  seg(sum_uv,  col = "#2ca02c") +
+  # arestas do paralelogramo
+  geom_segment(aes(x = u[1], y = u[2], xend = sum_uv[1], yend = sum_uv[2]), linetype = "dotted") +
+  geom_segment(aes(x = v[1], y = v[2], xend = sum_uv[1], yend = sum_uv[2]), linetype = "dotted") +
+  annotate("text", x = u[1] + 0.2,     y = u[2] + 0.2,     label = "u") +
+  annotate("text", x = v[1] + 0.2,     y = v[2] + 0.2,     label = "v") +
+  annotate("text", x = sum_uv[1] + 0.2,y = sum_uv[2] + 0.2,label = TeX("$u+v$")) +
+  labs(title = "Soma de vetores via paralelogramo")
+
+```
+
+Agora, passemos à subtração. Primeiro, veja que $-\vec{v}$ é o vetor $\vec{v}$ em que mudamos o sentido. Algebricamente, sabemos que $\vec{u} + \vec{v} = (2-1, 1-2) = (1,-1)$. Graficamente, fica como abaixo.
+
+```{r subtracao vetores cap3, echo=FALSE, eval=TRUE, warning=FALSE}
+neg_v   <- -v
+diff_uv <- u - v
+
+p2 <- base_plot(list(u, neg_v, diff_uv)) +
+  seg(u,       col = "#1f77b4") +
+  seg(neg_v,   col = "#ff7f0e") +
+  seg(diff_uv, col = "#2ca02c") +
+  # auxiliando a visualização: de u até (u-v) adicionando -v
+  geom_segment(aes(x = u[1], y = u[2], xend = diff_uv[1], yend = diff_uv[2]), linetype = "dotted") +
+  annotate("text", x = u[1] + 0.2,   y = u[2] + 0.2,   label = "u") +
+  annotate("text", x = neg_v[1]-0.2, y = neg_v[2]-0.2, label = TeX("$-v$")) +
+  annotate("text", x = diff_uv[1]+0.2,y = diff_uv[2]+0.2,label = TeX("$u-v$")) +
+  labs(title = "Subtração como soma de -v")
+print(p2)
+```
+
+### Projeção linear
+
+```{r projecao1 cap3, eval=TRUE, warning=FALSE}
+y <- c(2, 2.5)
+
+# projeção de y em u
+proj_coeff    <- sum(y * u) / sum(u * u)
+proj_y_on_u   <- proj_coeff * u
+r             <- y - proj_y_on_u
+
+# vetores unitários para marcar ângulo reto
+u_hat <- u / sqrt(sum(u^2))
+n_hat <- c(-u_hat[2], u_hat[1])   # perpendicular a u_hat (rotação 90°)
+
+# cantoneira (marcador de ângulo reto) no ponto da projeção
+A   <- proj_y_on_u
+eps <- 0.25
+B   <- A + eps * u_hat
+C   <- A + eps * n_hat
+
+p3 <- base_plot(list(u, y, proj_y_on_u)) +
+  seg(u,             col = "gray40") +
+  seg(y,             col = "#1f77b4") +
+  seg(proj_y_on_u,   col = "#2ca02c") +
+  # resíduo r: da projeção até y
+  geom_segment(aes(x = proj_y_on_u[1], y = proj_y_on_u[2],
+                   xend = y[1],        yend = y[2]),
+               arrow = arrow_style, linewidth = 1, color = "#d62728") +
+  # marcador de ângulo reto em proj_u(y)
+  geom_segment(aes(x = A[1], y = A[2], xend = B[1], yend = B[2])) +
+  geom_segment(aes(x = A[1], y = A[2], xend = C[1], yend = C[2])) +
+  annotate("text", x = y[1] + 0.2,           y = y[2],           label = "y") +
+  annotate("text", x = u[1] + 0.2,           y = u[2],           label = "u") +
+  annotate("text", x = proj_y_on_u[1] + 0.2, y = proj_y_on_u[2], label = TeX("$\\proj_u (y)$")) +
+  annotate("text",
+           x = (y[1] + proj_y_on_u[1]) / 2,
+           y = (y[2] + proj_y_on_u[2]) / 2 + 0.25,
+           label = TeX("$r\\,=\\,y- \\proj_u (y)\\;\\perp\\;u$")) +
+  labs(title = "Projeção de y em u e resíduo perpendicular")
+p3
+```
+
+A fórmula da projeção é: $proj_u (y) = \frac{y \cdot u}{u \cdot u} u$.
