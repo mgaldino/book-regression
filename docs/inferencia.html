@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-08-21" />
+<meta name="date" content="2025-08-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -497,16 +497,16 @@ z^* = \frac{\hat{\beta} - \beta}{\sqrt(\frac{\hat{\sigma^2}}{n \S^2_x})} \sim t_
 \end{align*}\]</span></p>
 <p>Em que, com um grande abuso de notação, estou chamando $ t_{n-2}(k)$ a probabilidade, na distribuição <span class="math inline">\(t\)</span> de student com <span class="math inline">\(n-2\)</span> graus de liberdade, de <span class="math inline">\(\hat{\beta}\)</span> estar no intervalo <span class="math inline">\(-k, k\)</span>.</p>
 <p>Se eu definir um nível de significância <span class="math inline">\(\alpha\)</span> entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>, sempre exisitrá um <span class="math inline">\(k\)</span> que que a equação acima seja verdadeira.</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="inferencia.html#cb217-1" tabindex="-1"></a><span class="co"># se n = 11, tenho 9 d.f.</span></span>
-<span id="cb217-2"><a href="inferencia.html#cb217-2" tabindex="-1"></a><span class="co"># alpha = 5%</span></span>
-<span id="cb217-3"><a href="inferencia.html#cb217-3" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df=</span><span class="dv">9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="inferencia.html#cb218-1" tabindex="-1"></a><span class="co"># se n = 11, tenho 9 d.f.</span></span>
+<span id="cb218-2"><a href="inferencia.html#cb218-2" tabindex="-1"></a><span class="co"># alpha = 5%</span></span>
+<span id="cb218-3"><a href="inferencia.html#cb218-3" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df=</span><span class="dv">9</span>)</span></code></pre></div>
 <pre><code>## [1] -2.262157</code></pre>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="inferencia.html#cb219-1" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df=</span><span class="dv">9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="inferencia.html#cb220-1" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df=</span><span class="dv">9</span>)</span></code></pre></div>
 <pre><code>## [1] 2.262157</code></pre>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="inferencia.html#cb221-1" tabindex="-1"></a><span class="co"># alpha = 50%</span></span>
-<span id="cb221-2"><a href="inferencia.html#cb221-2" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.25</span>, <span class="at">df=</span><span class="dv">9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="inferencia.html#cb222-1" tabindex="-1"></a><span class="co"># alpha = 50%</span></span>
+<span id="cb222-2"><a href="inferencia.html#cb222-2" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.25</span>, <span class="at">df=</span><span class="dv">9</span>)</span></code></pre></div>
 <pre><code>## [1] -0.7027221</code></pre>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="inferencia.html#cb223-1" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.75</span>, <span class="at">df=</span><span class="dv">9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="inferencia.html#cb224-1" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.75</span>, <span class="at">df=</span><span class="dv">9</span>)</span></code></pre></div>
 <pre><code>## [1] 0.7027221</code></pre>
 <p>Vamos então definir o <strong>intervalo amostral</strong> para <span class="math inline">\(\hat{\beta}\)</span> como: <span class="math inline">\([\beta - k(n,\alpha)\hat{se}(\hat{\beta}),\beta + k(n,\alpha)\hat{se}(\hat{\beta})]\)</span>, ou seja, se a verdadeira inclinação da reta é <span class="math inline">\(\beta\)</span>, então meu <span class="math inline">\(\hat{\beta}\)</span> estará nesse intervalo com probabilidade <span class="math inline">\(1 - \alpha\)</span>. O que nos leva ao teste de hipóte nulo de que <span class="math inline">\(\beta = \beta^*\)</span>, em particular, de que <span class="math inline">\(\beta^* = 0\)</span>, mas não precisa ser essa hipótese nula. E rejeitamos a nula se meu estimador está fora dese intervalo <span class="math inline">\([\beta^* - k(n,\alpha)\hat{se}(\hat{\beta}),\beta^* + k(n,\alpha)\hat{se}(\hat{\beta})]\)</span>, e aceitamos a nula se ele está no intervalo.</p>
 </div>
@@ -518,39 +518,39 @@ z^* = \frac{\hat{\beta} - \beta}{\sqrt(\frac{\hat{\sigma^2}}{n \S^2_x})} \sim t_
 <h2><span class="header-section-number">11.5</span> Inferência Preditiva<a href="#infer%C3%AAncia-preditiva" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>É muito comum que queiramos fazer inferência para nossas previsões, isto é, quantificar a incerteza de nossas previsões da amostra para a população. Vamos retomar o modelo preditivo para eleições como exemplo. Vamos carregar os dados de 2018, que usamos para estimar um modelo preditivo, e vamos utilizar o modelo para prever o resultado de 2022. Como o TSE disponibilizou os dados por Zona eleitoral, vou utilizá-la como unidade (em vez de seção) para as observações.</p>
 <p>Peguem os dados <a href="https://dadosabertos.tse.jus.br/dataset/resultados-2022">desse link</a>. Baixem, descompactem e salvem na pasta onde o R aponta.</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="inferencia.html#cb225-1" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb225-2"><a href="inferencia.html#cb225-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb225-3"><a href="inferencia.html#cb225-3" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb225-4"><a href="inferencia.html#cb225-4" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb225-5"><a href="inferencia.html#cb225-5" tabindex="-1"></a></span>
-<span id="cb225-6"><a href="inferencia.html#cb225-6" tabindex="-1"></a><span class="co"># lista o nome do arquivo em csv</span></span>
-<span id="cb225-7"><a href="inferencia.html#cb225-7" tabindex="-1"></a><span class="co"># unzip(here(&quot;dados&quot;, &quot;votacao_secao_2018_BR.zip&quot;), list = TRUE)</span></span>
-<span id="cb225-8"><a href="inferencia.html#cb225-8" tabindex="-1"></a></span>
-<span id="cb225-9"><a href="inferencia.html#cb225-9" tabindex="-1"></a></span>
-<span id="cb225-10"><a href="inferencia.html#cb225-10" tabindex="-1"></a><span class="co">#read data1.csv into data frame</span></span>
-<span id="cb225-11"><a href="inferencia.html#cb225-11" tabindex="-1"></a>presid_18 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2018_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
-<span id="cb225-12"><a href="inferencia.html#cb225-12" tabindex="-1"></a></span>
-<span id="cb225-13"><a href="inferencia.html#cb225-13" tabindex="-1"></a><span class="co"># Supondo que seu dataframe seja chamado df</span></span>
-<span id="cb225-14"><a href="inferencia.html#cb225-14" tabindex="-1"></a>df_resultados <span class="ot">&lt;-</span> presid_18 <span class="sc">%&gt;%</span></span>
-<span id="cb225-15"><a href="inferencia.html#cb225-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb225-16"><a href="inferencia.html#cb225-16" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) <span class="sc">%&gt;%</span></span>
-<span id="cb225-17"><a href="inferencia.html#cb225-17" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_votos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
-<span id="cb225-18"><a href="inferencia.html#cb225-18" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> total_votos, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb225-19"><a href="inferencia.html#cb225-19" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb225-20"><a href="inferencia.html#cb225-20" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb225-21"><a href="inferencia.html#cb225-21" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(x1),</span>
-<span id="cb225-22"><a href="inferencia.html#cb225-22" tabindex="-1"></a>         <span class="at">total_validos_2t =</span> <span class="fu">sum</span>(x2)) <span class="sc">%&gt;%</span></span>
-<span id="cb225-23"><a href="inferencia.html#cb225-23" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(nr_votavel <span class="sc">==</span> <span class="dv">17</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb225-24"><a href="inferencia.html#cb225-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentual_bolso_1t =</span> x1 <span class="sc">/</span>total_validos_1t ,</span>
-<span id="cb225-25"><a href="inferencia.html#cb225-25" tabindex="-1"></a>         <span class="at">percentual_bolso_2t =</span> x2 <span class="sc">/</span> total_validos_2t)</span>
-<span id="cb225-26"><a href="inferencia.html#cb225-26" tabindex="-1"></a></span>
-<span id="cb225-27"><a href="inferencia.html#cb225-27" tabindex="-1"></a><span class="co"># remove</span></span>
-<span id="cb225-28"><a href="inferencia.html#cb225-28" tabindex="-1"></a><span class="co"># rm(presid_18)</span></span>
-<span id="cb225-29"><a href="inferencia.html#cb225-29" tabindex="-1"></a></span>
-<span id="cb225-30"><a href="inferencia.html#cb225-30" tabindex="-1"></a><span class="co"># modelo de regressão</span></span>
-<span id="cb225-31"><a href="inferencia.html#cb225-31" tabindex="-1"></a></span>
-<span id="cb225-32"><a href="inferencia.html#cb225-32" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(percentual_bolso_2t <span class="sc">~</span> percentual_bolso_1t, <span class="at">data =</span> df_resultados)</span>
-<span id="cb225-33"><a href="inferencia.html#cb225-33" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="inferencia.html#cb226-1" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb226-2"><a href="inferencia.html#cb226-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb226-3"><a href="inferencia.html#cb226-3" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb226-4"><a href="inferencia.html#cb226-4" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb226-5"><a href="inferencia.html#cb226-5" tabindex="-1"></a></span>
+<span id="cb226-6"><a href="inferencia.html#cb226-6" tabindex="-1"></a><span class="co"># lista o nome do arquivo em csv</span></span>
+<span id="cb226-7"><a href="inferencia.html#cb226-7" tabindex="-1"></a><span class="co"># unzip(here(&quot;dados&quot;, &quot;votacao_secao_2018_BR.zip&quot;), list = TRUE)</span></span>
+<span id="cb226-8"><a href="inferencia.html#cb226-8" tabindex="-1"></a></span>
+<span id="cb226-9"><a href="inferencia.html#cb226-9" tabindex="-1"></a></span>
+<span id="cb226-10"><a href="inferencia.html#cb226-10" tabindex="-1"></a><span class="co">#read data1.csv into data frame</span></span>
+<span id="cb226-11"><a href="inferencia.html#cb226-11" tabindex="-1"></a>presid_18 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2018_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
+<span id="cb226-12"><a href="inferencia.html#cb226-12" tabindex="-1"></a></span>
+<span id="cb226-13"><a href="inferencia.html#cb226-13" tabindex="-1"></a><span class="co"># Supondo que seu dataframe seja chamado df</span></span>
+<span id="cb226-14"><a href="inferencia.html#cb226-14" tabindex="-1"></a>df_resultados <span class="ot">&lt;-</span> presid_18 <span class="sc">%&gt;%</span></span>
+<span id="cb226-15"><a href="inferencia.html#cb226-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb226-16"><a href="inferencia.html#cb226-16" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) <span class="sc">%&gt;%</span></span>
+<span id="cb226-17"><a href="inferencia.html#cb226-17" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_votos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
+<span id="cb226-18"><a href="inferencia.html#cb226-18" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> total_votos, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb226-19"><a href="inferencia.html#cb226-19" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb226-20"><a href="inferencia.html#cb226-20" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb226-21"><a href="inferencia.html#cb226-21" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(x1),</span>
+<span id="cb226-22"><a href="inferencia.html#cb226-22" tabindex="-1"></a>         <span class="at">total_validos_2t =</span> <span class="fu">sum</span>(x2)) <span class="sc">%&gt;%</span></span>
+<span id="cb226-23"><a href="inferencia.html#cb226-23" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(nr_votavel <span class="sc">==</span> <span class="dv">17</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb226-24"><a href="inferencia.html#cb226-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentual_bolso_1t =</span> x1 <span class="sc">/</span>total_validos_1t ,</span>
+<span id="cb226-25"><a href="inferencia.html#cb226-25" tabindex="-1"></a>         <span class="at">percentual_bolso_2t =</span> x2 <span class="sc">/</span> total_validos_2t)</span>
+<span id="cb226-26"><a href="inferencia.html#cb226-26" tabindex="-1"></a></span>
+<span id="cb226-27"><a href="inferencia.html#cb226-27" tabindex="-1"></a><span class="co"># remove</span></span>
+<span id="cb226-28"><a href="inferencia.html#cb226-28" tabindex="-1"></a><span class="co"># rm(presid_18)</span></span>
+<span id="cb226-29"><a href="inferencia.html#cb226-29" tabindex="-1"></a></span>
+<span id="cb226-30"><a href="inferencia.html#cb226-30" tabindex="-1"></a><span class="co"># modelo de regressão</span></span>
+<span id="cb226-31"><a href="inferencia.html#cb226-31" tabindex="-1"></a></span>
+<span id="cb226-32"><a href="inferencia.html#cb226-32" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(percentual_bolso_2t <span class="sc">~</span> percentual_bolso_1t, <span class="at">data =</span> df_resultados)</span>
+<span id="cb226-33"><a href="inferencia.html#cb226-33" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = percentual_bolso_2t ~ percentual_bolso_1t, data = df_resultados)
@@ -569,77 +569,77 @@ z^* = \frac{\hat{\beta} - \beta}{\sqrt(\frac{\hat{\sigma^2}}{n \S^2_x})} \sim t_
 ## Residual standard error: 0.03557 on 6238 degrees of freedom
 ## Multiple R-squared:  0.974,  Adjusted R-squared:  0.974 
 ## F-statistic: 2.333e+05 on 1 and 6238 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="inferencia.html#cb227-1" tabindex="-1"></a>df_resultados <span class="sc">%&gt;%</span></span>
-<span id="cb227-2"><a href="inferencia.html#cb227-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>percentual_bolso_1t, <span class="at">y=</span>percentual_bolso_2t)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb227-3"><a href="inferencia.html#cb227-3" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="fu">coef</span>(reg1)[<span class="dv">2</span>] , <span class="at">intercept =</span> <span class="fu">coef</span>(reg1)[<span class="dv">1</span>], <span class="at">colour  =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="inferencia.html#cb228-1" tabindex="-1"></a>df_resultados <span class="sc">%&gt;%</span></span>
+<span id="cb228-2"><a href="inferencia.html#cb228-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>percentual_bolso_1t, <span class="at">y=</span>percentual_bolso_2t)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb228-3"><a href="inferencia.html#cb228-3" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="fu">coef</span>(reg1)[<span class="dv">2</span>] , <span class="at">intercept =</span> <span class="fu">coef</span>(reg1)[<span class="dv">1</span>], <span class="at">colour  =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/dados-18%2011-1.png" width="900" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="inferencia.html#cb228-1" tabindex="-1"></a><span class="co"># dados de 2022</span></span>
-<span id="cb228-2"><a href="inferencia.html#cb228-2" tabindex="-1"></a></span>
-<span id="cb228-3"><a href="inferencia.html#cb228-3" tabindex="-1"></a><span class="co">#read  into data frame</span></span>
-<span id="cb228-4"><a href="inferencia.html#cb228-4" tabindex="-1"></a>presid_22 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2022_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
-<span id="cb228-5"><a href="inferencia.html#cb228-5" tabindex="-1"></a></span>
-<span id="cb228-6"><a href="inferencia.html#cb228-6" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> presid_22 <span class="sc">%&gt;%</span></span>
-<span id="cb228-7"><a href="inferencia.html#cb228-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb228-8"><a href="inferencia.html#cb228-8" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) <span class="sc">%&gt;%</span></span>
-<span id="cb228-9"><a href="inferencia.html#cb228-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_votos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
-<span id="cb228-10"><a href="inferencia.html#cb228-10" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> total_votos, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb228-11"><a href="inferencia.html#cb228-11" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb228-12"><a href="inferencia.html#cb228-12" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
-<span id="cb228-13"><a href="inferencia.html#cb228-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(x1),</span>
-<span id="cb228-14"><a href="inferencia.html#cb228-14" tabindex="-1"></a>         <span class="at">total_validos_2t =</span> <span class="fu">sum</span>(x2)) <span class="sc">%&gt;%</span></span>
-<span id="cb228-15"><a href="inferencia.html#cb228-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(nr_votavel <span class="sc">==</span> <span class="dv">22</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb228-16"><a href="inferencia.html#cb228-16" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(total_validos_1t <span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb228-17"><a href="inferencia.html#cb228-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentual_bolso_1t =</span> x1 <span class="sc">/</span>total_validos_1t ,</span>
-<span id="cb228-18"><a href="inferencia.html#cb228-18" tabindex="-1"></a>         <span class="at">percentual_bolso_2t =</span> x2 <span class="sc">/</span> total_validos_2t)</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="inferencia.html#cb229-1" tabindex="-1"></a><span class="co"># dados de 2022</span></span>
+<span id="cb229-2"><a href="inferencia.html#cb229-2" tabindex="-1"></a></span>
+<span id="cb229-3"><a href="inferencia.html#cb229-3" tabindex="-1"></a><span class="co">#read  into data frame</span></span>
+<span id="cb229-4"><a href="inferencia.html#cb229-4" tabindex="-1"></a>presid_22 <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">here</span>(<span class="st">&quot;dados&quot;</span>,<span class="st">&quot;votacao_secao_2022_BR.csv&quot;</span>), <span class="at">encoding =</span> <span class="st">&quot;Latin-1&quot;</span>)</span>
+<span id="cb229-5"><a href="inferencia.html#cb229-5" tabindex="-1"></a></span>
+<span id="cb229-6"><a href="inferencia.html#cb229-6" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> presid_22 <span class="sc">%&gt;%</span></span>
+<span id="cb229-7"><a href="inferencia.html#cb229-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>NR_VOTAVEL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">95</span>,<span class="dv">96</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb229-8"><a href="inferencia.html#cb229-8" tabindex="-1"></a>  <span class="fu">group_by</span>(NR_ZONA, CD_MUNICIPIO, SG_UF, NR_VOTAVEL, NR_TURNO) <span class="sc">%&gt;%</span></span>
+<span id="cb229-9"><a href="inferencia.html#cb229-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_votos =</span> <span class="fu">sum</span>(QT_VOTOS)) <span class="sc">%&gt;%</span></span>
+<span id="cb229-10"><a href="inferencia.html#cb229-10" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> NR_TURNO, <span class="at">values_from =</span> total_votos, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb229-11"><a href="inferencia.html#cb229-11" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb229-12"><a href="inferencia.html#cb229-12" tabindex="-1"></a>  <span class="fu">group_by</span>(nr_zona, cd_municipio, sg_uf) <span class="sc">%&gt;%</span></span>
+<span id="cb229-13"><a href="inferencia.html#cb229-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_validos_1t =</span> <span class="fu">sum</span>(x1),</span>
+<span id="cb229-14"><a href="inferencia.html#cb229-14" tabindex="-1"></a>         <span class="at">total_validos_2t =</span> <span class="fu">sum</span>(x2)) <span class="sc">%&gt;%</span></span>
+<span id="cb229-15"><a href="inferencia.html#cb229-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(nr_votavel <span class="sc">==</span> <span class="dv">22</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb229-16"><a href="inferencia.html#cb229-16" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(total_validos_1t <span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb229-17"><a href="inferencia.html#cb229-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percentual_bolso_1t =</span> x1 <span class="sc">/</span>total_validos_1t ,</span>
+<span id="cb229-18"><a href="inferencia.html#cb229-18" tabindex="-1"></a>         <span class="at">percentual_bolso_2t =</span> x2 <span class="sc">/</span> total_validos_2t)</span></code></pre></div>
 <p>Agora que importamos os dados de 22, podemos fazer nossa previsão, usando os resultados do primeiro turno.</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="inferencia.html#cb229-1" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> df_resultados_22 <span class="sc">%&gt;%</span></span>
-<span id="cb229-2"><a href="inferencia.html#cb229-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y_prev_2t =</span> <span class="fu">coef</span>(reg1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(reg1)[<span class="dv">2</span>]<span class="sc">*</span>percentual_bolso_1t,</span>
-<span id="cb229-3"><a href="inferencia.html#cb229-3" tabindex="-1"></a>         <span class="at">validos_previsto =</span> total_validos_1t<span class="sc">*</span>y_prev_2t)</span>
-<span id="cb229-4"><a href="inferencia.html#cb229-4" tabindex="-1"></a></span>
-<span id="cb229-5"><a href="inferencia.html#cb229-5" tabindex="-1"></a><span class="co"># previsão do resultado eleitoral antes de observar apuração do 2t, supondo comparecimento igual ao 1t</span></span>
-<span id="cb229-6"><a href="inferencia.html#cb229-6" tabindex="-1"></a>df_resultados_22 <span class="sc">%&gt;%</span></span>
-<span id="cb229-7"><a href="inferencia.html#cb229-7" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb229-8"><a href="inferencia.html#cb229-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_bolso =</span> <span class="fu">sum</span>(validos_previsto),</span>
-<span id="cb229-9"><a href="inferencia.html#cb229-9" tabindex="-1"></a>            <span class="at">total_valido_previsto =</span> <span class="fu">sum</span>(total_validos_1t),</span>
-<span id="cb229-10"><a href="inferencia.html#cb229-10" tabindex="-1"></a>            <span class="at">perc_previsto =</span> total_bolso<span class="sc">/</span>total_valido_previsto)</span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="inferencia.html#cb230-1" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> df_resultados_22 <span class="sc">%&gt;%</span></span>
+<span id="cb230-2"><a href="inferencia.html#cb230-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y_prev_2t =</span> <span class="fu">coef</span>(reg1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(reg1)[<span class="dv">2</span>]<span class="sc">*</span>percentual_bolso_1t,</span>
+<span id="cb230-3"><a href="inferencia.html#cb230-3" tabindex="-1"></a>         <span class="at">validos_previsto =</span> total_validos_1t<span class="sc">*</span>y_prev_2t)</span>
+<span id="cb230-4"><a href="inferencia.html#cb230-4" tabindex="-1"></a></span>
+<span id="cb230-5"><a href="inferencia.html#cb230-5" tabindex="-1"></a><span class="co"># previsão do resultado eleitoral antes de observar apuração do 2t, supondo comparecimento igual ao 1t</span></span>
+<span id="cb230-6"><a href="inferencia.html#cb230-6" tabindex="-1"></a>df_resultados_22 <span class="sc">%&gt;%</span></span>
+<span id="cb230-7"><a href="inferencia.html#cb230-7" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb230-8"><a href="inferencia.html#cb230-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_bolso =</span> <span class="fu">sum</span>(validos_previsto),</span>
+<span id="cb230-9"><a href="inferencia.html#cb230-9" tabindex="-1"></a>            <span class="at">total_valido_previsto =</span> <span class="fu">sum</span>(total_validos_1t),</span>
+<span id="cb230-10"><a href="inferencia.html#cb230-10" tabindex="-1"></a>            <span class="at">perc_previsto =</span> total_bolso<span class="sc">/</span>total_valido_previsto)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   total_bolso total_valido_previsto perc_previsto
 ##         &lt;dbl&gt;                 &lt;int&gt;         &lt;dbl&gt;
 ## 1   61224817.             118229715         0.518</code></pre>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="inferencia.html#cb231-1" tabindex="-1"></a><span class="co"># previsão do resultado eleitoral com o comparecimento do 2o turno real</span></span>
-<span id="cb231-2"><a href="inferencia.html#cb231-2" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> df_resultados_22 <span class="sc">%&gt;%</span></span>
-<span id="cb231-3"><a href="inferencia.html#cb231-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y_prev_2t_alt =</span> <span class="fu">coef</span>(reg1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(reg1)[<span class="dv">2</span>]<span class="sc">*</span>percentual_bolso_1t,</span>
-<span id="cb231-4"><a href="inferencia.html#cb231-4" tabindex="-1"></a>         <span class="at">validos_previsto_alt =</span> total_validos_2t<span class="sc">*</span>y_prev_2t_alt)</span>
-<span id="cb231-5"><a href="inferencia.html#cb231-5" tabindex="-1"></a></span>
-<span id="cb231-6"><a href="inferencia.html#cb231-6" tabindex="-1"></a></span>
-<span id="cb231-7"><a href="inferencia.html#cb231-7" tabindex="-1"></a>df_resultados_22 <span class="sc">%&gt;%</span></span>
-<span id="cb231-8"><a href="inferencia.html#cb231-8" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb231-9"><a href="inferencia.html#cb231-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_bolso =</span> <span class="fu">sum</span>(validos_previsto_alt),</span>
-<span id="cb231-10"><a href="inferencia.html#cb231-10" tabindex="-1"></a>            <span class="at">total_valido_previsto =</span> <span class="fu">sum</span>(total_validos_2t),</span>
-<span id="cb231-11"><a href="inferencia.html#cb231-11" tabindex="-1"></a>            <span class="at">perc_previsto =</span> total_bolso<span class="sc">/</span>total_valido_previsto)</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="inferencia.html#cb232-1" tabindex="-1"></a><span class="co"># previsão do resultado eleitoral com o comparecimento do 2o turno real</span></span>
+<span id="cb232-2"><a href="inferencia.html#cb232-2" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> df_resultados_22 <span class="sc">%&gt;%</span></span>
+<span id="cb232-3"><a href="inferencia.html#cb232-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y_prev_2t_alt =</span> <span class="fu">coef</span>(reg1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(reg1)[<span class="dv">2</span>]<span class="sc">*</span>percentual_bolso_1t,</span>
+<span id="cb232-4"><a href="inferencia.html#cb232-4" tabindex="-1"></a>         <span class="at">validos_previsto_alt =</span> total_validos_2t<span class="sc">*</span>y_prev_2t_alt)</span>
+<span id="cb232-5"><a href="inferencia.html#cb232-5" tabindex="-1"></a></span>
+<span id="cb232-6"><a href="inferencia.html#cb232-6" tabindex="-1"></a></span>
+<span id="cb232-7"><a href="inferencia.html#cb232-7" tabindex="-1"></a>df_resultados_22 <span class="sc">%&gt;%</span></span>
+<span id="cb232-8"><a href="inferencia.html#cb232-8" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb232-9"><a href="inferencia.html#cb232-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_bolso =</span> <span class="fu">sum</span>(validos_previsto_alt),</span>
+<span id="cb232-10"><a href="inferencia.html#cb232-10" tabindex="-1"></a>            <span class="at">total_valido_previsto =</span> <span class="fu">sum</span>(total_validos_2t),</span>
+<span id="cb232-11"><a href="inferencia.html#cb232-11" tabindex="-1"></a>            <span class="at">perc_previsto =</span> total_bolso<span class="sc">/</span>total_valido_previsto)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   total_bolso total_valido_previsto perc_previsto
 ##         &lt;dbl&gt;                 &lt;int&gt;         &lt;dbl&gt;
 ## 1   61501668.             118552342         0.519</code></pre>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="inferencia.html#cb233-1" tabindex="-1"></a><span class="co"># mesma coisa</span></span></code></pre></div>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="inferencia.html#cb234-1" tabindex="-1"></a><span class="co">#E incerteza nas previsões?</span></span>
-<span id="cb234-2"><a href="inferencia.html#cb234-2" tabindex="-1"></a>  </span>
-<span id="cb234-3"><a href="inferencia.html#cb234-3" tabindex="-1"></a>previsoes <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg1, <span class="at">newdata =</span> df_resultados_22, <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>, <span class="at">level =</span> .<span class="dv">95</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb234-4"><a href="inferencia.html#cb234-4" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
-<span id="cb234-5"><a href="inferencia.html#cb234-5" tabindex="-1"></a></span>
-<span id="cb234-6"><a href="inferencia.html#cb234-6" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> df_resultados_22 <span class="sc">%&gt;%</span></span>
-<span id="cb234-7"><a href="inferencia.html#cb234-7" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb234-8"><a href="inferencia.html#cb234-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prev_perc =</span> previsoes<span class="sc">$</span>fit,</span>
-<span id="cb234-9"><a href="inferencia.html#cb234-9" tabindex="-1"></a>         <span class="at">prev_perc_lower =</span> previsoes<span class="sc">$</span>lwr,</span>
-<span id="cb234-10"><a href="inferencia.html#cb234-10" tabindex="-1"></a>         <span class="at">prev_perc_upper =</span> previsoes<span class="sc">$</span>upr,</span>
-<span id="cb234-11"><a href="inferencia.html#cb234-11" tabindex="-1"></a>         <span class="at">validos_prev =</span> total_validos_2t<span class="sc">*</span>prev_perc,</span>
-<span id="cb234-12"><a href="inferencia.html#cb234-12" tabindex="-1"></a>         <span class="at">validos_prev_lower =</span> total_validos_2t<span class="sc">*</span>prev_perc_lower,</span>
-<span id="cb234-13"><a href="inferencia.html#cb234-13" tabindex="-1"></a>         <span class="at">validos_prev_upper =</span> total_validos_2t<span class="sc">*</span>prev_perc_upper)</span>
-<span id="cb234-14"><a href="inferencia.html#cb234-14" tabindex="-1"></a></span>
-<span id="cb234-15"><a href="inferencia.html#cb234-15" tabindex="-1"></a>df_resultados_22 <span class="sc">%&gt;%</span></span>
-<span id="cb234-16"><a href="inferencia.html#cb234-16" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">perc_previsto =</span> <span class="fu">sum</span>(validos_prev)<span class="sc">/</span><span class="fu">sum</span>(total_validos_2t),</span>
-<span id="cb234-17"><a href="inferencia.html#cb234-17" tabindex="-1"></a>            <span class="at">perc_previsto_lower =</span> <span class="fu">sum</span>(validos_prev_lower)<span class="sc">/</span><span class="fu">sum</span>(total_validos_2t),</span>
-<span id="cb234-18"><a href="inferencia.html#cb234-18" tabindex="-1"></a>            <span class="at">perc_previsto_upper =</span> <span class="fu">sum</span>(validos_prev_upper)<span class="sc">/</span><span class="fu">sum</span>(total_validos_2t))</span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="inferencia.html#cb234-1" tabindex="-1"></a><span class="co"># mesma coisa</span></span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="inferencia.html#cb235-1" tabindex="-1"></a><span class="co">#E incerteza nas previsões?</span></span>
+<span id="cb235-2"><a href="inferencia.html#cb235-2" tabindex="-1"></a>  </span>
+<span id="cb235-3"><a href="inferencia.html#cb235-3" tabindex="-1"></a>previsoes <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg1, <span class="at">newdata =</span> df_resultados_22, <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>, <span class="at">level =</span> .<span class="dv">95</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb235-4"><a href="inferencia.html#cb235-4" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb235-5"><a href="inferencia.html#cb235-5" tabindex="-1"></a></span>
+<span id="cb235-6"><a href="inferencia.html#cb235-6" tabindex="-1"></a>df_resultados_22 <span class="ot">&lt;-</span> df_resultados_22 <span class="sc">%&gt;%</span></span>
+<span id="cb235-7"><a href="inferencia.html#cb235-7" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb235-8"><a href="inferencia.html#cb235-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prev_perc =</span> previsoes<span class="sc">$</span>fit,</span>
+<span id="cb235-9"><a href="inferencia.html#cb235-9" tabindex="-1"></a>         <span class="at">prev_perc_lower =</span> previsoes<span class="sc">$</span>lwr,</span>
+<span id="cb235-10"><a href="inferencia.html#cb235-10" tabindex="-1"></a>         <span class="at">prev_perc_upper =</span> previsoes<span class="sc">$</span>upr,</span>
+<span id="cb235-11"><a href="inferencia.html#cb235-11" tabindex="-1"></a>         <span class="at">validos_prev =</span> total_validos_2t<span class="sc">*</span>prev_perc,</span>
+<span id="cb235-12"><a href="inferencia.html#cb235-12" tabindex="-1"></a>         <span class="at">validos_prev_lower =</span> total_validos_2t<span class="sc">*</span>prev_perc_lower,</span>
+<span id="cb235-13"><a href="inferencia.html#cb235-13" tabindex="-1"></a>         <span class="at">validos_prev_upper =</span> total_validos_2t<span class="sc">*</span>prev_perc_upper)</span>
+<span id="cb235-14"><a href="inferencia.html#cb235-14" tabindex="-1"></a></span>
+<span id="cb235-15"><a href="inferencia.html#cb235-15" tabindex="-1"></a>df_resultados_22 <span class="sc">%&gt;%</span></span>
+<span id="cb235-16"><a href="inferencia.html#cb235-16" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">perc_previsto =</span> <span class="fu">sum</span>(validos_prev)<span class="sc">/</span><span class="fu">sum</span>(total_validos_2t),</span>
+<span id="cb235-17"><a href="inferencia.html#cb235-17" tabindex="-1"></a>            <span class="at">perc_previsto_lower =</span> <span class="fu">sum</span>(validos_prev_lower)<span class="sc">/</span><span class="fu">sum</span>(total_validos_2t),</span>
+<span id="cb235-18"><a href="inferencia.html#cb235-18" tabindex="-1"></a>            <span class="at">perc_previsto_upper =</span> <span class="fu">sum</span>(validos_prev_upper)<span class="sc">/</span><span class="fu">sum</span>(total_validos_2t))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   perc_previsto perc_previsto_lower perc_previsto_upper
 ##           &lt;dbl&gt;               &lt;dbl&gt;               &lt;dbl&gt;
