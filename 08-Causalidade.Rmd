@@ -21,9 +21,9 @@ Vamos então definir causalidade a partir da noção de resultados potenciais, p
 
 Digamos que estamos interessados em estimar o efeito causal de pertencer à base do governo sobre o percentual de votos de um deputado que será conforme indicado pelo líder do governo. Donald Rubin, em uma série de artigos nos anos 70, introduziu a noção de resultados potenciais a partir da noção mais familiar de contrafactual. Imagine um deputado que está na oposição e ele passa a fazer parte do governo. Se nós pudéssemos observar uma série de votações tanto no mundo factual em que é do governo, quando no contrafactual em que não é do governo, teríamos o efeito causal para aquele deputado de fazer parte do governo sobre seu percentual de votação em acordo com a indicação do líder do governo. Porém, não é possível observar ambos os mundos,  o factual e o contrafactual ao mesmo tempo, o que é conhecido como o problema fundamental da inferência causal. Se pudéssemos observar duas terras paralelas, exatamente iguais, exceto por esse único fato, conseguiríamos calcular o efeito causal. 
 
-Seja $Y_{1i}$ o percentual de votação *potencial* do deputado $i$ quando ele é da base do governo (indicado pelo índice "1") e seja $Y_{0i}$ o percentual de votação *potencial* do deputado $i$ quando ele não é da base do governo (indicado pelo índice "0").
+Seja $Y_{i}(1)$ o percentual de votação *potencial* do deputado $i$ quando ele é da base do governo (indicado pelo índice "1") e seja $Y_{i}(0)$ o percentual de votação *potencial* do deputado $i$ quando ele não é da base do governo (indicado pelo índice "0").
 
-$Y_{1i} - Y_{0i}$ é o efeito causal para $i$ de fazer parte da base do governo e é o que gostaríamos de saber para cada deputado. Se eu pudesse observar essa diferença para cada deputado, poderia calcular o Efeito Causal Médio, $\mathbb{E}[Y_{1i} - Y_{0i}]$, em inglês, Average Causal Effect (ACE).
+$Y_{i}(1) - Y_{i}(0)$ é o efeito causal para $i$ de fazer parte da base do governo e é o que gostaríamos de saber para cada deputado. Se eu pudesse observar essa diferença para cada deputado, poderia calcular o Efeito Causal Médio, $\mathbb{E}[Y_{i}(1) - Y_{i}(0)]$, em inglês, Average Causal Effect (ACE).
 
 Seja $B_i$ uma variável que indica se um deputado é ou não da base do governo ($1$ se é, $0$ caso contrário).
 
@@ -31,10 +31,10 @@ O mundo factual (observado) pode ser descrito em termos dos resultados potenciai
 
 \begin{equation}
 \tag{8.1}
-Y_i = Y_{0i} + (Y_{1i} - Y_{0i})*B_i
+Y_i = Y_{i}(0) + (Y_{i}(1) - Y_{i}(0))*B_i
 \end{equation}
 
-A equação nos lembra também que nós só podemos observar um dos resultados potenciais, associado a ser ou não da base do governo, mas não ambos ao mesmo tempo. Veja que se para um indivíduo $i$ ele é da base do governo, isto é, $B_i = 1$, então tenho para este individuo em particularque $Y_i = Y_{1i}$, isto é, o resultado potencial coincide com o resultado observado. Essa igualdade é na verdade uma suposição, chamada de consistência. 
+A equação nos lembra também que nós só podemos observar um dos resultados potenciais, associado a ser ou não da base do governo, mas não ambos ao mesmo tempo. Veja que se para um indivíduo $i$ ele é da base do governo, isto é, $B_i = 1$, então tenho para este individuo em particularque $Y_i = Y_{i}(1)$, isto é, o resultado potencial coincide com o resultado observado. Essa igualdade é na verdade uma suposição, chamada de consistência. 
 
 Consistência: Essa suposição implica que o resultado potencial de um indivíduo quando recebe um tratmento é igual ao observado na realidade. Em outras palavras, consistência significa que o que você observa é o que você supunha que aconteceria se a pessoa recebesse o tratamento.
 
@@ -55,32 +55,32 @@ Veja que por enquanto estamos tratando apenas de dados observados e, portanto, n
 
 \begin{equation}
 \begin{aligned}
-\mathbb{E}[Y_{i}|B_i = 1] =  \mathbb{E}([Y_{0i} + (Y_{1i} - Y_{0i})*B_i)|B_i=1] \\
+\mathbb{E}[Y_{i}|B_i = 1] =  \mathbb{E}([Y_{i}(0) + (Y_{i}(1) - Y_{i}(0))*B_i)|B_i=1] \\
 
-\mathbb{E}[Y_{i}|B_i = 1] =  \mathbb{E}[(Y_{0i} + (Y_{1i} - Y_{0i})*1)|B_i=1] \\
+\mathbb{E}[Y_{i}|B_i = 1] =  \mathbb{E}[(Y_{i}(0) + (Y_{i}(1) - Y_{i}(0))*1)|B_i=1] \\
 
-\mathbb{E}[Y_{i}|B_i = 1] =  \mathbb{E}[Y_{1i}|B_i=1]
+\mathbb{E}[Y_{i}|B_i = 1] =  \mathbb{E}[Y_{i}(1)|B_i=1]
 \end{aligned}
 \end{equation}
 
 E, similarmente,
 
 \begin{equation}
-\mathbb{E}[Y_{i}|B_i = 0] =  \mathbb{E}[Y_{0i}|B_i=0]
+\mathbb{E}[Y_{i}|B_i = 0] =  \mathbb{E}[Y_{i}(0)|B_i=0]
 \end{equation}
 
 De modo que a equação 8.2 pode ser reescrita do seguinte modo (supondo consistência):
 
 \begin{equation}
-\mathbb{E}[Y_{i}|B_i = 1] - \mathbb{E}[Y_{i}| B_i = 0] =  \mathbb{E}[Y_{1i}|B_i=1] -  \mathbb{E}[Y_{0i}| B_i = 0]
+\mathbb{E}[Y_{i}|B_i = 1] - \mathbb{E}[Y_{i}| B_i = 0] =  \mathbb{E}[Y_{i}(1)|B_i=1] -  \mathbb{E}[Y_{i}(0)| B_i = 0]
 \end{equation}
 
-Agora, podemos utilizar aquele truque de subtrair e somar a mesma coisa que não altera a equação. Em particular, somar um resultado pottencial contrafactual, isto é, o que em média um deputado que faz parte da base do governo faria se não estivesse no governo (denotado por $Y_{0i}|B_i = 1$). Em vermelho está o truqe matemático de subtrair e somar a mesma coisa sem alterar a equação.
+Agora, podemos utilizar aquele truque de subtrair e somar a mesma coisa que não altera a equação. Em particular, somar um resultado pottencial contrafactual, isto é, o que em média um deputado que faz parte da base do governo faria se não estivesse no governo (denotado por $Y_{i}(0)|B_i = 1$). Em vermelho está o truqe matemático de subtrair e somar a mesma coisa sem alterar a equação.
 
 \begin{equation}
 \begin{aligned}
 \mathbb{E}[Y_{i}|B_i = 1] - \mathbb{E}[Y_{i}| B_i = 0] =  \\
-\mathbb{E}[Y_{1i}|B_i=1] \color{red}{- \mathbb{E}[Y_{0i}|B_i = 1] +  \mathbb{E}[Y_{0i}|B_i = 1]} - \mathbb{E}[Y_{0i}| B_i = 0]
+\mathbb{E}[Y_{i}(1)|B_i=1] \color{red}{- \mathbb{E}[Y_{i}(0)|B_i = 1] +  \mathbb{E}[Y_{i}(0)|B_i = 1]} - \mathbb{E}[Y_{i}(0)| B_i = 0]
 \end{aligned}
 \end{equation}
 
@@ -89,15 +89,15 @@ Rearranjando a equação e utilizando as propriedades do operador esperança ,te
 \begin{equation}
 \tag{8.3}
 \begin{aligned}
-\mathbb{E}[Y_{i}|B_i = 1] - \mathbb{E}[Y_{0i}|B_i=0] =  \\
-\color{green}{\mathbb{E}[Y_{1i} - Y_{0i}|B_i = 1]} +  \color{blue}{\mathbb{E}[Y_{0i}|B_i = 1] - \mathbb{E}[Y_{0i}| B_i = 0]}
+\mathbb{E}[Y_{i}|B_i = 1] - \mathbb{E}[Y_{i}(0)|B_i=0] =  \\
+\color{green}{\mathbb{E}[Y_{i}(1) - Y_{i}(0)|B_i = 1]} +  \color{blue}{\mathbb{E}[Y_{i}(0)|B_i = 1] - \mathbb{E}[Y_{i}(0)| B_i = 0]}
 \end{aligned}
 \end{equation}
 
 A equação 8.3 apresenta em verde o que chamamos de efeito Médio do Tratamento entre as pessoas Tratadas (em inglês, **Average  effect of the Treatment on the Treated, ATT**) e em azul o viés de seleção.
-O ATT é o efeito médio porque estamos calculando a média (esperança), do efeito do Tratamento  por causa do termo $Y_{1i} - Y_{0i}$, e entre as pessoas Tratadas, isto é, que pertencem à base do governo, por que condiciona em $B_i = 1$.
+O ATT é o efeito médio porque estamos calculando a média (esperança), do efeito do Tratamento  por causa do termo $Y_{i}(1) - Y_{i}(0)$, e entre as pessoas Tratadas, isto é, que pertencem à base do governo, por que condiciona em $B_i = 1$.
 
-E a parte em azul é o viés de seleção porque reflete a diferença média (no percentual de votos seguindo o governo) entre as pessoas que escolheram ser da base do governo $|B_i = 1$ e as que escolheram não ser $|B_i = 0$ no mundo de resultados potenciais em que ambos não foram tratados ($Y_{0i}$). Ou seja, se pudéssemos observar o mundo contrafactual em que deputados da base estão fora do governo e computar o percentual médio de voto deles seguindo o governo, e comparar com o observado para os deputados fora da base, se houver diferença, isso é o viés de seleção.
+E a parte em azul é o viés de seleção porque reflete a diferença média (no percentual de votos seguindo o governo) entre as pessoas que escolheram ser da base do governo $|B_i = 1$ e as que escolheram não ser $|B_i = 0$ no mundo de resultados potenciais em que ambos não foram tratados ($Y_{i}(0)$). Ou seja, se pudéssemos observar o mundo contrafactual em que deputados da base estão fora do governo e computar o percentual médio de voto deles seguindo o governo, e comparar com o observado para os deputados fora da base, se houver diferença, isso é o viés de seleção.
 
 Quando o viés de seleção é diferente de zero, então a nossa comparação ingênua da diferença média de comportamento entre governo e oposição não recupera o efeito causal médio. Por exemplo, se deputados de esquerda possuem maior chance de fazer parte do governo Lula e, pelo fato de serem mais próximos ideologicamente, tendem a votar com o governo por esse motivo, então teriam um comportamento médio diferente da oposição, mesmo se não estivessem na base do governo. Nesse exemplo, a diferença média entre governo e oposição superestima o efeito causal médio de ser da base do governo.
 
