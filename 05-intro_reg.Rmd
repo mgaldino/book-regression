@@ -113,6 +113,9 @@ dados_turno1 <- dados_turno %>%
   mutate(perc_validos_1t = votos_1turno/votos_validos_1t,
          perc_validos_2t = votos_2turno/votos_validos_2t) %>%
   ungroup()
+
+
+
 # salvando dados que iremos trabalhar em sala de aula efetivamente.
 saveRDS(dados_turno1, file=here("Dados//", "dados_turno1.rds"))
 
@@ -142,7 +145,7 @@ print(p1)
 ```
 
 
-O gráfico agrupando todos os muniícipios de São Paulo sem distinção mostra uma correlação positiva, mas muita variabilidade. Vamos ver por município.
+O gráfico agrupando todos os munícipios de São Paulo sem distinção mostra uma correlação positiva, mas muita variabilidade. Vamos ver por município.
 
 ```{r voto_turnos_por_municipios, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "voto_por_municipio" }
 
@@ -180,37 +183,6 @@ Municípios como Diadema, Sorocaba, Franca e Taubaté, que não estavam fazendo 
 E o que é a Esperana Condicional?
 Qual o valor esperado do $Y$ para um davo valor de $X$. No gráfico, é dado pela linha vermelha.
 
-```{r CEF_voto_turnos_Limeira, results='asis', message=FALSE, cache=TRUE, warning=F, fig.cap = "voto_por_municipio" }
-
-# Criar bins para perc_validos_1t
-dados_binned <- dados_turno1 %>%
-  group_by(NM_MUNICIPIO) %>%
-  mutate(bin_1t = cut(perc_validos_1t, breaks = seq(0, 1, by = 0.025)))
-
-# Calcular a média para cada bin
-cef_data <- dados_binned %>%
-  group_by(bin_1t, NM_MUNICIPIO) %>%
-  summarise(perc_validos_2t_mean = mean(perc_validos_2t, na.rm = TRUE),
-             bin_center = mean(as.numeric(perc_validos_1t), na.rm = TRUE))
-
-# Criar o gráfico
-grafico_cef <- ggplot() +
-  geom_point(data = dados_binned, aes(x = perc_validos_1t, y = perc_validos_2t), 
-             alpha = 0.3, color = "gray") +
-  geom_point(data = cef_data, aes(x = bin_center, y = perc_validos_2t_mean), 
-             color = "red", size = 2) +
-  geom_line(data = cef_data, aes(x = bin_center, y = perc_validos_2t_mean), 
-            color = "blue") +
-  facet_wrap(~NM_MUNICIPIO) +
-  labs(title = "Função de Expectativa Condicional (CEF)",
-       x = "Percentual de Votos Válidos no 1º Turno",
-       y = "Percentual Médio de Votos Válidos no 2º Turno") +
-  theme_minimal() +
-  scale_x_continuous(limits = c(0, 1), labels = scales::percent) +
-  scale_y_continuous(limits = c(0, 1), labels = scales::percent)
-
-print(grafico_cef)
-```
 
 ## Algumas Propriedades da CEF
 
@@ -409,5 +381,92 @@ Como iremos mostrar depois, não existe nenhuma outra forma melhor de prever $Y$
 
 Vemos que o EQM diminuiu ao condicionar em mais variáveis. Para reforçar, até aqui estamos falando da população. Embora no exemplo tenhamos dados da PNAD, que é uma amostra, e em teoria deveríamos trabalhar com o censo, estou simplificando e assumindo que a PNAD representa a população. Fazendo essa suposição, o erro que é cometido pela esperança condicional para prever $Y$ é o menor erro (quantificado pelo EQM) possível (iremos demonstrar isso no próximo capítulo).
 
+## Preditores lineares
+
+Como vimos, uma boa aproximação para a CEF é um preditor linear. Se temos um preditor $x$ e queremos usar esse preditor para prever $y$, o modelo linear simples pode ser escrito da seguinte forma:
+
+$$
+\hat{y_i} = \alpha + \beta x_i
+$$
+Vejam que eu usei $x_i$, mas não $y_i$. Em vez disso, utilizei $\hat{y}_i$. Este último valor é a minha previsão do $y$ dado o valor do meu preditor $x$ para cada observação $i$. Vejam que, uma vez que nós saibamos os valores de $\alpha$ e $\beta$, temos efetivamente uma reta (linear) que relaciona $x_i$ e $\hat{y}_i$. Um critério para tal é minimizar a diferença, para cada observação, entre $y$ e $\hat{y}$, isto é:
 
 
+
+$$
+\min_{\mathbf{\alpha, \beta}}\sum_i^n (y_i - \hat{y}_i)^2
+$$
+A notação fica mais simples com a esperança matemática:
+$$
+\min_{\mathbf{\alpha, \beta}} \mathbb{E}[(Y - \hat{Y})^2]
+$$
+Por essa razão, chamamos de: preditor linear de erro quadrático médio mínimo.
+
+Por hora, basta saber que se minimizarmos a soma (ou a esperança) obteremos os valores de $\alpha$ e $\beta$. Quando falamos de uma amostra (em vez da população), iremos indicar esses valores por $\hat{\alpha}$ e $\hat{\beta}$.
+
+Essa previsão, por mais que nós estejamos tentando minimizar o erro entre o valor do $y$ e previsto $\hat{y}$, em geral não será perfeito. Assim, para cada previsão $\hat{y}_i$ cometo um erro $\epsilon_i$ que é a diferença entre o observado $y$ e o precisto $\hat{y}$, ou seja:
+
+
+
+$$
+\epsilon_i = y_i - \hat{y}_i
+$$
+
+Se eu substituir $\hat{y}_i$ pos sua equação, temos: 
+
+$$
+\epsilon_i = y_i - \alpha - \beta x_i
+$$
+
+Rearranjando:
+$$
+y_i = \alpha + \beta x_i - \epsilon_i
+$$
+Esse é chamado de modelo de regressão linear. Em resumo, o preditor linear é $\hat{y}_i = \alpha + \beta x_i$ e o modelo de regressão lienar é $y_i = \alpha + \beta x_i - \epsilon_i$. No primeiro caso, tenho uma previsão que é diferente do observado. No segundo caso, acoplo a previsão ao erro e obtenho exatamente o observado.
+
+Vale notar que minimizar a soma dos quadrados dos resíduos é o mesmo que minimizar a a raiz quadrada dessa soma dividida por $n$, ou seja:
+
+
+$$
+\min_{\mathbf{\alpha, \beta}}\sum_i^n (y_i - \hat{y}_i)^2 = \min_{\mathbf{\alpha, \beta}} \sqrt{\frac{1}{n}\sum_i^n (y_i - \hat{y}_i)^2}
+$$
+
+Essa soma com a raiz quadrada é chamada de erro raiz-quadrático médio (Root-Mean-Squared-Error ou RMSE em inglês). Vamos calcular no R um modelo de regressão linear e depois o RMSE de nossos dados.
+
+Para rodar uma regressão no R, usamos a função lm(). Ela recebe a fórmula na forma $y \sim x$, em que $y$ é a variável resposta e $x$ o preditor. Não é preciso escrever os coeficientes $\alpha$ e $\beta$. O R vai calcular eles pra gente e teremos estimativas amostrais $\hat{\alpha}$ e $\hat{\beta}$.
+
+
+```{r regvoto_turnos_regressao_cap5,  message=FALSE, cache=TRUE, warning=F, fig.cap = "voto_por_municipio" }
+# vamos ficar só com o candidato mais votado
+dados_filtrados <- dados_turno1 %>%
+  group_by(NM_MUNICIPIO) %>%
+  # calcula o valor máximo de votos no 2º turno por município
+  mutate(max_votos_2t = max(voto_total_candidato_2t, na.rm = TRUE)) %>%
+  # mantém apenas os candidatos que atingiram esse valor
+  filter(voto_total_candidato_2t == max_votos_2t) %>%
+  ungroup() %>%
+  dplyr::select(-max_votos_2t)
+  
+reg <- lm(perc_validos_2t ~ perc_validos_1t, data = dados_filtrados)
+reg
+```
+
+O resultado do modelo mostra que o intecepto ($\hat{\alpha}$) é $0.3624$ e a inclinação (o $\hat{\beta}$) é 0.6597. O R não reporta o nome dos coeficientes $\hat{\alpha}$ ou $\hat{\beta}$ mas intercepto para o caso do $\hat{\alpha}$ e o nome do preditor para o caso do $\hat{\beta}$. E interpretamos esse resultado do seguinte modo: quando o preditor é zero, ou seja, quando o voto no primeiro turno do vencedor da eleição é zero naquela seção eleitoral, a previsão do modelo é que no segundo turno o candidato mais votado tem 36,24% dos votos na seção. E cada ponto percentual de voto na seção se traduz em $.01*0.6597 = 0.006597$ pontos percentuais adicionais, ou seja, 1 ponto pecentual de voto na seção eleitoral se traduz em 0,6597 pontos percentuais. Em outras palavras, o candidato vencedor que teve 1% de voto numa seção eleitoral deve ter (é a previsão do modelo) $0.3624 + .01*0.6597 = 0.368997$ ou aproximadamente 37% dos votos na seção. Similarmente, se esse candidato teve 10% dos votos naquela seção no primeiro turno, então a previsão é que tenha: $0.3624 + .1*0.6597 = 0.42837$ ou aproximadamente 43% dos votos.
+
+```{r reg_reta_cap5,  message=FALSE, cache=TRUE, warning=F, fig.cap = "voto_por_municipio" }
+# vamos ficar só com o candidato mais votado
+dados_filtrados %>%
+  ggplot(aes(y=perc_validos_2t, x = perc_validos_1t)) + geom_point() + geom_abline(intercept = 0.3624, slope = 0.6597, colour = "red" ) +
+  annotate("text", label="intercepto", x=.05, y= .33, colour = "red") 
+  
+```
+
+E vamos obter o RMSE. Para isso, usaremos a função resid():
+
+```{r rmse_cap5,  message=FALSE, cache=TRUE, warning=F, fig.cap = "voto_por_municipio" }
+# vamos ficar só com o candidato mais votado
+residuos <- resid(reg)
+sqrt(mean(residuos^2))
+  
+```
+
+Esse número implica que em média cometemos um erro ("resíduo médio") de .08 pontos percentuais. Ou seja, em média nosso modelo faz previsões diferentes do observado da ordem de .08 pontos percentuais.

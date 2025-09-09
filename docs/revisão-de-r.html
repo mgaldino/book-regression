@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-08-27" />
+<meta name="date" content="2025-09-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -212,6 +212,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.6.2" data-path="02-revisão-R.html"><a href="#logaritmos-e-m%C3%A9dia-geom%C3%A9trica"><i class="fa fa-check"></i><b>5.6.2</b> Logaritmos e média geométrica</a></li>
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="02-revisão-R.html"><a href="#prevendo-a-partir-da-esperan%C3%A7a-condicional"><i class="fa fa-check"></i><b>5.7</b> Prevendo a partir da esperança condicional</a></li>
+<li class="chapter" data-level="5.8" data-path="o-modelo-de-regressão.html"><a href="o-modelo-de-regressão.html#preditores-lineares"><i class="fa fa-check"></i><b>5.8</b> Preditores lineares</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="cef-1.html"><a href="cef-1.html"><i class="fa fa-check"></i><b>6</b> - CEF</a>
 <ul>
@@ -553,8 +554,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb26-3"><a href="revisão-de-r.html#cb26-3" tabindex="-1"></a>data_ex1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data_ex)</span>
 <span id="cb26-4"><a href="revisão-de-r.html#cb26-4" tabindex="-1"></a></span>
 <span id="cb26-5"><a href="revisão-de-r.html#cb26-5" tabindex="-1"></a>data_ex1 <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span></code></pre></div>
-<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26” “2020-10-27” “2020-10-28” “2020-10-29” “2020-10-30” “2020-10-31”
-[10] “2020-11-01”</p>
+<p>[1] “2020-10-23” “2020-10-24” “2020-10-25” “2020-10-26” “2020-10-27” “2020-10-28” “2020-10-29” “2020-10-30” “2020-10-31” “2020-11-01”</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="revisão-de-r.html#cb27-1" tabindex="-1"></a><span class="do">## fim da explicação rápida de data</span></span></code></pre></div>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="revisão-de-r.html#cb28-1" tabindex="-1"></a><span class="do">## criando data de forma repetitiva e tediosa. O que queremos evitar!</span></span>
 <span id="cb28-2"><a href="revisão-de-r.html#cb28-2" tabindex="-1"></a>minha_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2009-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-02&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2009-01-03&#39;</span>),</span>
@@ -586,63 +586,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">2009-01-01</td>
-<td align="right">-0.2056556</td>
-<td align="right">-3.3138467</td>
-<td align="right">1.602263</td>
+<td align="right">-0.0730450</td>
+<td align="right">1.9741730</td>
+<td align="right">-3.829004</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-02</td>
-<td align="right">-0.6080107</td>
-<td align="right">-1.1075931</td>
-<td align="right">-4.730140</td>
+<td align="right">0.7112882</td>
+<td align="right">-2.4456656</td>
+<td align="right">-1.880893</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-03</td>
-<td align="right">-0.8393174</td>
-<td align="right">1.3970626</td>
-<td align="right">-1.972034</td>
+<td align="right">0.0826261</td>
+<td align="right">-1.2934961</td>
+<td align="right">3.489069</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-04</td>
-<td align="right">-0.9549159</td>
-<td align="right">2.2305698</td>
-<td align="right">2.339449</td>
+<td align="right">-1.1181672</td>
+<td align="right">0.5577934</td>
+<td align="right">-11.398774</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-05</td>
-<td align="right">-0.5758867</td>
-<td align="right">-2.6818031</td>
-<td align="right">2.989625</td>
+<td align="right">-1.3162070</td>
+<td align="right">0.2418023</td>
+<td align="right">-1.839182</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-06</td>
-<td align="right">1.5183131</td>
-<td align="right">4.5133298</td>
-<td align="right">-2.729570</td>
+<td align="right">0.7625245</td>
+<td align="right">-2.5378430</td>
+<td align="right">-1.654133</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-07</td>
-<td align="right">-0.6965674</td>
-<td align="right">-1.9750540</td>
-<td align="right">0.848638</td>
+<td align="right">0.9035873</td>
+<td align="right">0.3740289</td>
+<td align="right">6.681644</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-08</td>
-<td align="right">0.1347119</td>
-<td align="right">1.4764184</td>
-<td align="right">1.630710</td>
+<td align="right">1.6774175</td>
+<td align="right">0.6606147</td>
+<td align="right">4.875067</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-09</td>
-<td align="right">-0.9291391</td>
-<td align="right">0.6570296</td>
-<td align="right">-3.919659</td>
+<td align="right">-0.5074569</td>
+<td align="right">-2.4181422</td>
+<td align="right">5.901625</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-10</td>
-<td align="right">0.3590734</td>
-<td align="right">2.5447830</td>
-<td align="right">-2.316657</td>
+<td align="right">-0.4007881</td>
+<td align="right">3.8404410</td>
+<td align="right">-3.348099</td>
 </tr>
 </tbody>
 </table>
@@ -671,63 +671,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">2009-01-01</td>
-<td align="right">1.3462729</td>
-<td align="right">2.9734497</td>
-<td align="right">1.3664997</td>
+<td align="right">0.3709744</td>
+<td align="right">-0.8228754</td>
+<td align="right">-6.2199053</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-02</td>
-<td align="right">-0.7020620</td>
-<td align="right">-0.5057509</td>
-<td align="right">3.2433442</td>
+<td align="right">-1.2162141</td>
+<td align="right">-4.5850620</td>
+<td align="right">0.0531537</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-03</td>
-<td align="right">-0.6545802</td>
-<td align="right">-2.7751123</td>
-<td align="right">3.6255114</td>
+<td align="right">-0.1584941</td>
+<td align="right">0.8387638</td>
+<td align="right">-3.0185016</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-04</td>
-<td align="right">0.0386269</td>
-<td align="right">0.6574683</td>
-<td align="right">-1.4770890</td>
+<td align="right">0.5517662</td>
+<td align="right">-1.2391271</td>
+<td align="right">-5.1816610</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-05</td>
-<td align="right">-0.2344935</td>
-<td align="right">-0.9968374</td>
-<td align="right">5.5754249</td>
+<td align="right">0.2617596</td>
+<td align="right">4.7321720</td>
+<td align="right">-0.9884212</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-06</td>
-<td align="right">0.2016237</td>
-<td align="right">1.2402086</td>
-<td align="right">1.9736544</td>
+<td align="right">1.0342294</td>
+<td align="right">-1.1526472</td>
+<td align="right">8.6676058</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-07</td>
-<td align="right">-1.1617936</td>
-<td align="right">1.8897323</td>
-<td align="right">-5.7012636</td>
+<td align="right">0.5056230</td>
+<td align="right">3.8087453</td>
+<td align="right">6.0961025</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-08</td>
-<td align="right">-1.0418751</td>
-<td align="right">0.9637707</td>
-<td align="right">-1.9300041</td>
+<td align="right">0.3305008</td>
+<td align="right">-0.4612060</td>
+<td align="right">-3.3564082</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-09</td>
-<td align="right">-0.4358740</td>
-<td align="right">2.4096217</td>
-<td align="right">0.3226824</td>
+<td align="right">-0.0457203</td>
+<td align="right">-0.0428335</td>
+<td align="right">-9.6638379</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-10</td>
-<td align="right">-0.8775336</td>
-<td align="right">-2.7963590</td>
-<td align="right">-2.3463953</td>
+<td align="right">0.0927721</td>
+<td align="right">-0.6310561</td>
+<td align="right">-5.0930832</td>
 </tr>
 </tbody>
 </table>

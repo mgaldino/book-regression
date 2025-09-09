@@ -53,6 +53,7 @@ logaritmos
 logartimos-como-diferença-de-porcentagens
 logaritmos-e-média-geométrica
 prevendo-a-partir-da-esperança-condicional
+preditores-lineares
 cef-1
 erro-da-cef
 simulando-para-entender-a-cef
