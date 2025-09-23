@@ -224,139 +224,89 @@ $$
 \mathbb{Var}[\bar{y}] = \mathbb{E}[(\bar{y} - \mu)^2]
 $$
 $$
-= \mathbb{E}[( \sum\limits_{i=1}^n {e_i}/n)*( \sum\limits_{j=1}^n{e_j}/n)] = (1/n^2)* \sum\limits_{i=1}^n{} \sum\limits_{j=1}^n{}\mathbb{E}[e_ie_j]
+= \mathbb{E}[( \sum\limits_{i=1}^n {e_i}/n)( \sum\limits_{j=1}^n{e_j}/n)] = (1/n^2) \sum\limits_{i=1}^n{} \sum\limits_{j=1}^n{}\mathbb{E}[e_ie_j]
 $$
 Se nós somarmos o somatório indexado no $j$, o primeiro erro fica constante (indexado no i) e vamos passar por todo os erros de $1$ até $n$. Eventualmente, vamos passar por $i$ e todos os outros diferentes de $i$. Sabendo que os erros são i.i.d, isso significa que erros diferentes são não correlacionados e possuem esperança zero, ou seja, $\mathbb{E}[e_ie_j] = 0, i \neq j$, e erros iguais, por serem da mesma distribuição, têm $\mathbb{E}[e_ie_i] = \sigma^2$. Então o resultado do último somatório é uma soma de zeros, exceto para o caso em que $i = j$, em que dá $\sigma^2$. De forma que a equação fica:
 
 $$
-(1/n^2)* \sum\limits_{i=1}^n{}\sigma^2 = (1/n^2)*n*\sigma^2 = \sigma^2/n
+(1/n^2) \sum\limits_{i=1}^n{}\sigma^2 = (1/n^2)n\sigma^2 = \sigma^2/n
 $$
 Ou seja, a variância de nosso estimador é igual à variância populacional dividida pelo tamanho da amostra. O desvio-padrão (raiz quadrada da variância) amostral do estimador também é chamada de erro padrão.
 
 ## Modelo de Regressão Linear com preditores
 
-Tendo mostrado que o estimador é não-viesado e calculado a variância amostral para o caso mais simples, sem preditor, vamos agora fazer o mesmo cálculo com um preditor.
+Tendo mostrado que o estimador do modelo com intercepto é não-viesado e calculado a variância amostral para o caso mais simples, sem preditor, vamos agora fazer o mesmo cálculo com um preditor.
 
 Vamos assumir que o modelo de regressão linear é uma boa aproximação para CEF. Portanto, vamos supor que:
 
-1. O modelo linear $y_i = \alpha + \beta*x_i + e_i$ é adequado.
+1. O modelo linear $y_i = \alpha + \beta x_i + e_i$ é adequado.
 
 2. $\mathbb{E}[e|X] = 0$, isto é, o erro é não correlacionado com x.
 
-Para essa demonstração, vamos utilizar uma parametrização alternativa para o modelo de regressão linear em torno da média de $x$. Para isso, vamos usar nosso truque matemático de adicionar e subtrair
-Lembremos que a fórmula para o $\hat{\beta}$ é $\mathbb{Cov}[X,Y]/\mathbb{Var}[X]$.
+Lembrando que a fórmula da inclinação em uma amostra é: $\hat{beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}$. Pra simplificar a notação, escreveremos: $\hat{beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x}$
 
-Notem que: 
-$$
-\hat{\beta} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\sum({x_i - \bar{x}})^2} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{n \cdot S^2_x} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\cdot S^2_x}
-$$
+Vamos utlizar o fato de que $\sum_{i=1}^n (x_i - \bar{x}) = 0$. Veja que isso é sempre verdade. Para verificar:
 
-Vamos então usar essa última parametrização para reescrever minha equação do $\hat{\beta}$ e então mostrar que ele é não-viesado e calcular sua variância. 
+\begin{align}
+\sum_{i=1}^n (x_i - \bar{x}) = \\
+(x_1 - \bar{x}) + (x_2 - \bar{x}) + \ldots + (x_n - \bar{x}) = \\
+x_1 + x_2 + \ldots + x_n - n \bar{x} = \\
+\sum_{i=1}^n x_i - n \bar{x} = \\
+n \bar{x} - n \bar{x} = 0
+\end{align}
 
-Substituindo nossa equação de regressão na fórmula, temos:
+Agora, vamos substituir $y_i = \alpha + \beta x_i + e_i$ na fórmula do $\hat{beta}$, e depois usar $x_i = (x_i - \bar{x}) + \bar{x}$ para obter:
 
-$$
-\hat{\beta} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{S^2_x} = \\
-\frac{\sum{(x_i - \bar{x}) \cdot y_i - (x_i - \bar{x})\bar{y}}}{n \cdot S^2_x} = \\
-\frac{n^{-1}\sum({x_i - \bar{x}}) \cdot y_i - \sum({x_i -\bar{x}}) \cdot\bar{y}}{S^2_x}
-$$
+\begin{align}
+\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x} = \\
+\frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha + \beta x_i + e_i - \bar{y})}{nS_x} = \\
+\frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha) + \sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i +  \sum_{i=1}^n -(x_i - \bar{x})\bar{y})}{nS_x} = \\
+\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
+\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta ((x_i - \bar{x}) + \bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
+\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta(x_i - \bar{x}) + \beta\bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
+\frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 + \beta\bar{x}\sum_{i=1}^n (x_i - \bar{x}) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
+\frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 +  \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
+\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
+\end{align}
 
-Vamos agora usar o fato de que, para qualquer variável $z$, a diferença média de $z$ para a média amostral de $\bar{z}$ é zero, isto é, $n^{-1}*\sum\limits_{i=1}^n{}z_i - \bar{z} = 0$
+Agora, podemos computar a esperança condicional.
 
-Por fim, segue-se disso que, para qualquer constante $w$ que não varia com $i$, podemos escrever:
-$n^{-1} \cdot \sum\limits_{i=1}^n{}(z_i - \bar{z})*w = 0$
+\begin{align}
+\mathbb{E}[\hat{\beta}|X] = \mathbb{E}[\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x}|X] = \\
+\beta +  \mathbb{E}[\frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x}|X] = \\
+\beta +  \sum_{i=1}^n (x_i - \bar{x})\frac{\mathbb{E}[e_i|X]}{nS_x} = \\
+\beta
+\end{align}
 
-Portanto, $n^{-1} \cdot \sum({x_i -\bar{x}})*\bar{y} = 0$.
+Veja que podemos usar a LIE para mostrar que a esperança não condicional de $\hat{\beta}$ é $\beta$.
 
-Logo,
+A mesma demonstração pode ser feita com uma parametrização alternativa para o modelo de regressão linear em torno da média de $x$. Ao final do capítulo ela é apresentada.
 
-$$
-\hat{\beta} =  \frac{n^{-1}\sum({x - \bar{x}})*y_i}{S^2_x}
-$$
+## Variância do estimador
 
-Lembremos que, $y_i = \alpha + \beta*x_i + e_i$. Se eu adicionar e subtrair $\beta*\bar{x}$ da equação, não altero ela. Utilizando esse truque e rearranjando, temos o seguinte:
-
-$$
-y_i = \alpha + \beta*X_i + e_i = \\
-\alpha + \beta*\bar{x} + \beta*X_i - \beta*\bar{x} + e_i = \\
-\alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i
-$$
-
-Substituindo na equação anterior, temos:
-
-$$
-\hat{\beta} =  \frac{n^{-1}\sum({x_i - \bar{x}})*(\alpha + \beta*\bar{x} + \beta*(x_i - \bar{x}) + e_i)}{S^2_x}
-$$
-
-$$
-\hat{\beta} =  \frac{ n^{-1} \cdot (\alpha + \beta)\bar{x}\sum({x_i - \bar{x}}) + \sum({x_i - \bar{x}}) \cdot [\beta \cdot (x_i - \bar{x}) + e_i]}{S^2_x}
-$$
-
-$$
-\hat{\beta} = \frac{ n^{-1} \cdot (\alpha + \beta) \cdot \bar{x}\sum({x_i - \bar{x}}) + n^{-1} \beta\sum(x_i - \bar{x})^2 + n^{-1} \sum({x_i - \bar{x}})*e_i} {S^2_x}
-$$
-A primeira soma é uma constante, vezes o somatório de $x_i$ menos sua média, o que é zero. Posso então eliminar da equação, resultando em:
-$$
-\hat{\beta} = \frac{\beta \cdot n^{-1} \cdot\sum({x_i - \bar{x}})^2 +  n^{-1}\sum({x_i - \bar{x}})*e_i}{S^2_x}
-$$
-
-Agora, a primeira soma é a variância de $x$ multiplicada por $\beta$. Reescrevendo a equação de outro modo, temos:
-
-$$
-\hat{\beta} =  \frac{\beta \cdot \sigma^2_x}{S^2_x} + \frac{n^{-1}\sum({x_i - \bar{x}})*e_i}{S^2_x}
-$$
-Simplificando, chegamos a:
-
-$$
-\hat{\beta} =  \beta  + \frac{n^{-1}\sum({x_i - \bar{x}})*e_i}{S^2_x}
-$$
-
-Portanto, nós mostramos que o estimador $\hat{\beta}$ pode ser decomposto no parâmetro populacional $\beta$ mais uma soma ponderada do termo de erro. Uma vez que nossa amostra é i.i.d., sabemos que é uma média ponderada dos erros não-correlacionados. Podemos agora mostrar que o estimador é não-viesado.
-
-Essa interpretação dos erros como uma média ponderada é útil para nós aqui por causa do seguinte. Se eu chamar meus pesos (a ponderação) de $a_i$, posso pensar que a esperança da média ponderada de erros não-correlacionados pode ser pensada como:
-
-$$
-\mathbb{E}[ \sum{a_i*e_i}] = \mathbb{E}[a_1 \cdot e_1 + a_2 \cdot e_2 + ... + a_n \cdot e_n] =
-a_1 \cdot \mathbb{E}[e_1] + a_2 \cdot \mathbb{E}[ e_2] + ... + a_n \cdot \mathbb{E}[ e_n]
-$$
-$$
-\mathbb{E}[ \sum{a_i*e_i}] = \sum{a_i} \cdot \mathbb{E}[e_i]
-$$
-
-Primeiro, lembremos nossa suposição de que $\mathbb{E}[e|X] = 0$. Isso significa que, para qualquer valor de $x$ que eu condicionar, a esperança do erro é zero. Portanto, se a esperança do erro é sempre zero, temos:
-
-$$
-n^{-1}\sum({x_i - \bar{x}}) \cdot \mathbb{E}[e] = 0
-$$
-
-
-$$
-\mathbb{E}[\hat{\beta}] = \beta +  \mathbb{E}[ \frac{ \sum({x_i - \bar{x}})*e_i}{n \cdot S^2}] = \\
-\beta +\frac{\sum({x_i - \bar{x}})}{S^2_x} \cdot \mathbb{E}[e] = \beta
-$$
 Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de $x$ vezes o tamanho da amostra, $n$.
 
 $$
-\mathbb{Var}[\hat{\beta}] = \mathbb{Var}[\beta +  n^{-1}\sum({x - \bar{x}})*e_i)/\mathbb{Var}[x]]
+\mathbb{Var}[\hat{\beta}] = \mathbb{Var}[\beta +  n^{-1}\sum({x - \bar{x}})e_i)/\mathbb{Var}[x]]
 $$
 
 Sabemos que $\mathbb{Var}[x + a] = \mathbb{Var}[x]$. Então, podemos eliminar o $\beta$ da equação.
 
 $$
-\mathbb{Var}[\hat{\beta}] = \frac{\mathbb{Var}[\frac{\sum({x - \bar{x}})*e_i}{n}]}{\mathbb{Var}[x]}
+\mathbb{Var}[\hat{\beta}] = \frac{\mathbb{Var}[\frac{\sum({x - \bar{x}})e_i}{n}]}{\mathbb{Var}[x]}
 $$
 
 Todas as observações do $x$ foram observadas e, portanto, a soma da diferença para a média é uma constante. Sabemos que $\mathbb{Var}[x*a] = a^2\mathbb{Var}[x]$. Então:
 
 
 $$
-\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2*\mathbb{Var}[e_i/\sigma^2_x]
+\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2\mathbb{Var}[e_i/\sigma^2_x]
 $$
 
 Supondo homocedasticidade, $\mathbb{Var}[e_i] = \sigma^2$
 
 $$
-\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x_i - \bar{x}}))^2*\mathbb{Var}[e_i/S^2_x]
+\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x_i - \bar{x}}))^2\mathbb{Var}[e_i/S^2_x]
 $$
 $$
 \mathbb{Var}[\hat{\beta}] = \frac{n^{-2}\sum({x_i - \bar{x}})^2}{S^4_x} \cdot \mathbb{Var}[e_i]
@@ -529,3 +479,98 @@ summary(lm(y2~x2))
 6. Quando a amostra é a mesma e o $y$ é o mesmo, é possível comparar modelos com o $R^2$ e um R-quadrado maior significa um Erro Quadrático Médio menor. Mas nesse caso, é melhor usar direto o EQM.
 
 7. É fácil ver, por tudo isso, que o $R^2$ não é uma medida da variância explicada, com ou sem aspas. Eu não consigo entender o que é "explicar", assim com aspas, e como é distinto de sem aspas. Portanto, melhor seria não usar e deixar de lado. Mas como é usado e os softwares mostram, tenho de perder tempo falando sobre ele para vocês.
+
+## Demonstração Alternativa que estimador é não-viesado.
+
+
+Para isso, vamos usar nosso truque matemático de adicionar e subtrair
+Lembremos que a fórmula para o $\hat{\beta}$ é $\mathbb{Cov}[X,Y]/\mathbb{Var}[X]$.
+
+Notem que: 
+$$
+\hat{\beta} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\sum({x_i - \bar{x}})^2} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{n \cdot S^2_x} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\cdot S^2_x}
+$$
+
+Vamos então usar essa última parametrização para reescrever minha equação do $\hat{\beta}$ e então mostrar que ele é não-viesado e calcular sua variância. 
+
+Substituindo nossa equação de regressão na fórmula, temos:
+
+$$
+\hat{\beta} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{S^2_x} = \\
+\frac{\sum{(x_i - \bar{x}) \cdot y_i - (x_i - \bar{x})\bar{y}}}{n \cdot S^2_x} = \\
+\frac{n^{-1}\sum({x_i - \bar{x}}) \cdot y_i - \sum({x_i -\bar{x}}) \cdot\bar{y}}{S^2_x}
+$$
+
+Vamos agora usar o fato de que, para qualquer variável $z$, a diferença média de $z$ para a média amostral de $\bar{z}$ é zero, isto é, $n^{-1}\sum\limits_{i=1}^n{}z_i - \bar{z} = 0$
+
+Por fim, segue-se disso que, para qualquer constante $w$ que não varia com $i$, podemos escrever:
+$n^{-1} \cdot \sum\limits_{i=1}^n{}(z_i - \bar{z})w = 0$
+
+Portanto, $n^{-1} \cdot \sum({x_i -\bar{x}})\bar{y} = 0$.
+
+Logo,
+
+$$
+\hat{\beta} =  \frac{n^{-1}\sum({x - \bar{x}})y_i}{S^2_x}
+$$
+
+Lembremos que, $y_i = \alpha + \beta x_i + e_i$. Se eu adicionar e subtrair $\beta\bar{x}$ da equação, não altero ela. Utilizando esse truque e rearranjando, temos o seguinte:
+
+$$
+y_i = \alpha + \beta X_i + e_i = \\
+\alpha + \beta\bar{x} + \beta X_i - \beta\bar{x} + e_i = \\
+\alpha + \beta\bar{x} + \beta(x_i - \bar{x}) + e_i
+$$
+
+Substituindo na equação anterior, temos:
+
+$$
+\hat{\beta} =  \frac{n^{-1}\sum({x_i - \bar{x}})(\alpha + \beta\bar{x} + \beta(x_i - \bar{x}) + e_i)}{S^2_x}
+$$
+
+$$
+\hat{\beta} =  \frac{ n^{-1} \cdot (\alpha + \beta)\bar{x}\sum({x_i - \bar{x}}) + n^{-1}\sum({x_i - \bar{x}}) \cdot [\beta \cdot (x_i - \bar{x}) + e_i]}{S^2_x}
+$$
+
+$$
+\hat{\beta} = \frac{ n^{-1} \cdot (\alpha + \beta) \cdot \bar{x}\sum({x_i - \bar{x}}) + n^{-1} \beta\sum(x_i - \bar{x})^2 + n^{-1} \sum({x_i - \bar{x}})e_i} {S^2_x}
+$$
+A primeira soma é uma constante, vezes o somatório de $x_i$ menos sua média, o que é zero. Posso então eliminar da equação, resultando em:
+$$
+\hat{\beta} = \frac{\beta \cdot n^{-1} \cdot\sum({x_i - \bar{x}})^2 +  n^{-1}\sum({x_i - \bar{x}})e_i}{S^2_x}
+$$
+
+Agora, a primeira soma é a variância amostral de $x$ multiplicada por $\beta$. Reescrevendo a equação de outro modo, temos:
+
+$$
+\hat{\beta} =  \frac{\beta \cdot S^2_x}{S^2_x} + \frac{n^{-1}\sum({x_i - \bar{x}})e_i}{S^2_x}
+$$
+Simplificando, chegamos a:
+
+$$
+\hat{\beta} =  \beta  + \frac{n^{-1}\sum({x_i - \bar{x}})e_i}{S^2_x}
+$$
+
+Portanto, nós mostramos que o estimador $\hat{\beta}$ pode ser decomposto no parâmetro populacional $\beta$ mais uma soma ponderada do termo de erro. Uma vez que nossa amostra é i.i.d., sabemos que é uma média ponderada dos erros não-correlacionados. Podemos agora mostrar que o estimador é não-viesado.
+
+Essa interpretação dos erros como uma média ponderada é útil para nós aqui por causa do seguinte. Se eu chamar meus pesos (a ponderação) de $a_i$, posso pensar que a esperança da média ponderada de erros não-correlacionados pode ser pensada como:
+
+$$
+\mathbb{E}[ \sum{a_ie_i}] = \mathbb{E}[a_1 \cdot e_1 + a_2 \cdot e_2 + ... + a_n \cdot e_n] =
+a_1 \cdot \mathbb{E}[e_1] + a_2 \cdot \mathbb{E}[ e_2] + ... + a_n \cdot \mathbb{E}[ e_n]
+$$
+$$
+\mathbb{E}[ \sum{a_ie_i}] = \sum{a_i} \cdot \mathbb{E}[e_i]
+$$
+
+Primeiro, lembremos nossa suposição de que $\mathbb{E}[e|X] = 0$. Isso significa que, para qualquer valor de $x$ que eu condicionar, a esperança do erro é zero. Portanto, se a esperança do erro é sempre zero, temos:
+
+$$
+n^{-1}\sum({x_i - \bar{x}}) \cdot \mathbb{E}[e] = 0
+$$
+
+
+$$
+\mathbb{E}[\hat{\beta}] = \beta +  \mathbb{E}[ \frac{ \sum({x_i - \bar{x}})e_i}{n \cdot S^2}] = \\
+\beta +\frac{\sum({x_i - \bar{x}})}{S^2_x} \cdot \mathbb{E}[e] = \beta
+$$

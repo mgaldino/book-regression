@@ -6,7 +6,7 @@ editor_options:
 
 # - Apêndice
 
-Vamos listar aqui os pacotes do R que eu mais utilizo e as principais funções.
+Iremos tratar aqui de tópicos especiais. Em primeiro lugar, do R. Vamos listar aqui os pacotes do R que eu mais utilizo e as principais funções.
 
 ## Importação
 Para ler arquivos em csv ou formato tabular, prefiro a função `fread` do **data.table**.
@@ -38,6 +38,7 @@ Para ajudar na reproducibilidade, uso o pacote **here** para não vincular aos m
 Aqui apresentamos alguns tópicos de álgebra linear que podem ser úteis.
 
 ### Espaço de vetores e subspaço
+
 O espaço vetorial de dimensão $n$ é o conjunto infinito de todos os vetores $x = [x_1, x_2, \cdots, x_n]$, e as coordenadas $x-i$ podem ser quaisquer números reais.
 
 Dizemos que um subespaço do espaço vetorial $n$-dimensional que é *gerado* por um conjunto de $k$ vetores $x = [x_1, x_2, \cdots, x_k]$, em que $k$ pode ser eventualmente igual a $n$ (ou menor), é o subconjunto de vetores $y$ naquele espaço que pode ser expresso como uma combinação linear do conjunto gerador:
@@ -47,11 +48,6 @@ $y = a_1x_1 + a_2x_2 + \cdots + a_kx_k$
 Dizemos que o conjunto de vetores $x = [x_1, x_2, \cdots, x_k]$ gera o subespaço que ele define.
 
 ### Projeção linear
-
-
-### 2. **Load Required Libraries**
-
-You’ll need the `ggplot2` library for the visualization. Add this to your setup chunk:
 
 ```{r linear-proj ex1}
 # Load necessary library
@@ -89,3 +85,15 @@ ggplot(data) +
 ```
 
 The plot above shows the vectors \(\mathbf{u}\) (in blue) and \(\mathbf{v}\) (in red), along with the projection of \(\mathbf{u}\) onto \(\mathbf{v}\) (in green, dashed line). The projection is the closest point on the line defined by \(\mathbf{v}\) to the point represented by \(\mathbf{u}\). This visualization helps in understanding how projections work in a geometric sense.
+
+## Dados Espaciais
+
+Há dois tipos de dados espaciais diferentes que se traduzem em visualizações distintas. Em primeiro lugar, temos dados espaciais em pontos, que podem ser plotados como conjuntos de pontos em um mapa. Designam localizações específicas, como cidades ou quaisquer objetos discretos definidos em um espaço. E em segundo lugar, temos dados espaciais de polígonos, que representam uma sequência de pontos conectados espacialmente (em geral fronteiras) que formam um área.
+
+### Polígonos
+
+Dados em formato de polígonos usualmente são distribuídos na forma de shapefiles. Eles armazenam dados com geometria não-topológica...
+
+### Econometria espacial
+
+

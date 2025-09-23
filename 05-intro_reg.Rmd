@@ -419,9 +419,9 @@ $$
 
 Rearranjando:
 $$
-y_i = \alpha + \beta x_i - \epsilon_i
+y_i = \alpha + \beta x_i + \epsilon_i
 $$
-Esse é chamado de modelo de regressão linear. Em resumo, o preditor linear é $\hat{y}_i = \alpha + \beta x_i$ e o modelo de regressão lienar é $y_i = \alpha + \beta x_i - \epsilon_i$. No primeiro caso, tenho uma previsão que é diferente do observado. No segundo caso, acoplo a previsão ao erro e obtenho exatamente o observado.
+Esse é chamado de modelo de regressão linear. Em resumo, o preditor linear é $\hat{y}_i = \alpha + \beta x_i$ e o modelo de regressão lienar é $y_i = \alpha + \beta x_i + \epsilon_i$. No primeiro caso, tenho uma previsão que é diferente do observado. No segundo caso, acoplo a previsão ao erro e obtenho exatamente o observado.
 
 Vale notar que minimizar a soma dos quadrados dos resíduos é o mesmo que minimizar a a raiz quadrada dessa soma dividida por $n$, ou seja:
 
