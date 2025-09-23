@@ -81,6 +81,7 @@ simulando-de-uma-normal-bivariada
 suposições-amostrais-de-mqo
 modelo-de-média-amostral
 modelo-de-regressão-linear-com-preditores
+variância-do-estimador
 estimando-um-modelo-de-regressão-real
 limitações-de-mqo
 distrações
@@ -88,6 +89,7 @@ r-quadrado
 r-quadrado-ajustado
 limites-do-r-quadrado
 para-que-serve
+demonstração-alternativa-que-estimador-é-não-viesado.
 causalidade
 resultados-potenciais
 decomposição-do-efeito-causal
@@ -157,7 +159,9 @@ outros
 álgebra-linear
 espaço-de-vetores-e-subspaço
 projeção-linear-2
-load-required-libraries
+dados-espaciais
+polígonos
+econometria-espacial
 teoremas
 independência-e-correlação
 propriedade-de-estimadores

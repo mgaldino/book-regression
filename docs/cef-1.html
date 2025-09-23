@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-09-09" />
+<meta name="date" content="2025-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -248,15 +248,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3" data-path="06-CEF.html"><a href="#suposi%C3%A7%C3%B5es-amostrais-de-mqo"><i class="fa fa-check"></i><b>7.3</b> Suposições amostrais de MQO</a></li>
 <li class="chapter" data-level="7.4" data-path="06-CEF.html"><a href="#modelo-de-m%C3%A9dia-amostral"><i class="fa fa-check"></i><b>7.4</b> Modelo de Média amostral</a></li>
 <li class="chapter" data-level="7.5" data-path="06-CEF.html"><a href="#modelo-de-regress%C3%A3o-linear-com-preditores"><i class="fa fa-check"></i><b>7.5</b> Modelo de Regressão Linear com preditores</a></li>
-<li class="chapter" data-level="7.6" data-path="06-CEF.html"><a href="#estimando-um-modelo-de-regress%C3%A3o-real"><i class="fa fa-check"></i><b>7.6</b> Estimando um modelo de regressão real</a></li>
-<li class="chapter" data-level="7.7" data-path="06-CEF.html"><a href="#limita%C3%A7%C3%B5es-de-mqo"><i class="fa fa-check"></i><b>7.7</b> Limitações de MQO</a></li>
-<li class="chapter" data-level="7.8" data-path="06-CEF.html"><a href="#distra%C3%A7%C3%B5es"><i class="fa fa-check"></i><b>7.8</b> Distrações</a>
+<li class="chapter" data-level="7.6" data-path="06-CEF.html"><a href="#vari%C3%A2ncia-do-estimador"><i class="fa fa-check"></i><b>7.6</b> Variância do estimador</a></li>
+<li class="chapter" data-level="7.7" data-path="06-CEF.html"><a href="#estimando-um-modelo-de-regress%C3%A3o-real"><i class="fa fa-check"></i><b>7.7</b> Estimando um modelo de regressão real</a></li>
+<li class="chapter" data-level="7.8" data-path="06-CEF.html"><a href="#limita%C3%A7%C3%B5es-de-mqo"><i class="fa fa-check"></i><b>7.8</b> Limitações de MQO</a></li>
+<li class="chapter" data-level="7.9" data-path="06-CEF.html"><a href="#distra%C3%A7%C3%B5es"><i class="fa fa-check"></i><b>7.9</b> Distrações</a>
 <ul>
-<li class="chapter" data-level="7.8.1" data-path="estimação.html"><a href="estimação.html#r-quadrado"><i class="fa fa-check"></i><b>7.8.1</b> R-quadrado</a></li>
-<li class="chapter" data-level="7.8.2" data-path="estimação.html"><a href="estimação.html#r-quadrado-ajustado"><i class="fa fa-check"></i><b>7.8.2</b> R-quadrado ajustado</a></li>
-<li class="chapter" data-level="7.8.3" data-path="estimação.html"><a href="estimação.html#limites-do-r-quadrado"><i class="fa fa-check"></i><b>7.8.3</b> Limites do R-quadrado</a></li>
-<li class="chapter" data-level="7.8.4" data-path="estimação.html"><a href="estimação.html#para-que-serve"><i class="fa fa-check"></i><b>7.8.4</b> Para que serve?</a></li>
+<li class="chapter" data-level="7.9.1" data-path="estimação.html"><a href="estimação.html#r-quadrado"><i class="fa fa-check"></i><b>7.9.1</b> R-quadrado</a></li>
+<li class="chapter" data-level="7.9.2" data-path="estimação.html"><a href="estimação.html#r-quadrado-ajustado"><i class="fa fa-check"></i><b>7.9.2</b> R-quadrado ajustado</a></li>
+<li class="chapter" data-level="7.9.3" data-path="estimação.html"><a href="estimação.html#limites-do-r-quadrado"><i class="fa fa-check"></i><b>7.9.3</b> Limites do R-quadrado</a></li>
+<li class="chapter" data-level="7.9.4" data-path="estimação.html"><a href="estimação.html#para-que-serve"><i class="fa fa-check"></i><b>7.9.4</b> Para que serve?</a></li>
 </ul></li>
+<li class="chapter" data-level="7.10" data-path="06-CEF.html"><a href="#demonstra%C3%A7%C3%A3o-alternativa-que-estimador-%C3%A9-n%C3%A3o-viesado."><i class="fa fa-check"></i><b>7.10</b> Demonstração Alternativa que estimador é não-viesado.</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="causalidade.html"><a href="causalidade.html"><i class="fa fa-check"></i><b>8</b> - Causalidade</a>
 <ul>
@@ -359,7 +361,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="14.6.1" data-path="06-CEF.html"><a href="#espa%C3%A7o-de-vetores-e-subspa%C3%A7o"><i class="fa fa-check"></i><b>14.6.1</b> Espaço de vetores e subspaço</a></li>
 <li class="chapter" data-level="14.6.2" data-path="06-CEF.html"><a href="#proje%C3%A7%C3%A3o-linear-2"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
-<li class="chapter" data-level="14.6.3" data-path="apêndice.html"><a href="apêndice.html#load-required-libraries"><i class="fa fa-check"></i><b>14.6.3</b> 2. <strong>Load Required Libraries</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="apêndice.html"><a href="apêndice.html#dados-espaciais"><i class="fa fa-check"></i><b>14.7</b> Dados Espaciais</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="06-CEF.html"><a href="#pol%C3%ADgonos"><i class="fa fa-check"></i><b>14.7.1</b> Polígonos</a></li>
+<li class="chapter" data-level="14.7.2" data-path="apêndice.html"><a href="apêndice.html#econometria-espacial"><i class="fa fa-check"></i><b>14.7.2</b> Econometria espacial</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="teoremas.html"><a href="teoremas.html"><i class="fa fa-check"></i><b>15</b> - Teoremas</a>
@@ -436,21 +442,21 @@ o erro <span class="math inline">\(e\)</span> tem esperança condiconal a <span 
 <h2><span class="header-section-number">6.2</span> Simulando para entender a CEF<a href="cef-1.html#simulando-para-entender-a-cef" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vamos fazer simulações no R para entender o erro da CEF. Suponha que
 <span class="math inline">\(Y = X^2 + U\)</span>, em que <span class="math inline">\(U \sim norm(0,1)\)</span> e <span class="math inline">\(X \sim norm(0,1)\)</span>.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="cef-1.html#cb113-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
-<span id="cb113-2"><a href="cef-1.html#cb113-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb113-3"><a href="cef-1.html#cb113-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb113-4"><a href="cef-1.html#cb113-4" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb113-5"><a href="cef-1.html#cb113-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> u</span>
-<span id="cb113-6"><a href="cef-1.html#cb113-6" tabindex="-1"></a></span>
-<span id="cb113-7"><a href="cef-1.html#cb113-7" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb113-8"><a href="cef-1.html#cb113-8" tabindex="-1"></a></span>
-<span id="cb113-9"><a href="cef-1.html#cb113-9" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">median</span>(y)</span>
-<span id="cb113-10"><a href="cef-1.html#cb113-10" tabindex="-1"></a>erro1 <span class="ot">&lt;-</span> y <span class="sc">-</span> m1</span>
-<span id="cb113-11"><a href="cef-1.html#cb113-11" tabindex="-1"></a>erro2 <span class="ot">&lt;-</span> y <span class="sc">-</span> m2</span>
-<span id="cb113-12"><a href="cef-1.html#cb113-12" tabindex="-1"></a></span>
-<span id="cb113-13"><a href="cef-1.html#cb113-13" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro1<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="cef-1.html#cb86-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb86-2"><a href="cef-1.html#cb86-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb86-3"><a href="cef-1.html#cb86-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb86-4"><a href="cef-1.html#cb86-4" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb86-5"><a href="cef-1.html#cb86-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> u</span>
+<span id="cb86-6"><a href="cef-1.html#cb86-6" tabindex="-1"></a></span>
+<span id="cb86-7"><a href="cef-1.html#cb86-7" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb86-8"><a href="cef-1.html#cb86-8" tabindex="-1"></a></span>
+<span id="cb86-9"><a href="cef-1.html#cb86-9" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">median</span>(y)</span>
+<span id="cb86-10"><a href="cef-1.html#cb86-10" tabindex="-1"></a>erro1 <span class="ot">&lt;-</span> y <span class="sc">-</span> m1</span>
+<span id="cb86-11"><a href="cef-1.html#cb86-11" tabindex="-1"></a>erro2 <span class="ot">&lt;-</span> y <span class="sc">-</span> m2</span>
+<span id="cb86-12"><a href="cef-1.html#cb86-12" tabindex="-1"></a></span>
+<span id="cb86-13"><a href="cef-1.html#cb86-13" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro1<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 2987.139</code></pre>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="cef-1.html#cb115-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro2<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="cef-1.html#cb88-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(erro2<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 3062.869</code></pre>
 <p>Nós imprimimos os dois erros quadráticos médios calculados, um usando a média de <span class="math inline">\(Y\)</span> como minha estimativa, e outro usando a mediana. A média teve um desempenho melhor. De maneira geral, é possível mostrar que a média é é a melhor estimativa não condicional possível.</p>
 </div>
@@ -514,15 +520,15 @@ A média das médias condicionais é dado pela média quando escolho o dado A (v
 <p>Nós vimos que o log do salário (por hora) médio não condicional
 <span class="math inline">\(\mathbb{E}[log(salário)]\)</span> é 2.15. A tabela abaixo quebra esse valor por
 gênero, juntamente com a frequência relativa de categoria:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="cef-1.html#cb117-1" tabindex="-1"></a><span class="co"># table2 &lt;- df %&gt;%</span></span>
-<span id="cb117-2"><a href="cef-1.html#cb117-2" tabindex="-1"></a><span class="co">#   mutate(total_n = sum(V1028),</span></span>
-<span id="cb117-3"><a href="cef-1.html#cb117-3" tabindex="-1"></a><span class="co">#          log_renda = log(renda)) %&gt;%</span></span>
-<span id="cb117-4"><a href="cef-1.html#cb117-4" tabindex="-1"></a><span class="co">#   group_by(genero) %&gt;%</span></span>
-<span id="cb117-5"><a href="cef-1.html#cb117-5" tabindex="-1"></a><span class="co">#   summarise(salario = round(weighted.mean(salario, w=V1028),2), freq=sum(V1028)/total_n)</span></span>
-<span id="cb117-6"><a href="cef-1.html#cb117-6" tabindex="-1"></a><span class="co">#      </span></span>
-<span id="cb117-7"><a href="cef-1.html#cb117-7" tabindex="-1"></a><span class="co"># table2 %&gt;%</span></span>
-<span id="cb117-8"><a href="cef-1.html#cb117-8" tabindex="-1"></a><span class="co">#   head(10) %&gt;%</span></span>
-<span id="cb117-9"><a href="cef-1.html#cb117-9" tabindex="-1"></a><span class="co">#   kable()</span></span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="cef-1.html#cb90-1" tabindex="-1"></a><span class="co"># table2 &lt;- df %&gt;%</span></span>
+<span id="cb90-2"><a href="cef-1.html#cb90-2" tabindex="-1"></a><span class="co">#   mutate(total_n = sum(V1028),</span></span>
+<span id="cb90-3"><a href="cef-1.html#cb90-3" tabindex="-1"></a><span class="co">#          log_renda = log(renda)) %&gt;%</span></span>
+<span id="cb90-4"><a href="cef-1.html#cb90-4" tabindex="-1"></a><span class="co">#   group_by(genero) %&gt;%</span></span>
+<span id="cb90-5"><a href="cef-1.html#cb90-5" tabindex="-1"></a><span class="co">#   summarise(salario = round(weighted.mean(salario, w=V1028),2), freq=sum(V1028)/total_n)</span></span>
+<span id="cb90-6"><a href="cef-1.html#cb90-6" tabindex="-1"></a><span class="co">#      </span></span>
+<span id="cb90-7"><a href="cef-1.html#cb90-7" tabindex="-1"></a><span class="co"># table2 %&gt;%</span></span>
+<span id="cb90-8"><a href="cef-1.html#cb90-8" tabindex="-1"></a><span class="co">#   head(10) %&gt;%</span></span>
+<span id="cb90-9"><a href="cef-1.html#cb90-9" tabindex="-1"></a><span class="co">#   kable()</span></span></code></pre></div>
 <p>Vejam que:</p>
 <p><span class="math display">\[
 \mathbb{E}[log(salário)] = \mathbb{E}[log(salário)|homem]*p(homem) + \mathbb{E}[log(salário)|mulher]*p(mulher)
@@ -574,18 +580,18 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 <div id="equação-da-reta" class="section level4 hasAnchor" number="6.4.1.1">
 <h4><span class="header-section-number">6.4.1.1</span> Equação da Reta<a href="#equa%C3%A7%C3%A3o-da-reta" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Na nossa equação da reta, <span class="math inline">\(\alpha\)</span> é o intercepto, isto é, o ponto onde a reta cruza o eixo <span class="math inline">\(y\)</span> e <span class="math inline">\(\beta\)</span> é a inclinção ou coeficiente angular da reta. Se nós simularmos dados e plotarmos um scatter plot, veremos que podemos ajustar muitas retas aos dados.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="cef-1.html#cb118-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb118-2"><a href="cef-1.html#cb118-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb118-3"><a href="cef-1.html#cb118-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb118-4"><a href="cef-1.html#cb118-4" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb118-5"><a href="cef-1.html#cb118-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">1.3</span><span class="sc">*</span>x <span class="sc">+</span> u</span>
-<span id="cb118-6"><a href="cef-1.html#cb118-6" tabindex="-1"></a></span>
-<span id="cb118-7"><a href="cef-1.html#cb118-7" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
-<span id="cb118-8"><a href="cef-1.html#cb118-8" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb118-9"><a href="cef-1.html#cb118-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">se=</span>F, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
-<span id="cb118-10"><a href="cef-1.html#cb118-10" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> .<span class="dv">5</span>, <span class="at">intercept =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb118-11"><a href="cef-1.html#cb118-11" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="dv">3</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb118-12"><a href="cef-1.html#cb118-12" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="cef-1.html#cb91-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb91-2"><a href="cef-1.html#cb91-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb91-3"><a href="cef-1.html#cb91-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb91-4"><a href="cef-1.html#cb91-4" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb91-5"><a href="cef-1.html#cb91-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">1.3</span><span class="sc">*</span>x <span class="sc">+</span> u</span>
+<span id="cb91-6"><a href="cef-1.html#cb91-6" tabindex="-1"></a></span>
+<span id="cb91-7"><a href="cef-1.html#cb91-7" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x)</span>
+<span id="cb91-8"><a href="cef-1.html#cb91-8" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb91-9"><a href="cef-1.html#cb91-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">se=</span>F, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb91-10"><a href="cef-1.html#cb91-10" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> .<span class="dv">5</span>, <span class="at">intercept =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb91-11"><a href="cef-1.html#cb91-11" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="dv">3</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb91-12"><a href="cef-1.html#cb91-12" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/plotAjusteReta-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>No gráfico <a href="#fig:plotAjusteReta"><strong>??</strong></a>, vemos que a reta em azul é melhor do que a verde e vermelha.</p>
 <p>Para achar os valores da reta azul (que aqui sabemos ser <span class="math inline">\(\alpha =2\)</span> e <span class="math inline">\(\beta = 1.3\)</span>), podemos novamente minimizar o EQM. A derivação requer calcular a derivada ou utilização de álgebra linerar, requisitos matemáticos para além do curso. Para um preditor, a fórmula do <span class="math inline">\(\beta\)</span> é dada por <span class="math inline">\(COV(Y,X)/Var(X)\)</span> e a constante, <span class="math inline">\(\alpha\)</span> é dada por <span class="math inline">\(\mathbb{E}[(Y)] - \beta*\mathbb{E}[X]\)</span>. Expressando a mesma fórmula com somatório (em vez de esperança), temos:</p>
@@ -596,18 +602,12 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 \beta = \sum\limits_{i=1}^n{}(y_i - \bar{y})(x_i - \bar{x})/\sum\limits_{i=1}^n{}(x_i - \bar{x})^2
 \]</span></p>
 <p>Se nós aplicarmos essa fórmula para os dados do gráfico acima, iremos recuperar um valor aproximado da verdadeira reta de regressão (aproximado porque no fundo estamos simulando uma amostra. Mas se tivéssemos infinitos valores, teríamos exatamente os parâmetros populacionais).</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="cef-1.html#cb119-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb119-2"><a href="cef-1.html#cb119-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cov_yx =</span> <span class="fu">cov</span>(y,x),</span>
-<span id="cb119-3"><a href="cef-1.html#cb119-3" tabindex="-1"></a>            <span class="at">var_x =</span> <span class="fu">var</span>(x),</span>
-<span id="cb119-4"><a href="cef-1.html#cb119-4" tabindex="-1"></a>            <span class="at">beta =</span> cov_yx<span class="sc">/</span>var_x,</span>
-<span id="cb119-5"><a href="cef-1.html#cb119-5" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta<span class="sc">*</span><span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span></span>
-<span id="cb119-6"><a href="cef-1.html#cb119-6" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
-## Use &#39;xfun::attr2()&#39; instead.
-## See help(&quot;Deprecated&quot;)</code></pre>
-<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
-## Use &#39;xfun::attr2()&#39; instead.
-## See help(&quot;Deprecated&quot;)</code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="cef-1.html#cb92-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="cef-1.html#cb92-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cov_yx =</span> <span class="fu">cov</span>(y,x),</span>
+<span id="cb92-3"><a href="cef-1.html#cb92-3" tabindex="-1"></a>            <span class="at">var_x =</span> <span class="fu">var</span>(x),</span>
+<span id="cb92-4"><a href="cef-1.html#cb92-4" tabindex="-1"></a>            <span class="at">beta =</span> cov_yx<span class="sc">/</span>var_x,</span>
+<span id="cb92-5"><a href="cef-1.html#cb92-5" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta<span class="sc">*</span><span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span></span>
+<span id="cb92-6"><a href="cef-1.html#cb92-6" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -627,7 +627,7 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 </tbody>
 </table>
 <p>Vejam que é a mesma estimativa se eu usar a função “lm” do R, que estima uma modelo de regressão linear.</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="cef-1.html#cb122-1" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span>x, df)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="cef-1.html#cb93-1" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span>x, df)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x, data = df)
