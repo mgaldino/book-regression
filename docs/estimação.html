@@ -845,7 +845,7 @@ Ou seja, a variância de nosso estimador é igual à variância populacional div
 <li><p>O modelo linear <span class="math inline">\(y_i = \alpha + \beta x_i + e_i\)</span> é adequado.</p></li>
 <li><p><span class="math inline">\(\mathbb{E}[e|X] = 0\)</span>, isto é, o erro é não correlacionado com x.</p></li>
 </ol>
-<p>Lembrando que a fórmula da inclinação em uma amostra é: <span class="math inline">\(\hat{beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}\)</span>. Pra simplificar a notação, escreveremos: <span class="math inline">\(\hat{beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x}\)</span></p>
+<p>Lembrando que a fórmula da inclinação em uma amostra é: <span class="math inline">\(\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}\)</span>. Pra simplificar a notação, escreveremos: <span class="math inline">\(\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x}\)</span></p>
 <p>Vamos utlizar o fato de que <span class="math inline">\(\sum_{i=1}^n (x_i - \bar{x}) = 0\)</span>. Veja que isso é sempre verdade. Para verificar:</p>
 <p><span class="math display">\[\begin{align}
 \sum_{i=1}^n (x_i - \bar{x}) = \\
@@ -856,21 +856,21 @@ n \bar{x} - n \bar{x} = 0
 \end{align}\]</span></p>
 <p>Agora, vamos substituir <span class="math inline">\(y_i = \alpha + \beta x_i + e_i\)</span> na fórmula do <span class="math inline">\(\hat{beta}\)</span>, e depois usar <span class="math inline">\(x_i = (x_i - \bar{x}) + \bar{x}\)</span> para obter:</p>
 <p><span class="math display">\[\begin{align}
-\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha + \beta x_i + e_i - \bar{y})}{nS_x} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha) + \sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i +  \sum_{i=1}^n -(x_i - \bar{x})\bar{y})}{nS_x} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta ((x_i - \bar{x}) + \bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta(x_i - \bar{x}) + \beta\bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
-\frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 + \beta\bar{x}\sum_{i=1}^n (x_i - \bar{x}) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
-\frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 +  \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
-\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x} = \\
+\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2} = \\
+\frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha + \beta x_i + e_i - \bar{y})}{nS_x^2} = \\
+\frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha) + \sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i +  \sum_{i=1}^n -(x_i - \bar{x})\bar{y})}{nS_x^2} = \\
+\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
+\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta ((x_i - \bar{x}) + \bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
+\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta(x_i - \bar{x}) + \beta\bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
+\frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 + \beta\bar{x}\sum_{i=1}^n (x_i - \bar{x}) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
+\frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 +  \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
+\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
 \end{align}\]</span></p>
 <p>Agora, podemos computar a esperança condicional.</p>
 <p><span class="math display">\[\begin{align}
-\mathbb{E}[\hat{\beta}|X] = \mathbb{E}[\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x}|X] = \\
-\beta +  \mathbb{E}[\frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x}|X] = \\
-\beta +  \sum_{i=1}^n (x_i - \bar{x})\frac{\mathbb{E}[e_i|X]}{nS_x} = \\
+\mathbb{E}[\hat{\beta}|X] = \mathbb{E}[\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] = \\
+\beta +  \mathbb{E}[\frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] = \\
+\beta +  \sum_{i=1}^n (x_i - \bar{x})\frac{\mathbb{E}[e_i|X]}{nS_x^2} = \\
 \beta
 \end{align}\]</span></p>
 <p>Veja que podemos usar a LIE para mostrar que a esperança não condicional de <span class="math inline">\(\hat{\beta}\)</span> é <span class="math inline">\(\beta\)</span>.</p>
@@ -878,28 +878,17 @@ n \bar{x} - n \bar{x} = 0
 </div>
 <div id="variância-do-estimador" class="section level2 hasAnchor" number="7.6">
 <h2><span class="header-section-number">7.6</span> Variância do estimador<a href="#vari%C3%A2ncia-do-estimador" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de <span class="math inline">\(x\)</span> vezes o tamanho da amostra, <span class="math inline">\(n\)</span>.</p>
-<p><span class="math display">\[
-\mathbb{Var}[\hat{\beta}] = \mathbb{Var}[\beta +  n^{-1}\sum({x - \bar{x}})e_i)/\mathbb{Var}[x]]
-\]</span></p>
-<p>Sabemos que <span class="math inline">\(\mathbb{Var}[x + a] = \mathbb{Var}[x]\)</span>. Então, podemos eliminar o <span class="math inline">\(\beta\)</span> da equação.</p>
-<p><span class="math display">\[
-\mathbb{Var}[\hat{\beta}] = \frac{\mathbb{Var}[\frac{\sum({x - \bar{x}})e_i}{n}]}{\mathbb{Var}[x]}
-\]</span></p>
-<p>Todas as observações do <span class="math inline">\(x\)</span> foram observadas e, portanto, a soma da diferença para a média é uma constante. Sabemos que <span class="math inline">\(\mathbb{Var}[x*a] = a^2\mathbb{Var}[x]\)</span>. Então:</p>
-<p><span class="math display">\[
-\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x - \bar{x}}))^2\mathbb{Var}[e_i/\sigma^2_x]
-\]</span></p>
-<p>Supondo homocedasticidade, <span class="math inline">\(\mathbb{Var}[e_i] = \sigma^2\)</span></p>
-<p><span class="math display">\[
-\mathbb{Var}[\hat{\beta}] = (n^{-1}\sum({x_i - \bar{x}}))^2\mathbb{Var}[e_i/S^2_x]
-\]</span>
-<span class="math display">\[
-\mathbb{Var}[\hat{\beta}] = \frac{n^{-2}\sum({x_i - \bar{x}})^2}{S^4_x} \cdot \mathbb{Var}[e_i]
-\]</span>
-<span class="math display">\[
-\mathbb{Var}[\hat{\beta}] = \frac{n^{-1}S^2_x}{S^4_x} \cdot \mathbb{Var}[e_i] = \frac{\mathbb{Var}[e_i]}{nS^2_x}
-\]</span></p>
+<p>Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de <span class="math inline">\(x\)</span> vezes o tamanho da amostra, <span class="math inline">\(n\)</span>. Vamos começar com a variância condicional ao <span class="math inline">\(X\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+\mathbb{Var}[\hat{\beta}|X] = \mathbb{Var}[\frac{\beta +  n^{-1}\sum_{i=1}^n({x_i - \bar{x}})e_i}{S_x^2}|X] \\
+= \mathbb{Var}[\frac{n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i}{S_x^2}|X] \text{, somar uma constante não altera a variância} \\
+= \frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X]  \text{, multiplicação por uma constante sai da variância ao quadrado} \\
+\end{align}\]</span></p>
+<p>É possível mostrar que dá para tirar para fora da esperança <span class="math inline">\(n^{-1}\sum_{i=1}^n({x_i - \bar{x}})\)</span>. Isso não é exatamente trivial e vou pular a derivação de que isso está certo. E se suposermos homocedasticidade, <span class="math inline">\(\mathbb{Var}[e_i|X] = \sigma^2\)</span>, então:</p>
+<p><span class="math display">\[\begin{align}
+\frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X] = \frac{1}{n^2S_x^4}\sum_{i=1}^n({x_i - \bar{x})}\mathbb{Var}[e_i|X] \\
+= \frac{1}{nS_x^2}\mathbb{Var}[e_i|X] = \frac{\sigma^2}{nS_x^2} \text{, supondo homocedasticidade}
+\end{align}\]</span></p>
 <p>Ou seja, a variância de nosso estimador é a variância do erro dividida pela variância de <span class="math inline">\(x\)</span> multiplicada pelo tamanho da amostra. Isso significa que quando mais disperso o <span class="math inline">\(Y\)</span>, maior a variância do meu estimador, quanto maior a amostra, menor a variância e, por fim, quanto mais espalhado o <span class="math inline">\(X\)</span>, menor a variância do estimador.</p>
 <p>Por fim, o erro padrão de uma estimativa é apenas o desvio padrão da variância. Portanto:</p>
 <p><span class="math display">\[
