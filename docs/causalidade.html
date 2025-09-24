@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-09-23" />
+<meta name="date" content="2025-09-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -513,7 +513,7 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 <span id="cb118-25"><a href="causalidade.html#cb118-25" tabindex="-1"></a></span>
 <span id="cb118-26"><a href="causalidade.html#cb118-26" tabindex="-1"></a><span class="co"># ATT ou ACE</span></span>
 <span id="cb118-27"><a href="causalidade.html#cb118-27" tabindex="-1"></a><span class="fu">mean</span>(y_1 <span class="sc">-</span> y_0)</span></code></pre></div>
-<pre><code>## [1] 2.016699</code></pre>
+<pre><code>## [1] 1.994582</code></pre>
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="causalidade.html#cb120-1" tabindex="-1"></a>amostra <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(treatment), <span class="at">size =</span> <span class="dv">1000</span>)</span>
 <span id="cb120-2"><a href="causalidade.html#cb120-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">c</span>(y_1, y_0)[amostra], <span class="at">x=</span><span class="fu">c</span>(x, x)[amostra], <span class="at">treatment =</span> treatment[amostra])</span>
 <span id="cb120-3"><a href="causalidade.html#cb120-3" tabindex="-1"></a></span>
@@ -525,15 +525,15 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -7.8091 -1.5188  0.0492  1.6615  7.2373 
+## -7.7216 -1.6394  0.0018  1.5643  7.5036 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  2.08250    0.07757   26.85   &lt;2e-16 ***
+## (Intercept)  1.93528    0.07762   24.93   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 2.453 on 999 degrees of freedom</code></pre>
+## Residual standard error: 2.454 on 999 degrees of freedom</code></pre>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="causalidade.html#cb122-1" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>df)</span>
 <span id="cb122-2"><a href="causalidade.html#cb122-2" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
 <pre><code>## 
@@ -542,18 +542,18 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -4.0442 -1.0596  0.0362  1.0447  4.2231 
+## -3.8776 -1.0204 -0.0698  1.0136  4.4301 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  2.03644    0.04536   44.89   &lt;2e-16 ***
-## x            1.99293    0.04543   43.87   &lt;2e-16 ***
+## (Intercept)  1.91234    0.04484   42.65   &lt;2e-16 ***
+## x            1.99457    0.04465   44.67   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1.434 on 998 degrees of freedom
-## Multiple R-squared:  0.6585, Adjusted R-squared:  0.6582 
-## F-statistic:  1925 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 1.418 on 998 degrees of freedom
+## Multiple R-squared:  0.6666, Adjusted R-squared:  0.6662 
+## F-statistic:  1995 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="causalidade.html#cb124-1" tabindex="-1"></a><span class="do">## Ignorability apenas com CIA (x)</span></span>
 <span id="cb124-2"><a href="causalidade.html#cb124-2" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
 <span id="cb124-3"><a href="causalidade.html#cb124-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
@@ -576,18 +576,18 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -7.6367 -1.0452 -0.0062  1.0467  6.4666 
+## -7.5315 -1.0682 -0.0096  1.0557  7.1952 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -0.61249    0.02250  -27.22   &lt;2e-16 ***
-## treatment    1.20019    0.03165   37.92   &lt;2e-16 ***
+## (Intercept) -0.57690    0.02206  -26.15   &lt;2e-16 ***
+## treatment    1.21599    0.03147   38.63   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1.582 on 9998 degrees of freedom
-## Multiple R-squared:  0.1258, Adjusted R-squared:  0.1257 
-## F-statistic:  1438 on 1 and 9998 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 1.573 on 9998 degrees of freedom
+## Multiple R-squared:  0.1299, Adjusted R-squared:  0.1298 
+## F-statistic:  1493 on 1 and 9998 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="causalidade.html#cb126-1" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> treatment <span class="sc">+</span>  x, <span class="at">data=</span>df)</span>
 <span id="cb126-2"><a href="causalidade.html#cb126-2" tabindex="-1"></a><span class="fu">summary</span>(reg4)</span></code></pre></div>
 <pre><code>## 
@@ -596,19 +596,19 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -3.7767 -0.6693  0.0040  0.6688  4.2789 
+## -3.9749 -0.6685 -0.0045  0.6599  3.7366 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  1.02349    0.01935   52.88   &lt;2e-16 ***
-## treatment   -2.04505    0.03290  -62.15   &lt;2e-16 ***
-## x            2.01022    0.01624  123.80   &lt;2e-16 ***
+## (Intercept)  1.00922    0.01872   53.91   &lt;2e-16 ***
+## treatment   -1.99776    0.03234  -61.77   &lt;2e-16 ***
+## x            2.01140    0.01608  125.12   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.9943 on 9997 degrees of freedom
-## Multiple R-squared:  0.6549, Adjusted R-squared:  0.6548 
-## F-statistic:  9484 on 2 and 9997 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 0.9823 on 9997 degrees of freedom
+## Multiple R-squared:  0.6609, Adjusted R-squared:  0.6608 
+## F-statistic:  9743 on 2 and 9997 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="causalidade.html#cb128-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb128-2"><a href="causalidade.html#cb128-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb128-3"><a href="causalidade.html#cb128-3" tabindex="-1"></a></span>
@@ -664,7 +664,7 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 <span id="cb132-5"><a href="causalidade.html#cb132-5" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb132-6"><a href="causalidade.html#cb132-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">cor</span>(erro, x))</span></code></pre></div>
 <pre><code>##   cor(erro, x)
-## 1 -0.007636495</code></pre>
+## 1   0.01257919</code></pre>
 </div>
 <div id="referências" class="section level2 hasAnchor" number="8.4">
 <h2><span class="header-section-number">8.4</span> Referências<a href="#refer%C3%AAncias" class="anchor-section" aria-label="Anchor link to header"></a></h2>

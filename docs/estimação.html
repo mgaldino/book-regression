@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-09-23" />
+<meta name="date" content="2025-09-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -845,7 +845,7 @@ Ou seja, a variância de nosso estimador é igual à variância populacional div
 <li><p>O modelo linear <span class="math inline">\(y_i = \alpha + \beta x_i + e_i\)</span> é adequado.</p></li>
 <li><p><span class="math inline">\(\mathbb{E}[e|X] = 0\)</span>, isto é, o erro é não correlacionado com x.</p></li>
 </ol>
-<p>Lembrando que a fórmula da inclinação em uma amostra é: <span class="math inline">\(\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}\)</span>. Pra simplificar a notação, escreveremos: <span class="math inline">\(\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x}\)</span></p>
+<p>Lembrando que a fórmula da inclinação em uma amostra é: <span class="math inline">\(\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}\)</span>. Pra simplificar a notação, escreveremos: <span class="math inline">\(\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2}\)</span></p>
 <p>Vamos utlizar o fato de que <span class="math inline">\(\sum_{i=1}^n (x_i - \bar{x}) = 0\)</span>. Veja que isso é sempre verdade. Para verificar:</p>
 <p><span class="math display">\[\begin{align}
 \sum_{i=1}^n (x_i - \bar{x}) = \\
@@ -854,24 +854,24 @@ x_1 + x_2 + \ldots + x_n - n \bar{x} = \\
 \sum_{i=1}^n x_i - n \bar{x} = \\
 n \bar{x} - n \bar{x} = 0
 \end{align}\]</span></p>
-<p>Agora, vamos substituir <span class="math inline">\(y_i = \alpha + \beta x_i + e_i\)</span> na fórmula do <span class="math inline">\(\hat{beta}\)</span>, e depois usar <span class="math inline">\(x_i = (x_i - \bar{x}) + \bar{x}\)</span> para obter:</p>
+<p>Agora, vamos substituir <span class="math inline">\(y_i = \alpha + \beta x_i + e_i\)</span> na fórmula do <span class="math inline">\(\hat{\beta}\)</span>, e depois usar <span class="math inline">\(x_i = (x_i - \bar{x}) + \bar{x}\)</span> para obter:</p>
 <p><span class="math display">\[\begin{align}
-\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha + \beta x_i + e_i - \bar{y})}{nS_x^2} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha) + \sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i +  \sum_{i=1}^n -(x_i - \bar{x})\bar{y})}{nS_x^2} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta ((x_i - \bar{x}) + \bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta(x_i - \bar{x}) + \beta\bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
-\frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 + \beta\bar{x}\sum_{i=1}^n (x_i - \bar{x}) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
-\frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 +  \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
-\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
+\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2} \\
+&amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha + \beta x_i + e_i - \bar{y})}{nS_x^2} \\
+&amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha) + \sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i +  \sum_{i=1}^n -(x_i - \bar{x})\bar{y})}{nS_x^2} \\
+&amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
+&amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})(\beta ((x_i - \bar{x}) + \bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
+&amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})(\beta(x_i - \bar{x}) + \beta\bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
+&amp;= \frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 + \beta\bar{x}\sum_{i=1}^n (x_i - \bar{x}) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
+&amp;= \frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 +  \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
+&amp;= \beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
 \end{align}\]</span></p>
 <p>Agora, podemos computar a esperança condicional.</p>
 <p><span class="math display">\[\begin{align}
-\mathbb{E}[\hat{\beta}|X] = \mathbb{E}[\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] = \\
-\beta +  \mathbb{E}[\frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] = \\
-\beta +  \sum_{i=1}^n (x_i - \bar{x})\frac{\mathbb{E}[e_i|X]}{nS_x^2} = \\
-\beta
+\mathbb{E}[\hat{\beta}|X] = \mathbb{E}[\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] \\
+&amp;= \beta +  \mathbb{E}[\frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] \\
+&amp;= \beta +  \sum_{i=1}^n (x_i - \bar{x})\frac{\mathbb{E}[e_i|X]}{nS_x^2} \\
+&amp;= \beta
 \end{align}\]</span></p>
 <p>Veja que podemos usar a LIE para mostrar que a esperança não condicional de <span class="math inline">\(\hat{\beta}\)</span> é <span class="math inline">\(\beta\)</span>.</p>
 <p>A mesma demonstração pode ser feita com uma parametrização alternativa para o modelo de regressão linear em torno da média de <span class="math inline">\(x\)</span>. Ao final do capítulo ela é apresentada.</p>
@@ -881,13 +881,13 @@ n \bar{x} - n \bar{x} = 0
 <p>Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de <span class="math inline">\(x\)</span> vezes o tamanho da amostra, <span class="math inline">\(n\)</span>. Vamos começar com a variância condicional ao <span class="math inline">\(X\)</span>.</p>
 <p><span class="math display">\[\begin{align}
 \mathbb{Var}[\hat{\beta}|X] = \mathbb{Var}[\frac{\beta +  n^{-1}\sum_{i=1}^n({x_i - \bar{x}})e_i}{S_x^2}|X] \\
-= \mathbb{Var}[\frac{n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i}{S_x^2}|X] \text{, somar uma constante não altera a variância} \\
-= \frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X]  \text{, multiplicação por uma constante sai da variância ao quadrado} \\
+&amp;= \mathbb{Var}[\frac{n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i}{S_x^2}|X] \text{, somar uma constante não altera a variância} \\
+&amp;= \frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X]  \text{, multiplicação por uma constante sai da variância ao quadrado} \\
 \end{align}\]</span></p>
 <p>É possível mostrar que dá para tirar para fora da esperança <span class="math inline">\(n^{-1}\sum_{i=1}^n({x_i - \bar{x}})\)</span>. Isso não é exatamente trivial e vou pular a derivação de que isso está certo. E se suposermos homocedasticidade, <span class="math inline">\(\mathbb{Var}[e_i|X] = \sigma^2\)</span>, então:</p>
 <p><span class="math display">\[\begin{align}
 \frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X] = \frac{1}{n^2S_x^4}\sum_{i=1}^n({x_i - \bar{x})}\mathbb{Var}[e_i|X] \\
-= \frac{1}{nS_x^2}\mathbb{Var}[e_i|X] = \frac{\sigma^2}{nS_x^2} \text{, supondo homocedasticidade}
+&amp;= \frac{1}{nS_x^2}\mathbb{Var}[e_i|X] = \frac{\sigma^2}{nS_x^2} \text{, supondo homocedasticidade}
 \end{align}\]</span></p>
 <p>Ou seja, a variância de nosso estimador é a variância do erro dividida pela variância de <span class="math inline">\(x\)</span> multiplicada pelo tamanho da amostra. Isso significa que quando mais disperso o <span class="math inline">\(Y\)</span>, maior a variância do meu estimador, quanto maior a amostra, menor a variância e, por fim, quanto mais espalhado o <span class="math inline">\(X\)</span>, menor a variância do estimador.</p>
 <p>Por fim, o erro padrão de uma estimativa é apenas o desvio padrão da variância. Portanto:</p>
@@ -1020,15 +1020,15 @@ se(\hat{\beta}) = \frac{\sigma}{\sqrt{nS^2_x}}
 <h3><span class="header-section-number">7.9.1</span> R-quadrado<a href="estimação.html#r-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Uma das estatísticas apresentadas é o chamado <span class="math inline">\(R^2\)</span>, também denominado coeficiente de determinação, que pode ser definido de várias maneiras distintas e uma delas é a razão entre a variância dos valores preditos <span class="math inline">\(\hat{Y}\)</span> e a variância dos dados observados, <span class="math inline">\(Y\)</span>:</p>
 <p><span class="math display">\[
-R^2 \equiv \frac{\hat{\sigma^2_{\hat{y}}}}{\sigma^2}
+R^2 \equiv \frac{\hat{\sigma^2_{\hat{y}}}}{\hat{sigma}^2_y}
 \]</span></p>
 <p>Uma definição alternartiva é que o R-quadrado é a razão entre a covariância de <span class="math inline">\(y\)</span> e <span class="math inline">\(\hat{y}\)</span> e a variância de <span class="math inline">\(Y\)</span>:
 <span class="math display">\[
-R^2 \equiv \frac{\mathbb{Cov}[Y,\hat{Y}]}{\sigma^2}
-\]</span>
-Por fim, o R-quadrado pode ser escrito como o quadrado da covariância entee <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> dividido pelo produto dos desvios-pdrãos de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.
+R^2 \equiv \frac{\mathbb{Cov}[Y,\hat{Y}]}{\hat{sigma}^2_y}
+\]</span></p>
+<p>Por fim, o R-quadrado pode ser escrito como o quadrado da covariância amosrtral entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> dividido pelo produto dos desvios-padrãos amostrais de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.
 <span class="math display">\[
-R^2 \equiv \left(\frac{\mathbb{Cov}[X,Y]}{\sigma_x \cdot \sigma_y}\right)^2
+R^2 \equiv \left(\frac{\hat{\mathbb{Cov}}[X,Y]}{hat{\\sigma}_x \cdot \hat{\sigma}_y}\right)^2
 \]</span></p>
 <p>Essa última parametrização é o que permite interpretar o R-quadrado como a correlação (entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>) ao quadrado. É fácil ver também que uma regressão de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span> gera o mesmo R-quadrado que uma regressão de <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(X\)</span>.</p>
 </div>
@@ -1038,41 +1038,42 @@ R^2 \equiv \left(\frac{\mathbb{Cov}[X,Y]}{\sigma_x \cdot \sigma_y}\right)^2
 </div>
 <div id="limites-do-r-quadrado" class="section level3 hasAnchor" number="7.9.3">
 <h3><span class="header-section-number">7.9.3</span> Limites do R-quadrado<a href="estimação.html#limites-do-r-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Pela primeira parametrização, éfácil ver que o <span class="math inline">\(R^2\)</span> jamais será negativo, pois a variância é sempre não-negativa. Além disso, jamais será mais que 1, pois a variância dos valores preditors será no máximo igual à variância observada, quando as previsões forem perfeitas.</p>
+<p>Pela primeira parametrização, é fácil ver que o <span class="math inline">\(R^2\)</span> jamais será negativo, pois a variância é sempre não-negativa. Além disso, jamais será mais que 1, pois a variância dos valores preditors será no máximo igual à variância observada, quando as previsões forem perfeitas.</p>
 </div>
 <div id="para-que-serve" class="section level3 hasAnchor" number="7.9.4">
 <h3><span class="header-section-number">7.9.4</span> Para que serve?<a href="estimação.html#para-que-serve" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Por muito tempo foi utilizada como uma medida do ajuste do modelo e, portanto, quanto maior o R-quadrado, melhor (ou quanto maior o R-quadrado ajustado). Hoje em dia, contudo, sabemos que é uma péssima medida de ajuste do modelo.</p>
+<p>Por muito tempo foi utilizada como uma medida do ajuste do modelo e, portanto, quanto maior o R-quadrado, melhor o modelo (ou quanto maior o R-quadrado ajustado). Hoje em dia, contudo, sabemos que é uma péssima medida de ajuste do modelo.</p>
 <ol style="list-style-type: decimal">
-<li><p>O modelo pode estar correto e produzir um R-quadrado pequeno, a depender a da variância de <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>O modelo pode estar correto e produzir um R-quadrado pequeno, a depender da variância de <span class="math inline">\(Y\)</span>.</p></li>
 <li><p>O modelo pode estar totalmente errado e o R-quadrado ser próximo de 1. Quando o verdadeiro modelo é não-linear e a variância de <span class="math inline">\(X\)</span> é muito grande, isso pode acontecer se a reta de regressão ajustada não tiver <span class="math inline">\(\beta = 0\)</span>.</p></li>
-<li><p>Há também quem use o <span class="math inline">\(R^2\)</span> como medida de capacidade preditiva do modelo. Quanto mais espalhado o <span class="math inline">\(X\)</span>, melhor o <span class="math inline">\(R^2\)</span>. A simulação abaixo mostra isso:</p></li>
+<li><p>Há também quem use o <span class="math inline">\(R^2\)</span> como medida de capacidade preditiva do modelo. Porém, quanto mais espalhado o <span class="math inline">\(X\)</span>, melhor o <span class="math inline">\(R^2\)</span>. A simulação abaixo mostra isso:</p></li>
 </ol>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="estimação.html#cb114-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb114-2"><a href="estimação.html#cb114-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb114-3"><a href="estimação.html#cb114-3" tabindex="-1"></a></span>
-<span id="cb114-4"><a href="estimação.html#cb114-4" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb114-5"><a href="estimação.html#cb114-5" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb114-6"><a href="estimação.html#cb114-6" tabindex="-1"></a></span>
-<span id="cb114-7"><a href="estimação.html#cb114-7" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y1 <span class="sc">~</span>x1))</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="estimação.html#cb114-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb114-2"><a href="estimação.html#cb114-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb114-3"><a href="estimação.html#cb114-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb114-4"><a href="estimação.html#cb114-4" tabindex="-1"></a></span>
+<span id="cb114-5"><a href="estimação.html#cb114-5" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb114-6"><a href="estimação.html#cb114-6" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb114-7"><a href="estimação.html#cb114-7" tabindex="-1"></a></span>
+<span id="cb114-8"><a href="estimação.html#cb114-8" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y1 <span class="sc">~</span>x1))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y1 ~ x1)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -7.6679 -1.3320  0.0043  1.3645  6.9227 
+##    Min     1Q Median     3Q    Max 
+## -5.651 -1.279 -0.062  1.318  6.839 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 2.020922   0.064504   31.33   &lt;2e-16 ***
-## x1          2.993065   0.006303  474.89   &lt;2e-16 ***
+## (Intercept) 1.960390   0.061904   31.67   &lt;2e-16 ***
+## x1          2.996186   0.006245  479.81   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 2.04 on 998 degrees of freedom
-## Multiple R-squared:  0.9956, Adjusted R-squared:  0.9956 
-## F-statistic: 2.255e+05 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 1.957 on 998 degrees of freedom
+## Multiple R-squared:  0.9957, Adjusted R-squared:  0.9957 
+## F-statistic: 2.302e+05 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="estimação.html#cb116-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y2<span class="sc">~</span>x2))</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -1080,23 +1081,23 @@ R^2 \equiv \left(\frac{\mathbb{Cov}[X,Y]}{\sigma_x \cdot \sigma_y}\right)^2
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -6.9993 -1.4044  0.1023  1.2666  6.2683 
+## -6.2418 -1.2558  0.0156  1.3276  5.8205 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  1.89141    0.06275   30.14   &lt;2e-16 ***
-## x2           2.98833    0.03186   93.81   &lt;2e-16 ***
+## (Intercept)  1.98227    0.06285   31.54   &lt;2e-16 ***
+## x2           2.99309    0.03111   96.21   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1.984 on 998 degrees of freedom
-## Multiple R-squared:  0.8981, Adjusted R-squared:  0.898 
-## F-statistic:  8799 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 1.986 on 998 degrees of freedom
+## Multiple R-squared:  0.9027, Adjusted R-squared:  0.9026 
+## F-statistic:  9256 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Não é possível comparar o <span class="math inline">\(R^2\)</span> entre amostras distintas, como a simulação acima também mostra. O modelo é o mesmo, mas os dados são distintos e produzem <span class="math inline">\(R^2\)</span> distintos.</p></li>
 <li><p>Não faz sentido comparar o <span class="math inline">\(R^2\)</span> entre transformações da nossa variável dependente (com e sem log, por exemplo).</p></li>
 <li><p>Quando a amostra é a mesma e o <span class="math inline">\(y\)</span> é o mesmo, é possível comparar modelos com o <span class="math inline">\(R^2\)</span> e um R-quadrado maior significa um Erro Quadrático Médio menor. Mas nesse caso, é melhor usar direto o EQM.</p></li>
-<li><p>É fácil ver, por tudo isso, que o <span class="math inline">\(R^2\)</span> não é uma medida da variância explicada, com ou sem aspas. Eu não consigo entender o que é “explicar”, assim com aspas, e como é distinto de sem aspas. Portanto, melhor seria não usar e deixar de lado. Mas como é usado e os softwares mostram, tenho de perder tempo falando sobre ele para vocês.</p></li>
+<li><p>É fácil ver, por tudo isso, que o <span class="math inline">\(R^2\)</span> não é uma medida da “variância explicada”, com ou sem aspas. Eu não consigo entender o que é “explicar”, assim com aspas, e como é distinto de sem aspas. Portanto, melhor seria não usar e deixar de lado. Mas como é usado e os softwares mostram, tenho de perder tempo falando sobre ele para vocês.</p></li>
 </ol>
 </div>
 </div>

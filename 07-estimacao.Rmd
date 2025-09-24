@@ -243,7 +243,7 @@ Vamos assumir que o modelo de regressão linear é uma boa aproximação para CE
 
 2. $\mathbb{E}[e|X] = 0$, isto é, o erro é não correlacionado com x.
 
-Lembrando que a fórmula da inclinação em uma amostra é: $\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}$. Pra simplificar a notação, escreveremos: $\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x}$
+Lembrando que a fórmula da inclinação em uma amostra é: $\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}$. Pra simplificar a notação, escreveremos: $\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2}$
 
 Vamos utlizar o fato de que $\sum_{i=1}^n (x_i - \bar{x}) = 0$. Veja que isso é sempre verdade. Para verificar:
 
@@ -255,27 +255,27 @@ x_1 + x_2 + \ldots + x_n - n \bar{x} = \\
 n \bar{x} - n \bar{x} = 0
 \end{align}
 
-Agora, vamos substituir $y_i = \alpha + \beta x_i + e_i$ na fórmula do $\hat{beta}$, e depois usar $x_i = (x_i - \bar{x}) + \bar{x}$ para obter:
+Agora, vamos substituir $y_i = \alpha + \beta x_i + e_i$ na fórmula do $\hat{\beta}$, e depois usar $x_i = (x_i - \bar{x}) + \bar{x}$ para obter:
 
 \begin{align}
-\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha + \beta x_i + e_i - \bar{y})}{nS_x^2} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha) + \sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i +  \sum_{i=1}^n -(x_i - \bar{x})\bar{y})}{nS_x^2} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta ((x_i - \bar{x}) + \bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
-\frac{\sum_{i=1}^n (x_i - \bar{x})(\beta(x_i - \bar{x}) + \beta\bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
-\frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 + \beta\bar{x}\sum_{i=1}^n (x_i - \bar{x}) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
-\frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 +  \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
-\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
+\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2} \\
+&= \frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha + \beta x_i + e_i - \bar{y})}{nS_x^2} \\
+&= \frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha) + \sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i +  \sum_{i=1}^n -(x_i - \bar{x})\bar{y})}{nS_x^2} \\
+&= \frac{\sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
+&= \frac{\sum_{i=1}^n (x_i - \bar{x})(\beta ((x_i - \bar{x}) + \bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
+&= \frac{\sum_{i=1}^n (x_i - \bar{x})(\beta(x_i - \bar{x}) + \beta\bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
+&= \frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 + \beta\bar{x}\sum_{i=1}^n (x_i - \bar{x}) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
+&= \frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 +  \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
+&= \beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
 \end{align}
 
 Agora, podemos computar a esperança condicional.
 
 \begin{align}
-\mathbb{E}[\hat{\beta}|X] = \mathbb{E}[\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] = \\
-\beta +  \mathbb{E}[\frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] = \\
-\beta +  \sum_{i=1}^n (x_i - \bar{x})\frac{\mathbb{E}[e_i|X]}{nS_x^2} = \\
-\beta
+\mathbb{E}[\hat{\beta}|X] = \mathbb{E}[\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] \\
+&= \beta +  \mathbb{E}[\frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] \\
+&= \beta +  \sum_{i=1}^n (x_i - \bar{x})\frac{\mathbb{E}[e_i|X]}{nS_x^2} \\
+&= \beta
 \end{align}
 
 Veja que podemos usar a LIE para mostrar que a esperança não condicional de $\hat{\beta}$ é $\beta$.
@@ -288,15 +288,15 @@ Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela
 
 \begin{align}
 \mathbb{Var}[\hat{\beta}|X] = \mathbb{Var}[\frac{\beta +  n^{-1}\sum_{i=1}^n({x_i - \bar{x}})e_i}{S_x^2}|X] \\
-= \mathbb{Var}[\frac{n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i}{S_x^2}|X] \text{, somar uma constante não altera a variância} \\ 
-= \frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X]  \text{, multiplicação por uma constante sai da variância ao quadrado} \\
+&= \mathbb{Var}[\frac{n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i}{S_x^2}|X] \text{, somar uma constante não altera a variância} \\ 
+&= \frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X]  \text{, multiplicação por uma constante sai da variância ao quadrado} \\
 \end{align}
 
 É possível mostrar que dá para tirar para fora da esperança $n^{-1}\sum_{i=1}^n({x_i - \bar{x}})$. Isso não é exatamente trivial e vou pular a derivação de que isso está certo. E se suposermos homocedasticidade, $\mathbb{Var}[e_i|X] = \sigma^2$, então:
 
 \begin{align}
 \frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X] = \frac{1}{n^2S_x^4}\sum_{i=1}^n({x_i - \bar{x})}\mathbb{Var}[e_i|X] \\
-= \frac{1}{nS_x^2}\mathbb{Var}[e_i|X] = \frac{\sigma^2}{nS_x^2} \text{, supondo homocedasticidade}
+&= \frac{1}{nS_x^2}\mathbb{Var}[e_i|X] = \frac{\sigma^2}{nS_x^2} \text{, supondo homocedasticidade}
 \end{align}
 
 Ou seja, a variância de nosso estimador é a variância do erro dividida pela variância de $x$ multiplicada pelo tamanho da amostra. Isso significa que quando mais disperso o $Y$, maior a variância do meu estimador, quanto maior a amostra, menor a variância e, por fim, quanto mais espalhado o $X$, menor a variância do estimador.
@@ -399,6 +399,7 @@ reg <- lm(negra ~  percent_female + tipo_localizacao + agua_potavel  + esgoto_re
 summary(reg)
 
 ```
+
 ## Limitações de MQO
 
 Os estimadores de MQO, nossos $\hat{\beta}$ e $\hat{\alpha}$, são não-viesados e conseguimos derivar a variância amostral deles. Porém, não há muito mais que possamos dizer sobre eles a partir apenas das suposições que fizemos, ou seja, de que o modelo linear (nos parâmetros) é adequado, e que a espereança do erro, condicional ao preditor, é zero (e assumimos, em certo momento, homecedasticidade). O que não podemos dizer a mais que gostaríamos de poder fazer?
@@ -414,16 +415,17 @@ Quando nós imprimimos o resultado de uma regressão no R, além dos coeficiente
 Uma das estatísticas apresentadas é o chamado $R^2$, também denominado coeficiente de determinação, que pode ser definido de várias maneiras distintas e uma delas é a razão entre a variância dos valores preditos $\hat{Y}$ e a variância dos dados observados, $Y$:
 
 $$
-R^2 \equiv \frac{\hat{\sigma^2_{\hat{y}}}}{\sigma^2}
+R^2 \equiv \frac{\hat{\sigma^2_{\hat{y}}}}{\hat{sigma}^2_y}
 $$
 
 Uma definição alternartiva é que o R-quadrado é a razão entre a covariância de $y$ e $\hat{y}$ e a variância de $Y$:
 $$
-R^2 \equiv \frac{\mathbb{Cov}[Y,\hat{Y}]}{\sigma^2}
+R^2 \equiv \frac{\mathbb{Cov}[Y,\hat{Y}]}{\hat{sigma}^2_y}
 $$
-Por fim, o R-quadrado pode ser escrito como o quadrado da covariância entee $X$ e $Y$ dividido pelo produto dos desvios-pdrãos de $X$ e $Y$.
+
+Por fim, o R-quadrado pode ser escrito como o quadrado da covariância amosrtral entre $X$ e $Y$ dividido pelo produto dos desvios-padrãos amostrais de $X$ e $Y$.
 $$
-R^2 \equiv \left(\frac{\mathbb{Cov}[X,Y]}{\sigma_x \cdot \sigma_y}\right)^2
+R^2 \equiv \left(\frac{\hat{\mathbb{Cov}}[X,Y]}{hat{\\sigma}_x \cdot \hat{\sigma}_y}\right)^2
 $$
 
 Essa última parametrização é o que permite interpretar o R-quadrado como a correlação (entre $X$ e $Y$) ao quadrado. É fácil ver também que uma regressão de $X$ sobre $Y$ gera o mesmo R-quadrado que uma regressão de $Y$ sobre $X$.
@@ -434,19 +436,20 @@ O estimador $\hat{\sigma^2}$ é viesado com relação ao parâmetro $\sigma^2$. 
 
 ### Limites do R-quadrado
 
-Pela primeira parametrização, éfácil ver que o $R^2$ jamais será negativo, pois a variância é sempre não-negativa. Além disso, jamais será mais que 1, pois a variância dos valores preditors será no máximo igual à variância observada, quando as previsões forem perfeitas.
+Pela primeira parametrização, é fácil ver que o $R^2$ jamais será negativo, pois a variância é sempre não-negativa. Além disso, jamais será mais que 1, pois a variância dos valores preditors será no máximo igual à variância observada, quando as previsões forem perfeitas.
 
 ### Para que serve?
 
-Por muito tempo foi utilizada como uma medida do ajuste do modelo e, portanto, quanto maior o R-quadrado, melhor (ou quanto maior o R-quadrado ajustado). Hoje em dia, contudo, sabemos que é uma péssima medida de ajuste do modelo.
+Por muito tempo foi utilizada como uma medida do ajuste do modelo e, portanto, quanto maior o R-quadrado, melhor o modelo (ou quanto maior o R-quadrado ajustado). Hoje em dia, contudo, sabemos que é uma péssima medida de ajuste do modelo.
 
-1. O modelo pode estar correto e produzir um R-quadrado pequeno, a depender a da variância de $Y$.
+1. O modelo pode estar correto e produzir um R-quadrado pequeno, a depender da variância de $Y$.
 
 2. O modelo pode estar totalmente errado e o R-quadrado ser próximo de 1. Quando o verdadeiro modelo é não-linear e a variância de $X$ é muito grande, isso pode acontecer se a reta de regressão ajustada não tiver $\beta = 0$.
 
-3. Há também quem use o $R^2$ como medida de capacidade preditiva do modelo. Quanto mais espalhado o $X$, melhor o $R^2$. A simulação abaixo mostra isso:
+3. Há também quem use o $R^2$ como medida de capacidade preditiva do modelo. Porém, quanto mais espalhado o $X$, melhor o $R^2$. A simulação abaixo mostra isso:
 
 ```{r r-squared, message=FALSE}
+set.seed(123)
 x1 <- rnorm(1000, 0, 10)
 x2 <- rnorm(1000, 0, 2)
 
@@ -456,13 +459,14 @@ y2 <- 2 + 3*x2 + rnorm(1000, 0, 2)
 summary(lm(y1 ~x1))
 summary(lm(y2~x2))
 ```
+
 4. Não é possível comparar o $R^2$ entre amostras distintas, como a simulação acima também mostra. O modelo é o mesmo, mas os dados são distintos e produzem $R^2$ distintos.
 
 5. Não faz sentido comparar o $R^2$ entre transformações da nossa variável dependente (com e sem log, por exemplo).
 
 6. Quando a amostra é a mesma e o $y$ é o mesmo, é possível comparar modelos com o $R^2$ e um R-quadrado maior significa um Erro Quadrático Médio menor. Mas nesse caso, é melhor usar direto o EQM.
 
-7. É fácil ver, por tudo isso, que o $R^2$ não é uma medida da variância explicada, com ou sem aspas. Eu não consigo entender o que é "explicar", assim com aspas, e como é distinto de sem aspas. Portanto, melhor seria não usar e deixar de lado. Mas como é usado e os softwares mostram, tenho de perder tempo falando sobre ele para vocês.
+7. É fácil ver, por tudo isso, que o $R^2$ não é uma medida da "variância explicada", com ou sem aspas. Eu não consigo entender o que é "explicar", assim com aspas, e como é distinto de sem aspas. Portanto, melhor seria não usar e deixar de lado. Mas como é usado e os softwares mostram, tenho de perder tempo falando sobre ele para vocês.
 
 ## Demonstração Alternativa que estimador é não-viesado.
 
