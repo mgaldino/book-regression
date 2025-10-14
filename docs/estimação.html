@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-09-24" />
+<meta name="date" content="2025-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -409,7 +409,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="plug-in-estimators" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Plug-in estimators<a href="estimação.html#plug-in-estimators" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Se tivermos uma amostra, e não a população, é razoável pensar que uma boa estimativa para os valores populacionais de <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> são justamente essas fórmulas, calculadas para os dados amostrais. Esse estimador dos parâmetros populacionais nós chamamos de <strong>plug-in estimates</strong>, pois sem maiores teorias, assumimos que o que vale para a população vale para a amostra. Para diferenciar as estimativas amostrais dos valores populacionais, é comum usarmos <span class="math inline">\(\hat{\beta}\)</span> em vez de <span class="math inline">\(\beta\)</span>, ou então letras latinas <span class="math inline">\(b\)</span> em vez das gregas <span class="math inline">\(\beta\)</span>. Vou usar letras gregas com o “chapéu”, mas outros textos utilizam letras latinas .</p>
-<p>Ou seja, <span class="math inline">\(\hat{\beta} = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{\hat{\sigma_x}^2}\)</span></p>
+<p>Ou seja, <span class="math inline">\(\hat{\beta} = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{n\hat{\sigma_x}^2}\)</span></p>
 <p>No caso da variância amostral de <span class="math inline">\(x\)</span>, também é comum designá-la por <span class="math inline">\(S_x^2\)</span>.</p>
 </div>
 <div id="simulando-de-uma-normal-bivariada" class="section level2 hasAnchor" number="7.2">
@@ -419,8 +419,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[
 \Sigma =
 \begin{bmatrix}
-\sigma_x &amp; \mathbb{Cov}[Y,X] \\
-\mathbb{Cov}[X,Y] &amp; \sigma_y
+\sigma_x^2 &amp; \mathbb{Cov}[Y,X] \\
+\mathbb{Cov}[X,Y] &amp; \sigma_y^2
 \end{bmatrix}
 \]</span>
 Essa matriz precisa ser positiva-definida, que é uma característica de matrizes, mas que basicamente tem a ver com o fato de que não existe variância negativa e dadas as variâncias de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>, existem limites para o que a covariância pode ser.</p>
@@ -429,24 +429,30 @@ Essa matriz precisa ser positiva-definida, que é uma característica de matrize
 \Sigma =
 \begin{bmatrix}
 \sigma_x^2 &amp; \rho \cdot \sigma_x \cdot \sigma_y \\
-\rho \cdot \sigma_x\cdot \sigma_y &amp; \sigma_y
+\rho \cdot \sigma_x\cdot \sigma_y &amp; \sigma_y^2
 \end{bmatrix}
 \]</span>
 Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em função dos desvios-padrões e da correlação entre as duas variáveis.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="estimação.html#cb95-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb95-2"><a href="estimação.html#cb95-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb95-3"><a href="estimação.html#cb95-3" tabindex="-1"></a></span>
-<span id="cb95-4"><a href="estimação.html#cb95-4" tabindex="-1"></a><span class="co"># vetor de médias</span></span>
-<span id="cb95-5"><a href="estimação.html#cb95-5" tabindex="-1"></a>vetor_media <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
-<span id="cb95-6"><a href="estimação.html#cb95-6" tabindex="-1"></a></span>
-<span id="cb95-7"><a href="estimação.html#cb95-7" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb95-8"><a href="estimação.html#cb95-8" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb95-9"><a href="estimação.html#cb95-9" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
-<span id="cb95-10"><a href="estimação.html#cb95-10" tabindex="-1"></a></span>
-<span id="cb95-11"><a href="estimação.html#cb95-11" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb95-12"><a href="estimação.html#cb95-12" tabindex="-1"></a></span>
-<span id="cb95-13"><a href="estimação.html#cb95-13" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
-<span id="cb95-14"><a href="estimação.html#cb95-14" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="estimação.html#cb125-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb125-2"><a href="estimação.html#cb125-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb125-3"><a href="estimação.html#cb125-3" tabindex="-1"></a></span>
+<span id="cb125-4"><a href="estimação.html#cb125-4" tabindex="-1"></a><span class="co"># vetor de médias</span></span>
+<span id="cb125-5"><a href="estimação.html#cb125-5" tabindex="-1"></a>vetor_media <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb125-6"><a href="estimação.html#cb125-6" tabindex="-1"></a></span>
+<span id="cb125-7"><a href="estimação.html#cb125-7" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb125-8"><a href="estimação.html#cb125-8" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb125-9"><a href="estimação.html#cb125-9" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
+<span id="cb125-10"><a href="estimação.html#cb125-10" tabindex="-1"></a></span>
+<span id="cb125-11"><a href="estimação.html#cb125-11" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb125-12"><a href="estimação.html#cb125-12" tabindex="-1"></a></span>
+<span id="cb125-13"><a href="estimação.html#cb125-13" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
+<span id="cb125-14"><a href="estimação.html#cb125-14" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <tbody>
 <tr class="odd">
@@ -459,29 +465,29 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="estimação.html#cb96-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
-<span id="cb96-2"><a href="estimação.html#cb96-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
-<span id="cb96-3"><a href="estimação.html#cb96-3" tabindex="-1"></a></span>
-<span id="cb96-4"><a href="estimação.html#cb96-4" tabindex="-1"></a>bivariada_tibble1 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb96-5"><a href="estimação.html#cb96-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
-<span id="cb96-6"><a href="estimação.html#cb96-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
-<span id="cb96-7"><a href="estimação.html#cb96-7" tabindex="-1"></a></span>
-<span id="cb96-8"><a href="estimação.html#cb96-8" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
-<span id="cb96-9"><a href="estimação.html#cb96-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="estimação.html#cb128-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb128-2"><a href="estimação.html#cb128-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
+<span id="cb128-3"><a href="estimação.html#cb128-3" tabindex="-1"></a></span>
+<span id="cb128-4"><a href="estimação.html#cb128-4" tabindex="-1"></a>bivariada_tibble1 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb128-5"><a href="estimação.html#cb128-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
+<span id="cb128-6"><a href="estimação.html#cb128-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
+<span id="cb128-7"><a href="estimação.html#cb128-7" tabindex="-1"></a></span>
+<span id="cb128-8"><a href="estimação.html#cb128-8" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
+<span id="cb128-9"><a href="estimação.html#cb128-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-normal-bivariada-1.png" width="900" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="estimação.html#cb97-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
-<span id="cb97-2"><a href="estimação.html#cb97-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(y)) <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="estimação.html#cb129-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
+<span id="cb129-2"><a href="estimação.html#cb129-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(y)) <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-normal-bivariada-2.png" width="900" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="estimação.html#cb98-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
-<span id="cb98-2"><a href="estimação.html#cb98-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_density_2d</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="estimação.html#cb130-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
+<span id="cb130-2"><a href="estimação.html#cb130-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_density_2d</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-normal-bivariada-3.png" width="900" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="estimação.html#cb99-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
-<span id="cb99-2"><a href="estimação.html#cb99-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="estimação.html#cb131-1" tabindex="-1"></a>bivariada_tibble1 <span class="sc">%&gt;%</span></span>
+<span id="cb131-2"><a href="estimação.html#cb131-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-normal-bivariada-4.png" width="900" style="display: block; margin: auto;" /></p>
 <p>Vamos usar esses dados para fazer uma regressão.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="estimação.html#cb100-1" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble1)</span>
-<span id="cb100-2"><a href="estimação.html#cb100-2" tabindex="-1"></a></span>
-<span id="cb100-3"><a href="estimação.html#cb100-3" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="estimação.html#cb132-1" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble1)</span>
+<span id="cb132-2"><a href="estimação.html#cb132-2" tabindex="-1"></a></span>
+<span id="cb132-3"><a href="estimação.html#cb132-3" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x, data = bivariada_tibble1)
@@ -501,21 +507,27 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 ## Multiple R-squared:  0.3469, Adjusted R-squared:  0.3468 
 ## F-statistic:  5310 on 1 and 9998 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>A fórmula do <span class="math inline">\(\beta\)</span> nós sabemos que depende da covariância entre as variáveis e o desvio-padrão de <span class="math inline">\(X\)</span>. Vamos então simular os dados novamente, mudando as correlações e variâncias, para entender como isso impacta a regressão a partir da fórmula da inclinação da reta.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="estimação.html#cb102-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb102-2"><a href="estimação.html#cb102-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb102-3"><a href="estimação.html#cb102-3" tabindex="-1"></a></span>
-<span id="cb102-4"><a href="estimação.html#cb102-4" tabindex="-1"></a><span class="co"># vetor de médias</span></span>
-<span id="cb102-5"><a href="estimação.html#cb102-5" tabindex="-1"></a>vetor_media <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
-<span id="cb102-6"><a href="estimação.html#cb102-6" tabindex="-1"></a></span>
-<span id="cb102-7"><a href="estimação.html#cb102-7" tabindex="-1"></a><span class="co"># cov menor, dp o mesmo</span></span>
-<span id="cb102-8"><a href="estimação.html#cb102-8" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb102-9"><a href="estimação.html#cb102-9" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb102-10"><a href="estimação.html#cb102-10" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
-<span id="cb102-11"><a href="estimação.html#cb102-11" tabindex="-1"></a></span>
-<span id="cb102-12"><a href="estimação.html#cb102-12" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb102-13"><a href="estimação.html#cb102-13" tabindex="-1"></a></span>
-<span id="cb102-14"><a href="estimação.html#cb102-14" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
-<span id="cb102-15"><a href="estimação.html#cb102-15" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="estimação.html#cb134-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb134-2"><a href="estimação.html#cb134-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb134-3"><a href="estimação.html#cb134-3" tabindex="-1"></a></span>
+<span id="cb134-4"><a href="estimação.html#cb134-4" tabindex="-1"></a><span class="co"># vetor de médias</span></span>
+<span id="cb134-5"><a href="estimação.html#cb134-5" tabindex="-1"></a>vetor_media <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb134-6"><a href="estimação.html#cb134-6" tabindex="-1"></a></span>
+<span id="cb134-7"><a href="estimação.html#cb134-7" tabindex="-1"></a><span class="co"># cov menor, dp o mesmo</span></span>
+<span id="cb134-8"><a href="estimação.html#cb134-8" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb134-9"><a href="estimação.html#cb134-9" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb134-10"><a href="estimação.html#cb134-10" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
+<span id="cb134-11"><a href="estimação.html#cb134-11" tabindex="-1"></a></span>
+<span id="cb134-12"><a href="estimação.html#cb134-12" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb134-13"><a href="estimação.html#cb134-13" tabindex="-1"></a></span>
+<span id="cb134-14"><a href="estimação.html#cb134-14" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
+<span id="cb134-15"><a href="estimação.html#cb134-15" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
+<pre><code>## Warning in attr(x, &quot;format&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <tbody>
 <tr class="odd">
@@ -528,24 +540,30 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="estimação.html#cb103-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
-<span id="cb103-2"><a href="estimação.html#cb103-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
-<span id="cb103-3"><a href="estimação.html#cb103-3" tabindex="-1"></a></span>
-<span id="cb103-4"><a href="estimação.html#cb103-4" tabindex="-1"></a>bivariada_tibble2 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb103-5"><a href="estimação.html#cb103-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
-<span id="cb103-6"><a href="estimação.html#cb103-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
-<span id="cb103-7"><a href="estimação.html#cb103-7" tabindex="-1"></a></span>
-<span id="cb103-8"><a href="estimação.html#cb103-8" tabindex="-1"></a>bivariada_tibble2 <span class="sc">%&gt;%</span></span>
-<span id="cb103-9"><a href="estimação.html#cb103-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="estimação.html#cb137-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb137-2"><a href="estimação.html#cb137-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
+<span id="cb137-3"><a href="estimação.html#cb137-3" tabindex="-1"></a></span>
+<span id="cb137-4"><a href="estimação.html#cb137-4" tabindex="-1"></a>bivariada_tibble2 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb137-5"><a href="estimação.html#cb137-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
+<span id="cb137-6"><a href="estimação.html#cb137-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
+<span id="cb137-7"><a href="estimação.html#cb137-7" tabindex="-1"></a></span>
+<span id="cb137-8"><a href="estimação.html#cb137-8" tabindex="-1"></a>bivariada_tibble2 <span class="sc">%&gt;%</span></span>
+<span id="cb137-9"><a href="estimação.html#cb137-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-new_bivariada-1.png" width="900" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="estimação.html#cb104-1" tabindex="-1"></a><span class="co"># cov igual, dp de x maior</span></span>
-<span id="cb104-2"><a href="estimação.html#cb104-2" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
-<span id="cb104-3"><a href="estimação.html#cb104-3" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb104-4"><a href="estimação.html#cb104-4" tabindex="-1"></a></span>
-<span id="cb104-5"><a href="estimação.html#cb104-5" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb104-6"><a href="estimação.html#cb104-6" tabindex="-1"></a></span>
-<span id="cb104-7"><a href="estimação.html#cb104-7" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
-<span id="cb104-8"><a href="estimação.html#cb104-8" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="estimação.html#cb138-1" tabindex="-1"></a><span class="co"># cov igual, dp de x maior</span></span>
+<span id="cb138-2"><a href="estimação.html#cb138-2" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
+<span id="cb138-3"><a href="estimação.html#cb138-3" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb138-4"><a href="estimação.html#cb138-4" tabindex="-1"></a></span>
+<span id="cb138-5"><a href="estimação.html#cb138-5" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb138-6"><a href="estimação.html#cb138-6" tabindex="-1"></a></span>
+<span id="cb138-7"><a href="estimação.html#cb138-7" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
+<span id="cb138-8"><a href="estimação.html#cb138-8" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)
+## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <tbody>
 <tr class="odd">
@@ -558,25 +576,31 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="estimação.html#cb105-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
-<span id="cb105-2"><a href="estimação.html#cb105-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
-<span id="cb105-3"><a href="estimação.html#cb105-3" tabindex="-1"></a></span>
-<span id="cb105-4"><a href="estimação.html#cb105-4" tabindex="-1"></a>bivariada_tibble3 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb105-5"><a href="estimação.html#cb105-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
-<span id="cb105-6"><a href="estimação.html#cb105-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
-<span id="cb105-7"><a href="estimação.html#cb105-7" tabindex="-1"></a></span>
-<span id="cb105-8"><a href="estimação.html#cb105-8" tabindex="-1"></a>bivariada_tibble3 <span class="sc">%&gt;%</span></span>
-<span id="cb105-9"><a href="estimação.html#cb105-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="estimação.html#cb140-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb140-2"><a href="estimação.html#cb140-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
+<span id="cb140-3"><a href="estimação.html#cb140-3" tabindex="-1"></a></span>
+<span id="cb140-4"><a href="estimação.html#cb140-4" tabindex="-1"></a>bivariada_tibble3 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb140-5"><a href="estimação.html#cb140-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
+<span id="cb140-6"><a href="estimação.html#cb140-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
+<span id="cb140-7"><a href="estimação.html#cb140-7" tabindex="-1"></a></span>
+<span id="cb140-8"><a href="estimação.html#cb140-8" tabindex="-1"></a>bivariada_tibble3 <span class="sc">%&gt;%</span></span>
+<span id="cb140-9"><a href="estimação.html#cb140-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-new_bivariada-2.png" width="900" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="estimação.html#cb106-1" tabindex="-1"></a><span class="co"># cov maor, dp de x maior</span></span>
-<span id="cb106-2"><a href="estimação.html#cb106-2" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">15</span></span>
-<span id="cb106-3"><a href="estimação.html#cb106-3" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb106-4"><a href="estimação.html#cb106-4" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb106-5"><a href="estimação.html#cb106-5" tabindex="-1"></a></span>
-<span id="cb106-6"><a href="estimação.html#cb106-6" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb106-7"><a href="estimação.html#cb106-7" tabindex="-1"></a></span>
-<span id="cb106-8"><a href="estimação.html#cb106-8" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
-<span id="cb106-9"><a href="estimação.html#cb106-9" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="estimação.html#cb141-1" tabindex="-1"></a><span class="co"># cov maor, dp de x maior</span></span>
+<span id="cb141-2"><a href="estimação.html#cb141-2" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">15</span></span>
+<span id="cb141-3"><a href="estimação.html#cb141-3" tabindex="-1"></a>sigma_x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb141-4"><a href="estimação.html#cb141-4" tabindex="-1"></a>sigma_y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb141-5"><a href="estimação.html#cb141-5" tabindex="-1"></a></span>
+<span id="cb141-6"><a href="estimação.html#cb141-6" tabindex="-1"></a>matriz_var_cov <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_x<span class="sc">^</span><span class="dv">2</span>, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y, rho<span class="sc">*</span>sigma_x<span class="sc">*</span>sigma_y,  sigma_y<span class="sc">^</span><span class="dv">2</span> ), <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb141-7"><a href="estimação.html#cb141-7" tabindex="-1"></a></span>
+<span id="cb141-8"><a href="estimação.html#cb141-8" tabindex="-1"></a>matriz_var_cov <span class="sc">%&gt;%</span></span>
+<span id="cb141-9"><a href="estimação.html#cb141-9" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)
+## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
+## Use &#39;xfun::attr2()&#39; instead.
+## See help(&quot;Deprecated&quot;)</code></pre>
 <table>
 <tbody>
 <tr class="odd">
@@ -589,27 +613,27 @@ Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em fu
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="estimação.html#cb107-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
-<span id="cb107-2"><a href="estimação.html#cb107-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
-<span id="cb107-3"><a href="estimação.html#cb107-3" tabindex="-1"></a></span>
-<span id="cb107-4"><a href="estimação.html#cb107-4" tabindex="-1"></a>bivariada_tibble4 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb107-5"><a href="estimação.html#cb107-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
-<span id="cb107-6"><a href="estimação.html#cb107-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
-<span id="cb107-7"><a href="estimação.html#cb107-7" tabindex="-1"></a></span>
-<span id="cb107-8"><a href="estimação.html#cb107-8" tabindex="-1"></a>bivariada_tibble4 <span class="sc">%&gt;%</span></span>
-<span id="cb107-9"><a href="estimação.html#cb107-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="estimação.html#cb143-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb143-2"><a href="estimação.html#cb143-2" tabindex="-1"></a>norm_bivariada <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> vetor_media, <span class="at">Sigma  =</span> matriz_var_cov)</span>
+<span id="cb143-3"><a href="estimação.html#cb143-3" tabindex="-1"></a></span>
+<span id="cb143-4"><a href="estimação.html#cb143-4" tabindex="-1"></a>bivariada_tibble4 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(norm_bivariada, <span class="at">.name_repair =</span> <span class="st">&quot;universal&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb143-5"><a href="estimação.html#cb143-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">x =</span> <span class="st">&#39;...1&#39;</span>, </span>
+<span id="cb143-6"><a href="estimação.html#cb143-6" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&#39;...2&#39;</span>)</span>
+<span id="cb143-7"><a href="estimação.html#cb143-7" tabindex="-1"></a></span>
+<span id="cb143-8"><a href="estimação.html#cb143-8" tabindex="-1"></a>bivariada_tibble4 <span class="sc">%&gt;%</span></span>
+<span id="cb143-9"><a href="estimação.html#cb143-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/cap7-new_bivariada-3.png" width="900" style="display: block; margin: auto;" /></p>
 <p>O R mostra os resultados da regressão desse jeito, e vamos aprender a interpretá-lo, mas vamos também apresentar em um formato mais amigável e, caso vocês utilizem o rmarkdown, poderão utilizar em trabalhos acadêmicos. Para isso, utilizaremos o pacote stargazer</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="estimação.html#cb108-1" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble2)</span>
-<span id="cb108-2"><a href="estimação.html#cb108-2" tabindex="-1"></a></span>
-<span id="cb108-3"><a href="estimação.html#cb108-3" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble3)</span>
-<span id="cb108-4"><a href="estimação.html#cb108-4" tabindex="-1"></a></span>
-<span id="cb108-5"><a href="estimação.html#cb108-5" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble4)</span></code></pre></div>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="estimação.html#cb109-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;stargazer&quot;</span>)</span>
-<span id="cb109-2"><a href="estimação.html#cb109-2" tabindex="-1"></a></span>
-<span id="cb109-3"><a href="estimação.html#cb109-3" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(<span class="fu">list</span>(reg1, reg2, reg3, reg4), <span class="at">type =</span>  <span class="st">&quot;html&quot;</span>, <span class="at">style =</span> <span class="st">&quot;ajps&quot;</span>,</span>
-<span id="cb109-4"><a href="estimação.html#cb109-4" tabindex="-1"></a>                     <span class="at">title =</span> <span class="st">&quot;Regressão linear&quot;</span>, <span class="at">omit.stat =</span> <span class="st">&quot;f&quot;</span>,</span>
-<span id="cb109-5"><a href="estimação.html#cb109-5" tabindex="-1"></a>                     <span class="at">column.labels=</span><span class="fu">c</span>(<span class="st">&quot;cov = 2.4, s_x = 2&quot;</span>, <span class="st">&quot;cov = 1.2, s_x = 2&quot;</span>, <span class="st">&quot;cov = 2.4, s_x = 4&quot;</span>, <span class="st">&quot;cov = 1.2, s_x = 4&quot;</span> ))</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="estimação.html#cb144-1" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble2)</span>
+<span id="cb144-2"><a href="estimação.html#cb144-2" tabindex="-1"></a></span>
+<span id="cb144-3"><a href="estimação.html#cb144-3" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble3)</span>
+<span id="cb144-4"><a href="estimação.html#cb144-4" tabindex="-1"></a></span>
+<span id="cb144-5"><a href="estimação.html#cb144-5" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span>x , <span class="at">data =</span> bivariada_tibble4)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="estimação.html#cb145-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;stargazer&quot;</span>)</span>
+<span id="cb145-2"><a href="estimação.html#cb145-2" tabindex="-1"></a></span>
+<span id="cb145-3"><a href="estimação.html#cb145-3" tabindex="-1"></a>stargazer<span class="sc">::</span><span class="fu">stargazer</span>(<span class="fu">list</span>(reg1, reg2, reg3, reg4), <span class="at">type =</span>  <span class="st">&quot;html&quot;</span>, <span class="at">style =</span> <span class="st">&quot;ajps&quot;</span>,</span>
+<span id="cb145-4"><a href="estimação.html#cb145-4" tabindex="-1"></a>                     <span class="at">title =</span> <span class="st">&quot;Regressão linear&quot;</span>, <span class="at">omit.stat =</span> <span class="st">&quot;f&quot;</span>,</span>
+<span id="cb145-5"><a href="estimação.html#cb145-5" tabindex="-1"></a>                     <span class="at">column.labels=</span><span class="fu">c</span>(<span class="st">&quot;cov = 2.4, s_x = 2&quot;</span>, <span class="st">&quot;cov = 1.2, s_x = 2&quot;</span>, <span class="st">&quot;cov = 2.4, s_x = 4&quot;</span>, <span class="st">&quot;cov = 1.2, s_x = 4&quot;</span> ))</span></code></pre></div>
 <table style="text-align:center">
 <caption>
 <strong>Regressão linear</strong>
@@ -848,15 +872,16 @@ Ou seja, a variância de nosso estimador é igual à variância populacional div
 <p>Lembrando que a fórmula da inclinação em uma amostra é: <span class="math inline">\(\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}\)</span>. Pra simplificar a notação, escreveremos: <span class="math inline">\(\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2}\)</span></p>
 <p>Vamos utlizar o fato de que <span class="math inline">\(\sum_{i=1}^n (x_i - \bar{x}) = 0\)</span>. Veja que isso é sempre verdade. Para verificar:</p>
 <p><span class="math display">\[\begin{align}
-\sum_{i=1}^n (x_i - \bar{x}) = \\
-(x_1 - \bar{x}) + (x_2 - \bar{x}) + \ldots + (x_n - \bar{x}) = \\
-x_1 + x_2 + \ldots + x_n - n \bar{x} = \\
-\sum_{i=1}^n x_i - n \bar{x} = \\
-n \bar{x} - n \bar{x} = 0
+\sum_{i=1}^n (x_i - \bar{x})\\
+&amp;= (x_1 - \bar{x}) + (x_2 - \bar{x}) + \ldots + (x_n - \bar{x}) = \\
+&amp;= x_1 + x_2 + \ldots + x_n - n \bar{x} = \\
+&amp;= \sum_{i=1}^n x_i - n \bar{x} = \\
+&amp;= n \bar{x} - n \bar{x} = 0
 \end{align}\]</span></p>
 <p>Agora, vamos substituir <span class="math inline">\(y_i = \alpha + \beta x_i + e_i\)</span> na fórmula do <span class="math inline">\(\hat{\beta}\)</span>, e depois usar <span class="math inline">\(x_i = (x_i - \bar{x}) + \bar{x}\)</span> para obter:</p>
 <p><span class="math display">\[\begin{align}
-\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2} \\
+\hat{\beta}\\
+&amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2} \\
 &amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha + \beta x_i + e_i - \bar{y})}{nS_x^2} \\
 &amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha) + \sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i +  \sum_{i=1}^n -(x_i - \bar{x})\bar{y})}{nS_x^2} \\
 &amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
@@ -868,7 +893,8 @@ n \bar{x} - n \bar{x} = 0
 \end{align}\]</span></p>
 <p>Agora, podemos computar a esperança condicional.</p>
 <p><span class="math display">\[\begin{align}
-\mathbb{E}[\hat{\beta}|X] = \mathbb{E}[\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] \\
+\mathbb{E}[\hat{\beta}|X]\\
+&amp;= \mathbb{E}[\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] \\
 &amp;= \beta +  \mathbb{E}[\frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] \\
 &amp;= \beta +  \sum_{i=1}^n (x_i - \bar{x})\frac{\mathbb{E}[e_i|X]}{nS_x^2} \\
 &amp;= \beta
@@ -880,13 +906,15 @@ n \bar{x} - n \bar{x} = 0
 <h2><span class="header-section-number">7.6</span> Variância do estimador<a href="#vari%C3%A2ncia-do-estimador" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de <span class="math inline">\(x\)</span> vezes o tamanho da amostra, <span class="math inline">\(n\)</span>. Vamos começar com a variância condicional ao <span class="math inline">\(X\)</span>.</p>
 <p><span class="math display">\[\begin{align}
-\mathbb{Var}[\hat{\beta}|X] = \mathbb{Var}[\frac{\beta +  n^{-1}\sum_{i=1}^n({x_i - \bar{x}})e_i}{S_x^2}|X] \\
+\mathbb{Var}[\hat{\beta}|X]\\
+&amp;= \mathbb{Var}[\frac{\beta +  n^{-1}\sum_{i=1}^n({x_i - \bar{x}})e_i}{S_x^2}|X] \\
 &amp;= \mathbb{Var}[\frac{n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i}{S_x^2}|X] \text{, somar uma constante não altera a variância} \\
 &amp;= \frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X]  \text{, multiplicação por uma constante sai da variância ao quadrado} \\
 \end{align}\]</span></p>
 <p>É possível mostrar que dá para tirar para fora da esperança <span class="math inline">\(n^{-1}\sum_{i=1}^n({x_i - \bar{x}})\)</span>. Isso não é exatamente trivial e vou pular a derivação de que isso está certo. E se suposermos homocedasticidade, <span class="math inline">\(\mathbb{Var}[e_i|X] = \sigma^2\)</span>, então:</p>
 <p><span class="math display">\[\begin{align}
-\frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X] = \frac{1}{n^2S_x^4}\sum_{i=1}^n({x_i - \bar{x})}\mathbb{Var}[e_i|X] \\
+\frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X] \\
+&amp;= \frac{1}{n^2S_x^4}\sum_{i=1}^n({x_i - \bar{x})^2}\mathbb{Var}[e_i|X] \\
 &amp;= \frac{1}{nS_x^2}\mathbb{Var}[e_i|X] = \frac{\sigma^2}{nS_x^2} \text{, supondo homocedasticidade}
 \end{align}\]</span></p>
 <p>Ou seja, a variância de nosso estimador é a variância do erro dividida pela variância de <span class="math inline">\(x\)</span> multiplicada pelo tamanho da amostra. Isso significa que quando mais disperso o <span class="math inline">\(Y\)</span>, maior a variância do meu estimador, quanto maior a amostra, menor a variância e, por fim, quanto mais espalhado o <span class="math inline">\(X\)</span>, menor a variância do estimador.</p>
@@ -901,83 +929,83 @@ se(\hat{\beta}) = \frac{\sigma}{\sqrt{nS^2_x}}
 <p>Depois, só escolher quais dos dados iremos olhar
 <a href="https://basedosdados.org/" class="uri">https://basedosdados.org/</a></p>
 <p>Escolhi mexer com dados do censo escolar</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="estimação.html#cb110-1" tabindex="-1"></a><span class="co"># instalando a biblioteca</span></span>
-<span id="cb110-2"><a href="estimação.html#cb110-2" tabindex="-1"></a><span class="co"># install.packages(&#39;basedosdados&#39;)</span></span>
-<span id="cb110-3"><a href="estimação.html#cb110-3" tabindex="-1"></a></span>
-<span id="cb110-4"><a href="estimação.html#cb110-4" tabindex="-1"></a><span class="co"># carregando a biblioteca na sessão</span></span>
-<span id="cb110-5"><a href="estimação.html#cb110-5" tabindex="-1"></a><span class="fu">library</span>(basedosdados)</span>
-<span id="cb110-6"><a href="estimação.html#cb110-6" tabindex="-1"></a><span class="fu">library</span>(bigrquery)</span>
-<span id="cb110-7"><a href="estimação.html#cb110-7" tabindex="-1"></a><span class="co"># para importar os dadosdiretamente no R, precisamos criar um id para acessar a base de dados</span></span>
-<span id="cb110-8"><a href="estimação.html#cb110-8" tabindex="-1"></a><span class="fu">set_billing_id</span>(<span class="st">&quot;aula-reg-manoel&quot;</span>)</span>
-<span id="cb110-9"><a href="estimação.html#cb110-9" tabindex="-1"></a></span>
-<span id="cb110-10"><a href="estimação.html#cb110-10" tabindex="-1"></a><span class="co">#bq_auth()</span></span>
-<span id="cb110-11"><a href="estimação.html#cb110-11" tabindex="-1"></a><span class="co"># se autenticação falhar</span></span>
-<span id="cb110-12"><a href="estimação.html#cb110-12" tabindex="-1"></a></span>
-<span id="cb110-13"><a href="estimação.html#cb110-13" tabindex="-1"></a><span class="co"># importando dados</span></span>
-<span id="cb110-14"><a href="estimação.html#cb110-14" tabindex="-1"></a></span>
-<span id="cb110-15"><a href="estimação.html#cb110-15" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">&quot;imagens&quot;</span>, <span class="st">&quot;autenticacao base dados.jpg&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="estimação.html#cb146-1" tabindex="-1"></a><span class="co"># instalando a biblioteca</span></span>
+<span id="cb146-2"><a href="estimação.html#cb146-2" tabindex="-1"></a><span class="co"># install.packages(&#39;basedosdados&#39;)</span></span>
+<span id="cb146-3"><a href="estimação.html#cb146-3" tabindex="-1"></a></span>
+<span id="cb146-4"><a href="estimação.html#cb146-4" tabindex="-1"></a><span class="co"># carregando a biblioteca na sessão</span></span>
+<span id="cb146-5"><a href="estimação.html#cb146-5" tabindex="-1"></a><span class="fu">library</span>(basedosdados)</span>
+<span id="cb146-6"><a href="estimação.html#cb146-6" tabindex="-1"></a><span class="fu">library</span>(bigrquery)</span>
+<span id="cb146-7"><a href="estimação.html#cb146-7" tabindex="-1"></a><span class="co"># para importar os dadosdiretamente no R, precisamos criar um id para acessar a base de dados</span></span>
+<span id="cb146-8"><a href="estimação.html#cb146-8" tabindex="-1"></a><span class="fu">set_billing_id</span>(<span class="st">&quot;aula-reg-manoel&quot;</span>)</span>
+<span id="cb146-9"><a href="estimação.html#cb146-9" tabindex="-1"></a></span>
+<span id="cb146-10"><a href="estimação.html#cb146-10" tabindex="-1"></a><span class="co">#bq_auth()</span></span>
+<span id="cb146-11"><a href="estimação.html#cb146-11" tabindex="-1"></a><span class="co"># se autenticação falhar</span></span>
+<span id="cb146-12"><a href="estimação.html#cb146-12" tabindex="-1"></a></span>
+<span id="cb146-13"><a href="estimação.html#cb146-13" tabindex="-1"></a><span class="co"># importando dados</span></span>
+<span id="cb146-14"><a href="estimação.html#cb146-14" tabindex="-1"></a></span>
+<span id="cb146-15"><a href="estimação.html#cb146-15" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">&quot;imagens&quot;</span>, <span class="st">&quot;autenticacao base dados.jpg&quot;</span>))</span></code></pre></div>
 <p><img src="imagens/autenticacao%20base%20dados.jpg" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="estimação.html#cb111-1" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span> </span>
-<span id="cb111-2"><a href="estimação.html#cb111-2" tabindex="-1"></a>escola <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span>
-<span id="cb111-3"><a href="estimação.html#cb111-3" tabindex="-1"></a></span>
-<span id="cb111-4"><a href="estimação.html#cb111-4" tabindex="-1"></a></span>
-<span id="cb111-5"><a href="estimação.html#cb111-5" tabindex="-1"></a><span class="co"># query &lt;- &quot;SELECT count(*) as contagem, id_municipio FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and ano = 2019 group by id_municipio&quot; </span></span>
-<span id="cb111-6"><a href="estimação.html#cb111-6" tabindex="-1"></a><span class="co"># escola &lt;- read_sql(query)</span></span>
-<span id="cb111-7"><a href="estimação.html#cb111-7" tabindex="-1"></a></span>
-<span id="cb111-8"><a href="estimação.html#cb111-8" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.dicionario`&quot;</span></span>
-<span id="cb111-9"><a href="estimação.html#cb111-9" tabindex="-1"></a>dicionario <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span>
-<span id="cb111-10"><a href="estimação.html#cb111-10" tabindex="-1"></a></span>
-<span id="cb111-11"><a href="estimação.html#cb111-11" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.matricula` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span></span>
-<span id="cb111-12"><a href="estimação.html#cb111-12" tabindex="-1"></a></span>
-<span id="cb111-13"><a href="estimação.html#cb111-13" tabindex="-1"></a>aluno <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span></code></pre></div>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="estimação.html#cb112-1" tabindex="-1"></a><span class="co"># dicionário de gênero e raça</span></span>
-<span id="cb112-2"><a href="estimação.html#cb112-2" tabindex="-1"></a><span class="co"># dicionario %&gt;%</span></span>
-<span id="cb112-3"><a href="estimação.html#cb112-3" tabindex="-1"></a><span class="co">#   dplyr::filter(id_tabela == &quot;matricula&quot;, nome_coluna %in% c(&quot;sexo&quot;, &quot;raca_cor&quot;))</span></span>
-<span id="cb112-4"><a href="estimação.html#cb112-4" tabindex="-1"></a></span>
-<span id="cb112-5"><a href="estimação.html#cb112-5" tabindex="-1"></a></span>
-<span id="cb112-6"><a href="estimação.html#cb112-6" tabindex="-1"></a>aluno_gen <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
-<span id="cb112-7"><a href="estimação.html#cb112-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb112-8"><a href="estimação.html#cb112-8" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, sexo) <span class="sc">%&gt;%</span></span>
-<span id="cb112-9"><a href="estimação.html#cb112-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_gen =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb112-10"><a href="estimação.html#cb112-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Male&quot;</span>, sexo),</span>
-<span id="cb112-11"><a href="estimação.html#cb112-11" tabindex="-1"></a>         <span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Female&quot;</span>, sexo)) <span class="sc">%&gt;%</span></span>
-<span id="cb112-12"><a href="estimação.html#cb112-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_gen),</span>
-<span id="cb112-13"><a href="estimação.html#cb112-13" tabindex="-1"></a>            <span class="at">percent =</span> num_aluno_gen<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
-<span id="cb112-14"><a href="estimação.html#cb112-14" tabindex="-1"></a>  <span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb112-15"><a href="estimação.html#cb112-15" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">percent_female =</span> percent) <span class="sc">%&gt;%</span></span>
-<span id="cb112-16"><a href="estimação.html#cb112-16" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id_escola, percent_female)</span>
-<span id="cb112-17"><a href="estimação.html#cb112-17" tabindex="-1"></a>         </span>
-<span id="cb112-18"><a href="estimação.html#cb112-18" tabindex="-1"></a>aluno_raca <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
-<span id="cb112-19"><a href="estimação.html#cb112-19" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb112-20"><a href="estimação.html#cb112-20" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, raca_cor) <span class="sc">%&gt;%</span></span>
-<span id="cb112-21"><a href="estimação.html#cb112-21" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_raca =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb112-22"><a href="estimação.html#cb112-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Branca&quot;</span>, raca_cor),</span>
-<span id="cb112-23"><a href="estimação.html#cb112-23" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Preta&quot;</span>, raca_cor),</span>
-<span id="cb112-24"><a href="estimação.html#cb112-24" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;3&quot;</span>, <span class="st">&quot;Parda&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
-<span id="cb112-25"><a href="estimação.html#cb112-25" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_raca),</span>
-<span id="cb112-26"><a href="estimação.html#cb112-26" tabindex="-1"></a>         <span class="at">percent =</span> num_aluno_raca<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
-<span id="cb112-27"><a href="estimação.html#cb112-27" tabindex="-1"></a>  <span class="fu">filter</span>(raca_cor <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Branca&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;Preta&quot;</span>, <span class="st">&quot;Parda&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb112-28"><a href="estimação.html#cb112-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;não_declarado&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
-<span id="cb112-29"><a href="estimação.html#cb112-29" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id_escola, raca_cor, percent) <span class="sc">%&gt;%</span></span>
-<span id="cb112-30"><a href="estimação.html#cb112-30" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> raca_cor , <span class="at">values_from =</span> percent )</span>
-<span id="cb112-31"><a href="estimação.html#cb112-31" tabindex="-1"></a></span>
-<span id="cb112-32"><a href="estimação.html#cb112-32" tabindex="-1"></a></span>
-<span id="cb112-33"><a href="estimação.html#cb112-33" tabindex="-1"></a></span>
-<span id="cb112-34"><a href="estimação.html#cb112-34" tabindex="-1"></a>aluno_escola <span class="ot">&lt;-</span> aluno_gen <span class="sc">%&gt;%</span></span>
-<span id="cb112-35"><a href="estimação.html#cb112-35" tabindex="-1"></a>  <span class="fu">inner_join</span>(aluno_raca,  <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb112-36"><a href="estimação.html#cb112-36" tabindex="-1"></a>  <span class="fu">inner_join</span>(escola, <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>)</span>
-<span id="cb112-37"><a href="estimação.html#cb112-37" tabindex="-1"></a></span>
-<span id="cb112-38"><a href="estimação.html#cb112-38" tabindex="-1"></a>aluno_escola_reg <span class="ot">&lt;-</span> aluno_escola <span class="sc">%&gt;%</span></span>
-<span id="cb112-39"><a href="estimação.html#cb112-39" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb112-40"><a href="estimação.html#cb112-40" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">negra =</span> Preta <span class="sc">+</span> Parda) <span class="sc">%&gt;%</span></span>
-<span id="cb112-41"><a href="estimação.html#cb112-41" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(negra, percent_female, tipo_localizacao, agua_potavel, esgoto_rede_publica, </span>
-<span id="cb112-42"><a href="estimação.html#cb112-42" tabindex="-1"></a>         lixo_servico_coleta, area_verde, biblioteca, quantidade_profissional_psicologo) <span class="sc">%&gt;%</span></span>
-<span id="cb112-43"><a href="estimação.html#cb112-43" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
-<span id="cb112-44"><a href="estimação.html#cb112-44" tabindex="-1"></a>  <span class="fu">mutate_if</span>(bit64<span class="sc">::</span>is.integer64, as.factor)</span>
-<span id="cb112-45"><a href="estimação.html#cb112-45" tabindex="-1"></a></span>
-<span id="cb112-46"><a href="estimação.html#cb112-46" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(negra <span class="sc">~</span>  percent_female <span class="sc">+</span> tipo_localizacao <span class="sc">+</span> agua_potavel  <span class="sc">+</span> esgoto_rede_publica <span class="sc">+</span> lixo_servico_coleta <span class="sc">+</span> area_verde <span class="sc">+</span> biblioteca <span class="sc">+</span> quantidade_profissional_psicologo, <span class="at">data=</span> aluno_escola_reg)</span>
-<span id="cb112-47"><a href="estimação.html#cb112-47" tabindex="-1"></a></span>
-<span id="cb112-48"><a href="estimação.html#cb112-48" tabindex="-1"></a><span class="fu">summary</span>(reg)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="estimação.html#cb147-1" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span> </span>
+<span id="cb147-2"><a href="estimação.html#cb147-2" tabindex="-1"></a>escola <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span>
+<span id="cb147-3"><a href="estimação.html#cb147-3" tabindex="-1"></a></span>
+<span id="cb147-4"><a href="estimação.html#cb147-4" tabindex="-1"></a></span>
+<span id="cb147-5"><a href="estimação.html#cb147-5" tabindex="-1"></a><span class="co"># query &lt;- &quot;SELECT count(*) as contagem, id_municipio FROM `basedosdados.br_inep_censo_escolar.escola` where sigla_uf = &#39;AL&#39; and ano = 2019 group by id_municipio&quot; </span></span>
+<span id="cb147-6"><a href="estimação.html#cb147-6" tabindex="-1"></a><span class="co"># escola &lt;- read_sql(query)</span></span>
+<span id="cb147-7"><a href="estimação.html#cb147-7" tabindex="-1"></a></span>
+<span id="cb147-8"><a href="estimação.html#cb147-8" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.dicionario`&quot;</span></span>
+<span id="cb147-9"><a href="estimação.html#cb147-9" tabindex="-1"></a>dicionario <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span>
+<span id="cb147-10"><a href="estimação.html#cb147-10" tabindex="-1"></a></span>
+<span id="cb147-11"><a href="estimação.html#cb147-11" tabindex="-1"></a>query <span class="ot">&lt;-</span> <span class="st">&quot;SELECT * FROM `basedosdados.br_inep_censo_escolar.matricula` where sigla_uf = &#39;AL&#39; and id_municipio = &#39;2704302&#39; and ano = 2019&quot;</span></span>
+<span id="cb147-12"><a href="estimação.html#cb147-12" tabindex="-1"></a></span>
+<span id="cb147-13"><a href="estimação.html#cb147-13" tabindex="-1"></a>aluno <span class="ot">&lt;-</span> basedosdados<span class="sc">::</span><span class="fu">read_sql</span>(query)</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="estimação.html#cb148-1" tabindex="-1"></a><span class="co"># dicionário de gênero e raça</span></span>
+<span id="cb148-2"><a href="estimação.html#cb148-2" tabindex="-1"></a><span class="co"># dicionario %&gt;%</span></span>
+<span id="cb148-3"><a href="estimação.html#cb148-3" tabindex="-1"></a><span class="co">#   dplyr::filter(id_tabela == &quot;matricula&quot;, nome_coluna %in% c(&quot;sexo&quot;, &quot;raca_cor&quot;))</span></span>
+<span id="cb148-4"><a href="estimação.html#cb148-4" tabindex="-1"></a></span>
+<span id="cb148-5"><a href="estimação.html#cb148-5" tabindex="-1"></a></span>
+<span id="cb148-6"><a href="estimação.html#cb148-6" tabindex="-1"></a>aluno_gen <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
+<span id="cb148-7"><a href="estimação.html#cb148-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb148-8"><a href="estimação.html#cb148-8" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, sexo) <span class="sc">%&gt;%</span></span>
+<span id="cb148-9"><a href="estimação.html#cb148-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_gen =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb148-10"><a href="estimação.html#cb148-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Male&quot;</span>, sexo),</span>
+<span id="cb148-11"><a href="estimação.html#cb148-11" tabindex="-1"></a>         <span class="at">sexo =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Female&quot;</span>, sexo)) <span class="sc">%&gt;%</span></span>
+<span id="cb148-12"><a href="estimação.html#cb148-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_gen),</span>
+<span id="cb148-13"><a href="estimação.html#cb148-13" tabindex="-1"></a>            <span class="at">percent =</span> num_aluno_gen<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb148-14"><a href="estimação.html#cb148-14" tabindex="-1"></a>  <span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">&quot;Female&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb148-15"><a href="estimação.html#cb148-15" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">percent_female =</span> percent) <span class="sc">%&gt;%</span></span>
+<span id="cb148-16"><a href="estimação.html#cb148-16" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id_escola, percent_female)</span>
+<span id="cb148-17"><a href="estimação.html#cb148-17" tabindex="-1"></a>         </span>
+<span id="cb148-18"><a href="estimação.html#cb148-18" tabindex="-1"></a>aluno_raca <span class="ot">&lt;-</span> aluno <span class="sc">%&gt;%</span></span>
+<span id="cb148-19"><a href="estimação.html#cb148-19" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(regular <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb148-20"><a href="estimação.html#cb148-20" tabindex="-1"></a>  <span class="fu">group_by</span>(id_escola, raca_cor) <span class="sc">%&gt;%</span></span>
+<span id="cb148-21"><a href="estimação.html#cb148-21" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_aluno_raca =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb148-22"><a href="estimação.html#cb148-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;Branca&quot;</span>, raca_cor),</span>
+<span id="cb148-23"><a href="estimação.html#cb148-23" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;2&quot;</span>, <span class="st">&quot;Preta&quot;</span>, raca_cor),</span>
+<span id="cb148-24"><a href="estimação.html#cb148-24" tabindex="-1"></a>         <span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;3&quot;</span>, <span class="st">&quot;Parda&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
+<span id="cb148-25"><a href="estimação.html#cb148-25" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(num_aluno_raca),</span>
+<span id="cb148-26"><a href="estimação.html#cb148-26" tabindex="-1"></a>         <span class="at">percent =</span> num_aluno_raca<span class="sc">/</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb148-27"><a href="estimação.html#cb148-27" tabindex="-1"></a>  <span class="fu">filter</span>(raca_cor <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Branca&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;Preta&quot;</span>, <span class="st">&quot;Parda&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb148-28"><a href="estimação.html#cb148-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">raca_cor =</span> <span class="fu">gsub</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;não_declarado&quot;</span>, raca_cor)) <span class="sc">%&gt;%</span></span>
+<span id="cb148-29"><a href="estimação.html#cb148-29" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(id_escola, raca_cor, percent) <span class="sc">%&gt;%</span></span>
+<span id="cb148-30"><a href="estimação.html#cb148-30" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> raca_cor , <span class="at">values_from =</span> percent )</span>
+<span id="cb148-31"><a href="estimação.html#cb148-31" tabindex="-1"></a></span>
+<span id="cb148-32"><a href="estimação.html#cb148-32" tabindex="-1"></a></span>
+<span id="cb148-33"><a href="estimação.html#cb148-33" tabindex="-1"></a></span>
+<span id="cb148-34"><a href="estimação.html#cb148-34" tabindex="-1"></a>aluno_escola <span class="ot">&lt;-</span> aluno_gen <span class="sc">%&gt;%</span></span>
+<span id="cb148-35"><a href="estimação.html#cb148-35" tabindex="-1"></a>  <span class="fu">inner_join</span>(aluno_raca,  <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb148-36"><a href="estimação.html#cb148-36" tabindex="-1"></a>  <span class="fu">inner_join</span>(escola, <span class="at">by =</span> <span class="st">&quot;id_escola&quot;</span>)</span>
+<span id="cb148-37"><a href="estimação.html#cb148-37" tabindex="-1"></a></span>
+<span id="cb148-38"><a href="estimação.html#cb148-38" tabindex="-1"></a>aluno_escola_reg <span class="ot">&lt;-</span> aluno_escola <span class="sc">%&gt;%</span></span>
+<span id="cb148-39"><a href="estimação.html#cb148-39" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb148-40"><a href="estimação.html#cb148-40" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">negra =</span> Preta <span class="sc">+</span> Parda) <span class="sc">%&gt;%</span></span>
+<span id="cb148-41"><a href="estimação.html#cb148-41" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(negra, percent_female, tipo_localizacao, agua_potavel, esgoto_rede_publica, </span>
+<span id="cb148-42"><a href="estimação.html#cb148-42" tabindex="-1"></a>         lixo_servico_coleta, area_verde, biblioteca, quantidade_profissional_psicologo) <span class="sc">%&gt;%</span></span>
+<span id="cb148-43"><a href="estimação.html#cb148-43" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb148-44"><a href="estimação.html#cb148-44" tabindex="-1"></a>  <span class="fu">mutate_if</span>(bit64<span class="sc">::</span>is.integer64, as.factor)</span>
+<span id="cb148-45"><a href="estimação.html#cb148-45" tabindex="-1"></a></span>
+<span id="cb148-46"><a href="estimação.html#cb148-46" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(negra <span class="sc">~</span>  percent_female <span class="sc">+</span> tipo_localizacao <span class="sc">+</span> agua_potavel  <span class="sc">+</span> esgoto_rede_publica <span class="sc">+</span> lixo_servico_coleta <span class="sc">+</span> area_verde <span class="sc">+</span> biblioteca <span class="sc">+</span> quantidade_profissional_psicologo, <span class="at">data=</span> aluno_escola_reg)</span>
+<span id="cb148-47"><a href="estimação.html#cb148-47" tabindex="-1"></a></span>
+<span id="cb148-48"><a href="estimação.html#cb148-48" tabindex="-1"></a><span class="fu">summary</span>(reg)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = negra ~ percent_female + tipo_localizacao + agua_potavel + 
@@ -1020,15 +1048,15 @@ se(\hat{\beta}) = \frac{\sigma}{\sqrt{nS^2_x}}
 <h3><span class="header-section-number">7.9.1</span> R-quadrado<a href="estimação.html#r-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Uma das estatísticas apresentadas é o chamado <span class="math inline">\(R^2\)</span>, também denominado coeficiente de determinação, que pode ser definido de várias maneiras distintas e uma delas é a razão entre a variância dos valores preditos <span class="math inline">\(\hat{Y}\)</span> e a variância dos dados observados, <span class="math inline">\(Y\)</span>:</p>
 <p><span class="math display">\[
-R^2 \equiv \frac{\hat{\sigma^2_{\hat{y}}}}{\hat{sigma}^2_y}
+R^2 \equiv \frac{\hat{\sigma}^2_{\hat{y}}}{\hat{\sigma}^2_y}
 \]</span></p>
 <p>Uma definição alternartiva é que o R-quadrado é a razão entre a covariância de <span class="math inline">\(y\)</span> e <span class="math inline">\(\hat{y}\)</span> e a variância de <span class="math inline">\(Y\)</span>:
 <span class="math display">\[
-R^2 \equiv \frac{\mathbb{Cov}[Y,\hat{Y}]}{\hat{sigma}^2_y}
+R^2 \equiv \frac{\mathbb{Cov}[Y,\hat{Y}]}{\hat{\sigma}^2_y}
 \]</span></p>
-<p>Por fim, o R-quadrado pode ser escrito como o quadrado da covariância amosrtral entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> dividido pelo produto dos desvios-padrãos amostrais de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.
-<span class="math display">\[
-R^2 \equiv \left(\frac{\hat{\mathbb{Cov}}[X,Y]}{hat{\\sigma}_x \cdot \hat{\sigma}_y}\right)^2
+<p>Por fim, o R-quadrado pode ser escrito como o quadrado da covariância amosrtral entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> dividido pelo produto dos desvios-padrãos amostrais de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>.</p>
+<p><span class="math display">\[
+R^2 \equiv \left(\frac{\hat{\mathbb{Cov}}[X,Y]}{\hat{\sigma}_x \cdot \hat{\sigma}_y}\right)^2
 \]</span></p>
 <p>Essa última parametrização é o que permite interpretar o R-quadrado como a correlação (entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>) ao quadrado. É fácil ver também que uma regressão de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span> gera o mesmo R-quadrado que uma regressão de <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(X\)</span>.</p>
 </div>
@@ -1048,14 +1076,14 @@ R^2 \equiv \left(\frac{\hat{\mathbb{Cov}}[X,Y]}{hat{\\sigma}_x \cdot \hat{\sigma
 <li><p>O modelo pode estar totalmente errado e o R-quadrado ser próximo de 1. Quando o verdadeiro modelo é não-linear e a variância de <span class="math inline">\(X\)</span> é muito grande, isso pode acontecer se a reta de regressão ajustada não tiver <span class="math inline">\(\beta = 0\)</span>.</p></li>
 <li><p>Há também quem use o <span class="math inline">\(R^2\)</span> como medida de capacidade preditiva do modelo. Porém, quanto mais espalhado o <span class="math inline">\(X\)</span>, melhor o <span class="math inline">\(R^2\)</span>. A simulação abaixo mostra isso:</p></li>
 </ol>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="estimação.html#cb114-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb114-2"><a href="estimação.html#cb114-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb114-3"><a href="estimação.html#cb114-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb114-4"><a href="estimação.html#cb114-4" tabindex="-1"></a></span>
-<span id="cb114-5"><a href="estimação.html#cb114-5" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb114-6"><a href="estimação.html#cb114-6" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb114-7"><a href="estimação.html#cb114-7" tabindex="-1"></a></span>
-<span id="cb114-8"><a href="estimação.html#cb114-8" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y1 <span class="sc">~</span>x1))</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="estimação.html#cb150-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb150-2"><a href="estimação.html#cb150-2" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb150-3"><a href="estimação.html#cb150-3" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb150-4"><a href="estimação.html#cb150-4" tabindex="-1"></a></span>
+<span id="cb150-5"><a href="estimação.html#cb150-5" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb150-6"><a href="estimação.html#cb150-6" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb150-7"><a href="estimação.html#cb150-7" tabindex="-1"></a></span>
+<span id="cb150-8"><a href="estimação.html#cb150-8" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y1 <span class="sc">~</span>x1))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y1 ~ x1)
@@ -1074,7 +1102,7 @@ R^2 \equiv \left(\frac{\hat{\mathbb{Cov}}[X,Y]}{hat{\\sigma}_x \cdot \hat{\sigma
 ## Residual standard error: 1.957 on 998 degrees of freedom
 ## Multiple R-squared:  0.9957, Adjusted R-squared:  0.9957 
 ## F-statistic: 2.302e+05 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="estimação.html#cb116-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y2<span class="sc">~</span>x2))</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="estimação.html#cb152-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y2<span class="sc">~</span>x2))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y2 ~ x2)
