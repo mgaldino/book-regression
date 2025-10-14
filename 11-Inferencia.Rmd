@@ -4,7 +4,7 @@ editor_options:
     wrap: 72
 ---
 
-# - Inferencia
+# - Inferência
 
 ```{r package loads 11, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
@@ -27,6 +27,9 @@ Nós vimos também que o meu estimador pode ser decomposto no parâmetro populac
 $$
 \hat{\beta} = \beta +  \sum_{i=1}^{n} w_i \cdot e_i
 $$
+E os pesos são dados por $\sum_{i=1}^n \frac{x_i - \bar{x}}{nS_x^2}$. Essa expressão reforça por que os erros associados a observações com $x_i$ muito distantes da média têm maior influência no estimador de MQO. Ou seja, o estimador é uma média ponderada dos erros.
+
+
 Ou seja, nosso estimador é igual a uma constante mais uma soma ponderada de variáveis aleatórias normais. E nós sabemos que a soma de variáveis aleatórias normais é uma normal, cuja média é $\beta$, já que o estimador é não-viesado e sua esperança é o parâmetro populacional e a variância nós também já calculamos e é dada por $\frac{\sigma^2}{n \cdot S^2_x}$
 
 Se eu normalizar meu estimador, isto é, subtrair sua média e dividir pelo desvio-padrão amostral, tenho que o estimador normalizado segue a distribuição Normal padrão. Formalmente,
@@ -44,20 +47,36 @@ $$
 $$
 
 Com isso pudemos realizar testes de hipótese, da seguinte maneira:
+
+Sabemos que, sob a hipótese de erros normais,
+$$
+z = \frac{\hat{\beta} - \beta}{se(\hat{\beta})} \sim N(0,1)
+$$
+
+Isso significa que:
+
+$$
+Pr(-1.96 \le z \le 1.96) = .95
+$$
+pois, pela Normal padrão, $\Phi(1.96) = 0.975$ e $\Phi(-1.96) = 0.025$, logo $0.975 - 0.025 = .95$.
+
+Substituindo $z$ pela definição acima, temos:
+
 \begin{align*}
 \mathrm{P}(\beta - 1.96 \cdot se[\hat{\beta}] \le \hat{\beta} \le \beta + 1.96 \cdot se[\hat{\beta}] ) \\
 
-= \mathrm{P}( -1.96 \cdot se[\hat{\beta}] \le \hat{\beta} - \beta \le  1.96 \cdot se[\hat{\beta}] ) \\
+= \mathrm{P}( -1.96 \cdot se[\hat{\beta}] ≈ \hat{\beta} - \beta \le  1.96 \cdot se[\hat{\beta}] ) \\
 
 = \mathrm{P}( -1.96 \le \frac{\hat{\beta} - \beta}{se[\hat{\beta}]} \le  1.96 ) \\
 
-= \Phi(-1.96) - \Phi(=1.96) \\
+= \Phi(1.96) - \Phi(-1.96) \\
 = .95
 \end{align*}
 
-Em que $\Phi(x)$ representa a probabilidade de observar um valor menor ou igual que $x$ na distrinbuição normal padrão. Como a probabilidade de observar um valor menor ou igual que $1.96$ é $97.5\%$, e a probabilidade de observar um valor menor que $-1.96$ é $2.5\%$, temos o resultado de $95\%$ de confiança usual.
+Em que $\Phi(x)$ representa a probabilidade de observar um valor menor ou igual que $x$ na distrinbuição normal padrão. Lembrando que a fórmula refere-se ao comportamento da estatística $\hat{\beta}$ em muitas amostras — não à incerteza sobre um valor fixo de $\beta$.
 
 ## T-student
+
 O problema é que nós não sabemos o valor de $\sigma^2$. A gente pode tentar substituir $\sigma^2$ por $\hat{\sigma}^2$, o estimador da variância. Um estimador da variância é dado pela soma dos resíduos ao quadrado (já que a média é zero) dividido pelo $n$.
 
 $$
@@ -71,32 +90,33 @@ Esta maneira de explicar graus de liberdade, embora intuitiva, é errada. Como d
 De todo modo, para nós importa que, substituindo meu estimador não-viesado para a variância em nossa fórmula, temos:
 
 $$
-z^* = \frac{\hat{\beta} - \beta}{\sqrt{\frac{\hat{\sigma^2}}{(n -2) \cdot S^2_x}}}
+z^* = \frac{\hat{\beta} - \beta}{\sqrt{\frac{\hat{\sigma}^2}{(n -2) \cdot S^2_x}}}
 $$
-Lmebrando que:
+Lembrando que:
 
 $$
-\hat{se}(\hat{\beta}) = \sqrt{\frac{\hat{\sigma}^2}{n - 2 \cdot S^2_x}} = \frac{\hat{\sigma}}{S_x \sqrt{n - 2 }} 
+\hat{se}(\hat{\beta}) = \sqrt{\frac{\hat{\sigma}^2}{(n - 2) \cdot S^2_x}} = \frac{\hat{\sigma}}{S_x \sqrt{n - 2 }} 
 $$
 
 E essa estatística de teste não é mais normalmente distribuída. Na verdade, é possível mostrar que ela na verdade segue uma distribuição t-Student com $n-2$ graus de liberdade, usando a distribuição qui-quadrado na derivação.
 
 ### Avançado - Derivação da t- de student
 
-Comcemos com algumas preliminares.
+Comecemos com algumas preliminares.
 
 Se $Z_1, Z_2, \cdots, Z_d \sim N(0,1)$ são independentes, então definimos a distribuição Qui-quadrado de tal forma que: $\chi^2_{d} = \sum_{i=1}^d Z_i^2$
 
 Se $Z \sim N(0,1)$, então (pela definição acima). $Z^2 \sim \chi^2_{1}$
 
-Lemrbando que a soma dos erros tem média zero, então:
+Lemrbrando que a soma dos erros tem média zero, então:
 $e_i - \mathbb{E}[e] = e_i$ e $\frac{e_i}{\sqrt{Var(e_i)}} = \frac{e_i}{\sigma} \sim N(0,1)$
 
 Disso segue que:
 $$
 \sum_{i=1}^n \frac{e_i^2}{\sigma^2} = \sum_{i=1}^n (\frac{e_i}{\sigma})^2 \sim \chi^2_{n}
 $$
-Como porém só temos $n-2$ graus de liberdade, só temos $n-2$ erros verdadeiramente independentes, então só podemos somar até $n-2$, o que dá a  \chi^2_{n-2}.
+
+Como porém só temos $n-2$ graus de liberdade, só temos $n-2$ erros verdadeiramente independentes, então só podemos somar até $n-2$, o que dá a  $\chi^2_{n-2}$.
 
 Por fim:
 Se $Z \sim N(0,1)$, $S^2 \sim \chi^2_d$ e $Z$ e $S^2$ são independentes, então:
@@ -115,16 +135,16 @@ $$
 = \frac{N(0,1)}{\sqrt{\chi^2_{n-2}/(n-2)}} \sim t_d
 \end{align}
 
-No penúltimo passo, usamos de maneira um pouco "picareta" que se $sum_{i=1}^n (\frac{e_i}{\sigma})^2 \sim \chi^2_{n}$, "então" eu posso aproximar  numerador por $\sum_{i=1}^n e_i^2$ por $n\hat{\sigma}^2$, usando o fato de que a média é zero, e portanto ali é a variancia.
+No penúltimo passo, usamos de maneira pouco rigorosa que se $sum_{i=1}^n (\frac{e_i}{\sigma})^2 \sim \chi^2_{n}$, "então" eu posso aproximar o numerador por $\sum_{i=1}^n e_i^2$ por $n\hat{\sigma}^2$, usando o fato de que a média é zero, e portanto ali é a variância.
 
-Digo que é "picareta" porque o erros não são a mesma coisa que os resíduos. Mas a matemática para fazer a prova correta está além dos nosso conhecimentos.
+Digo que é pouco rigorosa porque o erros não são a mesma coisa que os resíduos. Mas a matemática para fazer a prova correta está além dos nosso conhecimentos. Formalmente, a prova depende de mostrar que o estimador da variância residual, ao ser escalonado por $\sigma^2$, segue uma distribuição qui-quadrado com $n-2$ graus de liberdade, e que é independente de $\hat{\beta}$. Esses resultados exigem álgebra matricial, mas a intuição é que o numerador e o denominador são independentes e cada um tem a forma de uma Normal padrão e de uma raiz de qui-quadrado, respectivamente.
 
 ### Teste t
 
 Ou seja, 
 
 $$
-z^* = \frac{\hat{\beta} - \beta}{\sqrt(\frac{\hat{\sigma^2}}{n \S^2_x})} \sim t_{n-2}
+z^* = \frac{\hat{\beta} - \beta}{\sqrt{\frac{\hat{\sigma^2}}{n S^2_x})}} \sim t_{n-2}
 $$
 
 Por um raciocínio similar podemos derivar que o intercepto (padronizado) também segue uma distribuição $t$ com $n-2$ graus de liberdade.
