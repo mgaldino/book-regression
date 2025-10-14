@@ -23,7 +23,7 @@ Até o momento, estávamos trabalhando com a população. Porém, na prática es
 
 Se tivermos uma amostra, e não a população, é razoável pensar que uma boa estimativa para os valores populacionais de $\alpha$ e $\beta$ são justamente essas fórmulas, calculadas para os dados amostrais. Esse estimador dos parâmetros populacionais nós chamamos de **plug-in estimates**, pois sem maiores teorias, assumimos que o que vale para a população vale para a amostra. Para diferenciar as estimativas amostrais dos valores populacionais, é comum usarmos $\hat{\beta}$ em vez de $\beta$, ou então letras latinas $b$ em vez das gregas $\beta$. Vou usar letras gregas com o "chapéu", mas outros textos utilizam letras latinas . 
 
-Ou seja, $\hat{\beta} = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{\hat{\sigma_x}^2}$
+Ou seja, $\hat{\beta} = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{n\hat{\sigma_x}^2}$
 
 No caso da variância amostral de $x$, também é comum designá-la por $S_x^2$.
 
@@ -36,8 +36,8 @@ E diferentemente da Normal univariada, preciso representar os parâmetros por me
 $$
 \Sigma = 
 \begin{bmatrix}
-\sigma_x & \mathbb{Cov}[Y,X] \\
-\mathbb{Cov}[X,Y] & \sigma_y
+\sigma_x^2 & \mathbb{Cov}[Y,X] \\
+\mathbb{Cov}[X,Y] & \sigma_y^2
 \end{bmatrix}
 $$
 Essa matriz precisa ser positiva-definida, que é uma característica de matrizes, mas que basicamente tem a ver com o fato de que não existe variância negativa e dadas as variâncias de $X$ e $Y$, existem limites para o que a covariância pode ser.
@@ -48,7 +48,7 @@ $$
 \Sigma = 
 \begin{bmatrix}
 \sigma_x^2 & \rho \cdot \sigma_x \cdot \sigma_y \\
-\rho \cdot \sigma_x\cdot \sigma_y & \sigma_y
+\rho \cdot \sigma_x\cdot \sigma_y & \sigma_y^2
 \end{bmatrix}
 $$
 Ou seja, a matriz de variância-covariância pode ser parametrizada apenas em função dos desvios-padrões e da correlação entre as duas variáveis.
@@ -248,17 +248,18 @@ Lembrando que a fórmula da inclinação em uma amostra é: $\hat{\beta} = \frac
 Vamos utlizar o fato de que $\sum_{i=1}^n (x_i - \bar{x}) = 0$. Veja que isso é sempre verdade. Para verificar:
 
 \begin{align}
-\sum_{i=1}^n (x_i - \bar{x}) = \\
-(x_1 - \bar{x}) + (x_2 - \bar{x}) + \ldots + (x_n - \bar{x}) = \\
-x_1 + x_2 + \ldots + x_n - n \bar{x} = \\
-\sum_{i=1}^n x_i - n \bar{x} = \\
-n \bar{x} - n \bar{x} = 0
+\sum_{i=1}^n (x_i - \bar{x})\\
+&= (x_1 - \bar{x}) + (x_2 - \bar{x}) + \ldots + (x_n - \bar{x}) = \\
+&= x_1 + x_2 + \ldots + x_n - n \bar{x} = \\
+&= \sum_{i=1}^n x_i - n \bar{x} = \\
+&= n \bar{x} - n \bar{x} = 0
 \end{align}
 
 Agora, vamos substituir $y_i = \alpha + \beta x_i + e_i$ na fórmula do $\hat{\beta}$, e depois usar $x_i = (x_i - \bar{x}) + \bar{x}$ para obter:
 
 \begin{align}
-\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2} \\
+\hat{\beta}\\
+&= \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2} \\
 &= \frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha + \beta x_i + e_i - \bar{y})}{nS_x^2} \\
 &= \frac{\sum_{i=1}^n (x_i - \bar{x})( \alpha) + \sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i +  \sum_{i=1}^n -(x_i - \bar{x})\bar{y})}{nS_x^2} \\
 &= \frac{\sum_{i=1}^n (x_i - \bar{x})(\beta x_i) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
@@ -272,7 +273,8 @@ Agora, vamos substituir $y_i = \alpha + \beta x_i + e_i$ na fórmula do $\hat{\b
 Agora, podemos computar a esperança condicional.
 
 \begin{align}
-\mathbb{E}[\hat{\beta}|X] = \mathbb{E}[\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] \\
+\mathbb{E}[\hat{\beta}|X]\\
+&= \mathbb{E}[\beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] \\
 &= \beta +  \mathbb{E}[\frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}|X] \\
 &= \beta +  \sum_{i=1}^n (x_i - \bar{x})\frac{\mathbb{E}[e_i|X]}{nS_x^2} \\
 &= \beta
@@ -287,7 +289,8 @@ A mesma demonstração pode ser feita com uma parametrização alternativa para 
 Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela é a variância do erro dividida pela variância de $x$ vezes o tamanho da amostra, $n$. Vamos começar com a variância condicional ao $X$.
 
 \begin{align}
-\mathbb{Var}[\hat{\beta}|X] = \mathbb{Var}[\frac{\beta +  n^{-1}\sum_{i=1}^n({x_i - \bar{x}})e_i}{S_x^2}|X] \\
+\mathbb{Var}[\hat{\beta}|X]\\
+&= \mathbb{Var}[\frac{\beta +  n^{-1}\sum_{i=1}^n({x_i - \bar{x}})e_i}{S_x^2}|X] \\
 &= \mathbb{Var}[\frac{n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i}{S_x^2}|X] \text{, somar uma constante não altera a variância} \\ 
 &= \frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X]  \text{, multiplicação por uma constante sai da variância ao quadrado} \\
 \end{align}
@@ -295,7 +298,8 @@ Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela
 É possível mostrar que dá para tirar para fora da esperança $n^{-1}\sum_{i=1}^n({x_i - \bar{x}})$. Isso não é exatamente trivial e vou pular a derivação de que isso está certo. E se suposermos homocedasticidade, $\mathbb{Var}[e_i|X] = \sigma^2$, então:
 
 \begin{align}
-\frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X] = \frac{1}{n^2S_x^4}\sum_{i=1}^n({x_i - \bar{x})}\mathbb{Var}[e_i|X] \\
+\frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X] \\ 
+&= \frac{1}{n^2S_x^4}\sum_{i=1}^n({x_i - \bar{x})^2}\mathbb{Var}[e_i|X] \\
 &= \frac{1}{nS_x^2}\mathbb{Var}[e_i|X] = \frac{\sigma^2}{nS_x^2} \text{, supondo homocedasticidade}
 \end{align}
 
@@ -415,17 +419,18 @@ Quando nós imprimimos o resultado de uma regressão no R, além dos coeficiente
 Uma das estatísticas apresentadas é o chamado $R^2$, também denominado coeficiente de determinação, que pode ser definido de várias maneiras distintas e uma delas é a razão entre a variância dos valores preditos $\hat{Y}$ e a variância dos dados observados, $Y$:
 
 $$
-R^2 \equiv \frac{\hat{\sigma^2_{\hat{y}}}}{\hat{sigma}^2_y}
+R^2 \equiv \frac{\hat{\sigma}^2_{\hat{y}}}{\hat{\sigma}^2_y}
 $$
 
 Uma definição alternartiva é que o R-quadrado é a razão entre a covariância de $y$ e $\hat{y}$ e a variância de $Y$:
 $$
-R^2 \equiv \frac{\mathbb{Cov}[Y,\hat{Y}]}{\hat{sigma}^2_y}
+R^2 \equiv \frac{\mathbb{Cov}[Y,\hat{Y}]}{\hat{\sigma}^2_y}
 $$
 
 Por fim, o R-quadrado pode ser escrito como o quadrado da covariância amosrtral entre $X$ e $Y$ dividido pelo produto dos desvios-padrãos amostrais de $X$ e $Y$.
+
 $$
-R^2 \equiv \left(\frac{\hat{\mathbb{Cov}}[X,Y]}{hat{\\sigma}_x \cdot \hat{\sigma}_y}\right)^2
+R^2 \equiv \left(\frac{\hat{\mathbb{Cov}}[X,Y]}{\hat{\sigma}_x \cdot \hat{\sigma}_y}\right)^2
 $$
 
 Essa última parametrização é o que permite interpretar o R-quadrado como a correlação (entre $X$ e $Y$) ao quadrado. É fácil ver também que uma regressão de $X$ sobre $Y$ gera o mesmo R-quadrado que uma regressão de $Y$ sobre $X$.
