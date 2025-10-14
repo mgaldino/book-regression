@@ -163,7 +163,7 @@ Como consequência, podemos derivar o seguinte, para qualquer $k >0$
 = t_{n-2}(k)
 \end{align*}
 
-Em que, com um grande abuso de notação, estou chamando $ t_{n-2}(k)$ a probabilidade, na distribuição $t$ de student com $n-2$ graus de liberdade, de $\hat{\beta}$ estar no intervalo $-k, k$.
+Em que, com um grande abuso de notação, estou chamando $t_{n-2}(k)$ a probabilidade, na distribuição $t$ de student com $n-2$ graus de liberdade, de $\hat{\beta}$ estar no intervalo $-k, k$.
 
 Se eu definir um nível de significância $\alpha$ entre $0$ e $1$, sempre exisitrá um $k$ que que a equação acima seja verdadeira.
 
