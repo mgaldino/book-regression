@@ -291,13 +291,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3" data-path="06-CEF.html"><a href="#normalidade-dos-res%C3%ADduos"><i class="fa fa-check"></i><b>10.3</b> Normalidade dos resíduos</a></li>
 <li class="chapter" data-level="10.4" data-path="06-CEF.html"><a href="#generaliza%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>10.4</b> Generalização</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="inferencia.html"><a href="inferencia.html"><i class="fa fa-check"></i><b>11</b> - Inferencia</a>
+<li class="chapter" data-level="11" data-path="06-CEF.html"><a href="#infer%C3%AAncia"><i class="fa fa-check"></i><b>11</b> - Inferência</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="inferencia.html"><a href="inferencia.html#normal"><i class="fa fa-check"></i><b>11.1</b> Normal</a></li>
-<li class="chapter" data-level="11.2" data-path="inferencia.html"><a href="inferencia.html#t-student"><i class="fa fa-check"></i><b>11.2</b> T-student</a>
+<li class="chapter" data-level="11.1" data-path="inferência.html"><a href="inferência.html"><i class="fa fa-check"></i><b>11.1</b> Normal</a></li>
+<li class="chapter" data-level="11.2" data-path="inferência.html"><a href="inferência.html#t-student"><i class="fa fa-check"></i><b>11.2</b> T-student</a>
 <ul>
 <li class="chapter" data-level="11.2.1" data-path="06-CEF.html"><a href="#avan%C3%A7ado---deriva%C3%A7%C3%A3o-da-t--de-student"><i class="fa fa-check"></i><b>11.2.1</b> Avançado - Derivação da t- de student</a></li>
-<li class="chapter" data-level="11.2.2" data-path="inferencia.html"><a href="inferencia.html#teste-t"><i class="fa fa-check"></i><b>11.2.2</b> Teste t</a></li>
+<li class="chapter" data-level="11.2.2" data-path="inferência.html"><a href="inferência.html#teste-t"><i class="fa fa-check"></i><b>11.2.2</b> Teste t</a></li>
 </ul></li>
 <li class="chapter" data-level="11.3" data-path="06-CEF.html"><a href="#teste-de-hip%C3%B3tese-e-ic"><i class="fa fa-check"></i><b>11.3</b> Teste de Hipótese e IC</a></li>
 <li class="chapter" data-level="11.4" data-path="06-CEF.html"><a href="#propriedades-assint%C3%B3ticas"><i class="fa fa-check"></i><b>11.4</b> Propriedades Assintóticas</a></li>
@@ -592,11 +592,6 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 <span id="cb118-10"><a href="cef-1.html#cb118-10" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> .<span class="dv">5</span>, <span class="at">intercept =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
 <span id="cb118-11"><a href="cef-1.html#cb118-11" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">3</span>, <span class="at">intercept =</span> <span class="dv">3</span>, <span class="at">colour=</span><span class="st">&quot;green&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb118-12"><a href="cef-1.html#cb118-12" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">2</span>, <span class="at">colour=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-## ℹ Please use `linewidth` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this
-## warning was generated.</code></pre>
 <p><img src="bookdownproj_files/figure-html/plotAjusteReta-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>No gráfico <a href="#fig:plotAjusteReta"><strong>??</strong></a>, vemos que a reta em azul é melhor do que a verde e vermelha.</p>
 <p>Para achar os valores da reta azul (que aqui sabemos ser <span class="math inline">\(\alpha =2\)</span> e <span class="math inline">\(\beta = 1.3\)</span>), podemos novamente minimizar o EQM. A derivação requer calcular a derivada ou utilização de álgebra linerar, requisitos matemáticos para além do curso. Para um preditor, a fórmula do <span class="math inline">\(\beta\)</span> é dada por <span class="math inline">\(COV(Y,X)/Var(X)\)</span> e a constante, <span class="math inline">\(\alpha\)</span> é dada por <span class="math inline">\(\mathbb{E}[(Y)] - \beta*\mathbb{E}[X]\)</span>. Expressando a mesma fórmula com somatório (em vez de esperança), temos:</p>
@@ -607,12 +602,12 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 \beta = \sum\limits_{i=1}^n{}(y_i - \bar{y})(x_i - \bar{x})/\sum\limits_{i=1}^n{}(x_i - \bar{x})^2
 \]</span></p>
 <p>Se nós aplicarmos essa fórmula para os dados do gráfico acima, iremos recuperar um valor aproximado da verdadeira reta de regressão (aproximado porque no fundo estamos simulando uma amostra. Mas se tivéssemos infinitos valores, teríamos exatamente os parâmetros populacionais).</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="cef-1.html#cb120-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb120-2"><a href="cef-1.html#cb120-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cov_yx =</span> <span class="fu">cov</span>(y,x),</span>
-<span id="cb120-3"><a href="cef-1.html#cb120-3" tabindex="-1"></a>            <span class="at">var_x =</span> <span class="fu">var</span>(x),</span>
-<span id="cb120-4"><a href="cef-1.html#cb120-4" tabindex="-1"></a>            <span class="at">beta =</span> cov_yx<span class="sc">/</span>var_x,</span>
-<span id="cb120-5"><a href="cef-1.html#cb120-5" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta<span class="sc">*</span><span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span></span>
-<span id="cb120-6"><a href="cef-1.html#cb120-6" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="cef-1.html#cb119-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb119-2"><a href="cef-1.html#cb119-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cov_yx =</span> <span class="fu">cov</span>(y,x),</span>
+<span id="cb119-3"><a href="cef-1.html#cb119-3" tabindex="-1"></a>            <span class="at">var_x =</span> <span class="fu">var</span>(x),</span>
+<span id="cb119-4"><a href="cef-1.html#cb119-4" tabindex="-1"></a>            <span class="at">beta =</span> cov_yx<span class="sc">/</span>var_x,</span>
+<span id="cb119-5"><a href="cef-1.html#cb119-5" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> beta<span class="sc">*</span><span class="fu">mean</span>(x)) <span class="sc">%&gt;%</span></span>
+<span id="cb119-6"><a href="cef-1.html#cb119-6" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
 ## Use &#39;xfun::attr2()&#39; instead.
 ## See help(&quot;Deprecated&quot;)</code></pre>
@@ -638,7 +633,7 @@ Antes de determinar a fórmula para achar esses valores, vamso relembrar como in
 </tbody>
 </table>
 <p>Vejam que é a mesma estimativa se eu usar a função “lm” do R, que estima uma modelo de regressão linear.</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="cef-1.html#cb123-1" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span>x, df)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="cef-1.html#cb122-1" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span>x, df)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x, data = df)

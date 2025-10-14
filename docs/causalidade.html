@@ -291,13 +291,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3" data-path="08-Causalidade.html"><a href="#normalidade-dos-res%C3%ADduos"><i class="fa fa-check"></i><b>10.3</b> Normalidade dos resíduos</a></li>
 <li class="chapter" data-level="10.4" data-path="08-Causalidade.html"><a href="#generaliza%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>10.4</b> Generalização</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="inferencia.html"><a href="inferencia.html"><i class="fa fa-check"></i><b>11</b> - Inferencia</a>
+<li class="chapter" data-level="11" data-path="08-Causalidade.html"><a href="#infer%C3%AAncia"><i class="fa fa-check"></i><b>11</b> - Inferência</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="inferencia.html"><a href="inferencia.html#normal"><i class="fa fa-check"></i><b>11.1</b> Normal</a></li>
-<li class="chapter" data-level="11.2" data-path="inferencia.html"><a href="inferencia.html#t-student"><i class="fa fa-check"></i><b>11.2</b> T-student</a>
+<li class="chapter" data-level="11.1" data-path="inferência.html"><a href="inferência.html"><i class="fa fa-check"></i><b>11.1</b> Normal</a></li>
+<li class="chapter" data-level="11.2" data-path="inferência.html"><a href="inferência.html#t-student"><i class="fa fa-check"></i><b>11.2</b> T-student</a>
 <ul>
 <li class="chapter" data-level="11.2.1" data-path="08-Causalidade.html"><a href="#avan%C3%A7ado---deriva%C3%A7%C3%A3o-da-t--de-student"><i class="fa fa-check"></i><b>11.2.1</b> Avançado - Derivação da t- de student</a></li>
-<li class="chapter" data-level="11.2.2" data-path="inferencia.html"><a href="inferencia.html#teste-t"><i class="fa fa-check"></i><b>11.2.2</b> Teste t</a></li>
+<li class="chapter" data-level="11.2.2" data-path="inferência.html"><a href="inferência.html#teste-t"><i class="fa fa-check"></i><b>11.2.2</b> Teste t</a></li>
 </ul></li>
 <li class="chapter" data-level="11.3" data-path="08-Causalidade.html"><a href="#teste-de-hip%C3%B3tese-e-ic"><i class="fa fa-check"></i><b>11.3</b> Teste de Hipótese e IC</a></li>
 <li class="chapter" data-level="11.4" data-path="08-Causalidade.html"><a href="#propriedades-assint%C3%B3ticas"><i class="fa fa-check"></i><b>11.4</b> Propriedades Assintóticas</a></li>
@@ -486,39 +486,39 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 <div id="simulação-de-resultados-potenciais-e-causalidade" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> Simulação de Resultados Potenciais e Causalidade<a href="#simula%C3%A7%C3%A3o-de-resultados-potenciais-e-causalidade" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vamos rodar uma simulação para ilustrar o ponto.</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="causalidade.html#cb154-1" tabindex="-1"></a><span class="do">## potential outcomes</span></span>
-<span id="cb154-2"><a href="causalidade.html#cb154-2" tabindex="-1"></a></span>
-<span id="cb154-3"><a href="causalidade.html#cb154-3" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
-<span id="cb154-4"><a href="causalidade.html#cb154-4" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># ATE Average Treatment Effect (ATE) or Average Causal Effect (ACE)</span></span>
-<span id="cb154-5"><a href="causalidade.html#cb154-5" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb154-6"><a href="causalidade.html#cb154-6" tabindex="-1"></a>eta_0 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1)</span>
-<span id="cb154-7"><a href="causalidade.html#cb154-7" tabindex="-1"></a>eta_1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1)</span>
-<span id="cb154-8"><a href="causalidade.html#cb154-8" tabindex="-1"></a></span>
-<span id="cb154-9"><a href="causalidade.html#cb154-9" tabindex="-1"></a></span>
-<span id="cb154-10"><a href="causalidade.html#cb154-10" tabindex="-1"></a><span class="do">##</span></span>
-<span id="cb154-11"><a href="causalidade.html#cb154-11" tabindex="-1"></a>n <span class="ot">&lt;-</span> n1<span class="sc">+</span>n1</span>
-<span id="cb154-12"><a href="causalidade.html#cb154-12" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1)</span>
-<span id="cb154-13"><a href="causalidade.html#cb154-13" tabindex="-1"></a></span>
-<span id="cb154-14"><a href="causalidade.html#cb154-14" tabindex="-1"></a>gamma <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb154-15"><a href="causalidade.html#cb154-15" tabindex="-1"></a>nu_0 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1)</span>
-<span id="cb154-16"><a href="causalidade.html#cb154-16" tabindex="-1"></a>nu_1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1)</span>
-<span id="cb154-17"><a href="causalidade.html#cb154-17" tabindex="-1"></a>eta_0 <span class="ot">&lt;-</span> gamma<span class="sc">*</span>x <span class="sc">+</span> nu_0</span>
-<span id="cb154-18"><a href="causalidade.html#cb154-18" tabindex="-1"></a>eta_1 <span class="ot">&lt;-</span> gamma<span class="sc">*</span>x <span class="sc">+</span> nu_1</span>
-<span id="cb154-19"><a href="causalidade.html#cb154-19" tabindex="-1"></a></span>
-<span id="cb154-20"><a href="causalidade.html#cb154-20" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">0</span>, <span class="at">each=</span>n1)</span>
-<span id="cb154-21"><a href="causalidade.html#cb154-21" tabindex="-1"></a></span>
-<span id="cb154-22"><a href="causalidade.html#cb154-22" tabindex="-1"></a><span class="co"># potential outcomes</span></span>
-<span id="cb154-23"><a href="causalidade.html#cb154-23" tabindex="-1"></a>y_1 <span class="ot">&lt;-</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment[<span class="dv">1</span><span class="sc">:</span>n1] <span class="sc">+</span> eta_1</span>
-<span id="cb154-24"><a href="causalidade.html#cb154-24" tabindex="-1"></a>y_0 <span class="ot">&lt;-</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment[(n1<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n] <span class="sc">+</span> eta_0</span>
-<span id="cb154-25"><a href="causalidade.html#cb154-25" tabindex="-1"></a></span>
-<span id="cb154-26"><a href="causalidade.html#cb154-26" tabindex="-1"></a><span class="co"># ATT ou ACE</span></span>
-<span id="cb154-27"><a href="causalidade.html#cb154-27" tabindex="-1"></a><span class="fu">mean</span>(y_1 <span class="sc">-</span> y_0)</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="causalidade.html#cb153-1" tabindex="-1"></a><span class="do">## potential outcomes</span></span>
+<span id="cb153-2"><a href="causalidade.html#cb153-2" tabindex="-1"></a></span>
+<span id="cb153-3"><a href="causalidade.html#cb153-3" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
+<span id="cb153-4"><a href="causalidade.html#cb153-4" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># ATE Average Treatment Effect (ATE) or Average Causal Effect (ACE)</span></span>
+<span id="cb153-5"><a href="causalidade.html#cb153-5" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb153-6"><a href="causalidade.html#cb153-6" tabindex="-1"></a>eta_0 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1)</span>
+<span id="cb153-7"><a href="causalidade.html#cb153-7" tabindex="-1"></a>eta_1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1)</span>
+<span id="cb153-8"><a href="causalidade.html#cb153-8" tabindex="-1"></a></span>
+<span id="cb153-9"><a href="causalidade.html#cb153-9" tabindex="-1"></a></span>
+<span id="cb153-10"><a href="causalidade.html#cb153-10" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb153-11"><a href="causalidade.html#cb153-11" tabindex="-1"></a>n <span class="ot">&lt;-</span> n1<span class="sc">+</span>n1</span>
+<span id="cb153-12"><a href="causalidade.html#cb153-12" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1)</span>
+<span id="cb153-13"><a href="causalidade.html#cb153-13" tabindex="-1"></a></span>
+<span id="cb153-14"><a href="causalidade.html#cb153-14" tabindex="-1"></a>gamma <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb153-15"><a href="causalidade.html#cb153-15" tabindex="-1"></a>nu_0 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1)</span>
+<span id="cb153-16"><a href="causalidade.html#cb153-16" tabindex="-1"></a>nu_1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1)</span>
+<span id="cb153-17"><a href="causalidade.html#cb153-17" tabindex="-1"></a>eta_0 <span class="ot">&lt;-</span> gamma<span class="sc">*</span>x <span class="sc">+</span> nu_0</span>
+<span id="cb153-18"><a href="causalidade.html#cb153-18" tabindex="-1"></a>eta_1 <span class="ot">&lt;-</span> gamma<span class="sc">*</span>x <span class="sc">+</span> nu_1</span>
+<span id="cb153-19"><a href="causalidade.html#cb153-19" tabindex="-1"></a></span>
+<span id="cb153-20"><a href="causalidade.html#cb153-20" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">0</span>, <span class="at">each=</span>n1)</span>
+<span id="cb153-21"><a href="causalidade.html#cb153-21" tabindex="-1"></a></span>
+<span id="cb153-22"><a href="causalidade.html#cb153-22" tabindex="-1"></a><span class="co"># potential outcomes</span></span>
+<span id="cb153-23"><a href="causalidade.html#cb153-23" tabindex="-1"></a>y_1 <span class="ot">&lt;-</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment[<span class="dv">1</span><span class="sc">:</span>n1] <span class="sc">+</span> eta_1</span>
+<span id="cb153-24"><a href="causalidade.html#cb153-24" tabindex="-1"></a>y_0 <span class="ot">&lt;-</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment[(n1<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n] <span class="sc">+</span> eta_0</span>
+<span id="cb153-25"><a href="causalidade.html#cb153-25" tabindex="-1"></a></span>
+<span id="cb153-26"><a href="causalidade.html#cb153-26" tabindex="-1"></a><span class="co"># ATT ou ACE</span></span>
+<span id="cb153-27"><a href="causalidade.html#cb153-27" tabindex="-1"></a><span class="fu">mean</span>(y_1 <span class="sc">-</span> y_0)</span></code></pre></div>
 <pre><code>## [1] 1.994582</code></pre>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="causalidade.html#cb156-1" tabindex="-1"></a>amostra <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(treatment), <span class="at">size =</span> <span class="dv">1000</span>)</span>
-<span id="cb156-2"><a href="causalidade.html#cb156-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">c</span>(y_1, y_0)[amostra], <span class="at">x=</span><span class="fu">c</span>(x, x)[amostra], <span class="at">treatment =</span> treatment[amostra])</span>
-<span id="cb156-3"><a href="causalidade.html#cb156-3" tabindex="-1"></a></span>
-<span id="cb156-4"><a href="causalidade.html#cb156-4" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>df)</span>
-<span id="cb156-5"><a href="causalidade.html#cb156-5" tabindex="-1"></a><span class="fu">summary</span>(reg)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="causalidade.html#cb155-1" tabindex="-1"></a>amostra <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(treatment), <span class="at">size =</span> <span class="dv">1000</span>)</span>
+<span id="cb155-2"><a href="causalidade.html#cb155-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">c</span>(y_1, y_0)[amostra], <span class="at">x=</span><span class="fu">c</span>(x, x)[amostra], <span class="at">treatment =</span> treatment[amostra])</span>
+<span id="cb155-3"><a href="causalidade.html#cb155-3" tabindex="-1"></a></span>
+<span id="cb155-4"><a href="causalidade.html#cb155-4" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>df)</span>
+<span id="cb155-5"><a href="causalidade.html#cb155-5" tabindex="-1"></a><span class="fu">summary</span>(reg)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ 1, data = df)
@@ -534,8 +534,8 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 2.454 on 999 degrees of freedom</code></pre>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="causalidade.html#cb158-1" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>df)</span>
-<span id="cb158-2"><a href="causalidade.html#cb158-2" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="causalidade.html#cb157-1" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>df)</span>
+<span id="cb157-2"><a href="causalidade.html#cb157-2" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x, data = df)
@@ -554,22 +554,22 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 ## Residual standard error: 1.418 on 998 degrees of freedom
 ## Multiple R-squared:  0.6666, Adjusted R-squared:  0.6662 
 ## F-statistic:  1995 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="causalidade.html#cb160-1" tabindex="-1"></a><span class="do">## Ignorability apenas com CIA (x)</span></span>
-<span id="cb160-2"><a href="causalidade.html#cb160-2" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
-<span id="cb160-3"><a href="causalidade.html#cb160-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb160-4"><a href="causalidade.html#cb160-4" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span>
-<span id="cb160-5"><a href="causalidade.html#cb160-5" tabindex="-1"></a></span>
-<span id="cb160-6"><a href="causalidade.html#cb160-6" tabindex="-1"></a>gamma <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb160-7"><a href="causalidade.html#cb160-7" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="co"># ATE Average Treatment Effect (ATE) or Average Causal Effect (ACE)</span></span>
-<span id="cb160-8"><a href="causalidade.html#cb160-8" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb160-9"><a href="causalidade.html#cb160-9" tabindex="-1"></a>nu <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb160-10"><a href="causalidade.html#cb160-10" tabindex="-1"></a>eta <span class="ot">&lt;-</span> gamma<span class="sc">*</span>x <span class="sc">+</span> nu</span>
-<span id="cb160-11"><a href="causalidade.html#cb160-11" tabindex="-1"></a></span>
-<span id="cb160-12"><a href="causalidade.html#cb160-12" tabindex="-1"></a>y <span class="ot">&lt;-</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment <span class="sc">+</span> eta</span>
-<span id="cb160-13"><a href="causalidade.html#cb160-13" tabindex="-1"></a></span>
-<span id="cb160-14"><a href="causalidade.html#cb160-14" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x, <span class="at">treatment =</span> treatment)</span>
-<span id="cb160-15"><a href="causalidade.html#cb160-15" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> treatment, <span class="at">data=</span>df)</span>
-<span id="cb160-16"><a href="causalidade.html#cb160-16" tabindex="-1"></a><span class="fu">summary</span>(reg3)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="causalidade.html#cb159-1" tabindex="-1"></a><span class="do">## Ignorability apenas com CIA (x)</span></span>
+<span id="cb159-2"><a href="causalidade.html#cb159-2" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb159-3"><a href="causalidade.html#cb159-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb159-4"><a href="causalidade.html#cb159-4" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb159-5"><a href="causalidade.html#cb159-5" tabindex="-1"></a></span>
+<span id="cb159-6"><a href="causalidade.html#cb159-6" tabindex="-1"></a>gamma <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb159-7"><a href="causalidade.html#cb159-7" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="co"># ATE Average Treatment Effect (ATE) or Average Causal Effect (ACE)</span></span>
+<span id="cb159-8"><a href="causalidade.html#cb159-8" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb159-9"><a href="causalidade.html#cb159-9" tabindex="-1"></a>nu <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb159-10"><a href="causalidade.html#cb159-10" tabindex="-1"></a>eta <span class="ot">&lt;-</span> gamma<span class="sc">*</span>x <span class="sc">+</span> nu</span>
+<span id="cb159-11"><a href="causalidade.html#cb159-11" tabindex="-1"></a></span>
+<span id="cb159-12"><a href="causalidade.html#cb159-12" tabindex="-1"></a>y <span class="ot">&lt;-</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment <span class="sc">+</span> eta</span>
+<span id="cb159-13"><a href="causalidade.html#cb159-13" tabindex="-1"></a></span>
+<span id="cb159-14"><a href="causalidade.html#cb159-14" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x=</span>x, <span class="at">treatment =</span> treatment)</span>
+<span id="cb159-15"><a href="causalidade.html#cb159-15" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> treatment, <span class="at">data=</span>df)</span>
+<span id="cb159-16"><a href="causalidade.html#cb159-16" tabindex="-1"></a><span class="fu">summary</span>(reg3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ treatment, data = df)
@@ -588,8 +588,8 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 ## Residual standard error: 1.573 on 9998 degrees of freedom
 ## Multiple R-squared:  0.1299, Adjusted R-squared:  0.1298 
 ## F-statistic:  1493 on 1 and 9998 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="causalidade.html#cb162-1" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> treatment <span class="sc">+</span>  x, <span class="at">data=</span>df)</span>
-<span id="cb162-2"><a href="causalidade.html#cb162-2" tabindex="-1"></a><span class="fu">summary</span>(reg4)</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="causalidade.html#cb161-1" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> treatment <span class="sc">+</span>  x, <span class="at">data=</span>df)</span>
+<span id="cb161-2"><a href="causalidade.html#cb161-2" tabindex="-1"></a><span class="fu">summary</span>(reg4)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ treatment + x, data = df)
@@ -609,60 +609,60 @@ O ATT é o efeito médio porque estamos calculando a média (esperança), do efe
 ## Residual standard error: 0.9823 on 9997 degrees of freedom
 ## Multiple R-squared:  0.6609, Adjusted R-squared:  0.6608 
 ## F-statistic:  9743 on 2 and 9997 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="causalidade.html#cb164-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb164-2"><a href="causalidade.html#cb164-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb164-3"><a href="causalidade.html#cb164-3" tabindex="-1"></a></span>
-<span id="cb164-4"><a href="causalidade.html#cb164-4" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb164-5"><a href="causalidade.html#cb164-5" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment) <span class="sc">%&gt;%</span></span>
-<span id="cb164-6"><a href="causalidade.html#cb164-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">uncond_y =</span> <span class="fu">mean</span>(y),</span>
-<span id="cb164-7"><a href="causalidade.html#cb164-7" tabindex="-1"></a>         <span class="at">erro =</span> (y <span class="sc">-</span> uncond_y),</span>
-<span id="cb164-8"><a href="causalidade.html#cb164-8" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb164-9"><a href="causalidade.html#cb164-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, erro )) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="causalidade.html#cb163-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb163-2"><a href="causalidade.html#cb163-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb163-3"><a href="causalidade.html#cb163-3" tabindex="-1"></a></span>
+<span id="cb163-4"><a href="causalidade.html#cb163-4" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb163-5"><a href="causalidade.html#cb163-5" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb163-6"><a href="causalidade.html#cb163-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">uncond_y =</span> <span class="fu">mean</span>(y),</span>
+<span id="cb163-7"><a href="causalidade.html#cb163-7" tabindex="-1"></a>         <span class="at">erro =</span> (y <span class="sc">-</span> uncond_y),</span>
+<span id="cb163-8"><a href="causalidade.html#cb163-8" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb163-9"><a href="causalidade.html#cb163-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, erro )) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/sim%20PO-1.png" width="900" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="causalidade.html#cb165-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb165-2"><a href="causalidade.html#cb165-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_x =</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span> ,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb165-3"><a href="causalidade.html#cb165-3" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment, bol_x) <span class="sc">%&gt;%</span></span>
-<span id="cb165-4"><a href="causalidade.html#cb165-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cond_y =</span> <span class="fu">mean</span>(y)) <span class="sc">%&gt;%</span></span>
-<span id="cb165-5"><a href="causalidade.html#cb165-5" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb165-6"><a href="causalidade.html#cb165-6" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">erro =</span> (y <span class="sc">-</span> cond_y),</span>
-<span id="cb165-7"><a href="causalidade.html#cb165-7" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb165-8"><a href="causalidade.html#cb165-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, erro )) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="causalidade.html#cb164-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb164-2"><a href="causalidade.html#cb164-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_x =</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span> ,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb164-3"><a href="causalidade.html#cb164-3" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment, bol_x) <span class="sc">%&gt;%</span></span>
+<span id="cb164-4"><a href="causalidade.html#cb164-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cond_y =</span> <span class="fu">mean</span>(y)) <span class="sc">%&gt;%</span></span>
+<span id="cb164-5"><a href="causalidade.html#cb164-5" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb164-6"><a href="causalidade.html#cb164-6" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">erro =</span> (y <span class="sc">-</span> cond_y),</span>
+<span id="cb164-7"><a href="causalidade.html#cb164-7" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb164-8"><a href="causalidade.html#cb164-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, erro )) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/sim%20PO-2.png" width="900" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="causalidade.html#cb166-1" tabindex="-1"></a><span class="co"># -5 ocorre 10%,02 10% etc. até 5, 10% das vezes</span></span>
-<span id="cb166-2"><a href="causalidade.html#cb166-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>, <span class="at">size=</span>n, <span class="at">replace=</span>T) <span class="sc">-</span> <span class="dv">6</span></span>
-<span id="cb166-3"><a href="causalidade.html#cb166-3" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span>
-<span id="cb166-4"><a href="causalidade.html#cb166-4" tabindex="-1"></a></span>
-<span id="cb166-5"><a href="causalidade.html#cb166-5" tabindex="-1"></a>gamma <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb166-6"><a href="causalidade.html#cb166-6" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="co"># ATE Average Treatment Effect (ATE) or Average Causal Effect (ACE)</span></span>
-<span id="cb166-7"><a href="causalidade.html#cb166-7" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb166-8"><a href="causalidade.html#cb166-8" tabindex="-1"></a>nu <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb166-9"><a href="causalidade.html#cb166-9" tabindex="-1"></a>eta <span class="ot">&lt;-</span> gamma<span class="sc">*</span>x <span class="sc">+</span> nu</span>
-<span id="cb166-10"><a href="causalidade.html#cb166-10" tabindex="-1"></a></span>
-<span id="cb166-11"><a href="causalidade.html#cb166-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment <span class="sc">+</span> eta</span>
-<span id="cb166-12"><a href="causalidade.html#cb166-12" tabindex="-1"></a></span>
-<span id="cb166-13"><a href="causalidade.html#cb166-13" tabindex="-1"></a></span>
-<span id="cb166-14"><a href="causalidade.html#cb166-14" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb166-15"><a href="causalidade.html#cb166-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_x =</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span> ,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb166-16"><a href="causalidade.html#cb166-16" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment, bol_x) <span class="sc">%&gt;%</span></span>
-<span id="cb166-17"><a href="causalidade.html#cb166-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cond_y =</span> alpha <span class="sc">+</span> .<span class="dv">5</span><span class="sc">*</span>tau <span class="sc">+</span> gamma<span class="sc">*</span>x ) <span class="sc">%&gt;%</span></span>
-<span id="cb166-18"><a href="causalidade.html#cb166-18" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb166-19"><a href="causalidade.html#cb166-19" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">erro =</span> (y <span class="sc">-</span> cond_y),</span>
-<span id="cb166-20"><a href="causalidade.html#cb166-20" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb166-21"><a href="causalidade.html#cb166-21" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, erro )) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="causalidade.html#cb165-1" tabindex="-1"></a><span class="co"># -5 ocorre 10%,02 10% etc. até 5, 10% das vezes</span></span>
+<span id="cb165-2"><a href="causalidade.html#cb165-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>, <span class="at">size=</span>n, <span class="at">replace=</span>T) <span class="sc">-</span> <span class="dv">6</span></span>
+<span id="cb165-3"><a href="causalidade.html#cb165-3" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb165-4"><a href="causalidade.html#cb165-4" tabindex="-1"></a></span>
+<span id="cb165-5"><a href="causalidade.html#cb165-5" tabindex="-1"></a>gamma <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb165-6"><a href="causalidade.html#cb165-6" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="co"># ATE Average Treatment Effect (ATE) or Average Causal Effect (ACE)</span></span>
+<span id="cb165-7"><a href="causalidade.html#cb165-7" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb165-8"><a href="causalidade.html#cb165-8" tabindex="-1"></a>nu <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb165-9"><a href="causalidade.html#cb165-9" tabindex="-1"></a>eta <span class="ot">&lt;-</span> gamma<span class="sc">*</span>x <span class="sc">+</span> nu</span>
+<span id="cb165-10"><a href="causalidade.html#cb165-10" tabindex="-1"></a></span>
+<span id="cb165-11"><a href="causalidade.html#cb165-11" tabindex="-1"></a>y <span class="ot">&lt;-</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment <span class="sc">+</span> eta</span>
+<span id="cb165-12"><a href="causalidade.html#cb165-12" tabindex="-1"></a></span>
+<span id="cb165-13"><a href="causalidade.html#cb165-13" tabindex="-1"></a></span>
+<span id="cb165-14"><a href="causalidade.html#cb165-14" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb165-15"><a href="causalidade.html#cb165-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_x =</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span> ,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb165-16"><a href="causalidade.html#cb165-16" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment, bol_x) <span class="sc">%&gt;%</span></span>
+<span id="cb165-17"><a href="causalidade.html#cb165-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cond_y =</span> alpha <span class="sc">+</span> .<span class="dv">5</span><span class="sc">*</span>tau <span class="sc">+</span> gamma<span class="sc">*</span>x ) <span class="sc">%&gt;%</span></span>
+<span id="cb165-18"><a href="causalidade.html#cb165-18" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb165-19"><a href="causalidade.html#cb165-19" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">erro =</span> (y <span class="sc">-</span> cond_y),</span>
+<span id="cb165-20"><a href="causalidade.html#cb165-20" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb165-21"><a href="causalidade.html#cb165-21" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, erro )) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/sim%20PO-3.png" width="900" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="causalidade.html#cb166-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb166-2"><a href="causalidade.html#cb166-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_x =</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span> ,<span class="dv">1</span>,<span class="dv">0</span>),</span>
+<span id="cb166-3"><a href="causalidade.html#cb166-3" tabindex="-1"></a>         <span class="at">cond_y =</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment <span class="sc">+</span> gamma<span class="sc">*</span>x,</span>
+<span id="cb166-4"><a href="causalidade.html#cb166-4" tabindex="-1"></a>         <span class="at">erro =</span> (y <span class="sc">-</span> cond_y),</span>
+<span id="cb166-5"><a href="causalidade.html#cb166-5" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb166-6"><a href="causalidade.html#cb166-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>erro, <span class="at">x=</span>x )) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/sim%20PO-4.png" width="900" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="causalidade.html#cb167-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb167-2"><a href="causalidade.html#cb167-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_x =</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span> ,<span class="dv">1</span>,<span class="dv">0</span>),</span>
-<span id="cb167-3"><a href="causalidade.html#cb167-3" tabindex="-1"></a>         <span class="at">cond_y =</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment <span class="sc">+</span> gamma<span class="sc">*</span>x,</span>
-<span id="cb167-4"><a href="causalidade.html#cb167-4" tabindex="-1"></a>         <span class="at">erro =</span> (y <span class="sc">-</span> cond_y),</span>
+<span id="cb167-3"><a href="causalidade.html#cb167-3" tabindex="-1"></a>        <span class="at">cond_y =</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment <span class="sc">+</span> gamma<span class="sc">*</span>x,</span>
+<span id="cb167-4"><a href="causalidade.html#cb167-4" tabindex="-1"></a>        <span class="at">erro =</span> (y <span class="sc">-</span> cond_y),</span>
 <span id="cb167-5"><a href="causalidade.html#cb167-5" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb167-6"><a href="causalidade.html#cb167-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>erro, <span class="at">x=</span>x )) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/sim%20PO-4.png" width="900" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="causalidade.html#cb168-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb168-2"><a href="causalidade.html#cb168-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bol_x =</span> <span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">0</span> ,<span class="dv">1</span>,<span class="dv">0</span>),</span>
-<span id="cb168-3"><a href="causalidade.html#cb168-3" tabindex="-1"></a>        <span class="at">cond_y =</span> alpha <span class="sc">+</span> tau<span class="sc">*</span>treatment <span class="sc">+</span> gamma<span class="sc">*</span>x,</span>
-<span id="cb168-4"><a href="causalidade.html#cb168-4" tabindex="-1"></a>        <span class="at">erro =</span> (y <span class="sc">-</span> cond_y),</span>
-<span id="cb168-5"><a href="causalidade.html#cb168-5" tabindex="-1"></a>         <span class="at">sqs =</span> <span class="fu">sum</span>(erro)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb168-6"><a href="causalidade.html#cb168-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">cor</span>(erro, x))</span></code></pre></div>
+<span id="cb167-6"><a href="causalidade.html#cb167-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">cor</span>(erro, x))</span></code></pre></div>
 <pre><code>##   cor(erro, x)
 ## 1   0.01257919</code></pre>
 </div>

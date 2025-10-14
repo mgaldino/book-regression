@@ -109,7 +109,7 @@ magnitude-dos-resíduos-contra-o-preditor
 resíduos-com-dados-temporais-eou-espaciais
 normalidade-dos-resíduos
 generalização
-inferencia
+inferência
 normal
 t-student
 avançado---derivação-da-t--de-student
