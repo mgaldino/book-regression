@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-10-14" />
+<meta name="date" content="2025-11-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -362,10 +362,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.6.1" data-path="02-revisão-R.html"><a href="#espa%C3%A7o-de-vetores-e-subspa%C3%A7o"><i class="fa fa-check"></i><b>14.6.1</b> Espaço de vetores e subspaço</a></li>
 <li class="chapter" data-level="14.6.2" data-path="02-revisão-R.html"><a href="#proje%C3%A7%C3%A3o-linear-2"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
 </ul></li>
-<li class="chapter" data-level="14.7" data-path="apêndice.html"><a href="apêndice.html#dados-espaciais"><i class="fa fa-check"></i><b>14.7</b> Dados Espaciais</a>
+<li class="chapter" data-level="14.7" data-path="02-revisão-R.html"><a href="#econometria-de-s%C3%A9rie-de-tempo"><i class="fa fa-check"></i><b>14.7</b> Econometria de série de tempo</a>
 <ul>
-<li class="chapter" data-level="14.7.1" data-path="02-revisão-R.html"><a href="#pol%C3%ADgonos"><i class="fa fa-check"></i><b>14.7.1</b> Polígonos</a></li>
-<li class="chapter" data-level="14.7.2" data-path="apêndice.html"><a href="apêndice.html#econometria-espacial"><i class="fa fa-check"></i><b>14.7.2</b> Econometria espacial</a></li>
+<li class="chapter" data-level="14.7.1" data-path="02-revisão-R.html"><a href="#modelos-b%C3%A1sicos"><i class="fa fa-check"></i><b>14.7.1</b> Modelos básicos</a></li>
+<li class="chapter" data-level="14.7.2" data-path="apêndice.html"><a href="apêndice.html#ar1"><i class="fa fa-check"></i><b>14.7.2</b> AR1</a></li>
+<li class="chapter" data-level="14.7.3" data-path="apêndice.html"><a href="apêndice.html#tscs"><i class="fa fa-check"></i><b>14.7.3</b> TSCS</a></li>
+<li class="chapter" data-level="14.7.4" data-path="02-revisão-R.html"><a href="#modelo-est%C3%A1tico-e-din%C3%A2mico"><i class="fa fa-check"></i><b>14.7.4</b> Modelo estático e dinâmico</a></li>
+<li class="chapter" data-level="14.7.5" data-path="apêndice.html"><a href="apêndice.html#efeitos-fixos"><i class="fa fa-check"></i><b>14.7.5</b> Efeitos Fixos</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="apêndice.html"><a href="apêndice.html#dados-espaciais"><i class="fa fa-check"></i><b>14.8</b> Dados Espaciais</a>
+<ul>
+<li class="chapter" data-level="14.8.1" data-path="02-revisão-R.html"><a href="#regress%C3%A3o-espacial"><i class="fa fa-check"></i><b>14.8.1</b> Regressão espacial</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="teoremas.html"><a href="teoremas.html"><i class="fa fa-check"></i><b>15</b> - Teoremas</a>
@@ -593,63 +600,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">2009-01-01</td>
-<td align="right">1.7940745</td>
-<td align="right">-0.7488775</td>
-<td align="right">-0.8906052</td>
+<td align="right">-1.2229262</td>
+<td align="right">-2.7760981</td>
+<td align="right">2.5444961</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-02</td>
-<td align="right">-1.3645489</td>
-<td align="right">-1.2088000</td>
-<td align="right">3.0725101</td>
+<td align="right">1.5466092</td>
+<td align="right">4.1734349</td>
+<td align="right">-1.9717497</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-03</td>
-<td align="right">-0.7074400</td>
-<td align="right">2.4062541</td>
-<td align="right">1.5518146</td>
+<td align="right">-1.4152819</td>
+<td align="right">-1.3570063</td>
+<td align="right">-3.3367529</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-04</td>
-<td align="right">-0.5562843</td>
-<td align="right">1.5377465</td>
-<td align="right">2.4365321</td>
+<td align="right">0.3183903</td>
+<td align="right">-3.7111433</td>
+<td align="right">1.0842670</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-05</td>
-<td align="right">-0.3100811</td>
-<td align="right">0.4767020</td>
-<td align="right">2.3620744</td>
+<td align="right">0.8464363</td>
+<td align="right">1.0665187</td>
+<td align="right">0.6294134</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-06</td>
-<td align="right">-0.3761793</td>
-<td align="right">-2.8300563</td>
-<td align="right">-1.7405630</td>
+<td align="right">0.1781902</td>
+<td align="right">0.6204605</td>
+<td align="right">2.5188470</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-07</td>
-<td align="right">0.4585260</td>
-<td align="right">5.8675488</td>
-<td align="right">-1.0030796</td>
+<td align="right">-0.8752555</td>
+<td align="right">-2.7076687</td>
+<td align="right">-1.5831918</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-08</td>
-<td align="right">-1.2611491</td>
-<td align="right">1.8700515</td>
-<td align="right">-3.7050775</td>
+<td align="right">0.9411658</td>
+<td align="right">-3.8859128</td>
+<td align="right">3.5974162</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-09</td>
-<td align="right">-0.5274652</td>
-<td align="right">2.4677690</td>
-<td align="right">4.3497432</td>
+<td align="right">0.1705881</td>
+<td align="right">-0.2326050</td>
+<td align="right">-3.3232461</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-10</td>
-<td align="right">-0.5568142</td>
-<td align="right">-3.7827694</td>
-<td align="right">-7.7758369</td>
+<td align="right">-1.0634979</td>
+<td align="right">2.2787926</td>
+<td align="right">-1.3221788</td>
 </tr>
 </tbody>
 </table>
@@ -678,63 +685,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">2009-01-01</td>
-<td align="right">-0.2806204</td>
-<td align="right">-1.2341477</td>
-<td align="right">-8.0296601</td>
+<td align="right">0.7408145</td>
+<td align="right">1.5381046</td>
+<td align="right">2.2731545</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-02</td>
-<td align="right">0.8120776</td>
-<td align="right">-0.5247450</td>
-<td align="right">3.0720085</td>
+<td align="right">0.9899716</td>
+<td align="right">0.2414387</td>
+<td align="right">4.0427119</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-03</td>
-<td align="right">-0.2077037</td>
-<td align="right">1.8246943</td>
-<td align="right">1.6230453</td>
+<td align="right">-1.9385047</td>
+<td align="right">1.7272969</td>
+<td align="right">-2.0719297</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-04</td>
-<td align="right">1.4507573</td>
-<td align="right">2.2472212</td>
-<td align="right">-3.3268635</td>
+<td align="right">0.1071904</td>
+<td align="right">2.7610291</td>
+<td align="right">-1.1763813</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-05</td>
-<td align="right">0.8414932</td>
-<td align="right">-1.2070394</td>
-<td align="right">3.8323031</td>
+<td align="right">0.6087790</td>
+<td align="right">3.9324960</td>
+<td align="right">1.5913688</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-06</td>
-<td align="right">-0.8657378</td>
-<td align="right">0.1106468</td>
-<td align="right">7.2428770</td>
+<td align="right">-1.4508243</td>
+<td align="right">-0.0567901</td>
+<td align="right">-2.2008950</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-07</td>
-<td align="right">-0.0598778</td>
-<td align="right">-2.0013169</td>
-<td align="right">-10.2000579</td>
+<td align="right">0.4806256</td>
+<td align="right">-4.4981022</td>
+<td align="right">0.3650695</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-08</td>
-<td align="right">0.0115312</td>
-<td align="right">-1.5163577</td>
-<td align="right">4.6010203</td>
+<td align="right">-0.8281743</td>
+<td align="right">0.0630520</td>
+<td align="right">-7.8468304</td>
 </tr>
 <tr class="odd">
 <td align="left">2009-01-09</td>
-<td align="right">0.2691115</td>
-<td align="right">-1.2228716</td>
-<td align="right">4.9115746</td>
+<td align="right">1.0202530</td>
+<td align="right">0.4111224</td>
+<td align="right">-4.4795989</td>
 </tr>
 <tr class="even">
 <td align="left">2009-01-10</td>
-<td align="right">-0.5281605</td>
-<td align="right">-2.6334445</td>
-<td align="right">0.6084127</td>
+<td align="right">0.5384820</td>
+<td align="right">-0.3106907</td>
+<td align="right">-5.3110219</td>
 </tr>
 </tbody>
 </table>

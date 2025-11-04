@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-10-14" />
+<meta name="date" content="2025-11-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -362,10 +362,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.6.1" data-path="13-GLM.html"><a href="#espa%C3%A7o-de-vetores-e-subspa%C3%A7o"><i class="fa fa-check"></i><b>14.6.1</b> Espaço de vetores e subspaço</a></li>
 <li class="chapter" data-level="14.6.2" data-path="13-GLM.html"><a href="#proje%C3%A7%C3%A3o-linear-2"><i class="fa fa-check"></i><b>14.6.2</b> Projeção linear</a></li>
 </ul></li>
-<li class="chapter" data-level="14.7" data-path="apêndice.html"><a href="apêndice.html#dados-espaciais"><i class="fa fa-check"></i><b>14.7</b> Dados Espaciais</a>
+<li class="chapter" data-level="14.7" data-path="13-GLM.html"><a href="#econometria-de-s%C3%A9rie-de-tempo"><i class="fa fa-check"></i><b>14.7</b> Econometria de série de tempo</a>
 <ul>
-<li class="chapter" data-level="14.7.1" data-path="13-GLM.html"><a href="#pol%C3%ADgonos"><i class="fa fa-check"></i><b>14.7.1</b> Polígonos</a></li>
-<li class="chapter" data-level="14.7.2" data-path="apêndice.html"><a href="apêndice.html#econometria-espacial"><i class="fa fa-check"></i><b>14.7.2</b> Econometria espacial</a></li>
+<li class="chapter" data-level="14.7.1" data-path="13-GLM.html"><a href="#modelos-b%C3%A1sicos"><i class="fa fa-check"></i><b>14.7.1</b> Modelos básicos</a></li>
+<li class="chapter" data-level="14.7.2" data-path="apêndice.html"><a href="apêndice.html#ar1"><i class="fa fa-check"></i><b>14.7.2</b> AR1</a></li>
+<li class="chapter" data-level="14.7.3" data-path="apêndice.html"><a href="apêndice.html#tscs"><i class="fa fa-check"></i><b>14.7.3</b> TSCS</a></li>
+<li class="chapter" data-level="14.7.4" data-path="13-GLM.html"><a href="#modelo-est%C3%A1tico-e-din%C3%A2mico"><i class="fa fa-check"></i><b>14.7.4</b> Modelo estático e dinâmico</a></li>
+<li class="chapter" data-level="14.7.5" data-path="apêndice.html"><a href="apêndice.html#efeitos-fixos"><i class="fa fa-check"></i><b>14.7.5</b> Efeitos Fixos</a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="apêndice.html"><a href="apêndice.html#dados-espaciais"><i class="fa fa-check"></i><b>14.8</b> Dados Espaciais</a>
+<ul>
+<li class="chapter" data-level="14.8.1" data-path="13-GLM.html"><a href="#regress%C3%A3o-espacial"><i class="fa fa-check"></i><b>14.8.1</b> Regressão espacial</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="teoremas.html"><a href="teoremas.html"><i class="fa fa-check"></i><b>15</b> - Teoremas</a>
@@ -1167,8 +1174,7 @@ Vejamos um exemplo simulado e em seguida uma aplicação empírica.</p>
 <span id="cb327-24"><a href="glm.html#cb327-24" tabindex="-1"></a></span>
 <span id="cb327-25"><a href="glm.html#cb327-25" tabindex="-1"></a><span class="co"># checando a ordem</span></span>
 <span id="cb327-26"><a href="glm.html#cb327-26" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>y)</span></code></pre></div>
-<pre><code>## [1] &quot;concordo muito&quot; &quot;concordo pouco&quot; &quot;discordo muito&quot;
-## [4] &quot;discordo pouco&quot;</code></pre>
+<pre><code>## [1] &quot;concordo muito&quot; &quot;concordo pouco&quot; &quot;discordo muito&quot; &quot;discordo pouco&quot;</code></pre>
 <div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="glm.html#cb329-1" tabindex="-1"></a><span class="co"># ordem trocada (inversa)</span></span>
 <span id="cb329-2"><a href="glm.html#cb329-2" tabindex="-1"></a><span class="co">#vamos corrigir</span></span>
 <span id="cb329-3"><a href="glm.html#cb329-3" tabindex="-1"></a></span>
@@ -1181,8 +1187,7 @@ Vejamos um exemplo simulado e em seguida uma aplicação empírica.</p>
 <span id="cb329-10"><a href="glm.html#cb329-10" tabindex="-1"></a></span>
 <span id="cb329-11"><a href="glm.html#cb329-11" tabindex="-1"></a><span class="co"># checando a ordem</span></span>
 <span id="cb329-12"><a href="glm.html#cb329-12" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>y)</span></code></pre></div>
-<pre><code>## [1] &quot;discordo muito&quot; &quot;discordo pouco&quot; &quot;concordo pouco&quot;
-## [4] &quot;concordo muito&quot;</code></pre>
+<pre><code>## [1] &quot;discordo muito&quot; &quot;discordo pouco&quot; &quot;concordo pouco&quot; &quot;concordo muito&quot;</code></pre>
 <div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="glm.html#cb331-1" tabindex="-1"></a><span class="co"># correto</span></span>
 <span id="cb331-2"><a href="glm.html#cb331-2" tabindex="-1"></a><span class="co"># se quiser checar e está ordenado</span></span>
 <span id="cb331-3"><a href="glm.html#cb331-3" tabindex="-1"></a><span class="fu">is.ordered</span>(df<span class="sc">$</span>y)</span></code></pre></div>
