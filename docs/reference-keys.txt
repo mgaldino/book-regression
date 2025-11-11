@@ -162,10 +162,10 @@ projeção-linear-2
 econometria-de-série-de-tempo
 modelos-básicos
 ar1
-erro-como-ar-ou-ma
 tscs
 modelo-estático-e-dinâmico
 efeitos-fixos
+erro-como-ar-ou-ma
 dados-espaciais
 regressão-espacial
 spatial-lag-outcome-model

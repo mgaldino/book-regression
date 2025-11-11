@@ -23,7 +23,7 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-11-10" />
+<meta name="date" content="2025-11-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -366,16 +366,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="14.7.1" data-path="14-Apêndice.html"><a href="#modelos-b%C3%A1sicos"><i class="fa fa-check"></i><b>14.7.1</b> Modelos básicos</a></li>
 <li class="chapter" data-level="14.7.2" data-path="apêndice.html"><a href="apêndice.html#ar1"><i class="fa fa-check"></i><b>14.7.2</b> AR1</a></li>
+<li class="chapter" data-level="14.7.3" data-path="apêndice.html"><a href="apêndice.html#tscs"><i class="fa fa-check"></i><b>14.7.3</b> TSCS</a></li>
+<li class="chapter" data-level="14.7.4" data-path="14-Apêndice.html"><a href="#modelo-est%C3%A1tico-e-din%C3%A2mico"><i class="fa fa-check"></i><b>14.7.4</b> Modelo estático e dinâmico</a></li>
+<li class="chapter" data-level="14.7.5" data-path="apêndice.html"><a href="apêndice.html#efeitos-fixos"><i class="fa fa-check"></i><b>14.7.5</b> Efeitos Fixos</a></li>
+<li class="chapter" data-level="14.7.6" data-path="apêndice.html"><a href="apêndice.html#erro-como-ar-ou-ma"><i class="fa fa-check"></i><b>14.7.6</b> Erro como AR ou MA</a></li>
 </ul></li>
-<li class="chapter" data-level="14.8" data-path="apêndice.html"><a href="apêndice.html#erro-como-ar-ou-ma"><i class="fa fa-check"></i><b>14.8</b> Erro como AR ou MA</a>
+<li class="chapter" data-level="14.8" data-path="apêndice.html"><a href="apêndice.html#dados-espaciais"><i class="fa fa-check"></i><b>14.8</b> Dados Espaciais</a>
 <ul>
-<li class="chapter" data-level="14.8.1" data-path="apêndice.html"><a href="apêndice.html#tscs"><i class="fa fa-check"></i><b>14.8.1</b> TSCS</a></li>
-<li class="chapter" data-level="14.8.2" data-path="14-Apêndice.html"><a href="#modelo-est%C3%A1tico-e-din%C3%A2mico"><i class="fa fa-check"></i><b>14.8.2</b> Modelo estático e dinâmico</a></li>
-<li class="chapter" data-level="14.8.3" data-path="apêndice.html"><a href="apêndice.html#efeitos-fixos"><i class="fa fa-check"></i><b>14.8.3</b> Efeitos Fixos</a></li>
-</ul></li>
-<li class="chapter" data-level="14.9" data-path="apêndice.html"><a href="apêndice.html#dados-espaciais"><i class="fa fa-check"></i><b>14.9</b> Dados Espaciais</a>
-<ul>
-<li class="chapter" data-level="14.9.1" data-path="14-Apêndice.html"><a href="#regress%C3%A3o-espacial"><i class="fa fa-check"></i><b>14.9.1</b> Regressão espacial</a></li>
+<li class="chapter" data-level="14.8.1" data-path="14-Apêndice.html"><a href="#regress%C3%A3o-espacial"><i class="fa fa-check"></i><b>14.8.1</b> Regressão espacial</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="teoremas.html"><a href="teoremas.html"><i class="fa fa-check"></i><b>15</b> - Teoremas</a>
@@ -452,37 +450,37 @@ Para ajudar na reproducibilidade, uso o pacote <strong>here</strong> para não v
 </div>
 <div id="projeção-linear-2" class="section level3 hasAnchor" number="14.6.2">
 <h3><span class="header-section-number">14.6.2</span> Projeção linear<a href="#proje%C3%A7%C3%A3o-linear-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="apêndice.html#cb341-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
-<span id="cb341-2"><a href="apêndice.html#cb341-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb341-3"><a href="apêndice.html#cb341-3" tabindex="-1"></a></span>
-<span id="cb341-4"><a href="apêndice.html#cb341-4" tabindex="-1"></a><span class="co"># Define vectors u and v</span></span>
-<span id="cb341-5"><a href="apêndice.html#cb341-5" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb341-6"><a href="apêndice.html#cb341-6" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>)</span>
-<span id="cb341-7"><a href="apêndice.html#cb341-7" tabindex="-1"></a></span>
-<span id="cb341-8"><a href="apêndice.html#cb341-8" tabindex="-1"></a><span class="co"># Calculate the projection of u onto v</span></span>
-<span id="cb341-9"><a href="apêndice.html#cb341-9" tabindex="-1"></a>proj_v_u <span class="ot">&lt;-</span> (<span class="fu">sum</span>(u <span class="sc">*</span> v) <span class="sc">/</span> <span class="fu">sum</span>(v <span class="sc">*</span> v)) <span class="sc">*</span> v</span>
-<span id="cb341-10"><a href="apêndice.html#cb341-10" tabindex="-1"></a></span>
-<span id="cb341-11"><a href="apêndice.html#cb341-11" tabindex="-1"></a><span class="co"># Create a data frame for plotting</span></span>
-<span id="cb341-12"><a href="apêndice.html#cb341-12" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb341-13"><a href="apêndice.html#cb341-13" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, u[<span class="dv">1</span>], <span class="dv">0</span>, v[<span class="dv">1</span>], <span class="dv">0</span>, proj_v_u[<span class="dv">1</span>]),</span>
-<span id="cb341-14"><a href="apêndice.html#cb341-14" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, u[<span class="dv">2</span>], <span class="dv">0</span>, v[<span class="dv">2</span>], <span class="dv">0</span>, proj_v_u[<span class="dv">2</span>]),</span>
-<span id="cb341-15"><a href="apêndice.html#cb341-15" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;u&quot;</span>, <span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;v&quot;</span>, <span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;Projection&quot;</span>)</span>
-<span id="cb341-16"><a href="apêndice.html#cb341-16" tabindex="-1"></a>)</span>
-<span id="cb341-17"><a href="apêndice.html#cb341-17" tabindex="-1"></a></span>
-<span id="cb341-18"><a href="apêndice.html#cb341-18" tabindex="-1"></a><span class="co"># Create the plot</span></span>
-<span id="cb341-19"><a href="apêndice.html#cb341-19" tabindex="-1"></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
-<span id="cb341-20"><a href="apêndice.html#cb341-20" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">1</span>], <span class="at">y =</span> y[<span class="dv">1</span>], <span class="at">xend =</span> x[<span class="dv">2</span>], <span class="at">yend =</span> y[<span class="dv">2</span>]), <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&quot;cm&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb341-21"><a href="apêndice.html#cb341-21" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">3</span>], <span class="at">y =</span> y[<span class="dv">3</span>], <span class="at">xend =</span> x[<span class="dv">4</span>], <span class="at">yend =</span> y[<span class="dv">4</span>]), <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&quot;cm&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb341-22"><a href="apêndice.html#cb341-22" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">5</span>], <span class="at">y =</span> y[<span class="dv">5</span>], <span class="at">xend =</span> x[<span class="dv">6</span>], <span class="at">yend =</span> y[<span class="dv">6</span>]), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb341-23"><a href="apêndice.html#cb341-23" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> u[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> u[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;u&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb341-24"><a href="apêndice.html#cb341-24" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> v[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> v[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;v&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb341-25"><a href="apêndice.html#cb341-25" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> proj_v_u[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> proj_v_u[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;proj_v_u&quot;</span>, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>) <span class="sc">+</span></span>
-<span id="cb341-26"><a href="apêndice.html#cb341-26" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fu">max</span>(u[<span class="dv">1</span>], v[<span class="dv">1</span>], proj_v_u[<span class="dv">1</span>]) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb341-27"><a href="apêndice.html#cb341-27" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="fu">max</span>(u[<span class="dv">2</span>], v[<span class="dv">2</span>], proj_v_u[<span class="dv">2</span>]) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb341-28"><a href="apêndice.html#cb341-28" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb341-29"><a href="apêndice.html#cb341-29" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Projection of Vector u onto Vector v&quot;</span>,</span>
-<span id="cb341-30"><a href="apêndice.html#cb341-30" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;X-axis&quot;</span>,</span>
-<span id="cb341-31"><a href="apêndice.html#cb341-31" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Y-axis&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="apêndice.html#cb335-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb335-2"><a href="apêndice.html#cb335-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb335-3"><a href="apêndice.html#cb335-3" tabindex="-1"></a></span>
+<span id="cb335-4"><a href="apêndice.html#cb335-4" tabindex="-1"></a><span class="co"># Define vectors u and v</span></span>
+<span id="cb335-5"><a href="apêndice.html#cb335-5" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb335-6"><a href="apêndice.html#cb335-6" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">0</span>)</span>
+<span id="cb335-7"><a href="apêndice.html#cb335-7" tabindex="-1"></a></span>
+<span id="cb335-8"><a href="apêndice.html#cb335-8" tabindex="-1"></a><span class="co"># Calculate the projection of u onto v</span></span>
+<span id="cb335-9"><a href="apêndice.html#cb335-9" tabindex="-1"></a>proj_v_u <span class="ot">&lt;-</span> (<span class="fu">sum</span>(u <span class="sc">*</span> v) <span class="sc">/</span> <span class="fu">sum</span>(v <span class="sc">*</span> v)) <span class="sc">*</span> v</span>
+<span id="cb335-10"><a href="apêndice.html#cb335-10" tabindex="-1"></a></span>
+<span id="cb335-11"><a href="apêndice.html#cb335-11" tabindex="-1"></a><span class="co"># Create a data frame for plotting</span></span>
+<span id="cb335-12"><a href="apêndice.html#cb335-12" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb335-13"><a href="apêndice.html#cb335-13" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, u[<span class="dv">1</span>], <span class="dv">0</span>, v[<span class="dv">1</span>], <span class="dv">0</span>, proj_v_u[<span class="dv">1</span>]),</span>
+<span id="cb335-14"><a href="apêndice.html#cb335-14" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, u[<span class="dv">2</span>], <span class="dv">0</span>, v[<span class="dv">2</span>], <span class="dv">0</span>, proj_v_u[<span class="dv">2</span>]),</span>
+<span id="cb335-15"><a href="apêndice.html#cb335-15" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;u&quot;</span>, <span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;v&quot;</span>, <span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;Projection&quot;</span>)</span>
+<span id="cb335-16"><a href="apêndice.html#cb335-16" tabindex="-1"></a>)</span>
+<span id="cb335-17"><a href="apêndice.html#cb335-17" tabindex="-1"></a></span>
+<span id="cb335-18"><a href="apêndice.html#cb335-18" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb335-19"><a href="apêndice.html#cb335-19" tabindex="-1"></a><span class="fu">ggplot</span>(data) <span class="sc">+</span></span>
+<span id="cb335-20"><a href="apêndice.html#cb335-20" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">1</span>], <span class="at">y =</span> y[<span class="dv">1</span>], <span class="at">xend =</span> x[<span class="dv">2</span>], <span class="at">yend =</span> y[<span class="dv">2</span>]), <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&quot;cm&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb335-21"><a href="apêndice.html#cb335-21" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">3</span>], <span class="at">y =</span> y[<span class="dv">3</span>], <span class="at">xend =</span> x[<span class="dv">4</span>], <span class="at">yend =</span> y[<span class="dv">4</span>]), <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&quot;cm&quot;</span>)), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb335-22"><a href="apêndice.html#cb335-22" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[<span class="dv">5</span>], <span class="at">y =</span> y[<span class="dv">5</span>], <span class="at">xend =</span> x[<span class="dv">6</span>], <span class="at">yend =</span> y[<span class="dv">6</span>]), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb335-23"><a href="apêndice.html#cb335-23" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> u[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> u[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;u&quot;</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb335-24"><a href="apêndice.html#cb335-24" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> v[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> v[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;v&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb335-25"><a href="apêndice.html#cb335-25" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> proj_v_u[<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.5</span>, <span class="at">y =</span> proj_v_u[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;proj_v_u&quot;</span>, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>) <span class="sc">+</span></span>
+<span id="cb335-26"><a href="apêndice.html#cb335-26" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fu">max</span>(u[<span class="dv">1</span>], v[<span class="dv">1</span>], proj_v_u[<span class="dv">1</span>]) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb335-27"><a href="apêndice.html#cb335-27" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="fu">max</span>(u[<span class="dv">2</span>], v[<span class="dv">2</span>], proj_v_u[<span class="dv">2</span>]) <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb335-28"><a href="apêndice.html#cb335-28" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb335-29"><a href="apêndice.html#cb335-29" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Projection of Vector u onto Vector v&quot;</span>,</span>
+<span id="cb335-30"><a href="apêndice.html#cb335-30" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;X-axis&quot;</span>,</span>
+<span id="cb335-31"><a href="apêndice.html#cb335-31" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Y-axis&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in geom_segment(aes(x = x[1], y = y[1], xend = x[2], yend = y[2]), : All aesthetics have length 1, but the data has 6 rows.
 ## ℹ Please consider using `annotate()` or provide this layer with data
 ##   containing a single row.</code></pre>
@@ -498,22 +496,22 @@ Para ajudar na reproducibilidade, uso o pacote <strong>here</strong> para não v
 </div>
 <div id="econometria-de-série-de-tempo" class="section level2 hasAnchor" number="14.7">
 <h2><span class="header-section-number">14.7</span> Econometria de série de tempo<a href="#econometria-de-s%C3%A9rie-de-tempo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Uma série de tempo é caracterizada por um vetor do tipo <span class="math inline">\(\{y_t, y_{t+1}, y_{t+2}, \cdot + t_{t+k}\}\)</span>. Em uma análise de corte transversal, nós tipicamente assumimos que a amostra era aleatória e iid. Aqui, essa suposição não é plausível devido à provável correlação temporal. A razão pela qual assumimos iid é porque precisamos alguma forma de constância para que possamos aprender algo sobre a nossa variável. Se o passado não se assemelhar ao futuro, nada poderá ser aprendido.</p>
-<p>Tipicamente, a constância assumida é estacionariedade. Ela implica que a dsitribuição de <span class="math inline">\(y_t\)</span> é estável ao longo do tempo. Em particular, que a distribuição de <span class="math inline">\(y_t\)</span> é independente de <span class="math inline">\(t\)</span>. Isso vai implicar que a média de <span class="math inline">\(y\)</span> não depende de <span class="math inline">\(t\)</span>, bem como a variância.</p>
+<p>Uma série de tempo é caracterizada por um vetor do tipo <span class="math inline">\(\{y_t, y_{t+1}, y_{t+2}, \dots + t_{t+k}\}\)</span>. Em uma análise de corte transversal, nós tipicamente assumimos que a amostra era aleatória e iid. Aqui, essa suposição não é plausível devido à provável correlação temporal. A razão pela qual assumimos iid é porque precisamos de alguma forma de constância para que possamos aprender algo sobre a nossa variável. Se o passado não se assemelhar ao futuro, nada poderá ser aprendido.</p>
+<p>Tipicamente, a constância assumida é estacionariedade. Ela implica que a distribuição de <span class="math inline">\(y_t\)</span> é estável ao longo do tempo. Em particular, que a distribuição de <span class="math inline">\(y_t\)</span> é independente de <span class="math inline">\(t\)</span>. Isso vai implicar que a média de <span class="math inline">\(y\)</span> não depende de <span class="math inline">\(t\)</span>, bem como a variância.</p>
 <div id="modelos-básicos" class="section level3 hasAnchor" number="14.7.1">
 <h3><span class="header-section-number">14.7.1</span> Modelos básicos<a href="#modelos-b%C3%A1sicos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O modelo mais básico de série de tempo é do tipo:</p>
 <p><span class="math display">\[
 y_t = \mu + e_t + \theta e_{t-1}
 \]</span>
-Nesse modelo, vemos que o <span class="math inline">\(y\)</span> do presente depende do erro presente e do erro do passado imediato. Nós dizemos que o termo de erro segue uma <em>Moving Average</em> de ordem 1, denotado por <span class="math inline">\(MA(1)\)</span>. O termo Média Móvel vem do fato de que o <span class="math inline">\(y_t\)</span> é uma média ponderada dos erros <span class="math inline">\(t\)</span> e <span class="math inline">\(t-1\)</span>. Tipicamente assumimos que o termo de erro <span class="math inline">\(e_t\)</span> possui <span class="math inline">\(\mathbb{E}[e_t] = 0\)</span> e varância igual a <span class="math inline">\(\sigma^2\)</span>, ou seja, <span class="math inline">\(e_t \sim N(0, \sigma^2)\)</span>. Esse erro é chamado de ruído branco, para indicar que não possui sinal.</p>
+Nesse modelo, vemos que o <span class="math inline">\(y\)</span> do presente depende do erro presente e do erro do passado imediato. Nós dizemos que o termo de erro segue uma <em>Moving Average</em> de ordem 1, denotado por <span class="math inline">\(MA(1)\)</span>. O termo Média Móvel vem do fato de que o <span class="math inline">\(y_t\)</span> é uma média ponderada dos erros <span class="math inline">\(t\)</span> e <span class="math inline">\(t-1\)</span>. Tipicamente assumimos que o termo de erro <span class="math inline">\(e_t\)</span> possui <span class="math inline">\(\mathbb{E}[e_t] = 0\)</span> e variância igual a <span class="math inline">\(\sigma^2\)</span>, ou seja, <span class="math inline">\(e_t \sim N(0, \sigma^2)\)</span>. Esse erro é chamado de ruído branco, para indicar que não possui sinal.</p>
 <p>Vamos agora provar alguns fatos.
 Variância de <span class="math inline">\(y_t\)</span></p>
 <p><span class="math display">\[\begin{align*}
 Var(y_t) = Var(\mu + e_t + \theta e_{t-1}) \\
 \text{como } \mu \text{ é constante, não altera a variância} \\
 Var(y_t) = Var(e_t + \theta e_{t-1}) \\
-Var(y_t) = Var(e_t) + Var(\theta e_{t-1}) \text{, usando que o erro é idd} \\
+Var(y_t) = Var(e_t) + Var(\theta e_{t-1}) \text{, usando que o erro é iid} \\
 Var(y_t) = Var(e_t) + \theta^2 Var(e_{t-1}) \\
 Var(y_t) = \sigma^2 + \theta^2 \sigma^2 \\
 Var(y_t) = \sigma^2(1 + \theta^2 ) \\
@@ -537,7 +535,7 @@ cor(y_t, y_{t-1}) = \frac{\theta \sigma^2}{\sigma^2(1 + \theta^2 )} \\
 cor(y_t, y_{t-1}) = \frac{\theta}{(1 + \theta^2 )} \\
 \end{align*}\]</span></p>
 <p>E também é possível mostrar que a correlação de ordem maior que 1 é zero.</p>
-<p>Em geral, precisamos especificar o que acontece no primeiro período da série, e tipicamente estabelecemso algo como <span class="math inline">\(y_{t0} = y_0\)</span>. Vale escrever a equação acima com o termo de erro do lado direito e notar que existe auto-correlação serial:</p>
+<p>Em geral, precisamos especificar o que acontece no primeiro período da série, e tipicamente estabelecemos algo como <span class="math inline">\(y_{t0} = y_0\)</span>. Vale escrever a equação acima com o termo de erro do lado direito e notar que existe autocorrelação serial:</p>
 <p><span class="math display">\[\begin{align}
 y_{t} = \mu + e_{t} + \theta e_{t-1} \\
 e_{t} =  \theta e_{t-1} - y_{t}  \\
@@ -547,7 +545,7 @@ e_{t+1} =  \theta e_{t} - y_{t+1}  \\
 e_{t+1} =  \theta (\theta e_{t-1} - y_{t}) - y_{t+1}  \\
 e_{t+1} =  \theta \theta e_{t-1} - \theta y_{t} - y_{t+1}  \\
 \end{align}\]</span></p>
-<p>De maneira geral, temos que o erro em <span class="math inline">\(t\)</span> possui correlação com o erro em <span class="math inline">\(t-1\)</span> dada por <span class="math inline">\(theta\)</span> e para <span class="math inline">\(t-2\)</span> com <span class="math inline">\(\theta^2\)</span> e assim por diante para períodos maiores. Isso é o que configura a correlação serial de um processo <span class="math inline">\(AR(1)\)</span>.</p>
+<p>De maneira geral, temos que o erro em <span class="math inline">\(t\)</span> possui correlação com o erro em <span class="math inline">\(t-1\)</span> dada por <span class="math inline">\(\theta\)</span> e para <span class="math inline">\(t-2\)</span> com <span class="math inline">\(\theta^2\)</span> e assim por diante para períodos maiores. Isso é o que configura a correlação serial de um processo <span class="math inline">\(AR(1)\)</span>.</p>
 <p>Vejamos um exemplo rápido no R.</p>
 <p><img src="bookdownproj_files/figure-html/white-noise-1.png" width="900" style="display: block; margin: auto;" /><img src="bookdownproj_files/figure-html/white-noise-2.png" width="900" style="display: block; margin: auto;" /></p>
 </div>
@@ -557,95 +555,40 @@ e_{t+1} =  \theta \theta e_{t-1} - \theta y_{t} - y_{t+1}  \\
 <p><span class="math display">\[
 y_t = \alpha_0 + \alpha_1 y_{t-1} + e_t
 \]</span></p>
-<pre><code>## Don&#39;t know how to automatically pick scale for object of type &lt;ts&gt;.
-## Defaulting to continuous.</code></pre>
 <p><img src="bookdownproj_files/figure-html/AR1-1.png" width="900" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] 0.499343</code></pre>
-<pre><code>## Don&#39;t know how to automatically pick scale for object of type &lt;ts&gt;.
-## Defaulting to continuous.</code></pre>
 <p><img src="bookdownproj_files/figure-html/AR1-2.png" width="900" style="display: block; margin: auto;" /></p>
 <p>Um modelo que combina um AR de ordem <span class="math inline">\(p\)</span> com MA de ordem <span class="math inline">\(q\)</span> é chamado de <span class="math inline">\(ARMA(p,q)\)</span>.</p>
 </div>
-</div>
-<div id="erro-como-ar-ou-ma" class="section level2 hasAnchor" number="14.8">
-<h2><span class="header-section-number">14.8</span> Erro como AR ou MA<a href="apêndice.html#erro-como-ar-ou-ma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Os modelos acima consideram que o <span class="math inline">\(y\)</span> segue um AR ou MA. Mas podemos pensar que o erro segue um AR ou MA. Quais as consequências? Tipicamente, o estimador continua não-viesado (se for exógeno aos erros em todos os períodos de tempo) e consistente, mas se torna ineficiente (o erro padrão está errado).</p>
-<p>Por exemplo, suponha que o modelo correto é:</p>
-<p><span class="math display">\[
-y_t = \alpha + beta x_t + et, e_t = \mu_t + \theta \mu_{t-1}
-\]</span>
-Vamos rodar uma simulação e ver como fica:</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="apêndice.html#cb348-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb348-2"><a href="apêndice.html#cb348-2" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb348-3"><a href="apêndice.html#cb348-3" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
-<span id="cb348-4"><a href="apêndice.html#cb348-4" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
-<span id="cb348-5"><a href="apêndice.html#cb348-5" tabindex="-1"></a><span class="co"># parâmetros</span></span>
-<span id="cb348-6"><a href="apêndice.html#cb348-6" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
-<span id="cb348-7"><a href="apêndice.html#cb348-7" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">500</span></span>
-<span id="cb348-8"><a href="apêndice.html#cb348-8" tabindex="-1"></a>cover_c <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
-<span id="cb348-9"><a href="apêndice.html#cb348-9" tabindex="-1"></a>cover_hac <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
-<span id="cb348-10"><a href="apêndice.html#cb348-10" tabindex="-1"></a>cover_hc <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
-<span id="cb348-11"><a href="apêndice.html#cb348-11" tabindex="-1"></a>beta_true <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb348-12"><a href="apêndice.html#cb348-12" tabindex="-1"></a></span>
-<span id="cb348-13"><a href="apêndice.html#cb348-13" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R) {</span>
-<span id="cb348-14"><a href="apêndice.html#cb348-14" tabindex="-1"></a>  eps <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> N, <span class="at">model =</span> <span class="fu">list</span>(<span class="at">ma =</span> <span class="fl">0.8</span>))</span>
-<span id="cb348-15"><a href="apêndice.html#cb348-15" tabindex="-1"></a>  X <span class="ot">&lt;-</span>  <span class="fu">arima.sim</span>(<span class="at">n =</span> N, <span class="at">model =</span> <span class="fu">list</span>(<span class="at">ar =</span> <span class="fl">0.5</span>))</span>
-<span id="cb348-16"><a href="apêndice.html#cb348-16" tabindex="-1"></a>  Y <span class="ot">&lt;-</span> beta_true<span class="sc">*</span> X <span class="sc">+</span> eps</span>
-<span id="cb348-17"><a href="apêndice.html#cb348-17" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X)</span>
-<span id="cb348-18"><a href="apêndice.html#cb348-18" tabindex="-1"></a>  </span>
-<span id="cb348-19"><a href="apêndice.html#cb348-19" tabindex="-1"></a>  se_c <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>coef[<span class="dv">2</span>,<span class="dv">2</span>]</span>
-<span id="cb348-20"><a href="apêndice.html#cb348-20" tabindex="-1"></a>  b1   <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit)[<span class="dv">2</span>]</span>
-<span id="cb348-21"><a href="apêndice.html#cb348-21" tabindex="-1"></a>  ci_c <span class="ot">&lt;-</span> b1 <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> se_c</span>
-<span id="cb348-22"><a href="apêndice.html#cb348-22" tabindex="-1"></a>  cover_c[i] <span class="ot">&lt;-</span> (beta_true <span class="sc">&gt;=</span> ci_c[<span class="dv">1</span>] <span class="sc">&amp;&amp;</span> beta_true <span class="sc">&lt;=</span> ci_c[<span class="dv">2</span>])</span>
-<span id="cb348-23"><a href="apêndice.html#cb348-23" tabindex="-1"></a>  </span>
-<span id="cb348-24"><a href="apêndice.html#cb348-24" tabindex="-1"></a>  </span>
-<span id="cb348-25"><a href="apêndice.html#cb348-25" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">model_parameters</span>(fit,</span>
-<span id="cb348-26"><a href="apêndice.html#cb348-26" tabindex="-1"></a>                   <span class="at">vcov =</span> <span class="st">&quot;HC3&quot;</span>)</span>
-<span id="cb348-27"><a href="apêndice.html#cb348-27" tabindex="-1"></a>  se_hc <span class="ot">&lt;-</span> results<span class="sc">$</span>SE[<span class="dv">2</span>]</span>
-<span id="cb348-28"><a href="apêndice.html#cb348-28" tabindex="-1"></a>  ci_hc <span class="ot">&lt;-</span> b1 <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> se_hc</span>
-<span id="cb348-29"><a href="apêndice.html#cb348-29" tabindex="-1"></a>  cover_hc[i] <span class="ot">&lt;-</span> (beta_true <span class="sc">&gt;=</span> ci_hc[<span class="dv">1</span>] <span class="sc">&amp;&amp;</span> beta_true <span class="sc">&lt;=</span> ci_hc[<span class="dv">2</span>])</span>
-<span id="cb348-30"><a href="apêndice.html#cb348-30" tabindex="-1"></a>  </span>
-<span id="cb348-31"><a href="apêndice.html#cb348-31" tabindex="-1"></a>  Vh <span class="ot">&lt;-</span> <span class="fu">NeweyWest</span>(fit, <span class="at">lag =</span> <span class="dv">3</span>, <span class="at">prewhite =</span> <span class="cn">FALSE</span>, <span class="at">adjust =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb348-32"><a href="apêndice.html#cb348-32" tabindex="-1"></a>  se_h <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(Vh))[<span class="dv">2</span>]</span>
-<span id="cb348-33"><a href="apêndice.html#cb348-33" tabindex="-1"></a>  ci_h <span class="ot">&lt;-</span> b1 <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> se_h</span>
-<span id="cb348-34"><a href="apêndice.html#cb348-34" tabindex="-1"></a>  cover_hac[i] <span class="ot">&lt;-</span> (beta_true <span class="sc">&gt;=</span> ci_h[<span class="dv">1</span>] <span class="sc">&amp;&amp;</span> beta_true <span class="sc">&lt;=</span> ci_h[<span class="dv">2</span>])</span>
-<span id="cb348-35"><a href="apêndice.html#cb348-35" tabindex="-1"></a>}</span>
-<span id="cb348-36"><a href="apêndice.html#cb348-36" tabindex="-1"></a></span>
-<span id="cb348-37"><a href="apêndice.html#cb348-37" tabindex="-1"></a><span class="fu">mean</span>(cover_c)</span></code></pre></div>
-<pre><code>## [1] 0.8876</code></pre>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="apêndice.html#cb350-1" tabindex="-1"></a><span class="fu">mean</span>(cover_hc)</span></code></pre></div>
-<pre><code>## [1] 0.8876</code></pre>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="apêndice.html#cb352-1" tabindex="-1"></a><span class="fu">mean</span>(cover_hac)</span></code></pre></div>
-<pre><code>## [1] 0.9292</code></pre>
-<div id="tscs" class="section level3 hasAnchor" number="14.8.1">
-<h3><span class="header-section-number">14.8.1</span> TSCS<a href="apêndice.html#tscs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="tscs" class="section level3 hasAnchor" number="14.7.3">
+<h3><span class="header-section-number">14.7.3</span> TSCS<a href="apêndice.html#tscs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>É raro que em ciência política analisamos um modelo de série de tempo sem preditores e para uma única unidade. Em geral, temos vários preditores e várias unidades. Esses dados são chamados em ciência política de Série de Tempo com Corte Tranversal, tipicamente abreviados em inglês para TSCS (Time Series Cross Section). Em economia esses dados são chamados de painel. Na epidemiologia, são dados longitudinais.</p>
 <p>A forma básica desses dados requer que tenhamos medidas das mesmas unidades <span class="math inline">\(i\)</span> ao longo de vários períodos de tempo <span class="math inline">\(t\)</span>.</p>
 </div>
-<div id="modelo-estático-e-dinâmico" class="section level3 hasAnchor" number="14.8.2">
-<h3><span class="header-section-number">14.8.2</span> Modelo estático e dinâmico<a href="#modelo-est%C3%A1tico-e-din%C3%A2mico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Esses modelos podem ser estáticos ou dinâmicos. Modelos estáticos incluem apenas relações contemporâneas (no mesmo período de tempo) entre variáveis. Esse tipo de de modelo é apropriado quando um preditor ou múiltiplos preditores produzem mudanças instantâneas (no período considerado). Uma equação típica seria:</p>
+<div id="modelo-estático-e-dinâmico" class="section level3 hasAnchor" number="14.7.4">
+<h3><span class="header-section-number">14.7.4</span> Modelo estático e dinâmico<a href="#modelo-est%C3%A1tico-e-din%C3%A2mico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Esses modelos podem ser estáticos ou dinâmicos. Modelos estáticos incluem apenas relações contemporâneas (no mesmo período de tempo) entre variáveis. Esse tipo de modelo é apropriado quando um preditor ou múltiplos preditores produzem mudanças instantâneas (no período considerado). Uma equação típica seria:</p>
 <p><span class="math display">\[
 y_{it} = \alpha + \beta_1x_{1it} + \beta_2x_{2it} + \cdots + \beta_px_{pit} + e_{it}
 \]</span></p>
-<p>Já um modelo dinâmico captura relação entre valores correntes e defasados (lagged) dos preditores com a resposta. Um exemplo simples com <span class="math inline">\(m\)</span> termos defasados seria:</p>
+<p>Já um modelo dinâmico captura relação entre os valores correntes e defasados (lagged) dos preditores e a variável resposta. Um exemplo simples com <span class="math inline">\(m\)</span> termos defasados seria:</p>
 <p><span class="math display">\[
 y_{it} = \alpha + \beta_1x_{1it} + \beta_2x_{2it-1} + \cdots + \beta_2x_{2it-m} e_{it}
 \]</span></p>
 <p>Esses modelos trazem a complicação adicional de que temos de considerar possibilidade de termos um componente autoregresivo ou de média móvel na dimensão temporal, como vimos acima. E isso altera as condições para que um estimador não seja viesado.</p>
 <p>Não temos tempo de aprofundar isso aqui, mas eu quero pelo menos introduzir o principal tipo de modelo que é utilizado, que é o chamado modelo de efeitos fixos.</p>
 </div>
-<div id="efeitos-fixos" class="section level3 hasAnchor" number="14.8.3">
-<h3><span class="header-section-number">14.8.3</span> Efeitos Fixos<a href="apêndice.html#efeitos-fixos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="efeitos-fixos" class="section level3 hasAnchor" number="14.7.5">
+<h3><span class="header-section-number">14.7.5</span> Efeitos Fixos<a href="apêndice.html#efeitos-fixos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Vamos supor que queremos medir o efeito do número efetivo de partidos sobre percentual de mulheres eleitas. Podemos esperar que quanto maior a fragmentação partidária, mais difícil mulheres serem eleitas. Um problema de uma regressão com fragmentação partidária e percentual de mulheres eleitas, do ponto de vista causal, é que podemos ter viés de seleção. Por exemplo, pode acontecer de estados que no passado tiveram mais mobilização feminista tenha menos partidos e também eleja mais mulheres. Vamos chamar essa variável de <span class="math inline">\(U\)</span>, para indicar que é não observada (unobserved, em inglês).</p>
 <p><span class="math display">\[
 y_{it} = \alpha + \beta x_{it} + u_i + e_{it}
 \]</span>
-Em que <span class="math inline">\(x_t\)</span> é o número de partido (ou alguma medida de fragmentação partidária) em <span class="math inline">\(t\)</span>, e <span class="math inline">\(u_i\)</span> é a presença ou não de mobilização feminista no passado (pré período <span class="math inline">\(t\)</span>).</p>
+Em que <span class="math inline">\(x_t\)</span> é o número de partido (ou alguma medida de fragmentação partidária) em <span class="math inline">\(t\)</span>, e <span class="math inline">\(u_i\)</span> é a presença ou não de mobilização feminista no passado (pré-período <span class="math inline">\(t\)</span>).</p>
 <p>Considere que temos dois períodos, <span class="math inline">\(1\)</span> e <span class="math inline">\(2\)</span>. Temos então uma equação de regressão para cada período.</p>
 <p>A ideia do modelo de efeitos fixos é simplesmente rodar uma regressão em que computamos a média de todas as variáveis do modelo e subtraímos essa média. Formalmente:</p>
 <p><span class="math display">\[\begin{align}
-\text{Sejam } \bar{y}_i = \frac{y_{i1} + y_{i2}}{2}, \bar{x}_i = \frac{x_{i1} + x_{i2}}{2}, \bar{u}_i = \frac{u_{i} + u_{i}}{2} = u_i \text{ e } \bar{e}_i = \frac{e_{i1} + e_{i2}}{2} \text{ as médias no tempo para cada invíduo de cada variável} \\
+\text{Sejam } \bar{y}_i = \frac{y_{i1} + y_{i2}}{2}, \bar{x}_i = \frac{x_{i1} + x_{i2}}{2}, \bar{u}_i = \frac{u_{i} + u_{i}}{2} = u_i \text{ e } \bar{e}_i = \frac{e_{i1} + e_{i2}}{2} \text{ as médias no tempo para cada indivíduo de cada variável} \\
 \end{align}\]</span></p>
 <p>Obtemos assim uma equação de regressão alternativa com a média:
 <span class="math display">\[
@@ -661,30 +604,89 @@ y_{it} - \bar{y}_i = \alpha - \alpha + \beta x_{it} - \bar{x}_i + u_i  -\bar{u_i
 y_{i, 2} - y_{i,1} = \alpha - \alpha + \beta x_{i,2} - \beta x_{i,1} + u_i  -u_i + e_{i,2} - e_{i,1} &amp;= \\
 \beta  x_{i,2} - x_{i,1} + e_{i,2} - e_{i,1}
 \end{align}\]</span></p>
-<p>Isso significa que conseguimos eliminar a variável de confusão não-observada que gerava viés de seleção, efetivamente controlando para ela. Para isso, precisamos subtrair a média de cada variável, ou, equivalentemente, computar a primeira diferença.</p>
-<p>Note que calculamos a média para cada indivíduo. Poderíamos ter também calculado a média para cada período de tempo. Nesse caso, teríamos o chamado efeito fixo de tempo. Quando usamos os dois efeitos fixos (de tempo e unidade), tempos o chamado “two-way fixed effects”. E no caso de dois períodos é equivalente ao método conhecido como diferença-em-diferenças.</p>
-<p>O ponto fundamental desse método é que ele elimina confoudings de efeitos invariantes no tempo por unidade e efeitos comuns a todas as unidades no tempo (invariantes por unidade).</p>
+<p>Isso significa que conseguimos eliminar a variável de confusão não observada que gerava viés de seleção, efetivamente controlando para ela. Para isso, precisamos subtrair a média de cada variável, ou, equivalentemente, computar a primeira diferença.</p>
+<p>Note que calculamos a média para cada indivíduo. Poderíamos ter também calculado a média para cada período de tempo. Nesse caso, teríamos o chamado efeito fixo de tempo. Quando usamos os dois efeitos fixos (de tempo e unidade), temos o chamado “two-way fixed effects”. E no caso de dois períodos é equivalente ao método conhecido como diferença-em-diferenças.</p>
+<p>O ponto fundamental desse método é que ele elimina confoundings de efeitos invariantes no tempo por unidade e efeitos comuns a todas as unidades no tempo (invariantes por unidade).</p>
+</div>
+<div id="erro-como-ar-ou-ma" class="section level3 hasAnchor" number="14.7.6">
+<h3><span class="header-section-number">14.7.6</span> Erro como AR ou MA<a href="apêndice.html#erro-como-ar-ou-ma" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Os modelos de série de tempo anteriores consideram que o <span class="math inline">\(y\)</span> segue um AR ou MA. Mas podemos pensar que o erro segue um AR ou MA. Quais as consequências? Tipicamente, o estimador continua não-viesado (se for exógeno aos erros em todos os períodos de tempo) e consistente, mas se torna ineficiente (o erro padrão está errado).</p>
+<p>Por exemplo, suponha que o modelo correto é:</p>
+<p><span class="math display">\[
+y_t = \alpha + \beta x_t + et, e_t = \mu_t + \theta \mu_{t-1}
+\]</span></p>
+<p>Se houver autocorrelação temporal no termo de erro, em geral é necessário calcular um erro padrão corrigido para autocorrelação. O mais usado, Newey-West entra na categoria HAC, Heterocedasticity-Autocorrelation-Consistent.</p>
+<p>Quando tenhos dados em formato TSCS <span class="math inline">\(y_{it} = \alpha + \beta x_{it} + e{it}, e_{it} = \mu_{it} + \theta \mu_{i,t-1}\)</span>, a sugestão é usar outros erros padrão HAC, como Driscoll-Kraay e Panel-Corrected SE (de Beck–Katz). E soluções como correção de Prais–Winsten AR(1).</p>
+<p>Driscoll-Kraay é uma generalização do Newey-West para dados de painel, mas requer um T grande (idealmente mais que 30, mas já vi usando em T = 20). Inclui correlação entre unidade (além de no tempo).</p>
+<p>Correção de Prais–Winsten AR(1) envolve remover o termo de erro AR(1) da equação, em vez de ajustar o erro padrão. O procedimento é calcular a primeira diferença nas VDs e VIs.</p>
+<p>PCSE foi introduzido pelos cientistas políticos Beck e Katz. Desenvolvido para T grande e N pequeno (ex. países da OCDE por 50 anos). Modela correlação entre unidades, mas não serial (ou corrigida com Prais-Winsten).</p>
+<p>Artigos em journals top internacionais usam o erro padrão apropriado. Em revistas brasileiras, ainda é comum trabalhos usarem apenas erro padrão robusto (HC) em vez de HAC.</p>
+<p>Vamos rodar uma simulação e ver como fica:</p>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="apêndice.html#cb340-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb340-2"><a href="apêndice.html#cb340-2" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb340-3"><a href="apêndice.html#cb340-3" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb340-4"><a href="apêndice.html#cb340-4" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb340-5"><a href="apêndice.html#cb340-5" tabindex="-1"></a><span class="co"># parâmetros</span></span>
+<span id="cb340-6"><a href="apêndice.html#cb340-6" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
+<span id="cb340-7"><a href="apêndice.html#cb340-7" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb340-8"><a href="apêndice.html#cb340-8" tabindex="-1"></a>cover_c <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb340-9"><a href="apêndice.html#cb340-9" tabindex="-1"></a>cover_hac <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb340-10"><a href="apêndice.html#cb340-10" tabindex="-1"></a>cover_hc <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb340-11"><a href="apêndice.html#cb340-11" tabindex="-1"></a>beta_true <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb340-12"><a href="apêndice.html#cb340-12" tabindex="-1"></a></span>
+<span id="cb340-13"><a href="apêndice.html#cb340-13" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R) {</span>
+<span id="cb340-14"><a href="apêndice.html#cb340-14" tabindex="-1"></a>  eps <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> N, <span class="at">model =</span> <span class="fu">list</span>(<span class="at">ma =</span> <span class="fl">0.8</span>))</span>
+<span id="cb340-15"><a href="apêndice.html#cb340-15" tabindex="-1"></a>  X <span class="ot">&lt;-</span>  <span class="fu">arima.sim</span>(<span class="at">n =</span> N, <span class="at">model =</span> <span class="fu">list</span>(<span class="at">ar =</span> <span class="fl">0.5</span>))</span>
+<span id="cb340-16"><a href="apêndice.html#cb340-16" tabindex="-1"></a>  Y <span class="ot">&lt;-</span> beta_true<span class="sc">*</span> X <span class="sc">+</span> eps</span>
+<span id="cb340-17"><a href="apêndice.html#cb340-17" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X)</span>
+<span id="cb340-18"><a href="apêndice.html#cb340-18" tabindex="-1"></a>  </span>
+<span id="cb340-19"><a href="apêndice.html#cb340-19" tabindex="-1"></a>  se_c <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>coef[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb340-20"><a href="apêndice.html#cb340-20" tabindex="-1"></a>  b1   <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit)[<span class="dv">2</span>]</span>
+<span id="cb340-21"><a href="apêndice.html#cb340-21" tabindex="-1"></a>  ci_c <span class="ot">&lt;-</span> b1 <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> se_c</span>
+<span id="cb340-22"><a href="apêndice.html#cb340-22" tabindex="-1"></a>  cover_c[i] <span class="ot">&lt;-</span> (beta_true <span class="sc">&gt;=</span> ci_c[<span class="dv">1</span>] <span class="sc">&amp;&amp;</span> beta_true <span class="sc">&lt;=</span> ci_c[<span class="dv">2</span>])</span>
+<span id="cb340-23"><a href="apêndice.html#cb340-23" tabindex="-1"></a>  </span>
+<span id="cb340-24"><a href="apêndice.html#cb340-24" tabindex="-1"></a>  </span>
+<span id="cb340-25"><a href="apêndice.html#cb340-25" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">model_parameters</span>(fit,</span>
+<span id="cb340-26"><a href="apêndice.html#cb340-26" tabindex="-1"></a>                   <span class="at">vcov =</span> <span class="st">&quot;HC3&quot;</span>)</span>
+<span id="cb340-27"><a href="apêndice.html#cb340-27" tabindex="-1"></a>  se_hc <span class="ot">&lt;-</span> results<span class="sc">$</span>SE[<span class="dv">2</span>]</span>
+<span id="cb340-28"><a href="apêndice.html#cb340-28" tabindex="-1"></a>  ci_hc <span class="ot">&lt;-</span> b1 <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> se_hc</span>
+<span id="cb340-29"><a href="apêndice.html#cb340-29" tabindex="-1"></a>  cover_hc[i] <span class="ot">&lt;-</span> (beta_true <span class="sc">&gt;=</span> ci_hc[<span class="dv">1</span>] <span class="sc">&amp;&amp;</span> beta_true <span class="sc">&lt;=</span> ci_hc[<span class="dv">2</span>])</span>
+<span id="cb340-30"><a href="apêndice.html#cb340-30" tabindex="-1"></a>  </span>
+<span id="cb340-31"><a href="apêndice.html#cb340-31" tabindex="-1"></a>  Vh <span class="ot">&lt;-</span> <span class="fu">NeweyWest</span>(fit, <span class="at">lag =</span> <span class="dv">3</span>, <span class="at">prewhite =</span> <span class="cn">FALSE</span>, <span class="at">adjust =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb340-32"><a href="apêndice.html#cb340-32" tabindex="-1"></a>  se_h <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(Vh))[<span class="dv">2</span>]</span>
+<span id="cb340-33"><a href="apêndice.html#cb340-33" tabindex="-1"></a>  ci_h <span class="ot">&lt;-</span> b1 <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> N <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> se_h</span>
+<span id="cb340-34"><a href="apêndice.html#cb340-34" tabindex="-1"></a>  cover_hac[i] <span class="ot">&lt;-</span> (beta_true <span class="sc">&gt;=</span> ci_h[<span class="dv">1</span>] <span class="sc">&amp;&amp;</span> beta_true <span class="sc">&lt;=</span> ci_h[<span class="dv">2</span>])</span>
+<span id="cb340-35"><a href="apêndice.html#cb340-35" tabindex="-1"></a>}</span>
+<span id="cb340-36"><a href="apêndice.html#cb340-36" tabindex="-1"></a></span>
+<span id="cb340-37"><a href="apêndice.html#cb340-37" tabindex="-1"></a><span class="fu">mean</span>(cover_c)</span></code></pre></div>
+<pre><code>## [1] 0.8876</code></pre>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="apêndice.html#cb342-1" tabindex="-1"></a><span class="fu">mean</span>(cover_hc)</span></code></pre></div>
+<pre><code>## [1] 0.8876</code></pre>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="apêndice.html#cb344-1" tabindex="-1"></a><span class="fu">mean</span>(cover_hac)</span></code></pre></div>
+<pre><code>## [1] 0.9292</code></pre>
+<p>Referência útil sobre erros padrão em um contexto de dados de painel (caso mais comum):</p>
+<p><a href="https://cran.r-project.org/web/packages/fixest/vignettes/standard_errors.html" class="uri">https://cran.r-project.org/web/packages/fixest/vignettes/standard_errors.html</a></p>
 </div>
 </div>
-<div id="dados-espaciais" class="section level2 hasAnchor" number="14.9">
-<h2><span class="header-section-number">14.9</span> Dados Espaciais<a href="apêndice.html#dados-espaciais" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="dados-espaciais" class="section level2 hasAnchor" number="14.8">
+<h2><span class="header-section-number">14.8</span> Dados Espaciais<a href="apêndice.html#dados-espaciais" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Há dois tipos de dados espaciais diferentes que se traduzem em visualizações distintas. Em primeiro lugar, temos dados espaciais em pontos, que podem ser plotados como conjuntos de pontos em um mapa. Designam localizações específicas, como cidades ou quaisquer objetos discretos definidos em um espaço. E em segundo lugar, temos dados espaciais de polígonos, que representam uma sequência de pontos conectados espacialmente (em geral fronteiras) que formam um área.</p>
 <p>Dados em formato de polígonos usualmente são distribuídos na forma de shapefiles.</p>
-<div id="regressão-espacial" class="section level3 hasAnchor" number="14.9.1">
-<h3><span class="header-section-number">14.9.1</span> Regressão espacial<a href="#regress%C3%A3o-espacial" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="regressão-espacial" class="section level3 hasAnchor" number="14.8.1">
+<h3><span class="header-section-number">14.8.1</span> Regressão espacial<a href="#regress%C3%A3o-espacial" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Quando falamos de regressão espacial, tipicamente estamos tratando de dados espaciais em pontos, isto é, unidades que se localizam no espaço, como cidades, bairros ou distritos. E de maneira análoga ao que tratamos em série de tempo de que os dados podem ter autocorrelação temporal, também podem ter autocorrelação espacial.</p>
 <p>Só que, ao contrário do tempo, em que a direção de causalidade vai sempre do passado para o futuro, no caso espacial, unidades vizinhas podem causar umas as outras, de modo que a modelagem é mais complexa, o que impede-nos de aprofundar aqui no curso esse tópico.</p>
 <p>De todo modo, vale a pena apresentar dois modelos básicos:</p>
-<div id="spatial-lag-outcome-model" class="section level4 hasAnchor" number="14.9.1.1">
-<h4><span class="header-section-number">14.9.1.1</span> Spatial lag (Outcome) model<a href="apêndice.html#spatial-lag-outcome-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="spatial-lag-outcome-model" class="section level4 hasAnchor" number="14.8.1.1">
+<h4><span class="header-section-number">14.8.1.1</span> Spatial lag (Outcome) model<a href="apêndice.html#spatial-lag-outcome-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>O modelo espacial defasado tipicamente ocorre quando a variável resposta <span class="math inline">\(y\)</span> com aspecto espacial é incluída como preditor. Isso acontece quando queremos modelar algum processo de difusão ou contágio da variável resposta. Um exemplo comum em Relações Internacionais é o de estudos sobre o efeito de assinar tratados de proteção a investimento sobre o volume de investimento estrangeiro direto (IED). Se o país vizinho recebe mais investimento (por exemplo OpenAi decide construir um data-center na Argentina) isso impacta o volume de investimentos no Brasil e vice-versa.</p>
 </div>
-<div id="spatially-lagged-predictor-variable" class="section level4 hasAnchor" number="14.9.1.2">
-<h4><span class="header-section-number">14.9.1.2</span> Spatially lagged (predictor) variable<a href="apêndice.html#spatially-lagged-predictor-variable" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="spatially-lagged-predictor-variable" class="section level4 hasAnchor" number="14.8.1.2">
+<h4><span class="header-section-number">14.8.1.2</span> Spatially lagged (predictor) variable<a href="apêndice.html#spatially-lagged-predictor-variable" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Aqui, estamos interessados na difusão ou spillover do tratamento. Considerando o exemplo acima, se um país vizinho assina um tratado de proteção a investimento isso impacta não apenas a atração de investimento no país, mas também no vizinho.</p>
 </div>
-<div id="spatial-error-model" class="section level4 hasAnchor" number="14.9.1.3">
-<h4><span class="header-section-number">14.9.1.3</span> Spatial error model<a href="apêndice.html#spatial-error-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="spatial-error-model" class="section level4 hasAnchor" number="14.8.1.3">
+<h4><span class="header-section-number">14.8.1.3</span> Spatial error model<a href="apêndice.html#spatial-error-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Por fim, também podemos concluir que variáveis não observadas podem induzir difusão ou contágio, de modo que o termo de erro terá um cumponente espacial.</p>
 <p>A especificação da regressão para cada tipo de modelo (ou uma combinação de um ou mais tipos pode ser feita) é dada por:</p>
 <ol style="list-style-type: decimal">
