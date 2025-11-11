@@ -117,7 +117,7 @@ teste-t
 teste-de-hipótese-e-ic
 propriedades-assintóticas
 inferência-preditiva
-regressao-multipla
+regressao-múltipla
 revisão-de-matriz-e-vetores
 modelo-básico
 modelo-com-matrizes
@@ -162,6 +162,7 @@ projeção-linear-2
 econometria-de-série-de-tempo
 modelos-básicos
 ar1
+erro-como-ar-ou-ma
 tscs
 modelo-estático-e-dinâmico
 efeitos-fixos

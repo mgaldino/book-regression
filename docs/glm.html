@@ -23,14 +23,14 @@
 <meta name="author" content="Manoel Galdino" />
 
 
-<meta name="date" content="2025-11-04" />
+<meta name="date" content="2025-11-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="regressao-multipla.html"/>
+<link rel="prev" href="regressao-múltipla.html"/>
 <link rel="next" href="apêndice.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -303,18 +303,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.4" data-path="13-GLM.html"><a href="#propriedades-assint%C3%B3ticas"><i class="fa fa-check"></i><b>11.4</b> Propriedades Assintóticas</a></li>
 <li class="chapter" data-level="11.5" data-path="13-GLM.html"><a href="#infer%C3%AAncia-preditiva"><i class="fa fa-check"></i><b>11.5</b> Inferência Preditiva</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="regressao-multipla.html"><a href="regressao-multipla.html"><i class="fa fa-check"></i><b>12</b> - Regressao Multipla</a>
+<li class="chapter" data-level="12" data-path="13-GLM.html"><a href="#regressao-m%C3%BAltipla"><i class="fa fa-check"></i><b>12</b> - Regressao Múltipla</a>
 <ul>
 <li class="chapter" data-level="12.1" data-path="13-GLM.html"><a href="#revis%C3%A3o-de-matriz-e-vetores"><i class="fa fa-check"></i><b>12.1</b> Revisão de Matriz e Vetores</a></li>
 <li class="chapter" data-level="12.2" data-path="13-GLM.html"><a href="#modelo-b%C3%A1sico"><i class="fa fa-check"></i><b>12.2</b> Modelo básico</a></li>
-<li class="chapter" data-level="12.3" data-path="regressao-multipla.html"><a href="regressao-multipla.html#modelo-com-matrizes"><i class="fa fa-check"></i><b>12.3</b> Modelo com matrizes</a>
+<li class="chapter" data-level="12.3" data-path="regressao-múltipla.html"><a href="regressao-múltipla.html"><i class="fa fa-check"></i><b>12.3</b> Modelo com matrizes</a>
 <ul>
-<li class="chapter" data-level="12.3.1" data-path="regressao-multipla.html"><a href="regressao-multipla.html#estimador-de-mqo"><i class="fa fa-check"></i><b>12.3.1</b> Estimador de MQO</a></li>
+<li class="chapter" data-level="12.3.1" data-path="regressao-múltipla.html"><a href="regressao-múltipla.html#estimador-de-mqo"><i class="fa fa-check"></i><b>12.3.1</b> Estimador de MQO</a></li>
 </ul></li>
 <li class="chapter" data-level="12.4" data-path="13-GLM.html"><a href="#interpreta%C3%A7%C3%A3o-dos-coeficientes"><i class="fa fa-check"></i><b>12.4</b> Interpretação dos coeficientes</a></li>
 <li class="chapter" data-level="12.5" data-path="13-GLM.html"><a href="#regress%C3%A3o-m%C3%BAltipla-versus-m%C3%BAltiplas-regress%C3%B5es-separadas-ou-vi%C3%A9s-de-vari%C3%A1vel-omitida"><i class="fa fa-check"></i><b>12.5</b> Regressão múltipla versus Múltiplas Regressões Separadas ou Viés de variável omitida</a></li>
 <li class="chapter" data-level="12.6" data-path="13-GLM.html"><a href="#matriz-chap%C3%A9u"><i class="fa fa-check"></i><b>12.6</b> Matriz chapéu</a></li>
-<li class="chapter" data-level="12.7" data-path="regressao-multipla.html"><a href="regressao-multipla.html#multicolinearidade"><i class="fa fa-check"></i><b>12.7</b> Multicolinearidade</a></li>
+<li class="chapter" data-level="12.7" data-path="regressao-múltipla.html"><a href="regressao-múltipla.html#multicolinearidade"><i class="fa fa-check"></i><b>12.7</b> Multicolinearidade</a></li>
 <li class="chapter" data-level="12.8" data-path="13-GLM.html"><a href="#erro-padr%C3%A3o-robusto"><i class="fa fa-check"></i><b>12.8</b> Erro padrão Robusto</a>
 <ul>
 <li class="chapter" data-level="12.8.1" data-path="13-GLM.html"><a href="#entendendo-o-erro-padr%C3%A3o-robusto"><i class="fa fa-check"></i><b>12.8.1</b> Entendendo o erro padrão robusto</a></li>
@@ -366,13 +366,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="14.7.1" data-path="13-GLM.html"><a href="#modelos-b%C3%A1sicos"><i class="fa fa-check"></i><b>14.7.1</b> Modelos básicos</a></li>
 <li class="chapter" data-level="14.7.2" data-path="apêndice.html"><a href="apêndice.html#ar1"><i class="fa fa-check"></i><b>14.7.2</b> AR1</a></li>
-<li class="chapter" data-level="14.7.3" data-path="apêndice.html"><a href="apêndice.html#tscs"><i class="fa fa-check"></i><b>14.7.3</b> TSCS</a></li>
-<li class="chapter" data-level="14.7.4" data-path="13-GLM.html"><a href="#modelo-est%C3%A1tico-e-din%C3%A2mico"><i class="fa fa-check"></i><b>14.7.4</b> Modelo estático e dinâmico</a></li>
-<li class="chapter" data-level="14.7.5" data-path="apêndice.html"><a href="apêndice.html#efeitos-fixos"><i class="fa fa-check"></i><b>14.7.5</b> Efeitos Fixos</a></li>
 </ul></li>
-<li class="chapter" data-level="14.8" data-path="apêndice.html"><a href="apêndice.html#dados-espaciais"><i class="fa fa-check"></i><b>14.8</b> Dados Espaciais</a>
+<li class="chapter" data-level="14.8" data-path="apêndice.html"><a href="apêndice.html#erro-como-ar-ou-ma"><i class="fa fa-check"></i><b>14.8</b> Erro como AR ou MA</a>
 <ul>
-<li class="chapter" data-level="14.8.1" data-path="13-GLM.html"><a href="#regress%C3%A3o-espacial"><i class="fa fa-check"></i><b>14.8.1</b> Regressão espacial</a></li>
+<li class="chapter" data-level="14.8.1" data-path="apêndice.html"><a href="apêndice.html#tscs"><i class="fa fa-check"></i><b>14.8.1</b> TSCS</a></li>
+<li class="chapter" data-level="14.8.2" data-path="13-GLM.html"><a href="#modelo-est%C3%A1tico-e-din%C3%A2mico"><i class="fa fa-check"></i><b>14.8.2</b> Modelo estático e dinâmico</a></li>
+<li class="chapter" data-level="14.8.3" data-path="apêndice.html"><a href="apêndice.html#efeitos-fixos"><i class="fa fa-check"></i><b>14.8.3</b> Efeitos Fixos</a></li>
+</ul></li>
+<li class="chapter" data-level="14.9" data-path="apêndice.html"><a href="apêndice.html#dados-espaciais"><i class="fa fa-check"></i><b>14.9</b> Dados Espaciais</a>
+<ul>
+<li class="chapter" data-level="14.9.1" data-path="13-GLM.html"><a href="#regress%C3%A3o-espacial"><i class="fa fa-check"></i><b>14.9.1</b> Regressão espacial</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="teoremas.html"><a href="teoremas.html"><i class="fa fa-check"></i><b>15</b> - Teoremas</a>
@@ -491,57 +494,57 @@ f^{-1}(x) = \frac{1}{\exp(-x) + 1}\\
 f^{-1}(x) = \frac{1}{1 + \exp(-x)}\\
 \end{align}\]</span></p>
 <p>No R, podemos acessar as duas funções por meio de:</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="glm.html#cb304-1" tabindex="-1"></a>logit <span class="ot">&lt;-</span> qlogis</span>
-<span id="cb304-2"><a href="glm.html#cb304-2" tabindex="-1"></a>invlogit <span class="ot">&lt;-</span> plogis</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="glm.html#cb310-1" tabindex="-1"></a>logit <span class="ot">&lt;-</span> qlogis</span>
+<span id="cb310-2"><a href="glm.html#cb310-2" tabindex="-1"></a>invlogit <span class="ot">&lt;-</span> plogis</span></code></pre></div>
 <p>E podemos modelar os dados de uma logística com nosso exemplo do Latinobarômetro usando apenas um preditor, ideologia, para simplificar.</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="glm.html#cb305-1" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb305-2"><a href="glm.html#cb305-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb305-3"><a href="glm.html#cb305-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb305-4"><a href="glm.html#cb305-4" tabindex="-1"></a><span class="fu">library</span>(sjlabelled) <span class="co"># pra remover labelled variables</span></span>
-<span id="cb305-5"><a href="glm.html#cb305-5" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb305-6"><a href="glm.html#cb305-6" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb305-7"><a href="glm.html#cb305-7" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb305-8"><a href="glm.html#cb305-8" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb305-9"><a href="glm.html#cb305-9" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb305-10"><a href="glm.html#cb305-10" tabindex="-1"></a></span>
-<span id="cb305-11"><a href="glm.html#cb305-11" tabindex="-1"></a><span class="do">## dados</span></span>
-<span id="cb305-12"><a href="glm.html#cb305-12" tabindex="-1"></a><span class="co"># https://www.latinobarometro.org/latContents.jsp</span></span>
-<span id="cb305-13"><a href="glm.html#cb305-13" tabindex="-1"></a></span>
-<span id="cb305-14"><a href="glm.html#cb305-14" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> sjlabelled<span class="sc">::</span><span class="fu">read_spss</span>(<span class="fu">here</span>(<span class="st">&quot;Dados&quot;</span>, <span class="st">&quot;Latinobarometro_2023_Eng_Spss_v1_0.sav&quot;</span>),</span>
-<span id="cb305-15"><a href="glm.html#cb305-15" tabindex="-1"></a>                               <span class="at">drop.labels =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb305-16"><a href="glm.html#cb305-16" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">S17 =</span> <span class="fu">as.Date</span>(<span class="fu">as.character</span>(S17), <span class="st">&quot;%Y%m%d&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb305-17"><a href="glm.html#cb305-17" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="glm.html#cb311-1" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb311-2"><a href="glm.html#cb311-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb311-3"><a href="glm.html#cb311-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb311-4"><a href="glm.html#cb311-4" tabindex="-1"></a><span class="fu">library</span>(sjlabelled) <span class="co"># pra remover labelled variables</span></span>
+<span id="cb311-5"><a href="glm.html#cb311-5" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb311-6"><a href="glm.html#cb311-6" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb311-7"><a href="glm.html#cb311-7" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb311-8"><a href="glm.html#cb311-8" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb311-9"><a href="glm.html#cb311-9" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb311-10"><a href="glm.html#cb311-10" tabindex="-1"></a></span>
+<span id="cb311-11"><a href="glm.html#cb311-11" tabindex="-1"></a><span class="do">## dados</span></span>
+<span id="cb311-12"><a href="glm.html#cb311-12" tabindex="-1"></a><span class="co"># https://www.latinobarometro.org/latContents.jsp</span></span>
+<span id="cb311-13"><a href="glm.html#cb311-13" tabindex="-1"></a></span>
+<span id="cb311-14"><a href="glm.html#cb311-14" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> sjlabelled<span class="sc">::</span><span class="fu">read_spss</span>(<span class="fu">here</span>(<span class="st">&quot;Dados&quot;</span>, <span class="st">&quot;Latinobarometro_2023_Eng_Spss_v1_0.sav&quot;</span>),</span>
+<span id="cb311-15"><a href="glm.html#cb311-15" tabindex="-1"></a>                               <span class="at">drop.labels =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb311-16"><a href="glm.html#cb311-16" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">S17 =</span> <span class="fu">as.Date</span>(<span class="fu">as.character</span>(S17), <span class="st">&quot;%Y%m%d&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb311-17"><a href="glm.html#cb311-17" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code></pre></div>
 <pre><code>## Invalid date string (length=9): 09 032 23</code></pre>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="glm.html#cb307-1" tabindex="-1"></a><span class="co"># get_label(lat_bar23)</span></span>
-<span id="cb307-2"><a href="glm.html#cb307-2" tabindex="-1"></a></span>
-<span id="cb307-3"><a href="glm.html#cb307-3" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
-<span id="cb307-4"><a href="glm.html#cb307-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_base =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(diareal, mesreal, <span class="st">&quot;2023&quot;</span>, <span class="at">sep=</span><span class="st">&quot;-&quot;</span>), <span class="st">&quot;%d-%m-%Y&quot;</span>),</span>
-<span id="cb307-5"><a href="glm.html#cb307-5" tabindex="-1"></a>         <span class="at">idade =</span> <span class="fu">year</span>(<span class="fu">as.period</span>(<span class="fu">interval</span>(s17,data_base))),</span>
-<span id="cb307-6"><a href="glm.html#cb307-6" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">ifelse</span>(p6stgbs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;better&quot;</span>, </span>
-<span id="cb307-7"><a href="glm.html#cb307-7" tabindex="-1"></a>                                <span class="fu">ifelse</span>(p6stgbs <span class="sc">==</span> <span class="dv">8</span>, <span class="cn">NA</span>, <span class="st">&quot;other&quot;</span>)),</span>
-<span id="cb307-8"><a href="glm.html#cb307-8" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">relevel</span>(<span class="fu">as.factor</span>(econ_12_meses), <span class="at">ref =</span> <span class="st">&quot;other&quot;</span>),</span>
-<span id="cb307-9"><a href="glm.html#cb307-9" tabindex="-1"></a>         <span class="at">aprovacao_presidente =</span> <span class="fu">ifelse</span>(p15stgbs <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, p15stgbs),</span>
-<span id="cb307-10"><a href="glm.html#cb307-10" tabindex="-1"></a>         <span class="at">ideologia =</span> <span class="fu">ifelse</span>(p16st <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, p16st),</span>
-<span id="cb307-11"><a href="glm.html#cb307-11" tabindex="-1"></a>         <span class="at">votaria_governo =</span> <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">4</span>, <span class="cn">NA</span>,</span>
-<span id="cb307-12"><a href="glm.html#cb307-12" tabindex="-1"></a>                                  <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)),</span>
-<span id="cb307-13"><a href="glm.html#cb307-13" tabindex="-1"></a>         <span class="at">genero =</span> <span class="fu">factor</span>(sexo, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;homem&quot;</span>, <span class="st">&quot;mulher&quot;</span>)),</span>
-<span id="cb307-14"><a href="glm.html#cb307-14" tabindex="-1"></a>         <span class="at">evangelico =</span> <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">98</span>), <span class="cn">NA</span>,</span>
-<span id="cb307-15"><a href="glm.html#cb307-15" tabindex="-1"></a>                             <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">1</span>, <span class="dv">0</span>))) <span class="co"># não considera adventista, testemunha Jeová, Mórmon</span></span></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="glm.html#cb313-1" tabindex="-1"></a><span class="co"># get_label(lat_bar23)</span></span>
+<span id="cb313-2"><a href="glm.html#cb313-2" tabindex="-1"></a></span>
+<span id="cb313-3"><a href="glm.html#cb313-3" tabindex="-1"></a>lat_bar23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
+<span id="cb313-4"><a href="glm.html#cb313-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_base =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(diareal, mesreal, <span class="st">&quot;2023&quot;</span>, <span class="at">sep=</span><span class="st">&quot;-&quot;</span>), <span class="st">&quot;%d-%m-%Y&quot;</span>),</span>
+<span id="cb313-5"><a href="glm.html#cb313-5" tabindex="-1"></a>         <span class="at">idade =</span> <span class="fu">year</span>(<span class="fu">as.period</span>(<span class="fu">interval</span>(s17,data_base))),</span>
+<span id="cb313-6"><a href="glm.html#cb313-6" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">ifelse</span>(p6stgbs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;better&quot;</span>, </span>
+<span id="cb313-7"><a href="glm.html#cb313-7" tabindex="-1"></a>                                <span class="fu">ifelse</span>(p6stgbs <span class="sc">==</span> <span class="dv">8</span>, <span class="cn">NA</span>, <span class="st">&quot;other&quot;</span>)),</span>
+<span id="cb313-8"><a href="glm.html#cb313-8" tabindex="-1"></a>         <span class="at">econ_12_meses =</span> <span class="fu">relevel</span>(<span class="fu">as.factor</span>(econ_12_meses), <span class="at">ref =</span> <span class="st">&quot;other&quot;</span>),</span>
+<span id="cb313-9"><a href="glm.html#cb313-9" tabindex="-1"></a>         <span class="at">aprovacao_presidente =</span> <span class="fu">ifelse</span>(p15stgbs <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, p15stgbs),</span>
+<span id="cb313-10"><a href="glm.html#cb313-10" tabindex="-1"></a>         <span class="at">ideologia =</span> <span class="fu">ifelse</span>(p16st <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, p16st),</span>
+<span id="cb313-11"><a href="glm.html#cb313-11" tabindex="-1"></a>         <span class="at">votaria_governo =</span> <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">4</span>, <span class="cn">NA</span>,</span>
+<span id="cb313-12"><a href="glm.html#cb313-12" tabindex="-1"></a>                                  <span class="fu">ifelse</span>(perpart <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)),</span>
+<span id="cb313-13"><a href="glm.html#cb313-13" tabindex="-1"></a>         <span class="at">genero =</span> <span class="fu">factor</span>(sexo, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;homem&quot;</span>, <span class="st">&quot;mulher&quot;</span>)),</span>
+<span id="cb313-14"><a href="glm.html#cb313-14" tabindex="-1"></a>         <span class="at">evangelico =</span> <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">98</span>), <span class="cn">NA</span>,</span>
+<span id="cb313-15"><a href="glm.html#cb313-15" tabindex="-1"></a>                             <span class="fu">ifelse</span>(s1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">1</span>, <span class="dv">0</span>))) <span class="co"># não considera adventista, testemunha Jeová, Mórmon</span></span></code></pre></div>
 <pre><code>## Warning: There was 1 warning in `mutate()`.
 ## ℹ In argument: `idade = year(as.period(interval(s17, data_base)))`.
 ## Caused by warning in `.local()`:
 ## ! NAs introduced by coercion to integer range</code></pre>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="glm.html#cb309-1" tabindex="-1"></a>br_latbar_23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
-<span id="cb309-2"><a href="glm.html#cb309-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idenpa =</span> <span class="fu">remove_all_labels</span>(idenpa)) <span class="sc">%&gt;%</span> <span class="co"># haven_labelled problems</span></span>
-<span id="cb309-3"><a href="glm.html#cb309-3" tabindex="-1"></a>  <span class="fu">filter</span>(idenpa <span class="sc">==</span> <span class="dv">76</span>) <span class="sc">%&gt;%</span> <span class="do">## seelciona brasil</span></span>
-<span id="cb309-4"><a href="glm.html#cb309-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(votaria_governo) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(evangelico) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(ideologia) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(econ_12_meses))</span>
-<span id="cb309-5"><a href="glm.html#cb309-5" tabindex="-1"></a></span>
-<span id="cb309-6"><a href="glm.html#cb309-6" tabindex="-1"></a>reg_logistica <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia, <span class="at">data=</span>br_latbar_23,</span>
-<span id="cb309-7"><a href="glm.html#cb309-7" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb309-8"><a href="glm.html#cb309-8" tabindex="-1"></a></span>
-<span id="cb309-9"><a href="glm.html#cb309-9" tabindex="-1"></a>reg_logistica <span class="sc">%&gt;%</span></span>
-<span id="cb309-10"><a href="glm.html#cb309-10" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb309-11"><a href="glm.html#cb309-11" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="glm.html#cb315-1" tabindex="-1"></a>br_latbar_23 <span class="ot">&lt;-</span> lat_bar23 <span class="sc">%&gt;%</span></span>
+<span id="cb315-2"><a href="glm.html#cb315-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idenpa =</span> <span class="fu">remove_all_labels</span>(idenpa)) <span class="sc">%&gt;%</span> <span class="co"># haven_labelled problems</span></span>
+<span id="cb315-3"><a href="glm.html#cb315-3" tabindex="-1"></a>  <span class="fu">filter</span>(idenpa <span class="sc">==</span> <span class="dv">76</span>) <span class="sc">%&gt;%</span> <span class="do">## seelciona brasil</span></span>
+<span id="cb315-4"><a href="glm.html#cb315-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(votaria_governo) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(evangelico) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(ideologia) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(econ_12_meses))</span>
+<span id="cb315-5"><a href="glm.html#cb315-5" tabindex="-1"></a></span>
+<span id="cb315-6"><a href="glm.html#cb315-6" tabindex="-1"></a>reg_logistica <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia, <span class="at">data=</span>br_latbar_23,</span>
+<span id="cb315-7"><a href="glm.html#cb315-7" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb315-8"><a href="glm.html#cb315-8" tabindex="-1"></a></span>
+<span id="cb315-9"><a href="glm.html#cb315-9" tabindex="-1"></a>reg_logistica <span class="sc">%&gt;%</span></span>
+<span id="cb315-10"><a href="glm.html#cb315-10" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb315-11"><a href="glm.html#cb315-11" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
 ## Use &#39;xfun::attr2()&#39; instead.
 ## See help(&quot;Deprecated&quot;)</code></pre>
@@ -575,26 +578,26 @@ f^{-1}(x) = \frac{1}{1 + \exp(-x)}\\
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="glm.html#cb312-1" tabindex="-1"></a><span class="co"># plotando # usando base R</span></span>
-<span id="cb312-2"><a href="glm.html#cb312-2" tabindex="-1"></a><span class="co"># código adaptado de Regression and Other Stories (Gelman et. al.)</span></span>
-<span id="cb312-3"><a href="glm.html#cb312-3" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
-<span id="cb312-4"><a href="glm.html#cb312-4" tabindex="-1"></a></span>
-<span id="cb312-5"><a href="glm.html#cb312-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(br_latbar_23)</span>
-<span id="cb312-6"><a href="glm.html#cb312-6" tabindex="-1"></a>ideologia_jitt <span class="ot">&lt;-</span> br_latbar_23<span class="sc">$</span>ideologia <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span>.<span class="dv">2</span>, .<span class="dv">2</span>)</span>
-<span id="cb312-7"><a href="glm.html#cb312-7" tabindex="-1"></a>vote_jitt <span class="ot">&lt;-</span> br_latbar_23<span class="sc">$</span>votaria_governo <span class="sc">+</span> <span class="fu">ifelse</span>(br_latbar_23<span class="sc">$</span>votaria_governo<span class="sc">==</span><span class="dv">0</span>, <span class="fu">runif</span>(n, .<span class="dv">005</span>, .<span class="dv">05</span>), <span class="fu">runif</span>(n, <span class="sc">-</span>.<span class="dv">05</span>, <span class="sc">-</span>.<span class="dv">005</span>))</span>
-<span id="cb312-8"><a href="glm.html#cb312-8" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">invlogit</span>(reg_logistica<span class="sc">$</span>coef[<span class="dv">1</span>] <span class="sc">+</span> reg_logistica<span class="sc">$</span>coef[<span class="dv">2</span>]<span class="sc">*</span>x), <span class="at">from =</span> <span class="sc">-</span><span class="dv">5</span>,<span class="at">to=</span><span class="dv">24</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">24</span>), <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xaxs=</span><span class="st">&quot;i&quot;</span>, </span>
-<span id="cb312-9"><a href="glm.html#cb312-9" tabindex="-1"></a>  <span class="at">ylab=</span><span class="st">&quot;Pr (voto governo)&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Ideologia&quot;</span>, <span class="at">lwd=</span>.<span class="dv">5</span>, <span class="at">yaxs=</span><span class="st">&quot;i&quot;</span>)</span>
-<span id="cb312-10"><a href="glm.html#cb312-10" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">invlogit</span>(reg_logistica<span class="sc">$</span>coef[<span class="dv">1</span>] <span class="sc">+</span> reg_logistica<span class="sc">$</span>coef[<span class="dv">2</span>]<span class="sc">*</span>x), <span class="dv">1</span>, <span class="dv">11</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">add=</span><span class="cn">TRUE</span>)</span>
-<span id="cb312-11"><a href="glm.html#cb312-11" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>)</span>
-<span id="cb312-12"><a href="glm.html#cb312-12" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">&quot;(left)&quot;</span>, <span class="at">side=</span><span class="dv">1</span>, <span class="at">line=</span><span class="fl">1.7</span>, <span class="at">at=</span><span class="dv">1</span>, <span class="at">adj=</span>.<span class="dv">5</span>)</span>
-<span id="cb312-13"><a href="glm.html#cb312-13" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">&quot;(right)&quot;</span>, <span class="dv">1</span>, <span class="fl">1.7</span>, <span class="at">at=</span><span class="dv">11</span>, <span class="at">adj=</span>.<span class="dv">5</span>)</span>
-<span id="cb312-14"><a href="glm.html#cb312-14" tabindex="-1"></a><span class="fu">points</span>(ideologia_jitt, vote_jitt, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span>.<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="glm.html#cb318-1" tabindex="-1"></a><span class="co"># plotando # usando base R</span></span>
+<span id="cb318-2"><a href="glm.html#cb318-2" tabindex="-1"></a><span class="co"># código adaptado de Regression and Other Stories (Gelman et. al.)</span></span>
+<span id="cb318-3"><a href="glm.html#cb318-3" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb318-4"><a href="glm.html#cb318-4" tabindex="-1"></a></span>
+<span id="cb318-5"><a href="glm.html#cb318-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(br_latbar_23)</span>
+<span id="cb318-6"><a href="glm.html#cb318-6" tabindex="-1"></a>ideologia_jitt <span class="ot">&lt;-</span> br_latbar_23<span class="sc">$</span>ideologia <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span>.<span class="dv">2</span>, .<span class="dv">2</span>)</span>
+<span id="cb318-7"><a href="glm.html#cb318-7" tabindex="-1"></a>vote_jitt <span class="ot">&lt;-</span> br_latbar_23<span class="sc">$</span>votaria_governo <span class="sc">+</span> <span class="fu">ifelse</span>(br_latbar_23<span class="sc">$</span>votaria_governo<span class="sc">==</span><span class="dv">0</span>, <span class="fu">runif</span>(n, .<span class="dv">005</span>, .<span class="dv">05</span>), <span class="fu">runif</span>(n, <span class="sc">-</span>.<span class="dv">05</span>, <span class="sc">-</span>.<span class="dv">005</span>))</span>
+<span id="cb318-8"><a href="glm.html#cb318-8" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">invlogit</span>(reg_logistica<span class="sc">$</span>coef[<span class="dv">1</span>] <span class="sc">+</span> reg_logistica<span class="sc">$</span>coef[<span class="dv">2</span>]<span class="sc">*</span>x), <span class="at">from =</span> <span class="sc">-</span><span class="dv">5</span>,<span class="at">to=</span><span class="dv">24</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">24</span>), <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xaxs=</span><span class="st">&quot;i&quot;</span>, </span>
+<span id="cb318-9"><a href="glm.html#cb318-9" tabindex="-1"></a>  <span class="at">ylab=</span><span class="st">&quot;Pr (voto governo)&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Ideologia&quot;</span>, <span class="at">lwd=</span>.<span class="dv">5</span>, <span class="at">yaxs=</span><span class="st">&quot;i&quot;</span>)</span>
+<span id="cb318-10"><a href="glm.html#cb318-10" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">invlogit</span>(reg_logistica<span class="sc">$</span>coef[<span class="dv">1</span>] <span class="sc">+</span> reg_logistica<span class="sc">$</span>coef[<span class="dv">2</span>]<span class="sc">*</span>x), <span class="dv">1</span>, <span class="dv">11</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb318-11"><a href="glm.html#cb318-11" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>)</span>
+<span id="cb318-12"><a href="glm.html#cb318-12" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">&quot;(left)&quot;</span>, <span class="at">side=</span><span class="dv">1</span>, <span class="at">line=</span><span class="fl">1.7</span>, <span class="at">at=</span><span class="dv">1</span>, <span class="at">adj=</span>.<span class="dv">5</span>)</span>
+<span id="cb318-13"><a href="glm.html#cb318-13" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">&quot;(right)&quot;</span>, <span class="dv">1</span>, <span class="fl">1.7</span>, <span class="at">at=</span><span class="dv">11</span>, <span class="at">adj=</span>.<span class="dv">5</span>)</span>
+<span id="cb318-14"><a href="glm.html#cb318-14" tabindex="-1"></a><span class="fu">points</span>(ideologia_jitt, vote_jitt, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span>.<span class="dv">1</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/13%20logistica1-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>O gráfico apresenta o modelo ajustado da logística, juntamente com os dados (jittered). Cada ponto na curva representa <span class="math inline">\(Pr(Y=1|X=x)\)</span>. A linha mais escura é o modelo ajustado para os pontos da amostra. Podemos observar que há mais dados de pessoas que votariam com o governo entre os indivíduos de esquerda, com mais observações votando contra o governo apenas entre as pessoas mais centristas, o que faz sentido. Também observamos muitas pessoas de direita votando com o governo, indicando que entre as pessoas de direita, o dado não diferencia tanto quem vota a favor ou contra o governo, sugerindo que precisamos considerar outras variáveis.</p>
 <p>Como a logística é curva, o efeito preditivo de <span class="math inline">\(x\)</span> sobre a probabilidade <span class="math inline">\(y=1\)</span> não é constante (ao contrário de regressões lineares). No caso do nosso gráfico, passar de <span class="math inline">\(1\)</span> para <span class="math inline">\(2\)</span> na ideologia tem um efeito significativamente menor (de 95% para 93%) do que passar de <span class="math inline">\(6\)</span> para <span class="math inline">\(7\)</span> (de 81% para 76%), por exemplo. Para calcular o efeito preditivo nesses casos, fazemos:</p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="glm.html#cb313-1" tabindex="-1"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ideologia =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>)</span>
-<span id="cb313-2"><a href="glm.html#cb313-2" tabindex="-1"></a>previsao <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg_logistica, <span class="at">newdata =</span>newdata, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb313-3"><a href="glm.html#cb313-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(previsao, <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="glm.html#cb319-1" tabindex="-1"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ideologia =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>)</span>
+<span id="cb319-2"><a href="glm.html#cb319-2" tabindex="-1"></a>previsao <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg_logistica, <span class="at">newdata =</span>newdata, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb319-3"><a href="glm.html#cb319-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(previsao, <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>##    1    2    3    4    5    6    7    8    9   10   11 
 ## 0.95 0.93 0.91 0.88 0.85 0.81 0.76 0.70 0.64 0.57 0.50</code></pre>
 <p>A interpretação do coeficiente é um pouco difícil na logística, mas um caminho é pensar que o efeito é máximo no centro da curva, em que <span class="math inline">\(\alpha + \beta x = 0\)</span>. Nesse caso, a inclinação da curva (a derivada) é dada por <span class="math inline">\(\beta/4\)</span>. Ou seja, podemos dividir o coeficiente estimado por quatro para ter uma ideia do máximo impacto preditivo. Em nosso caso, com um coeficiente aproximado de <span class="math inline">\(-0,29\)</span>, temos que no máximo a mudança em uma unidade diminui a probabilidade em no máximo 7,25%. E nos dados, esse efeito máximo é alcançado quando <span class="math inline">\(3.14 + -0.29*x = 0\)</span>, ou seja, aproximadamente <span class="math inline">\(x = 11\)</span>.</p>
@@ -644,15 +647,15 @@ Pr(e_i &gt; -\alpha - \beta x_i) = 1 - Pr(e_i &lt; -\alpha - \beta x_i) = \\
 z_i = \alpha + \beta x_i + e_i, e_i \sim N(0, \sigma^2)
 \]</span>
 Quando <span class="math inline">\(\sigma = 1.6\)</span>, essa formulação é aproximadamente a regressão logística. Isso significa que o coeficiente da probit é aproximadamente o da logística/1.6 e vice-versa, isto é, podemos multiplicar o coeficiente da probit por 1.6. Vamos checar no R.</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="glm.html#cb315-1" tabindex="-1"></a>reg_logistica <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia, <span class="at">data=</span>br_latbar_23,</span>
-<span id="cb315-2"><a href="glm.html#cb315-2" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb315-3"><a href="glm.html#cb315-3" tabindex="-1"></a></span>
-<span id="cb315-4"><a href="glm.html#cb315-4" tabindex="-1"></a>reg_probit <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia, <span class="at">data=</span>br_latbar_23,</span>
-<span id="cb315-5"><a href="glm.html#cb315-5" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;probit&quot;</span>))</span>
-<span id="cb315-6"><a href="glm.html#cb315-6" tabindex="-1"></a></span>
-<span id="cb315-7"><a href="glm.html#cb315-7" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
-<span id="cb315-8"><a href="glm.html#cb315-8" tabindex="-1"></a></span>
-<span id="cb315-9"><a href="glm.html#cb315-9" tabindex="-1"></a><span class="fu">stargazer</span>(reg_logistica, reg_probit, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="glm.html#cb321-1" tabindex="-1"></a>reg_logistica <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia, <span class="at">data=</span>br_latbar_23,</span>
+<span id="cb321-2"><a href="glm.html#cb321-2" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb321-3"><a href="glm.html#cb321-3" tabindex="-1"></a></span>
+<span id="cb321-4"><a href="glm.html#cb321-4" tabindex="-1"></a>reg_probit <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia, <span class="at">data=</span>br_latbar_23,</span>
+<span id="cb321-5"><a href="glm.html#cb321-5" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;probit&quot;</span>))</span>
+<span id="cb321-6"><a href="glm.html#cb321-6" tabindex="-1"></a></span>
+<span id="cb321-7"><a href="glm.html#cb321-7" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb321-8"><a href="glm.html#cb321-8" tabindex="-1"></a></span>
+<span id="cb321-9"><a href="glm.html#cb321-9" tabindex="-1"></a><span class="fu">stargazer</span>(reg_logistica, reg_probit, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="3" style="border-bottom: 1px solid black">
@@ -818,12 +821,12 @@ Akaike Inf. Crit.
 </div>
 <div id="logística-com-múltiplos-preditores" class="section level2 hasAnchor" number="13.6">
 <h2><span class="header-section-number">13.6</span> Logística com múltiplos preditores<a href="#log%C3%ADstica-com-m%C3%BAltiplos-preditores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="glm.html#cb316-1" tabindex="-1"></a>reg_logistica1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> evangelico, <span class="at">data=</span>br_latbar_23,</span>
-<span id="cb316-2"><a href="glm.html#cb316-2" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb316-3"><a href="glm.html#cb316-3" tabindex="-1"></a></span>
-<span id="cb316-4"><a href="glm.html#cb316-4" tabindex="-1"></a>reg_logistica1 <span class="sc">%&gt;%</span></span>
-<span id="cb316-5"><a href="glm.html#cb316-5" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb316-6"><a href="glm.html#cb316-6" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="glm.html#cb322-1" tabindex="-1"></a>reg_logistica1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia <span class="sc">+</span> evangelico, <span class="at">data=</span>br_latbar_23,</span>
+<span id="cb322-2"><a href="glm.html#cb322-2" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb322-3"><a href="glm.html#cb322-3" tabindex="-1"></a></span>
+<span id="cb322-4"><a href="glm.html#cb322-4" tabindex="-1"></a>reg_logistica1 <span class="sc">%&gt;%</span></span>
+<span id="cb322-5"><a href="glm.html#cb322-5" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb322-6"><a href="glm.html#cb322-6" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
 ## Use &#39;xfun::attr2()&#39; instead.
 ## See help(&quot;Deprecated&quot;)</code></pre>
@@ -865,15 +868,15 @@ Akaike Inf. Crit.
 </tbody>
 </table>
 <p>Para facilitar a comparação de coeficientes, pode ser mais fácil padronizar as variáveis. No caso, vamos padronizar apenas ideologia (precisamos supor que é uma variável contínua, medida com valores discretos).</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="glm.html#cb319-1" tabindex="-1"></a>br_latbar_23 <span class="ot">&lt;-</span> br_latbar_23 <span class="sc">%&gt;%</span></span>
-<span id="cb319-2"><a href="glm.html#cb319-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ideologia_pad =</span> (ideologia <span class="sc">-</span> <span class="fu">mean</span>(ideologia))<span class="sc">/</span><span class="fu">sd</span>(ideologia))</span>
-<span id="cb319-3"><a href="glm.html#cb319-3" tabindex="-1"></a></span>
-<span id="cb319-4"><a href="glm.html#cb319-4" tabindex="-1"></a>reg_logistica2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia_pad <span class="sc">+</span> evangelico, <span class="at">data=</span>br_latbar_23,</span>
-<span id="cb319-5"><a href="glm.html#cb319-5" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb319-6"><a href="glm.html#cb319-6" tabindex="-1"></a></span>
-<span id="cb319-7"><a href="glm.html#cb319-7" tabindex="-1"></a>reg_logistica2 <span class="sc">%&gt;%</span></span>
-<span id="cb319-8"><a href="glm.html#cb319-8" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb319-9"><a href="glm.html#cb319-9" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="glm.html#cb325-1" tabindex="-1"></a>br_latbar_23 <span class="ot">&lt;-</span> br_latbar_23 <span class="sc">%&gt;%</span></span>
+<span id="cb325-2"><a href="glm.html#cb325-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ideologia_pad =</span> (ideologia <span class="sc">-</span> <span class="fu">mean</span>(ideologia))<span class="sc">/</span><span class="fu">sd</span>(ideologia))</span>
+<span id="cb325-3"><a href="glm.html#cb325-3" tabindex="-1"></a></span>
+<span id="cb325-4"><a href="glm.html#cb325-4" tabindex="-1"></a>reg_logistica2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(votaria_governo <span class="sc">~</span> ideologia_pad <span class="sc">+</span> evangelico, <span class="at">data=</span>br_latbar_23,</span>
+<span id="cb325-5"><a href="glm.html#cb325-5" tabindex="-1"></a>                <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb325-6"><a href="glm.html#cb325-6" tabindex="-1"></a></span>
+<span id="cb325-7"><a href="glm.html#cb325-7" tabindex="-1"></a>reg_logistica2 <span class="sc">%&gt;%</span></span>
+<span id="cb325-8"><a href="glm.html#cb325-8" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb325-9"><a href="glm.html#cb325-9" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <pre><code>## Warning in attr(x, &quot;align&quot;): &#39;xfun::attr()&#39; is deprecated.
 ## Use &#39;xfun::attr2()&#39; instead.
 ## See help(&quot;Deprecated&quot;)</code></pre>
@@ -916,34 +919,34 @@ Akaike Inf. Crit.
 </table>
 <p>Usando a regra de dividir por quatro, temos que: ideologia tem efeito máximo de redzir a probabilidade em 25%, e evangélico de diminuir em 18%.</p>
 <p>Plotando graficamente os dois preditores, temos:</p>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="glm.html#cb322-1" tabindex="-1"></a>jitter_binary <span class="ot">&lt;-</span> <span class="cf">function</span>(a, <span class="at">jitt=</span><span class="fl">0.05</span>){</span>
-<span id="cb322-2"><a href="glm.html#cb322-2" tabindex="-1"></a><span class="fu">ifelse</span>(a<span class="sc">==</span><span class="dv">0</span>, <span class="fu">runif</span>(<span class="fu">length</span>(a), <span class="dv">0</span>, jitt), <span class="fu">runif</span>(<span class="fu">length</span>(a), <span class="dv">1</span> <span class="sc">-</span> jitt, <span class="dv">1</span>))</span>
-<span id="cb322-3"><a href="glm.html#cb322-3" tabindex="-1"></a>}</span>
-<span id="cb322-4"><a href="glm.html#cb322-4" tabindex="-1"></a></span>
-<span id="cb322-5"><a href="glm.html#cb322-5" tabindex="-1"></a>br_latbar_23<span class="sc">$</span>votaria_governo_jitter <span class="ot">&lt;-</span> <span class="fu">jitter_binary</span>(br_latbar_23<span class="sc">$</span>votaria_governo)</span>
-<span id="cb322-6"><a href="glm.html#cb322-6" tabindex="-1"></a></span>
-<span id="cb322-7"><a href="glm.html#cb322-7" tabindex="-1"></a>ideologia_jitt <span class="ot">&lt;-</span> br_latbar_23<span class="sc">$</span>ideologia_pad <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span>.<span class="dv">05</span>, .<span class="dv">05</span>)</span>
-<span id="cb322-8"><a href="glm.html#cb322-8" tabindex="-1"></a></span>
-<span id="cb322-9"><a href="glm.html#cb322-9" tabindex="-1"></a><span class="fu">plot</span>(ideologia_jitt, br_latbar_23<span class="sc">$</span>votaria_governo_jitter, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">max</span>(ideologia_jitt)))</span>
-<span id="cb322-10"><a href="glm.html#cb322-10" tabindex="-1"></a></span>
-<span id="cb322-11"><a href="glm.html#cb322-11" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">invlogit</span>(<span class="fu">cbind</span>(<span class="dv">1</span>, x, <span class="dv">0</span>) <span class="sc">%*%</span> <span class="fu">coef</span>(reg_logistica2)), <span class="at">add=</span><span class="cn">TRUE</span>)</span>
-<span id="cb322-12"><a href="glm.html#cb322-12" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">invlogit</span>(<span class="fu">cbind</span>(<span class="dv">1</span>, x, <span class="fl">1.0</span>) <span class="sc">%*%</span> <span class="fu">coef</span>(reg_logistica2)), <span class="at">add=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="glm.html#cb328-1" tabindex="-1"></a>jitter_binary <span class="ot">&lt;-</span> <span class="cf">function</span>(a, <span class="at">jitt=</span><span class="fl">0.05</span>){</span>
+<span id="cb328-2"><a href="glm.html#cb328-2" tabindex="-1"></a><span class="fu">ifelse</span>(a<span class="sc">==</span><span class="dv">0</span>, <span class="fu">runif</span>(<span class="fu">length</span>(a), <span class="dv">0</span>, jitt), <span class="fu">runif</span>(<span class="fu">length</span>(a), <span class="dv">1</span> <span class="sc">-</span> jitt, <span class="dv">1</span>))</span>
+<span id="cb328-3"><a href="glm.html#cb328-3" tabindex="-1"></a>}</span>
+<span id="cb328-4"><a href="glm.html#cb328-4" tabindex="-1"></a></span>
+<span id="cb328-5"><a href="glm.html#cb328-5" tabindex="-1"></a>br_latbar_23<span class="sc">$</span>votaria_governo_jitter <span class="ot">&lt;-</span> <span class="fu">jitter_binary</span>(br_latbar_23<span class="sc">$</span>votaria_governo)</span>
+<span id="cb328-6"><a href="glm.html#cb328-6" tabindex="-1"></a></span>
+<span id="cb328-7"><a href="glm.html#cb328-7" tabindex="-1"></a>ideologia_jitt <span class="ot">&lt;-</span> br_latbar_23<span class="sc">$</span>ideologia_pad <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span>.<span class="dv">05</span>, .<span class="dv">05</span>)</span>
+<span id="cb328-8"><a href="glm.html#cb328-8" tabindex="-1"></a></span>
+<span id="cb328-9"><a href="glm.html#cb328-9" tabindex="-1"></a><span class="fu">plot</span>(ideologia_jitt, br_latbar_23<span class="sc">$</span>votaria_governo_jitter, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">max</span>(ideologia_jitt)))</span>
+<span id="cb328-10"><a href="glm.html#cb328-10" tabindex="-1"></a></span>
+<span id="cb328-11"><a href="glm.html#cb328-11" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">invlogit</span>(<span class="fu">cbind</span>(<span class="dv">1</span>, x, <span class="dv">0</span>) <span class="sc">%*%</span> <span class="fu">coef</span>(reg_logistica2)), <span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb328-12"><a href="glm.html#cb328-12" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">invlogit</span>(<span class="fu">cbind</span>(<span class="dv">1</span>, x, <span class="fl">1.0</span>) <span class="sc">%*%</span> <span class="fu">coef</span>(reg_logistica2)), <span class="at">add=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/13%20logistica5-1.png" width="900" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ajuste-do-modelo" class="section level2 hasAnchor" number="13.7">
 <h2><span class="header-section-number">13.7</span> Ajuste do modelo<a href="glm.html#ajuste-do-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Nós vimos que podemos usar o erro quadrático médio com regressão linear para comparar ajustes do modelo. Porém, para variáveis binárias, há formas melhores de comparar a capacidade preditiva do modelo. A mais tradicional é o log da verossimilhança, dado pela soma para todos as observações de: <span class="math inline">\((ylog(p) + (1-y)log(1-p))\)</span>. No limite, um modelo perfeito, que classifica corretmente todas as observações (isto é, coloca probabilidade <span class="math inline">\(1\)</span> de sucesso e <span class="math inline">\(0\)</span> de fracasso) teria um log da verossimilhança igual a zero. Portanto, quanto mais próximo de zero, melhor o ajuste do modelo. E um modelo “burro”, que previsse probabilidade de 50% para cada ponto, teria um total de <span class="math inline">\(n \cdot log(.5) = n \cdot -0.693\)</span>. Um modelo um pouco melhor seria um que previsse a média, isto é, se 60% dos casos são sucesso, pode prever para todas as observações <span class="math inline">\(p=.6\)</span>. Esses modelos simples servem como comparação. No R:</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="glm.html#cb323-1" tabindex="-1"></a>y_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg_logistica, <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
-<span id="cb323-2"><a href="glm.html#cb323-2" tabindex="-1"></a>y_obs <span class="ot">&lt;-</span> br_latbar_23<span class="sc">$</span>votaria_governo</span>
-<span id="cb323-3"><a href="glm.html#cb323-3" tabindex="-1"></a></span>
-<span id="cb323-4"><a href="glm.html#cb323-4" tabindex="-1"></a>log_likelihood <span class="ot">&lt;-</span> <span class="fu">sum</span>(y_obs<span class="sc">*</span><span class="fu">log</span>(y_hat) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>y_obs)<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> y_hat))</span>
-<span id="cb323-5"><a href="glm.html#cb323-5" tabindex="-1"></a><span class="fu">print</span>(log_likelihood)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="glm.html#cb329-1" tabindex="-1"></a>y_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg_logistica, <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb329-2"><a href="glm.html#cb329-2" tabindex="-1"></a>y_obs <span class="ot">&lt;-</span> br_latbar_23<span class="sc">$</span>votaria_governo</span>
+<span id="cb329-3"><a href="glm.html#cb329-3" tabindex="-1"></a></span>
+<span id="cb329-4"><a href="glm.html#cb329-4" tabindex="-1"></a>log_likelihood <span class="ot">&lt;-</span> <span class="fu">sum</span>(y_obs<span class="sc">*</span><span class="fu">log</span>(y_hat) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>y_obs)<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> y_hat))</span>
+<span id="cb329-5"><a href="glm.html#cb329-5" tabindex="-1"></a><span class="fu">print</span>(log_likelihood)</span></code></pre></div>
 <p>[1] -239.3764</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="glm.html#cb324-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(y_obs<span class="sc">*</span><span class="fu">log</span>(<span class="fu">mean</span>(y_obs)) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>y_obs)<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">mean</span>(y_obs))))</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="glm.html#cb330-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sum</span>(y_obs<span class="sc">*</span><span class="fu">log</span>(<span class="fu">mean</span>(y_obs)) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>y_obs)<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">mean</span>(y_obs))))</span></code></pre></div>
 <p>[1] -274.8595</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="glm.html#cb325-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">nrow</span>(br_latbar_23)<span class="sc">*</span><span class="fu">log</span>(.<span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="glm.html#cb331-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">nrow</span>(br_latbar_23)<span class="sc">*</span><span class="fu">log</span>(.<span class="dv">5</span>))</span></code></pre></div>
 <p>[1] -327.1655</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="glm.html#cb326-1" tabindex="-1"></a><span class="fu">stargazer</span>(reg_logistica, reg_logistica1, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="glm.html#cb332-1" tabindex="-1"></a><span class="fu">stargazer</span>(reg_logistica, reg_logistica1, <span class="at">type =</span> <span class="st">&quot;html&quot;</span>)</span></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="3" style="border-bottom: 1px solid black">
@@ -1148,54 +1151,54 @@ Similarmente, a probabilidade de um respondente escolher a segunda categoria é:
 <p>Se supusermos que <span class="math inline">\(e\)</span> tem distribuição logística com média zero e variância <span class="math inline">\(\frac{\pi^2}{3}\)</span>, que é a logística padrão, temos o modelo de regressão logística ordenado. Se supusermos que o erro tem distribuição normal, com média zero e variância 1, temos o modelo probit ordenado.
 Vejamos um exemplo simulado e em seguida uma aplicação empírica.</p>
 <p>Em nossa simulação, vamos supor que um survey foi rodado e medimos, usando uma escala likert com quatro opções, se a pessoa concorda ou não com uma dada frase. Podemos pensar que a variável latente <span class="math inline">\(z\)</span> é a propensão a concordar com a frase, e só observamos uma das quatro categorias.</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="glm.html#cb327-1" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb327-2"><a href="glm.html#cb327-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb327-3"><a href="glm.html#cb327-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb327-4"><a href="glm.html#cb327-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># número de indivíduos</span></span>
-<span id="cb327-5"><a href="glm.html#cb327-5" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co"># número de alternativas (discordo muito, pouco, concordo pouco, muito)</span></span>
-<span id="cb327-6"><a href="glm.html#cb327-6" tabindex="-1"></a>x_subject <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb327-7"><a href="glm.html#cb327-7" tabindex="-1"></a>erro <span class="ot">&lt;-</span> <span class="fu">rlogis</span>(n, <span class="at">location =</span> <span class="dv">0</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
-<span id="cb327-8"><a href="glm.html#cb327-8" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
-<span id="cb327-9"><a href="glm.html#cb327-9" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb327-10"><a href="glm.html#cb327-10" tabindex="-1"></a>z <span class="ot">&lt;-</span> beta_0 <span class="sc">+</span> beta1<span class="sc">*</span>x_subject <span class="sc">+</span> erro</span>
-<span id="cb327-11"><a href="glm.html#cb327-11" tabindex="-1"></a></span>
-<span id="cb327-12"><a href="glm.html#cb327-12" tabindex="-1"></a>tau1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span></span>
-<span id="cb327-13"><a href="glm.html#cb327-13" tabindex="-1"></a>tau2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb327-14"><a href="glm.html#cb327-14" tabindex="-1"></a>tau3 <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb327-15"><a href="glm.html#cb327-15" tabindex="-1"></a></span>
-<span id="cb327-16"><a href="glm.html#cb327-16" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(z <span class="sc">&lt;=</span> tau1, <span class="st">&quot;discordo muito&quot;</span>,</span>
-<span id="cb327-17"><a href="glm.html#cb327-17" tabindex="-1"></a>            <span class="fu">ifelse</span>(z <span class="sc">&lt;=</span> tau2, <span class="st">&quot;discordo pouco&quot;</span>,</span>
-<span id="cb327-18"><a href="glm.html#cb327-18" tabindex="-1"></a>                   <span class="fu">ifelse</span>(z <span class="sc">&lt;=</span> tau3, <span class="st">&quot;concordo pouco&quot;</span>, <span class="st">&quot;concordo muito&quot;</span>)))</span>
-<span id="cb327-19"><a href="glm.html#cb327-19" tabindex="-1"></a></span>
-<span id="cb327-20"><a href="glm.html#cb327-20" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x1 =</span> x_subject)</span>
-<span id="cb327-21"><a href="glm.html#cb327-21" tabindex="-1"></a></span>
-<span id="cb327-22"><a href="glm.html#cb327-22" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb327-23"><a href="glm.html#cb327-23" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">factor</span>(y, <span class="at">ordered=</span>T))</span>
-<span id="cb327-24"><a href="glm.html#cb327-24" tabindex="-1"></a></span>
-<span id="cb327-25"><a href="glm.html#cb327-25" tabindex="-1"></a><span class="co"># checando a ordem</span></span>
-<span id="cb327-26"><a href="glm.html#cb327-26" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>y)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="glm.html#cb333-1" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb333-2"><a href="glm.html#cb333-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb333-3"><a href="glm.html#cb333-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb333-4"><a href="glm.html#cb333-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># número de indivíduos</span></span>
+<span id="cb333-5"><a href="glm.html#cb333-5" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co"># número de alternativas (discordo muito, pouco, concordo pouco, muito)</span></span>
+<span id="cb333-6"><a href="glm.html#cb333-6" tabindex="-1"></a>x_subject <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb333-7"><a href="glm.html#cb333-7" tabindex="-1"></a>erro <span class="ot">&lt;-</span> <span class="fu">rlogis</span>(n, <span class="at">location =</span> <span class="dv">0</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
+<span id="cb333-8"><a href="glm.html#cb333-8" tabindex="-1"></a>beta_0 <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb333-9"><a href="glm.html#cb333-9" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb333-10"><a href="glm.html#cb333-10" tabindex="-1"></a>z <span class="ot">&lt;-</span> beta_0 <span class="sc">+</span> beta1<span class="sc">*</span>x_subject <span class="sc">+</span> erro</span>
+<span id="cb333-11"><a href="glm.html#cb333-11" tabindex="-1"></a></span>
+<span id="cb333-12"><a href="glm.html#cb333-12" tabindex="-1"></a>tau1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span></span>
+<span id="cb333-13"><a href="glm.html#cb333-13" tabindex="-1"></a>tau2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb333-14"><a href="glm.html#cb333-14" tabindex="-1"></a>tau3 <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb333-15"><a href="glm.html#cb333-15" tabindex="-1"></a></span>
+<span id="cb333-16"><a href="glm.html#cb333-16" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(z <span class="sc">&lt;=</span> tau1, <span class="st">&quot;discordo muito&quot;</span>,</span>
+<span id="cb333-17"><a href="glm.html#cb333-17" tabindex="-1"></a>            <span class="fu">ifelse</span>(z <span class="sc">&lt;=</span> tau2, <span class="st">&quot;discordo pouco&quot;</span>,</span>
+<span id="cb333-18"><a href="glm.html#cb333-18" tabindex="-1"></a>                   <span class="fu">ifelse</span>(z <span class="sc">&lt;=</span> tau3, <span class="st">&quot;concordo pouco&quot;</span>, <span class="st">&quot;concordo muito&quot;</span>)))</span>
+<span id="cb333-19"><a href="glm.html#cb333-19" tabindex="-1"></a></span>
+<span id="cb333-20"><a href="glm.html#cb333-20" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y=</span>y, <span class="at">x1 =</span> x_subject)</span>
+<span id="cb333-21"><a href="glm.html#cb333-21" tabindex="-1"></a></span>
+<span id="cb333-22"><a href="glm.html#cb333-22" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb333-23"><a href="glm.html#cb333-23" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">factor</span>(y, <span class="at">ordered=</span>T))</span>
+<span id="cb333-24"><a href="glm.html#cb333-24" tabindex="-1"></a></span>
+<span id="cb333-25"><a href="glm.html#cb333-25" tabindex="-1"></a><span class="co"># checando a ordem</span></span>
+<span id="cb333-26"><a href="glm.html#cb333-26" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>y)</span></code></pre></div>
 <pre><code>## [1] &quot;concordo muito&quot; &quot;concordo pouco&quot; &quot;discordo muito&quot; &quot;discordo pouco&quot;</code></pre>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="glm.html#cb329-1" tabindex="-1"></a><span class="co"># ordem trocada (inversa)</span></span>
-<span id="cb329-2"><a href="glm.html#cb329-2" tabindex="-1"></a><span class="co">#vamos corrigir</span></span>
-<span id="cb329-3"><a href="glm.html#cb329-3" tabindex="-1"></a></span>
-<span id="cb329-4"><a href="glm.html#cb329-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb329-5"><a href="glm.html#cb329-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">factor</span>(y, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;discordo muito&quot;</span>,</span>
-<span id="cb329-6"><a href="glm.html#cb329-6" tabindex="-1"></a>                                 <span class="st">&quot;discordo pouco&quot;</span>,</span>
-<span id="cb329-7"><a href="glm.html#cb329-7" tabindex="-1"></a>                                 <span class="st">&quot;concordo pouco&quot;</span>,</span>
-<span id="cb329-8"><a href="glm.html#cb329-8" tabindex="-1"></a>                                 <span class="st">&quot;concordo muito&quot;</span>),</span>
-<span id="cb329-9"><a href="glm.html#cb329-9" tabindex="-1"></a>                    <span class="at">ordered=</span>T))</span>
-<span id="cb329-10"><a href="glm.html#cb329-10" tabindex="-1"></a></span>
-<span id="cb329-11"><a href="glm.html#cb329-11" tabindex="-1"></a><span class="co"># checando a ordem</span></span>
-<span id="cb329-12"><a href="glm.html#cb329-12" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>y)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="glm.html#cb335-1" tabindex="-1"></a><span class="co"># ordem trocada (inversa)</span></span>
+<span id="cb335-2"><a href="glm.html#cb335-2" tabindex="-1"></a><span class="co">#vamos corrigir</span></span>
+<span id="cb335-3"><a href="glm.html#cb335-3" tabindex="-1"></a></span>
+<span id="cb335-4"><a href="glm.html#cb335-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb335-5"><a href="glm.html#cb335-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">factor</span>(y, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;discordo muito&quot;</span>,</span>
+<span id="cb335-6"><a href="glm.html#cb335-6" tabindex="-1"></a>                                 <span class="st">&quot;discordo pouco&quot;</span>,</span>
+<span id="cb335-7"><a href="glm.html#cb335-7" tabindex="-1"></a>                                 <span class="st">&quot;concordo pouco&quot;</span>,</span>
+<span id="cb335-8"><a href="glm.html#cb335-8" tabindex="-1"></a>                                 <span class="st">&quot;concordo muito&quot;</span>),</span>
+<span id="cb335-9"><a href="glm.html#cb335-9" tabindex="-1"></a>                    <span class="at">ordered=</span>T))</span>
+<span id="cb335-10"><a href="glm.html#cb335-10" tabindex="-1"></a></span>
+<span id="cb335-11"><a href="glm.html#cb335-11" tabindex="-1"></a><span class="co"># checando a ordem</span></span>
+<span id="cb335-12"><a href="glm.html#cb335-12" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>y)</span></code></pre></div>
 <pre><code>## [1] &quot;discordo muito&quot; &quot;discordo pouco&quot; &quot;concordo pouco&quot; &quot;concordo muito&quot;</code></pre>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="glm.html#cb331-1" tabindex="-1"></a><span class="co"># correto</span></span>
-<span id="cb331-2"><a href="glm.html#cb331-2" tabindex="-1"></a><span class="co"># se quiser checar e está ordenado</span></span>
-<span id="cb331-3"><a href="glm.html#cb331-3" tabindex="-1"></a><span class="fu">is.ordered</span>(df<span class="sc">$</span>y)</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="glm.html#cb337-1" tabindex="-1"></a><span class="co"># correto</span></span>
+<span id="cb337-2"><a href="glm.html#cb337-2" tabindex="-1"></a><span class="co"># se quiser checar e está ordenado</span></span>
+<span id="cb337-3"><a href="glm.html#cb337-3" tabindex="-1"></a><span class="fu">is.ordered</span>(df<span class="sc">$</span>y)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="glm.html#cb333-1" tabindex="-1"></a><span class="fu">library</span>(ordinal)</span>
-<span id="cb333-2"><a href="glm.html#cb333-2" tabindex="-1"></a>reg_ord <span class="ot">&lt;-</span> <span class="fu">clm</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> df, <span class="at">link =</span> <span class="st">&quot;logit&quot;</span>)</span>
-<span id="cb333-3"><a href="glm.html#cb333-3" tabindex="-1"></a></span>
-<span id="cb333-4"><a href="glm.html#cb333-4" tabindex="-1"></a><span class="fu">summary</span>(reg_ord)</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="glm.html#cb339-1" tabindex="-1"></a><span class="fu">library</span>(ordinal)</span>
+<span id="cb339-2"><a href="glm.html#cb339-2" tabindex="-1"></a>reg_ord <span class="ot">&lt;-</span> <span class="fu">clm</span>(y <span class="sc">~</span> x1, <span class="at">data =</span> df, <span class="at">link =</span> <span class="st">&quot;logit&quot;</span>)</span>
+<span id="cb339-3"><a href="glm.html#cb339-3" tabindex="-1"></a></span>
+<span id="cb339-4"><a href="glm.html#cb339-4" tabindex="-1"></a><span class="fu">summary</span>(reg_ord)</span></code></pre></div>
 <pre><code>## formula: y ~ x1
 ## data:    df
 ## 
@@ -1229,7 +1232,7 @@ Vejamos um exemplo simulado e em seguida uma aplicação empírica.</p>
           </div>
         </div>
       </div>
-<a href="regressao-multipla.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regressao-múltipla.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="apêndice.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
