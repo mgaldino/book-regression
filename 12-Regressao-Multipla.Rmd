@@ -4,7 +4,7 @@ editor_options:
     wrap: 72
 ---
 
-# - Regressao Multipla
+# - Regressao Múltipla
 
 ```{r package loads 12, echo=TRUE, message=FALSE, warning=FALSE}
 library(ggplot2)
@@ -284,7 +284,7 @@ Nós hoje sabemos que o modo mais seguro de pensar causalidade é usando uma das
 
 ## Matriz chapéu
 
-Uma forma interessante de visualizar as previsões do modelo é que podemos escrever $\hat{Y} = XB$. Substituindo a fórmula do $B$, temos que:
+Uma forma interessante de visualizar as previsões do modelo é que podemos escrever $\hat{Y} = X\hat{B}$. Substituindo a fórmula do $\hat{B}$, temos que:
 $$
 \hat{Y} = X (X'X)^{-1}X'Y = \\
 (X (X'X)^{-1}X')Y = \\

@@ -9,6 +9,7 @@ editor_options:
 Iremos tratar aqui de tópicos especiais. Em primeiro lugar, do R. Vamos listar aqui os pacotes do R que eu mais utilizo e as principais funções.
 
 ## Importação
+
 Para ler arquivos em csv ou formato tabular, prefiro a função `fread` do **data.table**.
 
 Para ler arquivos de outrossoftwares, como stata ou SPSS, vejam as funções do pacote **haven**.
@@ -187,16 +188,14 @@ df %>%
 
 ### AR1
 
-Um outro modelo básico é um Processo AutoRegressivo de Primeira Ordem, denotado de AR(1).
+Um outro modelo básico é um Processo Auto Regressivo de Primeira ordem, denotado de AR(1).
 
 $$
 y_t = \alpha_0 + \alpha_1 y_{t-1} + e_t
 $$
 
-Um exemplo simples é a popularidade presencial. Seja $y_t$ a popularidade presidencial em uma escala de 0 a 10. Suponha que existe um nível mínimo de partidários (percentual da população) que sempre apoiam o presidente $\alpha_0$ e que um percentual aleatório de pessoas mudam de opinião sobre aprovação do presidente. Então, podemos fazer um modelo simples dado pela equação acima.
 
-
-```{r AR1, echo=FALSE ,mesage = FALSE, echo=FALSE, warning=FALSE}
+```{r AR1, echo=FALSE ,message = FALSE, echo=FALSE, warning=FALSE}
 library(ggplot2)
 library(dplyr)
 set.seed(123)
@@ -226,6 +225,62 @@ df %>%
 ```
 
 Um modelo que combina um AR de ordem $p$ com MA de ordem $q$ é chamado de $ARMA(p,q)$. 
+
+## Erro como AR ou MA
+
+Os modelos acima consideram que o $y$ segue um AR ou MA. Mas podemos pensar que o erro segue um AR ou MA. Quais as consequências? Tipicamente, o estimador continua não-viesado (se for exógeno aos erros em todos os períodos de tempo) e consistente, mas se torna ineficiente (o erro padrão está errado).
+
+Por exemplo, suponha que o modelo correto é:
+
+$$
+y_t = \alpha + beta x_t + et, e_t = \mu_t + \theta \mu_{t-1}
+$$
+Vamos rodar uma simulação e ver como fica:
+
+```{r hac-sim, warning=FALSE, message=FALSE}
+set.seed(1)
+library(lmtest)
+library(sandwich)
+library(parameters)
+# parâmetros
+R <- 5000
+N <- 500
+cover_c <- numeric()
+cover_hac <- numeric()
+cover_hc <- numeric()
+beta_true <- 0.5
+
+for (i in 1:R) {
+  eps <- arima.sim(n = N, model = list(ma = 0.8))
+  X <-  arima.sim(n = N, model = list(ar = 0.5))
+  Y <- beta_true* X + eps
+  fit <- lm(Y ~ X)
+  
+  se_c <- summary(fit)$coef[2,2]
+  b1   <- coef(fit)[2]
+  ci_c <- b1 + c(-1,1) * qt(0.975, df = N - 2) * se_c
+  cover_c[i] <- (beta_true >= ci_c[1] && beta_true <= ci_c[2])
+  
+  
+  results <- model_parameters(fit,
+                   vcov = "HC3")
+  se_hc <- results$SE[2]
+  ci_hc <- b1 + c(-1,1) * qt(0.975, df = N - 2) * se_hc
+  cover_hc[i] <- (beta_true >= ci_hc[1] && beta_true <= ci_hc[2])
+  
+  Vh <- NeweyWest(fit, lag = 3, prewhite = FALSE, adjust = TRUE)
+  se_h <- sqrt(diag(Vh))[2]
+  ci_h <- b1 + c(-1,1) * qt(0.975, df = N - 2) * se_h
+  cover_hac[i] <- (beta_true >= ci_h[1] && beta_true <= ci_h[2])
+}
+
+mean(cover_c)
+mean(cover_hc)
+mean(cover_hac)
+
+```
+
+
 
 ### TSCS
 
