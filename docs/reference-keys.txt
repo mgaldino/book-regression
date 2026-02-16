@@ -118,7 +118,7 @@ teste-t
 teste-de-hipótese-e-ic
 propriedades-assintóticas
 inferência-preditiva
-regressao-múltipla
+regressão-múltipla
 revisão-de-matriz-e-vetores
 modelo-básico
 modelo-com-matrizes
