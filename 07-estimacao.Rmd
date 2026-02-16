@@ -4,7 +4,7 @@ editor_options:
     wrap: 72
 ---
 
-# - Estimação
+# Estimação
 
 ```{r package loads 07, echo=FALSE, message=FALSE}
 library(ggplot2)
@@ -21,9 +21,9 @@ Até o momento, estávamos trabalhando com a população. Porém, na prática es
 
 ## Plug-in estimators
 
-Se tivermos uma amostra, e não a população, é razoável pensar que uma boa estimativa para os valores populacionais de $\alpha$ e $\beta$ são justamente essas fórmulas, calculadas para os dados amostrais. Esse estimador dos parâmetros populacionais nós chamamos de **plug-in estimates**, pois sem maiores teorias, assumimos que o que vale para a população vale para a amostra. Para diferenciar as estimativas amostrais dos valores populacionais, é comum usarmos $\hat{\beta}$ em vez de $\beta$, ou então letras latinas $b$ em vez das gregas $\beta$. Vou usar letras gregas com o "chapéu", mas outros textos utilizam letras latinas . 
+Se tivermos uma amostra, e não a população, é razoável pensar que uma boa estimativa para os valores populacionais de $\alpha$ e $\beta$ são justamente essas fórmulas, calculadas para os dados amostrais. Esse estimador dos parâmetros populacionais nós chamamos de **plug-in estimates**, pois sem maiores teorias, assumimos que o que vale para a população vale para a amostra. Para diferenciar as estimativas amostrais dos valores populacionais, é comum usarmos $\hat{\beta}$ em vez de $\beta$, ou então letras latinas $b$ em vez das gregas $\beta$. Vou usar letras gregas com o "chapéu", mas outros textos utilizam letras latinas.
 
-Ou seja, $\hat{\beta} = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{n\hat{\sigma_x}^2}$
+Ou seja, $\hat{\beta} = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{nS_x^2}$
 
 No caso da variância amostral de $x$, também é comum designá-la por $S_x^2$.
 
@@ -31,7 +31,7 @@ No caso da variância amostral de $x$, também é comum designá-la por $S_x^2$.
 
 Uma distribuição de probabilidade de $X$ e $Y$ é Normal bivariada quando $aX + bY$ é Normal também, para quaisquer $a$ e $b$. Para nós, importa aqui que $X$ e $Y$ são normais cada uma, e a conjunta deles também é Normal.
 
-E diferentemente da Normal univariada, preciso representar os parâmetros por meio de vetores. A média, que antes era um escalar, agora será representada por um vetor: $\mu = (\mu_x, \mu_y)$. Mesmo que $\mu_x = \mu_y$, ainda assim preciso representar por um vetor. E a variância também não consegue especificartudo que preciso saber sobre a variação nos dados. Eu preciso saber, a variância de $X$, dada por $\sigma_x$, a variância de $Y$, $\sigma_x$ e a covariância entre $X$ e $Y$ e $Y$ e $X$, dadas respectivamente por $\mathbb{Cov}[X,Y]$ e $\mathbb{Cov}[Y,X]$, que obviamente serão iguais. E nós representamos essas quatro informações por meio de uma matriz, chamada de matriz de covariância ou matriz de variância-covariância:
+E diferentemente da Normal univariada, preciso representar os parâmetros por meio de vetores. A média, que antes era um escalar, agora será representada por um vetor: $\mu = (\mu_x, \mu_y)$. Mesmo que $\mu_x = \mu_y$, ainda assim preciso representar por um vetor. E a variância também não consegue especificar tudo que preciso saber sobre a variação nos dados. Eu preciso saber, a variância de $X$, dada por $\sigma_x$, a variância de $Y$, $\sigma_y$ e a covariância entre $X$ e $Y$ (que é igual a $\mathbb{Cov}[Y,X]$), dadas respectivamente por $\mathbb{Cov}[X,Y]$ e $\mathbb{Cov}[Y,X]$, que obviamente serão iguais. E nós representamos essas quatro informações por meio de uma matriz, chamada de matriz de covariância ou matriz de variância-covariância:
 
 $$
 \Sigma = 
@@ -150,7 +150,7 @@ bivariada_tibble3 %>%
 
 
 
-# cov maor, dp de x maior
+# cov menor, dp de x maior
 rho <- .15
 sigma_x <- 4
 sigma_y <- 2
@@ -194,7 +194,7 @@ stargazer::stargazer(list(reg1, reg2, reg3, reg4), type =  "html", style = "ajps
 
 ## Suposições amostrais de MQO
 
-Quando temos uma amostra, é comum supormos que os dados são **i**ndependentes e **i**denticamente **d**istribuídos, **i.i.d**. Esse tipo de amostra às vezes é chamada de amostra aleatória simples. Isso é tipicamente válido em dados de corte transversal (cross-section) como uma pesquisa de opinião (survey) de intenção de voto, amostra pequena (mil, dois mil) de alunos do Brasil a partir de dados doe Censo Escolar e assim por diante. O ponto é que os dados precisam ser dispersos. Se você coletar alunos de uma mesma escola, eles não tenderão a ser independentes. Se amostrar eleitores de um mesmo bairro, tampouco haverá independência. Há formas de lidar com isso, e aprenderemos mais tarde. Por enquanto, tratemos do caso mais simples.
+Quando temos uma amostra, é comum supormos que os dados são **i**ndependentes e **i**denticamente **d**istribuídos, **i.i.d**. Esse tipo de amostra às vezes é chamada de amostra aleatória simples. Isso é tipicamente válido em dados de corte transversal (cross-section) como uma pesquisa de opinião (survey) de intenção de voto, amostra pequena (mil, dois mil) de alunos do Brasil a partir de dados do Censo Escolar e assim por diante. O ponto é que os dados precisam ser dispersos. Se você coletar alunos de uma mesma escola, eles não tenderão a ser independentes. Se amostrar eleitores de um mesmo bairro, tampouco haverá independência. Há formas de lidar com isso, e aprenderemos mais tarde. Por enquanto, tratemos do caso mais simples.
 
 A suposição de que dados são i.i.d significa que, em uma amostra com duas variáveis, $X$ e $Y$, o par $x_i, y_i$ é independente de $x_j, y_j$, com $i \neq j$ e identicamente distribuídos, isto é, com a mesma distribuição. Essa suposição é importante para calcular a variância dos nossos estimadores, não para a estimativa pontual deles.
 
@@ -206,7 +206,7 @@ $$
 \mathbb{E}[\bar{y}] = \mathbb{E}[\sum{y_i}/n] = (1/n) \cdot \sum{\mathbb{E}[y_i]} = (1/n)\cdot \mu \cdot n = \mu
 $$
 
-Portanto, o valor esperando do estimador de mínimos quadrados (a média amostral) é igual à média populacional. Quando isso acontece, isto é, quando a esperança de um estimador é igual ao parâmetro populacional dizemos que o estimador é não-viesado.
+Portanto, o valor esperado do estimador de mínimos quadrados (a média amostral) é igual à média populacional. Quando isso acontece, isto é, quando a esperança de um estimador é igual ao parâmetro populacional dizemos que o estimador é não-viesado.
 
 Definição 7.4. Um estimador $\hat{\theta}$ é não-viesado quando $\mathbb{E}[\hat{\theta}] = \theta$.
 
@@ -245,7 +245,7 @@ Vamos assumir que o modelo de regressão linear é uma boa aproximação para CE
 
 Lembrando que a fórmula da inclinação em uma amostra é: $\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}$. Pra simplificar a notação, escreveremos: $\hat{\beta} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{nS_x^2}$
 
-Vamos utlizar o fato de que $\sum_{i=1}^n (x_i - \bar{x}) = 0$. Veja que isso é sempre verdade. Para verificar:
+Vamos utilizar o fato de que $\sum_{i=1}^n (x_i - \bar{x}) = 0$. Veja que isso é sempre verdade. Para verificar:
 
 \begin{align}
 \sum_{i=1}^n (x_i - \bar{x})\\
@@ -267,7 +267,7 @@ Agora, vamos substituir $y_i = \alpha + \beta x_i + e_i$ na fórmula do $\hat{\b
 &= \frac{\sum_{i=1}^n (x_i - \bar{x})(\beta(x_i - \bar{x}) + \beta\bar{x}) ) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
 &= \frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 + \beta\bar{x}\sum_{i=1}^n (x_i - \bar{x}) + \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
 &= \frac{\beta\sum_{i=1}^n (x_i - \bar{x})^2 +  \sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} \\
-&= \beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2} = \\
+&= \beta +  \frac{\sum_{i=1}^n (x_i - \bar{x})e_i}{nS_x^2}
 \end{align}
 
 Agora, podemos computar a esperança condicional.
@@ -290,12 +290,12 @@ Podemos similarmente calcular a variância do nosso estimador, e mostrar que ela
 
 \begin{align}
 \mathbb{Var}[\hat{\beta}|X]\\
-&= \mathbb{Var}[\frac{\beta +  n^{-1}\sum_{i=1}^n({x_i - \bar{x}})e_i}{S_x^2}|X] \\
+&= \mathbb{Var}[\beta +  \frac{n^{-1}\sum_{i=1}^n({x_i - \bar{x}})e_i}{S_x^2}|X] \\
 &= \mathbb{Var}[\frac{n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i}{S_x^2}|X] \text{, somar uma constante não altera a variância} \\ 
 &= \frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X]  \text{, multiplicação por uma constante sai da variância ao quadrado} \\
 \end{align}
 
-É possível mostrar que dá para tirar para fora da esperança $n^{-1}\sum_{i=1}^n({x_i - \bar{x}})$. Isso não é exatamente trivial e vou pular a derivação de que isso está certo. E se suposermos homocedasticidade, $\mathbb{Var}[e_i|X] = \sigma^2$, então:
+É possível mostrar que dá para tirar para fora da esperança $n^{-1}\sum_{i=1}^n({x_i - \bar{x}})$. Isso não é exatamente trivial e vou pular a derivação de que isso está certo. E se supusermos homocedasticidade, $\mathbb{Var}[e_i|X] = \sigma^2$, então:
 
 \begin{align}
 \frac{1}{S_x^4}\mathbb{Var}[n^{-1}\sum_{i=1}^n({x_i - \bar{x}}) e_i|X] \\ 
@@ -327,7 +327,7 @@ Escolhi mexer com dados do censo escolar
 # carregando a biblioteca na sessão
 library(basedosdados)
 library(bigrquery)
-# para importar os dadosdiretamente no R, precisamos criar um id para acessar a base de dados
+# para importar os dados diretamente no R, precisamos criar um id para acessar a base de dados
 set_billing_id("aula-reg-manoel")
 
 #bq_auth()
@@ -406,7 +406,7 @@ summary(reg)
 
 ## Limitações de MQO
 
-Os estimadores de MQO, nossos $\hat{\beta}$ e $\hat{\alpha}$, são não-viesados e conseguimos derivar a variância amostral deles. Porém, não há muito mais que possamos dizer sobre eles a partir apenas das suposições que fizemos, ou seja, de que o modelo linear (nos parâmetros) é adequado, e que a espereança do erro, condicional ao preditor, é zero (e assumimos, em certo momento, homecedasticidade). O que não podemos dizer a mais que gostaríamos de poder fazer?
+Os estimadores de MQO, nossos $\hat{\beta}$ e $\hat{\alpha}$, são não-viesados e conseguimos derivar a variância amostral deles. Porém, não há muito mais que possamos dizer sobre eles a partir apenas das suposições que fizemos, ou seja, de que o modelo linear (nos parâmetros) é adequado, e que a esperança do erro, condicional ao preditor, é zero (e assumimos, em certo momento, homocedasticidade). O que não podemos dizer a mais que gostaríamos de poder fazer?
 
 Uma aspecto importante da inferência é, por exemplo, calcular o intervalo de confiança. Para isso, contudo, precisaremos de mais suposições do que o que fizemos até aqui. Portanto, tanto cálculos de intervalo de confiança como o p-valor e condução de testes de hipótese estão vedados com as suposições de MQO.
 
@@ -422,12 +422,12 @@ $$
 R^2 \equiv \frac{\hat{\sigma}^2_{\hat{y}}}{\hat{\sigma}^2_y}
 $$
 
-Uma definição alternartiva é que o R-quadrado é a razão entre a covariância de $y$ e $\hat{y}$ e a variância de $Y$:
+Uma definição alternativa é que o R-quadrado é a razão entre a covariância de $y$ e $\hat{y}$ e a variância de $Y$:
 $$
 R^2 \equiv \frac{\mathbb{Cov}[Y,\hat{Y}]}{\hat{\sigma}^2_y}
 $$
 
-Por fim, o R-quadrado pode ser escrito como o quadrado da covariância amosrtral entre $X$ e $Y$ dividido pelo produto dos desvios-padrãos amostrais de $X$ e $Y$.
+Por fim, o R-quadrado pode ser escrito como o quadrado da covariância amostral entre $X$ e $Y$ dividido pelo produto dos desvios-padrãos amostrais de $X$ e $Y$.
 
 $$
 R^2 \equiv \left(\frac{\hat{\mathbb{Cov}}[X,Y]}{\hat{\sigma}_x \cdot \hat{\sigma}_y}\right)^2
@@ -441,7 +441,7 @@ O estimador $\hat{\sigma^2}$ é viesado com relação ao parâmetro $\sigma^2$. 
 
 ### Limites do R-quadrado
 
-Pela primeira parametrização, é fácil ver que o $R^2$ jamais será negativo, pois a variância é sempre não-negativa. Além disso, jamais será mais que 1, pois a variância dos valores preditors será no máximo igual à variância observada, quando as previsões forem perfeitas.
+Pela primeira parametrização, é fácil ver que o $R^2$ jamais será negativo, pois a variância é sempre não-negativa. Além disso, jamais será mais que 1, pois a variância dos valores preditos será no máximo igual à variância observada, quando as previsões forem perfeitas.
 
 ### Para que serve?
 
@@ -481,7 +481,7 @@ Lembremos que a fórmula para o $\hat{\beta}$ é $\mathbb{Cov}[X,Y]/\mathbb{Var}
 
 Notem que: 
 $$
-\hat{\beta} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\sum({x_i - \bar{x}})^2} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{n \cdot S^2_x} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\cdot S^2_x}
+\hat{\beta} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{\sum({x_i - \bar{x}})^2} = \frac{\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{n \cdot S^2_x} = \frac{n^{-1}\sum({x_i - \bar{x}}) \cdot ({y_i - \bar{y}})}{S^2_x}
 $$
 
 Vamos então usar essa última parametrização para reescrever minha equação do $\hat{\beta}$ e então mostrar que ele é não-viesado e calcular sua variância. 
@@ -504,14 +504,14 @@ Portanto, $n^{-1} \cdot \sum({x_i -\bar{x}})\bar{y} = 0$.
 Logo,
 
 $$
-\hat{\beta} =  \frac{n^{-1}\sum({x - \bar{x}})y_i}{S^2_x}
+\hat{\beta} =  \frac{n^{-1}\sum({x_i - \bar{x}})y_i}{S^2_x}
 $$
 
 Lembremos que, $y_i = \alpha + \beta x_i + e_i$. Se eu adicionar e subtrair $\beta\bar{x}$ da equação, não altero ela. Utilizando esse truque e rearranjando, temos o seguinte:
 
 $$
-y_i = \alpha + \beta X_i + e_i = \\
-\alpha + \beta\bar{x} + \beta X_i - \beta\bar{x} + e_i = \\
+y_i = \alpha + \beta x_i + e_i = \\
+\alpha + \beta\bar{x} + \beta x_i - \beta\bar{x} + e_i = \\
 \alpha + \beta\bar{x} + \beta(x_i - \bar{x}) + e_i
 $$
 
@@ -522,11 +522,11 @@ $$
 $$
 
 $$
-\hat{\beta} =  \frac{ n^{-1} \cdot (\alpha + \beta)\bar{x}\sum({x_i - \bar{x}}) + n^{-1}\sum({x_i - \bar{x}}) \cdot [\beta \cdot (x_i - \bar{x}) + e_i]}{S^2_x}
+\hat{\beta} =  \frac{ n^{-1} \cdot (\alpha + \beta\bar{x})\sum({x_i - \bar{x}}) + n^{-1}\sum({x_i - \bar{x}}) \cdot [\beta \cdot (x_i - \bar{x}) + e_i]}{S^2_x}
 $$
 
 $$
-\hat{\beta} = \frac{ n^{-1} \cdot (\alpha + \beta) \cdot \bar{x}\sum({x_i - \bar{x}}) + n^{-1} \beta\sum(x_i - \bar{x})^2 + n^{-1} \sum({x_i - \bar{x}})e_i} {S^2_x}
+\hat{\beta} = \frac{ n^{-1} \cdot (\alpha + \beta\bar{x})\sum({x_i - \bar{x}}) + n^{-1} \beta\sum(x_i - \bar{x})^2 + n^{-1} \sum({x_i - \bar{x}})e_i} {S^2_x}
 $$
 A primeira soma é uma constante, vezes o somatório de $x_i$ menos sua média, o que é zero. Posso então eliminar da equação, resultando em:
 $$
