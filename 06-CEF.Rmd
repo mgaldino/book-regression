@@ -4,7 +4,7 @@ editor_options:
     wrap: 72
 ---
 
-# - CEF
+# CEF
 
 ```{r package loads 06, echo=FALSE, message=FALSE}
 library(ggplot2)
@@ -14,7 +14,7 @@ library(tidyverse)
 
 Em geral, iremos simplificar a notação usando variáveis com uma letra.
 Assim, a variável dependente, Percentual do voto no segundo turno, será dado por
-$Y$, como constuma ser feito. Já os preditores, como percentual de voto no primeiro turno diferença entre priemeiro e segundo colocado, por
+$Y$, como costuma ser feito. Já os preditores, como percentual de voto no primeiro turno e diferença entre primeiro e segundo colocado, por
 $X_1, X_2$ etc. O subscrito indica que é uma variável diferente. Assim,
 a esperança condicional pode ser reescrita para muitas variáveis
 preditoras como:
@@ -52,8 +52,8 @@ $$
 Y = m(X) + e
 $$
 Notem que o erro $e$ depende de $X$ e $Y$ e, portanto, é também uma
-variável aleatória. E uma propriedade (não um pressuspoto) da CEF é que
-o erro $e$ tem esperança condiconal a $X$ igual a zero.
+variável aleatória. E uma propriedade (não um pressuposto) da CEF é que
+o erro $e$ tem esperança condicional a $X$ igual a zero.
 
 ## Simulando para entender a CEF
 
@@ -79,7 +79,7 @@ print(sum(erro1^2))
 print(sum(erro2^2))
 ```
 
-Nós imprimimos os dois erros quadráticos médios calculados, um usando a média de $Y$ como minha estimativa, e outro usando a mediana. A média teve um desempenho melhor. De maneira geral, é possível mostrar que a média é é a melhor estimativa não condicional possível. 
+Nós imprimimos os dois erros quadráticos médios calculados, um usando a média de $Y$ como minha estimativa, e outro usando a mediana. A média teve um desempenho melhor. De maneira geral, é possível mostrar que a média é a melhor estimativa não condicional possível. 
 
 ## Propriedades da CEF
 
@@ -95,7 +95,7 @@ e
 $$
 \mathbb{E}[e|X] = \mathbb{E}[Y - m(X)|X]
 $$
-Pela propriedade de lineraridade da esperança, temos então:
+Pela propriedade de linearidade da esperança, temos então:
 
 $$
 \mathbb{E}[e|X] = \mathbb{E}[Y|X] -  \mathbb{E}[m(X)|X]
@@ -107,7 +107,7 @@ $$
 
 ### A Esperança do Erro Condicional a X é zero
 
-Existe um teorema, que não irei demonstrar, chamando de teorema do
+Existe um teorema, que não irei demonstrar, chamado de teorema do
 condicionamento, que diz que em situações como $\mathbb{E}[m(X)|X]$, isso
 é igual e $m(X)$. O que torna nossa equação igual a zero. Ou seja:
 
@@ -117,7 +117,7 @@ $$
 
 ### A esperança (não-condicional) do erro é zero.
 
-E existe um outro teorema, chamdo de lei das esperanças iteradas (Law of Iterated
+E existe um outro teorema, chamado de lei das esperanças iteradas (Law of Iterated
 Expectations) que diz que a esperança da esperança condicional é a
 esperança não-condicional. Ou seja, $\mathbb{E}[\mathbb{E}[Y\|X]] = \mathbb{E}[Y]$. Utilizando esse fato, temos que a esperança
 não-condicional do erro também é zero.
@@ -128,18 +128,18 @@ $$
 
 #### Intuição da LIE
 
-Como a LIE é muito importante em muitas demonstração de estatística, vale a penda dar pelo menos a intuição de sua validade. Para isso, vamos usar a lei da probabilidade total. Digamos que tenho um dado de 6 faces, dado $A$, e outro de 4 faces, o dado $B$. E $Y$ é o valor que sai de jogar um dado e $X$ é qual dado eu joguei. Queremos mostrar que:
+Como a LIE é muito importante em muitas demonstração de estatística, vale a pena dar pelo menos a intuição de sua validade. Para isso, vamos usar a lei da probabilidade total. Digamos que tenho um dado de 6 faces, dado $A$, e outro de 4 faces, o dado $B$. E $Y$ é o valor que sai de jogar um dado e $X$ é qual dado eu joguei. Queremos mostrar que:
 
 $$
 \mathbb{E}[\mathbb{E}[Y|X]] = \mathbb{E}[Y]
 $$
 A média das médias condicionais é dado pela média quando escolho o dado A (vezes sua probabilidade) mais a média quando escolho o dado B (vezes sua probabilidade).
 
-Se $X = A$, o dado de 6 faces, então $\mathbb{E}[Y|X=A]]$, isto é, a média do valor do dado é $(1+2+3+4+5+6)/6 = 3.5$
+Se $X = A$, o dado de 6 faces, então $\mathbb{E}[Y|X=A]$, isto é, a média do valor do dado é $(1+2+3+4+5+6)/6 = 3.5$
 
-Se $X = B$, o dado de 4 faces, então $\mathbb{E}[Y|X=A]]$, isto é, a média do valor do dado é $(1+2+3+4)/4 = 2.5$
+Se $X = B$, o dado de 4 faces, então $\mathbb{E}[Y|X=B]$, isto é, a média do valor do dado é $(1+2+3+4)/4 = 2.5$
 
-Se eu escolher cada dado aleatoriamente, isto é, com probabilidade 50%, então o valor médio de $Y$, dado por $\mathbb{E}[y]$ é simplesmente $3.5*.5 + 3.5*.5 = 3$. .
+Se eu escolher cada dado aleatoriamente, isto é, com probabilidade 50%, então o valor médio de $Y$, dado por $\mathbb{E}[Y]$ é simplesmente $3.5 \times 0.5 + 2.5 \times 0.5 = 3$.
 
 No caso dos salários condicional ao gênero, efetivamente o que estamos dizendo é o seguinte:
 
@@ -152,7 +152,7 @@ $$
 
 Por fim, uma última propriedade que não iremos demonstrar é que o erro da CEF é não-correlacionado com qualquer função de $X$. Formalmente isso é formulado como $\mathbb{E}[h(x)*e] = 0$. Em particular, se $h(x)=x$, então $\mathbb{E}[x*e] = 0$. Esse resultado implica que o erro é não-correlacionado com $X$ (ou qualquer função de $X$). Dizemos que o erro é independente na média de $X$, ou seja, $\mathbb{E}[e|X]=0$ e isso implica que o erro não é correlacionado com x.
 
-Vejam que já sabemos que $\mathbb{E}[e]=0$, portanto, $\mathbb{E}[e|X]=0$ é uma forma de dizer que a média do erro condicional a $X$ é a mesma coisa que a média do erro sem condicionar em $X$. Em outras palavras, a informação de $X$ não muda minha estimativa da média do erro. Voltemos para o exemplo dos dados. Agora, suponha que tenho dois dados de $6$ faces. Nesse caso, saber que escolhi o dado $A$ não muda a médiade $Y$, pois será igualmente $3.5$. É fácil ver que não há correlação entre $X$ e $Y$ nesse caso.
+Vejam que já sabemos que $\mathbb{E}[e]=0$, portanto, $\mathbb{E}[e|X]=0$ é uma forma de dizer que a média do erro condicional a $X$ é a mesma coisa que a média do erro sem condicionar em $X$. Em outras palavras, a informação de $X$ não muda minha estimativa da média do erro. Voltemos para o exemplo dos dados. Agora, suponha que tenho dois dados de $6$ faces. Nesse caso, saber que escolhi o dado $A$ não muda a média de $Y$, pois será igualmente $3.5$. É fácil ver que não há correlação entre $X$ e $Y$ nesse caso.
 
 Aqui tem uma intuição de porque uma variável ser independente na média significa que não é correlacionada. Suponha que eu tenho uma medida da altura de pessoas, alguma medida do vocabulário delas e suas idades. Condicional à idade, saber a altura de uma pessoa não diz nada sobre o vocabulário dela (e vice-versa). Isso significa que não estão correlacionadas. 
 
@@ -202,7 +202,7 @@ $$
 $$
 ## A esperança condicional é o melhor preditor
 
-Nós já antecipamos que a esperança conidcional é o melhor preditor de $Y$ no sentido de minimizar o EQM. vamos agora mostrar isso. Anteriormente definidmos a esperança condicional $\mathbb{E}[Y|X]$ como $m(x)$. Vamos por um momento esquecer essa definição e assumir que $m(x)$ é valor que minimizar o EQM. Iremos provar que nesse caso, $m(x) = \mathbb{E}[Y|X]$
+Nós já antecipamos que a esperança condicional é o melhor preditor de $Y$ no sentido de minimizar o EQM. Vamos agora mostrar isso. Anteriormente definimos a esperança condicional $\mathbb{E}[Y|X]$ como $m(x)$. Vamos por um momento esquecer essa definição e assumir que $m(x)$ é valor que minimizar o EQM. Iremos provar que nesse caso, $m(x) = \mathbb{E}[Y|X]$
 $$
 EQM = \mathbb{E}[(Y - m(X))^2]
 $$
@@ -216,31 +216,31 @@ $$
 EQM = \mathbb{E}[a^2 + 2*a*b + b^2]
 $$
 
-Substituindo os conteúdos e $a$ e $b$ de volta, temos:
+Substituindo os conteúdos de $a$ e $b$ de volta, temos:
 $$
 EQM = \mathbb{E}[(Y - \mathbb{E}[Y|X])^2 + 2*(Y - \mathbb{E}[Y|X])*(\mathbb{E}[Y|X] - m(X)) + (\mathbb{E}[Y|X] - m(X))^2]
 $$
 
-Qualquer se seja o valort de $m(x)$ não altera o primeiro termo. Então, se quero achar o menor $m(x)$ posso desprezá-lo. O segundo termo pode ser reescrito como $h(x)*e$, em que $h(x) = 2*(Y - \mathbb{E}[Y|X])$ e $e = \mathbb{E}[Y|X] - m(X)$. E já vimos que essa esperança é zero. Portanto, o que realmente importa é escolher $m(x)$ que torne $\mathbb{E}[Y|X] - m(X)$ mínimo. E o valor que minimizar o EQM é, portanto, $m(x) = \mathbb{E}[Y|X]$. Como Queríamos Demonstrar.
+Qualquer que seja o valor de $m(x)$ não altera o primeiro termo. Então, se quero achar o menor $m(x)$ posso desprezá-lo. O segundo termo pode ser reescrito como $h(x)*e$, em que $h(x) = 2*(Y - \mathbb{E}[Y|X])$ e $e = \mathbb{E}[Y|X] - m(X)$. E já vimos que essa esperança é zero. Portanto, o que realmente importa é escolher $m(x)$ que torne $\mathbb{E}[Y|X] - m(X)$ mínimo. E o valor que minimizar o EQM é, portanto, $m(x) = \mathbb{E}[Y|X]$. Como Queríamos Demonstrar.
 
 ## Regressão Linear e a CEF
 
 O modelo de regressão que iremos rodar com nossos dados pode ser conectado com a CEF em três maneiras diferentes (pelo menos).
 
 ### Mínimos Quadrados Ordinários
-O modelo de regreessão linear supõe que queremos achar a melhor reta que se ajusta aos nossos dados. Se tivermos apenas um preditor, $X$ e uma variável a ser predita $Y$, a equação da reta de regressão (populacional) é:
+O modelo de regressão linear supõe que queremos achar a melhor reta que se ajusta aos nossos dados. Se tivermos apenas um preditor, $X$ e uma variável a ser predita $Y$, a equação da reta de regressão (populacional) é:
 
 $$
 Y = \alpha + \beta*X + e
 $$
 Essa reta é chamada de reta de regressão populacional ou até função de regressão populacional. 
 
-Eu posso ter infinitas combinações de valores de $\alpha$ e $\beta$ formando infinitas retas de regressões. Porém, só uma delas me dará a menor soma dos erros quadráticos. Estou interesado em achar quais são esses valores de $\alpha$ e $\beta$.
-Antes de determinar a fórmula para achar esses valores, vamso relembrar como interpretar uma equação da reta.
+Eu posso ter infinitas combinações de valores de $\alpha$ e $\beta$ formando infinitas retas de regressões. Porém, só uma delas me dará a menor soma dos erros quadráticos. Estou interessado em achar quais são esses valores de $\alpha$ e $\beta$.
+Antes de determinar a fórmula para achar esses valores, vamos relembrar como interpretar uma equação da reta.
 
 #### Equação da Reta
 
-Na nossa equação da reta, $\alpha$ é o intercepto, isto é, o ponto onde a reta cruza o eixo $y$ e $\beta$ é a inclinção ou coeficiente angular da reta. Se nós simularmos dados e plotarmos um scatter plot, veremos que podemos ajustar muitas retas aos dados.
+Na nossa equação da reta, $\alpha$ é o intercepto, isto é, o ponto onde a reta cruza o eixo $y$ e $\beta$ é a inclinação ou coeficiente angular da reta. Se nós simularmos dados e plotarmos um scatter plot, veremos que podemos ajustar muitas retas aos dados.
 
 ```{r plotAjusteReta, echo=TRUE, message=FALSE}
 set.seed(1234)
@@ -259,7 +259,7 @@ df %>%
 
 No gráfico \@ref(fig:plotAjusteReta), vemos que a reta em azul é melhor do que a verde e vermelha.
 
-Para achar os valores da reta azul (que aqui sabemos ser $\alpha =2$ e $\beta = 1.3$), podemos novamente minimizar o EQM. A derivação requer calcular a derivada ou utilização de álgebra linerar, requisitos matemáticos para além do curso. Para um preditor, a fórmula do $\beta$ é dada por $COV(Y,X)/Var(X)$ e a constante, $\alpha$ é dada por $\mathbb{E}[(Y)] - \beta*\mathbb{E}[X]$. Expressando a mesma fórmula com somatório (em vez de esperança), temos:
+Para achar os valores da reta azul (que aqui sabemos ser $\alpha =2$ e $\beta = 1.3$), podemos novamente minimizar o EQM. A derivação requer calcular a derivada ou utilização de álgebra linear, requisitos matemáticos para além do curso. Para um preditor, a fórmula do $\beta$ é dada por $COV(Y,X)/Var(X)$ e a constante, $\alpha$ é dada por $\mathbb{E}[(Y)] - \beta*\mathbb{E}[X]$. Expressando a mesma fórmula com somatório (em vez de esperança), temos:
 
 $$
 \alpha = \bar{Y} - \beta*\bar{X}
@@ -280,7 +280,7 @@ df %>%
   kable(digits=3)
 ```
 
-Vejam que é a mesma estimativa se eu usar a função "lm" do R, que estima uma modelo de regressão linear.
+Vejam que é a mesma estimativa se eu usar a função "lm" do R, que estima um modelo de regressão linear.
 ```{r lm fit, echo=TRUE, message=FALSE}
 lm(y ~x, df)
 ```
@@ -295,17 +295,17 @@ Quando a CEF será linear? Um dos casos é quando a distribuição conjunta de p
 
 ### É o melhor preditor linear do $Y$ (justificativa II)
 
-Outra justificativa para a CEF linear é que o modelo linear de regressão gera a melhor previsão possível (no sentido de menor Erro Quadrático Médio) para minha variável dependente, dentre todos os modelos lineares possíveis. Ou seja, se eu minimizar o erro entre o $Y$ observado e minha previsão dada pelo modelo linear $\alpha + \beta*x$, em que $\alpha$ e $\beta$ são definidos pelas fórmulas derivadas de MQO, terei o menor erro possível. Formalmente estou minimizando $\mathbb{E}[Y - m(x)]$.
+Outra justificativa para a CEF linear é que o modelo linear de regressão gera a melhor previsão possível (no sentido de menor Erro Quadrático Médio) para minha variável dependente, dentre todos os modelos lineares possíveis. Ou seja, se eu minimizar o erro entre o $Y$ observado e minha previsão dada pelo modelo linear $\alpha + \beta*x$, em que $\alpha$ e $\beta$ são definidos pelas fórmulas derivadas de MQO, terei o menor erro possível. Formalmente estou minimizando $\mathbb{E}[(Y - m(x))^2]$.
 
 
 ### A reta de regressão é a aproximação com o menor erro quadrático médio (justificativa III)
 
-Justificativa II e III são parecidas, mas distintas. No primeiro caso estou pensando em termos de previsão. No terceiro, em termos de aproximação. Ou seja, se a CEF for não-linear, e quiser aproximá-la por meio de uma reta, a melhor aproximação possível é por meio da fórmula de regressão. Formalmente, estou minimizando $\mathbb{E}[\mathbb{E}[Y|X] - m(x)]$. Matematicamente fica claro que estou falando de coisas distintas (na justificativa II, minimizo a diferença entre $Y$ e $m(x)$, e na justificativa III minimizo a diferença entre $\mathbb{E}[Y|X]$ e $m(x)$). Em palavras, aqui estou aproximando a CEf (a esperança condicional), antes eu estava prevendo minha variável dependente.
+Justificativa II e III são parecidas, mas distintas. No primeiro caso estou pensando em termos de previsão. No terceiro, em termos de aproximação. Ou seja, se a CEF for não-linear, e quiser aproximá-la por meio de uma reta, a melhor aproximação possível é por meio da fórmula de regressão. Formalmente, estou minimizando $\mathbb{E}[\mathbb{E}[Y|X] - m(x)]$. Matematicamente fica claro que estou falando de coisas distintas (na justificativa II, minimizo a diferença entre $Y$ e $m(x)$, e na justificativa III minimizo a diferença entre $\mathbb{E}[Y|X]$ e $m(x)$). Em palavras, aqui estou aproximando a CEF (a esperança condicional), antes eu estava prevendo minha variável dependente.
 
 
 ## Linearidade e Causalidade
 
-Toda a discussão de lineraridade é importante pelo motivo óbvio de que estaremos estimando modelos lineares, então é bom ter justificativas para usar modelos lineares para além do fato de que usamos porque aprendemos a usar ou porque é o que sabemos fazer. Mas além disso, estamos muitaz vezes interessados em modelo causais e a pergunta natural é: Sob que condições a CEF nos diz o efeito causal de $x$ sobre $y$? Voltaremos a esse ponto em um capítulo futuro, uma vez que tenhamos aprendido a estimar modelos de regressão linear para fins de previsão.
+Toda a discussão de linearidade é importante pelo motivo óbvio de que estaremos estimando modelos lineares, então é bom ter justificativas para usar modelos lineares para além do fato de que usamos porque aprendemos a usar ou porque é o que sabemos fazer. Mas além disso, estamos muitas vezes interessados em modelos causais e a pergunta natural é: Sob que condições a CEF nos diz o efeito causal de $x$ sobre $y$? Voltaremos a esse ponto em um capítulo futuro, uma vez que tenhamos aprendido a estimar modelos de regressão linear para fins de previsão.
 
 
 
@@ -328,12 +328,12 @@ $$
 \sigma^2 = var[e] =  \mathbb{E}[(e - \mathbb{E}[e])^2] = \mathbb{E}[e^2]
 $$
 
-A variância da regressão mede a porção da variância que não é "explicada" ou predita pela esperança condicional, já que é definida pela variância do erro $e$. Além disso, ela depende dos preditores. Se temos preditores diferentes, a varância da regressão será diferente.
+A variância da regressão mede a porção da variância que não é "explicada" ou predita pela esperança condicional, já que é definida pela variância do erro $e$. Além disso, ela depende dos preditores. Se temos preditores diferentes, a variância da regressão será diferente.
       
 
 ### Chuva na Jamaica
 
-Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). É uma relação não-monotônica, isto é, a variância com mais preditores é sempre menor ou igual que a variância com menos preditores (se a com mais preditores incluir os mesmos preditores da com menos regressores). Por isso que uma professor meu dizia: se você mediu chuva na Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
+Uma propriedade da variância da regressão é que adicionar preditores não piora a variância e quase sempre melhora (reduz). É uma relação monotônica, isto é, a variância com mais preditores é sempre menor ou igual que a variância com menos preditores (se a com mais preditores incluir os mesmos preditores da com menos regressores). Por isso que um professor meu dizia: se você mediu chuva na Jamaica, pode colocar essa variável como preditora da regressão que isso irá reduzir a variância não explicada.
       
 
 ## Variância condicional
@@ -347,12 +347,12 @@ A variância condicional do erro (ou de $Y$) em geral depende de $X$. Quando nã
 
 ## Efeito Marginal
 
-A regressão pode ser intepretada como efeito marginal. Se estivéssemos usando cálculo diferencial, o efeito marginal poderia ser definito como a derivada parcial de um preditor $x$ com relação à variável dependente $y$. Sem cálculo, podemos pensar como o coeficiente angular da variável, ou seja, quanto um aumento em x prediz um aumento em y. Quando temos vários regressoes, eles são mantidos constantes. É o que em economia se chama de **ceteris paribus**. Isso significa que a intepretação do efeito marginal só mantém constante os regressores incluído na regressão.
+A regressão pode ser interpretada como efeito marginal. Se estivéssemos usando cálculo diferencial, o efeito marginal poderia ser definido como a derivada parcial de um preditor $x$ com relação à variável dependente $y$. Sem cálculo, podemos pensar como o coeficiente angular da variável, ou seja, quanto um aumento em x prediz um aumento em y. Quando temos vários regressores, eles são mantidos constantes. É o que em economia se chama de **ceteris paribus**. Isso significa que a interpretação do efeito marginal só mantém constante os regressores incluídos na regressão.
 
 
 ## CEF linear com preditores não-lineares
 
-Uma aspecto importante que deve fcar cláro que é o modelo de regressão linear que usamos para aproximar a CEF é linear nos parâmetros, mas pode ser não-linear nas variáveis.
+Um aspecto importante que deve ficar claro é que o modelo de regressão linear que usamos para aproximar a CEF é linear nos parâmetros, mas pode ser não-linear nas variáveis.
 
 Assim, a seguinte equação de regressão é linear nos parâmetros:
 $$
