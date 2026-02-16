@@ -4,24 +4,24 @@ editor_options:
     wrap: 72
 ---
 
-# - Checagem
+# Checagem
 
 Antes de proceder com a parte de inferência estatística, vamos apresentar como realizar checagem do modelo. A razão é que, em geral, a teoria de inferência depende da suposição do modelo ser correta. Então, faz sentido primeiro checar se o modelo satisfaz os pressupostos, e depois fazer inferência.
 
-Vamos então apresentar os principais testes e checagem que devemos fazer com nosso modelo de regressão linear. Aqui vale uma comentário sobre inferência Bayesiana, que não estamos utilizando em nosso curso, mas que eu particularmente utilizo em minha pesquisa aplicada. O prática de modelagem padrão na inferência Bayesiana é escrever formalmente uma verossimilhança (como fizemos com MLE) e estimar distribuições de porbabilidades para os parâmetros, e checar o modelo para ver se essas distribuições fazem sentido. Portanto, a checagem do modelo acontece automaticamente e de maneira integrada, ao contrário do que faremos aqui. Ou seja, recomendo que vocês aprendam a fazer inferência Bayesiana e prescindam de toda essa maquinaria que irei apresentar.
+Vamos então apresentar os principais testes e checagem que devemos fazer com nosso modelo de regressão linear. Aqui vale um comentário sobre inferência Bayesiana, que não estamos utilizando em nosso curso, mas que eu particularmente utilizo em minha pesquisa aplicada. A prática de modelagem padrão na inferência Bayesiana é escrever formalmente uma verossimilhança (como fizemos com MLE) e estimar distribuições de probabilidades para os parâmetros, e checar o modelo para ver se essas distribuições fazem sentido. Portanto, a checagem do modelo acontece automaticamente e de maneira integrada, ao contrário do que faremos aqui. Ou seja, recomendo que vocês aprendam a fazer inferência Bayesiana e prescindam de toda essa maquinaria que irei apresentar.
 
 ## Resíduos
 
-Os resíduo para cada observação $i$ é a diferença entre a previsão do modelo de regressão $\hat{y_i}$ e o valor observado $y_i$, as vezes chamado de $\hat{e}$, para diferenciar do erro populacional, $e$. No caso de nosso modelo de regressão linear com um único preditor, temos:
+Os resíduos para cada observação $i$ é a diferença entre a previsão do modelo de regressão $\hat{y}_i$ e o valor observado $y_i$, às vezes chamado de $\hat{e}$, para diferenciar do erro populacional, $e$. No caso de nosso modelo de regressão linear com um único preditor, temos:
 
 $$
-\hat{e_i} = y_i - (\hat{\alpha} + \hat{\beta} \cdot x_i)
+\hat{e}_i = y_i - (\hat{\alpha} + \hat{\beta} \cdot x_i)
 $$
-Eis algumas propriedade dos resíduos. 
+Eis algumas propriedades dos resíduos. 
 
 1. Os resíduos deveriam ter esperança zero, condicional aos preditores. Formalmente, $\mathbb{E}[\hat{e}|X=x] = 0$. Isso sempre será verdade, e é uma consequência de como calculamos o estimador de mínimos quadrados.
 
-2. Se estivermos supondo homecedasticidade, devem ter variância constante (o que raramente será o caso).
+2. Se estivermos supondo homocedasticidade, devem ter variância constante (o que raramente será o caso).
 
 3. Por se tratar de uma amostra, a probabilidade dos resíduos serem completamente não-correlacionados entre si é zero, contudo a correlação deve ser baixa e convergir para zero à medida que $n$ cresce para infinito.
 
@@ -165,7 +165,7 @@ Seja $A$ uma v.a. Então, $\mathbb{Var}[A|X] = \mathbb{E}[(A - \mathbb{E}[A|X])^
 $$
 \mathbb{Var}[\hat{e}|X] =  \mathbb{E}[(\hat{e} - \mathbb{E}[\hat{e}|X])^2|X] = \mathbb{E}[(\hat{e} - 0)^2|X] = \mathbb{E}[\hat{e}^2|X]
 $$
-Portanto, se estamos assumindo homecadisticidade, isto é, que $\mathbb{Var}[\hat{e}|X] = \sigma^2$, podemos checar esta suposição olhando para a esperança condicional do quadrado dos resíduos. E podemos fazer isso plotando o gráfico do quadrado dos resíduos contra o preditor. É útil olhar tanto a reta ajustada quanto um modelo não-linear, disponível no comando geom_smooth do ggplot2.
+Portanto, se estamos assumindo homocedasticidade, isto é, que $\mathbb{Var}[\hat{e}|X] = \sigma^2$, podemos checar esta suposição olhando para a esperança condicional do quadrado dos resíduos. E podemos fazer isso plotando o gráfico do quadrado dos resíduos contra o preditor. É útil olhar tanto a reta ajustada quanto um modelo não-linear, disponível no comando geom_smooth do ggplot2.
 
 ```{r residuos-sq-preditor,  message=FALSE}
 df <- data.frame(residuos_sq = residuals(reg1)^2, preditor = presid_al18_valido$perc_bolso_turno1)
@@ -181,7 +181,7 @@ A reta deve ser horizontal, e não deveria ter mais pontos acima do que abaixo d
 
 Vale perceber também que existem alguns outliers no quadrado dos resíduos, que poderiam ser investigados qualitativamente, para entender o que está causando isso e pode sugerir algum preditor ou forma funcional não considerados na modelagem.
 
-Ás vezes quando temos resíduos muito grandes, o quadrado deles fica gigante e o gráfico fica não-informativo (especialmente quando o modelo é problemático). Nesses casos, podemos plotar o valor absoluto dos resíduos, em vez do quadrado.
+Às vezes quando temos resíduos muito grandes, o quadrado deles fica gigante e o gráfico fica não-informativo (especialmente quando o modelo é problemático). Nesses casos, podemos plotar o valor absoluto dos resíduos, em vez do quadrado.
 
 ```{r residuos-abs-preditor, message=FALSE}
 df <- data.frame(residuos_abs = abs(residuals(reg1)), preditor = presid_al18_valido$perc_bolso_turno1)
@@ -221,7 +221,7 @@ df_randomized %>%
 
 O que os dois plots mostram é que existe um padrão na forma como o TSE numera as seções, mas não há padrão espacial claro na votação.
 
-Uma técnica simples, que é uma versão simplificada de algo mais formal chamado "permutation test", é plotar os resíduos permutados aleatoriamente contra o plot real que queremos fazer. Vamos usar o pacote [nullabor](https://dicook.github.io/nullabor/) para isso. Vamos replicar o teste de homecedasticidade e olhar os resíduos ao quadrado contra os preditores, e olhar os resíduos contra os valores previstos Primeiro contra o preditor.  
+Uma técnica simples, que é uma versão simplificada de algo mais formal chamado "permutation test", é plotar os resíduos permutados aleatoriamente contra o plot real que queremos fazer. Vamos usar o pacote [nullabor](https://dicook.github.io/nullabor/) para isso. Vamos replicar o teste de homocedasticidade e olhar os resíduos ao quadrado contra os preditores, e olhar os resíduos contra os valores previstos. Primeiro contra o preditor.
 
 ```{r cap10-residuos-shufle-coordenadas1, message=FALSE}
 library(nullabor)
@@ -255,7 +255,7 @@ ggplot(shuffled_residuals, aes(x = .fitted, y = .resid)) +
 
 ```
 
-A mensagem encriptada tem o plot real, contrao o nulo. Se for possível identificar o plot real, é porque existe algum padrão nos dados.
+A mensagem encriptada tem o plot real, contra o nulo. Se for possível identificar o plot real, é porque existe algum padrão nos dados.
 
 
 ## Normalidade dos resíduos
@@ -272,7 +272,7 @@ df %>%
   ggplot(aes(residuos)) + geom_histogram(aes(y=..density..)) + geom_density(aes(density_points), colour = "blue")
 ```
 
-Uma alternativa mais tradicional são os chamados Q-Q plots, cujo nome deriva de sere um plot "quantil-quantil". A Função de Distribuição Acumulada (FDA) é $F(x) = P(X \leq x)$. Se a função é contínua (como a Normal), então ela possui uma inversa: $F^{-1}(p)$, que nos diz o único $x$ tal que $P(X \leq x) = p$. Ou seja, a função quantil me diz qual é o ponto que divide a minha distribuição de probabilidade em exatamente $p\%$. Por exemplo, posso me perguntar qual ponto divide meus dados exatamente no meio (mediana), ou no primeiro quartil, primeiro percentil, em suma, em qualquer percentual da distribuição. O R tem uma função para isso que vale vermos para entender.
+Uma alternativa mais tradicional são os chamados Q-Q plots, cujo nome deriva de ser um plot "quantil-quantil". A Função de Distribuição Acumulada (FDA) é $F(x) = P(X \leq x)$. Se a função é contínua (como a Normal), então ela possui uma inversa: $F^{-1}(p)$, que nos diz o único $x$ tal que $P(X \leq x) = p$. Ou seja, a função quantil me diz qual é o ponto que divide a minha distribuição de probabilidade em exatamente $p\%$. Por exemplo, posso me perguntar qual ponto divide meus dados exatamente no meio (mediana), ou no primeiro quartil, primeiro percentil, em suma, em qualquer percentual da distribuição. O R tem uma função para isso que vale vermos para entender.
 
 ```{r quantile, message=FALSE}
 x <- rnorm( 1000)
@@ -299,7 +299,7 @@ Vejam que $p$ varia entre $0$ e $1$, e o menor valor que a função quantil reto
 
 Se plotarmos duas variáveis ordenadas, podemos verificar se têm a mesma distribuição. Em caso positivo, deveriam seguir uma linha reta de 45 graus. Quando queremos testar os resíduos, uma das variáveis são os resíduos e a outra a distribuição teórica dos mesmos (Normal).
 
-O Q-Q plot de uma regressão é uma versão um pouco mais complicadinha disso, que não irei mostrar aqui (pois precisaria trabalhar com a inversa da distribuição Normal), mas a lógica final é a mesma. Podemos ver isso plotando o Q-Q plot  do R, e um construído por nós, utilizando a lógica que apresentei.
+O Q-Q plot de uma regressão é uma versão um pouco mais complicadinha disso, que não irei mostrar aqui (pois precisaria trabalhar com a inversa da distribuição Normal), mas a lógica final é a mesma. Podemos ver isso plotando o Q-Q plot do R, e um construído por nós, utilizando a lógica que apresentei.
 
 ```{r q-q plot, message=FALSE}
 df <- data.frame(residuos = residuals(reg1), preditor = presid_al18_valido$perc_bolso_turno1, 
@@ -317,10 +317,10 @@ qqnorm(residuals(reg1))
 qqline(residuals(reg1))
 ```
 
-Obviamente o melhor é usar a função do R, já implementada, que faz tudo "by the book", mas a intuição você já sabem qual é. Se os resíduos tiverem distribuição aproximadamente normal, devem ficar em torno da reta e não haver padrões significativos. Os extremos, por serem valores mais improváveis, terão poucos casos e tendem a ficar um pouco mais distante da reta.
+Obviamente o melhor é usar a função do R, já implementada, que faz tudo "by the book", mas a intuição vocês já sabem qual é. Se os resíduos tiverem distribuição aproximadamente normal, devem ficar em torno da reta e não haver padrões significativos. Os extremos, por serem valores mais improváveis, terão poucos casos e tendem a ficar um pouco mais distante da reta.
 
 ## Generalização
 
-Uma possibilidade de generalização é dividir os dados em treinamento e teste, onde estimamos o modelo com base nos dados de treinamento (uma amostra aleatória) e fazemos os testes olhando para os erros das previsoes do modelo. E aí podemos repetir os plots anteriores, agora para os dados de treinamento.
+Uma possibilidade de generalização é dividir os dados em treinamento e teste, onde estimamos o modelo com base nos dados de treinamento (uma amostra aleatória) e fazemos os testes olhando para os erros das previsões do modelo. E aí podemos repetir os plots anteriores, agora para os dados de treinamento.
 
-Outra possibilidade é estimar o modelo com os dados onde o ajuste é bom, e colocar para teste onde o ajuste parece ruim. Isso é uma forma de confirmar que de fato o modelo está prevendo mal essa partedos dados.
+Outra possibilidade é estimar o modelo com os dados onde o ajuste é bom, e colocar para teste onde o ajuste parece ruim. Isso é uma forma de confirmar que de fato o modelo está prevendo mal essa parte dos dados.
