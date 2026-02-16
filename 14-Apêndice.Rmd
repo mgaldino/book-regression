@@ -4,7 +4,7 @@ editor_options:
     wrap: 72
 ---
 
-# - Apêndice
+# Apêndice
 
 Iremos tratar aqui de tópicos especiais. Em primeiro lugar, do R. Vamos listar aqui os pacotes do R que eu mais utilizo e as principais funções.
 
@@ -12,7 +12,7 @@ Iremos tratar aqui de tópicos especiais. Em primeiro lugar, do R. Vamos listar 
 
 Para ler arquivos em csv ou formato tabular, prefiro a função `fread` do **data.table**.
 
-Para ler arquivos de outrossoftwares, como stata ou SPSS, vejam as funções do pacote **haven**.
+Para ler arquivos de outros softwares, como stata ou SPSS, vejam as funções do pacote **haven**.
 
 Para arquivos em formato xls ou xlsx, do Excel, uso a função `read_excel` do pacote **readxl**.
 
@@ -26,13 +26,13 @@ Para gerar tabelas em Rmarkdown, uso quatro funções (deveria ser mais consiste
 Para limpeza de dados, além do **tidyverse** e **tidyr**, uso o pacote **janitor** (particularmente a função `clean_names`) e o pacote **lubridate** para trabalhar com datas. Com relação a textos, o pacote **stringr**.
 
 ## Modelagem de dados
-Para regressões limpes, uso o R base e suas funções `lm` e `glm`. Para dados em painel, prefiro o pacote **fixest** e suas funções, como a `feols`, que evita de eu ter de chamar o pacote sandwich para erro padrão robusto. O **fixest** é melhor que o mais tradicional e antigo pacote **plm**, que era mais usado para dados em painel antigamente. Para modelos Bayesianos, vario entre **rstanarm** e **brms**.
+Para regressões lineares, uso o R base e suas funções `lm` e `glm`. Para dados em painel, prefiro o pacote **fixest** e suas funções, como a `feols`, que evita de eu ter de chamar o pacote sandwich para erro padrão robusto. O **fixest** é melhor que o mais tradicional e antigo pacote **plm**, que era mais usado para dados em painel antigamente. Para modelos Bayesianos, vario entre **rstanarm** e **brms**.
 
 ## Outros
 Checagem do modelo, o pacote **performance**.
 Para testes informais de permutação, o pacote **nullabor**.
-Para instalação de pacotes direto do gihutb, **devtools**.
-Para ajudar na reproducibilidade, uso o pacote **here** para não vincular aos meus diretórios específicos e evito usar o`setwd` para apontar o diretório.
+Para instalação de pacotes direto do GitHub, **devtools**.
+Para ajudar na reproducibilidade, uso o pacote **here** para não vincular aos meus diretórios específicos e evito usar o `setwd` para apontar o diretório.
 
 ## Álgebra Linear
 
@@ -40,7 +40,7 @@ Aqui apresentamos alguns tópicos de álgebra linear que podem ser úteis.
 
 ### Espaço de vetores e subspaço
 
-O espaço vetorial de dimensão $n$ é o conjunto infinito de todos os vetores $x = [x_1, x_2, \cdots, x_n]$, e as coordenadas $x-i$ podem ser quaisquer números reais.
+O espaço vetorial de dimensão $n$ é o conjunto infinito de todos os vetores $x = [x_1, x_2, \cdots, x_n]$, e as coordenadas $x_i$ podem ser quaisquer números reais.
 
 Dizemos que um subespaço do espaço vetorial $n$-dimensional que é *gerado* por um conjunto de $k$ vetores $x = [x_1, x_2, \cdots, x_k]$, em que $k$ pode ser eventualmente igual a $n$ (ou menor), é o subconjunto de vetores $y$ naquele espaço que pode ser expresso como uma combinação linear do conjunto gerador:
 
@@ -91,7 +91,7 @@ The plot above shows the vectors \(\mathbf{u}\) (in blue) and \(\mathbf{v}\) (in
 ## Econometria de série de tempo
 
 
-Uma série de tempo é caracterizada por um vetor do tipo $\{y_t, y_{t+1}, y_{t+2}, \dots + t_{t+k}\}$. Em uma análise de corte transversal, nós tipicamente assumimos que a amostra era aleatória e iid. Aqui, essa suposição não é plausível devido à provável correlação temporal. A razão pela qual assumimos iid é porque precisamos de alguma forma de constância para que possamos aprender algo sobre a nossa variável. Se o passado não se assemelhar ao futuro, nada poderá ser aprendido.
+Uma série de tempo é caracterizada por um vetor do tipo $\{y_t, y_{t+1}, y_{t+2}, \dots, y_{t+k}\}$. Em uma análise de corte transversal, nós tipicamente assumimos que a amostra era aleatória e iid. Aqui, essa suposição não é plausível devido à provável correlação temporal. A razão pela qual assumimos iid é porque precisamos de alguma forma de constância para que possamos aprender algo sobre a nossa variável. Se o passado não se assemelhar ao futuro, nada poderá ser aprendido.
 
 Tipicamente, a constância assumida é estacionariedade. Ela implica que a distribuição de $y_t$ é estável ao longo do tempo. Em particular, que a distribuição de $y_t$ é independente de $t$. Isso vai implicar que a média de $y$ não depende de $t$, bem como a variância.
 
@@ -228,7 +228,7 @@ Um modelo que combina um AR de ordem $p$ com MA de ordem $q$ é chamado de $ARMA
 
 ### TSCS
 
-É raro que em ciência política analisamos um modelo de série de tempo sem preditores e para uma única unidade. Em geral, temos vários preditores e várias unidades. Esses dados são chamados em ciência política de Série de Tempo com Corte Tranversal, tipicamente abreviados em inglês para TSCS (Time Series Cross Section). Em economia esses dados são chamados de painel. Na epidemiologia, são dados longitudinais.
+É raro que em ciência política analisamos um modelo de série de tempo sem preditores e para uma única unidade. Em geral, temos vários preditores e várias unidades. Esses dados são chamados em ciência política de Série de Tempo com Corte Transversal, tipicamente abreviados em inglês para TSCS (Time Series Cross Section). Em economia esses dados são chamados de painel. Na epidemiologia, são dados longitudinais.
 
 A forma básica desses dados requer que tenhamos medidas das mesmas unidades $i$ ao longo de vários períodos de tempo $t$.
 
@@ -243,7 +243,7 @@ $$
 Já um modelo dinâmico captura relação entre os valores correntes e defasados (lagged) dos preditores e a variável resposta. Um exemplo simples com $m$ termos defasados seria:
 
 $$
-y_{it} = \alpha + \beta_1x_{1it} + \beta_2x_{2it-1} + \cdots + \beta_2x_{2it-m} e_{it}
+y_{it} = \alpha + \beta_1x_{1it} + \beta_2x_{2it-1} + \cdots + \beta_2x_{2it-m} + e_{it}
 $$
 
 Esses modelos trazem a complicação adicional de que temos de considerar possibilidade de termos um componente autoregresivo ou de média móvel na dimensão temporal, como vimos acima. E isso altera as condições para que um estimador não seja viesado. 
@@ -257,7 +257,7 @@ Vamos supor que queremos medir o efeito do número efetivo de partidos sobre per
 $$
 y_{it} = \alpha + \beta x_{it} + u_i + e_{it}
 $$
-Em que $x_t$ é o número de partido (ou alguma medida de fragmentação partidária) em $t$, e $u_i$ é a presença ou não de mobilização feminista no passado (pré-período $t$).
+Em que $x_{it}$ é o número de partido (ou alguma medida de fragmentação partidária) em $t$, e $u_i$ é a presença ou não de mobilização feminista no passado (pré-período $t$).
 
 Considere que temos dois períodos, $1$ e $2$. Temos então uma equação de regressão para cada período.
 
@@ -274,7 +274,7 @@ $$
 Agora, subtraindo da equação principal, temos:
 
 \begin{align}
-y_{it} - \bar{y}_i = \alpha - \alpha + \beta x_{it} - \bar{x}_i + u_i  -\bar{u_i} + e_{it} - \bar{e}_i &= \\
+y_{it} - \bar{y}_i = \alpha - \alpha + \beta x_{it} - \beta\bar{x}_i + u_i  -\bar{u}_i + e_{it} - \bar{e}_i &= \\
 \tilde{y}_{it} =  \beta \tilde{x}_{it} + \tilde{e}_{it}
 \end{align}
 
@@ -282,7 +282,7 @@ Uma formulação alternativa, com dois períodos, é dada pela primeira diferen�
 
 \begin{align}
 y_{i, 2} - y_{i,1} = \alpha - \alpha + \beta x_{i,2} - \beta x_{i,1} + u_i  -u_i + e_{i,2} - e_{i,1} &= \\
-\beta  x_{i,2} - x_{i,1} + e_{i,2} - e_{i,1}
+\beta (x_{i,2} - x_{i,1}) + e_{i,2} - e_{i,1}
 \end{align}
 
 Isso significa que conseguimos eliminar a variável de confusão não observada que gerava viés de seleção, efetivamente controlando para ela. Para isso, precisamos subtrair a média de cada variável, ou, equivalentemente, computar a primeira diferença.
@@ -299,12 +299,12 @@ Os modelos de série de tempo anteriores consideram que o $y$ segue um AR ou MA.
 Por exemplo, suponha que o modelo correto é:
 
 $$
-y_t = \alpha + \beta x_t + et, e_t = \mu_t + \theta \mu_{t-1}
+y_t = \alpha + \beta x_t + e_t, e_t = \mu_t + \theta \mu_{t-1}
 $$
 
 Se houver autocorrelação temporal no termo de erro, em geral é necessário calcular um erro padrão corrigido para autocorrelação. O mais usado, Newey-West entra na categoria HAC, Heterocedasticity-Autocorrelation-Consistent. 
 
-Quando tenhos dados em formato TSCS $y_{it} = \alpha + \beta x_{it} + e{it}, e_{it} = \mu_{it} + \theta \mu_{i,t-1}$, a sugestão é usar outros erros padrão HAC, como Driscoll-Kraay e Panel-Corrected SE (de Beck–Katz). E soluções como correção de Prais–Winsten AR(1).
+Quando temos dados em formato TSCS $y_{it} = \alpha + \beta x_{it} + e_{it}, e_{it} = \mu_{it} + \theta \mu_{i,t-1}$, a sugestão é usar outros erros padrão HAC, como Driscoll-Kraay e Panel-Corrected SE (de Beck–Katz). E soluções como correção de Prais–Winsten AR(1).
 
 Driscoll-Kraay é uma generalização do Newey-West para dados de painel, mas requer um T grande (idealmente mais que 30, mas já vi usando em T = 20). Inclui correlação entre unidade (além de no tempo).
 
@@ -391,7 +391,7 @@ Aqui, estamos interessados na difusão ou spillover do tratamento. Considerando 
 
 #### Spatial error model
 
-Por fim, também podemos concluir que variáveis não observadas podem induzir difusão ou contágio, de modo que o termo de erro terá um cumponente espacial.
+Por fim, também podemos concluir que variáveis não observadas podem induzir difusão ou contágio, de modo que o termo de erro terá um componente espacial.
 
 A especificação da regressão para cada tipo de modelo (ou uma combinação de um ou mais tipos pode ser feita) é dada por:
 
