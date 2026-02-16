@@ -6,10 +6,9 @@ header-includes:
    - \usepackage{tikz}
 ---
 
-# - GLM
+# GLM
 
 GLM é a sigla de Modelos Lineares Generalizados. A regressão logística pode ser considerada como um dos tipos de modelos lineares generalizados. Vamos nos concentrar em entender a regressão logística, como ela se conecta com GLM e, rapidamente, ver outros modelos de GLM que existem, como Poisson e probit.
-Até o momento, variáveis resposta binárias foram modeladas com regressão linear.
 
 ```{r package loads 13, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
@@ -90,11 +89,11 @@ y = log(x + 2) \\
 x = log(y + 2) \\
 \exp(x) = \exp(log(y + 2)) \\
 \exp(x) = y + 2 \\
-y = \exp(x) + 2 \\
-f^{-1}(x) = \exp(x) + 2
+y = \exp(x) - 2 \\
+f^{-1}(x) = \exp(x) - 2
 \end{align}
 
-Então, se $f(X) = log(x)$, $f^{-1}(x) = \exp(x)$. Disso se segue que:
+Então, se $f(x) = log(x)$, $f^{-1}(x) = \exp(x)$. Disso se segue que:
 
 \begin{align}
 f(x) = log(\frac{x}{1-x}) \\
@@ -158,7 +157,7 @@ lat_bar23 <- lat_bar23 %>%
                              ifelse(s1 %in% c(2,3,4,5), 1, 0))) # não considera adventista, testemunha Jeová, Mórmon
 br_latbar_23 <- lat_bar23 %>%
   mutate(idenpa = remove_all_labels(idenpa)) %>% # haven_labelled problems
-  filter(idenpa == 76) %>% ## seelciona brasil
+  filter(idenpa == 76) %>% ## seleciona brasil
   filter(!is.na(votaria_governo) & !is.na(evangelico) & !is.na(ideologia) & !is.na(econ_12_meses))
 
 reg_logistica <- glm(votaria_governo ~ ideologia, data=br_latbar_23,
@@ -267,7 +266,7 @@ stargazer(reg_logistica, reg_probit, type = "html")
 
 ## Logística como GLM
 
-Uma outra forma de pensar a logística é como um modelo linear generalizado. Nós vimos que o modelo linear precisou entrar em uma função $f$ que transformasse os intervalos entre $0$ e $1$. Podemos considerar o modelo de regressão linear como um caso particular, em que temos a função identidade $f(x) = x$ e a distribuição da resposta é modelada como Gaussiana. Na logística,a função de ligação é logística, e a resposta modelada como Bernoulli (e para $n$ dados, binomial).
+Uma outra forma de pensar a logística é como um modelo linear generalizado. Nós vimos que o modelo linear precisou entrar em uma função $f$ que transformasse os intervalos entre $0$ e $1$. Podemos considerar o modelo de regressão linear como um caso particular, em que temos a função identidade $f(x) = x$ e a distribuição da resposta é modelada como Gaussiana. Na logística, a função de ligação é logística, e a resposta modelada como Bernoulli (e para $n$ dados, binomial).
 
 Similarmente, se tenho dados discretos $\{1, 2, 3, ..., n\}$, posso modelar meus dados com uma Poisson e com uma função $f$ específica, que chamamos de função de ligação.
 
@@ -299,7 +298,7 @@ reg_logistica2 %>%
 
 ```
 
-Usando a regra de dividir por quatro, temos que: ideologia tem efeito máximo de redzir a probabilidade em 25%, e evangélico de diminuir em 18%.
+Usando a regra de dividir por quatro, temos que: ideologia tem efeito máximo de reduzir a probabilidade em 25%, e evangélico de diminuir em 18%.
 
 Plotando graficamente os dois preditores, temos:
 ```{r 13 logistica5, echo=TRUE, message=FALSE, cache=TRUE}
@@ -339,15 +338,15 @@ Para mais detalhes sobre regressão logística, nossa referência favorita é o 
 
 ## Regressão com dados Ordenados
 
-Até agora tratamos de variáveis respostas binárias. Porém, Há outros tipos de dados categóricos além de binários, e passamos agora a apresentar como tratar desses dados. A aboragem escolhida aqui é aquela de modelos de escolha discreta, que é uma extensão da abordagem de variável latente que vimos acima para regressão logística.
+Até agora tratamos de variáveis respostas binárias. Porém, Há outros tipos de dados categóricos além de binários, e passamos agora a apresentar como tratar desses dados. A abordagem escolhida aqui é aquela de modelos de escolha discreta, que é uma extensão da abordagem de variável latente que vimos acima para regressão logística.
 
-A ideia é que existe uma probabilidade que o indivíduo $i$ escolha a alternativa $j$ (de um conjunto discreto e mutuamente excludente de $J$ alternativas, daí o nome de escolhas discretas), $p_{ij}$. Como anteriormente, a relação entre a probabilidade e os preditores é dada por uma função de ligação $f(u)$ e $u = X_ij\beta$, ou seja, uma modelo linear das variáveis preditoras e $u$. E vamos considerar que podemos ordenar nossa variável resposta, isto é, que as opções possam ser consideradas como um conjunto ordenado. 
+A ideia é que existe uma probabilidade que o indivíduo $i$ escolha a alternativa $j$ (de um conjunto discreto e mutuamente excludente de $J$ alternativas, daí o nome de escolhas discretas), $p_{ij}$. Como anteriormente, a relação entre a probabilidade e os preditores é dada por uma função de ligação $f(u)$ e $u = X_{ij}\beta$, ou seja, um modelo linear das variáveis preditoras e $u$. E vamos considerar que podemos ordenar nossa variável resposta, isto é, que as opções possam ser consideradas como um conjunto ordenado. 
 
 Exemplos de variáveis respostas incluem escalas likerts (discordo muito, discordo pouco, concordo pouco, concordo muito), escalas discretas de ideologia, em que os extremos vão da esquerda à direita, votação em que consideramos não, abstenção e sim, assinar um tratado sem reservas, com reservas ou não assinar, e assim por diante.
 
 Seguindo com a formulação de variável latente, podemos pensar que existe uma variável $z$, não observada, tal que:
 
-$z_i = X_{ij}\beta + e$. Supondo, para ilustrar, que tenhamos $4$ categorias ou opções, como no exemplo da escala Likert, então temos $J=4$ categorias ordenadas de $1-4$, e o que nós observamos é uma escolha a dependenter de $J-1=3$ pontos de corte, $\tau_1, \tau_2, \tau_3$:
+$z_i = X_{ij}\beta + e$. Supondo, para ilustrar, que tenhamos $4$ categorias ou opções, como no exemplo da escala Likert, então temos $J=4$ categorias ordenadas de $1-4$, e o que nós observamos é uma escolha dependendo de $J-1=3$ pontos de corte, $\tau_1, \tau_2, \tau_3$:
 
 $$
 z = \begin{cases}
@@ -440,7 +439,7 @@ Vejam que nesse modelo, além dos coeficientes da regressão, também temos de e
 $$Pr(Y_i = 1) = Pr(Z_i \leq \tau_1) = Pr(X_{ij}\beta + e \leq \tau_1) = Pr(e \leq \tau_1 - X_{ij}\beta)$$
 Similarmente, a probabilidade de um respondente escolher a segunda categoria é:
 
-$$Pr(Y_i = 2) = Pr( \tau_1 < Z_i \leq \tau_2) = Pr(\tau_1 < X_{ij}\beta + e \leq \tau_1) = Pr(\tau_1 - X_{ij}\beta < e \leq \tau_1 - X_{ij}\beta)$$
+$$Pr(Y_i = 2) = Pr( \tau_1 < Z_i \leq \tau_2) = Pr(\tau_1 < X_{ij}\beta + e \leq \tau_2) = Pr(\tau_1 - X_{ij}\beta < e \leq \tau_2 - X_{ij}\beta)$$
 
 Se supusermos que $e$ tem distribuição logística com média zero e variância $\frac{\pi^2}{3}$, que é a logística padrão, temos o modelo de regressão logística ordenado. Se supusermos que o erro tem distribuição normal, com média zero e variância 1, temos o modelo probit ordenado.
 Vejamos um exemplo simulado e em seguida uma aplicação empírica.
@@ -499,7 +498,7 @@ summary(reg_ord)
 
 A primeira forma de interpretar os coeficientes é que se o $\beta$ é positivo, quanto maior o valor do preditor, maior a propensão a concordar com a frase e vice-versa se for negativo. Isso é fácil de ver na formulação da variável latente. Para analisar as probabilidades de cada categoria precisamos olhar também os pontos de corte.
 
-Vejam que os coeficientes dos pontos de corte estão "errando" por aproximadamente meio em relação aos parâmetros. Isso é porque o modelo não estima intercepto. Se rodarmos a simulação de novo com $\beta_0 = 0$, iremos nos aproximar dos verdadeiros pontos de corte. A razão é que não é possível identificar um intercepto distinto do valor de $\tau$, ou seja, é como se tivéssemos subtraído $.5$ de todos os $\tau$ e rodado o modelo sem intercepto. Em too caso, vamos interpretar os pontos de corte estimados.
+Vejam que os coeficientes dos pontos de corte estão "errando" por aproximadamente meio em relação aos parâmetros. Isso é porque o modelo não estima intercepto. Se rodarmos a simulação de novo com $\beta_0 = 0$, iremos nos aproximar dos verdadeiros pontos de corte. A razão é que não é possível identificar um intercepto distinto do valor de $\tau$, ou seja, é como se tivéssemos subtraído $.5$ de todos os $\tau$ e rodado o modelo sem intercepto. Em todo caso, vamos interpretar os pontos de corte estimados.
 
 O que eles nos dizem, **em conjunto com o $\beta$**, é a probabilidade de uma pessoa escolher uma dada categoria.
 
