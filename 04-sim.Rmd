@@ -4,7 +4,7 @@
 
 Entender o que é um Processo Gerador de Dados (DGP) e como especificá-lo em R.
 
-Gerar amstras aleatórias de distribuições (rnorm, runif, rbinom, rpois, ...) e fixar semente com set.seed().
+Gerar amostras aleatórias de distribuições (rnorm, runif, rbinom, rpois, ...) e fixar semente com set.seed().
 
 Compreender simulação de Monte Carlo: por que, quando e como.
 
@@ -47,15 +47,15 @@ Em resumo, temos duas palavras com significados similares (<em>estocástico</em>
 Fonte: <a href="https://math.stackexchange.com/questions/114373/whats-the-difference-between-stochastic-and-random">math.stackexchange.com</a>
 </div>
 
-Por hora, vamos trabalhar com DGPs apenas estocásticos.
+Por ora, vamos trabalhar com DGPs apenas estocásticos.
 
-Um DGP estocástico é tipicamente definido por uma distribuição de probabilidade (Normal, Bernoulli, Poisson, Exponencial etc.) e os parâmetros que govenram a distribuição: média/variância (Normal), probabilidade (Bernoulli), taxa (Poisson/Exponencial). Às vezes a distribuição de probabilidade pode ser reparametrizada (por exemplo, especificar a Normal em termos do desvio-padrao em vez da variância, ou o inverso da variância, chamado de precisão).
+Um DGP estocástico é tipicamente definido por uma distribuição de probabilidade (Normal, Bernoulli, Poisson, Exponencial etc.) e os parâmetros que governam a distribuição: média/variância (Normal), probabilidade (Bernoulli), taxa (Poisson/Exponencial). Às vezes a distribuição de probabilidade pode ser reparametrizada (por exemplo, especificar a Normal em termos do desvio-padrao em vez da variância, ou o inverso da variância, chamado de precisão).
 
 É preciso definir também a relação entre os dados, se de Independência/Identicamente distribuídos (i.i.d.) ou se há presença de dependência (séries temporais, agrupamentos espaciais etc.).
 
 ## Simulação de Monte Carlo
 
-A simulação de Monte Carlo é um método computacional que se utiliza de amostras repetidas de um dado DGP para nos permitir calcular determinadas quantidades númericas. O nome vem do principado de Mônaco, com seus cassinos e jogos de azar, e foi criado nos anos 40 em Los Alamos, para auxiliar nos cálculos necessários para construção da bomba atômica. Em estatística, as quantidade calculadas são chamadas de "estatísticas".
+A simulação de Monte Carlo é um método computacional que se utiliza de amostras repetidas de um dado DGP para nos permitir calcular determinadas quantidades númericas. O nome vem do principado de Mônaco, com seus cassinos e jogos de azar, e foi criado nos anos 40 em Los Alamos, para auxiliar nos cálculos necessários para construção da bomba atômica. Em estatística, as quantidades calculadas são chamadas de "estatísticas".
 
 <div style="border: 2px solid #007ACC; border-radius: 5px; padding: 12px; background-color: #F0F8FF; margin: 1em 0;">
 <strong>Estatística</strong><br>
@@ -79,10 +79,10 @@ set.seed(234)
 # número de amostras
 n <- 10000
 
-# 1000 amostras de uma lançamento de dado de 6 lados
+# 10000 amostras de um lançamento de dado de 6 lados
 resultado <- sample(1:6, n, TRUE)
 
-# frequência relativade 6 é dada por número de 6 / total de amostras
+# frequência relativa de 6 é dada por número de 6 / total de amostras
 prob_6 <- sum(resultado == 6)/n
 
 # 16,89%
@@ -105,12 +105,12 @@ resultado_lista <- list()
 vec_prob6 <- numeric()
 
 set.seed(234)
-# loop sobre os tamanhos das amostrar
+# loop sobre os tamanhos das amostras
 for ( i in 1:length(vec_amostra)) {
   # n amostras de uma lançamento de dado de 6 lados
 resultado_lista[[i]] <- sample(1:6, vec_amostra[i], TRUE)
 
-# frequência relativade 6 é dada por número de 6 / total de amostras
+# frequência relativa de 6 é dada por número de 6 / total de amostras
 vec_prob6[i] <- sum(resultado_lista[[i]] == 6)/vec_amostra[i]
 
 }
@@ -133,13 +133,13 @@ probabilidades <- c(0.0625, 0.1250, 0.0625, 0.1250, 0.1250, 0.1250, 0.0625, 0.12
 tabela <- data.frame("(x, y)" = valores, "P(X = x, Y = y)" = probabilidades)
 
 # Formatar a tabela
-kable(tabela, caption = "Tabela 2.26: Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces",
+kable(tabela, caption = "Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces",
                           col.names = c("$(X,Y)$", "$P(X=x, Y=y)$")) %>%
   kable_styling(bootstrap_options = "striped")
 
 ```
 
-como podemos ver, à medida que $n$ cresce, a simulação converge para o verdadeiro valor do parâmetro, embora isso não seja linear. Por isso que é importante variar a configuração para ter certeza de que a simulação está próxima do verdadeiro valor do parâmetro.
+Como podemos ver, à medida que $n$ cresce, a simulação converge para o verdadeiro valor do parâmetro, embora isso não seja linear. Por isso que é importante variar a configuração para ter certeza de que a simulação está próxima do verdadeiro valor do parâmetro.
 
 De maneira geral, uma simulação envolve os seguintes passos.
 
@@ -190,7 +190,7 @@ sum(X==2)/n
 # prob X = 3
 sum(X==3)/n
 
-# prob X = 2
+# prob X = 4
 sum(X==4)/n
 
 ## resumo geral
@@ -234,20 +234,20 @@ A LGN diz que a média amostral iguala a média populacional quando $n$ é grand
 
 Definição do TCL:
 
-Se você coletar muitas amostras independentes de tamanho $n$ de uma população com qualquer distribuição de probabilidade, mas com variância finita, então a distribuição da médioa amostral será aproximadamente normal quando $n$ é grande.
+Se você coletar muitas amostras independentes de tamanho $n$ de uma população com qualquer distribuição de probabilidade, mas com variância finita, então a distribuição da média amostral será aproximadamente normal quando $n$ é grande.
 
-Exemplo de uma simulação com distribuição oginal da variável aleatória uniforme:
+Exemplo de uma simulação com distribuição original da variável aleatória uniforme:
 
 ```{r cap4 TCL, results='asis'}
 set.seed(123)
 means <- replicate(10000, mean(runif(36, min = 0, max = 1)))
-hist(means, main = "Distribution of sample means", xlab = "Mean", breaks = 30)
+hist(means, main = "Distribuição das médias amostrais", xlab = "Média", breaks = 30)
 
 ```
 
 Qual a média e o desvio-padrão da distribuição da média amostral?
 
-Podemos calcular aproximadamente a partir de nossa simulação. A média da simulação é `r mean(means)` e o desvio-padrão é `r sd(means)`. Vejam que a média amostral é próxima da média populacional e o desvio-padrão amostral é próximo do desvio-padrão populacional dividido pela raiz-quadrada de $n$. Lembrando que a variância de uma uniforme é dada por $\frac{1}{12}(a - b)^2$, em que $a$ é o maior valor e $b$ o menor. Logo, em nosso caso, a variância é $\frac{1}{12}(1 - 0)^2 = 1/12$. E o desvio-padrão é a raiz quadrada disso, ou $0.2886751$. Como $n = 36$, a raiz-quadrada é $6$, ou seja, igual a  $0.2886751/6 = 0.04811252$.
+Podemos calcular aproximadamente a partir de nossa simulação. A média da simulação é `r mean(means)` e o desvio-padrão é `r sd(means)`. Vejam que a média amostral é próxima da média populacional e o desvio-padrão amostral é próximo do desvio-padrão populacional dividido pela raiz-quadrada de $n$. Lembrando que a variância de uma uniforme é dada por $\frac{(b - a)^2}{12}$, em que $a$ é o menor valor e $b$ o maior. Logo, em nosso caso, a variância é $\frac{1}{12}(1 - 0)^2 = 1/12$. E o desvio-padrão é a raiz quadrada disso, ou $0.2886751$. Como $n = 36$, a raiz-quadrada é $6$, ou seja, igual a  $0.2886751/6 = 0.04811252$.
 
 
 ## Cobertura de um IC
@@ -270,4 +270,4 @@ cover <- replicate(n_sims, {
 mean(cover)  # proportion of CIs containing true mean
 ```
 
-Nessa simulação, nós rodamos 10.000 vezes a simulação e calculamos o intervalo de confiança para a média em cada iteração. Ao final, comoutamos o percentual de vezes em que o CI continha o verdadeiro valor do parâmetro. Veja que nesse exemplo não foi exatamente 95%, mas `r 100*mean(cover) `%. Cmo sempre, a simulação nos dá uma resposta aproximada, não exata.
+Nessa simulação, nós rodamos 10.000 vezes a simulação e calculamos o intervalo de confiança para a média em cada iteração. Ao final, computamos o percentual de vezes em que o IC continha o verdadeiro valor do parâmetro. Veja que nesse exemplo não foi exatamente 95%, mas `r 100*mean(cover) `%. Como sempre, a simulação nos dá uma resposta aproximada, não exata.
