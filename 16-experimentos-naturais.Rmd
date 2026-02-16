@@ -1,0 +1,25 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Experimentos Naturais
+
+Nós apresentamos no capítulo 6 o modelo de resultados potenciais para definir causalidade. Contudo, avançamos pouco sobre como na prática, fazemos para estimar efeitos causais com regressão, para além da estratégia de controlar variáveis de confusão. O objetivo do presente capítulo é apresentar, brevemente, três das técnicas principais para inferência causal com dados observacionais, também chamados de experimentos naturais.
+
+## Variáveis Instrumentais
+
+
+
+Para ler arquivos em csv ou formato tabular, prefiro a função `fread` do **data.table**.
+
+## Desenho de Regressão Discontínua
+
+Para ler arquivos de outros softwares, como stata ou SPSS, vejam as funções do pacote **haven**.
+
+## DiD
+
+Para arquivos em formato xls ou xlsx, do Excel, uso a função `read_excel` do pacote **readxl**.
+
+## Gráficos e Tabelas
