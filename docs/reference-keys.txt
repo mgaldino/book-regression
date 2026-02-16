@@ -50,7 +50,7 @@ algumas-propriedades-da-cef
 cef-é-a-melhor-aproximação-aos-dados
 regressão-linear
 logaritmos
-logartimos-como-diferença-de-porcentagens
+logaritmos-como-diferença-de-porcentagens
 logaritmos-e-média-geométrica
 prevendo-a-partir-da-esperança-condicional
 preditores-lineares
@@ -181,3 +181,8 @@ consistência
 exercícios-para-o-leitor
 lei-das-esperanças-iteradas
 teorema-do-condicionamento
+experimentos-naturais
+variáveis-instrumentais
+desenho-de-regressão-discontínua
+did
+gráficos-e-tabelas-1
