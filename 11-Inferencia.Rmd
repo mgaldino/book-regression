@@ -4,7 +4,7 @@ editor_options:
     wrap: 72
 ---
 
-# - Inferência
+# Inferência
 
 ```{r package loads 11, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
@@ -17,7 +17,7 @@ library(janitor)
 
 Nós já trabalhamos com um modelo de regressão em que supomos normalidade do termo de erro e isso permitiu calcular o estimador de máxima verossimilhança e fazer inferência desse estimador de máxima verossimilhança. Contudo, a suposição de normalidade do erro é bastante restritiva, já que se isso não for verdade nem aproximadamente, não poderemos fazer inferência. Isso é particularmente relevante em amostras finitas (pequenas), onde não poderemos contar com alguma versão do Teorema Central do Limite para justificar a suposição de normalidade.
 
-Assim, queremos ser capazes de realizar testes de hipótese, calcular o intervalo de confiança (IC) e também quantificar a incerteza de nossas estimativas por meio do cálculo do p-valor. Aqui não é o lugar para discutir os problemas de misturar o paradigma de teste de hipótese de Neyman-Pearson, com o cálcul do p-valor do Fisher. Basta dizer que essas duas abordagens não se misturam muito bem, mas na prática os pesquisadores as têm combinado como se não houvesse nenhum problema e irei assumir essa mesma postura aqui. Mas o leitor fique avisado que há inconsistências em combinar ambas as abordagens e que ideialmente deveríamos utilizar apenas uma delas.
+Assim, queremos ser capazes de realizar testes de hipótese, calcular o intervalo de confiança (IC) e também quantificar a incerteza de nossas estimativas por meio do cálculo do p-valor. Aqui não é o lugar para discutir os problemas de misturar o paradigma de teste de hipótese de Neyman-Pearson, com o cálculo do p-valor do Fisher. Basta dizer que essas duas abordagens não se misturam muito bem, mas na prática os pesquisadores as têm combinado como se não houvesse nenhum problema e irei assumir essa mesma postura aqui. Mas o leitor fique avisado que há inconsistências em combinar ambas as abordagens e que idealmente deveríamos utilizar apenas uma delas.
 
 ## Normal
 
@@ -27,7 +27,7 @@ Nós vimos também que o meu estimador pode ser decomposto no parâmetro populac
 $$
 \hat{\beta} = \beta +  \sum_{i=1}^{n} w_i \cdot e_i
 $$
-E os pesos são dados por $\sum_{i=1}^n \frac{x_i - \bar{x}}{nS_x^2}$. Essa expressão reforça por que os erros associados a observações com $x_i$ muito distantes da média têm maior influência no estimador de MQO. Ou seja, o estimador é uma média ponderada dos erros.
+E os pesos são dados por $w_i = \frac{x_i - \bar{x}}{nS_x^2}$. Essa expressão reforça por que os erros associados a observações com $x_i$ muito distantes da média têm maior influência no estimador de MQO. Ou seja, o estimador é uma média ponderada dos erros.
 
 
 Ou seja, nosso estimador é igual a uma constante mais uma soma ponderada de variáveis aleatórias normais. E nós sabemos que a soma de variáveis aleatórias normais é uma normal, cuja média é $\beta$, já que o estimador é não-viesado e sua esperança é o parâmetro populacional e a variância nós também já calculamos e é dada por $\frac{\sigma^2}{n \cdot S^2_x}$
@@ -65,7 +65,7 @@ Substituindo $z$ pela definição acima, temos:
 \begin{align*}
 \mathrm{P}(\beta - 1.96 \cdot se[\hat{\beta}] \le \hat{\beta} \le \beta + 1.96 \cdot se[\hat{\beta}] ) \\
 
-= \mathrm{P}( -1.96 \cdot se[\hat{\beta}] ≈ \hat{\beta} - \beta \le  1.96 \cdot se[\hat{\beta}] ) \\
+= \mathrm{P}( -1.96 \cdot se[\hat{\beta}] \le \hat{\beta} - \beta \le  1.96 \cdot se[\hat{\beta}] ) \\
 
 = \mathrm{P}( -1.96 \le \frac{\hat{\beta} - \beta}{se[\hat{\beta}]} \le  1.96 ) \\
 
@@ -73,7 +73,7 @@ Substituindo $z$ pela definição acima, temos:
 = .95
 \end{align*}
 
-Em que $\Phi(x)$ representa a probabilidade de observar um valor menor ou igual que $x$ na distrinbuição normal padrão. Lembrando que a fórmula refere-se ao comportamento da estatística $\hat{\beta}$ em muitas amostras — não à incerteza sobre um valor fixo de $\beta$.
+Em que $\Phi(x)$ representa a probabilidade de observar um valor menor ou igual que $x$ na distribuição normal padrão. Lembrando que a fórmula refere-se ao comportamento da estatística $\hat{\beta}$ em muitas amostras — não à incerteza sobre um valor fixo de $\beta$.
 
 ## T-student
 
@@ -85,7 +85,7 @@ $$
 
 Esse estimador é viesado e normalmente dividimos por $n-2$, que são os chamados graus de liberdade: $\frac{\sum_{i=1}^{n}\hat{e}_i^2}{n-2}$.
 
-Esta maneira de explicar graus de liberdade, embora intuitiva, é errada. Como disse Rachael Meager no Twitter uma vez, " I know enough to know it [degrees of freedom] can’t be 'N minus number of parameters' because once you do hierarchical/shrinkage it’s actually a substantively subtle and challenging task to 'count' how many parameters you have" ^[see (if twitter is still availble to look at) https://twitter.com/economeager/status/1596450647599190017)]. Eu não vou expandir muito aqui porque a definição correta requeriria conhecimento avançado de Álgebra Linear, mas basta dizer que o que ela está falando tem a ver com o fato de que em modelos multiníveis Bayesianos (por exemplo), o número de parâmetros não é facilmente determinado, de forma que essa fórmula de número de observações menos o número de parâmetros falha nesses e em outros casos (como modelos com regularização etc.).
+Esta maneira de explicar graus de liberdade, embora intuitiva, é errada. Como disse Rachael Meager no Twitter uma vez, " I know enough to know it [degrees of freedom] can’t be 'N minus number of parameters' because once you do hierarchical/shrinkage it’s actually a substantively subtle and challenging task to 'count' how many parameters you have" ^[see (if twitter is still available to look at) https://twitter.com/economeager/status/1596450647599190017)]. Eu não vou expandir muito aqui porque a definição correta requeriria conhecimento avançado de Álgebra Linear, mas basta dizer que o que ela está falando tem a ver com o fato de que em modelos multiníveis Bayesianos (por exemplo), o número de parâmetros não é facilmente determinado, de forma que essa fórmula de número de observações menos o número de parâmetros falha nesses e em outros casos (como modelos com regularização etc.).
 
 De todo modo, para nós importa que, substituindo meu estimador não-viesado para a variância em nossa fórmula, temos:
 
@@ -108,7 +108,7 @@ Se $Z_1, Z_2, \cdots, Z_d \sim N(0,1)$ são independentes, então definimos a di
 
 Se $Z \sim N(0,1)$, então (pela definição acima). $Z^2 \sim \chi^2_{1}$
 
-Lemrbrando que a soma dos erros tem média zero, então:
+Lembrando que a soma dos erros tem média zero, então:
 $e_i - \mathbb{E}[e] = e_i$ e $\frac{e_i}{\sqrt{Var(e_i)}} = \frac{e_i}{\sigma} \sim N(0,1)$
 
 Disso segue que:
@@ -132,19 +132,19 @@ $$
 = \frac{S_x \times N(0,1/ns^2_x)}{\frac{\hat{\sigma}}{\sigma \sqrt{n-2}}} = \frac{N(0,1/n)}{\frac{\hat{\sigma}}{\sigma \sqrt{n-2}}}  = \\
 = \frac{\sqrt{n} \times N(0,1/n)}{\frac{\sqrt{n} \times \hat{\sigma}}{\sigma \sqrt{n-2}}} = \frac{N(0,1)}{\frac{\sqrt{n\hat{\sigma}^2}}{\sqrt{\sigma^2 \times (n-2)}}} \\
 = \frac{N(0,1)}{\sqrt{\frac{n\hat{\sigma}^2}{\sigma^2 \times (n-2)}}} \\
-= \frac{N(0,1)}{\sqrt{\chi^2_{n-2}/(n-2)}} \sim t_d
+= \frac{N(0,1)}{\sqrt{\chi^2_{n-2}/(n-2)}} \sim t_{n-2}
 \end{align}
 
-No penúltimo passo, usamos de maneira pouco rigorosa que se $sum_{i=1}^n (\frac{e_i}{\sigma})^2 \sim \chi^2_{n}$, "então" eu posso aproximar o numerador por $\sum_{i=1}^n e_i^2$ por $n\hat{\sigma}^2$, usando o fato de que a média é zero, e portanto ali é a variância.
+No penúltimo passo, usamos de maneira pouco rigorosa que se $\sum_{i=1}^n (\frac{e_i}{\sigma})^2 \sim \chi^2_{n}$, "então" eu posso aproximar o numerador por $\sum_{i=1}^n e_i^2$ por $n\hat{\sigma}^2$, usando o fato de que a média é zero, e portanto ali é a variância.
 
-Digo que é pouco rigorosa porque o erros não são a mesma coisa que os resíduos. Mas a matemática para fazer a prova correta está além dos nosso conhecimentos. Formalmente, a prova depende de mostrar que o estimador da variância residual, ao ser escalonado por $\sigma^2$, segue uma distribuição qui-quadrado com $n-2$ graus de liberdade, e que é independente de $\hat{\beta}$. Esses resultados exigem álgebra matricial, mas a intuição é que o numerador e o denominador são independentes e cada um tem a forma de uma Normal padrão e de uma raiz de qui-quadrado, respectivamente.
+Digo que é pouco rigorosa porque os erros não são a mesma coisa que os resíduos. Mas a matemática para fazer a prova correta está além dos nossos conhecimentos. Formalmente, a prova depende de mostrar que o estimador da variância residual, ao ser escalonado por $\sigma^2$, segue uma distribuição qui-quadrado com $n-2$ graus de liberdade, e que é independente de $\hat{\beta}$. Esses resultados exigem álgebra matricial, mas a intuição é que o numerador e o denominador são independentes e cada um tem a forma de uma Normal padrão e de uma raiz de qui-quadrado, respectivamente.
 
 ### Teste t
 
 Ou seja, 
 
 $$
-z^* = \frac{\hat{\beta} - \beta}{\sqrt{\frac{\hat{\sigma^2}}{n S^2_x})}} \sim t_{n-2}
+z^* = \frac{\hat{\beta} - \beta}{\sqrt{\frac{\hat{\sigma}^2}{n S^2_x}}} \sim t_{n-2}
 $$
 
 Por um raciocínio similar podemos derivar que o intercepto (padronizado) também segue uma distribuição $t$ com $n-2$ graus de liberdade.
@@ -165,7 +165,7 @@ Como consequência, podemos derivar o seguinte, para qualquer $k >0$
 
 Em que, com um grande abuso de notação, estou chamando $t_{n-2}(k)$ a probabilidade, na distribuição $t$ de student com $n-2$ graus de liberdade, de $\hat{\beta}$ estar no intervalo $-k, k$.
 
-Se eu definir um nível de significância $\alpha$ entre $0$ e $1$, sempre exisitrá um $k$ que que a equação acima seja verdadeira.
+Se eu definir um nível de significância $\alpha$ entre $0$ e $1$, sempre existirá um $k$ tal que a equação acima seja verdadeira.
 
 ```{r package t-critico, echo=TRUE, message=FALSE}
 # se n = 11, tenho 9 d.f.
@@ -178,7 +178,7 @@ qt(0.25, df=9)
 qt(0.75, df=9)
 ```
 
-Vamos então definir o **intervalo amostral** para $\hat{\beta}$ como: $[\beta - k(n,\alpha)\hat{se}(\hat{\beta}),\beta + k(n,\alpha)\hat{se}(\hat{\beta})]$, ou seja, se a verdadeira inclinação da reta é $\beta$, então meu $\hat{\beta}$ estará nesse intervalo com probabilidade $1 - \alpha$. O que nos leva ao teste de hipóte nulo de que $\beta = \beta^*$, em particular, de que $\beta^* = 0$, mas não precisa ser essa hipótese nula. E rejeitamos a nula se meu estimador está fora dese intervalo $[\beta^* - k(n,\alpha)\hat{se}(\hat{\beta}),\beta^* + k(n,\alpha)\hat{se}(\hat{\beta})]$, e aceitamos a nula se ele está no intervalo.
+Vamos então definir o **intervalo amostral** para $\hat{\beta}$ como: $[\beta - k(n,\alpha)\hat{se}(\hat{\beta}),\beta + k(n,\alpha)\hat{se}(\hat{\beta})]$, ou seja, se a verdadeira inclinação da reta é $\beta$, então meu $\hat{\beta}$ estará nesse intervalo com probabilidade $1 - \alpha$. O que nos leva ao teste de hipótese nula de que $\beta = \beta^*$, em particular, de que $\beta^* = 0$, mas não precisa ser essa hipótese nula. E rejeitamos a nula se meu estimador está fora desse intervalo $[\beta^* - k(n,\alpha)\hat{se}(\hat{\beta}),\beta^* + k(n,\alpha)\hat{se}(\hat{\beta})]$, e aceitamos a nula se ele está no intervalo.
 
 ## Propriedades Assintóticas
 
@@ -307,4 +307,4 @@ df_resultados_22 %>%
 Como vimos, apenas com base nos dados do primeiro turno, ao nível da zona eleitoral, não era possível prever o resultado final. E à medida que os dados por zona eleitoral foram divulgados, podíamos melhorar nossa previsão de algum modo?
 
 E será que se incluírmos mais variáveis, podemos melhorar o modelo?
-Vamos deixar isso para a próxima aula. Por enquanto, vamos fazer o seguinte exercício. Como nossas previsões iriam evoluir, com basse nesse modelo, à medida que acontecia a apuração?
+Vamos deixar isso para a próxima aula. Por enquanto, vamos fazer o seguinte exercício. Como nossas previsões iriam evoluir, com base nesse modelo, à medida que acontecia a apuração?
