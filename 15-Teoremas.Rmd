@@ -6,30 +6,30 @@ header-includes:
   - \usepackage{xcolor}
 ---
 
-# - Teoremas
+# Teoremas
 
 Apresentamos aqui alguns teoremas importantes para um aprofundamento em Regressão e Estatística
 
 ## Independência e Correlação
 
-Sejam $X$ e $Z$ duas variáveis aleatórias, com médias $\mu_x$ e $\mu_z$ respectivamente.
+Sejam $X$ e $Z$ duas variáveis aleatórias, com médias $\mu_X$ e $\mu_Z$ respectivamente.
 
 Definição 15.1 (independência): Dizemos que $X$ e $Z$ são independentes, denotado por $X \perp Z$, se $Z$ não traz nenhuma informação sobre $X$ e vice-versa. Formalmente, isso quer dizer que:
 
-$f(x,z) = f_x(x)f_z(x)$, isto é, a função densidade conjunta é o produto das marginais.
+$f(x,z) = f_x(x)f_z(z)$, isto é, a função densidade conjunta é o produto das marginais.
 
 Proposição 15.1 (independência na média): Se $X$ e $Z$ são independentes, então são independentes na média (o reverso não é verdade). 
 
 Prova:
 
-$\mathbb{E}[X|Z] = \sum xP_{x|z}(x) = \sum x \frac{P_x(x)P_Z(z)}{P_Z(z)} = \sum x P_x(x) = \mu_x$
+$\mathbb{E}[X|Z] = \sum xP_{x|z}(x) = \sum x \frac{P_x(x)P_Z(z)}{P_Z(z)} = \sum x P_x(x) = \mu_X$
 
-Da segunda igualdade para a terceira usamos a definição de probabilidade condicional.
+Da primeira para a segunda igualdade, usamos a definição de esperança condicional. Da segunda para a terceira, usamos a independência de $X$ e $Z$ ($P_{X|Z}(x) = P_X(x)$).
 
 
-Definição 15.1.2 (independência linear): Dizemos que $X$ e $Z$ são não-correlacionados ou linearmente independentes se $\mathbb{E}[XZ] = \mu_x\mu_z \iff cov(X,Z) = 0$
+Definição 15.1.2 (independência linear): Dizemos que $X$ e $Z$ são não-correlacionados ou linearmente independentes se $\mathbb{E}[XZ] = \mu_X\mu_Z \iff cov(X,Z) = 0$
 
-Proposição 15.1.2 (independência na média para independência linear): Se $X$ e $Y$ são independentes na média, então são linearmente independentes. O reverso não é verdade.
+Proposição 15.1.2 (independência na média para independência linear): Se $X$ e $Z$ são independentes na média, então são linearmente independentes. O reverso não é verdade.
 
 \begin{aligned}
 \mathbb{E}[XZ]
@@ -53,8 +53,8 @@ Para ver que $\mathrm{cov}(X,Z) = 0$, considere:
 
 \begin{aligned}
 \mathbb{E}[XZ]-\mu_X\mu_Z
-&= \mathbb{E}[XZ]-\mu_X 0
-&= \mathbb{E}[XZ]
+&= \mathbb{E}[XZ]-\mu_X \cdot 0 \quad \text{(pois $\mu_Z = \mathbb{E}[Z] = 0$, já que $Z$ é simétrica em torno de zero)}\\
+&= \mathbb{E}[XZ]\\
 &= \mathbb{E}[Z^3] = 0
 \end{aligned}
 
@@ -62,9 +62,9 @@ Para ver que $\mathrm{cov}(X,Z) = 0$, considere:
 
 ### Viés
 
-Definição 15.2 (viés). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um um estimador de $\theta_0$. O viés de um estimador é o desvio absoluto entre o verdadeiro valor do parâmetro e a esperança do estimador. 
+Definição 15.2 (viés). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um estimador de $\theta_0$. O viés de um estimador é o desvio entre a esperança do estimador e o verdadeiro valor do parâmetro. 
 
-$|\theta_0 - \mathbb{E}[\hat{\theta}]|$. 
+$\text{Viés}(\hat{\theta}) = \mathbb{E}[\hat{\theta}] - \theta_0$.
 
 Dizemos que um estimador é não-viesado se e somente se o viés é zero. Lembrem-se que **se e somente se** é uma relação de bi-implicação, ou seja, se é não viesado, o viés é zero. Se o viés é zero, é não viesado.
 
@@ -72,13 +72,13 @@ Observação: o estimador é que pode ser viesado ou não. Isso não se aplica a
 
 ### Variância
 
-Definição 15.3. (variância do estimador). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um um estimador de $\theta_0$. A variância de um estimador é o valor esperado do quadrado dos desvios amostrais.
+Definição 15.3. (variância do estimador). Seja $\theta_0$ o verdadeiro valor de um parâmetro de uma variável aleatória e seja $\hat{\theta}$ um estimador de $\theta_0$. A variância de um estimador é o valor esperado do quadrado dos desvios amostrais.
 
-$Var[\hat{\theta}] = \mathbb{E}[\left(\hat{\theta} - \mathbb{E}[\hat{\theta}]  \right)^2]$
+$\mathrm{Var}[\hat{\theta}] = \mathbb{E}[\left(\hat{\theta} - \mathbb{E}[\hat{\theta}]  \right)^2]$
 
-Proposição 15.3. Seja $Z_1, Z_2, ...$ uma sequência de variáveis aleatórias i.i.d tal que, para todo $i$, $\mathbb{E}[Z_i] = \mu$ e $Var[Z_i] = \sigma^2$. Seja $X_n$ a média amostral das primeiras $n$ variáveis. A variância amostral é igual à variância de $Z$ dividida por $n$.
+Proposição 15.3. Seja $Z_1, Z_2, ...$ uma sequência de variáveis aleatórias i.i.d tal que, para todo $i$, $\mathbb{E}[Z_i] = \mu$ e $\mathrm{Var}[Z_i] = \sigma^2$. Seja $X_n$ a média amostral das primeiras $n$ variáveis. A variância amostral é igual à variância de $Z$ dividida por $n$.
 
-$Var[X_n] = \frac{Var[Z]}{n} = \frac{\sigma^2}{n}$
+$\mathrm{Var}[X_n] = \frac{\mathrm{Var}[Z]}{n} = \frac{\sigma^2}{n}$
 
 
 ### Eficiência
@@ -100,15 +100,12 @@ $\Pr(|\hat\theta_n-\theta|>\varepsilon)\le \mathrm{Var}(\hat\theta_n)/\varepsilo
 
 ## Exercícios para o leitor 
 
-1. Suponha que $Z$ é uma distribuição uniforme $Z \sim U(-1,1)$. 
-Mostre que se $X = Z^2$, então são independentes na média, mas não independentes entre si.
+1. Suponha que $Z$ é uma distribuição uniforme $Z \sim U(-1,1)$.
+Mostre que se $X = Z^2$, então $X$ e $Z$ são não correlacionados, mas não independentes entre si.
 
+2. Mostre que $X$ e $Z$ são independentes na média, mas não independentes entre si no seguinte caso: Seja $Y$ uma variável aleatória uniforme $Y \sim U(-1,1)$. Defina $X = Y+ \epsilon_1$ e $Z = Y+ \epsilon_2$, em que $\epsilon_1$ e $\epsilon_2$ são ruídos aleatórios com média zero, independentes entre si, $X$, $Z$ e $Y$.
 
-Mostre que $X$ e $Z$ são independentes na média, mas não independentes entre si no seguinte caso:
-
-2. Seja $Y$ uma variável aleatória uniforme $Y \sim U(-1,1)$. Defina $X = Y+ \epsilon_1$ e $Z = Y+ \epsilon_2$, em que $\epsilon_1$ e $\epsilon_2$ são ruídos aleatórios com média zero, independentes entre si, $X$, $Z$ e $Y$.
-
-Dica: em algum momento, use a definição (15.2) de que se $Cov(X,Z) \neq 0$, então $X$ e $Z$ não são independentes.
+Dica: em algum momento, use a definição (15.1.2) de que se $Cov(X,Z) \neq 0$, então $X$ e $Z$ não são independentes.
 
 3. Mostre que a média amostral é um estimador não-viesado para a média populacional.
 
@@ -119,12 +116,12 @@ Se $\mathbb{E}[Y] < \infty$ então para qualquer vetor de variáveis aleatórias
 
 Prova: Para $X$ discreto:
 
-Como a esperença condicional é uma função de $X$ apenas, a esperança é calculada somando apenas com respeito a $X$.
+Como a esperança condicional é uma função de $X$ apenas, a esperança é calculada somando apenas com respeito a $X$.
 
 \begin{align*}
 1.\mathbb{E}[\mathbb{E}[Y|X]] &= \sum_{j=1}^{\infty}\mathbb{E}[Y|X=x_j]P[X=x_j] \\
 2. &= \sum_{j=1}^{\infty}\left(\sum_{i=1}^{\infty} y_i P[Y=y_i|X=x_j]\right)P[X=x_j] \\
-2.5. &= \sum_{j=1}^{\infty}y_1 P[Y=y_1|X=x_j]P[X=x_j] + y_2 P[Y=y_2|X=x_j]) P[X=x_j] + \cdots \\
+2.5. &= \sum_{j=1}^{\infty}y_1 P[Y=y_1|X=x_j]P[X=x_j] + y_2 P[Y=y_2|X=x_j] P[X=x_j] + \cdots \\
 3. &= \sum_{j=1}^{\infty}\sum_{i=1}^{\infty} y_i P[Y=y_i|X=x_j]P[X=x_j] \\
 4. &= \sum_{j=1}^{\infty}\sum_{i=1}^{\infty} y_i P[Y=y_i, X=x_j] \\
 5. \ &= \sum_{i=1}^{\infty} y_i \color{red}{\sum_{j=1}^{\infty}} P[Y=y_i, X=x_j] \quad \text{(Troca na ordem dos somatórios)} \\
@@ -135,22 +132,22 @@ Como a esperença condicional é uma função de $X$ apenas, a esperança é cal
 Teorema: Lei das Esperanças Iteradas:
 Se $\mathbb{E}[Y] < \infty$ então para quaisquer vetores de variáveis aleatórias $X_1$ e $X_2$, $\mathbb{E}[\mathbb{E}[Y|X_1,X_2]|X_1] = \mathbb{E}[Y|X_1]$.
 
-A esperança interna condiciona em $X_1$ e $X_2$, e a externa apenas em $X_1$. E o resultado é o condiionamento apenas em $X_1$. Uma forma de memorizar o teorema é dizer que "o menor conjunto de informações ganha".
+A esperança interna condiciona em $X_1$ e $X_2$, e a externa apenas em $X_1$. E o resultado é o condicionamento apenas em $X_1$. Uma forma de memorizar o teorema é dizer que "o menor conjunto de informações ganha".
 
 ## Teorema do Condicionamento
 
-Propisição: Se $\mathbb{E}[Y] < \infty$, então
-$\mathbb{E}[g(x)Y|X] = g(x) \mathbb{E}[Y|X]$.
+Proposição: Se $\mathbb{E}[Y] < \infty$, então
+$\mathbb{E}[g(X)Y|X] = g(X) \mathbb{E}[Y|X]$.
 
-Se, além disso, $\mathbb{E}[g(x)] < \infty$, então
-$\mathbb{E}[g(x)Y] = \mathbb{E}[g(x) \mathbb{E}[Y|X]]$
+Se, além disso, $\mathbb{E}[g(X)] < \infty$, então
+$\mathbb{E}[g(X)Y] = \mathbb{E}[g(X) \mathbb{E}[Y|X]]$
 
 Prova 1:
 
-$\mathbb{E}[g(x)Y|X] = \sum_{y} g(x) y P(Y=y|X=x) = g(x) \sum_{y} y P(Y=y|X=x) = g(x)\mathbb{E}[Y|X]$.
+$\mathbb{E}[g(X)Y|X] = \sum_{y} g(x) y P(Y=y|X=x) = g(x) \sum_{y} y P(Y=y|X=x) = g(x)\mathbb{E}[Y|X]$.
 
 Como estamos somando em $Y$, $g(x)$ age como uma constante com respeito à somatória de $Y$. Depois é só aplicar a definição de esperança condicional.
 
 Prova 2.
 Basta aplicar a lei das esperanças iteradas e a prova acima:
-$\mathbb{E}[g(x)Y] = \mathbb{E}[\mathbb{E}[g(x)Y|X]] = \mathbb{E}[g(x)\mathbb{E}[Y|X]]$
+$\mathbb{E}[g(X)Y] = \mathbb{E}[\mathbb{E}[g(X)Y|X]] = \mathbb{E}[g(X)\mathbb{E}[Y|X]]$
