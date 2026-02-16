@@ -37,21 +37,21 @@ library(tidyverse)
 ```
 
 
-Uma das primeiras distinções que temos de fazer é sobre previsão e explicação (causal). Quando queremos prever, estamos interessados em saber quais os provaveis valores de variáveis no futuro, a parte de informações sobre a própria variável e outras no passado. Nesse sentido, é preciso algum tipo de suposição de que o futuro se assemelha ao passado de algum modo. Esse tipo de suposição usualmente toma a forma de um modelo probabilísitco, mas não apenas.
+Uma das primeiras distinções que temos de fazer é sobre previsão e explicação (causal). Quando queremos prever, estamos interessados em saber quais os prováveis valores de variáveis no futuro, a partir de informações sobre a própria variável e outras no passado. Nesse sentido, é preciso algum tipo de suposição de que o futuro se assemelha ao passado de algum modo. Esse tipo de suposição usualmente toma a forma de um modelo probabilístico, mas não apenas.
 
-Quando estamos interessados em explicações causais, temos dois tipos de perguntas de pesquisa possíveis. Uma sobre a chamada causa dos efeitos e outra sobre o efeito das causas (Gelman & Imbens, 2013). A causa dos efeitos são perguntas do tipo: o que causal a II Grande Guerra? Ou qual a causa da eleição de Trump ou Bolsonaro? O que explica a desigualdade de renda no Brasil? São todas perguntas em que queremos explicar um efeito, isto é, identificar as causas de um fenômeno (efeito). Já o efeito das causas ão perguntas do tipo: qual o efeito da vacina de covid-19 sobre a mortalidade por Covid-19? Qual o efeito de checagem de notícias sobre a crença de pessoas em desinformação? Qual o efeito da magnitude eleitoral sobre fragmentação partidária? E assim por diante. Aqui, estamos interessados em entender o efeito causal de uma variável sobre outra, sem pretender esgotar todas as explicações de causa possíveis.
+Quando estamos interessados em explicações causais, temos dois tipos de perguntas de pesquisa possíveis. Uma sobre a chamada causa dos efeitos e outra sobre o efeito das causas (Gelman & Imbens, 2013). A causa dos efeitos são perguntas do tipo: o que causou a II Grande Guerra? Ou qual a causa da eleição de Trump ou Bolsonaro? O que explica a desigualdade de renda no Brasil? São todas perguntas em que queremos explicar um efeito, isto é, identificar as causas de um fenômeno (efeito). Já o efeito das causas são perguntas do tipo: qual o efeito da vacina de covid-19 sobre a mortalidade por Covid-19? Qual o efeito de checagem de notícias sobre a crença de pessoas em desinformação? Qual o efeito da magnitude eleitoral sobre fragmentação partidária? E assim por diante. Aqui, estamos interessados em entender o efeito causal de uma variável sobre outra, sem pretender esgotar todas as explicações de causa possíveis.
 
 A maior parte dos métodos quantitativos existentes são bons para responder perguntas de previsão e de causa dos efeitos. Grosso modo, não há método quantitativo para estimação do efeito das causas, exceto realizar uma série de estudos independentes sobre várias causas dos efeitos, olhando uma causa distinta do mesmo efeito por vez e esperar que isso gere um conhecimento combinado sobre essas múltiplas causas. Mas não há, contudo, uma metodologia bem definida de como combinar esses estudos independentes em um único conhecimento do efeito conjunto das causas. 
 
-Assim, nosso curso será dedicado apenas a modelos de previsão e modelos de causa dos efeitos, que é o que temos de metodologias já desenvolvidas e consolidadas. Começamos por essa explicação porque uma perspectiva mais antiga, e ainda comum nas ciências sociais, é que modelos de regressão múltiplas permitem estimar o efeito de várias causas. Isso raramente é o caso e não adotaremos essa perspecitva aqui ^[A maior parte do curso será dedicadas a modelos preditivos, e apenas pontualmente falaremos de modelos causais]. 
+Assim, nosso curso será dedicado apenas a modelos de previsão e modelos de causa dos efeitos, que é o que temos de metodologias já desenvolvidas e consolidadas. Começamos por essa explicação porque uma perspectiva mais antiga, e ainda comum nas ciências sociais, é que modelos de regressão múltiplas permitem estimar o efeito de várias causas. Isso raramente é o caso e não adotaremos essa perspectiva aqui ^[A maior parte do curso será dedicada a modelos preditivos, e apenas pontualmente falaremos de modelos causais]. 
 
 Há muitas formas de apresentar ou motivar regressão linear. O método mais tradicional é pensar que a regressão linear é uma reta que é ajustada aos pontos observados. Porém, não tomaremos esse caminho aqui.
 
-Nós iremos considerar que a regressão linear é uma forma de aproximar a chamada "Conditional Regression Function" (CEF, na sigla em inglês). O objetivo é entender “as far as possible with the available data how the conditional distribution of some response $y$ varies across subpopulations determined by the possible values of the predictor or predictors” (Cook and Weisberg, apud Berk, p. 4).
+Nós iremos considerar que a regressão linear é uma forma de aproximar a chamada "Conditional Expectation Function" (CEF, na sigla em inglês). O objetivo é entender “as far as possible with the available data how the conditional distribution of some response $y$ varies across subpopulations determined by the possible values of the predictor or predictors” (Cook and Weisberg, apud Berk, p. 4).
 
 ## CEF
 
-Para introduzir a CEF, iremos trabalhar com um banco de dados de eleição. O código abaixo mostrar como importar e processar os dados.
+Para introduzir a CEF, iremos trabalhar com um banco de dados de eleição. O código abaixo mostra como importar e processar os dados.
 O dado original foi retirado do portal de dados abertos do TSE, com os dados de votação nominal nas eleições de 2020 para o estado de São Paulo.
 
 ```{r import-voto cap5, echo=TRUE, message=FALSE, cache=TRUE, warning=FALSE}
@@ -73,7 +73,7 @@ library(tidyverse)
 # saveRDS(dados_finais, file=here("dados\\", "dados_finais.rds"))
 
 #salvei os dados e posso importar o que fiz.
-# o arquivo dados_finais.rds está no respositório em:
+# o arquivo dados_finais.rds está no repositório em:
 # https://github.com/mgaldino/book-regression/tree/main/dados
 dados_finais <- readRDS(here("dados", "dados_finais.rds"))
 
@@ -122,11 +122,11 @@ saveRDS(dados_turno1, file=here("Dados//", "dados_turno1.rds"))
 ```
 
 
-O que constitui uma boa previsão? Tradicionalmente, empregamos a noção de Erro Quadrátco Médio (EQM) para quantificar boas previsões. Quanto menor o EQM, melhor uma previsão. Se o objetivo é, portanto, fazer previsões que minimizem o EQM, iremos apresertar e mostrar que a Função de Esperança Condicional (*CEF*, na sigla em inglês) é o melhor preditor global possível. Vamos dizer, em outras palavras, porque esse resultado é verdadeiramente incrível. A CEF é o melhor preditor possível dentre todos que existam ou possam vir a existir, entendendo melhor como ter o menor EQM. Por isso que a CEF é o ponto de partida de qualquer preditor que exista, seja uma regressão simples ou algoritmos de aprendizens de máquinas como "random forest" ou mesmo algorítimos de deep learning de redes neurais por traz dos recentes avanços na inteligência artificial.
+O que constitui uma boa previsão? Tradicionalmente, empregamos a noção de Erro Quadrático Médio (EQM) para quantificar boas previsões. Quanto menor o EQM, melhor uma previsão. Se o objetivo é, portanto, fazer previsões que minimizem o EQM, iremos apresentar e mostrar que a Função de Esperança Condicional (*CEF*, na sigla em inglês) é o melhor preditor global possível. Vamos dizer, em outras palavras, porque esse resultado é verdadeiramente incrível. A CEF é o melhor preditor possível dentre todos que existam ou possam vir a existir, entendendo melhor como ter o menor EQM. Por isso que a CEF é o ponto de partida de qualquer preditor que exista, seja uma regressão simples ou algoritmos de aprendizado de máquina como "random forest" ou mesmo algoritmos de deep learning de redes neurais por trás dos recentes avanços na inteligência artificial.
 
-> Mesmo os algorítmos mais avançados de inteleigência artificial, como os **Large Language Models**, que estão na base de ferramentas como ChatGPT, *não podem* ter desempenho melhor que a função de experança condicional, CEF, ao fazer uma previsão.
+> Mesmo os algoritmos mais avançados de inteligência artificial, como os **Large Language Models**, que estão na base de ferramentas como ChatGPT, *não podem* ter desempenho melhor que a função de esperança condicional, CEF, ao fazer uma previsão.
 
-Naturalmente, se esse é o caso, a próxima pergunta que todos nós iremos fazer é: por que não aprender apenas a usar a CEF, que é o melhor preditor possível, e ser feliz para sempre? Porque a natureza não nos diz qual é a CEF. Nós nunca sabemos qual a verdadeira função de esperança condicional. Então tentamos aproximar o mais bem possível a CEF, a partir de simplificações da realidade. Em particular, nosso curso pode ser pensado em torno das seguintes perguntas: como aproximar a CEF por meio de regressão linear (combinação lineares de preditores)? Quais as propridades dessa aproximação? Em que condições ela é uma boa aproximação e em que sentido (quantitativo e preciso) podemos falar de boa aproximação? Mais para o final do curso faremos a conexão entre a CEF, modelos preditivos e modelos causais.
+Naturalmente, se esse é o caso, a próxima pergunta que todos nós iremos fazer é: por que não aprender apenas a usar a CEF, que é o melhor preditor possível, e ser feliz para sempre? Porque a natureza não nos diz qual é a CEF. Nós nunca sabemos qual a verdadeira função de esperança condicional. Então tentamos aproximar o mais bem possível a CEF, a partir de simplificações da realidade. Em particular, nosso curso pode ser pensado em torno das seguintes perguntas: como aproximar a CEF por meio de regressão linear (combinação lineares de preditores)? Quais as propriedades dessa aproximação? Em que condições ela é uma boa aproximação e em que sentido (quantitativo e preciso) podemos falar de boa aproximação? Mais para o final do curso faremos a conexão entre a CEF, modelos preditivos e modelos causais.
 
 ## CEF e voto 
 
@@ -180,13 +180,13 @@ print(p3)
 
 Municípios como Diadema, Sorocaba, Franca e Taubaté, que não estavam fazendo muito sentido, agora passaram a fazer.
 
-E o que é a Esperana Condicional?
-Qual o valor esperado do $Y$ para um davo valor de $X$. No gráfico, é dado pela linha vermelha.
+E o que é a Esperança Condicional?
+Qual o valor esperado do $Y$ para um dado valor de $X$. No gráfico, é dado pela linha vermelha.
 
 
 ## Algumas Propriedades da CEF
 
-A CEF é simplesmente uma função de $X_i$ que resulta na esperança condficional, ou seja $\mathbb{E}[Y_i|X_i]$. É como se eu escrevesse $f(X_i) = \mathbb{E}[Y_i|X_i]$. 
+A CEF é simplesmente uma função de $X_i$ que resulta na esperança condicional, ou seja $\mathbb{E}[Y_i|X_i]$. É como se eu escrevesse $f(X_i) = \mathbb{E}[Y_i|X_i]$. 
 
 Como $X_i$ pode ser pensado como aleatório, então a CEF também é aleatória.
 
@@ -194,13 +194,13 @@ Nós podemos descrever os dados da seguinte forma: $Y_i = \mathbb{E}[Y_i|X_i] + 
 
 ### CEF é a melhor aproximação aos dados
 
-Suponha que estamos interessados em achar a melhor função de $X$, $m(x)$ que aproximada os dados $Y$. Qual seria essa função? Se nós utilizamos o EQM para computar quão bem estamos aproximando os dados, então:
+Suponha que estamos interessados em achar a melhor função de $X$, $m(x)$ que aproxime os dados $Y$. Qual seria essa função? Se nós utilizamos o EQM para computar quão bem estamos aproximando os dados, então:
 
 $(Y_i - m(X_i))^2 = ((Y_i - \mathbb{E}[Y_i|X_i]) + (\mathbb{E}[Y_i|X_i] - m(X_i)))^2$
 
-$(Y_i - m(X_i))^2 = (Y_i - \mathbb{E}[Y_i|X_i])^2 + 2(Y_i - \mathbb{E}[Y_i|X_i])(\mathbb{E}[Y_i|X_i] - m(X_i) + (\mathbb{E}[Y_i|X_i] - m(X_i))^2$
+$(Y_i - m(X_i))^2 = (Y_i - \mathbb{E}[Y_i|X_i])^2 + 2(Y_i - \mathbb{E}[Y_i|X_i])(\mathbb{E}[Y_i|X_i] - m(X_i)) + (\mathbb{E}[Y_i|X_i] - m(X_i))^2$
 
-Nós queremos minimizar a esperança do erro quadrático, isto é, achar $m(X_i)$ que torna o EQM mínimo. Logo, sabemos que qulquer que seja o $m(X_i)$ que minimiza o EQM, não impacta o primeiro termo da equação acima, de forma que podemos desconsiderá-lo. $Y_i - \mathbb{E}[Y_i|X_i]$ é $e_i$. Como a esperança de $e_i$ é zero, então todo o termo é zero. De forma que só sobra a esperança do último termo. E o melhor que se pode fazer é zerar o termo, ou seja, $m(X_i) = \mathbb{E}[Y_i|X_i]$.
+Nós queremos minimizar a esperança do erro quadrático, isto é, achar $m(X_i)$ que torna o EQM mínimo. Logo, sabemos que qualquer que seja o $m(X_i)$ que minimiza o EQM, não impacta o primeiro termo da equação acima, de forma que podemos desconsiderá-lo. $Y_i - \mathbb{E}[Y_i|X_i]$ é $e_i$. Como a esperança de $e_i$ é zero, então todo o termo é zero. De forma que só sobra a esperança do último termo. E o melhor que se pode fazer é zerar o termo, ou seja, $m(X_i) = \mathbb{E}[Y_i|X_i]$.
 
 ## Regressão Linear
 
@@ -235,11 +235,11 @@ print(grafico_cef_reg)
 
 ## Logaritmos
 
-É muito comum a utilização de logaritmos em regressões, de modo que vale uma digresssão sobre a correta interpretação de logaritmos. A primeira razão é que a diferença de logaritmos é aproximadamente igual à diferença entre porcentagens. Vamos ilustrar isso por meio de um exemplo, e então mostaremos matematicamente que isso sempre é o caso.
+É muito comum a utilização de logaritmos em regressões, de modo que vale uma digressão sobre a correta interpretação de logaritmos. A primeira razão é que a diferença de logaritmos é aproximadamente igual à diferença entre porcentagens. Vamos ilustrar isso por meio de um exemplo, e então mostraremos matematicamente que isso sempre é o caso.
 
-### Logartimos como diferença de porcentagens
+### Logaritmos como diferença de porcentagens
 
-De acodo com dados da PNADc de 2017, quarto trimstre, o salário por hora dos homens é em média $14.72$ reais, e o das mulheres $12.57$ reais. A diferença percentual no salário é, portanto, $100*(14.72 - 12.57)/12.57$ ou $17,1%$. Se em vez de calcular a diferença percentual, usar a aproximação $log(14.72) - log(12.57) = 0.1578941$ ou 15,8%,  tenho um valor próximo do verdadeiro valor de 17,1%.
+De acordo com dados da PNADc de 2017, quarto trimestre, o salário por hora dos homens é em média $14.72$ reais, e o das mulheres $12.57$ reais. A diferença percentual no salário é, portanto, $100*(14.72 - 12.57)/12.57$ ou $17,1%$. Se em vez de calcular a diferença percentual, usar a aproximação $log(14.72) - log(12.57) = 0.1578941$ ou 15,8%,  tenho um valor próximo do verdadeiro valor de 17,1%.
 
 O caso geral pode ser visto do seguinte modo. Sejam dois números positivos $a$ e $b$, com $a > b$. A diferença percentual $p$ entre $a$ e $b$ é dada por:
 
@@ -313,7 +313,7 @@ A segunda razão é que se aplicarmos essa lógica para médias, estamos aproxim
 
 ### Logaritmos e média geométrica
 
-A média geométrica de um conjunto de observações $(x_1, x_2, \cdots, x_n)$ é dada por: $MG = \sqrt[n]{(x_1 \cdot x_2 \cdot x_n)}$.
+A média geométrica de um conjunto de observações $(x_1, x_2, \cdots, x_n)$ é dada por: $MG = \sqrt[n]{x_1 \cdot x_2 \cdots x_n}$.
 
 Se considerarmos variáveis aleatórias, $X$ e $Y$, ambas positivas, e suas respectivas transformações com logaritmo, $log(X)$ e $log(Y)$, definimos a média geométrica $\theta_x = \exp(\mathbb{E}[log(X)])$ e $\theta_y = \exp(\mathbb{E}[log(Y)])$ e a diferença percentual como:
 
@@ -323,7 +323,7 @@ A diferença na esperança da transformações do log é:
 
 $100(\mathbb{E}[log Y] - \mathbb{E}[log X]) = 100 (log \theta_y - log \theta_x) \approx p$
 
-Em paavras: A diferença na média de variáveis transformadas (pelo log) é aproximadamente a diferença percentual nas médias geométricas. Isso é relevante por causa do seguinte.
+Em palavras: A diferença na média de variáveis transformadas (pelo log) é aproximadamente a diferença percentual nas médias geométricas. Isso é relevante por causa do seguinte.
 Suponha que temos o logaritmo do salário de homens e mulheres:
 
 $\mathbb{E}[Y|homem] =\mu_1$
@@ -357,7 +357,7 @@ De fato, o erro que cometemos pode ser calculado por meio do *Erro Quadrático M
 
 ```
 
-Como iremos mostrar depois, não existe nenhuma outra forma melhor de prever $Y$, se só tivermos informação de $Y$ e $X$. Ou seja, esse é o menor erro quadrático médio possível. Claro que, com mais variávels, podemos condicionais em mais informação e melhorar a previsão. Por exemplo, se temos a variável raça, além de gênero, podemos condicionar nas duas variáveis.
+Como iremos mostrar depois, não existe nenhuma outra forma melhor de prever $Y$, se só tivermos informação de $Y$ e $X$. Ou seja, esse é o menor erro quadrático médio possível. Claro que, com mais variáveis, podemos condicionar em mais informação e melhorar a previsão. Por exemplo, se temos a variável raça, além de gênero, podemos condicionar nas duas variáveis.
 
 ```{r eqm_ex2, echo=FALSE, message=FALSE, cache=TRUE}
 # 
@@ -386,7 +386,7 @@ Vemos que o EQM diminuiu ao condicionar em mais variáveis. Para reforçar, até
 Como vimos, uma boa aproximação para a CEF é um preditor linear. Se temos um preditor $x$ e queremos usar esse preditor para prever $y$, o modelo linear simples pode ser escrito da seguinte forma:
 
 $$
-\hat{y_i} = \alpha + \beta x_i
+\hat{y}_i = \alpha + \beta x_i
 $$
 Vejam que eu usei $x_i$, mas não $y_i$. Em vez disso, utilizei $\hat{y}_i$. Este último valor é a minha previsão do $y$ dado o valor do meu preditor $x$ para cada observação $i$. Vejam que, uma vez que nós saibamos os valores de $\alpha$ e $\beta$, temos efetivamente uma reta (linear) que relaciona $x_i$ e $\hat{y}_i$. Um critério para tal é minimizar a diferença, para cada observação, entre $y$ e $\hat{y}$, isto é:
 
@@ -401,9 +401,9 @@ $$
 $$
 Por essa razão, chamamos de: preditor linear de erro quadrático médio mínimo.
 
-Por hora, basta saber que se minimizarmos a soma (ou a esperança) obteremos os valores de $\alpha$ e $\beta$. Quando falamos de uma amostra (em vez da população), iremos indicar esses valores por $\hat{\alpha}$ e $\hat{\beta}$.
+Por ora, basta saber que se minimizarmos a soma (ou a esperança) obteremos os valores de $\alpha$ e $\beta$. Quando falamos de uma amostra (em vez da população), iremos indicar esses valores por $\hat{\alpha}$ e $\hat{\beta}$.
 
-Essa previsão, por mais que nós estejamos tentando minimizar o erro entre o valor do $y$ e previsto $\hat{y}$, em geral não será perfeito. Assim, para cada previsão $\hat{y}_i$ cometo um erro $\epsilon_i$ que é a diferença entre o observado $y$ e o precisto $\hat{y}$, ou seja:
+Essa previsão, por mais que nós estejamos tentando minimizar o erro entre o valor do $y$ e previsto $\hat{y}$, em geral não será perfeito. Assim, para cada previsão $\hat{y}_i$ cometo um erro $\epsilon_i$ que é a diferença entre o observado $y$ e o previsto $\hat{y}$, ou seja:
 
 
 
@@ -411,7 +411,7 @@ $$
 \epsilon_i = y_i - \hat{y}_i
 $$
 
-Se eu substituir $\hat{y}_i$ pos sua equação, temos: 
+Se eu substituir $\hat{y}_i$ por sua equação, temos: 
 
 $$
 \epsilon_i = y_i - \alpha - \beta x_i
@@ -421,9 +421,9 @@ Rearranjando:
 $$
 y_i = \alpha + \beta x_i + \epsilon_i
 $$
-Esse é chamado de modelo de regressão linear. Em resumo, o preditor linear é $\hat{y}_i = \alpha + \beta x_i$ e o modelo de regressão lienar é $y_i = \alpha + \beta x_i + \epsilon_i$. No primeiro caso, tenho uma previsão que é diferente do observado. No segundo caso, acoplo a previsão ao erro e obtenho exatamente o observado.
+Esse é chamado de modelo de regressão linear. Em resumo, o preditor linear é $\hat{y}_i = \alpha + \beta x_i$ e o modelo de regressão linear é $y_i = \alpha + \beta x_i + \epsilon_i$. No primeiro caso, tenho uma previsão que é diferente do observado. No segundo caso, acoplo a previsão ao erro e obtenho exatamente o observado.
 
-Vale notar que minimizar a soma dos quadrados dos resíduos é o mesmo que minimizar a a raiz quadrada dessa soma dividida por $n$, ou seja:
+Vale notar que minimizar a soma dos quadrados dos resíduos é o mesmo que minimizar a raiz quadrada dessa soma dividida por $n$, ou seja:
 
 
 $$
@@ -450,7 +450,7 @@ reg <- lm(perc_validos_2t ~ perc_validos_1t, data = dados_filtrados)
 reg
 ```
 
-O resultado do modelo mostra que o intecepto ($\hat{\alpha}$) é $0.3624$ e a inclinação (o $\hat{\beta}$) é 0.6597. O R não reporta o nome dos coeficientes $\hat{\alpha}$ ou $\hat{\beta}$ mas intercepto para o caso do $\hat{\alpha}$ e o nome do preditor para o caso do $\hat{\beta}$. E interpretamos esse resultado do seguinte modo: quando o preditor é zero, ou seja, quando o voto no primeiro turno do vencedor da eleição é zero naquela seção eleitoral, a previsão do modelo é que no segundo turno o candidato mais votado tem 36,24% dos votos na seção. E cada ponto percentual de voto na seção se traduz em $.01*0.6597 = 0.006597$ pontos percentuais adicionais, ou seja, 1 ponto pecentual de voto na seção eleitoral se traduz em 0,6597 pontos percentuais. Em outras palavras, o candidato vencedor que teve 1% de voto numa seção eleitoral deve ter (é a previsão do modelo) $0.3624 + .01*0.6597 = 0.368997$ ou aproximadamente 37% dos votos na seção. Similarmente, se esse candidato teve 10% dos votos naquela seção no primeiro turno, então a previsão é que tenha: $0.3624 + .1*0.6597 = 0.42837$ ou aproximadamente 43% dos votos.
+O resultado do modelo mostra que o intercepto ($\hat{\alpha}$) é $0.3624$ e a inclinação (o $\hat{\beta}$) é 0.6597. O R não reporta o nome dos coeficientes $\hat{\alpha}$ ou $\hat{\beta}$ mas intercepto para o caso do $\hat{\alpha}$ e o nome do preditor para o caso do $\hat{\beta}$. E interpretamos esse resultado do seguinte modo: quando o preditor é zero, ou seja, quando o voto no primeiro turno do vencedor da eleição é zero naquela seção eleitoral, a previsão do modelo é que no segundo turno o candidato mais votado tem 36,24% dos votos na seção. E cada ponto percentual de voto na seção se traduz em $.01*0.6597 = 0.006597$ pontos percentuais adicionais, ou seja, 1 ponto percentual de voto na seção eleitoral se traduz em 0,6597 pontos percentuais. Em outras palavras, o candidato vencedor que teve 1% de voto numa seção eleitoral deve ter (é a previsão do modelo) $0.3624 + .01*0.6597 = 0.368997$ ou aproximadamente 37% dos votos na seção. Similarmente, se esse candidato teve 10% dos votos naquela seção no primeiro turno, então a previsão é que tenha: $0.3624 + .1*0.6597 = 0.42837$ ou aproximadamente 43% dos votos.
 
 ```{r reg_reta_cap5,  message=FALSE, cache=TRUE, warning=F, fig.cap = "voto_por_municipio" }
 # vamos ficar só com o candidato mais votado
