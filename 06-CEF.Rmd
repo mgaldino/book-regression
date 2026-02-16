@@ -150,56 +150,30 @@ $$
 
 ### O erro da CEF é não-correlacionado com X
 
-Por fim, uma última propriedade que não iremos demonstrar é que o erro da CEF é não-correlacionado com qualquer função de $X$. Formalmente isso é formulado como $\mathbb{E}[h(x)*e] = 0$. Em particular, se $h(x)=x$, então $\mathbb{E}[x*e] = 0$. Esse resultado implica que o erro é não-correlacionado com $X$ (ou qualquer função de $X$). Dizemos que o erro é independente na média de $X$, ou seja, $\mathbb{E}[e|X]=0$ e isso implica que o erro não é correlacionado com x.
+Por fim, uma última propriedade é que o erro da CEF é não-correlacionado com qualquer função de $X$. Formalmente isso é formulado como $\mathbb{E}[h(X) \cdot e] = 0$, para qualquer função $h$. Em particular, se $h(X)=X$, então $\mathbb{E}[X \cdot e] = 0$. Esse resultado implica que o erro é não-correlacionado com $X$ (ou qualquer função de $X$).
+
+A demonstração utiliza a Lei das Esperanças Iteradas (LIE). Queremos mostrar que $\mathbb{E}[h(X) \cdot e] = 0$. Pela LIE:
+
+$$
+\mathbb{E}[h(X) \cdot e] = \mathbb{E}[\mathbb{E}[h(X) \cdot e|X]]
+$$
+
+Condicional a $X$, a função $h(X)$ é uma constante (pois $X$ é conhecido). Portanto, podemos tirá-la para fora da esperança condicional:
+
+$$
+= \mathbb{E}[h(X) \cdot \mathbb{E}[e|X]]
+$$
+
+Como já demonstramos que $\mathbb{E}[e|X] = 0$, temos:
+
+$$
+= \mathbb{E}[h(X) \cdot 0] = 0
+$$
 
 Vejam que já sabemos que $\mathbb{E}[e]=0$, portanto, $\mathbb{E}[e|X]=0$ é uma forma de dizer que a média do erro condicional a $X$ é a mesma coisa que a média do erro sem condicionar em $X$. Em outras palavras, a informação de $X$ não muda minha estimativa da média do erro. Voltemos para o exemplo dos dados. Agora, suponha que tenho dois dados de $6$ faces. Nesse caso, saber que escolhi o dado $A$ não muda a média de $Y$, pois será igualmente $3.5$. É fácil ver que não há correlação entre $X$ e $Y$ nesse caso.
 
-Aqui tem uma intuição de porque uma variável ser independente na média significa que não é correlacionada. Suponha que eu tenho uma medida da altura de pessoas, alguma medida do vocabulário delas e suas idades. Condicional à idade, saber a altura de uma pessoa não diz nada sobre o vocabulário dela (e vice-versa). Isso significa que não estão correlacionadas. 
+Aqui tem uma intuição de porque uma variável ser independente na média significa que não é correlacionada. Suponha que eu tenho uma medida da altura de pessoas, alguma medida do vocabulário delas e suas idades. Condicional à idade, saber a altura de uma pessoa não diz nada sobre o vocabulário dela (e vice-versa). Isso significa que não estão correlacionadas.
 
-
-
-
-Nós vimos que o log do salário (por hora) médio não condicional
-$\mathbb{E}[log(salário)]$ é 2.15. A tabela abaixo quebra esse valor por
-gênero, juntamente com a frequência relativa de categoria:
-
-```{r cap6-table-wage-gender, results='asis', message=FALSE, warning=F, cache=TRUE }
-      
-      
-# table2 <- df %>%
-#   mutate(total_n = sum(V1028),
-#          log_renda = log(renda)) %>%
-#   group_by(genero) %>%
-#   summarise(salario = round(weighted.mean(salario, w=V1028),2), freq=sum(V1028)/total_n)
-#      
-# table2 %>%
-#   head(10) %>%
-#   kable()
-      
-```
-
-Vejam que:
-
-$$
-\mathbb{E}[log(salário)] = \mathbb{E}[log(salário)|homem]*p(homem) + \mathbb{E}[log(salário)|mulher]*p(mulher)
-$$
-
-$$
-x*p(x) + y*p(y)  = x1*y1 = 2.15
-$$
-
-Como vimos, é sempre verdade que (para o caso de $X$ assumir dois valores), que:
-
-$$
-\mathbb{E}[\mathbb{E}[Y|X]] = \mathbb{E}[Y|X=x_{1}]*p(X_1) + \mathbb{E}[Y|X =x_2]*p(x_2)
-$$
-
-Então, voltando ao nosso caso do erro, temos o seguinte (novamente para
-o caso particular de X assumindo dois valores).
-
-$$
-\mathbb{E}[e]*\mathbb{E}[X] = \mathbb{E}[e*\mathbb{E}[X]] = \mathbb{E}[e*\mathbb{E}[e|X]] = \mathbb{E}[X*Y|X=x_{1}]*p(X_1) + \mathbb{E}[X*Y|X =x_2]*p(x_2)
-$$
 ## A esperança condicional é o melhor preditor
 
 Nós já antecipamos que a esperança condicional é o melhor preditor de $Y$ no sentido de minimizar o EQM. Vamos agora mostrar isso. Anteriormente definimos a esperança condicional $\mathbb{E}[Y|X]$ como $m(x)$. Vamos por um momento esquecer essa definição e assumir que $m(x)$ é valor que minimizar o EQM. Iremos provar que nesse caso, $m(x) = \mathbb{E}[Y|X]$

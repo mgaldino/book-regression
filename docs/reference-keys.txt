@@ -62,6 +62,7 @@ a-esperança-do-erro-condicional-a-x-é-zero
 a-esperança-não-condicional-do-erro-é-zero.
 intuição-da-lie
 o-erro-da-cef-é-não-correlacionado-com-x
+a-esperança-condicional-é-o-melhor-preditor
 regressão-linear-e-a-cef
 mínimos-quadrados-ordinários
 equação-da-reta
