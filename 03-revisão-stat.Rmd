@@ -1,4 +1,4 @@
-# - Revisão de estatística e probabilidade
+# Revisão de estatística e probabilidade
 
 A média de um conjunto de valores é dada pela soma dos valores, dividido pelo número de observações. Matematicamente:
 $media = \sum_{i=1}^n{x_i}/n$ para observações $\{ x_1, x_2, x_3, ..., x_n \}$
@@ -32,7 +32,7 @@ x <- c(1,3,5,7,9,11)
 x <- c(-5,-4,-3,-2,-1,1,2,3,4,5)
 (media_x <-  sum(x)/length(x))
 
-# ou podemos simplemsnte usar mean(x)
+# ou podemos simplesmente usar mean(x)
 mean(x)
 ```
 
@@ -72,7 +72,7 @@ A covariância é positiva quando ambos X e Y tendem a ter valores acima (ou aba
 Sejam $a$ e $b$ constantes.
 
 1.  Linearidade da Esperança
-$\mathbb{E}[aX + bY] =\mathbb{E}[aX] + \mathbb{E}[by] =  a*\mathbb{E}[X] + b*\mathbb{E}[Y]$
+$\mathbb{E}[aX + bY] =\mathbb{E}[aX] + \mathbb{E}[bY] =  a*\mathbb{E}[X] + b*\mathbb{E}[Y]$
 
 Exercício: verifique, com exemplos, que isso é verdade.
 
@@ -88,12 +88,12 @@ $Cov(X,Y) = \mathbb{E}[X*Y] - \mathbb{E}[X]*\mathbb{E}[Y] =  \mathbb{E}[(X -  \m
 
 Exercício para o leitor. Prove que isso é verdade.
 
-4, Covariância é simétrica
+4. Covariância é simétrica
 
 $Cov(X,Y) = Cov(Y,X)$
 
 5. Variância não é linear
-$Var(a*X + b) = a^2*Var(x)$
+$Var(a*X + b) = a^2*Var(X)$
 
 6. Covariância não é linear
 
@@ -103,20 +103,20 @@ $Var(a*X + b) = a^2*Var(x)$
 
 Vamos mostrar que $\mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - \mathbb{E}^2[X]$
 
-1. Começamos expandido o quadrado da esperança:
+1. Começamos expandindo o quadrado da esperança:
 $Var(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[(X - \mathbb{E}[X]) * (X - \mathbb{E}[X])]$.
 
 2. Aplicando a regra do quadrado, temos:
 $\mathbb{E}[(X - \mathbb{E}[X]) * (X - \mathbb{E}[X])] = \mathbb{E}[(X^2 - 2* \mathbb{E}[X]*X + \mathbb{E}[X]^2)]$
 
-3. Pela propriedade da experança, sabemos que, sejam $A$ e $B$ duas v.a. independentes, então $\mathbb{E}[A + B] = \mathbb{E}[A] + \mathbb{E}[B]$. Então:
+3. Pela linearidade da esperança, sabemos que $\mathbb{E}[A + B] = \mathbb{E}[A] + \mathbb{E}[B]$ (isso vale sempre, sem necessidade de independência). Então:
 
-$Var(X) = \mathbb{E}[X^2] - \mathbb{E}[2*\mathbb{E}[X]*X] + \mathbb{E}[\mathbb{E}[X]^2]]$
+$Var(X) = \mathbb{E}[X^2] - \mathbb{E}[2*\mathbb{E}[X]*X] + \mathbb{E}[\mathbb{E}[X]^2]$
 
 4. Outra propriedade da esperança é que, seja $a$ uma constante e $X$ uma v.a., então $\mathbb{E}[a*X] = a*\mathbb{E}[X]$.
 
 
-$Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[\mathbb{E}[X]*X] + \mathbb{E}[\mathbb{E}[X]^2]]$
+$Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[\mathbb{E}[X]*X] + \mathbb{E}[\mathbb{E}[X]^2]$
 
 5. Nós sabemos que $\mathbb{E}[X]$ é uma constante (é uma média da v.a.). E a média de uma constante é a própria constante. Portanto, $\mathbb{E}[\mathbb{E}[X]] = \mathbb{E}[X]$. E usaremos também que $\mathbb{E}[a*X] = a*\mathbb{E}[X]$ e, por fim, o fato de que uma constante ao quadrado é em si uma constante.
 
@@ -128,7 +128,7 @@ $Var(X) = \mathbb{E}[X^2] - 2*\mathbb{E}[X]^2 + \mathbb{E}[X]^2$
 
 $Var(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2$
 
-Como Queriamos Demonstrar (CQD).
+Como Queríamos Demonstrar (CQD).
 
 
 
@@ -137,7 +137,7 @@ Como Queriamos Demonstrar (CQD).
 A Distribuição de probabilidade conjunta de $X$ e $Y$ (definida no mesmo espaço de probabilidade) é uma distribuição de probabilidade dos pares $(x,y)$ e descreve como os valores de $X$ e $Y$ variam conjuntamente. Cada uma das distribuições $X$ e $Y$ sozinhas são chamadas de distribuições marginais. Uma distribuição conjunta é como uma máquina que, de acordo com certas regras de probabilidade, retorna dois pares de valores.
 
 ex. 1.
-Roleta. Em um casino, um jogo comum é a roleta. Ela consiste normalmente de 32 números (0 a 31), e cada número tem uma cor (preto, vermelho ou verde). Ao girar a roleta, ela solta um número e uma cor. Portanto, podemos pensar que a roleta é uma distribuição conjunta de duas variáveis (números e cores).
+Roleta. Em um cassino, um jogo comum é a roleta. Ela consiste normalmente de 37 números (0 a 36), e cada número tem uma cor (preto, vermelho ou verde). Ao girar a roleta, ela solta um número e uma cor. Portanto, podemos pensar que a roleta é uma distribuição conjunta de duas variáveis (números e cores).
 
 Ex. 2.:
 Considere um dado de 4 faces $( 1, 2, 3, 4 )$. Seja $X$ a soma dos números dos dois dados, e $Y$ o maior valor dos dois dados. O espaço amostral é dado pela tabela abaixo.
@@ -155,7 +155,7 @@ espaco_amostral$Y <- pmax(espaco_amostral$Var1, espaco_amostral$Var2)
 
 # Criar a tabela
 kable(espaco_amostral, col.names = c("resultado do primeiro dado", "resultado do segundo dado", "X", "Y"),
-                caption = "Tabela representando a soma (X) and o maior valor (Y) do lançamento de dois dados de quatro lados") %>%
+                caption = "Tabela representando a soma (X) e o maior valor (Y) do lançamento de dois dados de quatro lados") %>%
  kable_styling(bootstrap_options = "striped")
 
 
@@ -182,7 +182,7 @@ kable(tabela, caption = "Tabela representando a distribuição conjunta da soma 
 
 ## Probabilidade Condicional
 
-Nós vimos o que é uma distribuição de probabilidade conjunta. É comum que nós tenhamos apenas uma observação parcial sobre uma das variáveis. Digamos, que $y = 2$. De posse dessa informação, como podemos atualizar nossa tabela de probabilidades? Se o maior valor foi $2$, então a soma dos dados $X$ só pode ser 3 ou 4. Se a soma for 3, temos algo como $(1,2)$ ou $(2,1)$. Se a soma for 4, então deve ter saído $(2,2)$. Esse é o novo espaço amostral dado que $y=2$.Todos os outros números não podem ocorrer e, portanto, possuem probabilidade zero. Logo, $P(X=1|Y=2) = 2/3$ e $P(X=2|Y=2) = 1/3$.
+Nós vimos o que é uma distribuição de probabilidade conjunta. É comum que nós tenhamos apenas uma observação parcial sobre uma das variáveis. Digamos, que $y = 2$. De posse dessa informação, como podemos atualizar nossa tabela de probabilidades? Se o maior valor foi $2$, então a soma dos dados $X$ só pode ser 3 ou 4. Se a soma for 3, temos algo como $(1,2)$ ou $(2,1)$. Se a soma for 4, então deve ter saído $(2,2)$. Esse é o novo espaço amostral dado que $y=2$. Todos os outros números não podem ocorrer e, portanto, possuem probabilidade zero. Logo, $P(X=3|Y=2) = 2/3$ e $P(X=4|Y=2) = 1/3$.
 
 Isso é o que chamamos de probabilidade condicional. No caso, a probabilidade condicional de $X$, dado $Y=y$.
 
@@ -200,7 +200,7 @@ probabilidades <- c(0, 2/3, 1/3, 0, 0, 0, 0, 0, 0, 0)
 tabela <- data.frame("(x, y)" = valores, "P(X = x| Y = 2)" = probabilidades)
 
 # Formatar a tabela
-kable(tabela, caption = "Tabela representando a distribuição conjunta da soma (X) e o maior (Y) de dois lançamentos de um dado de quatro faces",
+kable(tabela, caption = "Tabela representando a distribuição condicional da soma (X) dado o maior (Y) igual a 2, de dois lançamentos de um dado de quatro faces",
                           col.names = c("$(X,Y)$", "$P(X=x| Y=2)$")) %>%
   kable_styling(bootstrap_options = "striped")
 
@@ -218,7 +218,7 @@ A notação matemática para a esperança condicional, nesse caso, é: $E[X|Y=2]
 
 ## Projeção Linear
 
-A projeção linear é uma das formas de interpretar o que a regressão linear está fazendo. Então, vamos entender o que é a projeção linear e como ela se conectar com regressão. Antes disso, vamos garantir que temos uma intepretação geométrica da soma e subtração de vetores, para dpois entender a projeção linear.
+A projeção linear é uma das formas de interpretar o que a regressão linear está fazendo. Então, vamos entender o que é a projeção linear e como ela se conecta com regressão. Antes disso, vamos garantir que temos uma interpretação geométrica da soma e subtração de vetores, para depois entender a projeção linear.
 
 ### Adição de vetores
 
@@ -279,7 +279,7 @@ base_plot(list(u, v, sum_uv)) +
 
 ```
 
-Agora, passemos à subtração. Primeiro, veja que $-\vec{v}$ é o vetor $\vec{v}$ em que mudamos o sentido. Algebricamente, sabemos que $\vec{u} + \vec{v} = (2-1, 1-2) = (1,-1)$. Graficamente, fica como abaixo.
+Agora, passemos à subtração. Primeiro, veja que $-\vec{v}$ é o vetor $\vec{v}$ em que mudamos o sentido. Algebricamente, sabemos que $\vec{u} - \vec{v} = (2-1, 1-2) = (1,-1)$. Graficamente, fica como abaixo.
 
 ```{r subtracao vetores cap3, echo=FALSE, eval=TRUE, warning=FALSE}
 neg_v   <- -v
