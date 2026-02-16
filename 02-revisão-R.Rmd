@@ -1,4 +1,4 @@
-# - Revisão de R
+# Revisão de R
 
 ---
 
@@ -40,7 +40,7 @@ sum(c(1,2,3))
 sum
 ```
 
-E nós podemos criar nossos próprios objetos, dando os nomes que quisermos (exceto se já existe um objeto no R com aquele nome, como por exemplo o objeto "sum").
+E nós podemos criar nossos próprios objetos, dando os nomes que quisermos. É possível sobrescrever objetos que já existem no R (como "sum"), mas não é recomendável, pois isso pode gerar erros difíceis de encontrar.
 
 ```{r cap2 soma, results='asis', message=FALSE}
 x <- 3
@@ -95,7 +95,7 @@ os elementos de um vetor devem ser todos do mesmo tipo:
 # Exemplos
 x <- c("1", 1)
 x[2]
-# sedundo elemento fica armazenado como character
+# segundo elemento fica armazenado como character
 
 # não é possível somar texto
 # x[2] + x[2] # erro
@@ -103,7 +103,7 @@ x[2]
 
 ### Matriz
 
-Uma matriz são vetores organizados por coluna, todas as colunas (vetores) só podem ser de um tipo, ou seja, não posso ter uma coluna numeric e outra de character, por exemplo.
+Uma matriz é uma coleção bidimensional de elementos do mesmo tipo. Todas as colunas só podem ser de um tipo, ou seja, não posso ter uma coluna numeric e outra de character, por exemplo.
 
 ```{r cap2 matriz, results='asis', message=FALSE}
 library(knitr)
@@ -178,7 +178,7 @@ kable(acoes)
  
 ## Bibliotecas/pacotes
 
-O R permite que a gente importe comandos que não vêm por padrão no R. Em gerla esses comandos es~toa agrupados sob um pacote. PAra usar esses comandos, primeiro a gente instala o pacote, e depois carrega a biblioteca.
+O R permite que a gente importe comandos que não vêm por padrão no R. Em geral esses comandos estão agrupados sob um pacote. Para usar esses comandos, primeiro a gente instala o pacote, e depois carrega a biblioteca.
 
 
 ```{r cap2 package, results='asis', message=FALSE}
@@ -189,7 +189,7 @@ O R permite que a gente importe comandos que não vêm por padrão no R. Em gerl
 
 ## importando dados
 
-Para importar dados, vamos usar a bilioteca "data.table"
+Para importar dados, vamos usar a biblioteca "data.table"
 Então, instalem ela se ainda não instalaram (usando o comando install.packages("data.table"))
 E depois carreguem a biblioteca: library(data.table)
 
@@ -199,11 +199,11 @@ Para importar, usaremos o comando fread do pacote data.table.
 
 # vamos importar uma base de dados de pib municipais de 2013, do IBGE
 
-# o arquivo está em formato RDS, que é um formato do R, e disponível no meu github. Para importá-lo direto no R, vamos ler o arquivo com a função url e depois import´-lo com a função readRDS. 
+# o arquivo está em formato RDS, que é um formato do R, e disponível no meu github. Para importá-lo direto no R, vamos ler o arquivo com a função url e depois importá-lo com a função readRDS.
 
 pib_cid <- readRDS(url("https://github.com/mgaldino/book-regression/raw/main/dados/pib_cid.RDS"))
 
-# para visualizar os dados que forma importados, temos várias funções
+# para visualizar os dados que foram importados, temos várias funções
 # glimpse, head e View
 
 library(dplyr) # para glimpse
@@ -256,7 +256,7 @@ kable(df)
 ```
 
 ```{r cap2 pib2, results='asis', message=FALSE}
-# se eu quiser apenas dos municípios od estado de SP?
+# se eu quiser apenas dos municípios do estado de SP?
 # basta filtrar pelo estado de SP, com o comando filter
 df <- pib_cid %>%
   filter(sigla_uf == "SP") %>%
@@ -278,7 +278,7 @@ kable(df)
 
 ```{r cap2 pib4, results='asis', message=FALSE}
 # se eu quiser esse cálculo por uf (or cada umas das ufs?)
-# Aí é melhor aguprar por uf
+# Aí é melhor agrupar por uf
 # ideia é: split by, apply (function), combine (summarise?)
 df <- pib_cid %>%
   group_by(sigla_uf) %>%
@@ -333,7 +333,7 @@ pib_cid %>%
 
 ```
 
-A lgócia geral de um grtáfico com ggplot2 é como no exemplo acima. Primeiro passamos as variáveis por meio do comando ggplot, dentro de aes (de aesthetics), depois combinamos com o tipo de plot que queremos faze,r nesse caso, pontos, com geom_point. É possívle customizar o gráfico para ele ficar mais bonito. Vamos fazer isso agora.
+A lógica geral de um gráfico com ggplot2 é como no exemplo acima. Primeiro passamos as variáveis por meio do comando ggplot, dentro de aes (de aesthetics), depois combinamos com o tipo de plot que queremos fazer, nesse caso, pontos, com geom_point. É possível customizar o gráfico para ele ficar mais bonito. Vamos fazer isso agora.
 
 ```{r, results='asis', message=FALSE}
 # gráficos  mais bonitos
